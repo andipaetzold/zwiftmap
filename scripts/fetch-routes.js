@@ -3,7 +3,7 @@ const { writeFileSync } = require("fs");
 const routes = require("../src/routes.json");
 
 async function main() {
-  for (const route of routes) {
+  for (const route of routes.filter(route => route.stravaid > 1)) {
     const response = await fetch(
       `https://www.strava.com/stream/segments/${route.stravaid}?streams%5B%5D=latlng`
     );

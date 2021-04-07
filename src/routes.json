@@ -344,7 +344,7 @@
   {
     "routeid": 22,
     "world": "Watopia",
-    "route": "The Uber Pretzel",
+    "route": "The Über Pretzel",
     "distance": 128.3,
     "elevation": 2379,
     "leadindist": 0.5231,
@@ -359,7 +359,7 @@
     ],
     "sprint": ["Watopia Sprint Rev.", "Fuego Flats"],
     "lap": [],
-    "stravaid": 20389635,
+    "stravaid": 27313482,
     "zilink": "the-uber-pretzel",
     "sport": "cycling"
   },
