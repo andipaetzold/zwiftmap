@@ -22,7 +22,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "aprebuild": "node scripts/fetch-routes.js",
+    "prebuild": "node scripts/fetch-routes.js",
     "build": "react-scripts build"
   },
   "eslintConfig": {
