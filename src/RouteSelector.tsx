@@ -19,17 +19,19 @@ export default function RouteSelector({
 }: Props) {
   return (
     <div className={styles.Container}>
-      {filteredRoutes.map((route) => (
-        <button
-          key={route.routeid}
-          className={c(styles.Item, {
-            [styles.selected]: selectedRouteId === route.routeid,
-          })}
-          onClick={() => onChange(route.routeid)}
-        >
-          {route.route}
-        </button>
-      ))}
+      <div className={styles.Sidebar}>
+        {filteredRoutes.map((route) => (
+          <button
+            key={route.routeid}
+            className={c(styles.Item, {
+              [styles.selected]: selectedRouteId === route.routeid,
+            })}
+            onClick={() => onChange(route.routeid)}
+          >
+            {route.route}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }

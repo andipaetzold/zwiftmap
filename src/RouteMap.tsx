@@ -8,6 +8,7 @@ import ReactMapboxGl, {
 import { FitBounds } from "react-mapbox-gl/lib/map";
 import { getRouteGeoJSON } from "./RouteGeoJSONRepository";
 import { useAsync } from "react-async-hook";
+import styles from "./RouteMap.module.css";
 
 const MAX_BOUNDS: FitBounds = [
   [166.8778, -11.70256],
@@ -35,16 +36,13 @@ interface Props {
 }
 
 export default function RouteMap({ routeId }: Props) {
-  const { result: geojson } = useAsync(
-    async () => {
-      if (!routeId) {
-        return undefined;
-      }
+  const { result: geojson } = useAsync(async () => {
+    if (!routeId) {
+      return undefined;
+    }
 
-      return await getRouteGeoJSON(routeId);
-    },
-    [routeId]
-  );
+    return await getRouteGeoJSON(routeId);
+  }, [routeId]);
 
   const [map, setMap] = useState<Map | undefined>(undefined);
 
@@ -69,10 +67,7 @@ export default function RouteMap({ routeId }: Props) {
     <Mapbox
       // eslint-disable-next-line react/style-prop-object
       style={STYLE}
-      containerStyle={{
-        height: "100vh",
-        width: "100vw",
-      }}
+      className={styles.Container}
       maxBounds={MAX_BOUNDS}
       onStyleLoad={(map) => setMap(map)}
     >

@@ -1,3 +1,7 @@
+.Container {
+  flex-grow: 999;
+}
+
 .navigationControl {
   position: absolute;
   top: 0;
