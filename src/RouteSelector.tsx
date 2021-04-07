@@ -6,7 +6,8 @@ import { Route } from "./types";
 const filteredRoutes: Route[] = ((routes as unknown) as Route[])
   .filter((route) => route.world === "Watopia")
   .filter((route) => route.sport === "cycling")
-  .filter((route) => route.stravaid > 1);
+  .filter((route) => route.stravaid > 1)
+  .sort((a, b) => a.route.localeCompare(b.route));
 
 interface Props {
   routeId: number | undefined;
