@@ -18,7 +18,7 @@ async function main() {
       },
     };
     writeFileSync(
-      `${__dirname}/../public/segments/${route.routeid}.geojson`,
+      `${__dirname}/../public/geojson/${route.routeid}.geojson`,
       JSON.stringify(geojson)
     );
   }
