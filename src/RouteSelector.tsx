@@ -15,6 +15,7 @@ export default function RouteSelector({
     <div className={styles.Container}>
       {routes
         .filter((route) => route.world === "Watopia")
+        .sort((a, b) => a.route.localeCompare(b.route))
         .map((route) => (
           <button
             key={route.routeid}
