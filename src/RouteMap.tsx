@@ -1,4 +1,4 @@
-import { LinePaint, LngLatBounds, Map } from "mapbox-gl";
+import mapboxgl, { LinePaint, LngLatBounds, Map } from "mapbox-gl";
 import React, { useEffect, useState } from "react";
 import ReactMapboxGl, {
   GeoJSONLayer,
@@ -9,6 +9,12 @@ import { FitBounds } from "react-mapbox-gl/lib/map";
 import { getRouteGeoJSON } from "./RouteGeoJSONRepository";
 import { useAsync } from "react-async-hook";
 import styles from "./RouteMap.module.css";
+// @ts-ignore
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import mapboxWorker from "worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker";
+
+// @ts-ignore
+mapboxgl.workerClass = mapboxWorker;
 
 const MAX_BOUNDS: FitBounds = [
   [166.8778, -11.70256],

@@ -22,7 +22,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "prebuild": "node scripts/fetch-routes.js",
+    "aprebuild": "node scripts/fetch-routes.js",
     "build": "react-scripts build"
   },
   "eslintConfig": {
@@ -41,5 +41,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "worker-loader": "3.0.8"
   }
 }
