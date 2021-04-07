@@ -3,13 +3,13 @@ const { writeFileSync } = require("fs");
 const routes = require("../src/routes.json");
 
 async function main() {
-  for (const [routeKey, route] of Object.entries(routes)) {
+  for (const route of routes) {
     const response = await fetch(
-      `https://www.strava.com/stream/segments/${route.segmentId}?streams%5B%5D=latlng`
+      `https://www.strava.com/stream/segments/${route.stravaid}?streams%5B%5D=latlng`
     );
     const stravaData = await response.json();
 
-    console.log(route.name);
+    console.log(route.route);
     const geojson = {
       type: "Feature",
       geometry: {
@@ -18,7 +18,7 @@ async function main() {
       },
     };
     writeFileSync(
-      `${__dirname}/../public/segments/${routeKey}.geojson`,
+      `${__dirname}/../public/segments/${route.routeid}.geojson`,
       JSON.stringify(geojson)
     );
   }

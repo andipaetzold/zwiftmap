@@ -30,17 +30,17 @@ const routePaint: LinePaint = {
 };
 
 interface Props {
-  routeKey: string | undefined;
+  routeId: number | undefined;
 }
 
-export default function RouteMap({ routeKey }: Props) {
-  const { data: geojson } = useQuery(routeKey ?? "", async () => {
-    if (!routeKey) {
+export default function RouteMap({ routeId }: Props) {
+  const { data: geojson } = useQuery(`${routeId}` ?? "", async () => {
+    if (!routeId) {
       return undefined;
     }
     const response = await fetch(
       // @ts-ignore
-      `segments/${routeKey}.geojson`
+      `segments/${routeId}.geojson`
     );
     return await response.json();
   });

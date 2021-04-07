@@ -3,27 +3,29 @@ import styles from "./RouteSelector.module.css";
 import c from "classnames";
 
 interface Props {
-  routeKey: string | undefined;
-  onChange: (routeKey: string | undefined) => void;
+  routeId: number | undefined;
+  onChange: (routeKey: number | undefined) => void;
 }
 
 export default function RouteSelector({
-  routeKey: selectedRouteKey,
+  routeId: selectedRouteId,
   onChange,
 }: Props) {
   return (
     <div className={styles.Container}>
-      {Object.entries(routes).map(([routeKey, route]) => (
-        <button
-          key={routeKey}
-          className={c(styles.Item, {
-            [styles.selected]: selectedRouteKey === routeKey,
-          })}
-          onClick={() => onChange(routeKey)}
-        >
-          {route.name}
-        </button>
-      ))}
+      {routes
+        .filter((route) => route.world === "Watopia")
+        .map((route) => (
+          <button
+            key={route.routeid}
+            className={c(styles.Item, {
+              [styles.selected]: selectedRouteId === route.routeid,
+            })}
+            onClick={() => onChange(route.routeid)}
+          >
+            {route.route}
+          </button>
+        ))}
     </div>
   );
 }
