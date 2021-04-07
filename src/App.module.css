@@ -1,0 +1,4 @@
+.Wrapper {
+  display: flex;
+  flex-direction: row;
+}

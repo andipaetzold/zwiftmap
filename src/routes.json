@@ -1,0 +1,14 @@
+{
+  "beach-island-loop": {
+    "name": "Beach Island Loop",
+    "segmentId": "26741693",
+    "distance": 12.8,
+    "elevation": 49
+  },
+  "big-foot-hills": {
+    "name": "Big Foot Hills",
+    "segmentId": "21911191",
+    "distance": 67.6,
+    "elevation": 707
+  }
+}

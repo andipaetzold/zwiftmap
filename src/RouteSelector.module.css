@@ -1,0 +1,26 @@
+.Container {
+  display: flex;
+  flex-direction: column;
+}
+
+.Item {
+    font-size: 1em;
+  white-space: nowrap;
+
+  color: #667277;
+  border: none;
+  padding: 15px 5px;
+  background-color: transparent;
+  outline: none;
+  cursor: pointer;
+}
+
+.Item:hover, .Item:focus {
+  background-color: #f9f9fb;
+}
+
+.Item.selected {
+  color: #001c27;
+  text-decoration: underline;
+  text-decoration-color: #0093d1;
+}
