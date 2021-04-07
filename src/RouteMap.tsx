@@ -6,7 +6,8 @@ import ReactMapboxGl, {
   ZoomControl,
 } from "react-mapbox-gl";
 import { FitBounds } from "react-mapbox-gl/lib/map";
-import { useQuery } from "react-query";
+import { getRouteGeoJSON } from "./RouteGeoJSONRepository";
+import { useAsync } from "react-async-hook";
 
 const MAX_BOUNDS: FitBounds = [
   [166.8778, -11.70256],
@@ -34,16 +35,16 @@ interface Props {
 }
 
 export default function RouteMap({ routeId }: Props) {
-  const { data: geojson } = useQuery(`${routeId}` ?? "", async () => {
-    if (!routeId) {
-      return undefined;
-    }
-    const response = await fetch(
-      // @ts-ignore
-      `segments/${routeId}.geojson`
-    );
-    return await response.json();
-  });
+  const { result: geojson } = useAsync(
+    async () => {
+      if (!routeId) {
+        return undefined;
+      }
+
+      return await getRouteGeoJSON(routeId);
+    },
+    [routeId]
+  );
 
   const [map, setMap] = useState<Map | undefined>(undefined);
 
