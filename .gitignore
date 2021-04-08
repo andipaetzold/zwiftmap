@@ -1,5 +1,5 @@
 !.gitkeep
-/public/routes
+/public/segments
 
 # dependencies
 /node_modules

@@ -1,8 +1,10 @@
 import mapboxgl, { LinePaint, LngLatBounds, Map } from "mapbox-gl";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useAsync } from "react-async-hook";
 import ReactMapboxGl, {
+  Feature,
   GeoJSONLayer,
+  Layer,
   ScaleControl,
   ZoomControl,
 } from "react-mapbox-gl";
@@ -11,8 +13,10 @@ import { FitBounds } from "react-mapbox-gl/lib/map";
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import mapboxWorker from "worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker";
 import { MAPBOX_STYLE_WATOPIA, MAPBOX_TOKEN } from "./constants";
-import { getRouteGeoJSON } from "./RouteGeoJSONRepository";
 import styles from "./RouteMap.module.css";
+import { getSegment } from "./SegmentRepository";
+import { flipLatLng } from "./util";
+import { lineString } from "@turf/helpers";
 
 // @ts-ignore
 mapboxgl.workerClass = mapboxWorker;
@@ -30,7 +34,7 @@ const Mapbox = ReactMapboxGl({
   maxZoom: MAX_ZOOM,
 });
 
-const routePaint: LinePaint = {
+const LINE_PAINT: LinePaint = {
   "line-color": "#fc6719",
   "line-width": 4,
 };
@@ -40,23 +44,22 @@ interface Props {
 }
 
 export default function RouteMap({ routeSlug }: Props) {
-  const { result: geojson } = useAsync(async () => {
+  const { result: segment } = useAsync(async () => {
     if (!routeSlug) {
       return undefined;
     }
 
-    return await getRouteGeoJSON(routeSlug);
+    return await getSegment(routeSlug);
   }, [routeSlug]);
 
   const [map, setMap] = useState<Map | undefined>(undefined);
 
   useEffect(() => {
-    if (!map || !geojson) {
+    if (!map || !segment) {
       return;
     }
 
-    const coordinates: [number, number][] = geojson.geometry.coordinates;
-
+    const coordinates: [number, number][] = segment.latlng.map(flipLatLng);
     const bounds = coordinates.reduce(
       (bounds, coord) => bounds.extend(coord),
       new LngLatBounds(coordinates[0], coordinates[0])
@@ -65,7 +68,14 @@ export default function RouteMap({ routeSlug }: Props) {
     map.fitBounds(bounds, {
       padding: 20,
     });
-  }, [map, geojson]);
+  }, [map, segment]);
+
+  const geoJSONData = useMemo(() => {
+    if (!segment) {
+      return;
+    }
+    return lineString(segment.latlng.map(flipLatLng));
+  }, [segment]);
 
   return (
     <Mapbox
@@ -77,7 +87,9 @@ export default function RouteMap({ routeSlug }: Props) {
     >
       <ZoomControl />
       <ScaleControl />
-      {geojson && <GeoJSONLayer data={geojson} linePaint={routePaint} />}
+      {geoJSONData && (
+        <GeoJSONLayer data={geoJSONData} linePaint={LINE_PAINT} />
+      )}
     </Mapbox>
   );
 }

@@ -26,3 +26,9 @@ export type World =
   | "London"
   | "New York"
   | "Yorkshire";
+
+export interface Segment {
+  latlng: Array<[number, number]>;
+  distance: number[];
+  altitude: number[];
+}
