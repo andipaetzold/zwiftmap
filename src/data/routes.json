@@ -17,6 +17,7 @@
     "sprint": [],
     "lap": [],
     "stravaSegmentId": 21911191,
+    "stravaSegmentUrl": "https://www.strava.com/segments/21911191",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/big-foot-hills",
     "slug": "big-foot-hills",
     "sport": "cycling"
@@ -33,6 +34,7 @@
     "sprint": [],
     "lap": [],
     "stravaSegmentId": 16402683,
+    "stravaSegmentUrl": "https://www.strava.com/segments/16402683",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/big-loop",
     "slug": "big-loop",
     "sport": "cycling"
@@ -49,6 +51,7 @@
     "sprint": ["Fuego Flats"],
     "lap": [],
     "stravaSegmentId": 20425565,
+    "stravaSegmentUrl": "https://www.strava.com/segments/20425565",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/bigger-loop",
     "slug": "bigger-loop",
     "sport": "cycling"
@@ -65,6 +68,7 @@
     "sprint": [],
     "lap": [],
     "stravaSegmentId": 22458637,
+    "stravaSegmentUrl": "https://www.strava.com/segments/22458637",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/dust-in-the-wind",
     "slug": "dust-in-the-wind",
     "sport": "cycling"
@@ -81,6 +85,7 @@
     "sprint": ["Watopia Sprint Rev.", "Watopia Sprint"],
     "lap": [],
     "stravaSegmentId": 12118421,
+    "stravaSegmentUrl": "https://www.strava.com/segments/12118421",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/figure-8",
     "slug": "figure-8",
     "sport": "cycling"
@@ -97,6 +102,7 @@
     "sprint": ["Watopia Sprint Rev.", "Watopia Sprint"],
     "lap": [],
     "stravaSegmentId": 27177732,
+    "stravaSegmentUrl": "https://www.strava.com/segments/27177732",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/figure-8-reverse",
     "slug": "figure-8-reverse",
     "sport": "cycling"
@@ -113,6 +119,7 @@
     "sprint": ["Watopia Sprint"],
     "lap": [],
     "stravaSegmentId": 27130302,
+    "stravaSegmentUrl": "https://www.strava.com/segments/27130302",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/flat-route",
     "slug": "flat-route",
     "sport": "cycling"
@@ -129,6 +136,7 @@
     "sprint": ["Watopia Sprint"],
     "lap": [],
     "stravaSegmentId": 20390815,
+    "stravaSegmentUrl": "https://www.strava.com/segments/20390815",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/four-horsemen",
     "slug": "four-horsemen",
     "sport": "cycling"
@@ -145,6 +153,7 @@
     "sprint": ["Watopia Sprint"],
     "lap": ["Hilly Loop"],
     "stravaSegmentId": 12118362,
+    "stravaSegmentUrl": "https://www.strava.com/segments/12118362",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/hilly-route",
     "slug": "hilly-route",
     "sport": "cycling"
@@ -161,6 +170,7 @@
     "sprint": [],
     "lap": ["Jungle Loop"],
     "stravaSegmentId": 16359363,
+    "stravaSegmentUrl": "https://www.strava.com/segments/16359363",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/jungle-circuit",
     "slug": "jungle-circuit",
     "sport": "cycling"
@@ -177,6 +187,7 @@
     "sprint": ["Watopia Sprint"],
     "lap": [],
     "stravaSegmentId": 12118544,
+    "stravaSegmentUrl": "https://www.strava.com/segments/12118544",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/mountain-8",
     "slug": "mountain-8",
     "sport": "cycling"
@@ -193,6 +204,7 @@
     "sprint": ["Watopia Sprint"],
     "lap": [],
     "stravaSegmentId": 12483517,
+    "stravaSegmentUrl": "https://www.strava.com/segments/12483517",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/mountain-route",
     "slug": "mountain-route",
     "sport": "cycling"
@@ -209,6 +221,7 @@
     "sprint": [],
     "lap": [],
     "stravaSegmentId": 22368918,
+    "stravaSegmentUrl": "https://www.strava.com/segments/22368918",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/muir-and-the-mountain",
     "slug": "muir-and-the-mountain",
     "sport": "cycling"
@@ -225,6 +238,7 @@
     "sprint": ["Watopia Sprint"],
     "lap": [],
     "stravaSegmentId": 20350104,
+    "stravaSegmentUrl": "https://www.strava.com/segments/20350104",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/out-and-back-again",
     "slug": "out-and-back-again",
     "sport": "cycling"
@@ -241,6 +255,7 @@
     "sprint": [],
     "lap": [],
     "stravaSegmentId": 21344377,
+    "stravaSegmentUrl": "https://www.strava.com/segments/21344377",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/quatch-quest",
     "slug": "quatch-quest",
     "sport": "cycling"
@@ -257,6 +272,7 @@
     "sprint": [],
     "lap": [],
     "stravaSegmentId": 16404154,
+    "stravaSegmentUrl": "https://www.strava.com/segments/16404154",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/road-to-ruins",
     "slug": "road-to-ruins",
     "sport": "cycling"
@@ -273,6 +289,7 @@
     "sprint": [],
     "lap": [],
     "stravaSegmentId": 22280036,
+    "stravaSegmentUrl": "https://www.strava.com/segments/22280036",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/road-to-sky",
     "slug": "road-to-sky",
     "sport": "cycling"
@@ -289,6 +306,7 @@
     "sprint": ["Fuego Flats"],
     "lap": [],
     "stravaSegmentId": 21911197,
+    "stravaSegmentUrl": "https://www.strava.com/segments/21911197",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/sand-and-sequoias",
     "slug": "sand-and-sequoias",
     "sport": "cycling"
@@ -305,6 +323,7 @@
     "sprint": ["Fuego Flats"],
     "lap": [],
     "stravaSegmentId": 20350088,
+    "stravaSegmentUrl": "https://www.strava.com/segments/20350088",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/tempus-fugit",
     "slug": "tempus-fugit",
     "sport": "cycling"
@@ -321,6 +340,7 @@
     "sprint": ["Watopia Sprint"],
     "lap": [],
     "stravaSegmentId": 16939150,
+    "stravaSegmentUrl": "https://www.strava.com/segments/16939150",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/the-mega-pretzel",
     "slug": "the-mega-pretzel",
     "sport": "cycling"
@@ -337,6 +357,7 @@
     "sprint": ["Watopia Sprint Rev.", "Watopia Sprint"],
     "lap": [],
     "stravaSegmentId": 12118762,
+    "stravaSegmentUrl": "https://www.strava.com/segments/12118762",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/the-pretzel",
     "slug": "the-pretzel",
     "sport": "cycling"
@@ -359,6 +380,7 @@
     "sprint": ["Watopia Sprint Rev.", "Fuego Flats"],
     "lap": [],
     "stravaSegmentId": 27313482,
+    "stravaSegmentUrl": "https://www.strava.com/segments/27313482",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/the-uber-pretzel",
     "slug": "the-uber-pretzel",
     "sport": "cycling"
@@ -375,6 +397,7 @@
     "sprint": [],
     "lap": [],
     "stravaSegmentId": 15159137,
+    "stravaSegmentUrl": "https://www.strava.com/segments/15159137",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/three-sisters",
     "slug": "three-sisters",
     "sport": "cycling"
@@ -391,6 +414,7 @@
     "sprint": ["Fuego Flats"],
     "lap": [],
     "stravaSegmentId": 20350376,
+    "stravaSegmentUrl": "https://www.strava.com/segments/20350376",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/tick-tock",
     "slug": "tick-tock",
     "sport": "cycling"
@@ -407,6 +431,7 @@
     "sprint": [],
     "lap": [],
     "stravaSegmentId": 17265057,
+    "stravaSegmentUrl": "https://www.strava.com/segments/17265057",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/tour-of-fire-and-ice",
     "slug": "tour-of-fire-and-ice",
     "sport": "cycling"
@@ -423,6 +448,7 @@
     "sprint": [],
     "lap": ["Volcano Circuit"],
     "stravaSegmentId": 14032406,
+    "stravaSegmentUrl": "https://www.strava.com/segments/14032406",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/volcano-circuit",
     "slug": "volcano-circuit",
     "sport": "cycling"
@@ -439,6 +465,7 @@
     "sprint": [],
     "lap": ["Volcano Circuit Rev."],
     "stravaSegmentId": 14032426,
+    "stravaSegmentUrl": "https://www.strava.com/segments/14032426",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/volcano-circuit-ccw",
     "slug": "volcano-circuit-ccw",
     "sport": "cycling"
@@ -455,6 +482,7 @@
     "sprint": [],
     "lap": [],
     "stravaSegmentId": 16425130,
+    "stravaSegmentUrl": "https://www.strava.com/segments/16425130",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/volcano-climb",
     "slug": "volcano-climb",
     "sport": "cycling"
@@ -471,6 +499,7 @@
     "sprint": [],
     "lap": [],
     "stravaSegmentId": 14032442,
+    "stravaSegmentUrl": "https://www.strava.com/segments/14032442",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/volcano-flat",
     "slug": "volcano-flat",
     "sport": "cycling"
@@ -487,6 +516,7 @@
     "sprint": [],
     "lap": [],
     "stravaSegmentId": 20545879,
+    "stravaSegmentUrl": "https://www.strava.com/segments/20545879",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/whole-lotta-lava",
     "slug": "whole-lotta-lava",
     "sport": "cycling"
@@ -503,6 +533,7 @@
     "sprint": ["The Mall"],
     "lap": [],
     "stravaSegmentId": 12749761,
+    "stravaSegmentUrl": "https://www.strava.com/segments/12749761",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/london-classique",
     "slug": "london-classique",
     "sport": "cycling"
@@ -519,6 +550,7 @@
     "sprint": [],
     "lap": [],
     "stravaSegmentId": 15158866,
+    "stravaSegmentUrl": "https://www.strava.com/segments/15158866",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/greater-london-8",
     "slug": "greater-london-8",
     "sport": "cycling"
@@ -535,6 +567,7 @@
     "sprint": ["The Mall"],
     "lap": [],
     "stravaSegmentId": 15389301,
+    "stravaSegmentUrl": "https://www.strava.com/segments/15389301",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/greater-london-flat",
     "slug": "greater-london-flat",
     "sport": "cycling"
@@ -551,6 +584,7 @@
     "sprint": [],
     "lap": [],
     "stravaSegmentId": 15158576,
+    "stravaSegmentUrl": "https://www.strava.com/segments/15158576",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/greater-london-loop",
     "slug": "greater-london-loop",
     "sport": "cycling"
@@ -567,6 +601,7 @@
     "sprint": ["The Mall Rev."],
     "lap": [],
     "stravaSegmentId": 16982511,
+    "stravaSegmentUrl": "https://www.strava.com/segments/16982511",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/greatest-london-flat",
     "slug": "greatest-london-flat",
     "sport": "cycling"
@@ -583,6 +618,7 @@
     "sprint": [],
     "lap": [],
     "stravaSegmentId": 16781177,
+    "stravaSegmentUrl": "https://www.strava.com/segments/16781177",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/greatest-london-loop",
     "slug": "greatest-london-loop",
     "sport": "cycling"
@@ -599,6 +635,7 @@
     "sprint": ["The Mall Rev."],
     "lap": [],
     "stravaSegmentId": 12747814,
+    "stravaSegmentUrl": "https://www.strava.com/segments/12747814",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/london-8",
     "slug": "london-8",
     "sport": "cycling"
@@ -615,6 +652,7 @@
     "sprint": [],
     "lap": ["London Loop"],
     "stravaSegmentId": 12749649,
+    "stravaSegmentUrl": "https://www.strava.com/segments/12749649",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/london-loop",
     "slug": "london-loop",
     "sport": "cycling"
@@ -631,6 +669,7 @@
     "sprint": [],
     "lap": [],
     "stravaSegmentId": 16786868,
+    "stravaSegmentUrl": "https://www.strava.com/segments/16786868",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/surrey-hills",
     "slug": "surrey-hills",
     "sport": "cycling"
@@ -647,6 +686,7 @@
     "sprint": ["The Mall Rev.", "The Mall"],
     "lap": [],
     "stravaSegmentId": 15155838,
+    "stravaSegmentUrl": "https://www.strava.com/segments/15155838",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/the-london-pretzel",
     "slug": "the-london-pretzel",
     "sport": "cycling"
@@ -663,6 +703,7 @@
     "sprint": ["The Mall"],
     "lap": ["London Loop"],
     "stravaSegmentId": 12759760,
+    "stravaSegmentUrl": "https://www.strava.com/segments/12759760",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/london-the-prl-full",
     "slug": "london-the-prl-full",
     "sport": "cycling"
@@ -679,6 +720,7 @@
     "sprint": ["The Mall"],
     "lap": ["London Loop"],
     "stravaSegmentId": 12759713,
+    "stravaSegmentUrl": "https://www.strava.com/segments/12759713",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/the-prl-half",
     "slug": "the-prl-half",
     "sport": "cycling"
@@ -695,6 +737,7 @@
     "sprint": ["The Mall"],
     "lap": [],
     "stravaSegmentId": 16781219,
+    "stravaSegmentUrl": "https://www.strava.com/segments/16781219",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/london-triple-loops",
     "slug": "london-triple-loops",
     "sport": "cycling"
@@ -711,6 +754,7 @@
     "sprint": ["New York Sprint"],
     "lap": [],
     "stravaSegmentId": 19141340,
+    "stravaSegmentUrl": "https://www.strava.com/segments/19141340",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/astoria-line-8",
     "slug": "astoria-line-8",
     "sport": "cycling"
@@ -727,6 +771,7 @@
     "sprint": ["New York Sprint Rev.", "New York Sprint"],
     "lap": [],
     "stravaSegmentId": 19141223,
+    "stravaSegmentUrl": "https://www.strava.com/segments/19141223",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/everything-bagel",
     "slug": "everything-bagel",
     "sport": "cycling"
@@ -743,6 +788,7 @@
     "sprint": ["NY Sprint Rev."],
     "lap": [],
     "stravaSegmentId": 19141192,
+    "stravaSegmentUrl": "https://www.strava.com/segments/19141192",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/grand-central-circuit",
     "slug": "grand-central-circuit",
     "sport": "cycling"
@@ -759,6 +805,7 @@
     "sprint": ["New York Sprint Rev."],
     "lap": [],
     "stravaSegmentId": 19141299,
+    "stravaSegmentUrl": "https://www.strava.com/segments/19141299",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/knickerbocker",
     "slug": "knickerbocker",
     "sport": "cycling"
@@ -775,6 +822,7 @@
     "sprint": ["New York Sprint"],
     "lap": [],
     "stravaSegmentId": 20721179,
+    "stravaSegmentUrl": "https://www.strava.com/segments/20721179",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/knickerbocker-reverse",
     "slug": "knickerbocker-reverse",
     "sport": "cycling"
@@ -791,6 +839,7 @@
     "sprint": ["New York Sprint"],
     "lap": [],
     "stravaSegmentId": 19141269,
+    "stravaSegmentUrl": "https://www.strava.com/segments/19141269",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/lady-liberty",
     "slug": "lady-liberty",
     "sport": "cycling"
@@ -807,6 +856,7 @@
     "sprint": [],
     "lap": [],
     "stravaSegmentId": 19141368,
+    "stravaSegmentUrl": "https://www.strava.com/segments/19141368",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/mighty-metropolitan",
     "slug": "mighty-metropolitan",
     "sport": "cycling"
@@ -823,6 +873,7 @@
     "sprint": ["New York Sprint Rev."],
     "lap": ["Central Park Loop"],
     "stravaSegmentId": 19170651,
+    "stravaSegmentUrl": "https://www.strava.com/segments/19170651",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/park-perimeter-loop",
     "slug": "park-perimeter-loop",
     "sport": "cycling"
@@ -839,6 +890,7 @@
     "sprint": ["New York Sprint"],
     "lap": [],
     "stravaSegmentId": 19171748,
+    "stravaSegmentUrl": "https://www.strava.com/segments/19171748",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/rising-empire",
     "slug": "rising-empire",
     "sport": "cycling"
@@ -855,6 +907,7 @@
     "sprint": [],
     "lap": [],
     "stravaSegmentId": 19172136,
+    "stravaSegmentUrl": "https://www.strava.com/segments/19172136",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/the-6-train",
     "slug": "the-6-train",
     "sport": "cycling"
@@ -871,6 +924,7 @@
     "sprint": [],
     "lap": [],
     "stravaSegmentId": 19173163,
+    "stravaSegmentUrl": "https://www.strava.com/segments/19173163",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/the-highline",
     "slug": "the-highline",
     "sport": "cycling"
@@ -887,6 +941,7 @@
     "sprint": ["Innsbruck Sprint"],
     "lap": ["UCI Lap"],
     "stravaSegmentId": 18397725,
+    "stravaSegmentUrl": "https://www.strava.com/segments/18397725",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/2018-uci-worlds-course-short-lap",
     "slug": "2018-uci-worlds-course-short-lap",
     "sport": "cycling"
@@ -903,6 +958,7 @@
     "sprint": ["Innsbruck Sprint Rev.", "Innsbruck Sprint"],
     "lap": [],
     "stravaSegmentId": 18398698,
+    "stravaSegmentUrl": "https://www.strava.com/segments/18398698",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/achterbahn",
     "slug": "achterbahn",
     "sport": "cycling"
@@ -919,6 +975,7 @@
     "sprint": [],
     "lap": [],
     "stravaSegmentId": 18398895,
+    "stravaSegmentUrl": "https://www.strava.com/segments/18398895",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/innsbruckring",
     "slug": "innsbruckring",
     "sport": "cycling"
@@ -935,6 +992,7 @@
     "sprint": [],
     "lap": [],
     "stravaSegmentId": 18406508,
+    "stravaSegmentUrl": "https://www.strava.com/segments/18406508",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/lutscher",
     "slug": "lutscher",
     "sport": "cycling"
@@ -951,6 +1009,7 @@
     "sprint": [],
     "lap": [],
     "stravaSegmentId": 18407469,
+    "stravaSegmentUrl": "https://www.strava.com/segments/18407469",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/lutscher-ccw",
     "slug": "lutscher-ccw",
     "sport": "cycling"
@@ -967,6 +1026,7 @@
     "sprint": ["Yorkshire Sprint"],
     "lap": ["UCI Worlds"],
     "stravaSegmentId": 21738724,
+    "stravaSegmentUrl": "https://www.strava.com/segments/21738724",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/2019-uci-worlds-harrogate-circuit",
     "slug": "2019-uci-worlds-harrogate-circuit",
     "sport": "cycling"
@@ -983,6 +1043,7 @@
     "sprint": ["Yorkshire Sprint"],
     "lap": [],
     "stravaSegmentId": 21748097,
+    "stravaSegmentUrl": "https://www.strava.com/segments/21748097",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/duchy-estate",
     "slug": "duchy-estate",
     "sport": "cycling"
@@ -999,6 +1060,7 @@
     "sprint": ["Yorkshire Sprint Rev."],
     "lap": [],
     "stravaSegmentId": 21748253,
+    "stravaSegmentUrl": "https://www.strava.com/segments/21748253",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/queens-highway",
     "slug": "queens-highway",
     "sport": "cycling"
@@ -1015,6 +1077,7 @@
     "sprint": [],
     "lap": [],
     "stravaSegmentId": 21758283,
+    "stravaSegmentUrl": "https://www.strava.com/segments/21758283",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/tour-of-tewit-well",
     "slug": "tour-of-tewit-well",
     "sport": "cycling"
@@ -1031,6 +1094,7 @@
     "sprint": ["Yorkshire Sprint Rev.", "Yorkshire Sprint"],
     "lap": [],
     "stravaSegmentId": 21757792,
+    "stravaSegmentUrl": "https://www.strava.com/segments/21757792",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/royal-pump-room-8",
     "slug": "royal-pump-room-8",
     "sport": "cycling"
@@ -1047,6 +1111,7 @@
     "sprint": ["Monument Ave", "Broad St."],
     "lap": ["UCI Course"],
     "stravaSegmentId": 12128718,
+    "stravaSegmentUrl": "https://www.strava.com/segments/12128718",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/2015-uci-worlds-course",
     "slug": "2015-uci-worlds-course",
     "sport": "cycling"
@@ -1063,6 +1128,7 @@
     "sprint": [],
     "lap": [],
     "stravaSegmentId": 11308213,
+    "stravaSegmentUrl": "https://www.strava.com/segments/11308213",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/cobbled-climbs",
     "slug": "cobbled-climbs",
     "sport": "cycling"
@@ -1079,6 +1145,7 @@
     "sprint": ["Monument Ave"],
     "lap": [],
     "stravaSegmentId": 19852166,
+    "stravaSegmentUrl": "https://www.strava.com/segments/19852166",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/the-fan-flats",
     "slug": "the-fan-flats",
     "sport": "cycling"
@@ -1095,6 +1162,7 @@
     "sprint": ["Pav\\xe9 Sprint Rev.", "Marina Sprint Rev."],
     "lap": [],
     "stravaSegmentId": 24674909,
+    "stravaSegmentUrl": "https://www.strava.com/segments/24674909",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/casse-pattes",
     "slug": "casse-pattes",
     "sport": "cycling"
@@ -1111,6 +1179,7 @@
     "sprint": ["Ballon Sprint", "Pav\\xe9 Sprint", "Marina Sprint"],
     "lap": [],
     "stravaSegmentId": 24676071,
+    "stravaSegmentUrl": "https://www.strava.com/segments/24676071",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/douce-france",
     "slug": "douce-france",
     "sport": "cycling"
@@ -1134,6 +1203,7 @@
     ],
     "lap": [],
     "stravaSegmentId": 24676054,
+    "stravaSegmentUrl": "https://www.strava.com/segments/24676054",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/petit-boucle",
     "slug": "petit-boucle",
     "sport": "cycling"
@@ -1150,6 +1220,7 @@
     "sprint": ["Pav\\xe9 Sprint", "Marina Sprint"],
     "lap": [],
     "stravaSegmentId": 24690956,
+    "stravaSegmentUrl": "https://www.strava.com/segments/24690956",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/roule-ma-poule",
     "slug": "roule-ma-poule",
     "sport": "cycling"
@@ -1170,6 +1241,7 @@
     ],
     "lap": [],
     "stravaSegmentId": 24685955,
+    "stravaSegmentUrl": "https://www.strava.com/segments/24685955",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/rgv",
     "slug": "rgv",
     "sport": "cycling"
@@ -1193,6 +1265,7 @@
     ],
     "lap": [],
     "stravaSegmentId": 24690941,
+    "stravaSegmentUrl": "https://www.strava.com/segments/24690941",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/tire-bouchon",
     "slug": "tire-bouchon",
     "sport": "cycling"
@@ -1209,6 +1282,7 @@
     "sprint": [],
     "lap": [],
     "stravaSegmentId": 24682608,
+    "stravaSegmentUrl": "https://www.strava.com/segments/24682608",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/ven-top",
     "slug": "ven-top",
     "sport": "cycling"
@@ -1225,6 +1299,7 @@
     "sprint": ["Lutece Sprint"],
     "lap": ["Champs-\\xc9lys\\xe9es"],
     "stravaSegmentId": 24674235,
+    "stravaSegmentUrl": "https://www.strava.com/segments/24674235",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/champs-elysees",
     "slug": "champs-elysees",
     "sport": "cycling"
@@ -1241,6 +1316,7 @@
     "sprint": ["Lutece Sprint Rev."],
     "lap": ["Champs-\\xc9lys\\xe9es Rev."],
     "stravaSegmentId": 24674248,
+    "stravaSegmentUrl": "https://www.strava.com/segments/24674248",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/lutece-express",
     "slug": "lutece-express",
     "sport": "cycling"
@@ -1257,6 +1333,7 @@
     "sprint": [],
     "lap": [],
     "stravaSegmentId": 18993273,
+    "stravaSegmentUrl": "https://www.strava.com/segments/18993273",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/ocean-blvd",
     "slug": "ocean-blvd",
     "sport": "running"
@@ -1273,6 +1350,7 @@
     "sprint": [],
     "lap": [],
     "stravaSegmentId": 18993168,
+    "stravaSegmentUrl": "https://www.strava.com/segments/18993168",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/5k-loop",
     "slug": "5k-loop",
     "sport": "running"
@@ -1289,6 +1367,7 @@
     "sprint": [],
     "lap": [],
     "stravaSegmentId": 18993284,
+    "stravaSegmentUrl": "https://www.strava.com/segments/18993284",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/chili-pepper",
     "slug": "chili-pepper",
     "sport": "running"
@@ -1305,6 +1384,7 @@
     "sprint": [],
     "lap": [],
     "stravaSegmentId": 18993345,
+    "stravaSegmentUrl": "https://www.strava.com/segments/18993345",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/jons-route",
     "slug": "jons-route",
     "sport": "running"
@@ -1321,6 +1401,7 @@
     "sprint": [],
     "lap": [],
     "stravaSegmentId": 22540731,
+    "stravaSegmentUrl": "https://www.strava.com/segments/22540731",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/may-field",
     "slug": "may-field",
     "sport": "running"
@@ -1337,6 +1418,7 @@
     "sprint": [],
     "lap": [],
     "stravaSegmentId": 18993582,
+    "stravaSegmentUrl": "https://www.strava.com/segments/18993582",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/thats-amore",
     "slug": "thats-amore",
     "sport": "running"
@@ -1428,6 +1510,7 @@
     "sprint": ["Watopia Sprint"],
     "lap": [],
     "stravaSegmentId": 26741693,
+    "stravaSegmentUrl": "https://www.strava.com/segments/26741693",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/beach-island-loop",
     "slug": "beach-island-loop",
     "sport": "cycling"
@@ -1444,6 +1527,7 @@
     "sprint": [],
     "lap": [],
     "stravaSegmentId": 26741663,
+    "stravaSegmentUrl": "https://www.strava.com/segments/26741663",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/ocean-lava-cliffside-loop",
     "slug": "ocean-lava-cliffside-loop",
     "sport": "cycling"
@@ -1460,6 +1544,7 @@
     "sprint": [],
     "lap": [],
     "stravaSegmentId": 26742092,
+    "stravaSegmentUrl": "https://www.strava.com/segments/26742092",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/serpentine-8",
     "slug": "serpentine-8",
     "sport": "cycling"
@@ -1476,6 +1561,7 @@
     "sprint": ["Watopia Sprint Rev."],
     "lap": [],
     "stravaSegmentId": 26741685,
+    "stravaSegmentUrl": "https://www.strava.com/segments/26741685",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/two-bridges-loop",
     "slug": "two-bridges-loop",
     "sport": "cycling"
