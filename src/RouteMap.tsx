@@ -10,7 +10,7 @@ import { FitBounds } from "react-mapbox-gl/lib/map";
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import mapboxWorker from "worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker";
-import { MAPBOX_STYLE, MAPBOX_TOKEN } from "./constants";
+import { MAPBOX_STYLE_WATOPIA, MAPBOX_TOKEN } from "./constants";
 import { getRouteGeoJSON } from "./RouteGeoJSONRepository";
 import styles from "./RouteMap.module.css";
 
@@ -70,7 +70,7 @@ export default function RouteMap({ routeSlug }: Props) {
   return (
     <Mapbox
       // eslint-disable-next-line react/style-prop-object
-      style={MAPBOX_STYLE}
+      style={MAPBOX_STYLE_WATOPIA}
       className={styles.Container}
       maxBounds={MAX_BOUNDS}
       onStyleLoad={(map) => setMap(map)}
