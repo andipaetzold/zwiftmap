@@ -12,7 +12,7 @@ const filteredRoutes: Route[] = ((routes as unknown) as Route[])
 
 interface Props {
   routeSlug: string | undefined;
-  onChange: (routeKey: string | undefined) => void;
+  onChange: (routeKey: string) => void;
 }
 
 export default function RouteSelector({

@@ -1,16 +1,17 @@
-import React, { useState } from "react";
-import RouteSelector from "./RouteSelector";
-import styles from "./App.module.css";
-import RouteMap from "./RouteMap";
-import { useAsync } from "react-async-hook";
-import { getSegment } from "./SegmentRepository";
-import { ElevationChart } from "./ElevationChart";
 import c from "classnames";
+import React from "react";
+import { useAsync } from "react-async-hook";
+import styles from "./App.module.css";
+import { ElevationChart } from "./ElevationChart";
+import { useHash } from "./hooks/useHash";
+import RouteMap from "./RouteMap";
+import RouteSelector from "./RouteSelector";
+import { getSegment } from "./SegmentRepository";
 
 export default function App() {
-  const [routeSlug, setRouteSlug] = useState<string | undefined>();
+  const [routeSlug, setRouteSlug] = useHash();
   const { result: segment } = useAsync(async () => {
-    if (!routeSlug) {
+    if (routeSlug === "") {
       return undefined;
     }
 
