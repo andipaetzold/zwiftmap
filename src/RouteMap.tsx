@@ -1,18 +1,18 @@
 import mapboxgl, { LinePaint, LngLatBounds, Map } from "mapbox-gl";
 import React, { useEffect, useState } from "react";
+import { useAsync } from "react-async-hook";
 import ReactMapboxGl, {
   GeoJSONLayer,
-  // ScaleControl,
+  ScaleControl,
   ZoomControl,
 } from "react-mapbox-gl";
 import { FitBounds } from "react-mapbox-gl/lib/map";
-import { getRouteGeoJSON } from "./RouteGeoJSONRepository";
-import { useAsync } from "react-async-hook";
-import styles from "./RouteMap.module.css";
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import mapboxWorker from "worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker";
 import { MAPBOX_STYLE, MAPBOX_TOKEN } from "./constants";
+import { getRouteGeoJSON } from "./RouteGeoJSONRepository";
+import styles from "./RouteMap.module.css";
 
 // @ts-ignore
 mapboxgl.workerClass = mapboxWorker;
@@ -76,7 +76,7 @@ export default function RouteMap({ routeSlug }: Props) {
       onStyleLoad={(map) => setMap(map)}
     >
       <ZoomControl />
-      {/* <ScaleControl /> */}
+      <ScaleControl />
       {geojson && <GeoJSONLayer data={geojson} linePaint={routePaint} />}
     </Mapbox>
   );
