@@ -1,13 +1,5 @@
 export interface Route {
-  world:
-    | "Watopia"
-    | "Richmond"
-    | "Innsbruck"
-    | "Paris"
-    | "France"
-    | "London"
-    | "New York"
-    | "Yorkshire";
+  world: World;
   name: string;
   slug: string;
   distance: number;
@@ -20,5 +12,16 @@ export interface Route {
   lap: string[];
   stravaSegmentId?: number;
   zwiftInsiderUrl: string;
-  sport: "running" | "cycling";
+  sport: Sport;
 }
+
+export type Sport = "running" | "cycling";
+export type World =
+  | "Watopia"
+  | "Richmond"
+  | "Innsbruck"
+  | "Paris"
+  | "France"
+  | "London"
+  | "New York"
+  | "Yorkshire";
