@@ -1,10 +1,9 @@
+import { lineString } from "@turf/helpers";
 import mapboxgl, { LinePaint, LngLatBounds, Map } from "mapbox-gl";
 import React, { useEffect, useMemo, useState } from "react";
 import { useAsync } from "react-async-hook";
 import ReactMapboxGl, {
-  Feature,
   GeoJSONLayer,
-  Layer,
   ScaleControl,
   ZoomControl,
 } from "react-mapbox-gl";
@@ -16,7 +15,6 @@ import { MAPBOX_STYLE_WATOPIA, MAPBOX_TOKEN } from "./constants";
 import styles from "./RouteMap.module.css";
 import { getSegment } from "./SegmentRepository";
 import { flipLatLng } from "./util";
-import { lineString } from "@turf/helpers";
 
 // @ts-ignore
 mapboxgl.workerClass = mapboxWorker;
