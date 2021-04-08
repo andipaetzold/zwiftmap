@@ -1,7 +1,6 @@
 import { lineString } from "@turf/helpers";
 import mapboxgl, { LinePaint, LngLatBounds, Map } from "mapbox-gl";
 import React, { useEffect, useMemo, useState } from "react";
-import { useAsync } from "react-async-hook";
 import ReactMapboxGl, {
   GeoJSONLayer,
   ScaleControl,
@@ -13,7 +12,7 @@ import { FitBounds } from "react-mapbox-gl/lib/map";
 import mapboxWorker from "worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker";
 import { MAPBOX_STYLE_WATOPIA, MAPBOX_TOKEN } from "./constants";
 import styles from "./RouteMap.module.css";
-import { getSegment } from "./SegmentRepository";
+import { Segment } from "./types";
 import { flipLatLng } from "./util";
 
 // @ts-ignore
@@ -23,7 +22,7 @@ const MAX_BOUNDS: FitBounds = [
   [166.8778, -11.70256],
   [167.0321, -11.6259],
 ];
-const MIN_ZOOM = 13;
+const MIN_ZOOM = 9;
 const MAX_ZOOM = 18;
 
 const Mapbox = ReactMapboxGl({
@@ -38,18 +37,10 @@ const LINE_PAINT: LinePaint = {
 };
 
 interface Props {
-  routeSlug: string | undefined;
+  segment: Segment | undefined;
 }
 
-export default function RouteMap({ routeSlug }: Props) {
-  const { result: segment } = useAsync(async () => {
-    if (!routeSlug) {
-      return undefined;
-    }
-
-    return await getSegment(routeSlug);
-  }, [routeSlug]);
-
+export default function RouteMap({ segment }: Props) {
   const [map, setMap] = useState<Map | undefined>(undefined);
 
   useEffect(() => {
@@ -63,7 +54,7 @@ export default function RouteMap({ routeSlug }: Props) {
       new LngLatBounds(coordinates[0], coordinates[0])
     );
 
-    map.fitBounds(bounds, {
+    map.resize().fitBounds(bounds, {
       padding: 20,
     });
   }, [map, segment]);

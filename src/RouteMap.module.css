@@ -1,5 +1,5 @@
 .Container {
-  flex-grow: 999;
+  grid-area: map;
 }
 
 .navigationControl {

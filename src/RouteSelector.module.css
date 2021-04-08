@@ -1,5 +1,5 @@
 .Container {
-  flex-grow: 1;
+  grid-area: sidebar;
   display: flex;
   overflow-y: scroll;
 }
