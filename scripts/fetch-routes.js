@@ -3,13 +3,13 @@ const { writeFileSync } = require("fs");
 const routes = require("../src/routes.json");
 
 async function main() {
-  for (const route of routes.filter(route => route.stravaid > 1)) {
+  for (const route of routes.filter(route => route.stravaSegmentId !== undefined)) {
     const response = await fetch(
-      `https://www.strava.com/stream/segments/${route.stravaid}?streams%5B%5D=latlng`
+      `https://www.strava.com/stream/segments/${route.stravaSegmentId}?streams%5B%5D=latlng`
     );
     const stravaData = await response.json();
 
-    console.log(route.route);
+    console.log(route.name);
     const geojson = {
       type: "Feature",
       geometry: {
@@ -18,7 +18,7 @@ async function main() {
       },
     };
     writeFileSync(
-      `${__dirname}/../public/geojson/${route.routeid}.geojson`,
+      `${__dirname}/../public/routes/${route.slug}.geojson`,
       JSON.stringify(geojson)
     );
   }

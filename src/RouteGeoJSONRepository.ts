@@ -1,10 +1,10 @@
-const routeGeoJSONCache: { [routeid: number]: any } = {};
+const routeGeoJSONCache: { [routeSlug: string]: any } = {};
 
-export async function getRouteGeoJSON(routeId: number): Promise<any> {
-  if (!routeGeoJSONCache[routeId]) {
-    const response = await fetch(`geojson/${routeId}.geojson`);
-    routeGeoJSONCache[routeId] = await response.json();
+export async function getRouteGeoJSON(routeSlug: string): Promise<any> {
+  if (!routeGeoJSONCache[routeSlug]) {
+    const response = await fetch(`routes/${routeSlug}.geojson`);
+    routeGeoJSONCache[routeSlug] = await response.json();
   }
 
-  return routeGeoJSONCache[routeId];
+  return routeGeoJSONCache[routeSlug];
 }

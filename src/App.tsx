@@ -4,12 +4,12 @@ import styles from "./App.module.css";
 import RouteMap from "./RouteMap";
 
 export default function App() {
-  const [routeId, setRouteId] = useState<number | undefined>();
+  const [routeSlug, setRouteSlug] = useState<string | undefined>();
 
   return (
     <div className={styles.Wrapper}>
-      <RouteSelector routeId={routeId} onChange={setRouteId} />
-      <RouteMap routeId={routeId} />
+      <RouteSelector routeSlug={routeSlug} onChange={setRouteSlug} />
+      <RouteMap routeSlug={routeSlug} />
     </div>
   );
 }

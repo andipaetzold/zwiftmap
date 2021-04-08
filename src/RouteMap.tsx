@@ -38,17 +38,17 @@ const routePaint: LinePaint = {
 };
 
 interface Props {
-  routeId: number | undefined;
+  routeSlug: string | undefined;
 }
 
-export default function RouteMap({ routeId }: Props) {
+export default function RouteMap({ routeSlug }: Props) {
   const { result: geojson } = useAsync(async () => {
-    if (!routeId) {
+    if (!routeSlug) {
       return undefined;
     }
 
-    return await getRouteGeoJSON(routeId);
-  }, [routeId]);
+    return await getRouteGeoJSON(routeSlug);
+  }, [routeSlug]);
 
   const [map, setMap] = useState<Map | undefined>(undefined);
 

@@ -6,16 +6,16 @@ import { Route } from "./types";
 const filteredRoutes: Route[] = ((routes as unknown) as Route[])
   .filter((route) => route.world === "Watopia")
   .filter((route) => route.sport === "cycling")
-  .filter((route) => route.stravaid > 1)
-  .sort((a, b) => a.route.localeCompare(b.route));
+  .filter((route) => route.stravaSegmentId !== undefined)
+  .sort((a, b) => a.name.localeCompare(b.name));
 
 interface Props {
-  routeId: number | undefined;
-  onChange: (routeKey: number | undefined) => void;
+  routeSlug: string | undefined;
+  onChange: (routeKey: string | undefined) => void;
 }
 
 export default function RouteSelector({
-  routeId: selectedRouteId,
+  routeSlug: selectedRouteSlug,
   onChange,
 }: Props) {
   return (
@@ -23,13 +23,13 @@ export default function RouteSelector({
       <div className={styles.Sidebar}>
         {filteredRoutes.map((route) => (
           <button
-            key={route.routeid}
+            key={route.slug}
             className={c(styles.Item, {
-              [styles.selected]: selectedRouteId === route.routeid,
+              [styles.selected]: selectedRouteSlug === route.slug,
             })}
-            onClick={() => onChange(route.routeid)}
+            onClick={() => onChange(route.slug)}
           >
-            {route.route}
+            {route.name}
           </button>
         ))}
       </div>

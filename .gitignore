@@ -1,5 +1,5 @@
 !.gitkeep
-/public/geojson
+/public/routes
 
 # dependencies
 /node_modules
