@@ -12,6 +12,7 @@ import styles from "./RouteMap.module.css";
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import mapboxWorker from "worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker";
+import { MAPBOX_STYLE, MAPBOX_TOKEN } from "./constants";
 
 // @ts-ignore
 mapboxgl.workerClass = mapboxWorker;
@@ -24,13 +25,10 @@ const MIN_ZOOM = 13;
 const MAX_ZOOM = 18;
 
 const Mapbox = ReactMapboxGl({
-  accessToken:
-    "pk.eyJ1IjoiYW5kaXBhZXR6b2xkIiwiYSI6ImNqOWgyY2F5NjBnNnAyeXBodzByemRsbWoifQ.wW4aCiUFv2PLhGB2S75sNg",
+  accessToken: MAPBOX_TOKEN,
   minZoom: MIN_ZOOM,
   maxZoom: MAX_ZOOM,
 });
-
-const STYLE = "mapbox://styles/andipaetzold/ckn7q8rj60q2f17qxug5shkjq";
 
 const routePaint: LinePaint = {
   "line-color": "#fc6719",
@@ -72,7 +70,7 @@ export default function RouteMap({ routeSlug }: Props) {
   return (
     <Mapbox
       // eslint-disable-next-line react/style-prop-object
-      style={STYLE}
+      style={MAPBOX_STYLE}
       className={styles.Container}
       maxBounds={MAX_BOUNDS}
       onStyleLoad={(map) => setMap(map)}
