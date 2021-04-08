@@ -17,11 +17,14 @@
   overflow: hidden;
 
   color: #667277;
-  border: none;
   padding: 5px 10px;
-  background-color: transparent;
-  outline: none;
   cursor: pointer;
+}
+
+.Item input {
+  position: fixed;
+  opacity: 0;
+  pointer-events: none; 
 }
 
 .Item:hover,
