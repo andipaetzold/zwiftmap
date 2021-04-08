@@ -1,5 +1,4 @@
 export interface Route {
-  id: number;
   world:
     | "Watopia"
     | "Richmond"
@@ -19,7 +18,7 @@ export interface Route {
   kom: string[];
   sprint: string[];
   lap: string[];
-  stravaSegmentId: number;
-  zwiftInsiderSlug: string;
+  stravaSegmentId?: number;
+  zwiftInsiderUrl: string;
   sport: "running" | "cycling";
 }

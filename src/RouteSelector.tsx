@@ -1,4 +1,4 @@
-import routes from "./routes.json";
+import routes from "./data/routes.json";
 import styles from "./RouteSelector.module.css";
 import { Route } from "./types";
 import { ChangeEvent } from "react";

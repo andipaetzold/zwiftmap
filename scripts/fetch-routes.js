@@ -1,6 +1,6 @@
 const fetch = require("node-fetch");
 const { writeFileSync } = require("fs");
-const routes = require("../src/routes.json");
+const routes = require("../src/data/routes.json");
 
 async function main() {
   for (const route of routes.filter(route => route.stravaSegmentId !== undefined)) {
