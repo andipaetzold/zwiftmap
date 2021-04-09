@@ -59,10 +59,17 @@ export default function RouteMap({
       new LngLatBounds(coordinates[0], coordinates[0])
     );
 
-    map.resize().fitBounds(bounds, {
+    map.fitBounds(bounds, {
       padding: 20,
     });
   }, [map, segment]);
+
+  useEffect(() => {
+    if (!map) {
+      return;
+    }
+    map.resize().setZoom(0);
+  }, [map, world]);
 
   const lineGeoJSON = useMemo(() => {
     if (!segment) {
