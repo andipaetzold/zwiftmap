@@ -1,5 +1,5 @@
 import c from "classnames";
-import React from "react";
+import React, { useState } from "react";
 import { useAsync } from "react-async-hook";
 import styles from "./App.module.css";
 import { ElevationChart } from "./ElevationChart";
@@ -17,6 +17,9 @@ export default function App() {
 
     return await getSegment(routeSlug);
   }, [routeSlug]);
+  const [mouseHoverDistance, setMouseHoverDistance] = useState<
+    number | undefined
+  >(undefined);
 
   return (
     <div
@@ -25,8 +28,13 @@ export default function App() {
       })}
     >
       <RouteSelector routeSlug={routeSlug} onChange={setRouteSlug} />
-      <RouteMap segment={segment} />
-      {segment && <ElevationChart segment={segment} />}
+      <RouteMap segment={segment} mouseHoverDistance={mouseHoverDistance} />
+      {segment && (
+        <ElevationChart
+          segment={segment}
+          onMouseHoverDistanceChange={setMouseHoverDistance}
+        />
+      )}
     </div>
   );
 }

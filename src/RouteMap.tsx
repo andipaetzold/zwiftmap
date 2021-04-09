@@ -1,3 +1,4 @@
+import along from "@turf/along";
 import { lineString } from "@turf/helpers";
 import mapboxgl, { LinePaint, LngLatBounds, Map } from "mapbox-gl";
 import React, { useEffect, useMemo, useState } from "react";
@@ -38,9 +39,10 @@ const LINE_PAINT: LinePaint = {
 
 interface Props {
   segment: Segment | undefined;
+  mouseHoverDistance: number | undefined;
 }
 
-export default function RouteMap({ segment }: Props) {
+export default function RouteMap({ segment, mouseHoverDistance }: Props) {
   const [map, setMap] = useState<Map | undefined>(undefined);
 
   useEffect(() => {
@@ -59,12 +61,20 @@ export default function RouteMap({ segment }: Props) {
     });
   }, [map, segment]);
 
-  const geoJSONData = useMemo(() => {
+  const lineGeoJSON = useMemo(() => {
     if (!segment) {
       return;
     }
     return lineString(segment.latlng.map(flipLatLng));
   }, [segment]);
+
+  const pointGeoJSON = useMemo(() => {
+    if (!lineGeoJSON || !mouseHoverDistance) {
+      return;
+    }
+
+    return along(lineGeoJSON, mouseHoverDistance, { units: "kilometers" });
+  }, [lineGeoJSON, mouseHoverDistance]);
 
   return (
     <Mapbox
@@ -76,8 +86,18 @@ export default function RouteMap({ segment }: Props) {
     >
       <ZoomControl />
       <ScaleControl />
-      {geoJSONData && (
-        <GeoJSONLayer data={geoJSONData} linePaint={LINE_PAINT} />
+      {lineGeoJSON && (
+        <GeoJSONLayer data={lineGeoJSON} linePaint={LINE_PAINT} />
+      )}
+      {pointGeoJSON && (
+        <GeoJSONLayer
+          data={pointGeoJSON}
+          circlePaint={{
+            "circle-radius": 7.5,
+            "circle-color": "white",
+            "circle-stroke-width": 1,
+          }}
+        />
       )}
     </Mapbox>
   );

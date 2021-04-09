@@ -6,6 +6,7 @@ import styles from "./ElevationChart.module.css";
 
 interface Props {
   segment: Segment;
+  onMouseHoverDistanceChange: (distance: number | undefined) => void;
 }
 
 export function ElevationChart({ segment }: Props) {

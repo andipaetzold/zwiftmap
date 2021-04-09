@@ -5,6 +5,7 @@
   "dependencies": {
     "@nivo/core": "0.67.0",
     "@nivo/line": "0.67.0",
+    "@turf/along": "6.3.0",
     "@turf/helpers": "6.3.0",
     "@types/classnames": "2.2.11",
     "@types/jest": "26.0.15",
