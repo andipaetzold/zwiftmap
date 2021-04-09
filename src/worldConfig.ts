@@ -10,8 +10,8 @@ export const worldConfigs: Record<World, WorldConfig> = {
   "crit-city": {
     style: process.env.REACT_APP_MAPBOX_STYLE_CRIT_CITY!,
     bounds: [
-      [166.88, -11.7],
-      [167.03, -11.63],
+      [165.78, -10.4],
+      [165.82, -10.37],
     ],
   },
 

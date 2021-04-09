@@ -11,4 +11,5 @@ convert() {
     rio edit-info --nodata 0 $FOLDER/result.tif
 }
 
+convert crit-city
 convert watopia
