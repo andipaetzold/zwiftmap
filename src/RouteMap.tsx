@@ -21,7 +21,6 @@ mapboxgl.workerClass = mapboxWorker;
 
 const Mapbox = ReactMapboxGl({
   accessToken: MAPBOX_TOKEN,
-  dragPan: false,
   dragRotate: false,
   pitchWithRotate: false,
   touchZoomRotate: false,
