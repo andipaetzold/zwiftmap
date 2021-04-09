@@ -1,1 +1,1 @@
-Image Source: https://www.zwift.com/img/MiniMap_Watopia.png
+Image Source: https://www.zwift.com/img/MiniMap_Yorkshire.png

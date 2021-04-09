@@ -1,0 +1,1 @@
+Image Source: https://www.zwift.com/img/MiniMap_Innsbruck.png
