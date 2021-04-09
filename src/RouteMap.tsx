@@ -21,7 +21,7 @@ mapboxgl.workerClass = mapboxWorker;
 
 const MAX_BOUNDS: FitBounds = [
   [166.8781, -11.7025],
-  [167.0318, -11.6260],
+  [167.0318, -11.626],
 ];
 const MIN_ZOOM = 9;
 const MAX_ZOOM = 18;
@@ -30,6 +30,10 @@ const Mapbox = ReactMapboxGl({
   accessToken: MAPBOX_TOKEN,
   minZoom: MIN_ZOOM,
   maxZoom: MAX_ZOOM,
+  dragPan: false,
+  dragRotate: false,
+  pitchWithRotate: false,
+  touchZoomRotate: false,
 });
 
 const LINE_PAINT: LinePaint = {
