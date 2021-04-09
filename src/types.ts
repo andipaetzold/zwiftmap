@@ -18,14 +18,15 @@ export interface Route {
 
 export type Sport = "running" | "cycling";
 export type World =
-  | "Watopia"
-  | "Richmond"
-  | "Innsbruck"
-  | "Paris"
-  | "France"
-  | "London"
-  | "New York"
-  | "Yorkshire";
+  | "crit-city"
+  | "france"
+  | "innsbruck"
+  | "london"
+  | "paris"
+  | "new-york"
+  | "richmond"
+  | "watopia"
+  | "yorkshire";
 
 export interface Segment {
   latlng: Array<[number, number]>;

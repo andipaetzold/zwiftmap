@@ -7,6 +7,7 @@ import { useHash } from "./hooks/useHash";
 import RouteMap from "./RouteMap";
 import RouteSelector from "./RouteSelector";
 import { getSegment } from "./SegmentRepository";
+import { World } from "./types";
 
 export default function App() {
   const [routeSlug, setRouteSlug] = useHash();
@@ -21,13 +22,20 @@ export default function App() {
     number | undefined
   >(undefined);
 
+  const [world, onWorldChange] = useState<World>("france" as World);
+
   return (
     <div
       className={c(styles.Wrapper, {
         [styles.routeSelected]: segment !== undefined,
       })}
     >
-      <RouteSelector routeSlug={routeSlug} onChange={setRouteSlug} />
+      <RouteSelector
+        routeSlug={routeSlug}
+        onChange={setRouteSlug}
+        world={world}
+        onWorldChange={onWorldChange}
+      />
       <RouteMap segment={segment} mouseHoverDistance={mouseHoverDistance} />
       {segment && (
         <ElevationChart

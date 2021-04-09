@@ -1,6 +1,6 @@
 [
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "Big Foot Hills",
     "distance": 67.6,
     "elevation": 707,
@@ -23,7 +23,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "Big Loop",
     "distance": 42.6,
     "elevation": 661,
@@ -40,7 +40,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "Bigger Loop",
     "distance": 53.2,
     "elevation": 691,
@@ -57,7 +57,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "Dust In The Wind",
     "distance": 52.1,
     "elevation": 582,
@@ -74,7 +74,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "Figure 8",
     "distance": 29.7,
     "elevation": 254,
@@ -91,7 +91,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "Figure 8 Rev.",
     "distance": 29.7,
     "elevation": 254,
@@ -108,7 +108,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "Flat route",
     "distance": 10.3,
     "elevation": 61,
@@ -125,7 +125,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "Four Horsemen",
     "distance": 89.8,
     "elevation": 2108,
@@ -142,7 +142,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "Hilly route",
     "distance": 9.2,
     "elevation": 108,
@@ -159,7 +159,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "Jungle Circuit",
     "distance": 7.9,
     "elevation": 82,
@@ -176,7 +176,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "Mountain 8",
     "distance": 32.3,
     "elevation": 691,
@@ -193,7 +193,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "Mountain route",
     "distance": 29.7,
     "elevation": 682,
@@ -210,7 +210,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "Muir And The Mountain",
     "distance": 34.1,
     "elevation": 792,
@@ -227,7 +227,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "Out And Back Again",
     "distance": 39.9,
     "elevation": 327,
@@ -244,7 +244,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "Quatch Quest",
     "distance": 46.5,
     "elevation": 1706,
@@ -261,7 +261,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "Road to Ruins",
     "distance": 29.6,
     "elevation": 274,
@@ -278,7 +278,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "Road to Sky",
     "distance": 17.5,
     "elevation": 1045,
@@ -295,7 +295,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "Sand And Sequoias",
     "distance": 20.2,
     "elevation": 174,
@@ -312,7 +312,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "Tempus Fugit",
     "distance": 17.2,
     "elevation": 25,
@@ -329,7 +329,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "The Mega Pretzel",
     "distance": 107.3,
     "elevation": 1638,
@@ -346,7 +346,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "The Pretzel",
     "distance": 72.5,
     "elevation": 1360,
@@ -363,7 +363,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "The Über Pretzel",
     "distance": 128.3,
     "elevation": 2379,
@@ -386,7 +386,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "Three Sisters",
     "distance": 48,
     "elevation": 895,
@@ -403,7 +403,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "Tick Tock",
     "distance": 16.9,
     "elevation": 53,
@@ -420,7 +420,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "Tour of Fire and Ice",
     "distance": 25.4,
     "elevation": 1164,
@@ -437,7 +437,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "Volcano Circuit",
     "distance": 4.1,
     "elevation": 20,
@@ -454,7 +454,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "Volcano Circuit CCW",
     "distance": 4.1,
     "elevation": 20,
@@ -471,7 +471,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "Volcano Climb",
     "distance": 22.9,
     "elevation": 203,
@@ -488,7 +488,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "Volcano Flat",
     "distance": 12.4,
     "elevation": 49,
@@ -505,7 +505,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "Whole Lotta Lava",
     "distance": 12.3,
     "elevation": 160,
@@ -522,7 +522,7 @@
     "sport": "cycling"
   },
   {
-    "world": "London",
+    "world": "london",
     "name": "London Classique",
     "distance": 5.5,
     "elevation": 25,
@@ -539,7 +539,7 @@
     "sport": "cycling"
   },
   {
-    "world": "London",
+    "world": "london",
     "name": "Greater London 8",
     "distance": 23.8,
     "elevation": 275,
@@ -556,7 +556,7 @@
     "sport": "cycling"
   },
   {
-    "world": "London",
+    "world": "london",
     "name": "Greater London Flat",
     "distance": 11.7,
     "elevation": 53,
@@ -573,7 +573,7 @@
     "sport": "cycling"
   },
   {
-    "world": "London",
+    "world": "london",
     "name": "Greater London Loop",
     "distance": 21,
     "elevation": 255,
@@ -590,7 +590,7 @@
     "sport": "cycling"
   },
   {
-    "world": "London",
+    "world": "london",
     "name": "Greatest London Flat",
     "distance": 23.6,
     "elevation": 163,
@@ -607,7 +607,7 @@
     "sport": "cycling"
   },
   {
-    "world": "London",
+    "world": "london",
     "name": "Greatest London Loop",
     "distance": 25.7,
     "elevation": 355,
@@ -624,7 +624,7 @@
     "sport": "cycling"
   },
   {
-    "world": "London",
+    "world": "london",
     "name": "London 8",
     "distance": 20.3,
     "elevation": 255,
@@ -641,7 +641,7 @@
     "sport": "cycling"
   },
   {
-    "world": "London",
+    "world": "london",
     "name": "London Loop",
     "distance": 14.9,
     "elevation": 230,
@@ -658,7 +658,7 @@
     "sport": "cycling"
   },
   {
-    "world": "London",
+    "world": "london",
     "name": "Surrey Hills",
     "distance": 39.1,
     "elevation": 877,
@@ -675,7 +675,7 @@
     "sport": "cycling"
   },
   {
-    "world": "London",
+    "world": "london",
     "name": "The London Pretzel",
     "distance": 55.7,
     "elevation": 572,
@@ -692,7 +692,7 @@
     "sport": "cycling"
   },
   {
-    "world": "London",
+    "world": "london",
     "name": "The PRL Full",
     "distance": 173.3,
     "elevation": 2623,
@@ -709,7 +709,7 @@
     "sport": "cycling"
   },
   {
-    "world": "London",
+    "world": "london",
     "name": "The PRL Half",
     "distance": 69.2,
     "elevation": 1009,
@@ -726,7 +726,7 @@
     "sport": "cycling"
   },
   {
-    "world": "London",
+    "world": "london",
     "name": "Triple Loops",
     "distance": 40.9,
     "elevation": 564,
@@ -743,7 +743,7 @@
     "sport": "cycling"
   },
   {
-    "world": "New York",
+    "world": "new-york",
     "name": "Astoria Line 8",
     "distance": 11.6,
     "elevation": 141,
@@ -760,7 +760,7 @@
     "sport": "cycling"
   },
   {
-    "world": "New York",
+    "world": "new-york",
     "name": "Everything Bagel",
     "distance": 34.3,
     "elevation": 544,
@@ -777,7 +777,7 @@
     "sport": "cycling"
   },
   {
-    "world": "New York",
+    "world": "new-york",
     "name": "Grand Central Circuit",
     "distance": 6.9,
     "elevation": 144,
@@ -794,7 +794,7 @@
     "sport": "cycling"
   },
   {
-    "world": "New York",
+    "world": "new-york",
     "name": "Knickerbocker",
     "distance": 22.5,
     "elevation": 364,
@@ -811,7 +811,7 @@
     "sport": "cycling"
   },
   {
-    "world": "New York",
+    "world": "new-york",
     "name": "Knickerbocker Rev.",
     "distance": 22.5,
     "elevation": 364,
@@ -828,7 +828,7 @@
     "sport": "cycling"
   },
   {
-    "world": "New York",
+    "world": "new-york",
     "name": "Lady Liberty",
     "distance": 12.4,
     "elevation": 206,
@@ -845,7 +845,7 @@
     "sport": "cycling"
   },
   {
-    "world": "New York",
+    "world": "new-york",
     "name": "Mighty Metropolitan",
     "distance": 20.1,
     "elevation": 318,
@@ -862,7 +862,7 @@
     "sport": "cycling"
   },
   {
-    "world": "New York",
+    "world": "new-york",
     "name": "Park Perimeter Loop",
     "distance": 9.8,
     "elevation": 126,
@@ -879,7 +879,7 @@
     "sport": "cycling"
   },
   {
-    "world": "New York",
+    "world": "new-york",
     "name": "Rising Empire",
     "distance": 20.8,
     "elevation": 376,
@@ -896,7 +896,7 @@
     "sport": "cycling"
   },
   {
-    "world": "New York",
+    "world": "new-york",
     "name": "The 6 Train",
     "distance": 6.5,
     "elevation": 69,
@@ -913,7 +913,7 @@
     "sport": "cycling"
   },
   {
-    "world": "New York",
+    "world": "new-york",
     "name": "The Highline",
     "distance": 10.5,
     "elevation": 178,
@@ -930,7 +930,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Innsbruck",
+    "world": "innsbruck",
     "name": "2018 UCI worlds Short Lap",
     "distance": 23.7,
     "elevation": 494,
@@ -947,7 +947,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Innsbruck",
+    "world": "innsbruck",
     "name": "Achterbahn",
     "distance": 47.4,
     "elevation": 989,
@@ -964,7 +964,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Innsbruck",
+    "world": "innsbruck",
     "name": "Innsbruckring",
     "distance": 8.8,
     "elevation": 77,
@@ -981,7 +981,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Innsbruck",
+    "world": "innsbruck",
     "name": "Lutscher",
     "distance": 13.7,
     "elevation": 401,
@@ -998,7 +998,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Innsbruck",
+    "world": "innsbruck",
     "name": "Lutscher CCW",
     "distance": 13.8,
     "elevation": 401,
@@ -1015,7 +1015,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Yorkshire",
+    "world": "yorkshire",
     "name": "2019 UCI Worlds Harrogate Cct.",
     "distance": 13.8,
     "elevation": 245,
@@ -1032,7 +1032,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Yorkshire",
+    "world": "yorkshire",
     "name": "Duchy Estate",
     "distance": 3,
     "elevation": 40,
@@ -1049,7 +1049,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Yorkshire",
+    "world": "yorkshire",
     "name": "Queen's Highway",
     "distance": 3,
     "elevation": 40,
@@ -1066,7 +1066,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Yorkshire",
+    "world": "yorkshire",
     "name": "Tour Of Tewit Well",
     "distance": 10.9,
     "elevation": 204,
@@ -1083,7 +1083,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Yorkshire",
+    "world": "yorkshire",
     "name": "Royal Pump Room 8",
     "distance": 27.7,
     "elevation": 490,
@@ -1100,7 +1100,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Richmond",
+    "world": "richmond",
     "name": "2015 UCI Worlds Course",
     "distance": 16.2,
     "elevation": 157,
@@ -1117,7 +1117,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Richmond",
+    "world": "richmond",
     "name": "Cobbled Climbs",
     "distance": 9.2,
     "elevation": 133,
@@ -1134,7 +1134,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Richmond",
+    "world": "richmond",
     "name": "The Fan Flats",
     "distance": 5.1,
     "elevation": 19,
@@ -1151,7 +1151,7 @@
     "sport": "cycling"
   },
   {
-    "world": "France",
+    "world": "france",
     "name": "Casse-Pattes",
     "distance": 22.9,
     "elevation": 155,
@@ -1168,7 +1168,7 @@
     "sport": "cycling"
   },
   {
-    "world": "France",
+    "world": "france",
     "name": "Douce France",
     "distance": 24,
     "elevation": 133,
@@ -1185,7 +1185,7 @@
     "sport": "cycling"
   },
   {
-    "world": "France",
+    "world": "france",
     "name": "Petit Boucle",
     "distance": 60.8,
     "elevation": 483,
@@ -1209,7 +1209,7 @@
     "sport": "cycling"
   },
   {
-    "world": "France",
+    "world": "france",
     "name": "Roule Ma Poule",
     "distance": 22.9,
     "elevation": 155,
@@ -1226,7 +1226,7 @@
     "sport": "cycling"
   },
   {
-    "world": "France",
+    "world": "france",
     "name": "R.G.V.",
     "distance": 24,
     "elevation": 133,
@@ -1247,7 +1247,7 @@
     "sport": "cycling"
   },
   {
-    "world": "France",
+    "world": "france",
     "name": "Tire-Bouchon",
     "distance": 60.8,
     "elevation": 483,
@@ -1271,7 +1271,7 @@
     "sport": "cycling"
   },
   {
-    "world": "France",
+    "world": "france",
     "name": "Ven-Top",
     "distance": 20.8,
     "elevation": 1539,
@@ -1288,7 +1288,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Paris",
+    "world": "paris",
     "name": "Champs-Elys\\xe9es",
     "distance": 6.6,
     "elevation": 39,
@@ -1305,7 +1305,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Paris",
+    "world": "paris",
     "name": "Lutece Express",
     "distance": 6.6,
     "elevation": 39,
@@ -1322,7 +1322,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "11.1 Ocean Blvd",
     "distance": 10.5,
     "elevation": 48,
@@ -1339,7 +1339,7 @@
     "sport": "running"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "5K Loop",
     "distance": 5,
     "elevation": 31,
@@ -1356,7 +1356,7 @@
     "sport": "running"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "Chili Pepper",
     "distance": 8,
     "elevation": 48,
@@ -1373,7 +1373,7 @@
     "sport": "running"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "Jon's Route",
     "distance": 12.5,
     "elevation": 59,
@@ -1390,7 +1390,7 @@
     "sport": "running"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "May Field",
     "distance": 0.4,
     "elevation": 0,
@@ -1407,7 +1407,7 @@
     "sport": "running"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "That's Amore",
     "distance": 6.4,
     "elevation": 55,
@@ -1424,7 +1424,7 @@
     "sport": "running"
   },
   {
-    "world": "New York",
+    "world": "new-york",
     "name": "Couch to Sky K",
     "distance": 6.8,
     "elevation": 68,
@@ -1439,7 +1439,7 @@
     "sport": "running"
   },
   {
-    "world": "New York",
+    "world": "new-york",
     "name": "Flat Irons",
     "distance": 14.9,
     "elevation": 319,
@@ -1454,7 +1454,7 @@
     "sport": "running"
   },
   {
-    "world": "New York",
+    "world": "new-york",
     "name": "Hudson Roll",
     "distance": 9,
     "elevation": 101,
@@ -1469,7 +1469,7 @@
     "sport": "running"
   },
   {
-    "world": "New York",
+    "world": "new-york",
     "name": "Park to Peak",
     "distance": 4.6,
     "elevation": 126,
@@ -1484,7 +1484,7 @@
     "sport": "running"
   },
   {
-    "world": "New York",
+    "world": "new-york",
     "name": "Shuman Trail Loop",
     "distance": 2.5,
     "elevation": 9,
@@ -1499,7 +1499,7 @@
     "sport": "running"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "Beach Island Loop",
     "distance": 12.8,
     "elevation": 49,
@@ -1516,7 +1516,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "Ocean Lava Cliffside Loop",
     "distance": 19,
     "elevation": 156,
@@ -1533,7 +1533,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "Serpentine 8",
     "distance": 19.3,
     "elevation": 206,
@@ -1550,7 +1550,7 @@
     "sport": "cycling"
   },
   {
-    "world": "Watopia",
+    "world": "watopia",
     "name": "Two Bridges Loop",
     "distance": 6.8,
     "elevation": 81,
