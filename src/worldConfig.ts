@@ -34,8 +34,8 @@ export const worldConfigs: Record<World, WorldConfig> = {
   london: {
     style: process.env.REACT_APP_MAPBOX_STYLE_LONDON!,
     bounds: [
-      [166.88, -11.7],
-      [167.03, -11.63],
+      [-0.17, 51.46],
+      [-0.06, 51.53],
     ],
   },
 
