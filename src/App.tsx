@@ -22,7 +22,7 @@ export default function App() {
     number | undefined
   >(undefined);
 
-  const [world, onWorldChange] = useState<World>("france" as World);
+  const [world, onWorldChange] = useState<World>("watopia" as World);
 
   return (
     <div
@@ -36,7 +36,11 @@ export default function App() {
         world={world}
         onWorldChange={onWorldChange}
       />
-      <RouteMap segment={segment} mouseHoverDistance={mouseHoverDistance} />
+      <RouteMap
+        segment={segment}
+        mouseHoverDistance={mouseHoverDistance}
+        world={world}
+      />
       {segment && (
         <ElevationChart
           segment={segment}

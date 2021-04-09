@@ -7,33 +7,26 @@ import ReactMapboxGl, {
   ScaleControl,
   ZoomControl,
 } from "react-mapbox-gl";
-import { FitBounds } from "react-mapbox-gl/lib/map";
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import mapboxWorker from "worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker";
-import { MAPBOX_STYLE_WATOPIA, MAPBOX_TOKEN } from "./constants";
+import { MAPBOX_TOKEN } from "./constants";
 import styles from "./RouteMap.module.css";
-import { Segment } from "./types";
+import { Segment, World } from "./types";
 import { flipLatLng } from "./util";
+import { worldConfigs } from "./worldConfig";
 
 // @ts-ignore
 mapboxgl.workerClass = mapboxWorker;
 
-const MAX_BOUNDS: FitBounds = [
-  [166.8781, -11.7025],
-  [167.0318, -11.626],
-];
-const MIN_ZOOM = 9;
-const MAX_ZOOM = 18;
-
 const Mapbox = ReactMapboxGl({
   accessToken: MAPBOX_TOKEN,
-  minZoom: MIN_ZOOM,
-  maxZoom: MAX_ZOOM,
   dragPan: false,
   dragRotate: false,
   pitchWithRotate: false,
   touchZoomRotate: false,
+  minZoom: 0, // limited by max bounds
+  maxZoom: 18,
 });
 
 const LINE_PAINT: LinePaint = {
@@ -44,9 +37,15 @@ const LINE_PAINT: LinePaint = {
 interface Props {
   segment: Segment | undefined;
   mouseHoverDistance: number | undefined;
+  world: World;
 }
 
-export default function RouteMap({ segment, mouseHoverDistance }: Props) {
+export default function RouteMap({
+  segment,
+  mouseHoverDistance,
+  world,
+}: Props) {
+  const worldConfig = worldConfigs[world];
   const [map, setMap] = useState<Map | undefined>(undefined);
 
   useEffect(() => {
@@ -83,9 +82,9 @@ export default function RouteMap({ segment, mouseHoverDistance }: Props) {
   return (
     <Mapbox
       // eslint-disable-next-line react/style-prop-object
-      style={MAPBOX_STYLE_WATOPIA}
+      style={worldConfig.style}
       className={styles.Container}
-      maxBounds={MAX_BOUNDS}
+      maxBounds={worldConfig.bounds}
       onStyleLoad={(map) => setMap(map)}
     >
       <ZoomControl />
