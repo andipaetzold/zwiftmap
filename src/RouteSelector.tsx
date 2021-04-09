@@ -6,7 +6,7 @@ import c from "classnames";
 
 interface Props {
   routeSlug: string | undefined;
-  onChange: (routeKey: string) => void;
+  onChange: (routeSlug: string) => void;
 
   world: World;
   onWorldChange: (world: World) => void;
@@ -25,6 +25,11 @@ export default function RouteSelector({
     }
   };
 
+  const handleWorldChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    onWorldChange(e.target.value as World);
+    onChange("");
+  };
+
   const filteredRoutes = ((routes as unknown) as Route[])
     .filter((route) => route.world === world)
     .filter((route) => route.sport === "cycling")
@@ -34,10 +39,7 @@ export default function RouteSelector({
   return (
     <div className={styles.Container}>
       <div className={styles.Sidebar}>
-        <select
-          value={world}
-          onChange={(e) => onWorldChange(e.target.value as World)}
-        >
+        <select value={world} onChange={handleWorldChange}>
           <option value="crit-city">Crit City</option>
           <option value="france">France</option>
           <option value="innsbruck">Innsbruck</option>
