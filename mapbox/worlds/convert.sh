@@ -12,4 +12,5 @@ convert() {
 }
 
 convert crit-city
+convert france
 convert watopia

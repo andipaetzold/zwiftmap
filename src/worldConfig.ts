@@ -18,8 +18,8 @@ export const worldConfigs: Record<World, WorldConfig> = {
   france: {
     style: process.env.REACT_APP_MAPBOX_STYLE_FRANCE!,
     bounds: [
-      [166.88, -11.7],
-      [167.03, -11.63],
+      [166.14, -21.76],
+      [166.26, -21.64],
     ],
   },
 
