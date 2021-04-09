@@ -20,8 +20,8 @@ import { flipLatLng } from "./util";
 mapboxgl.workerClass = mapboxWorker;
 
 const MAX_BOUNDS: FitBounds = [
-  [166.8778, -11.70256],
-  [167.0321, -11.6259],
+  [166.8781, -11.7025],
+  [167.0318, -11.6260],
 ];
 const MIN_ZOOM = 9;
 const MAX_ZOOM = 18;
