@@ -4,12 +4,6 @@ import { Route, World } from "./types";
 import { ChangeEvent } from "react";
 import c from "classnames";
 
-const filteredRoutes: Route[] = ((routes as unknown) as Route[])
-  .filter((route) => route.world === "watopia")
-  .filter((route) => route.sport === "cycling")
-  .filter((route) => route.stravaSegmentId !== undefined)
-  .sort((a, b) => a.name.localeCompare(b.name));
-
 interface Props {
   routeSlug: string | undefined;
   onChange: (routeKey: string) => void;
@@ -30,6 +24,12 @@ export default function RouteSelector({
       onChange(e.target.value);
     }
   };
+
+  const filteredRoutes = ((routes as unknown) as Route[])
+    .filter((route) => route.world === world)
+    .filter((route) => route.sport === "cycling")
+    .filter((route) => route.stravaSegmentId !== undefined)
+    .sort((a, b) => a.name.localeCompare(b.name));
 
   return (
     <div className={styles.Container}>
