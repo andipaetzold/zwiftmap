@@ -1,3 +1,4 @@
 .Container {
   grid-area: elevation;
+  overflow: hidden;
 }
