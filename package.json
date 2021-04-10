@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@react-md/button": "2.7.1",
     "@react-md/divider": "2.7.1",
     "@react-md/form": "2.7.1",
+    "@react-md/icon": "2.7.1",
     "@react-md/list": "2.7.1",
     "@react-md/menu": "2.7.1",
     "@react-md/theme": "2.7.1",
