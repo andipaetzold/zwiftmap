@@ -1,10 +1,18 @@
-import { ResponsiveLine, Serie } from "@nivo/line";
 import React, { useMemo } from "react";
 import { useAsync } from "react-async-hook";
+import {
+  Area,
+  AreaChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  Tooltip,
+  TooltipProps,
+  XAxis,
+  YAxis,
+} from "recharts";
 import styles from "./ElevationChart.module.css";
 import { getSegment } from "./SegmentRepository";
 import { Route } from "./types";
-import { simplify } from "./util/simplify";
 
 interface Props {
   route: Route;
@@ -14,23 +22,15 @@ interface Props {
 export function ElevationChart({ route }: Props) {
   const { result: segment } = useAsync(getSegment, [route.slug]);
 
-  const data: Serie[] | undefined = useMemo(() => {
+  const data: any[] | undefined = useMemo(() => {
     if (segment === undefined) {
       return;
     }
 
-    const serie = {
-      id: "Elevation",
-      data: simplify(
-        segment.distance.map((distance, index) => ({
-          x: distance,
-          y: segment.altitude[index],
-        })),
-        0.25
-      ),
-    };
-
-    return [serie];
+    return segment.distance.map((distance, index) => ({
+      distance: distance / 1_000,
+      elevation: segment.altitude[index],
+    }));
   }, [segment]);
 
   if (data === undefined) {
@@ -39,60 +39,143 @@ export function ElevationChart({ route }: Props) {
 
   return (
     <div className={styles.Container}>
-      <ResponsiveLine
-        data={data}
-        margin={{ top: 25, right: 25, bottom: 50, left: 50 }}
-        xScale={{ type: "linear", min: "auto", max: "auto" }}
-        yScale={{ type: "linear", min: "auto", max: "auto" }}
-        axisTop={null}
-        axisRight={null}
-        axisBottom={{
-          orient: "bottom",
-          tickSize: 5,
-          tickPadding: 5,
-          format: (value) => `${(value as number) / 1_000} km`,
-        }}
-        axisLeft={{
-          orient: "left",
-          tickSize: 5,
-          tickPadding: 5,
-          tickValues: 5,
-          format: (value) => `${value} m`,
-        }}
-        pointSize={0}
-        useMesh={true}
-        enableSlices="x"
-        animate={false}
-        enableGridX={false}
-        sliceTooltip={({ slice }) => (
-          <table
-            style={{
-              background: "white",
-              padding: "9px 12px",
-              border: "1px solid #ccc",
-            }}
+      <ResponsiveContainer width="100%" height="100%">
+        <AreaChart
+          data={data}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
+          // @ts-ignore
+          baseValue="dataMin"
+        >
+          <defs>
+            <linearGradient id="colorElevation" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="black" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="black" stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <CartesianGrid vertical={false} />
+          <XAxis
+            name="Distance"
+            dataKey="distance"
+            type="number"
+            allowDecimals={false}
+            tickCount={10}
+            domain={[0, "dataMax"]}
+            unit="km"
+          />
+
+          <YAxis
+            name="Elevation"
+            type="number"
+            allowDecimals={false}
+            tickCount={5}
+            domain={[0, "auto"]}
+            unit="m"
+          />
+          <Tooltip
+            content={TooltipContent}
+            isAnimationActive={false}
+            position={{ y: 0 }}
+            cursor={{ stroke: "black" }}
+          />
+          <Area
+            type="monotone"
+            dataKey="elevation"
+            name="Elevation"
+            stroke="black"
+            fillOpacity={1}
+            fill="url(#colorElevation)"
+            unit="m"
+            isAnimationActive={false}
+          />
+        </AreaChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}
+
+function TooltipContent(props: TooltipProps<any, any>) {
+  if (props.payload === undefined || props.payload.length === 0) {
+    return null;
+  }
+
+  return (
+    <div
+      className="recharts-default-tooltip"
+      style={{
+        margin: 0,
+        padding: 10,
+        backgroundColor: "#fff",
+        border: "1px solid #ccc",
+        whiteSpace: "nowrap",
+      }}
+    >
+      <ul
+        className="recharts-tooltip-item-list"
+        style={{ padding: 0, margin: 0 }}
+      >
+        <li
+          className="recharts-tooltip-item"
+          style={{
+            display: "block",
+            paddingTop: 4,
+            paddingBottom: 4,
+            color: "#000",
+          }}
+        >
+          <span className="recharts-tooltip-item-name">Distance</span>
+          <span className="recharts-tooltip-item-separator">
+            {props.separator}
+          </span>
+          <span
+            className="recharts-tooltip-item-value"
+            style={{ fontWeight: "bold" }}
           >
-            <tbody>
-              <tr>
-                <td>Distance:</td>
-                <td>
-                  <strong>
-                    {Math.round((slice.points[0].data.x as number) / 1_000)} km
-                  </strong>
-                </td>
-              </tr>
-              <tr>
-                <td>Elevation:</td>
-                <td>
-                  <strong>
-                    {Math.round(slice.points[0].data.y as number)} m
-                  </strong>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        )}
-      />
+            {Math.round(props.label * 10) / 10}
+          </span>
+          <span
+            className="recharts-tooltip-item-unit"
+            style={{ fontWeight: "bold" }}
+          >
+            km
+          </span>
+        </li>
+
+        <li
+          className="recharts-tooltip-item"
+          style={{
+            display: "block",
+            paddingTop: 4,
+            paddingBottom: 4,
+            color: "#000",
+          }}
+        >
+          <span className="recharts-tooltip-item-name">
+            {props.payload[0].name}
+          </span>
+          <span className="recharts-tooltip-item-separator">
+            {props.separator}
+          </span>
+          <span
+            className="recharts-tooltip-item-value"
+            style={{ fontWeight: "bold" }}
+          >
+            {Math.round(
+              props.payload[0].payload[props.payload[0].dataKey as string]
+            )}
+          </span>
+          <span
+            className="recharts-tooltip-item-unit"
+            style={{ fontWeight: "bold" }}
+          >
+            {props.payload[0].unit}
+          </span>
+        </li>
+      </ul>
     </div>
   );
 }
