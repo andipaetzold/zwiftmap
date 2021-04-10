@@ -27,6 +27,9 @@ export default function RouteMap({
   ]);
 
   const [map, setMap] = useState<Map | undefined>();
+  useEffect(() => {
+    map?.zoomControl.setPosition("topright");
+  }, [map]);
 
   const { result: segment } = useAsync(
     async (r?: Route) => {
