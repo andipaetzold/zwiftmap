@@ -1,3 +1,4 @@
+import { CircularProgress } from "@react-md/progress";
 import uniqWith from "lodash/uniqWith";
 import React, { useMemo } from "react";
 import { useAsync } from "react-async-hook";
@@ -31,7 +32,13 @@ export function ElevationChartPreview({ route }: Props) {
   }, [segment]);
 
   if (!data) {
-    return null;
+    return (
+      <CircularProgress
+        id={`elevation-preview-${route.slug}`}
+        small
+        circleStyle={{ stroke: "black" }}
+      />
+    );
   }
 
   return (
