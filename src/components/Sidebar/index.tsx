@@ -2,12 +2,13 @@ import { Button } from "@react-md/button";
 import { Divider } from "@react-md/divider";
 import { TextField } from "@react-md/form";
 import { FontIcon } from "@react-md/icon";
-import { List, ListItem, ListSubheader, SimpleListItem } from "@react-md/list";
+import { List, ListItem, SimpleListItem } from "@react-md/list";
 import React, { useState } from "react";
 import { routes, worlds } from "../../data";
-import { search, SearchResult, searchResultTypes } from "../../services/search";
+import { search, SearchResult } from "../../services/search";
 import { RouteSelection } from "../../types";
 import styles from "./index.module.css";
+import { SearchResultList } from "./SearchResultList";
 
 interface Props {
   selection: RouteSelection;
@@ -72,23 +73,10 @@ export function Sidebar({ selection, onChange }: Props) {
               ))}
           </>
         ) : (
-          <div>
-            {searchResults.map((searchResult, i) => (
-              <>
-                {searchResults[i - 1]?.type !== searchResult.type && (
-                  <>
-                    <Divider />
-                    <ListSubheader>
-                      {searchResultTypes[searchResult.type].title}
-                    </ListSubheader>
-                  </>
-                )}
-                <ListItem onClick={() => handleSearchResultClick(searchResult)}>
-                  {searchResult.data.name}
-                </ListItem>
-              </>
-            ))}
-          </div>
+          <SearchResultList
+            searchResults={searchResults}
+            onResultClick={handleSearchResultClick}
+          />
         )}
       </List>
     </div>
