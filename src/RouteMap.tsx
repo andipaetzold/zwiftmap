@@ -67,7 +67,7 @@ export default function RouteMap({
     map.invalidateSize();
     map.setMaxBounds(worldConfig.imageBounds);
 
-    const minZoom = map.getBoundsZoom(worldConfig.routeBounds, false);
+    const minZoom = map.getBoundsZoom(worldConfig.imageBounds, false);
     map.setMinZoom(minZoom);
 
     if (!routeSelection.route) {
