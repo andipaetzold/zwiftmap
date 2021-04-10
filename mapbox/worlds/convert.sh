@@ -13,5 +13,10 @@ convert() {
 
 convert crit-city
 convert france
+convert innsbruck
 convert london
+convert new-york
+convert paris
+convert richmond
 convert watopia
+convert yorkshire
