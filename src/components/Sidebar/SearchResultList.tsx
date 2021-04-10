@@ -17,7 +17,7 @@ export function SearchResultList({ searchResults, onResultClick }: Props) {
         <Fragment key={searchResult.data.slug}>
           {searchResults[i - 1]?.type !== searchResult.type && (
             <>
-              <Divider />
+              {searchResults[i - 1] && <Divider />}
               <ListSubheader>
                 {searchResultTypes[searchResult.type].title}
               </ListSubheader>

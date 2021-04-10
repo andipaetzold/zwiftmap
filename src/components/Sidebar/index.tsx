@@ -2,7 +2,7 @@ import { Button } from "@react-md/button";
 import { Divider } from "@react-md/divider";
 import { TextField } from "@react-md/form";
 import { FontIcon } from "@react-md/icon";
-import { List, SimpleListItem } from "@react-md/list";
+import { List, ListItem, SimpleListItem } from "@react-md/list";
 import React, { useState } from "react";
 import { routes, worlds } from "../../data";
 import { search, SearchResult } from "../../services/search";
@@ -33,7 +33,7 @@ export function Sidebar({ selection, onChange }: Props) {
 
   return (
     <div className={styles.Container}>
-      <List style={{ width: "100%" }}>
+      <List style={{ width: "100%" }} className={styles.SearchBox}>
         <SimpleListItem>
           <TextField
             id="search-input"
@@ -56,9 +56,11 @@ export function Sidebar({ selection, onChange }: Props) {
             }
           />
         </SimpleListItem>
+        <Divider className={styles.NoGapDivider} />
+      </List>
+      <List className={styles.List}>
         {query === "" ? (
           <>
-            <Divider />
             {routes
               .filter((route) => route.world === selection.world)
               .filter((route) => route.sport === "cycling")
@@ -78,6 +80,10 @@ export function Sidebar({ selection, onChange }: Props) {
             onResultClick={handleSearchResultClick}
           />
         )}
+      </List>
+      <List className={styles.BottomMenu}>
+        <Divider className={styles.NoGapDivider} />
+        <ListItem>Settings</ListItem>
       </List>
     </div>
   );

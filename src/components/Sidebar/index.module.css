@@ -1,6 +1,33 @@
 .Container {
   grid-area: sidebar;
-  display: flex;
   overflow-y: auto;
   overflow-x: hidden;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.SearchBox {
+  flex-grow: 0;
+  padding-bottom: 0;
+}
+
+.List {
+  flex: 1;
+  overflow-y: auto;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.BottomMenu {
+  flex-grow: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.NoGapDivider {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
 }
