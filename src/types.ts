@@ -49,3 +49,9 @@ export interface World {
   name: string;
   slug: WorldSlug;
 }
+
+
+export interface RouteSelection {
+  world: WorldSlug;
+  route?: Route;
+}

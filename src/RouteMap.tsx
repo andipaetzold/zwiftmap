@@ -10,15 +10,14 @@ import {
   MapContainer,
   Pane,
   Polyline,
-  ScaleControl,
+  ScaleControl
 } from "react-leaflet";
 import { segments } from "./data";
-import { RouteSelection } from "./RouteSelector";
 import {
   getStravaSegmentStream,
-  getStravaSegmentStreams,
+  getStravaSegmentStreams
 } from "./StravaSegmentRepository";
-import { Route, WorldSlug } from "./types";
+import { Route, RouteSelection, WorldSlug } from "./types";
 import { worldConfigs } from "./worldConfig";
 
 interface Props {

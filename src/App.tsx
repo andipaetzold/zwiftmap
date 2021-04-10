@@ -1,12 +1,12 @@
 import c from "classnames";
 import React, { useMemo, useState } from "react";
 import styles from "./App.module.css";
+import { Sidebar } from "./components/Sidebar";
 import { routes, worlds } from "./data";
 import { ElevationChart } from "./ElevationChart";
 import { useHash } from "./hooks/useHash";
 import RouteMap from "./RouteMap";
-import RouteSelector, { RouteSelection } from "./RouteSelector";
-import { WorldSlug } from "./types";
+import { RouteSelection, WorldSlug } from "./types";
 
 export default function App() {
   const [hash, setHash] = useHash();
@@ -42,7 +42,7 @@ export default function App() {
         [styles.routeSelected]: routeSelection.route !== undefined,
       })}
     >
-      <RouteSelector
+      <Sidebar
         selection={routeSelection}
         onChange={handleRouteSelectionChange}
       />

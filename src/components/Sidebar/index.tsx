@@ -4,21 +4,16 @@ import { TextField } from "@react-md/form";
 import { FontIcon } from "@react-md/icon";
 import { List, ListItem, ListSubheader, SimpleListItem } from "@react-md/list";
 import React, { useState } from "react";
-import { routes, worlds } from "./data";
-import styles from "./RouteSelector.module.css";
-import { search, SearchResult, searchResultTypes } from "./services/search";
-import { Route, WorldSlug } from "./types";
-
-export interface RouteSelection {
-  world: WorldSlug;
-  route?: Route;
-}
+import { routes, worlds } from "../../data";
+import { search, SearchResult, searchResultTypes } from "../../services/search";
+import { RouteSelection } from "../../types";
+import styles from "./index.module.css";
 
 interface Props {
   selection: RouteSelection;
   onChange: (route: RouteSelection) => void;
 }
-export default function RouteSelector({ selection, onChange }: Props) {
+export function Sidebar({ selection, onChange }: Props) {
   const [query, setQuery] = useState("");
 
   const searchResults = search(query);
