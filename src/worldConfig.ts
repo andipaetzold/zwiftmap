@@ -26,8 +26,8 @@ export const worldConfigs: Record<World, WorldConfig> = {
   innsbruck: {
     style: process.env.REACT_APP_MAPBOX_STYLE_INNSBRUCK!,
     bounds: [
-      [166.88, -11.7],
-      [167.03, -11.63],
+      [11.35, 47.21],
+      [11.48, 47.29],
     ],
   },
 
@@ -42,24 +42,24 @@ export const worldConfigs: Record<World, WorldConfig> = {
   "new-york": {
     style: process.env.REACT_APP_MAPBOX_STYLE_NEW_YORK!,
     bounds: [
-      [166.88, -11.7],
-      [167.03, -11.63],
+      [-74.02, 40.74],
+      [-73.92, 40.82],
     ],
   },
 
   paris: {
     style: process.env.REACT_APP_MAPBOX_STYLE_PARIS!,
     bounds: [
-      [166.88, -11.7],
-      [167.03, -11.63],
+      [2.25, 48.83],
+      [2.37, 48.91],
     ],
   },
 
   richmond: {
     style: process.env.REACT_APP_MAPBOX_STYLE_RICHMOND!,
     bounds: [
-      [166.88, -11.7],
-      [167.03, -11.63],
+      [-77.49, 37.5],
+      [-77.39, 37.58],
     ],
   },
 
@@ -73,8 +73,8 @@ export const worldConfigs: Record<World, WorldConfig> = {
   yorkshire: {
     style: process.env.REACT_APP_MAPBOX_STYLE_YORKSHIRE!,
     bounds: [
-      [166.88, -11.7],
-      [167.03, -11.63],
+      [-1.63, 53.95],
+      [-1.5, 54.03],
     ],
   },
 };
