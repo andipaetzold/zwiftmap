@@ -1,11 +1,11 @@
 import c from "classnames";
 import { ChangeEvent } from "react";
-import { routes } from "./data/routes";
+import { routes, worlds } from "./data";
 import styles from "./RouteSelector.module.css";
-import { Route, World } from "./types";
+import { Route, WorldSlug } from "./types";
 
 export interface RouteSelection {
-  world: World;
+  world: WorldSlug;
   route?: Route;
 }
 
@@ -32,17 +32,11 @@ export default function RouteSelector({ selection, onChange }: Props) {
       <div className={styles.Sidebar}>
         <select
           value={selection.world}
-          onChange={(e) => onChange({ world: e.target.value as World })}
+          onChange={(e) => onChange({ world: e.target.value as WorldSlug })}
         >
-          <option value="crit-city">Crit City</option>
-          <option value="france">France</option>
-          <option value="innsbruck">Innsbruck</option>
-          <option value="london">London</option>
-          <option value="new-york">New York</option>
-          <option value="paris">Paris</option>
-          <option value="richmond">Richmond</option>
-          <option value="watopia">Watopia</option>
-          <option value="yorkshire">Yorkshire</option>
+          {worlds.map((world) => (
+            <option key={world.slug} value={world.slug}>{world.name}</option>
+          ))}
         </select>
 
         {filteredRoutes.map((route) => (

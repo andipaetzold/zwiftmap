@@ -5,14 +5,15 @@ import { useAsync } from "react-async-hook";
 import {
   Circle,
   ImageOverlay,
+  LayersControl,
   MapContainer,
   Pane,
   Polyline,
 } from "react-leaflet";
-import { segments } from "./data/segments";
+import { segments, worlds } from "./data";
 import { RouteSelection } from "./RouteSelector";
 import { getStravaSegment } from "./StravaSegmentRepository";
-import { Route, World } from "./types";
+import { Route, WorldSlug } from "./types";
 import { worldConfigs } from "./worldConfig";
 
 interface Props {
@@ -26,12 +27,9 @@ export default function RouteMap({
 }: Props) {
   const world = routeSelection.world;
   const worldConfig = worldConfigs[world];
-  const bounds = useMemo(() => new LatLngBounds(worldConfig.imageBounds), [
-    worldConfig,
-  ]);
 
   const { result: stravaSegmentsInWorld } = useAsync(
-    async (w: World) => {
+    async (w: WorldSlug) => {
       const segmentsInWorld = segments
         .filter((s) => s.sport === "cycling")
         .filter((s) => s.world === w)
@@ -118,13 +116,13 @@ export default function RouteMap({
     <MapContainer
       key={routeSelection.world}
       whenCreated={(map) => setMap(map)}
-      bounds={bounds}
+      bounds={worldConfig.imageBounds}
       style={{ backgroundColor: worldConfig.backgroundColor }}
       maxZoom={19}
     >
       <ImageOverlay
         url={worldConfig.image}
-        bounds={bounds}
+        bounds={worldConfig.imageBounds}
         attribution='&amp;copy <a href="https://zwift.com" rel="noreferrer noopener">Zwift</a>'
       />
       <Pane name="route">

@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Crit City",
+    "slug": "crit-city"
+  },
+  {
+    "name": "France",
+    "slug": "france"
+  },
+  {
+    "name": "Innsbruck",
+    "slug": "innsbruck"
+  },
+  {
+    "name": "London",
+    "slug": "london"
+  },
+  {
+    "name": "New York",
+    "slug": "new-york"
+  },
+  {
+    "name": "Paris",
+    "slug": "paris"
+  },
+  {
+    "name": "Richmond",
+    "slug": "richmond"
+  },
+  {
+    "name": "Watopia",
+    "slug": "watopia"
+  },
+  {
+    "name": "Yorkshire",
+    "slug": "yorkshire"
+  }
+]

@@ -1,5 +1,5 @@
 export interface Route {
-  world: World;
+  world: WorldSlug;
   name: string;
   slug: string;
   distance: number;
@@ -17,7 +17,7 @@ export interface Route {
 }
 
 export type Sport = "running" | "cycling";
-export type World =
+export type WorldSlug =
   | "crit-city"
   | "france"
   | "innsbruck"
@@ -35,7 +35,7 @@ export interface StravaSegment {
 }
 
 export interface Segment {
-  world: World;
+  world: WorldSlug;
   name: string;
   slug: string;
   distance: number;
@@ -43,4 +43,9 @@ export interface Segment {
   stravaSegmentId?: number;
   stravaSegmentUrl?: string;
   sport: Sport;
+}
+
+export interface World {
+  name: string;
+  slug: WorldSlug;
 }

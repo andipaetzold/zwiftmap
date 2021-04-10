@@ -8,7 +8,7 @@ import parisMap from "./maps/paris.png";
 import richmondMap from "./maps/richmond.png";
 import watopiaMap from "./maps/watopia.png";
 import yorkshireMap from "./maps/yorkshire.png";
-import { World } from "./types";
+import { WorldSlug } from "./types";
 
 export type WorldConfig = {
   imageBounds: [LatLngTuple, LatLngTuple];
@@ -17,7 +17,7 @@ export type WorldConfig = {
   backgroundColor: string;
 };
 
-export const worldConfigs: Record<World, WorldConfig> = {
+export const worldConfigs: Record<WorldSlug, WorldConfig> = {
   "crit-city": {
     imageBounds: [
       [-10.3657, 165.7824],
