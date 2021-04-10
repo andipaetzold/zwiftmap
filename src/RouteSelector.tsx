@@ -2,35 +2,27 @@ import c from "classnames";
 import { ChangeEvent } from "react";
 import { routes } from "./data/routes";
 import styles from "./RouteSelector.module.css";
-import { World } from "./types";
+import { Route, World } from "./types";
+
+export interface RouteSelection {
+  world: World;
+  route?: Route;
+}
 
 interface Props {
-  routeSlug: string | undefined;
-  onChange: (routeSlug: string) => void;
-
-  world: World;
-  onWorldChange: (world: World) => void;
+  selection: RouteSelection;
+  onChange: (route: RouteSelection) => void;
 }
-export default function RouteSelector({
-  routeSlug: selectedRouteSlug,
-  onChange,
-
-  world,
-  onWorldChange,
-}: Props) {
+export default function RouteSelector({ selection, onChange }: Props) {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
-      onChange(e.target.value);
+      const route = routes.find((r) => r.slug === e.target.value)!;
+      onChange({ world: route.world, route });
     }
   };
 
-  const handleWorldChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    onWorldChange(e.target.value as World);
-    onChange("");
-  };
-
   const filteredRoutes = routes
-    .filter((route) => route.world === world)
+    .filter((route) => route.world === selection.world)
     .filter((route) => route.sport === "cycling")
     .filter((route) => route.stravaSegmentId !== undefined)
     .sort((a, b) => a.name.localeCompare(b.name));
@@ -38,7 +30,10 @@ export default function RouteSelector({
   return (
     <div className={styles.Container}>
       <div className={styles.Sidebar}>
-        <select value={world} onChange={handleWorldChange}>
+        <select
+          value={selection.world}
+          onChange={(e) => onChange({ world: e.target.value as World })}
+        >
           <option value="crit-city">Crit City</option>
           <option value="france">France</option>
           <option value="innsbruck">Innsbruck</option>
@@ -54,14 +49,14 @@ export default function RouteSelector({
           <label
             key={route.slug}
             className={c(styles.Item, {
-              [styles.selected]: selectedRouteSlug === route.slug,
+              [styles.selected]: selection.route?.slug === route.slug,
             })}
           >
             <input
               type="radio"
               name="routes"
               value={route.slug}
-              checked={selectedRouteSlug === route.slug}
+              checked={selection.route?.slug === route.slug}
               onChange={handleChange}
             />
             {route.name}

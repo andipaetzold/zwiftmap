@@ -1,49 +1,59 @@
 import c from "classnames";
-import React, { useState } from "react";
-import { useAsync } from "react-async-hook";
+import React, { useMemo, useState } from "react";
 import styles from "./App.module.css";
+import { WORLDS } from "./constants";
+import { routes } from "./data/routes";
 import { ElevationChart } from "./ElevationChart";
 import { useHash } from "./hooks/useHash";
 import RouteMap from "./RouteMap";
-import RouteSelector from "./RouteSelector";
-import { getSegment } from "./SegmentRepository";
+import RouteSelector, { RouteSelection } from "./RouteSelector";
 import { World } from "./types";
 
 export default function App() {
-  const [routeSlug, setRouteSlug] = useHash();
-  const { result: segment } = useAsync(async () => {
-    if (routeSlug === "") {
-      return undefined;
+  const [hash, setHash] = useHash();
+  const routeSelection = useMemo<RouteSelection>(() => {
+    if (WORLDS.includes(hash as any)) {
+      return { world: hash as World };
+    } else if (routes.find((r) => r.slug === hash)) {
+      const route = routes.find((r) => r.slug === hash)!;
+      return {
+        world: route.world,
+        route,
+      };
     }
 
-    return await getSegment(routeSlug);
-  }, [routeSlug]);
+    return { world: "watopia" as World };
+  }, [hash]);
+
+  const handleRouteSelectionChange = (rs: RouteSelection) => {
+    if (rs.route) {
+      setHash(rs.route.slug);
+    } else {
+      setHash(rs.world);
+    }
+  };
+
   const [mouseHoverDistance, setMouseHoverDistance] = useState<
     number | undefined
   >(undefined);
 
-  const [world, onWorldChange] = useState<World>("watopia" as World);
-
   return (
     <div
       className={c(styles.Wrapper, {
-        [styles.routeSelected]: segment !== undefined,
+        [styles.routeSelected]: routeSelection.route !== undefined,
       })}
     >
       <RouteSelector
-        routeSlug={routeSlug}
-        onChange={setRouteSlug}
-        world={world}
-        onWorldChange={onWorldChange}
+        selection={routeSelection}
+        onChange={handleRouteSelectionChange}
       />
       <RouteMap
-        segment={segment}
+        routeSelection={routeSelection}
         mouseHoverDistance={mouseHoverDistance}
-        world={world}
       />
-      {segment && (
+      {routeSelection.route && (
         <ElevationChart
-          segment={segment}
+          route={routeSelection.route}
           onMouseHoverDistanceChange={setMouseHoverDistance}
         />
       )}

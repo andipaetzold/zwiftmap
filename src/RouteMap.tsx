@@ -2,17 +2,20 @@ import along from "@turf/along";
 import { lineString } from "@turf/helpers";
 import mapboxgl, { LinePaint, LngLatBounds, Map } from "mapbox-gl";
 import React, { useEffect, useMemo, useState } from "react";
+import { useAsync } from "react-async-hook";
 import ReactMapboxGl, {
   GeoJSONLayer,
   ScaleControl,
-  ZoomControl,
+  ZoomControl
 } from "react-mapbox-gl";
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import mapboxWorker from "worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker";
 import { MAPBOX_TOKEN } from "./constants";
 import styles from "./RouteMap.module.css";
-import { Segment, World } from "./types";
+import { RouteSelection } from "./RouteSelector";
+import { getSegment } from "./SegmentRepository";
+import { Route } from "./types";
 import { flipLatLng } from "./util";
 import { worldConfigs } from "./worldConfig";
 
@@ -34,18 +37,28 @@ const LINE_PAINT: LinePaint = {
 };
 
 interface Props {
-  segment: Segment | undefined;
+  routeSelection: RouteSelection;
   mouseHoverDistance: number | undefined;
-  world: World;
 }
 
 export default function RouteMap({
-  segment,
+  routeSelection,
   mouseHoverDistance,
-  world,
 }: Props) {
+  const world = routeSelection.world;
   const worldConfig = worldConfigs[world];
   const [map, setMap] = useState<Map | undefined>(undefined);
+
+  const { result: segment } = useAsync(
+    async (r?: Route) => {
+      if (r === undefined) {
+        return;
+      }
+
+      return await getSegment(r.slug);
+    },
+    [routeSelection.route]
+  );
 
   useEffect(() => {
     if (!map || !segment) {
@@ -58,17 +71,19 @@ export default function RouteMap({
       new LngLatBounds(coordinates[0], coordinates[0])
     );
 
-    map.fitBounds(bounds, {
+    map.resize().fitBounds(bounds, {
       padding: 20,
     });
   }, [map, segment]);
 
   useEffect(() => {
-    if (!map) {
+    if (!map || routeSelection.route) {
       return;
     }
+
+    // zoom out if map changed without selected route
     map.resize().setZoom(0);
-  }, [map, world]);
+  }, [map, routeSelection]);
 
   const lineGeoJSON = useMemo(() => {
     if (!segment) {

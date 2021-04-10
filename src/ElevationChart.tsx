@@ -1,16 +1,24 @@
 import { ResponsiveLine, Serie } from "@nivo/line";
 import React, { useMemo } from "react";
-import { Segment } from "./types";
-import { simplify } from "./util/simplify";
+import { useAsync } from "react-async-hook";
 import styles from "./ElevationChart.module.css";
+import { getSegment } from "./SegmentRepository";
+import { Route } from "./types";
+import { simplify } from "./util/simplify";
 
 interface Props {
-  segment: Segment;
+  route: Route;
   onMouseHoverDistanceChange: (distance: number | undefined) => void;
 }
 
-export function ElevationChart({ segment }: Props) {
-  const data: Serie[] = useMemo(() => {
+export function ElevationChart({ route }: Props) {
+  const { result: segment } = useAsync(getSegment, [route.slug]);
+
+  const data: Serie[] | undefined = useMemo(() => {
+    if (segment === undefined) {
+      return;
+    }
+
     const serie = {
       id: "Elevation",
       data: simplify(
@@ -24,6 +32,10 @@ export function ElevationChart({ segment }: Props) {
 
     return [serie];
   }, [segment]);
+
+  if (data === undefined) {
+    return null;
+  }
 
   return (
     <div className={styles.Container}>
