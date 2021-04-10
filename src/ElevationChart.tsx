@@ -115,7 +115,7 @@ function TooltipContent(props: TooltipContentProps) {
     if (props.payload === undefined || props.payload.length === 0) {
       props.onMouseDistance(undefined);
     } else {
-      props.onMouseDistance(props.label);
+      props.onMouseDistance(props.label * 1_000);
     }
   }, [props]);
 

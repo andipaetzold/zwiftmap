@@ -1,5 +1,3 @@
-import along from "@turf/along";
-import { lineString } from "@turf/helpers";
 import { LatLngBounds, LatLngExpression, Map } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import React, { useEffect, useMemo, useState } from "react";
@@ -8,7 +6,6 @@ import { Circle, ImageOverlay, MapContainer, Polyline } from "react-leaflet";
 import { RouteSelection } from "./RouteSelector";
 import { getSegment } from "./SegmentRepository";
 import { Route } from "./types";
-import { flipLatLng } from "./util";
 import { worldConfigs } from "./worldConfig";
 
 interface Props {
@@ -75,22 +72,19 @@ export default function RouteMap({
     }
   }, [map, routeSelection]);
 
-  const lineGeoJSON = useMemo(() => {
-    if (!segment) {
-      return;
-    }
-    return lineString(segment.latlng.map(flipLatLng));
-  }, [segment]);
   const pointCoordinates = useMemo<LatLngExpression | undefined>(() => {
-    if (!lineGeoJSON || !mouseHoverDistance) {
+    if (!segment || !mouseHoverDistance) {
       return;
     }
 
-    const point = along(lineGeoJSON, mouseHoverDistance, {
-      units: "kilometers",
-    });
-    return [point.geometry.coordinates[1], point.geometry.coordinates[0]];
-  }, [lineGeoJSON, mouseHoverDistance]);
+    const pointIndex = segment.distance.findIndex(
+      (d) => d > mouseHoverDistance
+    );
+    if (!pointIndex) {
+      return;
+    }
+    return segment.latlng[pointIndex];
+  }, [segment, mouseHoverDistance]);
 
   return (
     <MapContainer
