@@ -1,7 +1,9 @@
 import { Divider } from "@react-md/divider";
-import { ListItem, ListSubheader } from "@react-md/list";
-import React from "react";
+import { ListSubheader } from "@react-md/list";
+import React, { Fragment } from "react";
 import { SearchResult, searchResultTypes } from "../../services/search";
+import { SearchResultCardRoute } from "./SearchResultCardRoute";
+import { SearchResultCardWorld } from "./SearchResultCardWorld";
 
 interface Props {
   searchResults: ReadonlyArray<SearchResult>;
@@ -12,7 +14,7 @@ export function SearchResultList({ searchResults, onResultClick }: Props) {
   return (
     <>
       {searchResults.map((searchResult, i) => (
-        <>
+        <Fragment key={searchResult.data.slug}>
           {searchResults[i - 1]?.type !== searchResult.type && (
             <>
               <Divider />
@@ -21,11 +23,32 @@ export function SearchResultList({ searchResults, onResultClick }: Props) {
               </ListSubheader>
             </>
           )}
-          <ListItem onClick={() => onResultClick(searchResult)}>
-            {searchResult.data.name}
-          </ListItem>
-        </>
+          <SearchResultCard
+            searchResult={searchResult}
+            onClick={() => onResultClick(searchResult)}
+          />
+        </Fragment>
       ))}
     </>
   );
+}
+
+interface SearchResultCardProps {
+  searchResult: SearchResult;
+  onClick: () => void;
+}
+
+function SearchResultCard({ searchResult, onClick }: SearchResultCardProps) {
+  switch (searchResult.type) {
+    case "world":
+      return (
+        <SearchResultCardWorld world={searchResult.data} onClick={onClick} />
+      );
+    case "route":
+      return (
+        <SearchResultCardRoute route={searchResult.data} onClick={onClick} />
+      );
+    default:
+      return null;
+  }
 }
