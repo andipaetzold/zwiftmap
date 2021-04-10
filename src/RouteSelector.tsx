@@ -1,14 +1,13 @@
 import { Button } from "@react-md/button";
 import { Divider } from "@react-md/divider";
-import { TextField, TextFieldAddon } from "@react-md/form";
-import { FontIcon, SVGIcon } from "@react-md/icon";
+import { TextField } from "@react-md/form";
+import { FontIcon } from "@react-md/icon";
 import { List, ListItem, ListSubheader, SimpleListItem } from "@react-md/list";
 import React, { useState } from "react";
 import { routes, worlds } from "./data";
 import styles from "./RouteSelector.module.css";
 import { search, SearchResult, searchResultTypes } from "./services/search";
 import { Route, WorldSlug } from "./types";
-import { worldConfigs } from "./worldConfig";
 
 export interface RouteSelection {
   world: WorldSlug;
