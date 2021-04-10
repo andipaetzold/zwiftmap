@@ -50,9 +50,7 @@ export default function RouteMap({
     );
 
     map.invalidateSize();
-    map.fitBounds(bounds, {
-      padding: [20, 20],
-    });
+    map.fitBounds(bounds);
   }, [map, segment]);
 
   useEffect(() => {
@@ -67,7 +65,7 @@ export default function RouteMap({
     map.invalidateSize();
     map.setMaxBounds(bounds);
 
-    const minZoom = map.getBoundsZoom(bounds, true);
+    const minZoom = map.getBoundsZoom(bounds, false);
     map.setMinZoom(minZoom);
 
     if (!routeSelection.route) {
@@ -90,6 +88,7 @@ export default function RouteMap({
       key={routeSelection.world}
       whenCreated={(map) => setMap(map)}
       bounds={bounds}
+      style={{ backgroundColor: worldConfig.backgroundColor }}
     >
       <ImageOverlay
         url={worldConfig.image}

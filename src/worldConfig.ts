@@ -13,6 +13,7 @@ import { World } from "./types";
 export type WorldConfig = {
   bounds: [LatLngTuple, LatLngTuple];
   image: string;
+  backgroundColor: string;
 };
 
 export const worldConfigs: Record<World, WorldConfig> = {
@@ -22,6 +23,7 @@ export const worldConfigs: Record<World, WorldConfig> = {
       [-10.4038, 165.8207],
     ],
     image: critCityMap,
+    backgroundColor: '#7c9938'
   },
 
   france: {
@@ -30,6 +32,7 @@ export const worldConfigs: Record<World, WorldConfig> = {
       [-21.7564, 166.26125],
     ],
     image: franceMap,
+    backgroundColor: '#6f992d'
   },
 
   innsbruck: {
@@ -38,6 +41,7 @@ export const worldConfigs: Record<World, WorldConfig> = {
       [47.2055, 11.4822],
     ],
     image: innsbruckMap,
+    backgroundColor: '#7c9938'
   },
 
   london: {
@@ -46,6 +50,7 @@ export const worldConfigs: Record<World, WorldConfig> = {
       [51.4601, -0.0555],
     ],
     image: londonMap,
+    backgroundColor: '#6f992d'
   },
 
   "new-york": {
@@ -54,6 +59,7 @@ export const worldConfigs: Record<World, WorldConfig> = {
       [40.74085, -73.9222],
     ],
     image: newYorkMap,
+    backgroundColor: '#bbbbb7'
   },
 
   paris: {
@@ -62,6 +68,7 @@ export const worldConfigs: Record<World, WorldConfig> = {
       [48.82945, 2.3722],
     ],
     image: parisMap,
+    backgroundColor: '#b9b9b9'
   },
 
   richmond: {
@@ -70,6 +77,7 @@ export const worldConfigs: Record<World, WorldConfig> = {
       [37.5014, -77.394],
     ],
     image: richmondMap,
+    backgroundColor: '#7c9938'
   },
 
   watopia: {
@@ -78,6 +86,7 @@ export const worldConfigs: Record<World, WorldConfig> = {
       [-11.70255, 167.03255],
     ],
     image: watopiaMap,
+    backgroundColor: '#0884e2'
   },
   yorkshire: {
     bounds: [
@@ -85,5 +94,6 @@ export const worldConfigs: Record<World, WorldConfig> = {
       [53.9491, -1.5022],
     ],
     image: yorkshireMap,
+    backgroundColor: '#7c9938'
   },
 };
