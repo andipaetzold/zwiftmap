@@ -1,8 +1,8 @@
-import routes from "./data/routes.json";
-import styles from "./RouteSelector.module.css";
-import { Route, World } from "./types";
-import { ChangeEvent } from "react";
 import c from "classnames";
+import { ChangeEvent } from "react";
+import { routes } from "./data/routes";
+import styles from "./RouteSelector.module.css";
+import { World } from "./types";
 
 interface Props {
   routeSlug: string | undefined;
@@ -11,7 +11,6 @@ interface Props {
   world: World;
   onWorldChange: (world: World) => void;
 }
-
 export default function RouteSelector({
   routeSlug: selectedRouteSlug,
   onChange,
@@ -30,7 +29,7 @@ export default function RouteSelector({
     onChange("");
   };
 
-  const filteredRoutes = ((routes as unknown) as Route[])
+  const filteredRoutes = routes
     .filter((route) => route.world === world)
     .filter((route) => route.sport === "cycling")
     .filter((route) => route.stravaSegmentId !== undefined)
