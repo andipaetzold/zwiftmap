@@ -10,6 +10,7 @@ import {
   MapContainer,
   Pane,
   Polyline,
+  ScaleControl,
 } from "react-leaflet";
 import { segments } from "./data";
 import { RouteSelection } from "./RouteSelector";
@@ -121,6 +122,7 @@ export default function RouteMap({
       style={{ backgroundColor: worldConfig.backgroundColor }}
       maxZoom={19}
     >
+      <ScaleControl position="bottomright" />
       <ImageOverlay
         url={worldConfig.image}
         bounds={worldConfig.imageBounds}
