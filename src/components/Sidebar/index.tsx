@@ -2,12 +2,13 @@ import { Button } from "@react-md/button";
 import { Divider } from "@react-md/divider";
 import { TextField } from "@react-md/form";
 import { FontIcon } from "@react-md/icon";
-import { List, ListItem, SimpleListItem } from "@react-md/list";
+import { List, SimpleListItem } from "@react-md/list";
 import React, { useState } from "react";
 import { routes, worlds } from "../../data";
 import { search, SearchResult } from "../../services/search";
 import { RouteSelection } from "../../types";
 import styles from "./index.module.css";
+import { SearchResultCardRoute } from "./SearchResultCardRoute";
 import { SearchResultList } from "./SearchResultList";
 
 interface Props {
@@ -64,12 +65,11 @@ export function Sidebar({ selection, onChange }: Props) {
               .filter((route) => route.stravaSegmentId !== undefined)
               .sort((a, b) => a.name.localeCompare(b.name))
               .map((route) => (
-                <ListItem
+                <SearchResultCardRoute
+                  route={route}
                   key={route.slug}
                   onClick={() => onChange({ world: route.world, route: route })}
-                >
-                  {route.name}
-                </ListItem>
+                />
               ))}
           </>
         ) : (
