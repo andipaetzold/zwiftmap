@@ -1,5 +1,7 @@
-import c from "classnames";
-import { ChangeEvent } from "react";
+import { Divider } from "@react-md/divider";
+import { Select } from "@react-md/form";
+import { List, ListItem, SimpleListItem } from "@react-md/list";
+import React from "react";
 import { routes, worlds } from "./data";
 import styles from "./RouteSelector.module.css";
 import { Route, WorldSlug } from "./types";
@@ -14,13 +16,6 @@ interface Props {
   onChange: (route: RouteSelection) => void;
 }
 export default function RouteSelector({ selection, onChange }: Props) {
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checked) {
-      const route = routes.find((r) => r.slug === e.target.value)!;
-      onChange({ world: route.world, route });
-    }
-  };
-
   const filteredRoutes = routes
     .filter((route) => route.world === selection.world)
     .filter((route) => route.sport === "cycling")
@@ -29,34 +24,30 @@ export default function RouteSelector({ selection, onChange }: Props) {
 
   return (
     <div className={styles.Container}>
-      <div className={styles.Sidebar}>
-        <select
-          value={selection.world}
-          onChange={(e) => onChange({ world: e.target.value as WorldSlug })}
-        >
-          {worlds.map((world) => (
-            <option key={world.slug} value={world.slug}>{world.name}</option>
-          ))}
-        </select>
-
+      <List style={{ width: "100%" }}>
+        <SimpleListItem>
+          <Select
+            id="world-select"
+            value={selection.world}
+            onChange={(newWorldSlug) =>
+              onChange({ world: newWorldSlug as WorldSlug })
+            }
+            labelKey="name"
+            valueKey="slug"
+            options={worlds as any}
+            style={{ width: "100%" }}
+          />
+        </SimpleListItem>
+        <Divider />
         {filteredRoutes.map((route) => (
-          <label
+          <ListItem
             key={route.slug}
-            className={c(styles.Item, {
-              [styles.selected]: selection.route?.slug === route.slug,
-            })}
+            onClick={() => onChange({ world: route.world, route: route })}
           >
-            <input
-              type="radio"
-              name="routes"
-              value={route.slug}
-              checked={selection.route?.slug === route.slug}
-              onChange={handleChange}
-            />
             {route.name}
-          </label>
+          </ListItem>
         ))}
-      </div>
+      </List>
     </div>
   );
 }

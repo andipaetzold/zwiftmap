@@ -3,13 +3,13 @@
   align-items: stretch;
   height: 100vh;
   width: 100vw;
-  grid-template-columns: min-content auto;
+  grid-template-columns: 320px auto;
   grid-template-rows: auto;
   grid-template-areas: "sidebar map";
 }
 
 .Wrapper.routeSelected {
-  grid-template-columns: min-content auto;
+  grid-template-columns: 320px auto;
   grid-template-rows: auto 175px;
   grid-template-areas:
     "sidebar map"

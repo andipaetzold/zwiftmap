@@ -4,37 +4,3 @@
   overflow-y: auto;
   overflow-x: hidden;
 }
-
-.Sidebar {
-  display: flex;
-  flex-direction: column;
-  height: min-content;
-}
-
-.Item {
-  text-align: left;
-  font-size: 1em;
-  white-space: nowrap;
-  overflow: hidden;
-
-  color: #667277;
-  padding: 5px 10px;
-  cursor: pointer;
-}
-
-.Item input {
-  position: fixed;
-  opacity: 0;
-  pointer-events: none; 
-}
-
-.Item:hover,
-.Item:focus {
-  background-color: #f9f9fb;
-}
-
-.Item.selected {
-  color: #001c27;
-  text-decoration: underline;
-  text-decoration-color: #0093d1;
-}
