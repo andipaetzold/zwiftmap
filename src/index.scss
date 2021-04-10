@@ -1,3 +1,10 @@
-@import "~react-md/dist/react-md";
+@import "~@react-md/button/dist/mixins";
+@import "~@react-md/divider/dist/mixins";
+@import "~@react-md/form/dist/mixins";
+@import "~@react-md/icon/dist/mixins";
+@import "~@react-md/list/dist/mixins";
+@import "~@react-md/theme/dist/mixins";
+@import "~@react-md/typography/dist/mixins";
 
+@include react-md-theme;
 @include react-md-utils;
