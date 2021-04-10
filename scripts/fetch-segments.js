@@ -1,7 +1,9 @@
 const fetch = require("node-fetch");
-const { writeFileSync } = require("fs");
+const { writeFileSync, mkdirSync } = require("fs");
 const routes = require("../src/data/routes.json");
 const segments = require("../src/data/segments.json");
+
+const BASE_DIR = `${__dirname}/../public/segments`;
 
 async function main() {
   await Promise.all([
@@ -14,6 +16,7 @@ async function main() {
   ]);
 }
 
+mkdirSync(BASE_DIR);
 main();
 
 async function fetchSegment({ name, slug, stravaSegmentId }) {
@@ -22,9 +25,18 @@ async function fetchSegment({ name, slug, stravaSegmentId }) {
   );
   const stravaData = await response.json();
 
+  const segmentDir = `${BASE_DIR}/${slug}`;
+  mkdirSync(segmentDir);
+
   writeFileSync(
-    `${__dirname}/../public/segments/${slug}.json`,
-    JSON.stringify(stravaData)
+    `${segmentDir}/altitude.json`,
+    JSON.stringify(stravaData.altitude)
   );
+  writeFileSync(
+    `${segmentDir}/distance.json`,
+    JSON.stringify(stravaData.distance)
+  );
+  writeFileSync(`${segmentDir}/latlng.json`, JSON.stringify(stravaData.latlng));
+
   console.log(name);
 }
