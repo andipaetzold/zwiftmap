@@ -1,5 +1,6 @@
 import along from "@turf/along";
 import { lineString } from "@turf/helpers";
+import { LatLngBounds, LatLngExpression, Map } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import React, { useEffect, useMemo, useState } from "react";
 import { useAsync } from "react-async-hook";
@@ -7,9 +8,8 @@ import { Circle, ImageOverlay, MapContainer, Polyline } from "react-leaflet";
 import { RouteSelection } from "./RouteSelector";
 import { getSegment } from "./SegmentRepository";
 import { Route } from "./types";
-import { worldConfigs } from "./worldConfig";
-import { LatLngBounds, LatLngExpression, Map } from "leaflet";
 import { flipLatLng } from "./util";
+import { worldConfigs } from "./worldConfig";
 
 interface Props {
   routeSelection: RouteSelection;
@@ -22,7 +22,7 @@ export default function RouteMap({
 }: Props) {
   const world = routeSelection.world;
   const worldConfig = worldConfigs[world];
-  const bounds = useMemo(() => new LatLngBounds(worldConfig.bounds), [
+  const bounds = useMemo(() => new LatLngBounds(worldConfig.imageBounds), [
     worldConfig,
   ]);
 
@@ -54,7 +54,7 @@ export default function RouteMap({
 
     map.invalidateSize();
     map.fitBounds(bounds);
-  }, [map, segment]);
+  }, [map, segment, worldConfig]);
 
   useEffect(() => {
     if (!map || !routeSelection) {
@@ -63,16 +63,15 @@ export default function RouteMap({
 
     const world = routeSelection.world;
     const worldConfig = worldConfigs[world];
-    const bounds = new LatLngBounds(worldConfig.bounds);
 
     map.invalidateSize();
-    map.setMaxBounds(bounds);
+    map.setMaxBounds(worldConfig.imageBounds);
 
-    const minZoom = map.getBoundsZoom(bounds, false);
+    const minZoom = map.getBoundsZoom(worldConfig.routeBounds, false);
     map.setMinZoom(minZoom);
 
     if (!routeSelection.route) {
-      map.setZoom(minZoom, { animate: false });
+      map.fitBounds(worldConfig.routeBounds);
     }
   }, [map, routeSelection]);
 
@@ -87,7 +86,9 @@ export default function RouteMap({
       return;
     }
 
-    const point = along(lineGeoJSON, mouseHoverDistance, { units: "kilometers" });
+    const point = along(lineGeoJSON, mouseHoverDistance, {
+      units: "kilometers",
+    });
     return [point.geometry.coordinates[1], point.geometry.coordinates[0]];
   }, [lineGeoJSON, mouseHoverDistance]);
 

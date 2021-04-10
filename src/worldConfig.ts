@@ -11,89 +11,119 @@ import yorkshireMap from "./maps/yorkshire.png";
 import { World } from "./types";
 
 export type WorldConfig = {
-  bounds: [LatLngTuple, LatLngTuple];
+  imageBounds: [LatLngTuple, LatLngTuple];
+  routeBounds: [LatLngTuple, LatLngTuple];
   image: string;
   backgroundColor: string;
 };
 
 export const worldConfigs: Record<World, WorldConfig> = {
   "crit-city": {
-    bounds: [
+    imageBounds: [
       [-10.3657, 165.7824],
       [-10.4038, 165.8207],
     ],
+    routeBounds: [
+      [53.999691, -1.560305],
+      [53.99099, -1.545435],
+    ],
     image: critCityMap,
-    backgroundColor: '#7c9938'
+    backgroundColor: "#7c9938",
   },
-
   france: {
-    bounds: [
+    imageBounds: [
       [-21.64155, 166.1384],
       [-21.7564, 166.26125],
     ],
+    routeBounds: [
+      [-21.652087, 166.148225],
+      [-21.74491, 166.251404],
+    ],
     image: franceMap,
-    backgroundColor: '#6f992d'
+    backgroundColor: "#6f992d",
   },
-
   innsbruck: {
-    bounds: [
+    imageBounds: [
       [47.2947, 11.3501],
       [47.2055, 11.4822],
     ],
+    routeBounds: [
+      [47.280902, 11.386414],
+      [47.214544, 11.445934],
+    ],
     image: innsbruckMap,
-    backgroundColor: '#7c9938'
+    backgroundColor: "#7c9938",
   },
-
   london: {
-    bounds: [
+    imageBounds: [
       [51.5362, -0.1776],
       [51.4601, -0.0555],
     ],
+    routeBounds: [
+      [51.511272, -0.164224],
+      [51.474343, -0.061869],
+    ],
     image: londonMap,
-    backgroundColor: '#6f992d'
+    backgroundColor: "#6f992d",
   },
-
   "new-york": {
-    bounds: [
+    imageBounds: [
       [40.81725, -74.0227],
       [40.74085, -73.9222],
     ],
+    routeBounds: [
+      [40.799618, -73.982068],
+      [40.763547, -73.949602],
+    ],
     image: newYorkMap,
-    backgroundColor: '#bbbbb7'
+    backgroundColor: "#bbbbb7",
   },
-
   paris: {
-    bounds: [
+    imageBounds: [
       [48.9058, 2.2561],
       [48.82945, 2.3722],
     ],
+    routeBounds: [
+      [48.874328, 2.294207],
+      [48.860895, 2.331992],
+    ],
     image: parisMap,
-    backgroundColor: '#b9b9b9'
+    backgroundColor: "#b9b9b9",
   },
-
   richmond: {
-    bounds: [
+    imageBounds: [
       [37.5774, -77.48954],
       [37.5014, -77.394],
     ],
+    routeBounds: [
+      [37.558393, -77.467668],
+      [37.520429, -77.415864],
+    ],
     image: richmondMap,
-    backgroundColor: '#7c9938'
+    backgroundColor: "#7c9938",
   },
-
   watopia: {
-    bounds: [
+    imageBounds: [
       [-11.62597, 166.87747],
       [-11.70255, 167.03255],
     ],
+    routeBounds: [
+      [-11.634595, 166.88756],
+      [-11.693004, 167.002777],
+    ],
     image: watopiaMap,
-    backgroundColor: '#0884e2'
+    backgroundColor: "#0884e2",
   },
   yorkshire: {
-    bounds: [
+    imageBounds: [
       [54.0254, -1.632],
       [53.9491, -1.5022],
     ],
+    routeBounds: [
+      [53.999691, -1.592961],
+      [53.974875, -1.539474],
+    ],
     image: yorkshireMap,
-    backgroundColor: '#7c9938'
+    backgroundColor: "#7c9938",
   },
 };
