@@ -1,5 +1,5 @@
 import { routes, worlds } from "../data";
-import { Route, Segment, World } from "../types";
+import { Route, Segment, Sport, World } from "../types";
 
 export type SearchResult =
   | SearchResultWorld
@@ -31,7 +31,6 @@ const searchResults: SearchResult[] = [
     data: world,
   })),
   ...routes
-    .filter((route) => route.sport === "cycling")
     .filter((route) => route.stravaSegmentId !== undefined)
     .map((route) => ({
       type: "route" as const,
@@ -42,7 +41,6 @@ const searchResults: SearchResult[] = [
       data: route,
     })),
   //   ...segments
-  //   .filter((route) => route.sport === "cycling")
   //     .filter((route) => route.stravaSegmentId !== undefined)
   //     .map((segment) => ({
   //     type: "segment" as const,
@@ -54,15 +52,24 @@ const searchResults: SearchResult[] = [
   //   })),
 ];
 
-export function search(term: string): SearchResult[] {
+export function search(term: string, sport: Sport): SearchResult[] {
   const terms = term
     .toLocaleLowerCase()
     .split(" ")
     .filter((t) => t.length > 0);
 
-  return searchResults.filter((sr) =>
-    terms.every((t) => sr.terms.some((srt) => srt.includes(t)))
-  );
+  return searchResults
+    .filter((sr) => {
+      if (sr.type === "world") {
+        return true;
+      } else {
+        return sr.data.sport === sport;
+      }
+    })
+
+    .filter((sr) =>
+      terms.every((t) => sr.terms.some((srt) => srt.includes(t)))
+    );
 }
 
 export const searchResultTypes = {

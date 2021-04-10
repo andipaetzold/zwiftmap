@@ -10,14 +10,15 @@ import {
   MapContainer,
   Pane,
   Polyline,
-  ScaleControl
+  ScaleControl,
 } from "react-leaflet";
 import { segments } from "./data";
+import { useSettings } from "./hooks/useSettings";
 import {
   getStravaSegmentStream,
-  getStravaSegmentStreams
+  getStravaSegmentStreams,
 } from "./StravaSegmentRepository";
-import { Route, RouteSelection, WorldSlug } from "./types";
+import { Route, RouteSelection, Segment } from "./types";
 import { worldConfigs } from "./worldConfig";
 
 interface Props {
@@ -31,23 +32,27 @@ export default function RouteMap({
 }: Props) {
   const world = routeSelection.world;
   const worldConfig = worldConfigs[world];
+  const [settings] = useSettings();
 
+  const filteredSegments = useMemo(
+    () =>
+      segments
+        .filter((s) => s.sport === settings.sport)
+        .filter((s) => s.world === world)
+        .filter((s) => s.stravaSegmentId !== undefined),
+    [settings.sport, world]
+  );
   const { result: stravaSegmentsInWorld } = useAsync(
-    async (w: WorldSlug) => {
-      const segmentsInWorld = segments
-        .filter((s) => s.sport === "cycling")
-        .filter((s) => s.world === w)
-        .filter((s) => s.stravaSegmentId !== undefined);
-
+    async (fs: Segment[]) => {
       const stravaSegments = await Promise.all(
-        segmentsInWorld.map((s) => getStravaSegmentStream(s.slug, "latlng"))
+        fs.map((s) => getStravaSegmentStream(s.slug, "latlng"))
       );
-      return segmentsInWorld.map((s, i) => ({
+      return fs.map((s, i) => ({
         ...s,
         stravaData: stravaSegments[i],
       }));
     },
-    [world]
+    [filteredSegments]
   );
 
   const [map, setMap] = useState<Map | undefined>();

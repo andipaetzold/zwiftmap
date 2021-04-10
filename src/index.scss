@@ -1,4 +1,7 @@
+$rmd-dialog-z-index: 1000; // leaflet is around z-index 400
+
 @import "~@react-md/button/dist/mixins";
+@import "~@react-md/dialog/dist/mixins";
 @import "~@react-md/divider/dist/mixins";
 @import "~@react-md/form/dist/mixins";
 @import "~@react-md/icon/dist/mixins";

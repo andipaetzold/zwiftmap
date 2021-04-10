@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@react-md/button": "2.7.1",
+    "@react-md/dialog": "2.7.1",
     "@react-md/divider": "2.7.1",
     "@react-md/form": "2.7.1",
     "@react-md/icon": "2.7.1",

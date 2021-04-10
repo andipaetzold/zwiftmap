@@ -50,8 +50,11 @@ export interface World {
   slug: WorldSlug;
 }
 
-
 export interface RouteSelection {
   world: WorldSlug;
   route?: Route;
+}
+
+export interface Settings {
+  sport: Sport;
 }
