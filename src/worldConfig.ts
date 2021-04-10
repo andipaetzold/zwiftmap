@@ -1,80 +1,89 @@
-import type { FitBounds } from "react-mapbox-gl/lib/map";
+import { LatLngTuple } from "leaflet";
+import critCityMap from "./maps/crit-city.png";
+import franceMap from "./maps/france.png";
+import innsbruckMap from "./maps/innsbruck.png";
+import londonMap from "./maps/london.png";
+import newYorkMap from "./maps/new-york.png";
+import parisMap from "./maps/paris.png";
+import richmondMap from "./maps/richmond.png";
+import watopiaMap from "./maps/watopia.png";
+import yorkshireMap from "./maps/yorkshire.png";
 import { World } from "./types";
 
 export type WorldConfig = {
-  style: string;
-  bounds: FitBounds;
+  bounds: [LatLngTuple, LatLngTuple];
+  image: string;
 };
 
 export const worldConfigs: Record<World, WorldConfig> = {
   "crit-city": {
-    style: process.env.REACT_APP_MAPBOX_STYLE_CRIT_CITY!,
     bounds: [
-      [165.78, -10.4],
-      [165.82, -10.37],
+      [-10.3657, 165.7824],
+      [-10.4038, 165.8207],
     ],
+    image: critCityMap,
   },
 
   france: {
-    style: process.env.REACT_APP_MAPBOX_STYLE_FRANCE!,
     bounds: [
-      [166.14, -21.76],
-      [166.26, -21.64],
+      [-21.64155, 166.1384],
+      [-21.7564, 166.26125],
     ],
+    image: franceMap,
   },
 
   innsbruck: {
-    style: process.env.REACT_APP_MAPBOX_STYLE_INNSBRUCK!,
     bounds: [
-      [11.35, 47.21],
-      [11.48, 47.29],
+      [47.2947, 11.3501],
+      [47.2055, 11.4822],
     ],
+    image: innsbruckMap,
   },
 
   london: {
-    style: process.env.REACT_APP_MAPBOX_STYLE_LONDON!,
     bounds: [
-      [-0.17, 51.46],
-      [-0.06, 51.53],
+      [51.5362, -0.1776],
+      [51.4601, -0.0555],
     ],
+    image: londonMap,
   },
 
   "new-york": {
-    style: process.env.REACT_APP_MAPBOX_STYLE_NEW_YORK!,
     bounds: [
-      [-74.02, 40.74],
-      [-73.92, 40.82],
+      [40.81725, -74.0227],
+      [40.74085, -73.9222],
     ],
+    image: newYorkMap,
   },
 
   paris: {
-    style: process.env.REACT_APP_MAPBOX_STYLE_PARIS!,
     bounds: [
-      [2.25, 48.83],
-      [2.37, 48.91],
+      [48.9058, 2.2561],
+      [48.82945, 2.3722],
     ],
+    image: parisMap,
   },
 
   richmond: {
-    style: process.env.REACT_APP_MAPBOX_STYLE_RICHMOND!,
     bounds: [
-      [-77.49, 37.5],
-      [-77.39, 37.58],
+      [37.5774, -77.48954],
+      [37.5014, -77.394],
     ],
+    image: richmondMap,
   },
 
   watopia: {
-    style: process.env.REACT_APP_MAPBOX_STYLE_WATOPIA!,
     bounds: [
-      [166.88, -11.7],
-      [167.03, -11.63],
+      [-11.62597, 166.87747],
+      [-11.70255, 167.03255],
     ],
+    image: watopiaMap,
   },
   yorkshire: {
-    style: process.env.REACT_APP_MAPBOX_STYLE_YORKSHIRE!,
     bounds: [
-      [-1.63, 53.95],
-      [-1.5, 54.03],
+      [54.0254, -1.632],
+      [53.9491, -1.5022],
     ],
+    image: yorkshireMap,
   },
 };
