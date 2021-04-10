@@ -12,16 +12,20 @@ import {
   YAxis,
 } from "recharts";
 import styles from "./ElevationChart.module.css";
-import { getStravaSegment } from "./StravaSegmentRepository";
-import { Route } from "./types";
+import { getStravaSegmentStreams } from "./StravaSegmentRepository";
+import { Route, StravaSegment } from "./types";
 
 interface Props {
   route: Route;
   onMouseHoverDistanceChange: (distance: number | undefined) => void;
 }
 
+const REQUIRED_STREAMS = ["altitude", "distance"] as const;
+
 export function ElevationChart({ route, onMouseHoverDistanceChange }: Props) {
-  const { result: segment } = useAsync(getStravaSegment, [route.slug]);
+  const { result: segment } = useAsync<
+    Pick<StravaSegment, "altitude" | "distance">
+  >(getStravaSegmentStreams, [route.slug, REQUIRED_STREAMS]);
 
   const data: any[] | undefined = useMemo(() => {
     if (segment === undefined) {

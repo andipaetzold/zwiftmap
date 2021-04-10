@@ -14,7 +14,10 @@ import {
 } from "react-leaflet";
 import { segments } from "./data";
 import { RouteSelection } from "./RouteSelector";
-import { getStravaSegment } from "./StravaSegmentRepository";
+import {
+  getStravaSegmentStream,
+  getStravaSegmentStreams,
+} from "./StravaSegmentRepository";
 import { Route, WorldSlug } from "./types";
 import { worldConfigs } from "./worldConfig";
 
@@ -38,7 +41,7 @@ export default function RouteMap({
         .filter((s) => s.stravaSegmentId !== undefined);
 
       const stravaSegments = await Promise.all(
-        segmentsInWorld.map((s) => getStravaSegment(s.slug))
+        segmentsInWorld.map((s) => getStravaSegmentStream(s.slug, "latlng"))
       );
       return segmentsInWorld.map((s, i) => ({
         ...s,
@@ -59,7 +62,7 @@ export default function RouteMap({
         return;
       }
 
-      return await getStravaSegment(r.slug);
+      return await getStravaSegmentStreams(r.slug, ["distance", "latlng"]);
     },
     [routeSelection.route]
   );
@@ -145,7 +148,7 @@ export default function RouteMap({
               {stravaSegmentsInWorld?.map((s) => (
                 <Polyline
                   key={s.slug}
-                  positions={s.stravaData.latlng}
+                  positions={s.stravaData}
                   pathOptions={{ color: "green", weight: 5 }}
                 />
               ))}
