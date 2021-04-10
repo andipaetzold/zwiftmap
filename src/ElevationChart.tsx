@@ -12,7 +12,7 @@ import {
   YAxis,
 } from "recharts";
 import styles from "./ElevationChart.module.css";
-import { getSegment } from "./SegmentRepository";
+import { getStravaSegment } from "./StravaSegmentRepository";
 import { Route } from "./types";
 
 interface Props {
@@ -21,7 +21,7 @@ interface Props {
 }
 
 export function ElevationChart({ route, onMouseHoverDistanceChange }: Props) {
-  const { result: segment } = useAsync(getSegment, [route.slug]);
+  const { result: segment } = useAsync(getStravaSegment, [route.slug]);
 
   const data: any[] | undefined = useMemo(() => {
     if (segment === undefined) {

@@ -1,0 +1,178 @@
+[
+  {
+    "name": "Ballon Sprint",
+    "slug": "ballon-sprint",
+    "type": "sprint",
+    "world": "france",
+    "sport": "cycling"
+  },
+  {
+    "name": "Ballon Sprint Rev.",
+    "slug": "ballon-sprint-rev",
+    "type": "sprint",
+    "world": "france",
+    "stravaSegmentId": 24700963,
+    "stravaSegmentUrl": "https://www.strava.com/segments/24700963",
+    "sport": "cycling"
+  },
+  {
+    "name": "Broad St.",
+    "slug": "broad-st",
+    "type": "sprint",
+    "world": "richmond",
+    "stravaSegmentId": 12128880,
+    "stravaSegmentUrl": "https://www.strava.com/segments/12128880",
+    "sport": "cycling"
+  },
+  {
+    "name": "Fuego Flats",
+    "slug": "fuego-flats",
+    "type": "sprint",
+    "world": "watopia",
+    "stravaSegmentId": 20350107,
+    "stravaSegmentUrl": "https://www.strava.com/segments/20350107",
+    "sport": "cycling"
+  },
+  {
+    "name": "Fuego Flats Rev.",
+    "slug": "fuego-flats-rev",
+    "type": "sprint",
+    "world": "watopia",
+    "stravaSegmentId": 12109228,
+    "stravaSegmentUrl": "https://www.strava.com/segments/12109228",
+    "sport": "cycling"
+  },
+  {
+    "name": "Innsbruck Sprint",
+    "slug": "innsbruck-sprint",
+    "type": "sprint",
+    "world": "innsbruck",
+    "sport": "cycling"
+  },
+  {
+    "name": "Innsbruck Sprint Rev.",
+    "slug": "innsbruck-sprint-rev",
+    "type": "sprint",
+    "world": "innsbruck",
+    "sport": "cycling"
+  },
+  {
+    "name": "Lutece Sprint",
+    "slug": "lutece-sprint",
+    "type": "sprint",
+    "world": "paris",
+    "sport": "cycling"
+  },
+  {
+    "name": "Lutece Sprint Rev.",
+    "slug": "lutece-sprint-rev",
+    "type": "sprint",
+    "world": "paris",
+    "sport": "cycling"
+  },
+  {
+    "name": "Marina Sprint",
+    "slug": "marina-sprint",
+    "type": "sprint",
+    "world": "france",
+    "stravaSegmentId": 24710590,
+    "stravaSegmentUrl": "https://www.strava.com/segments/24710590",
+    "sport": "cycling"
+  },
+  {
+    "name": "Marina Sprint Rev.",
+    "slug": "marina-sprint-rev",
+    "type": "sprint",
+    "world": "france",
+    "sport": "cycling"
+  },
+  {
+    "name": "Monument Ave",
+    "slug": "monument-ave",
+    "type": "sprint",
+    "world": "richmond",
+    "stravaSegmentId": 12128762,
+    "stravaSegmentUrl": "https://www.strava.com/segments/12128762",
+    "sport": "cycling"
+  },
+  {
+    "name": "New York Sprint",
+    "slug": "new-york-sprint",
+    "type": "sprint",
+    "world": "new-york",
+    "sport": "cycling"
+  },
+  {
+    "name": "New York Sprint Rev.",
+    "slug": "new-york-sprint-rev",
+    "type": "sprint",
+    "world": "new-york",
+    "sport": "cycling"
+  },
+  {
+    "name": "Pav\\xe9 Sprint",
+    "slug": "pave-sprint",
+    "type": "sprint",
+    "world": "france",
+    "sport": "cycling"
+  },
+  {
+    "name": "Pav\\xe9 Sprint Rev.",
+    "slug": "pave-sprint-rev",
+    "type": "sprint",
+    "world": "france",
+    "sport": "cycling"
+  },
+  {
+    "name": "The Mall",
+    "slug": "the-mall",
+    "type": "sprint",
+    "world": "london",
+    "stravaSegmentId": 12749377,
+    "stravaSegmentUrl": "https://www.strava.com/segments/12749377",
+    "sport": "cycling"
+  },
+  {
+    "name": "The Mall Rev.",
+    "slug": "the-mall-rev",
+    "type": "sprint",
+    "world": "london",
+    "stravaSegmentId": 12749402,
+    "stravaSegmentUrl": "https://www.strava.com/segments/12749402",
+    "sport": "cycling"
+  },
+  {
+    "name": "Watopia Sprint",
+    "slug": "watopia-sprint",
+    "type": "sprint",
+    "world": "watopia",
+    "stravaSegmentId": 12109305,
+    "stravaSegmentUrl": "https://www.strava.com/segments/12109305",
+    "sport": "cycling"
+  },
+  {
+    "name": "Watopia Sprint Rev.",
+    "slug": "watopia-sprint-rev",
+    "type": "sprint",
+    "world": "watopia",
+    "stravaSegmentId": 12109228,
+    "stravaSegmentUrl": "https://www.strava.com/segments/12109228",
+    "sport": "cycling"
+  },
+  {
+    "name": "Yorkshire Sprint",
+    "slug": "yorkshire-sprint",
+    "type": "sprint",
+    "world": "yorkshire",
+    "stravaSegmentId": 21748007,
+    "stravaSegmentUrl": "https://www.strava.com/segments/21748007",
+    "sport": "cycling"
+  },
+  {
+    "name": "Yorkshire Sprint Rev.",
+    "slug": "yorkshire-sprint-rev",
+    "type": "sprint",
+    "world": "yorkshire",
+    "sport": "cycling"
+  }
+]

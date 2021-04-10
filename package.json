@@ -24,7 +24,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "prebuild": "node scripts/fetch-routes.js",
+    "prebuild": "node scripts/fetch-segments.js",
     "build": "react-scripts build"
   },
   "eslintConfig": {

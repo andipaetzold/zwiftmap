@@ -28,8 +28,19 @@ export type World =
   | "watopia"
   | "yorkshire";
 
-export interface Segment {
+export interface StravaSegment {
   latlng: Array<[number, number]>;
   distance: number[];
   altitude: number[];
+}
+
+export interface Segment {
+  world: World;
+  name: string;
+  slug: string;
+  distance: number;
+  elevation: number;
+  stravaSegmentId?: number;
+  stravaSegmentUrl?: string;
+  sport: Sport;
 }
