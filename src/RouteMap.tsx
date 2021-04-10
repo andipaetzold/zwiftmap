@@ -76,15 +76,20 @@ export default function RouteMap({
     }
   }, [map, routeSelection]);
 
+  const lineGeoJSON = useMemo(() => {
+    if (!segment) {
+      return;
+    }
+    return lineString(segment.latlng.map(flipLatLng));
+  }, [segment]);
   const pointCoordinates = useMemo<LatLngExpression | undefined>(() => {
-    if (!segment || !mouseHoverDistance) {
+    if (!lineGeoJSON || !mouseHoverDistance) {
       return;
     }
 
-    const line = lineString(segment.latlng.map(flipLatLng));
-    const point = along(line, mouseHoverDistance, { units: "kilometers" });
+    const point = along(lineGeoJSON, mouseHoverDistance, { units: "kilometers" });
     return [point.geometry.coordinates[1], point.geometry.coordinates[0]];
-  }, [segment, mouseHoverDistance]);
+  }, [lineGeoJSON, mouseHoverDistance]);
 
   return (
     <MapContainer
@@ -107,10 +112,10 @@ export default function RouteMap({
       {pointCoordinates && (
         <Circle
           center={pointCoordinates}
-          radius={5}
+          radius={10}
           pathOptions={{
-            color: "white",
-            fillColor: "white",
+            color: "black",
+            fillColor: "black",
             fillOpacity: 1,
           }}
         />

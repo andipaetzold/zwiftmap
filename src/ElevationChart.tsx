@@ -1,4 +1,5 @@
-import React, { useMemo } from "react";
+import uniqWith from "lodash/uniqWith";
+import React, { useEffect, useMemo } from "react";
 import { useAsync } from "react-async-hook";
 import {
   Area,
@@ -19,7 +20,7 @@ interface Props {
   onMouseHoverDistanceChange: (distance: number | undefined) => void;
 }
 
-export function ElevationChart({ route }: Props) {
+export function ElevationChart({ route, onMouseHoverDistanceChange }: Props) {
   const { result: segment } = useAsync(getSegment, [route.slug]);
 
   const data: any[] | undefined = useMemo(() => {
@@ -27,10 +28,13 @@ export function ElevationChart({ route }: Props) {
       return;
     }
 
-    return segment.distance.map((distance, index) => ({
-      distance: distance / 1_000,
-      elevation: segment.altitude[index],
-    }));
+    return uniqWith(
+      segment.distance.map((distance, index) => ({
+        distance: Math.round(distance / 10) / 100,
+        elevation: segment.altitude[index],
+      })),
+      (a, b) => a.distance === b.distance
+    );
   }, [segment]);
 
   if (data === undefined) {
@@ -74,12 +78,16 @@ export function ElevationChart({ route }: Props) {
             allowDecimals={false}
             tickCount={5}
             domain={[0, "auto"]}
-            unit="m"
           />
           <Tooltip
-            content={TooltipContent}
+            content={(props) => (
+              <TooltipContent
+                {...props}
+                onMouseDistance={onMouseHoverDistanceChange}
+              />
+            )}
             isAnimationActive={false}
-            position={{ y: 0 }}
+            position={{ y: 10 }}
             cursor={{ stroke: "black" }}
           />
           <Area
@@ -98,7 +106,19 @@ export function ElevationChart({ route }: Props) {
   );
 }
 
-function TooltipContent(props: TooltipProps<any, any>) {
+interface TooltipContentProps extends TooltipProps<any, any> {
+  onMouseDistance: (distance: number | undefined) => void;
+}
+
+function TooltipContent(props: TooltipContentProps) {
+  useEffect(() => {
+    if (props.payload === undefined || props.payload.length === 0) {
+      props.onMouseDistance(undefined);
+    } else {
+      props.onMouseDistance(props.label);
+    }
+  }, [props]);
+
   if (props.payload === undefined || props.payload.length === 0) {
     return null;
   }
