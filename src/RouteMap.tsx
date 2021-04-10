@@ -5,12 +5,13 @@ import { useAsync } from "react-async-hook";
 import {
   Circle,
   ImageOverlay,
+  LayerGroup,
   LayersControl,
   MapContainer,
   Pane,
   Polyline,
 } from "react-leaflet";
-import { segments, worlds } from "./data";
+import { segments } from "./data";
 import { RouteSelection } from "./RouteSelector";
 import { getStravaSegment } from "./StravaSegmentRepository";
 import { Route, WorldSlug } from "./types";
@@ -125,6 +126,7 @@ export default function RouteMap({
         bounds={worldConfig.imageBounds}
         attribution='&amp;copy <a href="https://zwift.com" rel="noreferrer noopener">Zwift</a>'
       />
+
       <Pane name="route">
         {routeStravaSegment && (
           <Polyline
@@ -133,15 +135,23 @@ export default function RouteMap({
           />
         )}
       </Pane>
-      <Pane name="segments">
-        {stravaSegmentsInWorld?.map((s) => (
-          <Polyline
-            key={s.slug}
-            positions={s.stravaData.latlng}
-            pathOptions={{ color: "green", weight: 5 }}
-          />
-        ))}
-      </Pane>
+
+      <LayersControl>
+        <LayersControl.Overlay name="Show segments" checked>
+          <LayerGroup>
+            <Pane name="segments">
+              {stravaSegmentsInWorld?.map((s) => (
+                <Polyline
+                  key={s.slug}
+                  positions={s.stravaData.latlng}
+                  pathOptions={{ color: "green", weight: 5 }}
+                />
+              ))}
+            </Pane>
+          </LayerGroup>
+        </LayersControl.Overlay>
+      </LayersControl>
+
       <Pane name="mouse-position">
         {pointCoordinates && (
           <Circle
