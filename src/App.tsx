@@ -1,5 +1,5 @@
 import c from "classnames";
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import styles from "./App.module.css";
 import { Sidebar } from "./components/Sidebar";
 import { routes, worlds } from "./data";
@@ -24,13 +24,16 @@ export default function App() {
     return { world: "watopia" as WorldSlug };
   }, [hash]);
 
-  const handleRouteSelectionChange = (rs: RouteSelection) => {
-    if (rs.route) {
-      setHash(rs.route.slug);
-    } else {
-      setHash(rs.world);
-    }
-  };
+  const handleRouteSelectionChange = useCallback(
+    (rs: RouteSelection) => {
+      if (rs.route) {
+        setHash(rs.route.slug);
+      } else {
+        setHash(rs.world);
+      }
+    },
+    [setHash]
+  );
 
   const [mouseHoverDistance, setMouseHoverDistance] = useState<
     number | undefined

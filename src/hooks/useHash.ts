@@ -12,9 +12,9 @@ export function useHash(): [string, (hash: string) => void] {
     return () => window.removeEventListener("popstate", listener);
   }, []);
 
-  const updateHash = (hash: string) => {
-    window.location.hash = `#${hash}`;
-  };
-
   return [hash.slice(1), updateHash];
+}
+
+function updateHash(hash: string) {
+  window.location.hash = `#${hash}`;
 }
