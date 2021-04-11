@@ -10,7 +10,6 @@ import {
   MapContainer,
   Pane,
   Polyline,
-  ScaleControl,
 } from "react-leaflet";
 import { segments } from "./data";
 import { useLocationState } from "./hooks/useLocationState";
@@ -170,8 +169,6 @@ export default function RouteMap({ mouseHoverDistance }: Props) {
           />
         )}
       </Pane>
-
-      <ScaleControl position="topright" />
     </MapContainer>
   );
 }
