@@ -11,15 +11,17 @@ import {
   Pane,
   Polyline,
 } from "react-leaflet";
-import { segments } from "./data";
-import { useLocationState } from "./hooks/useLocationState";
-import { useSettings } from "./hooks/useSettings";
+import { segments } from "../../data";
+import { useLocationState } from "../../hooks/useLocationState";
+import { useSettings } from "../../hooks/useSettings";
 import {
   getStravaSegmentStream,
   getStravaSegmentStreams,
-} from "./StravaSegmentRepository";
-import { Route, Segment } from "./types";
-import { worldConfigs } from "./worldConfig";
+} from "../../StravaSegmentRepository";
+import { Route, Segment } from "../../types";
+import { worldConfigs } from "../../worldConfig";
+import styles from "./index.module.css";
+import { WorldSelect } from "./WorldSelect";
 
 interface Props {
   mouseHoverDistance: number | undefined;
@@ -118,57 +120,61 @@ export default function RouteMap({ mouseHoverDistance }: Props) {
   }, [routeStravaSegment, mouseHoverDistance]);
 
   return (
-    <MapContainer
-      key={locationState.world.slug}
-      whenCreated={(map) => setMap(map)}
-      bounds={worldConfig.imageBounds}
-      style={{ backgroundColor: worldConfig.backgroundColor }}
-      maxZoom={19}
-    >
-      <ImageOverlay
-        url={worldConfig.image}
+    <div className={styles.Container}>
+      <WorldSelect />
+      <MapContainer
+        key={locationState.world.slug}
+        whenCreated={(map) => setMap(map)}
         bounds={worldConfig.imageBounds}
-        attribution='&amp;copy <a href="https://zwift.com" rel="noreferrer noopener">Zwift</a>'
-      />
+        style={{ backgroundColor: worldConfig.backgroundColor }}
+        maxZoom={19}
+        className={styles.MapContainer}
+      >
+        <ImageOverlay
+          url={worldConfig.image}
+          bounds={worldConfig.imageBounds}
+          attribution='&amp;copy <a href="https://zwift.com" rel="noreferrer noopener">Zwift</a>'
+        />
 
-      <Pane name="route">
-        {routeStravaSegment && (
-          <Polyline
-            positions={routeStravaSegment.latlng}
-            pathOptions={{ color: "#fc6719", weight: 5 }}
-          />
-        )}
-      </Pane>
+        <Pane name="route">
+          {routeStravaSegment && (
+            <Polyline
+              positions={routeStravaSegment.latlng}
+              pathOptions={{ color: "#fc6719", weight: 5 }}
+            />
+          )}
+        </Pane>
 
-      <LayersControl>
-        <LayersControl.Overlay name="Show segments" checked>
-          <LayerGroup>
-            <Pane name="segments">
-              {stravaSegmentsInWorld?.map((s) => (
-                <Polyline
-                  key={s.slug}
-                  positions={s.stravaData}
-                  pathOptions={{ color: "green", weight: 5 }}
-                />
-              ))}
-            </Pane>
-          </LayerGroup>
-        </LayersControl.Overlay>
-      </LayersControl>
+        <LayersControl>
+          <LayersControl.Overlay name="Show segments" checked>
+            <LayerGroup>
+              <Pane name="segments">
+                {stravaSegmentsInWorld?.map((s) => (
+                  <Polyline
+                    key={s.slug}
+                    positions={s.stravaData}
+                    pathOptions={{ color: "green", weight: 5 }}
+                  />
+                ))}
+              </Pane>
+            </LayerGroup>
+          </LayersControl.Overlay>
+        </LayersControl>
 
-      <Pane name="mouse-position">
-        {pointCoordinates && (
-          <Circle
-            center={pointCoordinates}
-            radius={10}
-            pathOptions={{
-              color: "black",
-              fillColor: "black",
-              fillOpacity: 1,
-            }}
-          />
-        )}
-      </Pane>
-    </MapContainer>
+        <Pane name="mouse-position">
+          {pointCoordinates && (
+            <Circle
+              center={pointCoordinates}
+              radius={10}
+              pathOptions={{
+                color: "black",
+                fillColor: "black",
+                fillOpacity: 1,
+              }}
+            />
+          )}
+        </Pane>
+      </MapContainer>
+    </div>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./App.module.css";
 import { Sidebar } from "./components/Sidebar";
-import RouteMap from "./RouteMap";
+import RouteMap from "./components/RouteMap";
 
 export default function App() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

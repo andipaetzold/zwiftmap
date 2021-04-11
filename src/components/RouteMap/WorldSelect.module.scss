@@ -1,0 +1,16 @@
+.Container {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+
+  :global(.rmd-select) {
+    background-color: white;
+    cursor: pointer;
+    width: 150px;
+    z-index: 3000;
+  }
+
+  :global(.rmd-list-item) {
+    z-index: 3000;
+  }
+}
