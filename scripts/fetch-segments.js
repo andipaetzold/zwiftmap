@@ -2,6 +2,7 @@ const fetch = require("node-fetch");
 const { writeFileSync, mkdirSync } = require("fs");
 const routes = require("../src/data/routes.json");
 const segments = require("../src/data/segments.json");
+const { existsSync } = require("node:fs");
 
 const BASE_DIR = `${__dirname}/../public/segments`;
 
@@ -16,7 +17,9 @@ async function main() {
   ]);
 }
 
-mkdirSync(BASE_DIR);
+if (!existsSync(BASE_DIR)) {
+  mkdirSync(BASE_DIR);
+}
 main();
 
 async function fetchSegment({ name, slug, stravaSegmentId }) {
