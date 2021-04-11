@@ -37,7 +37,8 @@
   "scripts": {
     "start": "react-scripts start",
     "prebuild": "node scripts/fetch-segments.js",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "test": "react-scripts test"
   },
   "eslintConfig": {
     "extends": [

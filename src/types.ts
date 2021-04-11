@@ -43,6 +43,7 @@ export interface Segment {
   stravaSegmentId?: number;
   stravaSegmentUrl?: string;
   sport: Sport;
+  type: "sprint";
 }
 
 export interface World {
