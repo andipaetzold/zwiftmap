@@ -10,13 +10,13 @@ import {
   MapContainer,
   Pane,
   Polyline,
-  ScaleControl,
+  ScaleControl
 } from "react-leaflet";
 import { segments } from "./data";
 import { useSettings } from "./hooks/useSettings";
 import {
   getStravaSegmentStream,
-  getStravaSegmentStreams,
+  getStravaSegmentStreams
 } from "./StravaSegmentRepository";
 import { Route, RouteSelection, Segment } from "./types";
 import { worldConfigs } from "./worldConfig";
@@ -84,6 +84,13 @@ export default function RouteMap({
       )
     );
 
+    console.log(
+      JSON.stringify([
+        [bounds.getNorth(), bounds.getWest()],
+        [bounds.getSouth(), bounds.getEast()],
+      ])
+    );
+
     map.invalidateSize();
     map.fitBounds(bounds);
   }, [map, routeStravaSegment, worldConfig]);
@@ -103,7 +110,7 @@ export default function RouteMap({
     map.setMinZoom(minZoom);
 
     if (!routeSelection.route) {
-      map.fitBounds(worldConfig.routeBounds);
+      map.fitBounds(worldConfig.initialBounds);
     }
   }, [map, routeSelection]);
 
