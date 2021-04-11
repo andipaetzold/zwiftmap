@@ -5,14 +5,14 @@ import RouteMap from "./RouteMap";
 
 export default function App() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [mouseHoverDistance, _setMouseHoverDistance] = useState<
+  const [mouseHoverDistance, setMouseHoverDistance] = useState<
     number | undefined
   >(undefined);
 
   return (
     <>
       <div className={styles.Wrapper}>
-        <Sidebar />
+        <Sidebar onMouseHoverDistanceChange={setMouseHoverDistance} />
         <RouteMap mouseHoverDistance={mouseHoverDistance} />
       </div>
     </>

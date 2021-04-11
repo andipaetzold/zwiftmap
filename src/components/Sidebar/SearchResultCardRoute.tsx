@@ -1,4 +1,5 @@
 import { ListItem } from "@react-md/list";
+import round from "lodash/round";
 import React, { useRef } from "react";
 import { useOnScreen } from "../../hooks/useOnScreen";
 import { Route } from "../../types";
@@ -23,7 +24,7 @@ export function SearchResultCardRoute({ route, onClick }: Props) {
 }
 
 function getRouteInfo(route: Route) {
-  return `${route.distance}km | ${route.elevation}m`;
+  return `${round(route.distance, 1)}km | ${round(route.elevation)}m`;
 }
 
 interface ChartProps {

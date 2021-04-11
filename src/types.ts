@@ -12,7 +12,7 @@ export interface Route {
   lap: string[];
   stravaSegmentId?: number;
   stravaSegmentUrl?: string;
-  zwiftInsiderUrl: string;
+  zwiftInsiderUrl?: string;
   sport: Sport;
 }
 

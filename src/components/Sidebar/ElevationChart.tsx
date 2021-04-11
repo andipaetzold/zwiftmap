@@ -11,10 +11,9 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { ElevationGradient } from "./components/ElevationGradient";
-import styles from "./ElevationChart.module.css";
-import { getStravaSegmentStreams } from "./StravaSegmentRepository";
-import { Route, StravaSegment } from "./types";
+import { getStravaSegmentStreams } from "../../StravaSegmentRepository";
+import { Route, StravaSegment } from "../../types";
+import { ElevationGradient } from "../ElevationGradient";
 
 interface Props {
   route: Route;
@@ -47,7 +46,7 @@ export function ElevationChart({ route, onMouseHoverDistanceChange }: Props) {
   }
 
   return (
-    <div className={styles.Container}>
+    <div style={{ width: "100%", height: 100 }}>
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart
           data={data}
@@ -69,11 +68,11 @@ export function ElevationChart({ route, onMouseHoverDistanceChange }: Props) {
             dataKey="distance"
             type="number"
             allowDecimals={false}
-            tickCount={10}
-            domain={[0, "dataMax"]}
+            tick={false}
             unit="km"
+            domain={[0, "dataMax"]}
+            hide={true}
           />
-
           <YAxis
             name="Elevation"
             type="number"
@@ -81,6 +80,7 @@ export function ElevationChart({ route, onMouseHoverDistanceChange }: Props) {
             tickCount={5}
             domain={["dataMin", "auto"]}
             unit="m"
+            hide={true}
           />
           <Tooltip
             content={(props) => (
@@ -122,83 +122,5 @@ function TooltipContent(props: TooltipContentProps) {
     }
   }, [props]);
 
-  if (props.payload === undefined || props.payload.length === 0) {
-    return null;
-  }
-
-  return (
-    <div
-      className="recharts-default-tooltip"
-      style={{
-        margin: 0,
-        padding: 10,
-        backgroundColor: "#fff",
-        border: "1px solid #ccc",
-        whiteSpace: "nowrap",
-      }}
-    >
-      <ul
-        className="recharts-tooltip-item-list"
-        style={{ padding: 0, margin: 0 }}
-      >
-        <li
-          className="recharts-tooltip-item"
-          style={{
-            display: "block",
-            paddingTop: 4,
-            paddingBottom: 4,
-            color: "#000",
-          }}
-        >
-          <span className="recharts-tooltip-item-name">Distance</span>
-          <span className="recharts-tooltip-item-separator">
-            {props.separator}
-          </span>
-          <span
-            className="recharts-tooltip-item-value"
-            style={{ fontWeight: "bold" }}
-          >
-            {Math.round(props.label * 10) / 10}
-          </span>
-          <span
-            className="recharts-tooltip-item-unit"
-            style={{ fontWeight: "bold" }}
-          >
-            km
-          </span>
-        </li>
-
-        <li
-          className="recharts-tooltip-item"
-          style={{
-            display: "block",
-            paddingTop: 4,
-            paddingBottom: 4,
-            color: "#000",
-          }}
-        >
-          <span className="recharts-tooltip-item-name">
-            {props.payload[0].name}
-          </span>
-          <span className="recharts-tooltip-item-separator">
-            {props.separator}
-          </span>
-          <span
-            className="recharts-tooltip-item-value"
-            style={{ fontWeight: "bold" }}
-          >
-            {Math.round(
-              props.payload[0].payload[props.payload[0].dataKey as string]
-            )}
-          </span>
-          <span
-            className="recharts-tooltip-item-unit"
-            style={{ fontWeight: "bold" }}
-          >
-            {props.payload[0].unit}
-          </span>
-        </li>
-      </ul>
-    </div>
-  );
+  return null;
 }
