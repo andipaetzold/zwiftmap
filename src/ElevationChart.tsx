@@ -79,7 +79,7 @@ export function ElevationChart({ route, onMouseHoverDistanceChange }: Props) {
             type="number"
             allowDecimals={false}
             tickCount={5}
-            domain={[0, "auto"]}
+            domain={["dataMin", "auto"]}
             unit="m"
           />
           <Tooltip

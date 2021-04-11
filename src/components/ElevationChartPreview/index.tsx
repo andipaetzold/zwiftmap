@@ -23,13 +23,20 @@ export function ElevationChartPreview({ route }: Props) {
       return;
     }
 
-    return uniqWith(
+    const filteredData = uniqWith(
       segment.distance.map((distance, index) => ({
         distance: Math.round(distance / 100) / 10,
         elevation: segment.altitude[index],
       })),
       (a, b) => a.distance === b.distance
     );
+
+    // remove negative elevation
+    const lowestElevation = Math.min(...filteredData.map((d) => d.elevation));
+    return filteredData.map((d) => ({
+      ...d,
+      elevation: d.elevation - lowestElevation,
+    }));
   }, [segment]);
 
   if (!data) {
@@ -66,7 +73,7 @@ export function ElevationChartPreview({ route }: Props) {
         dataKey="elevation"
         type="number"
         allowDecimals={false}
-        domain={[0, "auto"]}
+        domain={[0, 750]}
         unit="m"
         hide={true}
       />
