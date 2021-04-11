@@ -3,7 +3,6 @@ import React, { useCallback, useMemo, useState } from "react";
 import styles from "./App.module.css";
 import { Sidebar } from "./components/Sidebar";
 import { routes, worlds } from "./data";
-import { ElevationChart } from "./ElevationChart";
 import { useHash } from "./hooks/useHash";
 import RouteMap from "./RouteMap";
 import { RouteSelection, WorldSlug } from "./types";
@@ -35,7 +34,8 @@ export default function App() {
     [setHash]
   );
 
-  const [mouseHoverDistance, setMouseHoverDistance] = useState<
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [mouseHoverDistance, _setMouseHoverDistance] = useState<
     number | undefined
   >(undefined);
 
@@ -55,12 +55,6 @@ export default function App() {
           mouseHoverDistance={mouseHoverDistance}
         />
       </div>
-      {routeSelection.route && (
-        <ElevationChart
-          route={routeSelection.route}
-          onMouseHoverDistanceChange={setMouseHoverDistance}
-        />
-      )}
     </>
   );
 }
