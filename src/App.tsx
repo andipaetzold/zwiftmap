@@ -37,25 +37,27 @@ export default function App() {
   >(undefined);
 
   return (
-    <div
-      className={c(styles.Wrapper, {
-        [styles.routeSelected]: routeSelection.route !== undefined,
-      })}
-    >
-      <Sidebar
-        selection={routeSelection}
-        onChange={handleRouteSelectionChange}
-      />
-      <RouteMap
-        routeSelection={routeSelection}
-        mouseHoverDistance={mouseHoverDistance}
-      />
+    <>
+      <div
+        className={c(styles.Wrapper, {
+          [styles.routeSelected]: routeSelection.route !== undefined,
+        })}
+      >
+        <Sidebar
+          selection={routeSelection}
+          onChange={handleRouteSelectionChange}
+        />
+        <RouteMap
+          routeSelection={routeSelection}
+          mouseHoverDistance={mouseHoverDistance}
+        />
+      </div>
       {routeSelection.route && (
         <ElevationChart
           route={routeSelection.route}
           onMouseHoverDistanceChange={setMouseHoverDistance}
         />
       )}
-    </div>
+    </>
   );
 }

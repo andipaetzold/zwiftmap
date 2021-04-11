@@ -52,10 +52,10 @@ export function ElevationChart({ route, onMouseHoverDistanceChange }: Props) {
         <AreaChart
           data={data}
           margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
+            top: 25,
+            right: 15,
+            left: 15,
+            bottom: 15,
           }}
           // @ts-ignore
           baseValue="dataMin"

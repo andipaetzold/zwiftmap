@@ -129,7 +129,6 @@ export default function RouteMap({
       style={{ backgroundColor: worldConfig.backgroundColor }}
       maxZoom={19}
     >
-      <ScaleControl position="bottomright" />
       <ImageOverlay
         url={worldConfig.image}
         bounds={worldConfig.imageBounds}
@@ -174,6 +173,8 @@ export default function RouteMap({
           />
         )}
       </Pane>
+
+      <ScaleControl position="topright" />
     </MapContainer>
   );
 }
