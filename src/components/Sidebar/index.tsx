@@ -5,19 +5,16 @@ import { FontIcon } from "@react-md/icon";
 import { List, ListItem, SimpleListItem } from "@react-md/list";
 import React, { useState } from "react";
 import { routes, worlds } from "../../data";
+import { useLocationState } from "../../hooks/useLocationState";
 import { useSettings } from "../../hooks/useSettings";
 import { search, SearchResult } from "../../services/search";
-import { RouteSelection } from "../../types";
 import { SettingsDialog } from "../SettingsDialog";
 import styles from "./index.module.css";
 import { SearchResultCardRoute } from "./SearchResultCardRoute";
 import { SearchResultList } from "./SearchResultList";
 
-interface Props {
-  selection: RouteSelection;
-  onChange: (route: RouteSelection) => void;
-}
-export function Sidebar({ selection, onChange }: Props) {
+export function Sidebar() {
+  const [locationState, setLocationState] = useLocationState();
   const [query, setQuery] = useState("");
   const [settings] = useSettings();
 
@@ -28,10 +25,13 @@ export function Sidebar({ selection, onChange }: Props) {
   const handleSearchResultClick = (searchResult: SearchResult) => {
     switch (searchResult.type) {
       case "world":
-        onChange({ world: searchResult.data.slug });
+        setLocationState({ world: searchResult.data });
         break;
       case "route":
-        onChange({ world: searchResult.data.world, route: searchResult.data });
+        setLocationState({
+          world: worlds.find((w) => w.slug === searchResult.data.world)!,
+          route: searchResult.data,
+        });
         break;
     }
   };
@@ -44,7 +44,7 @@ export function Sidebar({ selection, onChange }: Props) {
             <TextField
               id="search-input"
               style={{ width: "100%" }}
-              placeholder={worlds.find((w) => w.slug === selection.world)!.name}
+              placeholder={locationState.world.name}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               isRightAddon={false}
@@ -68,7 +68,7 @@ export function Sidebar({ selection, onChange }: Props) {
           {query === "" ? (
             <>
               {routes
-                .filter((route) => route.world === selection.world)
+                .filter((route) => route.world === locationState.world.slug)
                 .filter((route) => route.sport === settings.sport)
                 .filter((route) => route.stravaSegmentId !== undefined)
                 .sort((a, b) => a.name.localeCompare(b.name))
@@ -77,7 +77,10 @@ export function Sidebar({ selection, onChange }: Props) {
                     route={route}
                     key={route.slug}
                     onClick={() =>
-                      onChange({ world: route.world, route: route })
+                      setLocationState({
+                        world: worlds.find((w) => w.slug === route.world)!,
+                        route,
+                      })
                     }
                   />
                 ))}

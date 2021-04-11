@@ -29,9 +29,7 @@ export function useSettings(): [Settings, (settings: Settings) => void] {
   const [settings, setSettings] = useState(loadSettings);
 
   useEffect(() => {
-    const listener: Listener = (newSettings) => {
-      setSettings(newSettings);
-    };
+    const listener: Listener = (newSettings) => setSettings(newSettings);
     listeners.push(listener);
 
     return () => {
@@ -41,7 +39,7 @@ export function useSettings(): [Settings, (settings: Settings) => void] {
 
   const updateSettings = useCallback((newSettings: Settings) => {
     setSettings(newSettings);
-    saveSettings(newSettings)
+    saveSettings(newSettings);
     listeners.forEach((listener) => listener(newSettings));
   }, []);
 

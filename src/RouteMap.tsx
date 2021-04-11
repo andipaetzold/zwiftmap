@@ -13,32 +13,30 @@ import {
   ScaleControl,
 } from "react-leaflet";
 import { segments } from "./data";
+import { useLocationState } from "./hooks/useLocationState";
 import { useSettings } from "./hooks/useSettings";
 import {
   getStravaSegmentStream,
   getStravaSegmentStreams,
 } from "./StravaSegmentRepository";
-import { Route, RouteSelection, Segment } from "./types";
+import { Route, Segment } from "./types";
 import { worldConfigs } from "./worldConfig";
 
 interface Props {
-  routeSelection: RouteSelection;
   mouseHoverDistance: number | undefined;
 }
 
-export default function RouteMap({
-  routeSelection,
-  mouseHoverDistance,
-}: Props) {
-  const world = routeSelection.world;
-  const worldConfig = worldConfigs[world];
+export default function RouteMap({ mouseHoverDistance }: Props) {
+  const [locationState] = useLocationState();
+  const world = locationState.world;
+  const worldConfig = worldConfigs[world.slug];
   const [settings] = useSettings();
 
   const filteredSegments = useMemo(
     () =>
       segments
         .filter((s) => s.sport === settings.sport)
-        .filter((s) => s.world === world)
+        .filter((s) => s.world === world.slug)
         .filter((s) => s.stravaSegmentId !== undefined),
     [settings.sport, world]
   );
@@ -68,7 +66,7 @@ export default function RouteMap({
 
       return await getStravaSegmentStreams(r.slug, ["distance", "latlng"]);
     },
-    [routeSelection.route]
+    [locationState.route]
   );
 
   useEffect(() => {
@@ -89,12 +87,11 @@ export default function RouteMap({
   }, [map, routeStravaSegment, worldConfig]);
 
   useEffect(() => {
-    if (!map || !routeSelection) {
+    if (!map || !locationState) {
       return;
     }
 
-    const world = routeSelection.world;
-    const worldConfig = worldConfigs[world];
+    const worldConfig = worldConfigs[locationState.world.slug];
 
     map.invalidateSize();
     map.setMaxBounds(worldConfig.imageBounds);
@@ -102,10 +99,10 @@ export default function RouteMap({
     const minZoom = map.getBoundsZoom(worldConfig.imageBounds, false);
     map.setMinZoom(minZoom);
 
-    if (!routeSelection.route) {
+    if (!locationState.route) {
       map.fitBounds(worldConfig.initialBounds);
     }
-  }, [map, routeSelection]);
+  }, [map, locationState]);
 
   const pointCoordinates = useMemo<LatLngExpression | undefined>(() => {
     if (!routeStravaSegment || !mouseHoverDistance) {
@@ -123,7 +120,7 @@ export default function RouteMap({
 
   return (
     <MapContainer
-      key={routeSelection.world}
+      key={locationState.world.slug}
       whenCreated={(map) => setMap(map)}
       bounds={worldConfig.imageBounds}
       style={{ backgroundColor: worldConfig.backgroundColor }}
