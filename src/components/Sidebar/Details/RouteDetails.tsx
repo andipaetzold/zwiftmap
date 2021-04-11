@@ -6,7 +6,7 @@ import {
   LandscapeFontIcon,
   ListFontIcon,
   OpenInNewFontIcon,
-  SpaceBarFontIcon,
+  SpaceBarFontIcon
 } from "@react-md/material-icons";
 import { Text } from "@react-md/typography";
 import round from "lodash/round";
@@ -15,7 +15,6 @@ import stravaLogo from "../../../assets/strava-40x40.png";
 import zwiftInsiderLogo from "../../../assets/ZwiftInsider-40x40.jpg";
 import { Route } from "../../../types";
 import { ElevationChart } from "../ElevationChart";
-import { Link } from "@react-md/link";
 
 interface Props {
   route: Route;
