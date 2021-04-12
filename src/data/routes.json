@@ -20,7 +20,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/21911191",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/big-foot-hills",
     "slug": "big-foot-hills",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -37,7 +38,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/16402683",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/big-loop",
     "slug": "big-loop",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -54,7 +56,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/20425565",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/bigger-loop",
     "slug": "bigger-loop",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -71,7 +74,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/22458637",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/dust-in-the-wind",
     "slug": "dust-in-the-wind",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -88,7 +92,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/12118421",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/figure-8",
     "slug": "figure-8",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -105,7 +110,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/27177732",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/figure-8-reverse",
     "slug": "figure-8-reverse",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -122,7 +128,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/27130302",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/flat-route",
     "slug": "flat-route",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -139,7 +146,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/20390815",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/four-horsemen",
     "slug": "four-horsemen",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -151,12 +159,13 @@
     "experience": 180,
     "kom": ["zwift-kom"],
     "sprint": ["watopia-sprint"],
-    "lap": ["Hilly Loop"],
+    "lap": ["hilly-loop"],
     "stravaSegmentId": 12118362,
     "stravaSegmentUrl": "https://www.strava.com/segments/12118362",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/hilly-route",
     "slug": "hilly-route",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -173,7 +182,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/16359363",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/jungle-circuit",
     "slug": "jungle-circuit",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -190,7 +200,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/12118544",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/mountain-8",
     "slug": "mountain-8",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -207,7 +218,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/12483517",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/mountain-route",
     "slug": "mountain-route",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -224,7 +236,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/22368918",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/muir-and-the-mountain",
     "slug": "muir-and-the-mountain",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -241,7 +254,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/20350104",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/out-and-back-again",
     "slug": "out-and-back-again",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -258,7 +272,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/21344377",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/quatch-quest",
     "slug": "quatch-quest",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -275,7 +290,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/16404154",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/road-to-ruins",
     "slug": "road-to-ruins",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -292,7 +308,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/22280036",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/road-to-sky",
     "slug": "road-to-sky",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -309,7 +326,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/21911197",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/sand-and-sequoias",
     "slug": "sand-and-sequoias",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -326,7 +344,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/20350088",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/tempus-fugit",
     "slug": "tempus-fugit",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -343,7 +362,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/16939150",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/the-mega-pretzel",
     "slug": "the-mega-pretzel",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -360,7 +380,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/12118762",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/the-pretzel",
     "slug": "the-pretzel",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -383,7 +404,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/27313482",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/the-uber-pretzel",
     "slug": "the-uber-pretzel",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -400,7 +422,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/15159137",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/three-sisters",
     "slug": "three-sisters",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -417,7 +440,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/20350376",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/tick-tock",
     "slug": "tick-tock",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -434,7 +458,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/17265057",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/tour-of-fire-and-ice",
     "slug": "tour-of-fire-and-ice",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -451,7 +476,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/14032406",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/volcano-circuit",
     "slug": "volcano-circuit",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -468,7 +494,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/14032426",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/volcano-circuit-ccw",
     "slug": "volcano-circuit-ccw",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -485,7 +512,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/16425130",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/volcano-climb",
     "slug": "volcano-climb",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -502,7 +530,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/14032442",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/volcano-flat",
     "slug": "volcano-flat",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -519,7 +548,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/20545879",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/whole-lotta-lava",
     "slug": "whole-lotta-lava",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "london",
@@ -536,7 +566,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/12749761",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/london-classique",
     "slug": "london-classique",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "london",
@@ -553,7 +584,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/15158866",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/greater-london-8",
     "slug": "greater-london-8",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "london",
@@ -570,7 +602,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/15389301",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/greater-london-flat",
     "slug": "greater-london-flat",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "london",
@@ -587,7 +620,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/15158576",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/greater-london-loop",
     "slug": "greater-london-loop",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "london",
@@ -604,7 +638,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/16982511",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/greatest-london-flat",
     "slug": "greatest-london-flat",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "london",
@@ -621,7 +656,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/16781177",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/greatest-london-loop",
     "slug": "greatest-london-loop",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "london",
@@ -638,7 +674,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/12747814",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/london-8",
     "slug": "london-8",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "london",
@@ -655,7 +692,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/12749649",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/london-loop",
     "slug": "london-loop",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "london",
@@ -672,7 +710,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/16786868",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/surrey-hills",
     "slug": "surrey-hills",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "london",
@@ -689,7 +728,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/15155838",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/the-london-pretzel",
     "slug": "the-london-pretzel",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "london",
@@ -706,7 +746,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/12759760",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/london-the-prl-full",
     "slug": "london-the-prl-full",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "london",
@@ -723,7 +764,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/12759713",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/the-prl-half",
     "slug": "the-prl-half",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "london",
@@ -740,7 +782,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/16781219",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/london-triple-loops",
     "slug": "london-triple-loops",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "new-york",
@@ -757,7 +800,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/19141340",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/astoria-line-8",
     "slug": "astoria-line-8",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "new-york",
@@ -774,7 +818,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/19141223",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/everything-bagel",
     "slug": "everything-bagel",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "new-york",
@@ -791,7 +836,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/19141192",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/grand-central-circuit",
     "slug": "grand-central-circuit",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "new-york",
@@ -808,7 +854,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/19141299",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/knickerbocker",
     "slug": "knickerbocker",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "new-york",
@@ -825,7 +872,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/20721179",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/knickerbocker-reverse",
     "slug": "knickerbocker-reverse",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "new-york",
@@ -842,7 +890,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/19141269",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/lady-liberty",
     "slug": "lady-liberty",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "new-york",
@@ -859,7 +908,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/19141368",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/mighty-metropolitan",
     "slug": "mighty-metropolitan",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "new-york",
@@ -876,7 +926,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/19170651",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/park-perimeter-loop",
     "slug": "park-perimeter-loop",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "new-york",
@@ -893,7 +944,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/19171748",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/rising-empire",
     "slug": "rising-empire",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "new-york",
@@ -910,7 +962,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/19172136",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/the-6-train",
     "slug": "the-6-train",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "new-york",
@@ -927,7 +980,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/19173163",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/the-highline",
     "slug": "the-highline",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "innsbruck",
@@ -944,7 +998,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/18397725",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/2018-uci-worlds-course-short-lap",
     "slug": "2018-uci-worlds-course-short-lap",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "innsbruck",
@@ -961,7 +1016,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/18398698",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/achterbahn",
     "slug": "achterbahn",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "innsbruck",
@@ -978,7 +1034,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/18398895",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/innsbruckring",
     "slug": "innsbruckring",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "innsbruck",
@@ -995,7 +1052,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/18406508",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/lutscher",
     "slug": "lutscher",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "innsbruck",
@@ -1012,7 +1070,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/18407469",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/lutscher-ccw",
     "slug": "lutscher-ccw",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "yorkshire",
@@ -1029,7 +1088,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/21738724",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/2019-uci-worlds-harrogate-circuit",
     "slug": "2019-uci-worlds-harrogate-circuit",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "yorkshire",
@@ -1046,7 +1106,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/21748097",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/duchy-estate",
     "slug": "duchy-estate",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "yorkshire",
@@ -1063,7 +1124,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/21748253",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/queens-highway",
     "slug": "queens-highway",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "yorkshire",
@@ -1080,7 +1142,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/21758283",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/tour-of-tewit-well",
     "slug": "tour-of-tewit-well",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "yorkshire",
@@ -1097,7 +1160,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/21757792",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/royal-pump-room-8",
     "slug": "royal-pump-room-8",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "richmond",
@@ -1107,14 +1171,15 @@
     "leadInDistance": 0.5038,
     "leadInElevation": 3.3,
     "experience": 320,
-    "kom": ["Libby Hill", "23rd St."],
+    "kom": ["libby-hill", "23rd-st"],
     "sprint": ["monument-ave", "broad-st"],
     "lap": ["uci-course"],
     "stravaSegmentId": 12128718,
     "stravaSegmentUrl": "https://www.strava.com/segments/12128718",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/2015-uci-worlds-course",
     "slug": "2015-uci-worlds-course",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "richmond",
@@ -1124,14 +1189,15 @@
     "leadInDistance": 0.3193,
     "leadInElevation": 2.8,
     "experience": 180,
-    "kom": ["Libby Hill", "23rd St."],
+    "kom": ["libby-hill", "23rd-st"],
     "sprint": [],
     "lap": [],
     "stravaSegmentId": 11308213,
     "stravaSegmentUrl": "https://www.strava.com/segments/11308213",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/cobbled-climbs",
     "slug": "cobbled-climbs",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "richmond",
@@ -1148,7 +1214,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/19852166",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/the-fan-flats",
     "slug": "the-fan-flats",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "france",
@@ -1165,7 +1232,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/24674909",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/casse-pattes",
     "slug": "casse-pattes",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "france",
@@ -1182,7 +1250,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/24676071",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/douce-france",
     "slug": "douce-france",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "france",
@@ -1206,7 +1275,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/24676054",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/petit-boucle",
     "slug": "petit-boucle",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "france",
@@ -1223,7 +1293,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/24690956",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/roule-ma-poule",
     "slug": "roule-ma-poule",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "france",
@@ -1240,7 +1311,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/24685955",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/rgv",
     "slug": "rgv",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "france",
@@ -1264,7 +1336,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/24690941",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/tire-bouchon",
     "slug": "tire-bouchon",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "france",
@@ -1281,7 +1354,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/24682608",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/ven-top",
     "slug": "ven-top",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "paris",
@@ -1298,7 +1372,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/24674235",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/champs-elysees",
     "slug": "champs-elysees",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "paris",
@@ -1315,7 +1390,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/24674248",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/lutece-express",
     "slug": "lutece-express",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -1332,7 +1408,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/18993273",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/ocean-blvd",
     "slug": "ocean-blvd",
-    "sport": "running"
+    "sport": "running",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -1349,7 +1426,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/18993168",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/5k-loop",
     "slug": "5k-loop",
-    "sport": "running"
+    "sport": "running",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -1366,7 +1444,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/18993284",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/chili-pepper",
     "slug": "chili-pepper",
-    "sport": "running"
+    "sport": "running",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -1383,7 +1462,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/18993345",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/jons-route",
     "slug": "jons-route",
-    "sport": "running"
+    "sport": "running",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -1400,7 +1480,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/22540731",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/may-field",
     "slug": "may-field",
-    "sport": "running"
+    "sport": "running",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -1417,7 +1498,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/18993582",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/thats-amore",
     "slug": "thats-amore",
-    "sport": "running"
+    "sport": "running",
+    "eventOnly": false
   },
   {
     "world": "new-york",
@@ -1432,7 +1514,8 @@
     "lap": [],
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/couch-to-sky-k",
     "slug": "couch-to-sky-k",
-    "sport": "running"
+    "sport": "running",
+    "eventOnly": false
   },
   {
     "world": "new-york",
@@ -1447,7 +1530,8 @@
     "lap": [],
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/flat-irons",
     "slug": "flat-irons",
-    "sport": "running"
+    "sport": "running",
+    "eventOnly": false
   },
   {
     "world": "new-york",
@@ -1462,7 +1546,8 @@
     "lap": [],
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/hudson-roll",
     "slug": "hudson-roll",
-    "sport": "running"
+    "sport": "running",
+    "eventOnly": false
   },
   {
     "world": "new-york",
@@ -1477,7 +1562,8 @@
     "lap": [],
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/park-to-peak",
     "slug": "park-to-peak",
-    "sport": "running"
+    "sport": "running",
+    "eventOnly": false
   },
   {
     "world": "new-york",
@@ -1492,7 +1578,8 @@
     "lap": [],
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/shuman-trail-loop",
     "slug": "shuman-trail-loop",
-    "sport": "running"
+    "sport": "running",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -1509,7 +1596,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/26741693",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/beach-island-loop",
     "slug": "beach-island-loop",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -1526,7 +1614,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/26741663",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/ocean-lava-cliffside-loop",
     "slug": "ocean-lava-cliffside-loop",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -1543,7 +1632,8 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/26742092",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/serpentine-8",
     "slug": "serpentine-8",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
   },
   {
     "world": "watopia",
@@ -1560,6 +1650,116 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/26741685",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/two-bridges-loop",
     "slug": "two-bridges-loop",
-    "sport": "cycling"
+    "sport": "cycling",
+    "eventOnly": false
+  },
+  {
+    "world": "watopia",
+    "name": "Bambino Fondo",
+    "distance": 52.1,
+    "elevation": 553,
+    "leadInDistance": 0.5,
+    "kom": ["zwift-kom", "volcano-kom"],
+    "sprint": ["watopia-sprint"],
+    "lap": ["hilly-loop"],
+    "stravaSegmentId": 19641904,
+    "stravaSegmentUrl": "https://www.strava.com/segments/19641904",
+    "zwiftInsiderUrl": "https://zwiftinsider.com/route/bambino-fondo",
+    "slug": "bambino-fondo",
+    "sport": "cycling",
+    "eventOnly": true
+  },
+  {
+    "world": "crit-city",
+    "name": "Bell Lap",
+    "distance": 1.9,
+    "elevation": 8,
+    "leadInDistance": 0.1,
+    "kom": [],
+    "sprint": [],
+    "lap": [],
+    "stravaSegmentId": 22419554,
+    "stravaSegmentUrl": "https://www.strava.com/segments/22419554",
+    "zwiftInsiderUrl": "https://zwiftinsider.com/route/bell-lap",
+    "slug": "bell-lap",
+    "sport": "cycling",
+    "eventOnly": true
+  },
+  {
+    "world": "watopia",
+    "name": "Big Loop Rev.",
+    "distance": 42.6,
+    "elevation": 661,
+    "leadInDistance": 0.2,
+    "kom": ["epic-kom-rev"],
+    "sprint": [],
+    "lap": [],
+    "stravaSegmentId": 19641904,
+    "zwiftInsiderUrl": "https://zwiftinsider.com/route/big-loop-reverse",
+    "slug": "big-loop-rev",
+    "sport": "cycling",
+    "eventOnly": true
+  },
+  {
+    "world": "london",
+    "name": "Classique Rev.",
+    "distance": 5.4,
+    "elevation": 25,
+    "leadInDistance": 7.5,
+    "kom": [],
+    "sprint": ["london-sprint"],
+    "lap": [],
+    "stravaSegmentId": 19480641,
+    "stravaSegmentUrl": "https://www.strava.com/segments/19480641",
+    "zwiftInsiderUrl": "https://zwiftinsider.com/route/classique-reverse",
+    "slug": "classique-rev",
+    "sport": "cycling",
+    "eventOnly": true
+  },
+  {
+    "world": "richmond",
+    "name": "Cobbled Climbs",
+    "distance": 9.2,
+    "elevation": 126,
+    "leadInDistance": 0.3,
+    "kom": ["23rd-st", "richmond-kom-rev"],
+    "sprint": [],
+    "lap": [],
+    "stravaSegmentId": 22891973,
+    "stravaSegmentUrl": "https://www.strava.com/segments/22891973",
+    "zwiftInsiderUrl": "https://zwiftinsider.com/route/cobbled-climbs-reverse",
+    "slug": "cobbled-climbs-rev",
+    "sport": "cycling",
+    "eventOnly": true
+  },
+  {
+    "world": "crit-city",
+    "name": "Downtown Dolphin",
+    "distance": 1.9,
+    "elevation": 8,
+    "leadInDistance": 0.1,
+    "kom": ["prime-climb"],
+    "sprint": [],
+    "lap": [],
+    "stravaSegmentId": 22445564,
+    "stravaSegmentUrl": "https://www.strava.com/segments/22445564",
+    "zwiftInsiderUrl": "https://zwiftinsider.com/route/downtown-dolphin",
+    "slug": "downtown-dolphin",
+    "sport": "cycling",
+    "eventOnly": true
+  },
+  {
+    "world": "watopia",
+    "name": "Flat Route Rev.",
+    "distance": 10.3,
+    "elevation": 61,
+    "leadInDistance": 0.4,
+    "kom": [],
+    "sprint": ["watopia-sprint-rev"],
+    "lap": [],
+    "zwiftInsiderUrl": "https://zwiftinsider.com/route/flat-route-reverse",
+    "slug": "flat-route-rev",
+    "sport": "cycling",
+    "eventOnly": true
   }
 ]

@@ -20,6 +20,7 @@ export interface Route {
   stravaSegmentUrl?: string;
   zwiftInsiderUrl?: string;
   sport: Sport;
+  eventOnly: boolean
 }
 
 export type Sport = "running" | "cycling";
