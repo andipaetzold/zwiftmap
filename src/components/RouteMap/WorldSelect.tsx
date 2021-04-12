@@ -4,7 +4,7 @@ import { worlds } from "../../data";
 import { useLocationState } from "../../hooks/useLocationState";
 import styles from "./WorldSelect.module.scss";
 
-const options = worlds
+const options = [...worlds]
   .sort((a, b) => a.name.localeCompare(b.name))
   .map((world) => ({
     label: world.name,

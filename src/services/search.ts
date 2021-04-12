@@ -25,12 +25,15 @@ export interface SearchResultSegment {
 }
 
 const searchResults: SearchResult[] = [
-  ...worlds.map((world) => ({
-    type: "world" as const,
-    terms: [world.name].map((t) => t.toLocaleLowerCase()),
-    data: world,
-  })),
-  ...routes
+  ...[...worlds]
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .map((world) => ({
+      type: "world" as const,
+      terms: [world.name].map((t) => t.toLocaleLowerCase()),
+      data: world,
+    })),
+  ...[...routes]
+    .sort((a, b) => a.name.localeCompare(b.name))
     .filter((route) => route.stravaSegmentId !== undefined)
     .map((route) => ({
       type: "route" as const,
