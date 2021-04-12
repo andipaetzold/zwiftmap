@@ -1,3 +1,9 @@
+export interface World {
+  id: number;
+  name: string;
+  slug: WorldSlug;
+}
+
 export interface Route {
   world: WorldSlug;
   name: string;
@@ -44,11 +50,6 @@ export interface Segment {
   stravaSegmentUrl?: string;
   sport: Sport;
   type: "sprint";
-}
-
-export interface World {
-  name: string;
-  slug: WorldSlug;
 }
 
 export interface Settings {

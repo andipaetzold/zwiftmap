@@ -1,38 +1,47 @@
 [
   {
-    "name": "Crit City",
-    "slug": "crit-city"
-  },
-  {
-    "name": "France",
-    "slug": "france"
-  },
-  {
-    "name": "Innsbruck",
-    "slug": "innsbruck"
-  },
-  {
-    "name": "London",
-    "slug": "london"
-  },
-  {
-    "name": "New York",
-    "slug": "new-york"
-  },
-  {
-    "name": "Paris",
-    "slug": "paris"
-  },
-  {
-    "name": "Richmond",
-    "slug": "richmond"
-  },
-  {
+    "id": 1,
     "name": "Watopia",
     "slug": "watopia"
   },
   {
+    "id": 2,
+    "name": "Richmond",
+    "slug": "richmond"
+  },
+  {
+    "id": 3,
+    "name": "London",
+    "slug": "london"
+  },
+  {
+    "id": 4,
+    "name": "New York",
+    "slug": "new-york"
+  },
+  {
+    "id": 5,
+    "name": "Innsbruck",
+    "slug": "innsbruck"
+  },
+  {
+    "id": 7,
     "name": "Yorkshire",
     "slug": "yorkshire"
+  },
+  {
+    "id": 8,
+    "name": "Crit City",
+    "slug": "crit-city"
+  },
+  {
+    "id": 10,
+    "name": "France",
+    "slug": "france"
+  },
+  {
+    "id": 11,
+    "name": "Paris",
+    "slug": "paris"
   }
 ]
