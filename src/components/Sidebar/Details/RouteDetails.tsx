@@ -6,7 +6,7 @@ import {
   LandscapeFontIcon,
   ListFontIcon,
   OpenInNewFontIcon,
-  SpaceBarFontIcon
+  SpaceBarFontIcon,
 } from "@react-md/material-icons";
 import { Text } from "@react-md/typography";
 import round from "lodash/round";
@@ -32,7 +32,7 @@ export function RouteDetails({
   return (
     <List>
       <SimpleListItem>
-        <Button themeType="outline" onClick={onBackButtonClick} >
+        <Button themeType="outline" onClick={onBackButtonClick}>
           <TextIconSpacing icon={<ListFontIcon />}>
             {backButtonText}
           </TextIconSpacing>
@@ -49,8 +49,13 @@ export function RouteDetails({
         leftAddon={<SpaceBarFontIcon />}
         leftAddonType="icon"
       >
-        {round(route.distance, 1)}km&nbsp;
-        <small>(+{round(route.leadInDistance, 1)}km)</small>
+        {round(route.distance, 1)}km
+        {route.leadInDistance !== undefined && (
+          <>
+            &nbsp;
+            <small>(+{round(route.leadInDistance, 1)}km)</small>
+          </>
+        )}
       </SimpleListItem>
 
       <SimpleListItem
@@ -58,8 +63,13 @@ export function RouteDetails({
         leftAddon={<LandscapeFontIcon />}
         leftAddonType="icon"
       >
-        {round(route.elevation)}m&nbsp;
-        <small>(+{round(route.leadInElevation)}m)</small>
+        {round(route.elevation)}m
+        {route.leadInElevation !== undefined && (
+          <>
+            &nbsp;
+            <small>(+{round(route.leadInElevation)}m)</small>
+          </>
+        )}
       </SimpleListItem>
 
       <SimpleListItem>

@@ -10,8 +10,8 @@ export interface Route {
   slug: string;
   distance: number;
   elevation: number;
-  leadInDistance: number;
-  leadInElevation: number;
+  leadInDistance?: number;
+  leadInElevation?: number;
   experience: number[];
   kom: string[];
   sprint: string[];
