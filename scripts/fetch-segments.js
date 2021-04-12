@@ -28,7 +28,9 @@ async function fetchSegment({ name, slug, stravaSegmentId }) {
   const stravaData = await response.json();
 
   const segmentDir = `${BASE_DIR}/${slug}`;
-  mkdirSync(segmentDir);
+  if (!existsSync(segmentDir)) {
+    mkdirSync(segmentDir);
+  }
 
   writeFileSync(
     `${segmentDir}/altitude.json`,
