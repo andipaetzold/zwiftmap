@@ -4,10 +4,12 @@ import { worlds } from "../../data";
 import { useLocationState } from "../../hooks/useLocationState";
 import styles from "./WorldSelect.module.scss";
 
-const options = worlds.map((world) => ({
-  label: world.name,
-  value: world.slug,
-}));
+const options = worlds
+  .sort((a, b) => a.name.localeCompare(b.name))
+  .map((world) => ({
+    label: world.name,
+    value: world.slug,
+  }));
 
 export function WorldSelect() {
   const [locationState, setLocationState] = useLocationState();
