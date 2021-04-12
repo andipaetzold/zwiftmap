@@ -1,4 +1,5 @@
 import { LatLngTuple } from "leaflet";
+import bolognaMap from "./maps/bologna.png";
 import critCityMap from "./maps/crit-city.png";
 import franceMap from "./maps/france.png";
 import innsbruckMap from "./maps/innsbruck.png";
@@ -18,6 +19,18 @@ export type WorldConfig = {
 };
 
 export const worldConfigs: Record<WorldSlug, WorldConfig> = {
+  bologna: {
+    imageBounds: [
+      [44.45463821, 11.26261748],
+      [44.5308037, 11.36991729102076],
+    ],
+    initialBounds: [
+      [44.478222, 11.294653],
+      [44.501423, 11.341099],
+    ],
+    image: bolognaMap,
+    backgroundColor: "#b9b9b8",
+  },
   "crit-city": {
     imageBounds: [
       [-10.3657, 165.7824],

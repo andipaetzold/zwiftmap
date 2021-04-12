@@ -25,6 +25,11 @@
     "slug": "innsbruck"
   },
   {
+    "id": 6,
+    "name": "Bologna",
+    "slug": "bologna"
+  },
+  {
     "id": 7,
     "name": "Yorkshire",
     "slug": "yorkshire"

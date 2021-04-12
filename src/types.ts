@@ -24,6 +24,7 @@ export interface Route {
 
 export type Sport = "running" | "cycling";
 export type WorldSlug =
+  | "bologna"
   | "crit-city"
   | "france"
   | "innsbruck"
