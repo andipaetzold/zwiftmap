@@ -3,6 +3,7 @@ import { Divider } from "@react-md/divider";
 import { TextField } from "@react-md/form";
 import { FontIcon } from "@react-md/icon";
 import { List, ListItem, SimpleListItem } from "@react-md/list";
+import { SettingsFontIcon } from "@react-md/material-icons";
 import React, { useState } from "react";
 import { routes, worlds } from "../../data";
 import { useLocationState } from "../../hooks/useLocationState";
@@ -121,7 +122,11 @@ export function Sidebar({ onMouseHoverDistanceChange }: Props) {
         </div>
         <List className={styles.BottomMenu}>
           <Divider className={styles.NoGapDivider} />
-          <ListItem onClick={() => setSettingsDialogVisible(true)}>
+          <ListItem
+            onClick={() => setSettingsDialogVisible(true)}
+            leftAddon={<SettingsFontIcon />}
+            leftAddonType="icon"
+          >
             Settings
           </ListItem>
         </List>
