@@ -36,7 +36,7 @@ export default function RouteMap({ mouseHoverDistance }: Props) {
   const filteredSegments = useMemo(
     () =>
       segments
-        .filter((s) => s.sport === settings.sport)
+        .filter((s) => s.sports.includes(settings.sport))
         .filter((s) => s.world === world.slug)
         .filter((s) => s.stravaSegmentId !== undefined),
     [settings.sport, world]

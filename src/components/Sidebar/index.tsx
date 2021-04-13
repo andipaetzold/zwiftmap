@@ -94,7 +94,7 @@ export function Sidebar({ onMouseHoverDistanceChange }: Props) {
                 <>
                   {routes
                     .filter((route) => route.world === locationState.world.slug)
-                    .filter((route) => route.sport === settings.sport)
+                    .filter((route) => route.sports.includes(settings.sport))
                     .filter((route) => route.stravaSegmentId !== undefined)
                     .sort((a, b) => a.name.localeCompare(b.name))
                     .map((route) => (

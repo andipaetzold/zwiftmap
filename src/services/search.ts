@@ -66,7 +66,7 @@ export function search(term: string, sport: Sport): SearchResult[] {
       if (sr.type === "world") {
         return true;
       } else {
-        return sr.data.sport === sport;
+        return sr.data.sports.includes(sport);
       }
     })
 

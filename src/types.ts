@@ -20,7 +20,7 @@ export interface Route {
   stravaSegmentUrl?: string;
   zwiftInsiderUrl?: string;
   whatsOnZwiftUrl?: string;
-  sport: Sport;
+  sports: Sport[];
   eventOnly: boolean
 }
 
@@ -51,7 +51,7 @@ export interface Segment {
   elevation: number;
   stravaSegmentId?: number;
   stravaSegmentUrl?: string;
-  sport: Sport;
+  sports: Sport[];
   type: "sprint";
 }
 

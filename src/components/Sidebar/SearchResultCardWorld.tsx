@@ -12,11 +12,11 @@ export function SearchResultCardWorld({ world, onClick }: Props) {
   const [settings] = useSettings();
   const secondaryText = `${
     routes
-      .filter((r) => r.sport === settings.sport)
+      .filter((r) => r.sports.includes(settings.sport))
       .filter((r) => r.world === world.slug).length
   } routes | ${
     segments
-      .filter((s) => s.sport === settings.sport)
+      .filter((s) => s.sports.includes( settings.sport))
       .filter((s) => s.world === world.slug).length
   } segments`;
 
