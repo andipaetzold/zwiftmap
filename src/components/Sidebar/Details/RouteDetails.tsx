@@ -15,6 +15,7 @@ import round from "lodash/round";
 import React from "react";
 import stravaLogo from "../../../assets/strava-40x40.png";
 import zwiftInsiderLogo from "../../../assets/ZwiftInsider-40x40.jpg";
+import whatsOnZwiftLogo from "../../../assets/WhatsOnZwift-40x40.png";
 import { worlds } from "../../../data";
 import { Route } from "../../../types";
 import { ElevationChart } from "../ElevationChart";
@@ -132,6 +133,21 @@ export function RouteDetails({
           rightAddonType="icon"
         >
           Strava Segment
+        </ListItem>
+      )}
+      {route.whatsOnZwiftUrl && (
+        <ListItem
+          onClick={() => window.open(route.whatsOnZwiftUrl, "_blank")}
+          leftAddon={
+            <Avatar color="#000000">
+              <img src={whatsOnZwiftLogo} alt="" />
+            </Avatar>
+          }
+          leftAddonType="avatar"
+          rightAddon={<OpenInNewFontIcon />}
+          rightAddonType="icon"
+        >
+          What's on Zwift
         </ListItem>
       )}
     </List>
