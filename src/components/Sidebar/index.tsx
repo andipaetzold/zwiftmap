@@ -52,7 +52,7 @@ export function Sidebar({ onMouseHoverDistanceChange }: Props) {
             <TextField
               id="search-input"
               style={{ width: "100%" }}
-              placeholder={locationState.world.name}
+              placeholder="Search for worlds and routes…"
               value={query}
               onChange={(e) => {
                 setQuery(e.target.value);
