@@ -3,8 +3,10 @@ import { Button } from "@react-md/button";
 import { TextIconSpacing } from "@react-md/icon";
 import { List, ListItem, ListSubheader, SimpleListItem } from "@react-md/list";
 import {
+  EventFontIcon,
   LandscapeFontIcon,
   ListFontIcon,
+  MapFontIcon,
   OpenInNewFontIcon,
   SpaceBarFontIcon,
 } from "@react-md/material-icons";
@@ -13,6 +15,7 @@ import round from "lodash/round";
 import React from "react";
 import stravaLogo from "../../../assets/strava-40x40.png";
 import zwiftInsiderLogo from "../../../assets/ZwiftInsider-40x40.jpg";
+import { worlds } from "../../../data";
 import { Route } from "../../../types";
 import { ElevationChart } from "../ElevationChart";
 
@@ -29,6 +32,8 @@ export function RouteDetails({
   backButtonText,
   onBackButtonClick,
 }: Props) {
+  const world = worlds.find((w) => w.slug === route.world)!;
+
   return (
     <List>
       <SimpleListItem>
@@ -70,6 +75,20 @@ export function RouteDetails({
             <small>(+{round(route.leadInElevation)}m)</small>
           </>
         )}
+      </SimpleListItem>
+
+      {route.eventOnly && (
+        <SimpleListItem
+          clickable={false}
+          leftAddon={<EventFontIcon />}
+          leftAddonType="icon"
+        >
+          Event only route
+        </SimpleListItem>
+      )}
+
+      <SimpleListItem clickable={false} leftAddon={<MapFontIcon />}>
+        {world.name}
       </SimpleListItem>
 
       <SimpleListItem>
