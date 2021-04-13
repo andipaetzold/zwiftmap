@@ -81,7 +81,7 @@ export function RouteDetails({
 
       <ListSubheader>Events</ListSubheader>
       <SimpleListItem>
-        <Text type="caption">Upcoming events will show up here... soon</Text>
+        <Text type="body-2">Upcoming events will show up here... soon</Text>
       </SimpleListItem>
 
       <ListSubheader>Links</ListSubheader>
