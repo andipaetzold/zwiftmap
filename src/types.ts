@@ -13,9 +13,7 @@ export interface Route {
   leadInDistance?: number;
   leadInElevation?: number;
   experience: number[];
-  kom: string[];
-  sprint: string[];
-  lap: string[];
+  segments: string[];
   stravaSegmentId?: number;
   stravaSegmentUrl?: string;
   zwiftInsiderUrl?: string;
