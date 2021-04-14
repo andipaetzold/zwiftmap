@@ -2,7 +2,6 @@ const fetch = require("node-fetch");
 const { writeFileSync, mkdirSync, existsSync } = require("fs");
 const routes = require("../src/data/routes.json");
 const segments = require("../src/data/segments.json");
-const { round } = require("lodash");
 
 const BASE_DIR = `${__dirname}/../public/segments`;
 
@@ -35,11 +34,11 @@ async function fetchSegment({ name, slug, stravaSegmentId }) {
 
   writeFileSync(
     `${segmentDir}/altitude.json`,
-    JSON.stringify(stravaData.altitude.map((a) => round(a)))
+    JSON.stringify(stravaData.altitude)
   );
   writeFileSync(
     `${segmentDir}/distance.json`,
-    JSON.stringify(stravaData.distance.map((d) => round(d, 3)))
+    JSON.stringify(stravaData.distance)
   );
   writeFileSync(`${segmentDir}/latlng.json`, JSON.stringify(stravaData.latlng));
 
