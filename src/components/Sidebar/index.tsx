@@ -23,7 +23,6 @@ export function Sidebar({ onMouseHoverDistanceChange }: Props) {
   const [locationState, setLocationState] = useLocationState();
   const [query, setQuery] = useState("");
   const [settings] = useSettings();
-  const [showDetails, setShowDetails] = useState(false);
 
   const [settingsDialogVisible, setSettingsDialogVisible] = useState(false);
 
@@ -33,14 +32,12 @@ export function Sidebar({ onMouseHoverDistanceChange }: Props) {
     switch (searchResult.type) {
       case "world":
         setLocationState({ world: searchResult.data });
-        // setShowDetails(true);
         break;
       case "route":
         setLocationState({
           world: worlds.find((w) => w.slug === searchResult.data.world)!,
           route: searchResult.data,
         });
-        setShowDetails(true);
         break;
     }
   };
@@ -57,7 +54,6 @@ export function Sidebar({ onMouseHoverDistanceChange }: Props) {
               value={query}
               onChange={(e) => {
                 setQuery(e.target.value);
-                setShowDetails(false);
               }}
               isRightAddon={false}
               rightChildren={
@@ -67,7 +63,6 @@ export function Sidebar({ onMouseHoverDistanceChange }: Props) {
                     style={{ right: 0, position: "absolute" }}
                     onClick={() => {
                       setQuery("");
-                      setShowDetails(false);
                     }}
                     aria-label="Clear search field"
                   >
@@ -80,13 +75,15 @@ export function Sidebar({ onMouseHoverDistanceChange }: Props) {
           <Divider className={styles.NoGapDivider} />
         </List>
         <div className={styles.Content}>
-          {showDetails ? (
+          {locationState.route ? (
             <Details
               onMouseHoverDistanceChange={onMouseHoverDistanceChange}
               backButtonText={
                 query === "" ? "Back to route list" : "Back to search results"
               }
-              onBackButtonClick={() => setShowDetails(false)}
+              onBackButtonClick={() => {
+                setLocationState({ ...locationState, route: undefined });
+              }}
             />
           ) : (
             <List>
@@ -106,7 +103,6 @@ export function Sidebar({ onMouseHoverDistanceChange }: Props) {
                             world: worlds.find((w) => w.slug === route.world)!,
                             route,
                           });
-                          setShowDetails(true);
                         }}
                       />
                     ))}
