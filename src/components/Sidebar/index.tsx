@@ -17,6 +17,7 @@ import styles from "./index.module.scss";
 import { SearchResultCardRoute } from "./SearchResultCardRoute";
 import { SearchResultList } from "./SearchResultList";
 import { useIsDesktop } from "../../hooks/useIsDesktop";
+import { useWindowHeight } from "../../hooks/useWindowHeight";
 
 const DRAG_HANDLE_HEIGHT = 24;
 
@@ -25,6 +26,7 @@ interface Props {
 }
 
 export function Sidebar({ onMouseHoverDistanceChange }: Props) {
+  const windowHeight = useWindowHeight();
   const isDesktop = useIsDesktop();
   const [locationState, setLocationState] = useLocationState();
   const [query, setQuery] = useState("");
@@ -55,11 +57,10 @@ export function Sidebar({ onMouseHoverDistanceChange }: Props) {
   return (
     <>
       <Draggable
-        defaultPosition={window.screen.availHeight - DRAG_HANDLE_HEIGHT}
+        defaultPosition={windowHeight - DRAG_HANDLE_HEIGHT}
         bounds={{
-          top:
-            window.screen.availHeight - (containerHeight ?? DRAG_HANDLE_HEIGHT),
-          bottom: window.screen.availHeight - DRAG_HANDLE_HEIGHT,
+          top: windowHeight - (containerHeight ?? DRAG_HANDLE_HEIGHT),
+          bottom: windowHeight - DRAG_HANDLE_HEIGHT,
         }}
         disabled={isDesktop}
         nodeRef={containerRef}
