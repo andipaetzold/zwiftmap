@@ -1,0 +1,13 @@
+$breakpoint: 750px;
+
+@mixin isMobile {
+  @media (max-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin isDesktop {
+  @media (min-width: ($breakpoint + 1px)) {
+    @content;
+  }
+}

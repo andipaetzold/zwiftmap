@@ -1,0 +1,55 @@
+@import "../../mixins.scss";
+
+.Container {
+  @include isDesktop {
+    grid-area: sidebar;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  @include isMobile {
+    z-index: 5000;
+    width: 100%;
+    position: absolute;
+    background-color: white;
+
+    overflow: hidden;
+  }
+
+  display: flex;
+  flex-direction: column;
+}
+
+.SearchBox {
+  flex-grow: 0;
+  padding-bottom: 0;
+}
+
+.Content {
+  flex: 1;
+  overflow-y: auto;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.BottomMenu {
+  flex-grow: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.NoGapDivider {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.DragHandle {
+  display: flex;
+  justify-content: center;
+
+  @include isDesktop {
+    display: none;
+  }
+}

@@ -1,3 +1,5 @@
+@import "./mixins.scss";
+
 .Wrapper {
   display: grid;
   align-items: stretch;
@@ -6,4 +8,9 @@
   grid-template-columns: 320px auto;
   grid-template-rows: auto;
   grid-template-areas: "sidebar map";
+
+  @include isMobile {
+    grid-template-columns: auto;
+    grid-template-areas: "map";
+  }
 }

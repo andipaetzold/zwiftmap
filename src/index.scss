@@ -13,3 +13,8 @@ $rmd-dialog-z-index: 1000; // leaflet is around z-index 400
 
 @include react-md-theme;
 @include react-md-utils;
+
+body {
+  margin: 0;
+  overflow: hidden;
+}

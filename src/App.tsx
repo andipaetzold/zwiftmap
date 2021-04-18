@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./App.module.css";
+import styles from "./App.module.scss";
 import { Sidebar } from "./components/Sidebar";
 import RouteMap from "./components/RouteMap";
 
