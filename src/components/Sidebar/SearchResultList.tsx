@@ -1,5 +1,5 @@
 import { Divider } from "@react-md/divider";
-import { ListSubheader } from "@react-md/list";
+import { ListSubheader, SimpleListItem } from "@react-md/list";
 import React, { Fragment } from "react";
 import { SearchResult, searchResultTypes } from "../../services/search";
 import { SearchResultCardRoute } from "./SearchResultCardRoute";
@@ -11,6 +11,10 @@ interface Props {
 }
 
 export function SearchResultList({ searchResults, onResultClick }: Props) {
+  if (searchResults.length === 0) {
+    return <SimpleListItem>No worlds or routes found</SimpleListItem>;
+  }
+
   return (
     <>
       {searchResults.map((searchResult, i) => (
