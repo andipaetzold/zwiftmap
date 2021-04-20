@@ -1,21 +1,33 @@
 @import "../../mixins.scss";
 
+$drag-handle-height: 25px;
+
 .Container {
   @include isDesktop {
     grid-area: sidebar;
-    overflow-y: auto;
-    overflow-x: hidden;
   }
 
   @include isMobile {
     z-index: 5000;
-    width: 100%;
+
     position: absolute;
+
+    top: 0;
+    bottom: 0;
+
+    left: 0;
+    right: 0;
     background-color: white;
 
-    overflow: hidden;
+    min-height: 100%;
+
+    &:not(.BottomSheetOpen) {
+      display: none;
+    }
   }
 
+  overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
 }
@@ -47,9 +59,32 @@
 
 .DragHandle {
   display: flex;
+  align-items: center;
   justify-content: center;
+
+  background: transparent;
+  border: 0;
+  outline: none;
+  height: 30px;
 
   @include isDesktop {
     display: none;
   }
 }
+
+.DragHandleBottom {
+  z-index: 5000;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: white;
+
+  &.BottomSheetOpen {
+    display: none;
+  }
+
+  @include isDesktop {
+    display: none;
+  }
+}
+

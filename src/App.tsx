@@ -10,11 +10,9 @@ export default function App() {
   >(undefined);
 
   return (
-    <>
-      <div className={styles.Wrapper}>
-        <Sidebar onMouseHoverDistanceChange={setMouseHoverDistance} />
-        <RouteMap mouseHoverDistance={mouseHoverDistance} />
-      </div>
-    </>
+    <div className={styles.Wrapper}>
+      <Sidebar onMouseHoverDistanceChange={setMouseHoverDistance} />
+      <RouteMap mouseHoverDistance={mouseHoverDistance} />
+    </div>
   );
 }
