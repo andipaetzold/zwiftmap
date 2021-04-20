@@ -71,6 +71,7 @@ export function Sidebar({ onMouseHoverDistanceChange }: Props) {
               placeholder="Search for worlds and routes…"
               value={query}
               onChange={(e) => {
+                setLocationState({ world: locationState.world });
                 setQuery(e.target.value);
               }}
               isRightAddon={false}
