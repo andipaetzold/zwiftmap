@@ -19,7 +19,8 @@ export interface Route {
   zwiftInsiderUrl?: string;
   whatsOnZwiftUrl?: string;
   sports: Sport[];
-  eventOnly: boolean
+  eventOnly: boolean;
+  routeIds: number[];
 }
 
 export type Sport = "running" | "cycling";

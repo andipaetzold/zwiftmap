@@ -21,7 +21,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/big-foot-hills",
     "slug": "big-foot-hills",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [3921412335]
   },
   {
     "world": "watopia",
@@ -38,7 +39,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/big-loop",
     "slug": "big-loop",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [2947111049]
   },
   {
     "world": "watopia",
@@ -55,7 +57,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/bigger-loop",
     "slug": "bigger-loop",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [2139708890]
   },
   {
     "world": "watopia",
@@ -76,7 +79,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/dust-in-the-wind",
     "slug": "dust-in-the-wind",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [2675063596]
   },
   {
     "world": "watopia",
@@ -98,11 +102,12 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/figure-8",
     "slug": "figure-8",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [3382019812]
   },
   {
     "world": "watopia",
-    "name": "Figure 8-rev",
+    "name": "Figure 8 Rev.",
     "distance": 29.7,
     "elevation": 254,
     "leadInDistance": 0.3257,
@@ -120,7 +125,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/figure-8-reverse",
     "slug": "figure-8-reverse",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [553661379]
   },
   {
     "world": "watopia",
@@ -137,7 +143,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/flat-route",
     "slug": "flat-route",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [3395698268]
   },
   {
     "world": "watopia",
@@ -160,7 +167,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/four-horsemen",
     "slug": "four-horsemen",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [2878180967]
   },
   {
     "world": "watopia",
@@ -177,7 +185,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/hilly-route",
     "slug": "hilly-route",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [2737483381]
   },
   {
     "world": "watopia",
@@ -194,7 +203,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/jungle-circuit",
     "slug": "jungle-circuit",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [743730361]
   },
   {
     "world": "watopia",
@@ -211,7 +221,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/mountain-8",
     "slug": "mountain-8",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [3219074012]
   },
   {
     "world": "watopia",
@@ -228,7 +239,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/mountain-route",
     "slug": "mountain-route",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [2966818006]
   },
   {
     "world": "watopia",
@@ -245,7 +257,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/muir-and-the-mountain",
     "slug": "muir-and-the-mountain",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [2139465450]
   },
   {
     "world": "watopia",
@@ -267,7 +280,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/out-and-back-again",
     "slug": "out-and-back-again",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [2748657713]
   },
   {
     "world": "watopia",
@@ -284,7 +298,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/quatch-quest",
     "slug": "quatch-quest",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [2969952077]
   },
   {
     "world": "watopia",
@@ -301,7 +316,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/road-to-ruins",
     "slug": "road-to-ruins",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [3701568815]
   },
   {
     "world": "watopia",
@@ -318,7 +334,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/road-to-sky",
     "slug": "road-to-sky",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [2663908549]
   },
   {
     "world": "watopia",
@@ -335,7 +352,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/sand-and-sequoias",
     "slug": "sand-and-sequoias",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [604330868]
   },
   {
     "world": "watopia",
@@ -352,7 +370,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/tempus-fugit",
     "slug": "tempus-fugit",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [2128890027]
   },
   {
     "world": "watopia",
@@ -375,7 +394,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/the-mega-pretzel",
     "slug": "the-mega-pretzel",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [3848492017]
   },
   {
     "world": "watopia",
@@ -399,7 +419,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/the-pretzel",
     "slug": "the-pretzel",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [2494975884]
   },
   {
     "world": "watopia",
@@ -425,7 +446,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/the-uber-pretzel",
     "slug": "the-uber-pretzel",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [1475638265]
   },
   {
     "world": "watopia",
@@ -442,7 +464,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/three-sisters",
     "slug": "three-sisters",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [4142772830]
   },
   {
     "world": "watopia",
@@ -459,7 +482,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/tick-tock",
     "slug": "tick-tock",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [3366225080]
   },
   {
     "world": "watopia",
@@ -476,7 +500,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/tour-of-fire-and-ice",
     "slug": "tour-of-fire-and-ice",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [1766405776]
   },
   {
     "world": "watopia",
@@ -493,7 +518,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/volcano-circuit",
     "slug": "volcano-circuit",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [686828068]
   },
   {
     "world": "watopia",
@@ -510,7 +536,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/volcano-circuit-ccw",
     "slug": "volcano-circuit-ccw",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [3866241330]
   },
   {
     "world": "watopia",
@@ -527,7 +554,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/volcano-climb",
     "slug": "volcano-climb",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [849508252]
   },
   {
     "world": "watopia",
@@ -544,7 +572,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/volcano-flat",
     "slug": "volcano-flat",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [3994934674]
   },
   {
     "world": "watopia",
@@ -561,7 +590,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/whole-lotta-lava",
     "slug": "whole-lotta-lava",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [982239385]
   },
   {
     "world": "london",
@@ -578,7 +608,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/london/route/classique",
     "slug": "london-classique",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [2694166390]
   },
   {
     "world": "london",
@@ -595,7 +626,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/london/route/greater-london-8",
     "slug": "greater-london-8",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [87055383]
   },
   {
     "world": "london",
@@ -612,7 +644,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/london/route/greater-london-flat",
     "slug": "greater-london-flat",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [928793662]
   },
   {
     "world": "london",
@@ -629,7 +662,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/london/route/greater-london-loop",
     "slug": "greater-london-loop",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [3276403604]
   },
   {
     "world": "london",
@@ -646,7 +680,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/london/route/greatest-london-flat",
     "slug": "greatest-london-flat",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [1880443431]
   },
   {
     "world": "london",
@@ -663,7 +698,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/london/route/greatest-london-loop",
     "slug": "greatest-london-loop",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [3853654821]
   },
   {
     "world": "london",
@@ -680,7 +716,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/london/route/london-8",
     "slug": "london-8",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [4012646479]
   },
   {
     "world": "london",
@@ -697,7 +734,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/london/route/london-loop",
     "slug": "london-loop",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [913172163]
   },
   {
     "world": "london",
@@ -714,7 +752,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/london/route/surrey-hills",
     "slug": "surrey-hills",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [3707791029]
   },
   {
     "world": "london",
@@ -736,7 +775,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/london/route/the-london-pretzel",
     "slug": "the-london-pretzel",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [163688809]
   },
   {
     "world": "london",
@@ -777,7 +817,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/london/route/the-prl-full",
     "slug": "london-the-prl-full",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [2204461619]
   },
   {
     "world": "london",
@@ -804,7 +845,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/london/route/the-prl-half",
     "slug": "the-prl-half",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [764532081]
   },
   {
     "world": "london",
@@ -821,7 +863,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/london/route/triple-loops",
     "slug": "london-triple-loops",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [4210048937]
   },
   {
     "world": "new-york",
@@ -838,7 +881,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/new-york/route/astoria-line-8",
     "slug": "astoria-line-8",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [1509089537]
   },
   {
     "world": "new-york",
@@ -860,7 +904,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/new-york/route/everything-bagel",
     "slug": "everything-bagel",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [1327665278]
   },
   {
     "world": "new-york",
@@ -877,7 +922,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/new-york/route/grand-central-circuit",
     "slug": "grand-central-circuit",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": []
   },
   {
     "world": "new-york",
@@ -894,7 +940,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/new-york/route/knickerbocker",
     "slug": "knickerbocker",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [2954366662]
   },
   {
     "world": "new-york",
@@ -911,7 +958,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/new-york/route/knickerbocker-reverse",
     "slug": "knickerbocker-reverse",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [2001106885]
   },
   {
     "world": "new-york",
@@ -928,7 +976,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/new-york/route/lady-liberty",
     "slug": "lady-liberty",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [5103974]
   },
   {
     "world": "new-york",
@@ -945,7 +994,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/new-york/route/mighty-metropolitan",
     "slug": "mighty-metropolitan",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [3872978134]
   },
   {
     "world": "new-york",
@@ -962,7 +1012,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/new-york/route/park-perimeter-loop",
     "slug": "park-perimeter-loop",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [1919980508]
   },
   {
     "world": "new-york",
@@ -979,7 +1030,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/new-york/route/rising-empire",
     "slug": "rising-empire",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [3078665969]
   },
   {
     "world": "new-york",
@@ -996,7 +1048,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/new-york/route/the-6-train",
     "slug": "the-6-train",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [3597939700]
   },
   {
     "world": "new-york",
@@ -1013,7 +1066,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/new-york/route/the-highline",
     "slug": "the-highline",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [1732356505]
   },
   {
     "world": "innsbruck",
@@ -1030,7 +1084,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/innsbruck/route/2018-uci-worlds-short-lap",
     "slug": "2018-uci-worlds-course-short-lap",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [3114603308]
   },
   {
     "world": "innsbruck",
@@ -1052,7 +1107,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/innsbruck/route/achterbahn",
     "slug": "achterbahn",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [4009235104]
   },
   {
     "world": "innsbruck",
@@ -1069,7 +1125,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/innsbruck/route/innsbruckring",
     "slug": "innsbruckring",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [2592027600]
   },
   {
     "world": "innsbruck",
@@ -1086,7 +1143,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/innsbruck/route/lutscher",
     "slug": "lutscher",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [156457316]
   },
   {
     "world": "innsbruck",
@@ -1103,7 +1161,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/innsbruck/route/lutscher-ccw",
     "slug": "lutscher-ccw",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [3801241714]
   },
   {
     "world": "yorkshire",
@@ -1120,7 +1179,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/yorkshire/route/2019-uci-worlds-harrogate-circuit",
     "slug": "harrogate-circuit",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [2007026433]
   },
   {
     "world": "yorkshire",
@@ -1137,7 +1197,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/yorkshire/route/duchy-estate",
     "slug": "duchy-estate",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [1233527301]
   },
   {
     "world": "yorkshire",
@@ -1154,7 +1215,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/yorkshire/route/queen-s-highway",
     "slug": "queens-highway",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [3007266671]
   },
   {
     "world": "yorkshire",
@@ -1171,7 +1233,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/yorkshire/route/tour-of-tewit-well",
     "slug": "tour-of-tewit-well",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [1086718516]
   },
   {
     "world": "yorkshire",
@@ -1193,7 +1256,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/yorkshire/route/royal-pump-room-8",
     "slug": "royal-pump-room-8",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [2905381067]
   },
   {
     "world": "richmond",
@@ -1216,7 +1280,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/richmond/route/2015-uci-worlds-course",
     "slug": "2015-uci-worlds-course",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [2196019512]
   },
   {
     "world": "richmond",
@@ -1233,7 +1298,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/richmond/route/cobbled-climbs",
     "slug": "cobbled-climbs",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": []
   },
   {
     "world": "richmond",
@@ -1250,7 +1316,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/richmond/route/the-fan-flats",
     "slug": "the-fan-flats",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": []
   },
   {
     "world": "france",
@@ -1272,7 +1339,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/france/route/casse-pattes",
     "slug": "casse-pattes",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [3919912289]
   },
   {
     "world": "france",
@@ -1294,7 +1362,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/france/route/douce-france",
     "slug": "douce-france",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [986252325]
   },
   {
     "world": "france",
@@ -1321,7 +1390,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/france/route/petit-boucle",
     "slug": "petit-boucle",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [2852153296]
   },
   {
     "world": "france",
@@ -1338,7 +1408,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/france/route/roule-ma-poule",
     "slug": "roule-ma-poule",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [872351836]
   },
   {
     "world": "france",
@@ -1360,7 +1431,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/france/route/r-g-v",
     "slug": "rgv",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [1776635757]
   },
   {
     "world": "france",
@@ -1387,7 +1459,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/france/route/tire-bouchon",
     "slug": "tire-bouchon",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [2413440572]
   },
   {
     "world": "france",
@@ -1404,7 +1477,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/france/route/ven-top",
     "slug": "ven-top",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [2573468147]
   },
   {
     "world": "paris",
@@ -1421,7 +1495,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/paris/route/champs-elysees",
     "slug": "champs-elysees",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [3364574135]
   },
   {
     "world": "paris",
@@ -1438,7 +1513,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/paris/route/lutece-express",
     "slug": "lutece-express",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [1236439870]
   },
   {
     "world": "watopia",
@@ -1455,7 +1531,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/11-1-ocean-blvd",
     "slug": "ocean-blvd",
     "sports": ["running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [4240327959]
   },
   {
     "world": "watopia",
@@ -1472,7 +1549,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/5k-loop",
     "slug": "5k-loop",
     "sports": ["running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [3819095753]
   },
   {
     "world": "watopia",
@@ -1489,7 +1567,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/chili-pepper",
     "slug": "chili-pepper",
     "sports": ["running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [1373909093]
   },
   {
     "world": "watopia",
@@ -1506,7 +1585,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/jon-s-route",
     "slug": "jons-route",
     "sports": ["running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [136957568]
   },
   {
     "world": "watopia",
@@ -1523,7 +1603,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/may-field",
     "slug": "may-field",
     "sports": ["running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [3012588561]
   },
   {
     "world": "watopia",
@@ -1540,7 +1621,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/that-s-amore",
     "slug": "thats-amore",
     "sports": ["running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [263936293]
   },
   {
     "world": "new-york",
@@ -1555,7 +1637,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/new-york/route/couch-to-sky-k",
     "slug": "couch-to-sky-k",
     "sports": ["running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [1790569309]
   },
   {
     "world": "new-york",
@@ -1570,7 +1653,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/new-york/route/flat-irons",
     "slug": "flat-irons",
     "sports": ["running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [711818913]
   },
   {
     "world": "new-york",
@@ -1585,7 +1669,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/new-york/route/hudson-roll",
     "slug": "hudson-roll",
     "sports": ["running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [3665959404]
   },
   {
     "world": "new-york",
@@ -1600,7 +1685,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/new-york/route/park-to-peak",
     "slug": "park-to-peak",
     "sports": ["running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [1378559127]
   },
   {
     "world": "new-york",
@@ -1615,7 +1701,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/new-york/route/shuman-trail-loop",
     "slug": "shuman-trail-loop",
     "sports": ["running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [2590569306]
   },
   {
     "world": "watopia",
@@ -1632,7 +1719,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/beach-island-loop",
     "slug": "beach-island-loop",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": []
   },
   {
     "world": "watopia",
@@ -1649,7 +1737,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/ocean-lava-cliffside-loop",
     "slug": "ocean-lava-cliffside-loop",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": [2314974816]
   },
   {
     "world": "watopia",
@@ -1666,7 +1755,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/serpentine-8",
     "slug": "serpentine-8",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": []
   },
   {
     "world": "watopia",
@@ -1683,7 +1773,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/two-bridges-loop",
     "slug": "two-bridges-loop",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "routeIds": []
   },
   {
     "world": "watopia",
@@ -1705,7 +1796,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/zwift-bambino-fondo",
     "slug": "bambino-fondo",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [3621162212]
   },
   {
     "world": "crit-city",
@@ -1720,7 +1812,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/crit-city/route/the-bell-lap",
     "slug": "bell-lap",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [2875658892]
   },
   {
     "world": "watopia",
@@ -1734,7 +1827,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/big-loop-reverse",
     "slug": "big-loop-rev",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [4107844490]
   },
   {
     "world": "london",
@@ -1749,11 +1843,12 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/london/route/classique-reverse",
     "slug": "classique-rev",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [3599973269]
   },
   {
     "world": "richmond",
-    "name": "Cobbled Climbs",
+    "name": "Cobbled Climbs Rev.",
     "distance": 9.18,
     "elevation": 133.5,
     "leadInDistance": 0.32,
@@ -1764,7 +1859,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/richmond/route/cobbled-climbs",
     "slug": "cobbled-climbs-rev",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [4194352271]
   },
   {
     "world": "crit-city",
@@ -1779,7 +1875,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/crit-city/route/downtown-dolphin",
     "slug": "downtown-dolphin",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [947394567]
   },
   {
     "world": "watopia",
@@ -1792,7 +1889,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/flat-route-reverse",
     "slug": "flat-route-rev",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [3811569265]
   },
   {
     "world": "new-york",
@@ -1808,7 +1906,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/new-york/route/gotham-grind-reverse",
     "slug": "gotham-grind-rev",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [352245150]
   },
   {
     "world": "new-york",
@@ -1823,7 +1922,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/new-york/route/gotham-grind",
     "slug": "gotham-grind",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [480315274]
   },
   {
     "world": "watopia",
@@ -1847,7 +1947,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/zwift-gran-fondo",
     "slug": "gran-fondo",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [242381847]
   },
   {
     "world": "new-york",
@@ -1863,7 +1964,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/new-york/route/grand-central-circuit-reverse",
     "slug": "grand-central-circuit-rev",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [3687251774]
   },
   {
     "world": "london",
@@ -1877,7 +1979,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/london/route/greater-london-loop-reverse",
     "slug": "greater-london-loop-rev",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [474781994]
   },
   {
     "world": "london",
@@ -1891,7 +1994,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/london/route/greatest-london-loop-reverse",
     "slug": "greatest-london-loop-rev",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [3976402826]
   },
   {
     "world": "yorkshire",
@@ -1907,7 +2011,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/yorkshire/route/harrogate-circuit-reverse",
     "slug": "harrogate-circuit-rev",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [620436060]
   },
   {
     "world": "watopia",
@@ -1923,7 +2028,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/hilly-route-reverse",
     "slug": "hilly-route-rev",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [107363867]
   },
   {
     "world": "innsbruck",
@@ -1944,7 +2050,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/innsbruck/route/innsbruck-kom-after-party",
     "slug": "innsbruck-kom-after-party",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": []
   },
   {
     "world": "watopia",
@@ -1958,7 +2065,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/jungle-circuit-reverse",
     "slug": "jungle-circuit-rev",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [2839057126]
   },
   {
     "world": "london",
@@ -1974,7 +2082,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/london/route/keith-hill-after-party",
     "slug": "keith-hill-after-party",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [3569674525]
   },
   {
     "world": "france",
@@ -1990,7 +2099,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/france/route/la-reine",
     "slug": "la-reine",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [1433431343]
   },
   {
     "world": "new-york",
@@ -2006,7 +2116,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/new-york/route/laguardia-loop",
     "slug": "laguardia-loop",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [2422779354]
   },
   {
     "world": "london",
@@ -2022,7 +2133,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/london/route/leith-hill-after-party",
     "slug": "leith-hill-after-party",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [1230300449]
   },
   {
     "world": "richmond",
@@ -2046,7 +2158,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/richmond/route/libby-hill-after-party",
     "slug": "libby-hill-after-party",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [54700404]
   },
   {
     "world": "london",
@@ -2060,7 +2173,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/london/route/london-8-reverse",
     "slug": "london-8-rev",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [2165880404]
   },
   {
     "world": "london",
@@ -2076,7 +2190,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/london/route/london-loop-reverse",
     "slug": "london-loop-rev",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [1788889233]
   },
   {
     "world": "london",
@@ -2090,7 +2205,8 @@
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/london-loop-with-box-hill-finish",
     "slug": "london-loo-with-box-hill-finish",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": []
   },
   {
     "world": "watopia",
@@ -2106,7 +2222,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/zwift-medio-fondo",
     "slug": "medio-fondo",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [3748780161]
   },
   {
     "world": "new-york",
@@ -2127,7 +2244,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/new-york/route/nyc-kom-after-party",
     "slug": "new-york-kom-after-party",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [2372883204]
   },
   {
     "world": "new-york",
@@ -2142,7 +2260,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/new-york/route/park-perimeter-reverse",
     "slug": "park-perimeter-rev",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [2202609830]
   },
   {
     "world": "richmond",
@@ -2158,7 +2277,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/richmond/route/richmond-rollercoaster",
     "slug": "richmond-rollercoaster",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [948831673]
   },
   {
     "world": "richmond",
@@ -2179,7 +2299,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/richmond/route/richmond-uci-reverse",
     "slug": "richmond-uci-rev",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [1039983620]
   },
   {
     "world": "watopia",
@@ -2195,7 +2316,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/road-to-ruins-reverse",
     "slug": "road-to-ruins-rev",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [2967612381]
   },
   {
     "world": "watopia",
@@ -2211,7 +2333,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/seaside-sprint",
     "slug": "seaside-sprint",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [3454338139]
   },
   {
     "world": "new-york",
@@ -2225,7 +2348,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/new-york/route/shuman-trail-reverse",
     "slug": "shuman-trial-loop-rev",
     "sports": ["running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [274775181]
   },
   {
     "world": "watopia",
@@ -2239,7 +2363,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/that-s-amore-reverse",
     "slug": "thats-amore-rev",
     "sports": ["running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [1586193601]
   },
   {
     "world": "new-york",
@@ -2255,7 +2380,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/new-york/route/the-6-train-reverse",
     "slug": "the-6-train-rev",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [274639515]
   },
   {
     "world": "new-york",
@@ -2271,7 +2397,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/new-york/route/the-highline-reverse",
     "slug": "the-highline-rev",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [1763213625]
   },
   {
     "world": "watopia",
@@ -2287,7 +2414,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/the-magnificent-8",
     "slug": "the-magnificent-8",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [2207442179]
   },
   {
     "world": "watopia",
@@ -2303,11 +2431,12 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/three-sisters-reverse",
     "slug": "three-sisters-rev",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [4263172118]
   },
   {
     "world": "bologna",
-    "name": "Time Trial Lap",
+    "name": "Time Trial",
     "distance": 8.05,
     "elevation": 236.39,
     "leadInDistance": 0,
@@ -2317,9 +2446,10 @@
     "stravaSegmentUrl": "https://www.strava.com/segments/20560239",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/time-trial-lap",
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/bologna-tt/route/bologna-time-trial",
-    "slug": "time-trial-lap",
+    "slug": "time-trial",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [2843604888]
   },
   {
     "world": "watopia",
@@ -2335,7 +2465,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/volcano-climb-after-party",
     "slug": "volcano-climb-after-party",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": []
   },
   {
     "world": "watopia",
@@ -2349,7 +2480,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/volcano-flat-reverse",
     "slug": "volcano-flat-rev",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [1397026382]
   },
   {
     "world": "watopia",
@@ -2365,7 +2497,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/watopia-s-waistband",
     "slug": "watopias-waistband",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [1064303857]
   },
   {
     "world": "watopia",
@@ -2381,6 +2514,7 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/wbr-climbing-series",
     "slug": "wbr-climbing-series",
     "sports": ["cycling", "running"],
-    "eventOnly": true
+    "eventOnly": true,
+    "routeIds": [2218409282]
   }
 ]
