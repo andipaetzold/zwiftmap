@@ -220,7 +220,8 @@ function RouteEvents({ route }: RouteEventsProps) {
       {filteredEvents.length > 3 && (
         <SimpleListItem>
           <Text type="body-2">
-            {filteredEvents.length - 3} more events happening today
+            {filteredEvents.length - 3} more{" "}
+            {filteredEvents.length === 4 ? "event" : "events"} happening today
           </Text>
         </SimpleListItem>
       )}
