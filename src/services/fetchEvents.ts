@@ -68,7 +68,7 @@ export interface ZwiftEvent {
   recordable: boolean;
   imported: boolean;
   eventTemplateId: null;
-  eventType: EventType;
+  eventType: ZwiftEventType;
 }
 
 export enum CullingType {
@@ -156,7 +156,7 @@ export interface TimeTrialOptions {
   maxRidersPerRow: number;
 }
 
-export type EventType = "GROUP_RIDE" | "GROUP_WORKOUT" | "RACE" | "TIME_TRIAL";
+export type ZwiftEventType = "GROUP_RIDE" | "GROUP_WORKOUT" | "RACE" | "TIME_TRIAL";
 
 export type Sport = "CYCLING" | "RUNNING";
 
