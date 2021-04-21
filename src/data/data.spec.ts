@@ -2,7 +2,19 @@ import { routes, segments, worlds } from ".";
 
 const worldSlugs = worlds.map((world) => world.slug);
 
-describe("Verify routes", () => {
+describe("Worlds", () => {
+  it("Unique ids", () => {
+    const worldIds = worlds.map((w) => w.id).filter((id) => id !== undefined);
+    expect(new Set(worldIds).size).toBe(worldIds.length);
+  });
+
+  it("Unique slugs", () => {
+    const worldSlugs = worlds.map((w) => w.slug);
+    expect(new Set(worldSlugs).size).toBe(worldSlugs.length);
+  });
+});
+
+describe("Routes", () => {
   it("Unique ids", () => {
     const routeIds = routes.map((r) => r.id).filter((id) => id !== undefined);
     expect(new Set(routeIds).size).toBe(routeIds.length);
@@ -22,7 +34,7 @@ describe("Verify routes", () => {
   });
 });
 
-describe("Verify segments", () => {
+describe("Segments", () => {
   segments.forEach((segment) => {
     describe(segment.name, () => {
       it("World slug", () => {
