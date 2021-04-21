@@ -2,6 +2,7 @@ import { ListItem, SimpleListItem } from "@react-md/list";
 import { EventFontIcon } from "@react-md/material-icons";
 import { CircularProgress } from "@react-md/progress";
 import { Text } from "@react-md/typography";
+import round from "lodash/round";
 import React, { useMemo } from "react";
 import { useAsync } from "react-async-hook";
 import { fetchEvents, ZwiftEventType } from "../../../../services/fetchEvents";
@@ -68,7 +69,17 @@ export function RouteEvents({ route }: Props) {
                 weekday: "short",
               }).format(Date.parse(event.eventStart))}
               <br />
-              {eventTypes[event.eventType] ?? event.eventType}
+              {eventTypes[event.eventType] ?? event.eventType} |&nbsp;
+              {event.distanceInMeters !== 0 ? (
+                <>
+                  {round(event.distanceInMeters / 1_000, 1)}
+                  km
+                </>
+              ) : event.durationInSeconds > 0 ? (
+                <>{round(event.durationInSeconds) / 60}min</>
+              ) : (
+                <>{event.laps === 1 ? `1 lap` : `${event.laps} laps`}</>
+              )}
             </>
           }
           threeLines
