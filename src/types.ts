@@ -20,7 +20,7 @@ export interface Route {
   whatsOnZwiftUrl?: string;
   sports: Sport[];
   eventOnly: boolean;
-  routeIds: number[];
+  id: number;
 }
 
 export type Sport = "running" | "cycling";

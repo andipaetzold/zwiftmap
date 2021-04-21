@@ -102,6 +102,7 @@ export function RouteDetails({
         />
       </SimpleListItem>
 
+      <ListSubheader>Upcoming Events</ListSubheader>
       <RouteEvents route={route} />
 
       <ListSubheader>Links</ListSubheader>
@@ -172,9 +173,7 @@ function RouteEvents({ route }: RouteEventsProps) {
           ...event.eventSubgroups.map((esg) => esg.routeId),
         ];
 
-        return eventRouteIds.some((erid) =>
-          route.routeIds.find((rid) => rid === erid)
-        );
+        return eventRouteIds.includes(route.id);
       })
       .sort((a, b) => a.eventStart.localeCompare(b.eventStart));
   }, [events, route]);
@@ -201,7 +200,6 @@ function RouteEvents({ route }: RouteEventsProps) {
 
   return (
     <>
-      <ListSubheader>Upcoming Events</ListSubheader>
       {filteredEvents.slice(0, 3).map((event) => (
         <ListItem
           key={event.id}

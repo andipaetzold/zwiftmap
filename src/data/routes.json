@@ -22,7 +22,7 @@
     "slug": "big-foot-hills",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [3921412335]
+    "id": 3921412335
   },
   {
     "world": "watopia",
@@ -40,7 +40,7 @@
     "slug": "big-loop",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [2947111049]
+    "id": 2947111049
   },
   {
     "world": "watopia",
@@ -58,7 +58,7 @@
     "slug": "bigger-loop",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [2139708890]
+    "id": 2139708890
   },
   {
     "world": "watopia",
@@ -80,7 +80,7 @@
     "slug": "dust-in-the-wind",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [2675063596]
+    "id": 2675063596
   },
   {
     "world": "watopia",
@@ -103,7 +103,7 @@
     "slug": "figure-8",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [3382019812]
+    "id": 3382019812
   },
   {
     "world": "watopia",
@@ -126,7 +126,7 @@
     "slug": "figure-8-reverse",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [553661379]
+    "id": 553661379
   },
   {
     "world": "watopia",
@@ -144,7 +144,7 @@
     "slug": "flat-route",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [3395698268]
+    "id": 3395698268
   },
   {
     "world": "watopia",
@@ -168,7 +168,7 @@
     "slug": "four-horsemen",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [2878180967]
+    "id": 2878180967
   },
   {
     "world": "watopia",
@@ -186,7 +186,7 @@
     "slug": "hilly-route",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [2737483381]
+    "id": 2737483381
   },
   {
     "world": "watopia",
@@ -204,7 +204,7 @@
     "slug": "jungle-circuit",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [743730361]
+    "id": 743730361
   },
   {
     "world": "watopia",
@@ -222,7 +222,7 @@
     "slug": "mountain-8",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [3219074012]
+    "id": 3219074012
   },
   {
     "world": "watopia",
@@ -240,7 +240,7 @@
     "slug": "mountain-route",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [2966818006]
+    "id": 2966818006
   },
   {
     "world": "watopia",
@@ -258,7 +258,7 @@
     "slug": "muir-and-the-mountain",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [2139465450]
+    "id": 2139465450
   },
   {
     "world": "watopia",
@@ -281,7 +281,7 @@
     "slug": "out-and-back-again",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [2748657713]
+    "id": 2748657713
   },
   {
     "world": "watopia",
@@ -299,7 +299,7 @@
     "slug": "quatch-quest",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [2969952077]
+    "id": 2969952077
   },
   {
     "world": "watopia",
@@ -317,7 +317,7 @@
     "slug": "road-to-ruins",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [3701568815]
+    "id": 3701568815
   },
   {
     "world": "watopia",
@@ -335,7 +335,7 @@
     "slug": "road-to-sky",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [2663908549]
+    "id": 2663908549
   },
   {
     "world": "watopia",
@@ -353,7 +353,7 @@
     "slug": "sand-and-sequoias",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [604330868]
+    "id": 604330868
   },
   {
     "world": "watopia",
@@ -371,7 +371,7 @@
     "slug": "tempus-fugit",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [2128890027]
+    "id": 2128890027
   },
   {
     "world": "watopia",
@@ -395,7 +395,7 @@
     "slug": "the-mega-pretzel",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [3848492017]
+    "id": 3848492017
   },
   {
     "world": "watopia",
@@ -420,7 +420,7 @@
     "slug": "the-pretzel",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [2494975884]
+    "id": 2494975884
   },
   {
     "world": "watopia",
@@ -447,7 +447,7 @@
     "slug": "the-uber-pretzel",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [1475638265]
+    "id": 1475638265
   },
   {
     "world": "watopia",
@@ -465,7 +465,7 @@
     "slug": "three-sisters",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [4142772830]
+    "id": 4142772830
   },
   {
     "world": "watopia",
@@ -483,7 +483,7 @@
     "slug": "tick-tock",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [3366225080]
+    "id": 3366225080
   },
   {
     "world": "watopia",
@@ -501,7 +501,7 @@
     "slug": "tour-of-fire-and-ice",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [1766405776]
+    "id": 1766405776
   },
   {
     "world": "watopia",
@@ -519,7 +519,7 @@
     "slug": "volcano-circuit",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [686828068]
+    "id": 686828068
   },
   {
     "world": "watopia",
@@ -537,7 +537,7 @@
     "slug": "volcano-circuit-ccw",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [3866241330]
+    "id": 3866241330
   },
   {
     "world": "watopia",
@@ -555,7 +555,7 @@
     "slug": "volcano-climb",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [849508252]
+    "id": 849508252
   },
   {
     "world": "watopia",
@@ -573,7 +573,7 @@
     "slug": "volcano-flat",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [3994934674]
+    "id": 3994934674
   },
   {
     "world": "watopia",
@@ -591,7 +591,7 @@
     "slug": "whole-lotta-lava",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [982239385]
+    "id": 982239385
   },
   {
     "world": "london",
@@ -609,7 +609,7 @@
     "slug": "london-classique",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [2694166390]
+    "id": 2694166390
   },
   {
     "world": "london",
@@ -627,7 +627,7 @@
     "slug": "greater-london-8",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [87055383]
+    "id": 87055383
   },
   {
     "world": "london",
@@ -645,7 +645,7 @@
     "slug": "greater-london-flat",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [928793662]
+    "id": 928793662
   },
   {
     "world": "london",
@@ -663,7 +663,7 @@
     "slug": "greater-london-loop",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [3276403604]
+    "id": 3276403604
   },
   {
     "world": "london",
@@ -681,7 +681,7 @@
     "slug": "greatest-london-flat",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [1880443431]
+    "id": 1880443431
   },
   {
     "world": "london",
@@ -699,7 +699,7 @@
     "slug": "greatest-london-loop",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [3853654821]
+    "id": 3853654821
   },
   {
     "world": "london",
@@ -717,7 +717,7 @@
     "slug": "london-8",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [4012646479]
+    "id": 4012646479
   },
   {
     "world": "london",
@@ -735,7 +735,7 @@
     "slug": "london-loop",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [913172163]
+    "id": 913172163
   },
   {
     "world": "london",
@@ -753,7 +753,7 @@
     "slug": "surrey-hills",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [3707791029]
+    "id": 3707791029
   },
   {
     "world": "london",
@@ -776,7 +776,7 @@
     "slug": "the-london-pretzel",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [163688809]
+    "id": 163688809
   },
   {
     "world": "london",
@@ -818,7 +818,7 @@
     "slug": "london-the-prl-full",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [2204461619]
+    "id": 2204461619
   },
   {
     "world": "london",
@@ -846,7 +846,7 @@
     "slug": "the-prl-half",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [764532081]
+    "id": 764532081
   },
   {
     "world": "london",
@@ -864,7 +864,7 @@
     "slug": "london-triple-loops",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [4210048937]
+    "id": 4210048937
   },
   {
     "world": "new-york",
@@ -882,7 +882,7 @@
     "slug": "astoria-line-8",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [1509089537]
+    "id": 1509089537
   },
   {
     "world": "new-york",
@@ -905,7 +905,7 @@
     "slug": "everything-bagel",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [1327665278]
+    "id": 1327665278
   },
   {
     "world": "new-york",
@@ -941,7 +941,7 @@
     "slug": "knickerbocker",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [2954366662]
+    "id": 2954366662
   },
   {
     "world": "new-york",
@@ -959,7 +959,7 @@
     "slug": "knickerbocker-reverse",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [2001106885]
+    "id": 2001106885
   },
   {
     "world": "new-york",
@@ -977,7 +977,7 @@
     "slug": "lady-liberty",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [5103974]
+    "id": 5103974
   },
   {
     "world": "new-york",
@@ -995,7 +995,7 @@
     "slug": "mighty-metropolitan",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [3872978134]
+    "id": 3872978134
   },
   {
     "world": "new-york",
@@ -1013,7 +1013,7 @@
     "slug": "park-perimeter-loop",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [1919980508]
+    "id": 1919980508
   },
   {
     "world": "new-york",
@@ -1031,7 +1031,7 @@
     "slug": "rising-empire",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [3078665969]
+    "id": 3078665969
   },
   {
     "world": "new-york",
@@ -1049,7 +1049,7 @@
     "slug": "the-6-train",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [3597939700]
+    "id": 3597939700
   },
   {
     "world": "new-york",
@@ -1067,7 +1067,7 @@
     "slug": "the-highline",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [1732356505]
+    "id": 1732356505
   },
   {
     "world": "innsbruck",
@@ -1085,7 +1085,7 @@
     "slug": "2018-uci-worlds-course-short-lap",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [3114603308]
+    "id": 3114603308
   },
   {
     "world": "innsbruck",
@@ -1108,7 +1108,7 @@
     "slug": "achterbahn",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [4009235104]
+    "id": 4009235104
   },
   {
     "world": "innsbruck",
@@ -1126,7 +1126,7 @@
     "slug": "innsbruckring",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [2592027600]
+    "id": 2592027600
   },
   {
     "world": "innsbruck",
@@ -1144,7 +1144,7 @@
     "slug": "lutscher",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [156457316]
+    "id": 156457316
   },
   {
     "world": "innsbruck",
@@ -1162,7 +1162,7 @@
     "slug": "lutscher-ccw",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [3801241714]
+    "id": 3801241714
   },
   {
     "world": "yorkshire",
@@ -1180,7 +1180,7 @@
     "slug": "harrogate-circuit",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [2007026433]
+    "id": 2007026433
   },
   {
     "world": "yorkshire",
@@ -1198,7 +1198,7 @@
     "slug": "duchy-estate",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [1233527301]
+    "id": 1233527301
   },
   {
     "world": "yorkshire",
@@ -1216,7 +1216,7 @@
     "slug": "queens-highway",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [3007266671]
+    "id": 3007266671
   },
   {
     "world": "yorkshire",
@@ -1234,7 +1234,7 @@
     "slug": "tour-of-tewit-well",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [1086718516]
+    "id": 1086718516
   },
   {
     "world": "yorkshire",
@@ -1257,7 +1257,7 @@
     "slug": "royal-pump-room-8",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [2905381067]
+    "id": 2905381067
   },
   {
     "world": "richmond",
@@ -1281,7 +1281,7 @@
     "slug": "2015-uci-worlds-course",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [2196019512]
+    "id": 2196019512
   },
   {
     "world": "richmond",
@@ -1340,7 +1340,7 @@
     "slug": "casse-pattes",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [3919912289]
+    "id": 3919912289
   },
   {
     "world": "france",
@@ -1363,7 +1363,7 @@
     "slug": "douce-france",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [986252325]
+    "id": 986252325
   },
   {
     "world": "france",
@@ -1391,7 +1391,7 @@
     "slug": "petit-boucle",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [2852153296]
+    "id": 2852153296
   },
   {
     "world": "france",
@@ -1409,7 +1409,7 @@
     "slug": "roule-ma-poule",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [872351836]
+    "id": 872351836
   },
   {
     "world": "france",
@@ -1432,7 +1432,7 @@
     "slug": "rgv",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [1776635757]
+    "id": 1776635757
   },
   {
     "world": "france",
@@ -1460,7 +1460,7 @@
     "slug": "tire-bouchon",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [2413440572]
+    "id": 2413440572
   },
   {
     "world": "france",
@@ -1478,7 +1478,7 @@
     "slug": "ven-top",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [2573468147]
+    "id": 2573468147
   },
   {
     "world": "paris",
@@ -1496,7 +1496,7 @@
     "slug": "champs-elysees",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [3364574135]
+    "id": 3364574135
   },
   {
     "world": "paris",
@@ -1514,7 +1514,7 @@
     "slug": "lutece-express",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [1236439870]
+    "id": 1236439870
   },
   {
     "world": "watopia",
@@ -1532,7 +1532,7 @@
     "slug": "ocean-blvd",
     "sports": ["running"],
     "eventOnly": false,
-    "routeIds": [4240327959]
+    "id": 4240327959
   },
   {
     "world": "watopia",
@@ -1550,7 +1550,7 @@
     "slug": "5k-loop",
     "sports": ["running"],
     "eventOnly": false,
-    "routeIds": [3819095753]
+    "id": 3819095753
   },
   {
     "world": "watopia",
@@ -1568,7 +1568,7 @@
     "slug": "chili-pepper",
     "sports": ["running"],
     "eventOnly": false,
-    "routeIds": [1373909093]
+    "id": 1373909093
   },
   {
     "world": "watopia",
@@ -1586,7 +1586,7 @@
     "slug": "jons-route",
     "sports": ["running"],
     "eventOnly": false,
-    "routeIds": [136957568]
+    "id": 136957568
   },
   {
     "world": "watopia",
@@ -1604,7 +1604,7 @@
     "slug": "may-field",
     "sports": ["running"],
     "eventOnly": false,
-    "routeIds": [3012588561]
+    "id": 3012588561
   },
   {
     "world": "watopia",
@@ -1622,7 +1622,7 @@
     "slug": "thats-amore",
     "sports": ["running"],
     "eventOnly": false,
-    "routeIds": [263936293]
+    "id": 263936293
   },
   {
     "world": "new-york",
@@ -1638,7 +1638,7 @@
     "slug": "couch-to-sky-k",
     "sports": ["running"],
     "eventOnly": false,
-    "routeIds": [1790569309]
+    "id": 1790569309
   },
   {
     "world": "new-york",
@@ -1654,7 +1654,7 @@
     "slug": "flat-irons",
     "sports": ["running"],
     "eventOnly": false,
-    "routeIds": [711818913]
+    "id": 711818913
   },
   {
     "world": "new-york",
@@ -1670,7 +1670,7 @@
     "slug": "hudson-roll",
     "sports": ["running"],
     "eventOnly": false,
-    "routeIds": [3665959404]
+    "id": 3665959404
   },
   {
     "world": "new-york",
@@ -1686,7 +1686,7 @@
     "slug": "park-to-peak",
     "sports": ["running"],
     "eventOnly": false,
-    "routeIds": [1378559127]
+    "id": 1378559127
   },
   {
     "world": "new-york",
@@ -1702,7 +1702,7 @@
     "slug": "shuman-trail-loop",
     "sports": ["running"],
     "eventOnly": false,
-    "routeIds": [2590569306]
+    "id": 2590569306
   },
   {
     "world": "watopia",
@@ -1738,7 +1738,7 @@
     "slug": "ocean-lava-cliffside-loop",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": [2314974816]
+    "id": 2314974816
   },
   {
     "world": "watopia",
@@ -1797,7 +1797,7 @@
     "slug": "bambino-fondo",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [3621162212]
+    "id": 3621162212
   },
   {
     "world": "crit-city",
@@ -1813,7 +1813,7 @@
     "slug": "bell-lap",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [2875658892]
+    "id": 2875658892
   },
   {
     "world": "watopia",
@@ -1828,7 +1828,7 @@
     "slug": "big-loop-rev",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [4107844490]
+    "id": 4107844490
   },
   {
     "world": "london",
@@ -1844,7 +1844,7 @@
     "slug": "classique-rev",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [3599973269]
+    "id": 3599973269
   },
   {
     "world": "richmond",
@@ -1860,7 +1860,7 @@
     "slug": "cobbled-climbs-rev",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [4194352271]
+    "id": 4194352271
   },
   {
     "world": "crit-city",
@@ -1876,7 +1876,7 @@
     "slug": "downtown-dolphin",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [947394567]
+    "id": 947394567
   },
   {
     "world": "watopia",
@@ -1890,7 +1890,7 @@
     "slug": "flat-route-rev",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [3811569265]
+    "id": 3811569265
   },
   {
     "world": "new-york",
@@ -1907,7 +1907,7 @@
     "slug": "gotham-grind-rev",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [352245150]
+    "id": 352245150
   },
   {
     "world": "new-york",
@@ -1923,7 +1923,7 @@
     "slug": "gotham-grind",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [480315274]
+    "id": 480315274
   },
   {
     "world": "watopia",
@@ -1948,7 +1948,7 @@
     "slug": "gran-fondo",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [242381847]
+    "id": 242381847
   },
   {
     "world": "new-york",
@@ -1965,7 +1965,7 @@
     "slug": "grand-central-circuit-rev",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [3687251774]
+    "id": 3687251774
   },
   {
     "world": "london",
@@ -1980,7 +1980,7 @@
     "slug": "greater-london-loop-rev",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [474781994]
+    "id": 474781994
   },
   {
     "world": "london",
@@ -1995,7 +1995,7 @@
     "slug": "greatest-london-loop-rev",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [3976402826]
+    "id": 3976402826
   },
   {
     "world": "yorkshire",
@@ -2012,7 +2012,7 @@
     "slug": "harrogate-circuit-rev",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [620436060]
+    "id": 620436060
   },
   {
     "world": "watopia",
@@ -2029,7 +2029,7 @@
     "slug": "hilly-route-rev",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [107363867]
+    "id": 107363867
   },
   {
     "world": "innsbruck",
@@ -2066,7 +2066,7 @@
     "slug": "jungle-circuit-rev",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [2839057126]
+    "id": 2839057126
   },
   {
     "world": "london",
@@ -2083,7 +2083,7 @@
     "slug": "keith-hill-after-party",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [3569674525]
+    "id": 3569674525
   },
   {
     "world": "france",
@@ -2100,7 +2100,7 @@
     "slug": "la-reine",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [1433431343]
+    "id": 1433431343
   },
   {
     "world": "new-york",
@@ -2117,7 +2117,7 @@
     "slug": "laguardia-loop",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [2422779354]
+    "id": 2422779354
   },
   {
     "world": "london",
@@ -2134,7 +2134,7 @@
     "slug": "leith-hill-after-party",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [1230300449]
+    "id": 1230300449
   },
   {
     "world": "richmond",
@@ -2159,7 +2159,7 @@
     "slug": "libby-hill-after-party",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [54700404]
+    "id": 54700404
   },
   {
     "world": "london",
@@ -2174,7 +2174,7 @@
     "slug": "london-8-rev",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [2165880404]
+    "id": 2165880404
   },
   {
     "world": "london",
@@ -2191,7 +2191,7 @@
     "slug": "london-loop-rev",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [1788889233]
+    "id": 1788889233
   },
   {
     "world": "london",
@@ -2223,7 +2223,7 @@
     "slug": "medio-fondo",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [3748780161]
+    "id": 3748780161
   },
   {
     "world": "new-york",
@@ -2245,7 +2245,7 @@
     "slug": "new-york-kom-after-party",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [2372883204]
+    "id": 2372883204
   },
   {
     "world": "new-york",
@@ -2261,7 +2261,7 @@
     "slug": "park-perimeter-rev",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [2202609830]
+    "id": 2202609830
   },
   {
     "world": "richmond",
@@ -2278,7 +2278,7 @@
     "slug": "richmond-rollercoaster",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [948831673]
+    "id": 948831673
   },
   {
     "world": "richmond",
@@ -2300,7 +2300,7 @@
     "slug": "richmond-uci-rev",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [1039983620]
+    "id": 1039983620
   },
   {
     "world": "watopia",
@@ -2317,7 +2317,7 @@
     "slug": "road-to-ruins-rev",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [2967612381]
+    "id": 2967612381
   },
   {
     "world": "watopia",
@@ -2334,7 +2334,7 @@
     "slug": "seaside-sprint",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [3454338139]
+    "id": 3454338139
   },
   {
     "world": "new-york",
@@ -2349,7 +2349,7 @@
     "slug": "shuman-trial-loop-rev",
     "sports": ["running"],
     "eventOnly": true,
-    "routeIds": [274775181]
+    "id": 274775181
   },
   {
     "world": "watopia",
@@ -2364,7 +2364,7 @@
     "slug": "thats-amore-rev",
     "sports": ["running"],
     "eventOnly": true,
-    "routeIds": [1586193601]
+    "id": 1586193601
   },
   {
     "world": "new-york",
@@ -2381,7 +2381,7 @@
     "slug": "the-6-train-rev",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [274639515]
+    "id": 274639515
   },
   {
     "world": "new-york",
@@ -2398,7 +2398,7 @@
     "slug": "the-highline-rev",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [1763213625]
+    "id": 1763213625
   },
   {
     "world": "watopia",
@@ -2415,7 +2415,7 @@
     "slug": "the-magnificent-8",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [2207442179]
+    "id": 2207442179
   },
   {
     "world": "watopia",
@@ -2432,7 +2432,7 @@
     "slug": "three-sisters-rev",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [4263172118]
+    "id": 4263172118
   },
   {
     "world": "bologna",
@@ -2449,7 +2449,7 @@
     "slug": "time-trial",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [2843604888]
+    "id": 2843604888
   },
   {
     "world": "watopia",
@@ -2481,7 +2481,7 @@
     "slug": "volcano-flat-rev",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [1397026382]
+    "id": 1397026382
   },
   {
     "world": "watopia",
@@ -2498,7 +2498,7 @@
     "slug": "watopias-waistband",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [1064303857]
+    "id": 1064303857
   },
   {
     "world": "watopia",
@@ -2515,6 +2515,6 @@
     "slug": "wbr-climbing-series",
     "sports": ["cycling", "running"],
     "eventOnly": true,
-    "routeIds": [2218409282]
+    "id": 2218409282
   }
 ]
