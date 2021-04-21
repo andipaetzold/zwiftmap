@@ -14,11 +14,7 @@ export function SearchResultCardWorld({ world, onClick }: Props) {
     routes
       .filter((r) => r.sports.includes(settings.sport))
       .filter((r) => r.world === world.slug).length
-  } routes | ${
-    segments
-      .filter((s) => s.sports.includes( settings.sport))
-      .filter((s) => s.world === world.slug).length
-  } segments`;
+  } routes | ${segments.filter((s) => s.world === world.slug).length} segments`;
 
   return (
     <ListItem secondaryText={secondaryText} onClick={onClick}>

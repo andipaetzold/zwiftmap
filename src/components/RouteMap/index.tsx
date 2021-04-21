@@ -13,7 +13,6 @@ import {
 } from "react-leaflet";
 import { segments } from "../../data";
 import { useLocationState } from "../../hooks/useLocationState";
-import { useSettings } from "../../hooks/useSettings";
 import {
   getStravaSegmentStream,
   getStravaSegmentStreams,
@@ -31,15 +30,13 @@ export default function RouteMap({ mouseHoverDistance }: Props) {
   const [locationState] = useLocationState();
   const world = locationState.world;
   const worldConfig = worldConfigs[world.slug];
-  const [settings] = useSettings();
 
   const filteredSegments = useMemo(
     () =>
       segments
-        .filter((s) => s.sports.includes(settings.sport))
         .filter((s) => s.world === world.slug)
         .filter((s) => s.stravaSegmentId !== undefined),
-    [settings.sport, world]
+    [world]
   );
   const { result: stravaSegmentsInWorld } = useAsync(
     async (fs: Segment[]) => {
@@ -146,16 +143,18 @@ export default function RouteMap({ mouseHoverDistance }: Props) {
         </Pane>
 
         <LayersControl>
-          <LayersControl.Overlay name="Show segments" checked>
+          <LayersControl.Overlay name="Show sprints" checked>
             <LayerGroup>
               <Pane name="segments">
-                {stravaSegmentsInWorld?.map((s) => (
-                  <Polyline
-                    key={s.slug}
-                    positions={s.stravaData}
-                    pathOptions={{ color: "green", weight: 5 }}
-                  />
-                ))}
+                {stravaSegmentsInWorld
+                  ?.filter((s) => s.type === "sprint")
+                  ?.map((s) => (
+                    <Polyline
+                      key={s.slug}
+                      positions={s.stravaData}
+                      pathOptions={{ color: "green", weight: 5 }}
+                    />
+                  ))}
               </Pane>
             </LayerGroup>
           </LayersControl.Overlay>

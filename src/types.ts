@@ -46,12 +46,14 @@ export interface Segment {
   world: WorldSlug;
   name: string;
   slug: string;
-  distance: number;
-  elevation: number;
+  distance?: number;
+  elevation?: number;
+  avgIncline?: number;
   stravaSegmentId?: number;
   stravaSegmentUrl?: string;
-  sports: Sport[];
-  type: "sprint";
+  type: "sprint" | "climb" | "segment";
+  whatsOnZwiftUrl?: string;
+  climbType?: "HC" | "4" | "3" | "2" | "1";
 }
 
 export interface Settings {

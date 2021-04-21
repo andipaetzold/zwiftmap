@@ -63,7 +63,7 @@ export function search(term: string, sport: Sport): SearchResult[] {
 
   return searchResults
     .filter((sr) => {
-      if (sr.type === "world") {
+      if (sr.type === "world" || sr.type === "segment") {
         return true;
       } else {
         return sr.data.sports.includes(sport);
