@@ -8,7 +8,8 @@ import {
   ListFontIcon,
   MapFontIcon,
   OpenInNewFontIcon,
-  SpaceBarFontIcon
+  SpaceBarFontIcon,
+  StarFontIcon,
 } from "@react-md/material-icons";
 import { Text } from "@react-md/typography";
 import round from "lodash/round";
@@ -77,6 +78,16 @@ export function RouteDetails({
           </>
         )}
       </SimpleListItem>
+
+      {route.experience && (
+        <SimpleListItem
+          clickable={false}
+          leftAddon={<StarFontIcon />}
+          leftAddonType="icon"
+        >
+          {route.experience}XP
+        </SimpleListItem>
+      )}
 
       {route.eventOnly && (
         <SimpleListItem

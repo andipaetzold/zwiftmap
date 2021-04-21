@@ -12,7 +12,7 @@ export interface Route {
   elevation: number;
   leadInDistance?: number;
   leadInElevation?: number;
-  experience: number[];
+  experience?: number;
   segments: string[];
   stravaSegmentId?: number;
   stravaSegmentUrl?: string;
