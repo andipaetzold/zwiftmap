@@ -138,7 +138,10 @@ export function Sidebar({ onMouseHoverDistanceChange }: Props) {
         <List className={styles.BottomMenu}>
           <Divider className={styles.NoGapDivider} />
           <ListItem
-            onClick={() => setSettingsDialogVisible(true)}
+            onClick={() => {
+              setBottomSheetOpen(false);
+              setSettingsDialogVisible(true);
+            }}
             leftAddon={<SettingsFontIcon />}
             leftAddonType="icon"
           >
