@@ -10,13 +10,16 @@ import {
   OpenInNewFontIcon,
   SpaceBarFontIcon,
 } from "@react-md/material-icons";
+import { CircularProgress } from "@react-md/progress";
 import { Text } from "@react-md/typography";
 import round from "lodash/round";
-import React from "react";
+import React, { useMemo } from "react";
+import { useAsync } from "react-async-hook";
 import stravaLogo from "../../../assets/strava-40x40.png";
-import zwiftInsiderLogo from "../../../assets/ZwiftInsider-40x40.jpg";
 import whatsOnZwiftLogo from "../../../assets/WhatsOnZwift-40x40.png";
+import zwiftInsiderLogo from "../../../assets/ZwiftInsider-40x40.jpg";
 import { worlds } from "../../../data";
+import { fetchEvents } from "../../../services/fetchEvents";
 import { Route } from "../../../types";
 import { ElevationChart } from "../ElevationChart";
 
@@ -99,10 +102,7 @@ export function RouteDetails({
         />
       </SimpleListItem>
 
-      <ListSubheader>Events</ListSubheader>
-      <SimpleListItem>
-        <Text type="body-2">Upcoming events will show up here... soon</Text>
-      </SimpleListItem>
+      <RouteEvents route={route} />
 
       <ListSubheader>Links</ListSubheader>
       {route.zwiftInsiderUrl && (
@@ -151,5 +151,81 @@ export function RouteDetails({
         </ListItem>
       )}
     </List>
+  );
+}
+
+interface RouteEventsProps {
+  route: Route;
+}
+
+function RouteEvents({ route }: RouteEventsProps) {
+  const { result: events } = useAsync(fetchEvents, []);
+  const filteredEvents = useMemo(() => {
+    if (!events) {
+      return;
+    }
+
+    return events
+      .filter((event) => {
+        const eventRouteIds = [
+          event.routeId,
+          ...event.eventSubgroups.map((esg) => esg.routeId),
+        ];
+
+        return eventRouteIds.some((erid) =>
+          route.routeIds.find((rid) => rid === erid)
+        );
+      })
+      .sort((a, b) => a.eventStart.localeCompare(b.eventStart));
+  }, [events, route]);
+
+  if (filteredEvents === undefined) {
+    return (
+      <SimpleListItem>
+        <CircularProgress
+          id="loading-events"
+          small
+          circleStyle={{ stroke: "black" }}
+        />
+      </SimpleListItem>
+    );
+  }
+
+  if (filteredEvents.length === 0) {
+    return (
+      <SimpleListItem>
+        <Text type="body-2">No events on this route today.</Text>
+      </SimpleListItem>
+    );
+  }
+
+  return (
+    <>
+      <ListSubheader>Upcoming Events</ListSubheader>
+      {filteredEvents.slice(0, 3).map((event) => (
+        <ListItem
+          key={event.id}
+          onClick={() =>
+            window.open(`http://zwift.com/events/view/${event.id}`, "_blank")
+          }
+          rightAddon={<EventFontIcon />}
+          rightAddonType="icon"
+          secondaryText={new Intl.DateTimeFormat("en-US", {
+            hour: "2-digit",
+            minute: "2-digit",
+            weekday: "short",
+          }).format(Date.parse(event.eventStart))}
+        >
+          {event.name}
+        </ListItem>
+      ))}
+      {filteredEvents.length > 3 && (
+        <SimpleListItem>
+          <Text type="body-2">
+            {filteredEvents.length - 3} more events happening today
+          </Text>
+        </SimpleListItem>
+      )}
+    </>
   );
 }
