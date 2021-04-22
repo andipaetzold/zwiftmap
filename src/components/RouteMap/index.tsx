@@ -142,23 +142,66 @@ export default function RouteMap({ mouseHoverDistance }: Props) {
           )}
         </Pane>
 
-        <LayersControl>
-          <LayersControl.Overlay name="Show sprints" checked>
-            <LayerGroup>
-              <Pane name="segments">
-                {stravaSegmentsInWorld
-                  ?.filter((s) => s.type === "sprint")
-                  ?.map((s) => (
-                    <Polyline
-                      key={s.slug}
-                      positions={s.stravaData}
-                      pathOptions={{ color: "green", weight: 5 }}
-                    />
-                  ))}
-              </Pane>
-            </LayerGroup>
-          </LayersControl.Overlay>
-        </LayersControl>
+        {(stravaSegmentsInWorld ?? []).length > 0 && (
+          <LayersControl>
+            {(stravaSegmentsInWorld ?? []).filter((s) => s.type === "sprint")
+              .length > 0 && (
+              <LayersControl.Overlay name="Show sprints" checked>
+                <LayerGroup>
+                  <Pane name="sprints">
+                    {stravaSegmentsInWorld
+                      ?.filter((s) => s.type === "sprint")
+                      ?.map((s) => (
+                        <Polyline
+                          key={s.slug}
+                          positions={s.stravaData}
+                          pathOptions={{ color: "#64ae3c", weight: 5 }}
+                        />
+                      ))}
+                  </Pane>
+                </LayerGroup>
+              </LayersControl.Overlay>
+            )}
+
+            {(stravaSegmentsInWorld ?? []).filter((s) => s.type === "climb")
+              .length > 0 && (
+              <LayersControl.Overlay name="Show climbs" checked>
+                <LayerGroup>
+                  <Pane name="climbs">
+                    {stravaSegmentsInWorld
+                      ?.filter((s) => s.type === "climb")
+                      ?.map((s) => (
+                        <Polyline
+                          key={s.slug}
+                          positions={s.stravaData}
+                          pathOptions={{ color: "#d52f25", weight: 5 }}
+                        />
+                      ))}
+                  </Pane>
+                </LayerGroup>
+              </LayersControl.Overlay>
+            )}
+
+            {(stravaSegmentsInWorld ?? []).filter((s) => s.type === "segment")
+              .length > 0 && (
+              <LayersControl.Overlay name="Show segments">
+                <LayerGroup>
+                  <Pane name="segments">
+                    {stravaSegmentsInWorld
+                      ?.filter((s) => s.type === "segment")
+                      ?.map((s) => (
+                        <Polyline
+                          key={s.slug}
+                          positions={s.stravaData}
+                          pathOptions={{ color: "#ef6c42", weight: 5 }}
+                        />
+                      ))}
+                  </Pane>
+                </LayerGroup>
+              </LayersControl.Overlay>
+            )}
+          </LayersControl>
+        )}
 
         <Pane name="mouse-position">
           {pointCoordinates && (
