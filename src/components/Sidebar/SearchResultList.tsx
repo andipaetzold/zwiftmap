@@ -8,9 +8,14 @@ import { SearchResultCardWorld } from "./SearchResultCardWorld";
 interface Props {
   searchResults: ReadonlyArray<SearchResult>;
   onResultClick: (searchResult: SearchResult) => void;
+  onHoverRoute: (route?: string) => void;
 }
 
-export function SearchResultList({ searchResults, onResultClick }: Props) {
+export function SearchResultList({
+  searchResults,
+  onResultClick,
+  onHoverRoute,
+}: Props) {
   if (searchResults.length === 0) {
     return <SimpleListItem>No worlds or routes found</SimpleListItem>;
   }
@@ -30,6 +35,7 @@ export function SearchResultList({ searchResults, onResultClick }: Props) {
           <SearchResultCard
             searchResult={searchResult}
             onClick={() => onResultClick(searchResult)}
+            onHoverRoute={onHoverRoute}
           />
         </Fragment>
       ))}
@@ -40,9 +46,14 @@ export function SearchResultList({ searchResults, onResultClick }: Props) {
 interface SearchResultCardProps {
   searchResult: SearchResult;
   onClick: () => void;
+  onHoverRoute: (route?: string) => void;
 }
 
-function SearchResultCard({ searchResult, onClick }: SearchResultCardProps) {
+function SearchResultCard({
+  searchResult,
+  onClick,
+  onHoverRoute,
+}: SearchResultCardProps) {
   switch (searchResult.type) {
     case "world":
       return (
@@ -50,7 +61,11 @@ function SearchResultCard({ searchResult, onClick }: SearchResultCardProps) {
       );
     case "route":
       return (
-        <SearchResultCardRoute route={searchResult.data} onClick={onClick} />
+        <SearchResultCardRoute
+          route={searchResult.data}
+          onClick={onClick}
+          onHoverRoute={onHoverRoute}
+        />
       );
     default:
       return null;

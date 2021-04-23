@@ -9,10 +9,18 @@ export default function App() {
     number | undefined
   >(undefined);
 
+  const [previewRoute, setPreviewRoute] = useState<string | undefined>();
+
   return (
     <div className={styles.Wrapper}>
-      <Sidebar onMouseHoverDistanceChange={setMouseHoverDistance} />
-      <RouteMap mouseHoverDistance={mouseHoverDistance} />
+      <Sidebar
+        onMouseHoverDistanceChange={setMouseHoverDistance}
+        onHoverRoute={setPreviewRoute}
+      />
+      <RouteMap
+        mouseHoverDistance={mouseHoverDistance}
+        previewRoute={previewRoute}
+      />
     </div>
   );
 }

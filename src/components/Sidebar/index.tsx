@@ -22,9 +22,10 @@ import { SearchResultList } from "./SearchResultList";
 
 interface Props {
   onMouseHoverDistanceChange: (distance: number | undefined) => void;
+  onHoverRoute: (previewRoute: string | undefined) => void;
 }
 
-export function Sidebar({ onMouseHoverDistanceChange }: Props) {
+export function Sidebar({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
   const [locationState, setLocationState] = useLocationState();
   const [query, setQuery] = useState("");
@@ -123,6 +124,7 @@ export function Sidebar({ onMouseHoverDistanceChange }: Props) {
                             route,
                           });
                         }}
+                        onHoverRoute={onHoverRoute}
                       />
                     ))}
                 </>
@@ -130,6 +132,7 @@ export function Sidebar({ onMouseHoverDistanceChange }: Props) {
                 <SearchResultList
                   searchResults={searchResults}
                   onResultClick={handleSearchResultClick}
+                  onHoverRoute={onHoverRoute}
                 />
               )}
             </List>

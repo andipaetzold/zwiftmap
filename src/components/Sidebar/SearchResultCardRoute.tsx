@@ -8,15 +8,18 @@ import { ElevationChartPreview } from "../ElevationChartPreview";
 export interface Props {
   route: Route;
   onClick: () => void;
+  onHoverRoute: (route?: string) => void;
 }
 
-export function SearchResultCardRoute({ route, onClick }: Props) {
+export function SearchResultCardRoute({ route, onClick, onHoverRoute }: Props) {
   return (
     <ListItem
       secondaryText={getRouteInfo(route)}
       onClick={onClick}
       rightAddonType="large-media"
       rightAddon={<ChartContainer route={route} />}
+      onMouseEnter={() => onHoverRoute(route.slug)}
+      onMouseLeave={() => onHoverRoute(undefined)}
     >
       {route.name}
     </ListItem>

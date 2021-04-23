@@ -24,9 +24,10 @@ import { WorldSelect } from "./WorldSelect";
 
 interface Props {
   mouseHoverDistance: number | undefined;
+  previewRoute?: string;
 }
 
-export default function RouteMap({ mouseHoverDistance }: Props) {
+export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
   const [locationState] = useLocationState();
   const world = locationState.world;
   const worldConfig = worldConfigs[world.slug];
@@ -68,6 +69,17 @@ export default function RouteMap({ mouseHoverDistance }: Props) {
       ]);
     },
     [locationState.route]
+  );
+
+  const { result: previewRouteStravaSegment } = useAsync(
+    async (r: string | undefined) => {
+      if (r === undefined) {
+        return;
+      }
+
+      return await getStravaSegmentStreams(r, "routes", ["latlng"]);
+    },
+    [previewRoute]
   );
 
   useEffect(() => {
@@ -136,14 +148,23 @@ export default function RouteMap({ mouseHoverDistance }: Props) {
           attribution='&amp;copy <a href="https://zwift.com" rel="noreferrer noopener">Zwift</a>'
         />
 
-        <Pane name="route">
-          {routeStravaSegment && (
+        {previewRouteStravaSegment && (
+          <Pane name="preview-route">
+            <Polyline
+              positions={previewRouteStravaSegment.latlng}
+              pathOptions={{ color: "#D3D3D3", weight: 5 }}
+            />
+          </Pane>
+        )}
+
+        {routeStravaSegment && (
+          <Pane name="route">
             <Polyline
               positions={routeStravaSegment.latlng}
               pathOptions={{ color: "#fc6719", weight: 5 }}
             />
-          )}
-        </Pane>
+          </Pane>
+        )}
 
         {(stravaSegmentsInWorld ?? []).length > 0 && (
           <LayersControl>
