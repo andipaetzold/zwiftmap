@@ -201,8 +201,6 @@
     "slug": "yorkshire-sprint",
     "type": "sprint",
     "world": "yorkshire",
-    "stravaSegmentId": 21748007,
-    "stravaSegmentUrl": "https://www.strava.com/segments/21748007",
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/yorkshire/segment/yorkshire-sprint/forward",
     "distance": 0.25
   },
@@ -212,7 +210,9 @@
     "type": "sprint",
     "world": "yorkshire",
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/yorkshire/segment/yorkshire-sprint-reverse/reverse",
-    "distance": 0.4
+    "distance": 0.4,
+    "stravaSegmentId": 21748007,
+    "stravaSegmentUrl": "https://www.strava.com/segments/21748007"
   },
   {
     "name": "Alpe du Zwift",
@@ -222,7 +222,9 @@
     "climbType": "HC",
     "distance": 12.44,
     "avgIncline": 8.5,
-    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/segment/alpe-du-zwift/forward"
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/segment/alpe-du-zwift/forward",
+    "stravaSegmentUrl": "https://www.strava.com/segments/17267489",
+    "stravaSegmentId": 17267489
   },
   {
     "name": "Epic KOM",
@@ -232,7 +234,9 @@
     "climbType": "2",
     "distance": 9.49,
     "avgIncline": 4,
-    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/segment/epic-kom/forward"
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/segment/epic-kom/forward",
+    "stravaSegmentUrl": "https://www.strava.com/segments/16784833",
+    "stravaSegmentId": 16784833
   },
   {
     "name": "Epic KOM Rev.",
@@ -242,7 +246,9 @@
     "climbType": "2",
     "distance": 6.27,
     "avgIncline": 6.3,
-    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/segment/epic-kom/reverse"
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/segment/epic-kom/reverse",
+    "stravaSegmentId": 16784850,
+    "stravaSegmentUrl": "https://www.strava.com/segments/16784850"
   },
   {
     "name": "Hilly Loop",
@@ -250,7 +256,9 @@
     "type": "segment",
     "world": "watopia",
     "distance": 9.01,
-    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/segment/hilly-loop/forward"
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/segment/hilly-loop/forward",
+    "stravaSegmentUrl": "https://www.strava.com/segments/12118362",
+    "stravaSegmentId": 12118362
   },
   {
     "name": "Hilly Loop Rev.",
@@ -258,7 +266,9 @@
     "type": "segment",
     "world": "watopia",
     "distance": 9.01,
-    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/segment/hilly-loop/reverse"
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/segment/hilly-loop/reverse",
+    "stravaSegmentId": 12128037,
+    "stravaSegmentUrl": "https://www.strava.com/segments/12128037"
   },
   {
     "name": "Jungle Loop",
@@ -266,7 +276,9 @@
     "type": "segment",
     "world": "watopia",
     "distance": 7.8,
-    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/segment/jungle-loop/forward"
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/segment/jungle-loop/forward",
+    "stravaSegmentUrl": "https://www.strava.com/segments/16359363",
+    "stravaSegmentId": 16359363
   },
   {
     "name": "Jungle Loop Rev.",
@@ -274,7 +286,9 @@
     "type": "segment",
     "world": "watopia",
     "distance": 7.8,
-    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/segment/jungle-loop/reverse"
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/segment/jungle-loop/reverse",
+    "stravaSegmentId": 16359371,
+    "stravaSegmentUrl": "https://www.strava.com/segments/16359371"
   },
   {
     "name": "Titans Grove KOM",
@@ -283,7 +297,9 @@
     "world": "watopia",
     "distance": 2.6,
     "avgIncline": 2.2,
-    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/segment/titans-grove-kom/forward"
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/segment/titans-grove-kom/forward",
+    "stravaSegmentId": 21343975,
+    "stravaSegmentUrl": "https://www.strava.com/segments/21343975"
   },
   {
     "name": "Titans Grove KOM Rev.",
@@ -292,7 +308,9 @@
     "world": "watopia",
     "distance": 0.89,
     "avgIncline": 6.6,
-    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/segment/titans-grove-kom/reverse"
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/segment/titans-grove-kom/reverse",
+    "stravaSegmentId": 21343961,
+    "stravaSegmentUrl": "https://www.strava.com/segments/21343961"
   },
   {
     "name": "Volcano Circuit",
@@ -300,7 +318,9 @@
     "type": "segment",
     "world": "watopia",
     "distance": 4.2,
-    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/segment/volcano/forward"
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/segment/volcano/forward",
+    "stravaSegmentUrl": "https://www.strava.com/segments/14032406",
+    "stravaSegmentId": 14032406
   },
   {
     "name": "Volcano Circuit Rev.",
@@ -308,7 +328,9 @@
     "type": "segment",
     "world": "watopia",
     "distance": 4.2,
-    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/segment/volcano/reverse"
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/segment/volcano/reverse",
+    "stravaSegmentId": 14032426,
+    "stravaSegmentUrl": "https://www.strava.com/segments/14032426"
   },
   {
     "name": "Volcano KOM",
@@ -317,7 +339,9 @@
     "world": "watopia",
     "distance": 3.75,
     "avgIncline": 3.2,
-    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/segment/volcano-kom/forward"
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/segment/volcano-kom/forward",
+    "stravaSegmentId": 14270131,
+    "stravaSegmentUrl": "https://www.strava.com/segments/14270131"
   },
   {
     "name": "Zwift KOM",
@@ -326,7 +350,9 @@
     "world": "watopia",
     "distance": 0.9,
     "avgIncline": 5,
-    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/segment/zwift-kom/forward"
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/segment/zwift-kom/forward",
+    "stravaSegmentUrl": "https://www.strava.com/segments/12109030",
+    "stravaSegmentId": 12109030
   },
   {
     "name": "Zwift KOM Rev.",
@@ -335,7 +361,9 @@
     "world": "watopia",
     "distance": 2.4,
     "avgIncline": 2,
-    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/segment/zwift-kom/reverse"
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/segment/zwift-kom/reverse",
+    "stravaSegmentId": 12128029,
+    "stravaSegmentUrl": "https://www.strava.com/segments/12128029"
   },
   {
     "name": "Bologna TT",
@@ -344,7 +372,9 @@
     "world": "bologna",
     "distance": 8,
     "avgIncline": 2.8,
-    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/bologna-tt/segment/bologna-tt/forward"
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/bologna-tt/segment/bologna-tt/forward",
+    "stravaSegmentId": 20560239,
+    "stravaSegmentUrl": "https://www.strava.com/segments/20560239"
   },
   {
     "name": "Central Park Loop Rev.",
@@ -352,7 +382,9 @@
     "type": "segment",
     "world": "new-york",
     "distance": 9.7,
-    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/new-york/segment/central-park-loop/reverse"
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/new-york/segment/central-park-loop/reverse",
+    "stravaSegmentUrl": "https://www.strava.com/segments/19170661",
+    "stravaSegmentId": 19170661
   },
   {
     "name": "New York KOM",
@@ -362,7 +394,9 @@
     "distance": 1.4,
     "avgIncline": 6.1,
     "climbType": "4",
-    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/new-york/segment/new-york-kom/forward"
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/new-york/segment/new-york-kom/forward",
+    "stravaSegmentUrl": "https://www.strava.com/segments/19141090",
+    "stravaSegmentId": 19141090
   },
   {
     "name": "New York KOM Rev.",
@@ -371,7 +405,9 @@
     "world": "new-york",
     "distance": 1.1,
     "avgIncline": 5.7,
-    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/new-york/segment/new-york-kom/reverse"
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/new-york/segment/new-york-kom/reverse",
+    "stravaSegmentId": 19141092,
+    "stravaSegmentUrl": "https://www.strava.com/segments/19141092"
   },
   {
     "name": "23rd St.",
@@ -380,7 +416,9 @@
     "world": "richmond",
     "distance": 0.275,
     "avgIncline": 10,
-    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/richmond/segment/23rd-st/forward"
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/richmond/segment/23rd-st/forward",
+    "stravaSegmentUrl": "https://www.strava.com/segments/12128917",
+    "stravaSegmentId": 12128917
   },
   {
     "name": "23rd St. Rev",
@@ -389,7 +427,9 @@
     "world": "richmond",
     "distance": 1.1,
     "avgIncline": 3.5,
-    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/richmond/segment/23rd-st/reverse"
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/richmond/segment/23rd-st/reverse",
+    "stravaSegmentId": 22813206,
+    "stravaSegmentUrl": "https://www.strava.com/segments/22813206"
   },
   {
     "name": "Richmond KOM",
@@ -397,7 +437,9 @@
     "type": 0.644,
     "avgIncline": 6.4,
     "world": "richmond",
-    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/richmond/segment/kom/forward"
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/richmond/segment/kom/forward",
+    "stravaSegmentId": 12128826,
+    "stravaSegmentUrl": "https://www.strava.com/segments/12128826"
   },
   {
     "name": "Richmond KOM Rev.",
@@ -406,7 +448,9 @@
     "distance": 0.7,
     "avgIncline": 3.4,
     "world": "richmond",
-    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/richmond/segment/kom/reverse"
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/richmond/segment/kom/reverse",
+    "stravaSegmentUrl": "https://www.strava.com/segments/26935782",
+    "stravaSegmentId": 26935782
   },
   {
     "name": "Richmond UCI Cource",
@@ -414,7 +458,9 @@
     "type": "segment",
     "world": "richmond",
     "distance": 16.2,
-    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/richmond/segment/uci-course/forward"
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/richmond/segment/uci-course/forward",
+    "stravaSegmentId": 12128718,
+    "stravaSegmentUrl": "https://www.strava.com/segments/12128718"
   },
   {
     "name": "Fox Hill",
@@ -424,7 +470,9 @@
     "avgIncline": 4.9,
     "world": "london",
     "climbType": "4",
-    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/london/segment/fox-hill/forward"
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/london/segment/fox-hill/forward",
+    "stravaSegmentUrl": "https://www.strava.com/segments/16802545",
+    "stravaSegmentId": 16802545
   },
   {
     "name": "Box Hill",
@@ -434,7 +482,9 @@
     "avgIncline": 4.3,
     "world": "london",
     "climbType": "4",
-    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/london/segment/box-hill/reverse"
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/london/segment/box-hill/reverse",
+    "stravaSegmentId": 12744502,
+    "stravaSegmentUrl": "https://www.strava.com/segments/12744502"
   },
   {
     "name": "Leith Hill",
@@ -444,7 +494,9 @@
     "avgIncline": 6.8,
     "world": "london",
     "climbType": "4",
-    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/london/segment/leith-hill/forward"
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/london/segment/leith-hill/forward",
+    "stravaSegmentId": 16781411,
+    "stravaSegmentUrl": "https://www.strava.com/segments/16781411"
   },
   {
     "name": "Keith Hill",
@@ -454,7 +506,9 @@
     "avgIncline": 5,
     "world": "london",
     "climbType": "3",
-    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/london/segment/keith-hill/reverse"
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/london/segment/keith-hill/reverse",
+    "stravaSegmentUrl": "https://www.strava.com/segments/16781407",
+    "stravaSegmentId": 16781407
   },
   {
     "name": "London Loop",
@@ -462,7 +516,9 @@
     "type": "segment",
     "distance": 14.96,
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/london/segment/london-loop/reverse",
-    "world": "london"
+    "world": "london",
+    "stravaSegmentUrl": "https://www.strava.com/segments/12749649",
+    "stravaSegmentId": 12749649
   },
   {
     "name": "Aqueduc KOM",
@@ -471,7 +527,9 @@
     "distance": 0.42,
     "avgIncline": 3,
     "world": "france",
-    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/france/segment/aqueduc-kom/forward"
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/france/segment/aqueduc-kom/forward",
+    "stravaSegmentUrl": "https://www.strava.com/segments/24700976",
+    "stravaSegmentId": 24700976
   },
   {
     "name": "Aqueduc KOM Rev.",
@@ -480,7 +538,9 @@
     "distance": 0.403,
     "avgIncline": 5,
     "world": "france",
-    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/france/segment/aqueduc-kom/reverse"
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/france/segment/aqueduc-kom/reverse",
+    "stravaSegmentUrl": "https://www.strava.com/segments/24701010",
+    "stravaSegmentId": 24701010
   },
   {
     "name": "Petit KOM",
@@ -490,7 +550,9 @@
     "distance": 2.7,
     "avgIncline": 4,
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/france/segment/petit-kom/forward",
-    "world": "france"
+    "world": "france",
+    "stravaSegmentUrl": "https://www.strava.com/segments/24690967",
+    "stravaSegmentId": 24690967
   },
   {
     "name": "Ventoux KOM",
@@ -499,7 +561,9 @@
     "distance": 19,
     "avgIncline": 8,
     "world": "france",
-    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/france/segment/ventoux-kom/forward"
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/france/segment/ventoux-kom/forward",
+    "stravaSegmentUrl": "https://www.strava.com/segments/24682578",
+    "stravaSegmentId": 24682578
   },
   {
     "name": "Innsbruck KOM",
@@ -509,7 +573,9 @@
     "avgIncline": 6,
     "world": "france",
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/innsbruck/segment/kom/forward",
-    "climbType": "2"
+    "climbType": "2",
+    "stravaSegmentUrl": "https://www.strava.com/segments/18397965",
+    "stravaSegmentId": 18397965
   },
   {
     "name": "Innsbruck KOM Rev.",
@@ -519,7 +585,9 @@
     "avgIncline": 8,
     "world": "france",
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/innsbruck/segment/kom/reverse",
-    "climbType": "8"
+    "climbType": "2",
+    "stravaSegmentUrl": "https://www.strava.com/segments/18397927",
+    "stravaSegmentId": 18397927
   },
   {
     "name": "Innsbruck UCI Lap",
@@ -527,7 +595,9 @@
     "type": "segment",
     "world": "innsbruck",
     "distance": 23.65,
-    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/innsbruck/segment/uci-lap/forward"
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/innsbruck/segment/uci-lap/forward",
+    "stravaSegmentId": 18398895,
+    "stravaSegmentUrl": "https://www.strava.com/segments/18398895"
   },
   {
     "name": "Yorkshire KOM",
@@ -536,7 +606,9 @@
     "distance": 1.2,
     "avgIncline": 5.5,
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/yorkshire/segment/yorkshire-kom/forward",
-    "world": "yorkshire"
+    "world": "yorkshire",
+    "stravaSegmentId": 21747822,
+    "stravaSegmentUrl": "https://www.strava.com/segments/21747822"
   },
   {
     "name": "Yorkshire KOM Rev.",
@@ -545,7 +617,9 @@
     "distance": 1.2,
     "avgIncline": 3.8,
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/yorkshire/segment/yorkshire-kom/reverse",
-    "world": "yorkshire"
+    "world": "yorkshire",
+    "stravaSegmentId": 21747891,
+    "stravaSegmentUrl": "https://www.strava.com/segments/21747891"
   },
   {
     "name": "Crit City",
@@ -553,7 +627,9 @@
     "type": "segment",
     "distance": 1.95,
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/crit-city/segment/crit-city/forward",
-    "world": "crit-city"
+    "world": "crit-city",
+    "stravaSegmentId": 22445564,
+    "stravaSegmentUrl": "https://www.strava.com/segments/22445564"
   },
   {
     "name": "Crit City Rev.",
@@ -561,7 +637,9 @@
     "type": "segment",
     "distance": 1.95,
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/crit-city/segment/crit-city/reverse",
-    "world": "crit-city"
+    "world": "crit-city",
+    "stravaSegmentId": 22419554,
+    "stravaSegmentUrl": "https://www.strava.com/segments/22419554"
   },
   {
     "name": "Prime",
@@ -586,7 +664,9 @@
     "type": "segment",
     "distance": 6.62,
     "world": "paris",
-    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/paris/segment/champs-elysees/forward"
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/paris/segment/champs-elysees/forward",
+    "stravaSegmentId": 24674235,
+    "stravaSegmentUrl": "https://www.strava.com/segments/24674235"
   },
   {
     "name": "Champs Elysées Rev.",
@@ -594,6 +674,8 @@
     "type": "segment",
     "distance": 6.62,
     "world": "paris",
-    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/paris/segment/champs-elysees/reverse"
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/paris/segment/champs-elysees/reverse",
+    "stravaSegmentId": 24674248,
+    "stravaSegmentUrl": "https://www.strava.com/segments/24674248"
   }
 ]
