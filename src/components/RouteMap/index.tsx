@@ -149,7 +149,7 @@ export default function RouteMap({ mouseHoverDistance }: Props) {
           <LayersControl>
             {(stravaSegmentsInWorld ?? []).filter((s) => s.type === "sprint")
               .length > 0 && (
-              <LayersControl.Overlay name="Show sprints" checked>
+              <LayersControl.Overlay name="Show sprints">
                 <LayerGroup>
                   <Pane name="sprints">
                     {stravaSegmentsInWorld
@@ -168,7 +168,7 @@ export default function RouteMap({ mouseHoverDistance }: Props) {
 
             {(stravaSegmentsInWorld ?? []).filter((s) => s.type === "climb")
               .length > 0 && (
-              <LayersControl.Overlay name="Show climbs" checked>
+              <LayersControl.Overlay name="Show climbs">
                 <LayerGroup>
                   <Pane name="climbs">
                     {stravaSegmentsInWorld
