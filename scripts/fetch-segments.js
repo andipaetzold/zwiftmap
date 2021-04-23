@@ -3,16 +3,16 @@ const { writeFileSync, mkdirSync, existsSync } = require("fs");
 const routes = require("../src/data/routes.json");
 const segments = require("../src/data/segments.json");
 
-const BASE_DIR = `${__dirname}/../public/segments`;
+const BASE_DIR = `${__dirname}/../public`;
 
 async function main() {
   await Promise.all([
     ...routes
       .filter((route) => route.stravaSegmentId !== undefined)
-      .map((route) => fetchSegment(route)),
+      .map((route) => fetchSegment(route, "routes")),
     ...segments
       .filter((segment) => segment.stravaSegmentId !== undefined)
-      .map((segment) => fetchSegment(segment)),
+      .map((segment) => fetchSegment(segment, "segments")),
   ]);
 }
 
@@ -21,15 +21,15 @@ if (!existsSync(BASE_DIR)) {
 }
 main();
 
-async function fetchSegment({ name, slug, stravaSegmentId }) {
+async function fetchSegment({ name, slug, stravaSegmentId }, type) {
   const response = await fetch(
     `https://www.strava.com/stream/segments/${stravaSegmentId}?streams%5B%5D=latlng&streams%5B%5D=distance&streams%5B%5D=altitude`
   );
   const stravaData = await response.json();
 
-  const segmentDir = `${BASE_DIR}/${slug}`;
+  const segmentDir = `${BASE_DIR}/${type}/${slug}`;
   if (!existsSync(segmentDir)) {
-    mkdirSync(segmentDir);
+    mkdirSync(segmentDir, { recursive: true });
   }
 
   writeFileSync(

@@ -16,7 +16,7 @@ const REQUIRED_STREAMS = ["altitude", "distance"];
 export function ElevationChartPreview({ route }: Props) {
   const { result: segment } = useAsync<
     Pick<StravaSegment, "altitude" | "distance">
-  >(getStravaSegmentStreams, [route.slug, REQUIRED_STREAMS]);
+  >(getStravaSegmentStreams, [route.slug, 'routes', REQUIRED_STREAMS]);
 
   const data: any[] | undefined = useMemo(() => {
     if (segment === undefined) {

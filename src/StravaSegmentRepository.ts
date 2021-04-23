@@ -2,22 +2,16 @@ import { StravaSegment } from "./types";
 
 const cache: { [cacheKey: string]: Promise<any> } = {};
 
-export async function getStravaSegment(
-  segmentSlug: string
-): Promise<StravaSegment> {
-  if (!cache[segmentSlug]) {
-    cache[segmentSlug] = fetchStravaSegment(segmentSlug);
-  }
-
-  return await cache[segmentSlug];
-}
-
 export async function getStravaSegmentStream<
   Stream extends "altitude" | "distance" | "latlng"
->(segmentSlug: string, stream: Stream): Promise<StravaSegment[Stream]> {
-  const cacheKey = `${segmentSlug}-${stream}`;
+>(
+  segmentSlug: string,
+  type: "segments" | "routes",
+  stream: Stream
+): Promise<StravaSegment[Stream]> {
+  const cacheKey = `${type}-${segmentSlug}-${stream}`;
   if (!cache[cacheKey]) {
-    cache[cacheKey] = fetchStravaSegmentStream(segmentSlug, stream);
+    cache[cacheKey] = fetchStravaSegmentStream(segmentSlug, type, stream);
   }
 
   return cache[cacheKey];
@@ -27,10 +21,11 @@ export async function getStravaSegmentStreams<
   Stream extends "altitude" | "distance" | "latlng"
 >(
   segmentSlug: string,
+  type: "segments" | "routes",
   streams: ReadonlyArray<Stream>
 ): Promise<Pick<StravaSegment, Stream>> {
   const streamData = await Promise.all(
-    streams.map((stream) => getStravaSegmentStream(segmentSlug, stream))
+    streams.map((stream) => getStravaSegmentStream(segmentSlug, type, stream))
   );
 
   // @ts-ignore
@@ -39,23 +34,15 @@ export async function getStravaSegmentStreams<
   );
 }
 
-async function fetchStravaSegment(segmentSlug: string) {
-  const response = await Promise.all([
-    getStravaSegmentStream(segmentSlug, "altitude"),
-    getStravaSegmentStream(segmentSlug, "distance"),
-    getStravaSegmentStream(segmentSlug, "latlng"),
-  ]);
-
-  return {
-    altitude: response[0],
-    distance: response[1],
-    latlng: response[2],
-  };
-}
-
 async function fetchStravaSegmentStream<
   Stream extends "altitude" | "distance" | "latlng"
->(segmentSlug: string, stream: Stream): Promise<StravaSegment[Stream]> {
-  const response = await fetch(`segments/${segmentSlug}/${stream}.json`);
+>(
+  segmentSlug: string,
+  type: "segments" | "routes",
+  stream: Stream
+): Promise<StravaSegment[Stream]> {
+  const response = await fetch(
+    `${type}/${segmentSlug}/${stream}.json`
+  );
   return await response.json();
 }

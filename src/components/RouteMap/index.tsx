@@ -41,7 +41,7 @@ export default function RouteMap({ mouseHoverDistance }: Props) {
   const { result: stravaSegmentsInWorld } = useAsync(
     async (fs: Segment[]) => {
       const stravaSegments = await Promise.all(
-        fs.map((s) => getStravaSegmentStream(s.slug, "latlng"))
+        fs.map((s) => getStravaSegmentStream(s.slug, "segments", "latlng"))
       );
       return fs.map((s, i) => ({
         ...s,
@@ -62,7 +62,10 @@ export default function RouteMap({ mouseHoverDistance }: Props) {
         return;
       }
 
-      return await getStravaSegmentStreams(r.slug, ["distance", "latlng"]);
+      return await getStravaSegmentStreams(r.slug, "routes", [
+        "distance",
+        "latlng",
+      ]);
     },
     [locationState.route]
   );
