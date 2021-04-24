@@ -33,9 +33,11 @@ export function RouteSegments({ route }: Props) {
     <>
       {segmentsOnRoute.map((segment) => (
         <ListItem
+          disabled={segment.stravaSegmentId === undefined}
           rightAddonType="icon"
           rightAddon={
-            locationState.segments.includes(segment) ? (
+            segment.stravaSegmentId ===
+            undefined ? null : locationState.segments.includes(segment) ? (
               <VisibilityFontIcon />
             ) : (
               <VisibilityOffFontIcon />
@@ -44,6 +46,10 @@ export function RouteSegments({ route }: Props) {
           secondaryText={<SecondaryText segment={segment} />}
           threeLines
           onClick={() => {
+            if (segment.stravaSegmentId === undefined) {
+              return;
+            }
+
             if (locationState.segments.includes(segment)) {
               setLocationState({
                 ...locationState,
