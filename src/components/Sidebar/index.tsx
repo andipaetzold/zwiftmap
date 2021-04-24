@@ -40,6 +40,7 @@ export function Sidebar({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
     switch (searchResult.type) {
       case "world":
         setLocationState({ world: searchResult.data });
+        setQuery("");
         break;
       case "route":
         setLocationState({
