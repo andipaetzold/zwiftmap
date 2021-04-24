@@ -168,8 +168,8 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
           </Pane>
         )}
 
-        <Pane name="mouse-position">
-          {pointCoordinates && (
+        {pointCoordinates && (
+          <Pane name="mouse-position">
             <Circle
               center={pointCoordinates}
               radius={10}
@@ -179,8 +179,8 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
                 fillOpacity: 1,
               }}
             />
-          )}
-        </Pane>
+          </Pane>
+        )}
       </MapContainer>
     </div>
   );
