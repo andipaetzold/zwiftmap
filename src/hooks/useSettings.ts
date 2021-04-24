@@ -13,10 +13,12 @@ function loadSettings(): Settings {
 
     return {
       sport: settings.sport ?? "cycling",
+      units: settings.units ?? "metric",
     };
   } catch {
     return {
       sport: "cycling",
+      units: "metric",
     };
   }
 }

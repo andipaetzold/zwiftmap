@@ -12,12 +12,13 @@ import {
   StarFontIcon,
 } from "@react-md/material-icons";
 import { Text } from "@react-md/typography";
-import round from "lodash/round";
 import stravaLogo from "../../../../assets/strava-40x40.png";
 import whatsOnZwiftLogo from "../../../../assets/WhatsOnZwift-40x40.png";
 import zwiftInsiderLogo from "../../../../assets/ZwiftInsider-40x40.jpg";
 import { worlds } from "../../../../data";
 import { Route } from "../../../../types";
+import { Distance } from "../../../Distance";
+import { Elevation } from "../../../Elevation";
 import { ElevationChart } from "../../ElevationChart";
 import { RouteEvents } from "./RouteEvents";
 import { RouteSegments } from "./RouteSegments";
@@ -57,11 +58,14 @@ export function RouteDetails({
         leftAddon={<SpaceBarFontIcon />}
         leftAddonType="icon"
       >
-        {round(route.distance, 1)}km
+        <Distance distance={route.distance} />
         {route.leadInDistance !== undefined && (
           <>
             &nbsp;
-            <small>(+{round(route.leadInDistance, 1)}km)</small>
+            <small>
+              (+
+              <Distance distance={route.leadInDistance} />)
+            </small>
           </>
         )}
       </SimpleListItem>
@@ -71,11 +75,11 @@ export function RouteDetails({
         leftAddon={<LandscapeFontIcon />}
         leftAddonType="icon"
       >
-        {round(route.elevation)}m
+        <Elevation elevation={route.elevation} />
         {route.leadInElevation !== undefined && (
           <>
             &nbsp;
-            <small>(+{round(route.leadInElevation)}m)</small>
+            <small>(+<Elevation elevation={route.leadInElevation} />)</small>
           </>
         )}
       </SimpleListItem>

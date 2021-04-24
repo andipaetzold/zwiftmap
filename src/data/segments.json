@@ -434,7 +434,8 @@
   {
     "name": "Richmond KOM",
     "slug": "richmond-kom",
-    "type": 0.644,
+    "type": "climb",
+    "distance": 0.644,
     "avgIncline": 6.4,
     "world": "richmond",
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/richmond/segment/kom/forward",

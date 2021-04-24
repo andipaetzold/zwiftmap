@@ -1,14 +1,14 @@
 import { ListItem, SimpleListItem } from "@react-md/list";
-import React from "react";
-import { segments } from "../../../../data";
-import { Route, Segment, SegmentType } from "../../../../types";
-import { Text } from "@react-md/typography";
-import round from "lodash/round";
-import { useLocationState } from "../../../../hooks/useLocationState";
 import {
   VisibilityFontIcon,
   VisibilityOffFontIcon,
 } from "@react-md/material-icons";
+import { Text } from "@react-md/typography";
+import React from "react";
+import { segments } from "../../../../data";
+import { useLocationState } from "../../../../hooks/useLocationState";
+import { Route, Segment, SegmentType } from "../../../../types";
+import { Distance } from "../../../Distance";
 
 interface Props {
   route: Route;
@@ -75,24 +75,22 @@ interface SecondaryTextProps {
 }
 
 function SecondaryText({ segment }: SecondaryTextProps) {
-  const details = [];
-  if (segment.distance) {
-    if (segment.distance < 1) {
-      details.push(`${round(segment.distance * 1_000)}m`);
-    } else {
-      details.push(`${round(segment.distance, 1)}km`);
-    }
-  }
-
-  if (segment.avgIncline) {
-    details.push(`${round(segment.avgIncline, 1)}%`);
-  }
-
   return (
     <>
       {segmentTypes[segment.type]}
       <br />
-      {details.join(" | ")}
+      <Distance distance={segment.distance} />
+      {segment.avgIncline && (
+        <>
+          {" "}
+          |{" "}
+          {new Intl.NumberFormat("en-US", {
+            minimumFractionDigits: 1,
+            maximumFractionDigits: 1,
+            style: "percent",
+          }).format(segment.avgIncline / 100)}
+        </>
+      )}
     </>
   );
 }

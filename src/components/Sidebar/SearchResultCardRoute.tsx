@@ -1,8 +1,9 @@
 import { ListItem } from "@react-md/list";
-import round from "lodash/round";
 import React, { useRef } from "react";
 import { useOnScreen } from "../../hooks/useOnScreen";
 import { Route } from "../../types";
+import { Distance } from "../Distance";
+import { Elevation } from "../Elevation";
 import { ElevationChartPreview } from "../ElevationChartPreview";
 
 export interface Props {
@@ -14,7 +15,7 @@ export interface Props {
 export function SearchResultCardRoute({ route, onClick, onHoverRoute }: Props) {
   return (
     <ListItem
-      secondaryText={getRouteInfo(route)}
+      secondaryText={<RouteInfo route={route} />}
       onClick={onClick}
       rightAddonType="large-media"
       rightAddon={<ChartContainer route={route} />}
@@ -26,8 +27,17 @@ export function SearchResultCardRoute({ route, onClick, onHoverRoute }: Props) {
   );
 }
 
-function getRouteInfo(route: Route) {
-  return `${round(route.distance, 1)}km | ${round(route.elevation)}m`;
+interface RouteInfoProps {
+  route: Route;
+}
+
+function RouteInfo({ route }: RouteInfoProps) {
+  return (
+    <>
+      <Distance distance={route.distance} /> |{" "}
+      <Elevation elevation={route.elevation} />
+    </>
+  );
 }
 
 interface ChartProps {

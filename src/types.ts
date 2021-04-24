@@ -46,7 +46,7 @@ export interface Segment {
   world: WorldSlug;
   name: string;
   slug: string;
-  distance?: number;
+  distance: number;
   elevation?: number;
   avgIncline?: number;
   stravaSegmentId?: number;
@@ -59,6 +59,7 @@ export type SegmentType = "sprint" | "climb" | "segment";
 
 export interface Settings {
   sport: Sport;
+  units: "imperial" | "metric";
 }
 
 export interface LocationState {

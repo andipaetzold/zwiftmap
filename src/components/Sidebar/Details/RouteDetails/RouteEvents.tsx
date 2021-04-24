@@ -7,6 +7,7 @@ import React, { useMemo } from "react";
 import { useAsync } from "react-async-hook";
 import { fetchEvents, ZwiftEventType } from "../../../../services/fetchEvents";
 import { Route } from "../../../../types";
+import { Distance } from "../../../Distance";
 
 interface Props {
   route: Route;
@@ -71,10 +72,7 @@ export function RouteEvents({ route }: Props) {
               <br />
               {eventTypes[event.eventType] ?? event.eventType} |&nbsp;
               {event.distanceInMeters !== 0 ? (
-                <>
-                  {round(event.distanceInMeters / 1_000, 1)}
-                  km
-                </>
+                <Distance distance={event.distanceInMeters / 1_000} />
               ) : event.durationInSeconds > 0 ? (
                 <>{round(event.durationInSeconds) / 60}min</>
               ) : (
