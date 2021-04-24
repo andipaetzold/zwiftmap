@@ -65,6 +65,7 @@ function SearchResultCard({
           route={searchResult.data}
           onClick={onClick}
           onHoverRoute={onHoverRoute}
+          showWorldName={true}
         />
       );
     default:

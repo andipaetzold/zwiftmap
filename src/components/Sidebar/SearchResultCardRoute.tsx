@@ -1,5 +1,6 @@
 import { ListItem } from "@react-md/list";
 import React, { useRef } from "react";
+import { worlds } from "../../data";
 import { useOnScreen } from "../../hooks/useOnScreen";
 import { Route } from "../../types";
 import { Distance } from "../Distance";
@@ -10,12 +11,19 @@ export interface Props {
   route: Route;
   onClick: () => void;
   onHoverRoute: (route?: string) => void;
+  showWorldName: boolean;
 }
 
-export function SearchResultCardRoute({ route, onClick, onHoverRoute }: Props) {
+export function SearchResultCardRoute({
+  route,
+  onClick,
+  onHoverRoute,
+  showWorldName,
+}: Props) {
   return (
     <ListItem
-      secondaryText={<RouteInfo route={route} />}
+      secondaryText={<RouteInfo route={route} showWorldName={showWorldName} />}
+      threeLines={showWorldName}
       onClick={onClick}
       rightAddonType="large-media"
       rightAddon={<ChartContainer route={route} />}
@@ -29,11 +37,18 @@ export function SearchResultCardRoute({ route, onClick, onHoverRoute }: Props) {
 
 interface RouteInfoProps {
   route: Route;
+  showWorldName: boolean;
 }
 
-function RouteInfo({ route }: RouteInfoProps) {
+function RouteInfo({ route, showWorldName }: RouteInfoProps) {
   return (
     <>
+      {showWorldName && (
+        <>
+          {worlds.find((w) => w.slug === route.world)!.name}
+          <br />
+        </>
+      )}
       <Distance distance={route.distance} /> |{" "}
       <Elevation elevation={route.elevation} />
     </>

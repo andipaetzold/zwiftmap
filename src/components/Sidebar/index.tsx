@@ -128,6 +128,7 @@ export function Sidebar({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
                           });
                         }}
                         onHoverRoute={onHoverRoute}
+                        showWorldName={false}
                       />
                     ))}
                 </>
