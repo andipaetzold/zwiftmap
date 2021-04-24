@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
-import { routes, worlds } from "../data";
-import { LocationState } from "../types";
+import { routes, worlds, segments } from "../data";
+import { LocationState, Segment } from "../types";
 
 const DEFAULT_WORLD = worlds.find((w) => w.slug === "watopia")!;
 
@@ -34,6 +34,12 @@ export function useLocationState(): [
     if (newState.route) {
       searchParams.set("route", newState.route.slug);
     }
+    if (newState.segments.length > 0) {
+      searchParams.set(
+        "segments",
+        newState.segments.map((s) => s.slug).join(",")
+      );
+    }
 
     window.history.pushState(undefined, "", `?${searchParams.toString()}`);
     setState(newState);
@@ -42,7 +48,6 @@ export function useLocationState(): [
 
   return [state, updateLocationState];
 }
-
 
 function getLocationState(): LocationState {
   const searchParams = new URLSearchParams(window.location.search);
@@ -54,5 +59,10 @@ function getLocationState(): LocationState {
     .filter((r) => r.world === world?.slug)
     .find((r) => r.slug === searchParams.get("route"));
 
-  return { world, route };
+  const selectedSegments = (searchParams.get("segments") ?? "")
+    .split(",")
+    .map((slug) => segments.find((s) => s.slug === slug))
+    .filter((segment): segment is Segment => !!segment);
+
+  return { world, route, segments: selectedSegments };
 }

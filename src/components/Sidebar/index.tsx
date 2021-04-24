@@ -39,13 +39,14 @@ export function Sidebar({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
   const handleSearchResultClick = (searchResult: SearchResult) => {
     switch (searchResult.type) {
       case "world":
-        setLocationState({ world: searchResult.data });
+        setLocationState({ world: searchResult.data, segments: [] });
         setQuery("");
         break;
       case "route":
         setLocationState({
           world: worlds.find((w) => w.slug === searchResult.data.world)!,
           route: searchResult.data,
+          segments: [],
         });
         break;
     }
@@ -73,7 +74,7 @@ export function Sidebar({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
               placeholder="Search for worlds and routes…"
               value={query}
               onChange={(e) => {
-                setLocationState({ world: locationState.world });
+                setLocationState({ world: locationState.world, segments: [] });
                 setQuery(e.target.value);
               }}
               isRightAddon={false}
@@ -103,7 +104,7 @@ export function Sidebar({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
                 query === "" ? "Back to route list" : "Back to search results"
               }
               onBackButtonClick={() => {
-                setLocationState({ ...locationState, route: undefined });
+                setLocationState({ world: locationState.world, segments: [] });
               }}
             />
           ) : (
@@ -123,6 +124,7 @@ export function Sidebar({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
                           setLocationState({
                             world: worlds.find((w) => w.slug === route.world)!,
                             route,
+                            segments: [],
                           });
                         }}
                         onHoverRoute={onHoverRoute}

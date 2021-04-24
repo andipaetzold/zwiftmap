@@ -5,13 +5,10 @@ import { useAsync } from "react-async-hook";
 import {
   Circle,
   ImageOverlay,
-  LayerGroup,
-  LayersControl,
   MapContainer,
   Pane,
   Polyline,
 } from "react-leaflet";
-import { segments } from "../../data";
 import { useLocationState } from "../../hooks/useLocationState";
 import {
   getStravaSegmentStream,
@@ -32,14 +29,7 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
   const world = locationState.world;
   const worldConfig = worldConfigs[world.slug];
 
-  const filteredSegments = useMemo(
-    () =>
-      segments
-        .filter((s) => s.world === world.slug)
-        .filter((s) => s.stravaSegmentId !== undefined),
-    [world]
-  );
-  const { result: stravaSegmentsInWorld } = useAsync(
+  const { result: stravaSegmentsToShow } = useAsync(
     async (fs: Segment[]) => {
       const stravaSegments = await Promise.all(
         fs.map((s) => getStravaSegmentStream(s.slug, "segments", "latlng"))
@@ -49,7 +39,7 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
         stravaData: stravaSegments[i],
       }));
     },
-    [filteredSegments]
+    [locationState.segments]
   );
 
   const [map, setMap] = useState<Map | undefined>();
@@ -166,65 +156,16 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
           </Pane>
         )}
 
-        {(stravaSegmentsInWorld ?? []).length > 0 && (
-          <LayersControl>
-            {(stravaSegmentsInWorld ?? []).filter((s) => s.type === "sprint")
-              .length > 0 && (
-              <LayersControl.Overlay name="Show sprints">
-                <LayerGroup>
-                  <Pane name="sprints">
-                    {stravaSegmentsInWorld
-                      ?.filter((s) => s.type === "sprint")
-                      ?.map((s) => (
-                        <Polyline
-                          key={s.slug}
-                          positions={s.stravaData}
-                          pathOptions={{ color: "#64ae3c", weight: 5 }}
-                        />
-                      ))}
-                  </Pane>
-                </LayerGroup>
-              </LayersControl.Overlay>
-            )}
-
-            {(stravaSegmentsInWorld ?? []).filter((s) => s.type === "climb")
-              .length > 0 && (
-              <LayersControl.Overlay name="Show climbs">
-                <LayerGroup>
-                  <Pane name="climbs">
-                    {stravaSegmentsInWorld
-                      ?.filter((s) => s.type === "climb")
-                      ?.map((s) => (
-                        <Polyline
-                          key={s.slug}
-                          positions={s.stravaData}
-                          pathOptions={{ color: "#d52f25", weight: 5 }}
-                        />
-                      ))}
-                  </Pane>
-                </LayerGroup>
-              </LayersControl.Overlay>
-            )}
-
-            {(stravaSegmentsInWorld ?? []).filter((s) => s.type === "segment")
-              .length > 0 && (
-              <LayersControl.Overlay name="Show segments">
-                <LayerGroup>
-                  <Pane name="segments">
-                    {stravaSegmentsInWorld
-                      ?.filter((s) => s.type === "segment")
-                      ?.map((s) => (
-                        <Polyline
-                          key={s.slug}
-                          positions={s.stravaData}
-                          pathOptions={{ color: "#ef6c42", weight: 5 }}
-                        />
-                      ))}
-                  </Pane>
-                </LayerGroup>
-              </LayersControl.Overlay>
-            )}
-          </LayersControl>
+        {stravaSegmentsToShow && (
+          <Pane name="segments">
+            {stravaSegmentsToShow?.map((s) => (
+              <Polyline
+                key={s.slug}
+                positions={s.stravaData}
+                pathOptions={{ color: "#64ac39", weight: 8 }}
+              />
+            ))}
+          </Pane>
         )}
 
         <Pane name="mouse-position">

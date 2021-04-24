@@ -20,6 +20,7 @@ import { worlds } from "../../../../data";
 import { Route } from "../../../../types";
 import { ElevationChart } from "../../ElevationChart";
 import { RouteEvents } from "./RouteEvents";
+import { RouteSegments } from "./RouteSegments";
 
 interface Props {
   route: Route;
@@ -112,6 +113,9 @@ export function RouteDetails({
 
       <ListSubheader>Upcoming Events</ListSubheader>
       <RouteEvents route={route} />
+
+      <ListSubheader>Segments</ListSubheader>
+      <RouteSegments route={route} />
 
       <ListSubheader>Links</ListSubheader>
       {route.zwiftInsiderUrl && (

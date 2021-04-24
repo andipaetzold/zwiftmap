@@ -24,6 +24,7 @@ export function WorldSelect() {
         onChange={(newWorldSlug) =>
           setLocationState({
             world: worlds.find((w) => w.slug === newWorldSlug)!,
+            segments: [],
           })
         }
       />

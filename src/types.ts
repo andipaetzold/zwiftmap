@@ -51,10 +51,11 @@ export interface Segment {
   avgIncline?: number;
   stravaSegmentId?: number;
   stravaSegmentUrl?: string;
-  type: "sprint" | "climb" | "segment";
+  type: SegmentType;
   whatsOnZwiftUrl?: string;
   climbType?: "HC" | "4" | "3" | "2" | "1";
 }
+export type SegmentType = "sprint" | "climb" | "segment";
 
 export interface Settings {
   sport: Sport;
@@ -63,4 +64,5 @@ export interface Settings {
 export interface LocationState {
   world: World;
   route?: Route;
+  segments: Segment[];
 }
