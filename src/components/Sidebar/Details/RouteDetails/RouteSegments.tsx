@@ -33,6 +33,7 @@ export function RouteSegments({ route }: Props) {
     <>
       {segmentsOnRoute.map((segment) => (
         <ListItem
+          key={segment.slug}
           disabled={segment.stravaSegmentId === undefined}
           rightAddonType="icon"
           rightAddon={
