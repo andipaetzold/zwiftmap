@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@react-md/avatar": "2.7.1",
+    "@react-md/avatar": "2.8.2",
     "@react-md/button": "2.7.1",
     "@react-md/dialog": "2.7.1",
     "@react-md/divider": "2.7.1",
