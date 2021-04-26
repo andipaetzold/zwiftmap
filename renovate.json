@@ -3,5 +3,11 @@
   "dependencyDashboard": true,
   "lockFileMaintenance": {
     "enabled": true
-  }
+  },
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["^@react-md/"],
+      "groupName": "react-md monorepo"
+    }
+  ]
 }
