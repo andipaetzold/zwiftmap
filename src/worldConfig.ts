@@ -4,6 +4,7 @@ import critCityMap from "./maps/crit-city.png";
 import franceMap from "./maps/france.png";
 import innsbruckMap from "./maps/innsbruck.png";
 import londonMap from "./maps/london.png";
+import makuriIslandsMap from "./maps/makuri-islands.png";
 import newYorkMap from "./maps/new-york.png";
 import parisMap from "./maps/paris.png";
 import richmondMap from "./maps/richmond.png";
@@ -78,6 +79,18 @@ export const worldConfigs: Record<WorldSlug, WorldConfig> = {
     ],
     image: londonMap,
     backgroundColor: "#6f992d",
+  },
+  "makuri-islands": {
+    imageBounds: [
+      [-10.73746, 165.80468],
+      [-10.81405, 165.88222],
+    ],
+    initialBounds: [
+      [-10.743702, 165.859212],
+      [-10.775156, 165.830083],
+    ],
+    image: makuriIslandsMap,
+    backgroundColor: "#7c9938",
   },
   "new-york": {
     imageBounds: [

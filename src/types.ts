@@ -31,6 +31,7 @@ export type WorldSlug =
   | "innsbruck"
   | "london"
   | "paris"
+  | "makuri-islands"
   | "new-york"
   | "richmond"
   | "watopia"
