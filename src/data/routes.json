@@ -2552,7 +2552,7 @@
     "leadInDistance": 0.2,
     "leadInElevation": 0,
     "experience": 260,
-    "segments": ["country-sprint", "temple-kom-from-fishing-village-side"],
+    "segments": ["country-sprint"],
     "stravaSegmentId": 28432116,
     "stravaSegmentUrl": "https://www.strava.com/segments/28432116",
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/flatland-loop",
