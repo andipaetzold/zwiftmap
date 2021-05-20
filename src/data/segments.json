@@ -699,9 +699,7 @@
     "name": "Village Sprint",
     "slug": "village-sprint",
     "type": "sprint",
-    "world": "makuri-islands",
-    "stravaSegmentId": 28432293,
-    "stravaSegmentUrl": "https://www.strava.com/segments/28432293"
+    "world": "makuri-islands"
   },
   {
     "name": "Temple KOM from Fishing Village Side",
@@ -719,6 +717,8 @@
     "type": "climb",
     "distance": 1.88,
     "avgIncline": 3.5,
-    "world": "makuri-islands"
+    "world": "makuri-islands",
+    "stravaSegmentId": 28432293,
+    "stravaSegmentUrl": "https://www.strava.com/segments/28432293"
   }
 ]
