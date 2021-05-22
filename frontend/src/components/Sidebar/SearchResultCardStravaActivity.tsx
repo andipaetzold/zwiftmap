@@ -1,6 +1,7 @@
 import { Avatar } from "@react-md/avatar";
 import { ListItem } from "@react-md/list";
 import { OpenInNewFontIcon } from "@react-md/material-icons";
+import { CircularProgress } from "@react-md/progress";
 import React from "react";
 import { useAsync } from "react-async-hook";
 import stravaLogo from "../../assets/strava-40x40.png";
@@ -63,10 +64,22 @@ function SearchResultCardStravaActivityWithToken({
   onHoverRoute,
   token,
 }: Props & { token: string }) {
-  const { result: activity } = useAsync(getStravaActivity, [token, activityId]);
+  const { result: activity, loading } = useAsync(getStravaActivity, [
+    token,
+    activityId,
+  ]);
 
   if (!activity) {
-    return null;
+    if (loading) {
+      return (
+        <CircularProgress
+          id={`strava-activity-${activityId}`}
+          circleStyle={{ stroke: "black" }}
+        />
+      );
+    } else {
+      return null;
+    }
   }
 
   return (
