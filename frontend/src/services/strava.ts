@@ -20,7 +20,7 @@ export function clearStravaToken(): void {
 export function getStravaAuthUrl(state: string) {
   return `${
     process.env.NODE_ENV === "production"
-      ? "https://zwiftmap.heroku.com"
+      ? "https://zwiftmap.herokuapp.com"
       : "http://localhost:3001"
   }/strava/authorize?state=${state}`;
 }
