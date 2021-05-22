@@ -12,16 +12,21 @@ jobs:
       - name: Switch node version
         shell: bash -l {0}
         run: nvm install
+
       - name: Install
         run: npm ci
+        working-directory: frontend
       - name: Test
         run: npm test
+        working-directory: frontend
       - name: Build
         run: npm run build
+        working-directory: frontend
+
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.3
         with:
           branch: gh-pages
-          folder: build
+          folder: frontend/build
           clean: true
           dry-run: ${{ github.ref != 'refs/heads/main' }}
