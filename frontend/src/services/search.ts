@@ -1,8 +1,7 @@
 import { routes, worlds } from "../data";
 import { Route, Segment, Sport, World } from "../types";
 
-const REGEX_STRAVA_ACTIVITY =
-  /(?:https:\/\/)?(?:www\.)?strava\.com\/activities\/(\d{10})/;
+const REGEX_STRAVA_ACTIVITY = /strava\.com\/activities\/(\d{10})/;
 
 export type SearchResult =
   | SearchResultWorld
