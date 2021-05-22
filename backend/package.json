@@ -4,9 +4,9 @@
   "private": true,
   "main": "build/index.js",
   "scripts": {
-    "start": "npm run serve",
-    "build": "tsc -P tsconfig.json",
-    "serve": "tsc-watch -P tsconfig.json --preserveWatchOutput --onSuccess \"node .\""
+    "start": "node .",
+    "dev": "tsc-watch -P tsconfig.json --preserveWatchOutput --onSuccess \"node .\"",
+    "build": "tsc -P tsconfig.json"
   },
   "devDependencies": {
     "@tsconfig/node14": "1.0.0",
