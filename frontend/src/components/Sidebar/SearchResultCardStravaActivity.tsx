@@ -1,5 +1,5 @@
 import { Avatar } from "@react-md/avatar";
-import { ListItem } from "@react-md/list";
+import { ListItem, SimpleListItem } from "@react-md/list";
 import { OpenInNewFontIcon } from "@react-md/material-icons";
 import { CircularProgress } from "@react-md/progress";
 import React from "react";
@@ -78,7 +78,14 @@ function SearchResultCardStravaActivityWithToken({
         />
       );
     } else {
-      return null;
+      return (
+        <SimpleListItem
+          secondaryText="Make sure you can access the activity and it was recorded in Zwift."
+          threeLines
+        >
+          An error occurred
+        </SimpleListItem>
+      );
     }
   }
 
