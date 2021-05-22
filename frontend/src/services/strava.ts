@@ -1,6 +1,6 @@
 const LOCAL_STORAGE_KEY = "strava_token";
 
-export function getStravaToken(): StravaToken | null {
+export function getStravaToken(): string | null {
   const tokenString = localStorage.getItem(LOCAL_STORAGE_KEY);
   if (tokenString === null) {
     return null;
@@ -9,7 +9,7 @@ export function getStravaToken(): StravaToken | null {
   return JSON.parse(tokenString);
 }
 
-export function writeStravaToken(token: StravaToken): void {
+export function writeStravaToken(token: string): void {
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(token));
 }
 
@@ -23,13 +23,4 @@ export function getStravaAuthUrl(state: string) {
       ? "https://zwiftmap.heroku.com"
       : "http://localhost:3001"
   }/strava/authorize?state=${state}`;
-}
-
-interface StravaToken {
-  token_type: "Bearer";
-  expires_at: number;
-  expires_in: number;
-  refresh_token: string;
-  access_token: string;
-  athlete: any;
 }
