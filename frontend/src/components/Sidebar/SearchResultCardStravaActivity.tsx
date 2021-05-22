@@ -4,7 +4,7 @@ import { OpenInNewFontIcon } from "@react-md/material-icons";
 import React from "react";
 import stravaLogo from "../../assets/strava-40x40.png";
 import { useStravaToken } from "../../hooks/useStravaToken";
-import { STRAVA_AUTH_URL } from "../../services/strava";
+import { getStravaAuthUrl } from "../../services/strava";
 
 export interface Props {
   activity: { activityId: number; slug: string };
@@ -31,7 +31,11 @@ export function SearchResultCardStravaActivity({
         rightAddon={<OpenInNewFontIcon />}
         rightAddonType="icon"
         secondaryText="…to view Strava activity"
-        onClick={() => window.open(STRAVA_AUTH_URL, "_blank")}
+        onClick={() =>
+          (window.location.href = getStravaAuthUrl(
+            `activity:${activity.activityId}`
+          ))
+        }
       >
         Authorize Strava App…
       </ListItem>

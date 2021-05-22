@@ -17,13 +17,13 @@ export function clearStravaToken(): void {
   localStorage.removeItem(LOCAL_STORAGE_KEY);
 }
 
-const CLIENT_ID = "66426";
-const REDIRECT_URI =
-  process.env.NODE_ENV === "production"
-    ? "https://zwiftmap.heroku.com"
-    : "http://localhost:3000";
-
-export const STRAVA_AUTH_URL = `https://www.strava.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=activity:read_all`;
+export function getStravaAuthUrl(state: string) {
+  return `${
+    process.env.NODE_ENV === "production"
+      ? "https://zwiftmap.heroku.com"
+      : "http://localhost:3001"
+  }/strava/authorize?state=${state}`;
+}
 
 interface StravaToken {
   token_type: "Bearer";
