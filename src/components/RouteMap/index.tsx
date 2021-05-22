@@ -13,7 +13,7 @@ import { useLocationState } from "../../hooks/useLocationState";
 import {
   getStravaSegmentStream,
   getStravaSegmentStreams,
-} from "../../StravaSegmentRepository";
+} from "../../services/StravaSegmentRepository";
 import { Route, Segment } from "../../types";
 import { worldConfigs } from "../../worldConfig";
 import styles from "./index.module.css";

@@ -1,4 +1,4 @@
-import { StravaSegment } from "./types";
+import { StravaSegment } from "../types";
 
 const cache: { [cacheKey: string]: Promise<any> } = {};
 

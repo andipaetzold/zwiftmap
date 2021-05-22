@@ -3,7 +3,7 @@ import uniqWith from "lodash/uniqWith";
 import React, { useMemo } from "react";
 import { useAsync } from "react-async-hook";
 import { Area, AreaChart, XAxis, YAxis } from "recharts";
-import { getStravaSegmentStreams } from "../../StravaSegmentRepository";
+import { getStravaSegmentStreams } from "../../services/StravaSegmentRepository";
 import { Route, StravaSegment } from "../../types";
 import { ElevationGradient } from "../ElevationGradient";
 

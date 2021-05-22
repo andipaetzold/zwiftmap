@@ -11,7 +11,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { getStravaSegmentStreams } from "../../StravaSegmentRepository";
+import { getStravaSegmentStreams } from "../../services/StravaSegmentRepository";
 import { Route, StravaSegment } from "../../types";
 import { ElevationGradient } from "../ElevationGradient";
 
