@@ -1,3 +1,4 @@
+import { worlds } from "../data";
 import { WorldSlug } from "../types";
 import { worldConfigs } from "../worldConfig";
 
@@ -29,19 +30,22 @@ async function fetchStravaActivity(
 
   const esa: ExternalStravaActivity = await response.json();
 
-  if (
-    !Object.values(worldConfigs)
-      .map((worldConfig) => worldConfig.imageBounds)
-      .some(
-        (bb) =>
-          bb[0][0] >= esa.start_latlng[0] &&
-          esa.start_latlng[0] >= bb[1][0] &&
-          bb[0][1] <= esa.start_latlng[1] &&
-          esa.start_latlng[1] <= bb[1][1]
-      )
-  ) {
+  const world = worlds.find((world) => {
+    const worldConfig = worldConfigs[world.slug];
+    const bb = worldConfig.imageBounds;
+    return (
+      bb[0][0] >= esa.start_latlng[0] &&
+      esa.start_latlng[0] >= bb[1][0] &&
+      bb[0][1] <= esa.start_latlng[1] &&
+      esa.start_latlng[1] <= bb[1][1]
+    );
+  });
+
+  if (!world) {
     throw new Error("Activity was not recorded in Zwift");
   }
+
+  console.log(world);
 
   return {
     id: esa.id,
@@ -50,7 +54,7 @@ async function fetchStravaActivity(
     distance: esa.distance,
     elevation: esa.total_elevation_gain,
     time: esa.moving_time,
-    world: "watopia",
+    world: world.slug,
     avgWatts: esa.average_watts,
     photoUrl: esa.photos.primary?.urls["100"],
   };
