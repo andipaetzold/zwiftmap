@@ -73,7 +73,6 @@ function SearchResultCard({
       return (
         <SearchResultCardStravaActivity
           activity={searchResult.data}
-          onClick={onClick}
           onHoverRoute={onHoverRoute}
         />
       );

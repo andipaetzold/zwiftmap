@@ -5,6 +5,7 @@ import { CircularProgress } from "@react-md/progress";
 import React from "react";
 import { useAsync } from "react-async-hook";
 import stravaLogo from "../../assets/strava-40x40.png";
+import { useLocationState } from "../../hooks/useLocationState";
 import { useStravaToken } from "../../hooks/useStravaToken";
 import { getStravaAuthUrl } from "../../services/strava";
 import { getStravaActivity } from "../../services/StravaActivityRepository";
@@ -14,13 +15,11 @@ import { Time } from "../Time";
 
 export interface Props {
   activity: { activityId: string; slug: string };
-  onClick: () => void;
   onHoverRoute: (route?: string) => void;
 }
 
 export function SearchResultCardStravaActivity({
   activity,
-  onClick,
   onHoverRoute,
 }: Props) {
   const [stravaToken] = useStravaToken();
@@ -51,7 +50,6 @@ export function SearchResultCardStravaActivity({
   return (
     <SearchResultCardStravaActivityWithToken
       activity={activity}
-      onClick={onClick}
       onHoverRoute={onHoverRoute}
       token={stravaToken}
     />
@@ -60,7 +58,6 @@ export function SearchResultCardStravaActivity({
 
 function SearchResultCardStravaActivityWithToken({
   activity: { activityId },
-  onClick,
   onHoverRoute,
   token,
 }: Props & { token: string }) {
@@ -68,6 +65,7 @@ function SearchResultCardStravaActivityWithToken({
     token,
     activityId,
   ]);
+  const [, setLocationState] = useLocationState();
 
   if (!activity) {
     if (loading) {
@@ -89,9 +87,17 @@ function SearchResultCardStravaActivityWithToken({
     }
   }
 
+  const handleClick = () => {
+    setLocationState({
+      world: activity.world,
+      stravaActivity: activity,
+      segments: [],
+    });
+  };
+
   return (
     <ListItem
-      onClick={onClick}
+      onClick={handleClick}
       secondaryText={
         <>
           <Distance distance={activity.distance / 1_000} /> |{" "}

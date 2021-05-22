@@ -34,6 +34,12 @@ export function useLocationState(): [
     if (newState.route) {
       searchParams.set("route", newState.route.slug);
     }
+    if (newState.stravaActivity) {
+      searchParams.set(
+        "strava-activity",
+        newState.stravaActivity.id.toString()
+      );
+    }
     if (newState.segments.length > 0) {
       searchParams.set(
         "segments",

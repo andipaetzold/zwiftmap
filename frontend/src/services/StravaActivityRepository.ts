@@ -1,5 +1,5 @@
 import { worlds } from "../data";
-import { WorldSlug } from "../types";
+import { World } from "../types";
 import { worldConfigs } from "../worldConfig";
 
 const activityCache: { [activityId: string]: Promise<StravaActivity> } = {};
@@ -54,7 +54,7 @@ async function fetchStravaActivity(
     distance: esa.distance,
     elevation: esa.total_elevation_gain,
     time: esa.moving_time,
-    world: world.slug,
+    world: world,
     avgWatts: esa.average_watts,
     photoUrl: esa.photos.primary?.urls["100"],
   };
@@ -67,7 +67,7 @@ export interface StravaActivity {
   distance: number;
   time: number;
   elevation: number;
-  world: WorldSlug;
+  world: World;
   avgWatts?: number;
   photoUrl?: string;
 }
