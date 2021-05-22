@@ -1,4 +1,5 @@
 import { WorldSlug } from "../types";
+import { worldConfigs } from "../worldConfig";
 
 const activityCache: { [activityId: string]: Promise<StravaActivity> } = {};
 
@@ -25,17 +26,33 @@ async function fetchStravaActivity(
       },
     }
   );
-  const externalStravaActvitiy: ExternalStravaActivity = await response.json();
+
+  const esa: ExternalStravaActivity = await response.json();
+
+  if (
+    !Object.values(worldConfigs)
+      .map((worldConfig) => worldConfig.imageBounds)
+      .some(
+        (bb) =>
+          bb[0][0] >= esa.start_latlng[0] &&
+          esa.start_latlng[0] >= bb[1][0] &&
+          bb[0][1] <= esa.start_latlng[1] &&
+          esa.start_latlng[1] <= bb[1][1]
+      )
+  ) {
+    throw new Error("Activity was not recorded in Zwift");
+  }
+
   return {
-    id: externalStravaActvitiy.id,
-    name: externalStravaActvitiy.name,
-    athleteId: externalStravaActvitiy.athlete.id,
-    distance: externalStravaActvitiy.distance,
-    elevation: externalStravaActvitiy.total_elevation_gain,
-    time: externalStravaActvitiy.moving_time,
+    id: esa.id,
+    name: esa.name,
+    athleteId: esa.athlete.id,
+    distance: esa.distance,
+    elevation: esa.total_elevation_gain,
+    time: esa.moving_time,
     world: "watopia",
-    avgWatts: externalStravaActvitiy.average_watts,
-    photoUrl: externalStravaActvitiy.photos.primary?.urls["100"],
+    avgWatts: esa.average_watts,
+    photoUrl: esa.photos.primary?.urls["100"],
   };
 }
 
