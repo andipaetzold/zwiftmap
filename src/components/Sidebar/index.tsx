@@ -121,6 +121,7 @@ export function Sidebar({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
                         route={route}
                         key={route.slug}
                         onClick={() => {
+                          onHoverRoute(undefined);
                           setLocationState({
                             world: worlds.find((w) => w.slug === route.world)!,
                             route,
