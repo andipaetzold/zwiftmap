@@ -3,6 +3,7 @@ import { ListSubheader, SimpleListItem } from "@react-md/list";
 import React, { Fragment } from "react";
 import { SearchResult, searchResultTypes } from "../../services/search";
 import { SearchResultCardRoute } from "./SearchResultCardRoute";
+import { SearchResultCardStravaActivity } from "./SearchResultCardStravaActivity";
 import { SearchResultCardWorld } from "./SearchResultCardWorld";
 
 interface Props {
@@ -66,6 +67,14 @@ function SearchResultCard({
           onClick={onClick}
           onHoverRoute={onHoverRoute}
           showWorldName={true}
+        />
+      );
+    case "strava-activity":
+      return (
+        <SearchResultCardStravaActivity
+          activity={searchResult.data}
+          onClick={onClick}
+          onHoverRoute={onHoverRoute}
         />
       );
     default:
