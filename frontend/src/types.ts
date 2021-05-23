@@ -1,5 +1,3 @@
-import { StravaActivity } from "./services/StravaActivityRepository";
-
 export interface World {
   id: number;
   name: string;
@@ -70,4 +68,5 @@ export interface LocationState {
   route?: Route;
   stravaActivityId?: string;
   segments: Segment[];
+  query: string;
 }

@@ -37,9 +37,11 @@ export function SearchResultCardStravaActivity({
         rightAddonType="icon"
         secondaryText="…to view Strava activity"
         onClick={() =>
-          (window.location.href = getStravaAuthUrl({
-            "strava-activity": activity.activityId,
-          }))
+          (window.location.href = getStravaAuthUrl(
+            Object.fromEntries(
+              new URLSearchParams(window.location.search).entries()
+            )
+          ))
         }
       >
         Authorize Strava App…
@@ -92,6 +94,7 @@ function SearchResultCardStravaActivityWithToken({
       world: activity.world,
       stravaActivityId: activity.id,
       segments: [],
+      query: "",
     });
   };
 

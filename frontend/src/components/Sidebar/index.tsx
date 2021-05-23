@@ -28,25 +28,28 @@ interface Props {
 export function Sidebar({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
   const [locationState, setLocationState] = useLocationState();
-  const [query, setQuery] = useState("");
   const [settings] = useSettings();
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   const [settingsDialogVisible, setSettingsDialogVisible] = useState(false);
 
-  const searchResults = search(query, settings.sport);
+  const searchResults = search(locationState.query, settings.sport);
 
   const handleSearchResultClick = (searchResult: SearchResult) => {
     switch (searchResult.type) {
       case "world":
-        setLocationState({ world: searchResult.data, segments: [] });
-        setQuery("");
+        setLocationState({
+          world: searchResult.data,
+          segments: [],
+          query: "",
+        });
         break;
       case "route":
         setLocationState({
           world: worlds.find((w) => w.slug === searchResult.data.world)!,
           route: searchResult.data,
           segments: [],
+          query: locationState.query,
         });
         break;
     }
@@ -72,19 +75,22 @@ export function Sidebar({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
               id="search-input"
               style={{ width: "100%" }}
               placeholder="Search for worlds and routes…"
-              value={query}
+              value={locationState.query}
               onChange={(e) => {
-                setLocationState({ world: locationState.world, segments: [] });
-                setQuery(e.target.value);
+                setLocationState({
+                  world: locationState.world,
+                  segments: [],
+                  query: e.target.value,
+                });
               }}
               isRightAddon={false}
               rightChildren={
-                query !== "" && (
+                locationState.query !== "" && (
                   <Button
                     buttonType="icon"
                     style={{ right: 0, position: "absolute" }}
                     onClick={() => {
-                      setQuery("");
+                      setLocationState({ ...locationState, query: "" });
                     }}
                     aria-label="Clear search field"
                   >
@@ -101,15 +107,21 @@ export function Sidebar({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
             <Details
               onMouseHoverDistanceChange={onMouseHoverDistanceChange}
               backButtonText={
-                query === "" ? "Back to route list" : "Back to search results"
+                locationState.query === ""
+                  ? "Back to route list"
+                  : "Back to search results"
               }
               onBackButtonClick={() => {
-                setLocationState({ world: locationState.world, segments: [] });
+                setLocationState({
+                  world: locationState.world,
+                  segments: [],
+                  query: locationState.query,
+                });
               }}
             />
           ) : (
             <List>
-              {query === "" ? (
+              {locationState.query === "" ? (
                 <>
                   {routes
                     .filter((route) => route.world === locationState.world.slug)
@@ -126,6 +138,7 @@ export function Sidebar({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
                             world: worlds.find((w) => w.slug === route.world)!,
                             route,
                             segments: [],
+                            query: locationState.query,
                           });
                         }}
                         onHoverRoute={onHoverRoute}

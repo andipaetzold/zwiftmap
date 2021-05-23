@@ -43,6 +43,9 @@ export function useLocationState(): [
         newState.segments.map((s) => s.slug).join(",")
       );
     }
+    if (newState.query.length > 0) {
+      searchParams.set("q", newState.query);
+    }
 
     window.history.pushState(undefined, "", `?${searchParams.toString()}`);
     setState(newState);
@@ -69,5 +72,13 @@ function getLocationState(): LocationState {
 
   const stravaActivityId = searchParams.get("strava-activity") ?? undefined;
 
-  return { world, route, segments: selectedSegments, stravaActivityId };
+  const query = searchParams.get("q") ?? "";
+
+  return {
+    world,
+    route,
+    segments: selectedSegments,
+    stravaActivityId,
+    query,
+  };
 }
