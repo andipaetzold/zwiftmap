@@ -90,7 +90,7 @@ function SearchResultCardStravaActivityWithToken({
   const handleClick = () => {
     setLocationState({
       world: activity.world,
-      stravaActivity: activity,
+      stravaActivityId: activity.id,
       segments: [],
     });
   };

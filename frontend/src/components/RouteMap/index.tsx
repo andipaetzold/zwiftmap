@@ -10,6 +10,8 @@ import {
   Polyline,
 } from "react-leaflet";
 import { useLocationState } from "../../hooks/useLocationState";
+import { useStravaToken } from "../../hooks/useStravaToken";
+import { getStravaActivity } from "../../services/StravaActivityRepository";
 import {
   getStravaSegmentStream,
   getStravaSegmentStreams,
@@ -59,6 +61,17 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
       ]);
     },
     [locationState.route]
+  );
+
+  const [stravaToken] = useStravaToken();
+  const { result: stravaActivity } = useAsync(
+    async (token: string | null, activityId: string | undefined) => {
+      if (token === null || activityId === undefined) {
+        return;
+      }
+      return await getStravaActivity(token, activityId);
+    },
+    [stravaToken, locationState.stravaActivityId]
   );
 
   const { result: previewRouteStravaSegment } = useAsync(
@@ -151,6 +164,15 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
           <Pane name="route">
             <Polyline
               positions={routeStravaSegment.latlng}
+              pathOptions={{ color: "#fc6719", weight: 5 }}
+            />
+          </Pane>
+        )}
+
+        {stravaActivity && (
+          <Pane name="strava-activity">
+            <Polyline
+              positions={stravaActivity.streams.latlng}
               pathOptions={{ color: "#fc6719", weight: 5 }}
             />
           </Pane>

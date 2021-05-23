@@ -27,7 +27,6 @@ async function fetchStravaActivity(
       },
     }
   );
-
   const esa: ExternalStravaActivity = await response.json();
 
   const world = worlds.find((world) => {
@@ -45,24 +44,49 @@ async function fetchStravaActivity(
     throw new Error("Activity was not recorded in Zwift");
   }
 
-  console.log(world);
-
   return {
-    id: esa.id,
+    id: esa.id.toString(),
     name: esa.name,
-    athleteId: esa.athlete.id,
+    athleteId: esa.athlete.id.toString(),
     distance: esa.distance,
     elevation: esa.total_elevation_gain,
     time: esa.moving_time,
     world: world,
     avgWatts: esa.average_watts,
     photoUrl: esa.photos.primary?.urls["100"],
+    streams: await fetchStravaActivityStreams(token, activityId),
+  };
+}
+
+async function fetchStravaActivityStreams(
+  token: string,
+  activityId: string
+): Promise<StravaActivityStreams> {
+  const response = await fetch(
+    `https://www.strava.com/api/v3/activities/${activityId}/streams?keys=distance,latlng,time,altitude,wattage,speed,velocity_smooth,watts,cadence,heartrate&key_by_type=true`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  const responseJSON = await response.json();
+
+  return {
+    altitude: responseJSON.altitude.data,
+    cadence: responseJSON.cadence.data,
+    distance: responseJSON.distance.data,
+    heartrate: responseJSON.heartrate.data,
+    latlng: responseJSON.latlng.data,
+    time: responseJSON.time.data,
+    velocity: responseJSON.velocity_smooth.data,
+    watts: responseJSON.watts.data,
   };
 }
 
 export interface StravaActivity {
-  id: number;
-  athleteId: number;
+  id: string;
+  athleteId: string;
   name: string;
   distance: number;
   time: number;
@@ -70,6 +94,18 @@ export interface StravaActivity {
   world: World;
   avgWatts?: number;
   photoUrl?: string;
+  streams: StravaActivityStreams;
+}
+
+export interface StravaActivityStreams {
+  altitude: number[];
+  cadence: number[];
+  distance: number[];
+  heartrate: number[];
+  latlng: [number, number][];
+  time: number[];
+  velocity: number[];
+  watts: number[];
 }
 
 interface ExternalStravaActivity {

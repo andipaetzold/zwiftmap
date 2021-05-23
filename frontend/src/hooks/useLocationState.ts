@@ -34,11 +34,8 @@ export function useLocationState(): [
     if (newState.route) {
       searchParams.set("route", newState.route.slug);
     }
-    if (newState.stravaActivity) {
-      searchParams.set(
-        "strava-activity",
-        newState.stravaActivity.id.toString()
-      );
+    if (newState.stravaActivityId) {
+      searchParams.set("strava-activity", newState.stravaActivityId);
     }
     if (newState.segments.length > 0) {
       searchParams.set(
@@ -70,5 +67,7 @@ function getLocationState(): LocationState {
     .map((slug) => segments.find((s) => s.slug === slug))
     .filter((segment): segment is Segment => !!segment);
 
-  return { world, route, segments: selectedSegments };
+  const stravaActivityId = searchParams.get("strava-activity") ?? undefined;
+
+  return { world, route, segments: selectedSegments, stravaActivityId };
 }
