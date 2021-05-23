@@ -16,7 +16,7 @@ export function initStravaHandlers(app: Express) {
     params.set("response_type", "code");
     params.set("approval_prompt", "auto");
     params.set("scope", "activity:read_all");
-    params.set("state", (req.query.state as string) ?? "");
+    params.set("state", (req.query.state as string) ?? "{}");
     const url = `https://www.strava.com/oauth/authorize?${params.toString()}`;
 
     res.redirect(url);
@@ -47,14 +47,13 @@ export function initStravaHandlers(app: Express) {
     } else {
       const redirectParams = new URLSearchParams();
       redirectParams.set("strava-access-token", responseJSON.access_token);
-      if (
-        req.query.state &&
-        (req.query.state as string).startsWith("activity:")
-      ) {
-        redirectParams.set(
-          "strava-activity",
-          (req.query.state as string).substr("activity:".length)
-        );
+      if (typeof req.query.state === "string") {
+        try {
+          const state: Record<string, string> = JSON.parse(req.query.state);
+          Object.entries(state).forEach(([key, value]) => {
+            redirectParams.set(key, value);
+          });
+        } catch {}
       }
       const redirectUrl = `${FRONTEND_URL}?${redirectParams.toString()}`;
       res.redirect(redirectUrl);

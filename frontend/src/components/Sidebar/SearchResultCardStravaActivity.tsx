@@ -37,9 +37,9 @@ export function SearchResultCardStravaActivity({
         rightAddonType="icon"
         secondaryText="…to view Strava activity"
         onClick={() =>
-          (window.location.href = getStravaAuthUrl(
-            `activity:${activity.activityId}`
-          ))
+          (window.location.href = getStravaAuthUrl({
+            "strava-activity": activity.activityId,
+          }))
         }
       >
         Authorize Strava App…
