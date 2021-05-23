@@ -59,13 +59,13 @@ async function fetchStravaActivityStreams(
 
   return {
     altitude: streams.altitude.data,
-    cadence: streams.cadence.data,
+    cadence: streams.cadence?.data,
     distance: streams.distance.data,
-    heartrate: streams.heartrate.data,
+    heartrate: streams.heartrate?.data,
     latlng: streams.latlng.data,
     time: streams.time.data,
     velocity: streams.velocity_smooth.data,
-    watts: streams.watts.data,
+    watts: streams.watts?.data,
   };
 }
 
@@ -84,11 +84,11 @@ export interface StravaActivity {
 
 export interface StravaActivityStreams {
   altitude: number[];
-  cadence: number[];
+  cadence?: number[];
   distance: number[];
-  heartrate: number[];
+  heartrate?: number[];
   latlng: [number, number][];
   time: number[];
   velocity: number[];
-  watts: number[];
+  watts?: number[];
 }
