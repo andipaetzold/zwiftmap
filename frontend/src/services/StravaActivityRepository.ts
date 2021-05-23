@@ -41,7 +41,7 @@ async function fetchStravaActivity(
     id: esa.id.toString(),
     name: esa.name,
     athleteId: esa.athlete.id.toString(),
-    distance: esa.distance,
+    distance: esa.distance / 1_000,
     elevation: esa.total_elevation_gain,
     time: esa.moving_time,
     world: world,

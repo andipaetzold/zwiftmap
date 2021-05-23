@@ -13,14 +13,15 @@ export function Time({ seconds: secondsInput }: Props) {
     } else {
       return (
         <>
-          {minutes}:{seconds}min
+          {minutes}:{seconds.toString().padStart(2, "0")}min
         </>
       );
     }
   } else {
     return (
       <>
-        {hours}:{minutes}:{seconds}h
+        {hours}:{minutes.toString().padStart(2, "0")}:
+        {seconds.toString().padStart(2, "0")}h
       </>
     );
   }

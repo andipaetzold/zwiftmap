@@ -103,7 +103,7 @@ export function Sidebar({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
           <Divider className={styles.NoGapDivider} />
         </List>
         <div className={styles.Content}>
-          {locationState.route ? (
+          {locationState.route || locationState.stravaActivityId ? (
             <Details
               onMouseHoverDistanceChange={onMouseHoverDistanceChange}
               backButtonText={

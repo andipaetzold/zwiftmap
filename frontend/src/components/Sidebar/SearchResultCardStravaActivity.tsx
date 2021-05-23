@@ -103,7 +103,7 @@ function SearchResultCardStravaActivityWithToken({
       onClick={handleClick}
       secondaryText={
         <>
-          <Distance distance={activity.distance / 1_000} /> |{" "}
+          <Distance distance={activity.distance} /> |{" "}
           <Elevation elevation={activity.elevation} />
           <br />
           {activity.avgWatts && <>{Math.round(activity.avgWatts)}W | </>}
