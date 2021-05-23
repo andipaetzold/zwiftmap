@@ -1,10 +1,13 @@
 import { routes, worlds } from "../data";
 import { Route, Segment, Sport, World } from "../types";
 
+const REGEX_STRAVA_ACTIVITY = /strava\.com\/activities\/(\d{10})/;
+
 export type SearchResult =
   | SearchResultWorld
   | SearchResultRoute
-  | SearchResultSegment;
+  | SearchResultSegment
+  | SearchResultStravaActivity;
 
 export interface SearchResultWorld {
   type: "world";
@@ -24,7 +27,19 @@ export interface SearchResultSegment {
   data: Segment;
 }
 
-const searchResults: SearchResult[] = [
+export interface SearchResultStravaActivity {
+  type: "strava-activity";
+  data: {
+    slug: string;
+    activityId: string;
+  };
+}
+
+const searchResults: (
+  | SearchResultWorld
+  | SearchResultRoute
+  | SearchResultSegment
+)[] = [
   ...[...worlds]
     .sort((a, b) => a.name.localeCompare(b.name))
     .map((world) => ({
@@ -37,10 +52,9 @@ const searchResults: SearchResult[] = [
     .filter((route) => route.stravaSegmentId !== undefined)
     .map((route) => ({
       type: "route" as const,
-      terms: [
-        worlds.find((w) => w.slug === route.world)!.name,
-        route.name,
-      ].map((t) => t.toLocaleLowerCase()),
+      terms: [worlds.find((w) => w.slug === route.world)!.name, route.name].map(
+        (t) => t.toLocaleLowerCase()
+      ),
       data: route,
     })),
   //   ...segments
@@ -56,6 +70,19 @@ const searchResults: SearchResult[] = [
 ];
 
 export function search(term: string, sport: Sport): SearchResult[] {
+  if (REGEX_STRAVA_ACTIVITY.test(term)) {
+    const [, stravaActivityId] = REGEX_STRAVA_ACTIVITY.exec(term)!;
+    return [
+      {
+        type: "strava-activity",
+        data: {
+          activityId: stravaActivityId,
+          slug: `strava-activity-${stravaActivityId}`,
+        },
+      },
+    ];
+  }
+
   const terms = term
     .toLocaleLowerCase()
     .split(" ")
@@ -84,5 +111,8 @@ export const searchResultTypes = {
   },
   segment: {
     title: "Segments",
+  },
+  "strava-activity": {
+    title: "Strava Activity",
   },
 };

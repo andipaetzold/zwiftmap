@@ -23,7 +23,9 @@ export function WorldSelect() {
         listboxStyle={{ zIndex: 3000 }}
         onChange={(newWorldSlug) =>
           setLocationState({
+            ...locationState,
             world: worlds.find((w) => w.slug === newWorldSlug)!,
+            route: undefined,
             segments: [],
           })
         }

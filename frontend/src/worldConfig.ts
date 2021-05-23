@@ -22,12 +22,12 @@ export type WorldConfig = {
 export const worldConfigs: Record<WorldSlug, WorldConfig> = {
   bologna: {
     imageBounds: [
-      [44.45463821, 11.26261748],
-      [44.5308037, 11.36991729102076],
+      [44.5308037, 11.26261748],
+      [44.45463821, 11.36991729102076],
     ],
     initialBounds: [
-      [44.478222, 11.294653],
-      [44.501423, 11.341099],
+      [44.501423, 11.294653],
+      [44.478222, 11.341099],
     ],
     image: bolognaMap,
     backgroundColor: "#b9b9b8",
@@ -86,8 +86,8 @@ export const worldConfigs: Record<WorldSlug, WorldConfig> = {
       [-10.81405, 165.88222],
     ],
     initialBounds: [
-      [-10.743702, 165.859212],
-      [-10.775156, 165.830083],
+      [-10.743702, 165.830083],
+      [-10.775156, 165.859212],
     ],
     image: makuriIslandsMap,
     backgroundColor: "#7c9938",

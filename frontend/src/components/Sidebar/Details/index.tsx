@@ -1,6 +1,7 @@
 import React from "react";
 import { useLocationState } from "../../../hooks/useLocationState";
 import { RouteDetails } from "./RouteDetails";
+import { StravaActivityDetails } from "./StravaActivityDetails";
 import { WorldDetails } from "./WorldDetails";
 
 interface Props {
@@ -21,6 +22,14 @@ export function Details({
       <RouteDetails
         route={locationState.route}
         onMouseHoverDistanceChange={onMouseHoverDistanceChange}
+        backButtonText={backButtonText}
+        onBackButtonClick={onBackButtonClick}
+      />
+    );
+  } else if (locationState.stravaActivityId) {
+    return (
+      <StravaActivityDetails
+        activityId={locationState.stravaActivityId}
         backButtonText={backButtonText}
         onBackButtonClick={onBackButtonClick}
       />

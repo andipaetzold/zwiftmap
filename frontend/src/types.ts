@@ -66,5 +66,7 @@ export interface Settings {
 export interface LocationState {
   world: World;
   route?: Route;
+  stravaActivityId?: string;
   segments: Segment[];
+  query: string;
 }

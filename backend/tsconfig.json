@@ -1,0 +1,8 @@
+{
+  "extends": "@tsconfig/node14/tsconfig.json",
+  "compilerOptions": {
+    "outDir": "build",
+    "baseUrl": "src"
+  },
+  "files": ["./src/index.ts"]
+}

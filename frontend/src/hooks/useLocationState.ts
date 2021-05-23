@@ -34,11 +34,17 @@ export function useLocationState(): [
     if (newState.route) {
       searchParams.set("route", newState.route.slug);
     }
+    if (newState.stravaActivityId) {
+      searchParams.set("strava-activity", newState.stravaActivityId);
+    }
     if (newState.segments.length > 0) {
       searchParams.set(
         "segments",
         newState.segments.map((s) => s.slug).join(",")
       );
+    }
+    if (newState.query.length > 0) {
+      searchParams.set("q", newState.query);
     }
 
     window.history.pushState(undefined, "", `?${searchParams.toString()}`);
@@ -64,5 +70,15 @@ function getLocationState(): LocationState {
     .map((slug) => segments.find((s) => s.slug === slug))
     .filter((segment): segment is Segment => !!segment);
 
-  return { world, route, segments: selectedSegments };
+  const stravaActivityId = searchParams.get("strava-activity") ?? undefined;
+
+  const query = searchParams.get("q") ?? "";
+
+  return {
+    world,
+    route,
+    segments: selectedSegments,
+    stravaActivityId,
+    query,
+  };
 }
