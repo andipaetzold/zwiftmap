@@ -13,20 +13,20 @@ jobs:
         shell: bash -l {0}
         run: nvm install
 
-      - name: Install
+      - name: Install (Frontend)
         run: npm ci
         working-directory: frontend
-      - name: Test
+      - name: Test (Frontend)
         run: npm test
         working-directory: frontend
-      - name: Build
+      - name: Build (Frontend)
         run: npm run build
         working-directory: frontend
 
-      - name: Install
+      - name: Install (Backend)
         run: npm ci
         working-directory: backend
-      - name: Build
+      - name: Build (Backend)
         run: npm run build
         working-directory: backend
 
