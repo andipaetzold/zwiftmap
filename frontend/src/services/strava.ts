@@ -23,7 +23,7 @@ export function getStravaAuthUrl(state: Record<string, string>) {
 
   return `${
     process.env.NODE_ENV === "production"
-      ? "https://zwiftmap.herokuapp.com"
+      ? "http://zwiftmap.herokuapp.com"
       : "http://localhost:3001"
   }/strava/authorize?${params.toString()}`;
 }
