@@ -8,6 +8,7 @@ import {
   MapFontIcon,
   OpenInNewFontIcon,
   SpaceBarFontIcon,
+  TimerFontIcon,
 } from "@react-md/material-icons";
 import { CircularProgress } from "@react-md/progress";
 import { Text } from "@react-md/typography";
@@ -123,7 +124,7 @@ function StravaActivityDetailsWithToken({
 
       <SimpleListItem
         clickable={false}
-        leftAddon={<SpaceBarFontIcon />}
+        leftAddon={<TimerFontIcon />}
         leftAddonType="icon"
       >
         <Time seconds={activity.time} />
