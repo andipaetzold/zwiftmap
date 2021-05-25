@@ -683,42 +683,51 @@
     "name": "Country Sprint",
     "slug": "country-sprint",
     "type": "sprint",
-    "world": "makuri-islands"
+    "distance": 0.146,
+    "world": "makuri-islands",
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/makuri-islands/segment/country-sprint/forward"
   },
   {
     "name": "Castle KOM",
     "slug": "castle-kom",
     "type": "climb",
-    "distance": 2.67,
-    "avgIncline": 2.1,
+    "distance": 2.69,
+    "avgIncline": 2.45,
     "world": "makuri-islands",
     "stravaSegmentId": 28433453,
-    "stravaSegmentUrl": "https://www.strava.com/segments/28433453"
+    "stravaSegmentUrl": "https://www.strava.com/segments/28433453",
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/makuri-islands/segment/castle-kom/forward"
   },
   {
     "name": "Village Sprint",
     "slug": "village-sprint",
     "type": "sprint",
-    "world": "makuri-islands"
+    "distance": 0.15,
+    "avgIncline": 0.99,
+    "world": "makuri-islands",
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/makuri-islands/segment/village-sprint/forward"
   },
   {
     "name": "Temple KOM from Fishing Village Side",
     "slug": "temple-kom-from-fishing-village-side",
     "type": "climb",
-    "distance": 2.5,
-    "avgIncline": 3.6,
+    "distance": 2.51,
+    "avgIncline": 3.95,
+    "climbType": "4",
     "world": "makuri-islands",
     "stravaSegmentId": 28432259,
-    "stravaSegmentUrl": "https://www.strava.com/segments/28432259"
+    "stravaSegmentUrl": "https://www.strava.com/segments/28432259",
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/makuri-islands/segment/temple-kom/forward"
   },
   {
     "name": "Temple KOM from Castle Side",
     "slug": "temple-kom-from-castle-side",
     "type": "climb",
     "distance": 1.88,
-    "avgIncline": 3.5,
+    "avgIncline": 3.59,
     "world": "makuri-islands",
     "stravaSegmentId": 28432293,
-    "stravaSegmentUrl": "https://www.strava.com/segments/28432293"
+    "stravaSegmentUrl": "https://www.strava.com/segments/28432293",
+    "whatsOnZwiftUrl": "https://whatsonzwift.com/world/makuri-islands/segment/temple-kom/reverse"
   }
 ]
