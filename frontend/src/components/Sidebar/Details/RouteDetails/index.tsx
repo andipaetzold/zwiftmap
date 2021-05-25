@@ -22,6 +22,7 @@ import { Elevation } from "../../../Elevation";
 import { ElevationChart } from "../../ElevationChart";
 import { RouteEvents } from "./RouteEvents";
 import { RouteSegments } from "./RouteSegments";
+import { RouteStravaPB } from "./RouteStravaPB";
 
 interface Props {
   route: Route;
@@ -79,7 +80,10 @@ export function RouteDetails({
         {route.leadInElevation !== undefined && (
           <>
             &nbsp;
-            <small>(+<Elevation elevation={route.leadInElevation} />)</small>
+            <small>
+              (+
+              <Elevation elevation={route.leadInElevation} />)
+            </small>
           </>
         )}
       </SimpleListItem>
@@ -107,6 +111,8 @@ export function RouteDetails({
       <SimpleListItem clickable={false} leftAddon={<MapFontIcon />}>
         {world.name}
       </SimpleListItem>
+
+      <RouteStravaPB route={route} />
 
       <SimpleListItem>
         <ElevationChart

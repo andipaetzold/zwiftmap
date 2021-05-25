@@ -1,4 +1,4 @@
-import { Activity, Streams } from "./types";
+import { Activity, Streams, Segment } from "./types";
 
 export async function request<T = any>(url: string, token: string): Promise<T> {
   const response = await fetch(url, {
@@ -25,6 +25,13 @@ export async function fetchActivityStreams(
 ): Promise<Streams> {
   return await request<Streams>(
     `https://www.strava.com/api/v3/activities/${activityId}/streams?keys=distance,latlng,time,altitude,wattage,speed,velocity_smooth,watts,cadence,heartrate&key_by_type=true`,
+    token
+  );
+}
+
+export async function fetchSegment(segmentId: string, token: string) {
+  return await request<Segment>(
+    `https://www.strava.com/api/v3/segments/${segmentId}`,
     token
   );
 }
