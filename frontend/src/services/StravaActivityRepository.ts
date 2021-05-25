@@ -3,20 +3,7 @@ import { World } from "../types";
 import { worldConfigs } from "../worldConfig";
 import { fetchActivity, fetchActivityStreams } from "./strava-api";
 
-const activityCache: { [activityId: string]: Promise<StravaActivity> } = {};
-
 export async function getStravaActivity(
-  token: string,
-  activityId: string
-): Promise<StravaActivity> {
-  if (!activityCache[activityId]) {
-    activityCache[activityId] = fetchStravaActivity(token, activityId);
-  }
-
-  return activityCache[activityId];
-}
-
-async function fetchStravaActivity(
   token: string,
   activityId: string
 ): Promise<StravaActivity> {

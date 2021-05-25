@@ -24,6 +24,8 @@
     "@types/react": "17.0.6",
     "@types/react-dom": "17.0.5",
     "@types/react-responsive": "8.0.2",
+    "axios": "0.21.1",
+    "axios-cache-adapter": "2.7.3",
     "classnames": "2.3.1",
     "leaflet": "1.7.1",
     "lodash": "4.17.21",
