@@ -5,9 +5,9 @@ import { CircularProgress } from "@react-md/progress";
 import React from "react";
 import { useAsync } from "react-async-hook";
 import stravaLogo from "../../assets/strava-40x40.png";
+import { useIsLoggedInStrava } from "../../hooks/useIsLoggedInStrava";
 import { useLocationState } from "../../hooks/useLocationState";
-import { useStravaToken } from "../../hooks/useStravaToken";
-import { getStravaAuthUrl } from "../../services/strava";
+import { getStravaAuthUrl } from "../../services/strava/auth";
 import { getStravaActivity } from "../../services/StravaActivityRepository";
 import { Distance } from "../Distance";
 import { Elevation } from "../Elevation";
@@ -22,9 +22,9 @@ export function SearchResultCardStravaActivity({
   activity,
   onHoverRoute,
 }: Props) {
-  const [stravaToken] = useStravaToken();
+  const isLoggedInStrava = useIsLoggedInStrava();
 
-  if (stravaToken === null) {
+  if (!isLoggedInStrava) {
     return (
       <ListItem
         leftAddon={
@@ -53,7 +53,6 @@ export function SearchResultCardStravaActivity({
     <SearchResultCardStravaActivityWithToken
       activity={activity}
       onHoverRoute={onHoverRoute}
-      token={stravaToken}
     />
   );
 }
@@ -61,10 +60,8 @@ export function SearchResultCardStravaActivity({
 function SearchResultCardStravaActivityWithToken({
   activity: { activityId },
   onHoverRoute,
-  token,
-}: Props & { token: string }) {
+}: Props) {
   const { result: activity, loading } = useAsync(getStravaActivity, [
-    token,
     activityId,
   ]);
   const [, setLocationState] = useLocationState();

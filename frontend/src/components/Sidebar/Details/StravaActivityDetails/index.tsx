@@ -15,8 +15,8 @@ import { Text } from "@react-md/typography";
 import React from "react";
 import { useAsync } from "react-async-hook";
 import stravaLogo from "../../../../assets/strava-40x40.png";
-import { useStravaToken } from "../../../../hooks/useStravaToken";
-import { getStravaAuthUrl } from "../../../../services/strava";
+import { useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";
+import { getStravaAuthUrl } from "../../../../services/strava/auth";
 import { getStravaActivity } from "../../../../services/StravaActivityRepository";
 import { Distance } from "../../../Distance";
 import { Elevation } from "../../../Elevation";
@@ -34,9 +34,9 @@ export function StravaActivityDetails({
   backButtonText,
   onBackButtonClick,
 }: Props) {
-  const [stravaToken] = useStravaToken();
+  const isLoggedInStrava = useIsLoggedInStrava();
 
-  if (stravaToken === null) {
+  if (!isLoggedInStrava) {
     return (
       <List>
         <ListItem
@@ -66,7 +66,6 @@ export function StravaActivityDetails({
   return (
     <StravaActivityDetailsWithToken
       activityId={activityId}
-      token={stravaToken}
       backButtonText={backButtonText}
       onBackButtonClick={onBackButtonClick}
     />
@@ -75,12 +74,10 @@ export function StravaActivityDetails({
 
 function StravaActivityDetailsWithToken({
   activityId,
-  token,
   backButtonText,
   onBackButtonClick,
-}: Props & { token: string }) {
+}: Props) {
   const { result: activity, loading } = useAsync(getStravaActivity, [
-    token,
     activityId,
   ]);
 

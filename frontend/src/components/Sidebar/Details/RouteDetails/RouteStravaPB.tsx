@@ -3,8 +3,8 @@ import { OpenInNewFontIcon, TimerFontIcon } from "@react-md/material-icons";
 import { CircularProgress } from "@react-md/progress";
 import React from "react";
 import { useAsync } from "react-async-hook";
-import { useStravaToken } from "../../../../hooks/useStravaToken";
-import { fetchSegment } from "../../../../services/strava-api";
+import { useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";
+import { fetchSegment } from "../../../../services/strava/api";
 import { Route } from "../../../../types";
 import { Time } from "../../../Time";
 
@@ -13,17 +13,17 @@ interface Props {
 }
 
 export function RouteStravaPB({ route }: Props) {
-  const [stravaToken] = useStravaToken();
+  const isLoggedInStrava = useIsLoggedInStrava();
 
   const { result: segment } = useAsync(
-    async (token?: string, segmentId?: string) => {
-      if (token === undefined || segmentId === undefined) {
+    async (loggedIn: boolean, segmentId?: number) => {
+      if (!loggedIn || segmentId === undefined) {
         return null;
       }
 
-      return await fetchSegment(segmentId, token);
+      return await fetchSegment(segmentId.toString());
     },
-    [stravaToken, route.stravaSegmentId]
+    [isLoggedInStrava, route.stravaSegmentId]
   );
 
   if (segment === undefined) {

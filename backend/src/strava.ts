@@ -40,23 +40,38 @@ export function initStravaHandlers(app: Express) {
     const response = await fetch(url, { method: "POST" });
     const responseJSON = await response.json();
 
-    const accessToken = responseJSON.access_token;
-
-    if (typeof accessToken !== "string") {
-      res.send("Error");
-    } else {
-      const redirectParams = new URLSearchParams();
-      redirectParams.set("strava-access-token", responseJSON.access_token);
-      if (typeof req.query.state === "string") {
-        try {
-          const state: Record<string, string> = JSON.parse(req.query.state);
-          Object.entries(state).forEach(([key, value]) => {
-            redirectParams.set(key, value);
-          });
-        } catch {}
-      }
-      const redirectUrl = `${FRONTEND_URL}?${redirectParams.toString()}`;
-      res.redirect(redirectUrl);
+    const redirectParams = new URLSearchParams();
+    redirectParams.set("strava-auth", JSON.stringify(responseJSON));
+    if (typeof req.query.state === "string") {
+      try {
+        const state: Record<string, string> = JSON.parse(req.query.state);
+        Object.entries(state).forEach(([key, value]) => {
+          redirectParams.set(key, value);
+        });
+      } catch {}
     }
+    const redirectUrl = `${FRONTEND_URL}?${redirectParams.toString()}`;
+    res.redirect(redirectUrl);
+  });
+
+  app.post("/strava/refresh", async (req, res) => {
+    const refreshToken = req.body.refresh_token;
+
+    if (typeof refreshToken !== "string" || refreshToken.length === 0) {
+      res.sendStatus(400);
+      return;
+    }
+
+    const params = new URLSearchParams();
+    params.set("client_id", STRAVA_CLIENT_ID);
+    params.set("client_secret", STRAVA_CLIENT_SECRET);
+    params.set("grant_type", "refresh_token");
+    params.set("refresh_token", refreshToken);
+    const url = `https://www.strava.com/api/v3/oauth/token?${params.toString()}`;
+
+    const response = await fetch(url, { method: "POST" });
+    const responseJSON = await response.json();
+
+    res.send(responseJSON);
   });
 }

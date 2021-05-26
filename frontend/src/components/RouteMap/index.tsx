@@ -9,8 +9,8 @@ import {
   Pane,
   Polyline,
 } from "react-leaflet";
+import { useIsLoggedInStrava } from "../../hooks/useIsLoggedInStrava";
 import { useLocationState } from "../../hooks/useLocationState";
-import { useStravaToken } from "../../hooks/useStravaToken";
 import { getStravaActivity } from "../../services/StravaActivityRepository";
 import {
   getStravaSegmentStream,
@@ -63,15 +63,15 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
     [locationState.route]
   );
 
-  const [stravaToken] = useStravaToken();
+  const isLoggedInStrava = useIsLoggedInStrava();
   const { result: stravaActivity } = useAsync(
-    async (token: string | null, activityId: string | undefined) => {
-      if (token === null || activityId === undefined) {
+    async (loggedIn: boolean, activityId: string | undefined) => {
+      if (!loggedIn || activityId === undefined) {
         return;
       }
-      return await getStravaActivity(token, activityId);
+      return await getStravaActivity(activityId);
     },
-    [stravaToken, locationState.stravaActivityId]
+    [isLoggedInStrava, locationState.stravaActivityId]
   );
 
   const { result: previewRouteStravaSegment } = useAsync(

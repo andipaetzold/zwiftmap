@@ -1,13 +1,12 @@
 import { worlds } from "../data";
 import { World } from "../types";
 import { worldConfigs } from "../worldConfig";
-import { fetchActivity, fetchActivityStreams } from "./strava-api";
+import { fetchActivity, fetchActivityStreams } from "./strava/api";
 
 export async function getStravaActivity(
-  token: string,
   activityId: string
 ): Promise<StravaActivity> {
-  const esa = await fetchActivity(activityId, token);
+  const esa = await fetchActivity(activityId);
 
   const world = worlds.find((world) => {
     const worldConfig = worldConfigs[world.slug];
@@ -34,15 +33,14 @@ export async function getStravaActivity(
     world: world,
     avgWatts: esa.average_watts,
     photoUrl: esa.photos.primary?.urls["100"],
-    streams: await fetchStravaActivityStreams(token, activityId),
+    streams: await fetchStravaActivityStreams(activityId),
   };
 }
 
 async function fetchStravaActivityStreams(
-  token: string,
   activityId: string
 ): Promise<StravaActivityStreams> {
-  const streams = await fetchActivityStreams(activityId, token);
+  const streams = await fetchActivityStreams(activityId);
 
   return {
     altitude: streams.altitude.data,

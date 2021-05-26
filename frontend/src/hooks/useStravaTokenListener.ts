@@ -1,17 +1,15 @@
 import { useCallback, useEffect } from "react";
-import { useStravaToken } from "./useStravaToken";
+import { writeStravaToken } from "../services/strava/token";
 
 export function useStravaTokenListener(): void {
-  const [, setStravaToken] = useStravaToken();
-
   const updateStravaToken = useCallback(() => {
     const params = new URLSearchParams(window.location.search);
 
-    if (params.has("strava-access-token")) {
-      setStravaToken(params.get("strava-access-token")!);
+    if (params.has("strava-auth")) {
+      writeStravaToken(JSON.parse(params.get("strava-auth")!));
 
-      params.delete("strava-access-token");
-      window.history.pushState(
+      params.delete("strava-auth");
+      window.history.replaceState(
         undefined,
         "",
         `${window.location.origin}${
@@ -19,7 +17,7 @@ export function useStravaTokenListener(): void {
         }?${params.toString()}`
       );
     }
-  }, [setStravaToken]);
+  }, []);
 
   useEffect(() => {
     updateStravaToken();

@@ -1,57 +1,31 @@
 import { useCallback, useEffect, useState } from "react";
-
-type Listener = () => void;
-const listeners: Listener[] = [];
+import {
+  addLocalStorageListener,
+  getLocalStorageItem,
+  setLocalStorageItem,
+} from "../services/local-storage";
 
 export function useLocalStorage(
   key: string
 ): [string | null, (newValue: string | null) => void] {
-  const getValue = useCallback(() => {
-    return localStorage.getItem(key);
-  }, [key]);
-
-  const [value, setValueInternal] = useState<string | null>(getValue);
-
-  useEffect(() => {
-    setValueInternal(getValue());
-  }, [getValue]);
-
-  useEffect(() => {
-    const listener: Listener = () => {
-      setValueInternal(getValue());
-    };
-
-    listeners.push(listener);
-    return () => {
-      listeners.splice(
-        listeners.findIndex((l) => l === listener),
-        1
-      );
-    };
-  }, [getValue]);
-
-  const setValue = useCallback(
-    (value: string | null) => {
-      if (value === null) {
-        localStorage.removeItem(key);
-      } else {
-        localStorage.setItem(key, value);
-      }
-      setValueInternal(value);
-
-      listeners.forEach((listener) => listener());
-    },
-    [key]
+  const [value, setValueInternal] = useState<string | null>(() =>
+    getLocalStorageItem(key)
   );
 
   useEffect(() => {
-    const eventListener = () => {
-      setValueInternal(getValue());
-    };
-    window.addEventListener("storage", eventListener);
+    setValueInternal(getLocalStorageItem(key));
+  }, [key]);
 
-    return window.removeEventListener("storage", eventListener);
-  }, [getValue]);
+  useEffect(() => {
+    return addLocalStorageListener(key, setValueInternal);
+  }, [key]);
+
+  const setValue = useCallback(
+    (value: string | null) => {
+      setLocalStorageItem(key, value);
+    },
+    [key]
+  );
 
   return [value, setValue];
 }

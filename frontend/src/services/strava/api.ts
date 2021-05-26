@@ -1,6 +1,8 @@
 import { DetailedActivity, StreamSet, DetailedSegment } from "./types";
 import { setupCache } from "axios-cache-adapter";
 import axios from "axios";
+import { getStravaToken, writeStravaToken } from "./token";
+import { getRefreshedToken } from "./auth";
 
 const cache = setupCache({
   maxAge: 15 * 60 * 1000,
@@ -14,21 +16,30 @@ const api = axios.create({
   baseURL: "https://www.strava.com/api/v3",
 });
 
-function getAuthHeader(token: string) {
-  return { Authorization: `Bearer ${token}` };
-}
+api.interceptors.request.use(async (config) => {
+  let token = getStravaToken();
 
-export async function fetchActivity(activityId: string, token: string) {
-  const response = await api.get<DetailedActivity>(
-    `/activities/${activityId}`,
-    {
-      headers: getAuthHeader(token),
+  if (token) {
+    if (token.expires_at < Math.round(Date.now() / 1000)) {
+      token = await getRefreshedToken(token.refresh_token);
+      writeStravaToken(token);
     }
-  );
+
+    config.headers = {
+      ...config.headers,
+      Authorization: `${token.token_type} ${token.access_token}`,
+    };
+  }
+
+  return config;
+});
+
+export async function fetchActivity(activityId: string) {
+  const response = await api.get<DetailedActivity>(`/activities/${activityId}`);
   return response.data;
 }
 
-export async function fetchActivityStreams(activityId: string, token: string) {
+export async function fetchActivityStreams(activityId: string) {
   const response = await api.get<
     Pick<
       StreamSet,
@@ -42,7 +53,6 @@ export async function fetchActivityStreams(activityId: string, token: string) {
       | "heartrate"
     >
   >(`/activities/${activityId}/streams`, {
-    headers: getAuthHeader(token),
     params: {
       keys: [
         "distance",
@@ -61,9 +71,7 @@ export async function fetchActivityStreams(activityId: string, token: string) {
   return response.data;
 }
 
-export async function fetchSegment(segmentId: string, token: string) {
-  const response = await api.get<DetailedSegment>(`/segments/${segmentId}`, {
-    headers: getAuthHeader(token),
-  });
+export async function fetchSegment(segmentId: string) {
+  const response = await api.get<DetailedSegment>(`/segments/${segmentId}`);
   return response.data;
 }
