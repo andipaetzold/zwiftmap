@@ -31,6 +31,7 @@ export function RouteStravaPB({ route }: Props) {
       <CircularProgress
         id={`strava-route-pb-${route.id}`}
         circleStyle={{ stroke: "black" }}
+        small
       />
     );
   }
