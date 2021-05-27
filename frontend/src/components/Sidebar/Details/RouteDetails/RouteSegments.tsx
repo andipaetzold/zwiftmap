@@ -5,10 +5,14 @@ import {
 } from "@react-md/material-icons";
 import { Text } from "@react-md/typography";
 import React from "react";
+import { useAsync } from "react-async-hook";
 import { segments } from "../../../../data";
+import { useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";
 import { useLocationState } from "../../../../hooks/useLocationState";
+import { fetchSegment } from "../../../../services/strava/api";
 import { Route, Segment, SegmentType } from "../../../../types";
 import { Distance } from "../../../Distance";
+import { Time } from "../../../Time";
 
 interface Props {
   route: Route;
@@ -76,10 +80,23 @@ interface SecondaryTextProps {
 }
 
 function SecondaryText({ segment }: SecondaryTextProps) {
+  const isLoggedIn = useIsLoggedInStrava();
+  const { result: stravaSegment } = useAsync(
+    async (sid: number | undefined, loggedIn: boolean) => {
+      if (sid === undefined || !loggedIn) {
+        return null;
+      }
+      return await fetchSegment(sid.toString());
+    },
+    [segment.stravaSegmentId, isLoggedIn]
+  );
+  const segmentPB =
+    (stravaSegment?.athlete_segment_stats.effort_count ?? 0) > 0
+      ? stravaSegment?.athlete_segment_stats.pr_elapsed_time
+      : null;
+
   return (
     <>
-      {segmentTypes[segment.type]}
-      <br />
       <Distance distance={segment.distance} />
       {segment.avgIncline && (
         <>
@@ -91,6 +108,14 @@ function SecondaryText({ segment }: SecondaryTextProps) {
             style: "percent",
           }).format(segment.avgIncline / 100)}
         </>
+      )}
+      <br />
+      {segmentPB ? (
+        <>
+          PB: <Time seconds={segmentPB} />
+        </>
+      ) : (
+        segmentTypes[segment.type]
       )}
     </>
   );
