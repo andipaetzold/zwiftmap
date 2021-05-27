@@ -38,7 +38,7 @@ export function SettingsDialog({ visible, onClose }: Props) {
       visible={visible}
       onRequestClose={onClose}
     >
-      <DialogHeader>
+      <DialogHeader style={{ paddingBottom: 0 }}>
         <DialogTitle id="settings-dialog-title">Settings</DialogTitle>
       </DialogHeader>
       <DialogContent>

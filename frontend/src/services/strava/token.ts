@@ -16,3 +16,7 @@ export function getStravaToken(): Token | null {
 export function writeStravaToken(token: Token): void {
   setLocalStorageItem(STRAVA_AUTH_KEY, JSON.stringify(token));
 }
+
+export function removeStravaToken(): void {
+  setLocalStorageItem(STRAVA_AUTH_KEY, null);
+}

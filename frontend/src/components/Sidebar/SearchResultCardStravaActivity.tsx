@@ -7,7 +7,7 @@ import { useAsync } from "react-async-hook";
 import stravaLogo from "../../assets/strava-40x40.png";
 import { useIsLoggedInStrava } from "../../hooks/useIsLoggedInStrava";
 import { useLocationState } from "../../hooks/useLocationState";
-import { getStravaAuthUrl } from "../../services/strava/auth";
+import { openStravaAuthUrl } from "../../services/strava/auth";
 import { getStravaActivity } from "../../services/StravaActivityRepository";
 import { Distance } from "../Distance";
 import { Elevation } from "../Elevation";
@@ -36,13 +36,7 @@ export function SearchResultCardStravaActivity({
         rightAddon={<OpenInNewFontIcon />}
         rightAddonType="icon"
         secondaryText="…to view Strava activity"
-        onClick={() =>
-          (window.location.href = getStravaAuthUrl(
-            Object.fromEntries(
-              new URLSearchParams(window.location.search).entries()
-            )
-          ))
-        }
+        onClick={openStravaAuthUrl}
       >
         Authorize Strava App…
       </ListItem>

@@ -2,11 +2,10 @@ import { Button } from "@react-md/button";
 import { Divider } from "@react-md/divider";
 import { TextField } from "@react-md/form";
 import { FontIcon } from "@react-md/icon";
-import { List, ListItem, SimpleListItem } from "@react-md/list";
+import { List, SimpleListItem } from "@react-md/list";
 import {
   KeyboardArrowDownFontIcon,
   KeyboardArrowUpFontIcon,
-  SettingsFontIcon,
 } from "@react-md/material-icons";
 import c from "classnames";
 import React, { useRef, useState } from "react";
@@ -14,9 +13,9 @@ import { routes, worlds } from "../../data";
 import { useLocationState } from "../../hooks/useLocationState";
 import { useSettings } from "../../hooks/useSettings";
 import { search, SearchResult } from "../../services/search";
-import { SettingsDialog } from "../SettingsDialog";
 import { Details } from "./Details";
 import styles from "./index.module.scss";
+import { MenuButton } from "./MenuButton";
 import { SearchResultCardRoute } from "./SearchResultCardRoute";
 import { SearchResultList } from "./SearchResultList";
 
@@ -30,8 +29,6 @@ export function Sidebar({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
   const [locationState, setLocationState] = useLocationState();
   const [settings] = useSettings();
   const containerRef = useRef<HTMLDivElement | null>(null);
-
-  const [settingsDialogVisible, setSettingsDialogVisible] = useState(false);
 
   const searchResults = search(locationState.query, settings.sport);
 
@@ -158,16 +155,8 @@ export function Sidebar({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
         </div>
         <List className={styles.BottomMenu}>
           <Divider className={styles.NoGapDivider} />
-          <ListItem
-            onClick={() => {
-              setBottomSheetOpen(false);
-              setSettingsDialogVisible(true);
-            }}
-            leftAddon={<SettingsFontIcon />}
-            leftAddonType="icon"
-          >
-            Settings
-          </ListItem>
+
+          <MenuButton onBottomSheetClose={() => setBottomSheetOpen(false)} />
         </List>
       </div>
 
@@ -179,11 +168,6 @@ export function Sidebar({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
       >
         <KeyboardArrowUpFontIcon />
       </button>
-
-      <SettingsDialog
-        visible={settingsDialogVisible}
-        onClose={() => setSettingsDialogVisible(false)}
-      />
     </>
   );
 }

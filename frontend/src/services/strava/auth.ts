@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Token } from "./types";
 
-export function getStravaAuthUrl(state: Record<string, string>) {
+function getStravaAuthUrl(state: Record<string, string>) {
   const params = new URLSearchParams();
   params.set("state", JSON.stringify(state));
 
@@ -10,6 +10,12 @@ export function getStravaAuthUrl(state: Record<string, string>) {
       ? "https://api.zwiftmap.com"
       : "http://localhost:3001"
   }/strava/authorize?${params.toString()}`;
+}
+
+export function openStravaAuthUrl() {
+  window.location.href = getStravaAuthUrl(
+    Object.fromEntries(new URLSearchParams(window.location.search).entries())
+  );
 }
 
 export async function getRefreshedToken(refreshToken: string): Promise<Token> {
