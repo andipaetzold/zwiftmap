@@ -918,7 +918,7 @@
     "slug": "grand-central-circuit",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": []
+    "id": 2945813240
   },
   {
     "world": "new-york",
@@ -1294,7 +1294,7 @@
     "slug": "cobbled-climbs",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": []
+    "id": 4194352271
   },
   {
     "world": "richmond",
@@ -1311,8 +1311,7 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/richmond/route/the-fan-flats",
     "slug": "the-fan-flats",
     "sports": ["cycling", "running"],
-    "eventOnly": false,
-    "routeIds": []
+    "eventOnly": false
   },
   {
     "world": "france",
@@ -1715,7 +1714,7 @@
     "slug": "beach-island-loop",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": []
+    "id": 2474227587
   },
   {
     "world": "watopia",
@@ -1751,7 +1750,7 @@
     "slug": "serpentine-8",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": []
+    "id": 2829629527
   },
   {
     "world": "watopia",
@@ -1769,7 +1768,7 @@
     "slug": "two-bridges-loop",
     "sports": ["cycling", "running"],
     "eventOnly": false,
-    "routeIds": []
+    "id": 3312037616
   },
   {
     "world": "watopia",
@@ -2045,8 +2044,7 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/innsbruck/route/innsbruck-kom-after-party",
     "slug": "innsbruck-kom-after-party",
     "sports": ["cycling", "running"],
-    "eventOnly": true,
-    "routeIds": []
+    "eventOnly": true
   },
   {
     "world": "watopia",
@@ -2200,8 +2198,7 @@
     "zwiftInsiderUrl": "https://zwiftinsider.com/route/london-loop-with-box-hill-finish",
     "slug": "london-loo-with-box-hill-finish",
     "sports": ["cycling", "running"],
-    "eventOnly": true,
-    "routeIds": []
+    "eventOnly": true
   },
   {
     "world": "watopia",
@@ -2460,8 +2457,7 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/watopia/route/volcano-climb-after-party",
     "slug": "volcano-climb-after-party",
     "sports": ["cycling", "running"],
-    "eventOnly": true,
-    "routeIds": []
+    "eventOnly": true
   },
   {
     "world": "watopia",
