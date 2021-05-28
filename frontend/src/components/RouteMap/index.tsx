@@ -194,7 +194,7 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
           <Pane name="mouse-position">
             <Circle
               center={pointCoordinates}
-              radius={10}
+              radius={15}
               pathOptions={{
                 color: "black",
                 fillColor: "black",
