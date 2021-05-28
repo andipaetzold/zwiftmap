@@ -1293,8 +1293,7 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/richmond/route/cobbled-climbs",
     "slug": "cobbled-climbs",
     "sports": ["cycling", "running"],
-    "eventOnly": false,
-    "id": 4194352271
+    "eventOnly": false
   },
   {
     "world": "richmond",
