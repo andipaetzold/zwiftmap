@@ -1,11 +1,11 @@
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import mitt from "mitt";
 
-export function axiosCache(ttl: number): {
+export function axiosCache(): {
   request: (config: AxiosRequestConfig) => Promise<AxiosRequestConfig>;
   response: [(value: AxiosResponse) => AxiosResponse, (error: any) => void];
 } {
-  const cache = new Cache(ttl);
+  const cache = new Cache();
 
   const requestHandler = async (
     request: AxiosRequestConfig
@@ -42,33 +42,22 @@ export function axiosCache(ttl: number): {
 }
 
 class Cache {
-  private store: Record<
-    string,
-    {
-      time: number;
-      value: Promise<any>;
-    }
-  > = {};
+  private store: Record<string, Promise<any>> = {};
 
   private emitter = mitt();
 
-  constructor(private readonly ttl: number) {}
-
   public prepareResponse(url: string) {
-    this.store[url] = {
-      time: new Date().getTime(),
-      value: new Promise((resolve) => {
-        const handler = (response: any) => {
-          // @ts-ignore
-          this.emitter.off(url, handler);
-
-          resolve(response);
-        };
-
+    this.store[url] = new Promise((resolve) => {
+      const handler = (response: any) => {
         // @ts-ignore
-        this.emitter.on(url, handler);
-      }),
-    };
+        this.emitter.off(url, handler);
+
+        resolve(response);
+      };
+
+      // @ts-ignore
+      this.emitter.on(url, handler);
+    });
   }
 
   public storeResponse(url: string, response: any) {
@@ -76,15 +65,12 @@ class Cache {
   }
 
   public hasResponse(url: string): boolean {
-    return (
-      this.store[url] !== undefined ||
-      this.store[url].time < new Date().getTime() - this.ttl
-    );
+    return this.store[url] !== undefined;
   }
 
   public getResponse(url: string): Promise<any> {
     if (this.hasResponse(url)) {
-      return this.store[url].value;
+      return this.store[url];
     }
 
     return Promise.reject();

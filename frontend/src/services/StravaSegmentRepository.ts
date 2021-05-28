@@ -1,6 +1,11 @@
+import axios from "axios";
 import { StravaSegment } from "../types";
+import { axiosCache } from "./axios-cache";
 
-const cache: { [cacheKey: string]: Promise<any> } = {};
+const cache = axiosCache();
+const api = axios.create();
+api.interceptors.request.use(cache.request);
+api.interceptors.response.use(...cache.response);
 
 export async function getStravaSegmentStream<
   Stream extends "altitude" | "distance" | "latlng"
@@ -9,12 +14,8 @@ export async function getStravaSegmentStream<
   type: "segments" | "routes",
   stream: Stream
 ): Promise<StravaSegment[Stream]> {
-  const cacheKey = `${type}-${segmentSlug}-${stream}`;
-  if (!cache[cacheKey]) {
-    cache[cacheKey] = fetchStravaSegmentStream(segmentSlug, type, stream);
-  }
-
-  return cache[cacheKey];
+  const response = await api.get(`${type}/${segmentSlug}/${stream}.json`);
+  return response.data;
 }
 
 export async function getStravaSegmentStreams<
@@ -32,17 +33,4 @@ export async function getStravaSegmentStreams<
   return Object.fromEntries(
     streams.map((stream, i) => [stream, streamData[i]])
   );
-}
-
-async function fetchStravaSegmentStream<
-  Stream extends "altitude" | "distance" | "latlng"
->(
-  segmentSlug: string,
-  type: "segments" | "routes",
-  stream: Stream
-): Promise<StravaSegment[Stream]> {
-  const response = await fetch(
-    `${type}/${segmentSlug}/${stream}.json`
-  );
-  return await response.json();
 }

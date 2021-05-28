@@ -1,10 +1,12 @@
+import axios from "axios";
+
 let cache: Promise<ZwiftEvent[]>;
 
 export async function fetchEvents(): Promise<ZwiftEvent[]> {
   if (!cache) {
-    cache = fetch(
-      "https://us-or-rly101.zwift.com/api/public/events/upcoming"
-    ).then((r) => r.json());
+    cache = await axios
+      .get("https://us-or-rly101.zwift.com/api/public/events/upcoming")
+      .then((r) => r.data);
   }
 
   return await cache;
@@ -156,7 +158,11 @@ export interface TimeTrialOptions {
   maxRidersPerRow: number;
 }
 
-export type ZwiftEventType = "GROUP_RIDE" | "GROUP_WORKOUT" | "RACE" | "TIME_TRIAL";
+export type ZwiftEventType =
+  | "GROUP_RIDE"
+  | "GROUP_WORKOUT"
+  | "RACE"
+  | "TIME_TRIAL";
 
 export type Sport = "CYCLING" | "RUNNING";
 

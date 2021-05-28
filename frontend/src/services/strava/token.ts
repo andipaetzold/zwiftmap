@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   getLocalStorageItem,
   setLocalStorageItem,
@@ -23,11 +24,8 @@ export async function removeStravaToken(): Promise<void> {
     return;
   }
 
-  const params = new URLSearchParams();
-  params.set("access_token", token.access_token);
-
-  await fetch(`https://www.strava.com/oauth/deauthorize?${params.toString()}`, {
-    method: "post",
+  await axios.post(`https://www.strava.com/oauth/deauthorize`, undefined, {
+    params: { access_token: token.access_token },
   });
 
   setLocalStorageItem(STRAVA_AUTH_KEY, null);
