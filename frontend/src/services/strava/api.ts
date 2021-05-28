@@ -1,20 +1,17 @@
 import { DetailedActivity, StreamSet, DetailedSegment } from "./types";
-import { setupCache } from "axios-cache-adapter";
 import axios from "axios";
 import { getStravaToken, writeStravaToken } from "./token";
 import { getRefreshedToken } from "./auth";
+import { axiosCache } from "../axios-cache";
 
-const cache = setupCache({
-  maxAge: 15 * 60 * 1000,
-  exclude: {
-    query: false,
-  },
-});
+const cache = axiosCache(15 * 60 * 1000);
 
 const api = axios.create({
-  adapter: cache.adapter,
   baseURL: "https://www.strava.com/api/v3",
 });
+
+api.interceptors.request.use(cache.request);
+api.interceptors.response.use(...cache.response);
 
 api.interceptors.request.use(async (config) => {
   let token = getStravaToken();
