@@ -2523,7 +2523,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/makuri-islands/route/chain-chomper",
     "slug": "chain-chomper",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "id": 3691918883
   },
   {
     "world": "makuri-islands",
@@ -2540,7 +2541,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/makuri-islands/route/countryside-tour",
     "slug": "countryside-tour",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "id": 525689100
   },
   {
     "world": "makuri-islands",
@@ -2557,7 +2559,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/makuri-islands/route/flatland-loop",
     "slug": "flatland-loop",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "id": 3282611437
   },
   {
     "world": "makuri-islands",
@@ -2574,7 +2577,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/makuri-islands/route/kappa-quest",
     "slug": "kappa-quest",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "id": 1562187590
   },
   {
     "world": "makuri-islands",
@@ -2591,7 +2595,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/makuri-islands/route/sea-to-tree",
     "slug": "sea-to-tree",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "id": 3603635554
   },
   {
     "world": "makuri-islands",
@@ -2608,7 +2613,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/makuri-islands/route/spirit-forest",
     "slug": "spirit-forest",
     "sports": ["cycling"],
-    "eventOnly": false
+    "eventOnly": false,
+    "id": 3523806426
   },
   {
     "world": "makuri-islands",
@@ -2625,7 +2631,8 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/makuri-islands/route/three-village-loop",
     "slug": "three-village-loop",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "id": 3379779247
   },
   {
     "world": "makuri-islands",
@@ -2642,6 +2649,7 @@
     "whatsOnZwiftUrl": "https://whatsonzwift.com/world/makuri-islands/route/two-village-loop",
     "slug": "two-village-loop",
     "sports": ["cycling", "running"],
-    "eventOnly": false
+    "eventOnly": false,
+    "id": 2653858696
   }
 ]
