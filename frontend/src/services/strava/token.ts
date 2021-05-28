@@ -17,6 +17,18 @@ export function writeStravaToken(token: Token): void {
   setLocalStorageItem(STRAVA_AUTH_KEY, JSON.stringify(token));
 }
 
-export function removeStravaToken(): void {
+export async function removeStravaToken(): Promise<void> {
+  const token = getStravaToken();
+  if (!token) {
+    return;
+  }
+
+  const params = new URLSearchParams();
+  params.set("access_token", token.access_token);
+
+  await fetch(`https://www.strava.com/oauth/deauthorize?${params.toString()}`, {
+    method: "post",
+  });
+
   setLocalStorageItem(STRAVA_AUTH_KEY, null);
 }
