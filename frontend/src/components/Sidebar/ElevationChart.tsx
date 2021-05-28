@@ -1,5 +1,5 @@
 import uniqWith from "lodash/uniqWith";
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useAsync } from "react-async-hook";
 import {
   Area,
@@ -14,6 +14,14 @@ import {
 import { getStravaSegmentStreams } from "../../services/StravaSegmentRepository";
 import { Route, StravaSegment } from "../../types";
 import { ElevationGradient } from "../ElevationGradient";
+import { Text } from "@react-md/typography";
+import { Distance } from "../Distance";
+import { Elevation } from "../Elevation";
+
+interface HoverData {
+  distance: number;
+  altitude: number;
+}
 
 interface Props {
   route: Route;
@@ -26,6 +34,13 @@ export function ElevationChart({ route, onMouseHoverDistanceChange }: Props) {
   const { result: segment } = useAsync<
     Pick<StravaSegment, "altitude" | "distance">
   >(getStravaSegmentStreams, [route.slug, "routes", REQUIRED_STREAMS]);
+
+  const [hoverData, setHoverData] = useState<HoverData | undefined>(undefined);
+
+  const handleMouseMove = (data?: HoverData) => {
+    onMouseHoverDistanceChange(data?.distance);
+    setHoverData(data);
+  };
 
   const data: any[] | undefined = useMemo(() => {
     if (segment === undefined) {
@@ -46,7 +61,7 @@ export function ElevationChart({ route, onMouseHoverDistanceChange }: Props) {
   }
 
   return (
-    <div style={{ width: "100%", height: 100 }}>
+    <div style={{ width: "100%", height: 100, marginBottom: "1em" }}>
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart
           data={data}
@@ -84,10 +99,7 @@ export function ElevationChart({ route, onMouseHoverDistanceChange }: Props) {
           />
           <Tooltip
             content={(props) => (
-              <TooltipContent
-                {...props}
-                onMouseDistance={onMouseHoverDistanceChange}
-              />
+              <TooltipContent {...props} onMouseMove={handleMouseMove} />
             )}
             isAnimationActive={false}
             position={{ y: 10 }}
@@ -105,20 +117,41 @@ export function ElevationChart({ route, onMouseHoverDistanceChange }: Props) {
           />
         </AreaChart>
       </ResponsiveContainer>
+      <div style={{ display: "flex", gap: "1em" }}>
+        <Text type="caption" style={{ whiteSpace: "nowrap" }}>
+          Distance:{" "}
+          {hoverData?.distance ? (
+            <Distance distance={hoverData.distance} />
+          ) : (
+            "- km"
+          )}
+        </Text>
+        <Text type="caption" style={{ whiteSpace: "nowrap" }}>
+          Altitude:{" "}
+          {hoverData?.altitude ? (
+            <Elevation elevation={hoverData.altitude} />
+          ) : (
+            "- m"
+          )}
+        </Text>
+      </div>
     </div>
   );
 }
 
 interface TooltipContentProps extends TooltipProps<any, any> {
-  onMouseDistance: (distance: number | undefined) => void;
+  onMouseMove: (distance: HoverData | undefined) => void;
 }
 
 function TooltipContent(props: TooltipContentProps) {
   useEffect(() => {
     if (props.payload === undefined || props.payload.length === 0) {
-      props.onMouseDistance(undefined);
+      props.onMouseMove(undefined);
     } else {
-      props.onMouseDistance(props.label * 1_000);
+      props.onMouseMove({
+        distance: props.payload[0].payload.distance,
+        altitude: props.payload[0].payload.elevation,
+      });
     }
   }, [props]);
 

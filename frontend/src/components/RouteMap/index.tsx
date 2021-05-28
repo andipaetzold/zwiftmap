@@ -126,7 +126,7 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
     }
 
     const pointIndex = routeStravaSegment.distance.findIndex(
-      (d) => d > mouseHoverDistance
+      (d) => d > mouseHoverDistance * 1_000
     );
     if (!pointIndex) {
       return;
