@@ -58,6 +58,8 @@ $drag-handle-height: 25px;
 }
 
 .DragHandle {
+  cursor: pointer;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -87,4 +89,3 @@ $drag-handle-height: 25px;
     display: none;
   }
 }
-
