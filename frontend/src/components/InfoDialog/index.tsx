@@ -81,6 +81,15 @@ export function InfoDialog({ visible, onClose }: Props) {
                 ZwiftHub
               </a>
             </li>
+            <li>
+              <a
+                href="https://zwiftpower.com"
+                rel="noreferrer noopener"
+                target="_blank"
+              >
+                Zwift Power
+              </a>
+            </li>
           </ul>
         </Text>
 
