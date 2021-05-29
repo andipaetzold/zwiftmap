@@ -1,6 +1,5 @@
-import { worlds } from "../data";
 import { World } from "../types";
-import { worldConfigs } from "../worldConfig";
+import { getWorld } from "../util/strava";
 import { fetchActivity, fetchActivityStreams } from "./strava/api";
 
 export async function getStravaActivity(
@@ -8,16 +7,7 @@ export async function getStravaActivity(
 ): Promise<StravaActivity> {
   const esa = await fetchActivity(activityId);
 
-  const world = worlds.find((world) => {
-    const worldConfig = worldConfigs[world.slug];
-    const bb = worldConfig.imageBounds;
-    return (
-      bb[0][0] >= esa.start_latlng[0] &&
-      esa.start_latlng[0] >= bb[1][0] &&
-      bb[0][1] <= esa.start_latlng[1] &&
-      esa.start_latlng[1] <= bb[1][1]
-    );
-  });
+  const world = getWorld(esa);
 
   if (!world) {
     throw new Error("Activity was not recorded in Zwift");
