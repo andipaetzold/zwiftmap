@@ -24,9 +24,11 @@ export async function removeStravaToken(): Promise<void> {
     return;
   }
 
-  await axios.post(`https://www.strava.com/oauth/deauthorize`, undefined, {
-    params: { access_token: token.access_token },
-  });
-
   setLocalStorageItem(STRAVA_AUTH_KEY, null);
+
+  try {
+    await axios.post(`https://www.strava.com/oauth/deauthorize`, undefined, {
+      params: { access_token: token.access_token },
+    });
+  } catch {}
 }
