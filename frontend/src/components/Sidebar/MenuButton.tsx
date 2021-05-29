@@ -15,7 +15,6 @@ import { openStravaAuthUrl } from "../../services/strava/auth";
 import { removeStravaToken } from "../../services/strava/token";
 import { InfoDialog } from "../InfoDialog";
 import { SettingsDialog } from "../SettingsDialog";
-import styles from "./MenuButton.module.scss";
 
 interface Props {
   onBottomSheetClose: () => void;
@@ -54,7 +53,6 @@ export function MenuButton({ onBottomSheetClose }: Props) {
         aria-labelledby="sidebar-menu"
         anchor={BOTTOM_RIGHT_ANCHOR}
         portal
-        className={styles.Menu}
       >
         <List>
           <MenuItem
