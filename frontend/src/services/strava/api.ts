@@ -1,6 +1,6 @@
 import { DetailedActivity, StreamSet, DetailedSegment } from "./types";
 import axios from "axios";
-import { getStravaToken, writeStravaToken } from "./token";
+import { getStravaToken, removeStravaToken, writeStravaToken } from "./token";
 import { getRefreshedToken } from "./auth";
 import { axiosCache } from "../axios-cache";
 
@@ -18,8 +18,12 @@ api.interceptors.request.use(async (config) => {
 
   if (token) {
     if (token.expires_at < Math.round(Date.now() / 1_000)) {
-      token = await getRefreshedToken(token.refresh_token);
-      writeStravaToken(token);
+      try {
+        token = await getRefreshedToken(token.refresh_token);
+        writeStravaToken(token);
+      } catch {
+        await removeStravaToken();
+      }
     }
 
     config.headers = {
