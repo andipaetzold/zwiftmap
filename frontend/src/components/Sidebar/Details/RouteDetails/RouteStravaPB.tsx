@@ -1,4 +1,4 @@
-import { ListItem } from "@react-md/list";
+import { ListItem, SimpleListItem } from "@react-md/list";
 import { OpenInNewFontIcon, TimerFontIcon } from "@react-md/material-icons";
 import { CircularProgress } from "@react-md/progress";
 import React from "react";
@@ -32,11 +32,18 @@ export function RouteStravaPB({ route }: Props) {
 
   if (loading) {
     return (
-      <CircularProgress
-        id={`strava-route-pb-${route.id}`}
-        circleStyle={{ stroke: "black" }}
-        small
-      />
+      <SimpleListItem
+        leftAddon={<TimerFontIcon />}
+        leftAddonType="icon"
+        rightAddon={<OpenInNewFontIcon />}
+        rightAddonType="icon"
+      >
+        <CircularProgress
+          id={`strava-route-pb-${route.id}`}
+          circleStyle={{ stroke: "black" }}
+          small
+        />
+      </SimpleListItem>
     );
   }
 
