@@ -18,6 +18,7 @@ app.use(Sentry.Handlers.requestHandler());
 app.use(Sentry.Handlers.tracingHandler());
 
 initStravaHandlers(app);
+app.get("/ping", (req, res) => res.sendStatus(204));
 app.get("*", (req, res) => res.redirect(FRONTEND_URL));
 
 app.use(Sentry.Handlers.errorHandler());
