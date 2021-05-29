@@ -15,7 +15,11 @@ interface Props {
 export function RouteStravaPB({ route }: Props) {
   const isLoggedInStrava = useIsLoggedInStrava();
 
-  const { result: segment } = useAsync(
+  const {
+    result: segment,
+    loading,
+    error,
+  } = useAsync(
     async (loggedIn: boolean, segmentId?: number) => {
       if (!loggedIn || segmentId === undefined) {
         return null;
@@ -26,7 +30,7 @@ export function RouteStravaPB({ route }: Props) {
     [isLoggedInStrava, route.stravaSegmentId]
   );
 
-  if (segment === undefined) {
+  if (loading) {
     return (
       <CircularProgress
         id={`strava-route-pb-${route.id}`}
@@ -36,7 +40,7 @@ export function RouteStravaPB({ route }: Props) {
     );
   }
 
-  if (segment === null) {
+  if (error || segment === null || segment === undefined) {
     return null;
   }
 
