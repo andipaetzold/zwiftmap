@@ -1,4 +1,9 @@
-import { DetailedActivity, StreamSet, DetailedSegment } from "./types";
+import {
+  DetailedActivity,
+  StreamSet,
+  DetailedSegment,
+  SummaryActivity,
+} from "./types";
 import axios from "axios";
 import { getStravaToken, removeStravaToken, writeStravaToken } from "./token";
 import { getRefreshedToken } from "./auth";
@@ -74,5 +79,19 @@ export async function fetchActivityStreams(activityId: string) {
 
 export async function fetchSegment(segmentId: string) {
   const response = await api.get<DetailedSegment>(`/segments/${segmentId}`);
+  return response.data;
+}
+
+interface GetLoggedInAthleteActivitiesParams {
+  before?: number;
+  after?: number;
+  page?: number;
+  per_page?: number;
+}
+
+export async function getLoggedInAthleteActivities(
+  params: GetLoggedInAthleteActivitiesParams = {}
+): Promise<Array<SummaryActivity>> {
+  const response = await api.get(`/athlete/activities`, { params });
   return response.data;
 }

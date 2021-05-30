@@ -13,6 +13,7 @@ import { MenuButton } from "./MenuButton";
 import { RouteList } from "./RouteList";
 import { SearchInput } from "./SearchInput";
 import { SearchResultList } from "./SearchResultList";
+import { StravaActivitiesList } from "./StravaActivitiesList";
 
 interface Props {
   onMouseHoverDistanceChange: (distance: number | undefined) => void;
@@ -51,8 +52,8 @@ export function Sidebar({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
               onMouseHoverDistanceChange={onMouseHoverDistanceChange}
               backButtonText={
                 locationState.query === ""
-                  ? "Back to route list"
-                  : "Back to search results"
+                  ? "Route List"
+                  : "Search Results"
               }
               onBackButtonClick={() => {
                 setLocationState({
@@ -62,6 +63,8 @@ export function Sidebar({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
                 });
               }}
             />
+          ) : locationState.type === "strava-activities" ? (
+            <StravaActivitiesList />
           ) : (
             <List>
               {locationState.query === "" ? (

@@ -28,11 +28,7 @@ export function Details({
     );
   } else if (locationState.type === "strava-activity") {
     return (
-      <StravaActivityDetails
-        activityId={locationState.stravaActivityId}
-        backButtonText={backButtonText}
-        onBackButtonClick={onBackButtonClick}
-      />
+      <StravaActivityDetails activityId={locationState.stravaActivityId} />
     );
   } else {
     return <WorldDetails world={locationState.world} />;

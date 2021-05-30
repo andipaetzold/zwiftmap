@@ -1,6 +1,13 @@
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import mitt from "mitt";
 
+function getCacheKey(config: AxiosRequestConfig): string {
+  return JSON.stringify({
+    url: config.url,
+    params: config.params,
+  });
+}
+
 export function axiosCache(): {
   request: (config: AxiosRequestConfig) => Promise<AxiosRequestConfig>;
   response: [(value: AxiosResponse) => AxiosResponse, (error: any) => void];
@@ -10,13 +17,14 @@ export function axiosCache(): {
   const requestHandler = async (
     request: AxiosRequestConfig
   ): Promise<AxiosRequestConfig> => {
+    const cacheKey = getCacheKey(request);
     if (request.method === "get") {
-      if (cache.hasResponse(request.url!)) {
+      if (cache.hasResponse(cacheKey)) {
         request.headers.cached = true;
-        request.data = await cache.getResponse(request.url!);
+        request.data = await cache.getResponse(cacheKey);
         throw request;
       } else {
-        cache.prepareResponse(request.url!);
+        cache.prepareResponse(cacheKey);
       }
     }
     return request;
@@ -24,7 +32,7 @@ export function axiosCache(): {
 
   const responseHandler = (response: AxiosResponse): AxiosResponse => {
     if (response.config.method?.toLocaleLowerCase() === "get") {
-      cache.storeResponse(response.config.url!, response.data);
+      cache.storeResponse(getCacheKey(response.config), response.data);
     }
     return response;
   };

@@ -16,6 +16,7 @@ import React from "react";
 import { useAsync } from "react-async-hook";
 import stravaLogo from "../../../../assets/strava-40x40.png";
 import { useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";
+import { useLocationState } from "../../../../hooks/useLocationState";
 import { openStravaAuthUrl } from "../../../../services/strava/auth";
 import { getStravaActivity } from "../../../../services/StravaActivityRepository";
 import { Distance } from "../../../Distance";
@@ -24,16 +25,9 @@ import { Time } from "../../../Time";
 
 interface Props {
   activityId: string;
-
-  backButtonText: string;
-  onBackButtonClick: () => void;
 }
 
-export function StravaActivityDetails({
-  activityId,
-  backButtonText,
-  onBackButtonClick,
-}: Props) {
+export function StravaActivityDetails({ activityId }: Props) {
   const isLoggedInStrava = useIsLoggedInStrava();
 
   if (!isLoggedInStrava) {
@@ -57,20 +51,12 @@ export function StravaActivityDetails({
     );
   }
 
-  return (
-    <StravaActivityDetailsWithToken
-      activityId={activityId}
-      backButtonText={backButtonText}
-      onBackButtonClick={onBackButtonClick}
-    />
-  );
+  return <StravaActivityDetailsWithToken activityId={activityId} />;
 }
 
-function StravaActivityDetailsWithToken({
-  activityId,
-  backButtonText,
-  onBackButtonClick,
-}: Props) {
+function StravaActivityDetailsWithToken({ activityId }: Props) {
+  const [locationState, setLocationState] = useLocationState();
+
   const { result: activity, loading } = useAsync(getStravaActivity, [
     activityId,
   ]);
@@ -100,9 +86,18 @@ function StravaActivityDetailsWithToken({
   return (
     <List>
       <SimpleListItem>
-        <Button themeType="outline" onClick={onBackButtonClick}>
+        <Button
+          themeType="outline"
+          onClick={() => {
+            setLocationState({
+              world: locationState.world,
+              query: locationState.query,
+              type: "strava-activities",
+            });
+          }}
+        >
           <TextIconSpacing icon={<ListFontIcon />}>
-            {backButtonText}
+            Strava activities
           </TextIconSpacing>
         </Button>
       </SimpleListItem>
