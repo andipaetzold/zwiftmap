@@ -15,7 +15,7 @@ export function SearchInput() {
       onChange={(e) => {
         setLocationState({
           world: locationState.world,
-          segments: [],
+          type: "default",
           query: e.target.value,
         });
       }}

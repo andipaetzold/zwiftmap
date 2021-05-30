@@ -10,7 +10,12 @@ import { segments } from "../../../../data";
 import { useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";
 import { useLocationState } from "../../../../hooks/useLocationState";
 import { fetchSegment } from "../../../../services/strava/api";
-import { Route, Segment, SegmentType } from "../../../../types";
+import {
+  LocationStateRoute,
+  Route,
+  Segment,
+  SegmentType,
+} from "../../../../types";
 import { Distance } from "../../../Distance";
 import { Time } from "../../../Time";
 
@@ -33,6 +38,8 @@ export function RouteSegments({ route }: Props) {
     );
   }
 
+  const selectedSegments = (locationState as LocationStateRoute).segments;
+
   return (
     <>
       {segmentsOnRoute.map((segment) => (
@@ -42,7 +49,7 @@ export function RouteSegments({ route }: Props) {
           rightAddonType="icon"
           rightAddon={
             segment.stravaSegmentId ===
-            undefined ? null : locationState.segments.includes(segment) ? (
+            undefined ? null : selectedSegments.includes(segment) ? (
               <VisibilityFontIcon />
             ) : (
               <VisibilityOffFontIcon />
@@ -55,15 +62,19 @@ export function RouteSegments({ route }: Props) {
               return;
             }
 
-            if (locationState.segments.includes(segment)) {
+            if (selectedSegments.includes(segment)) {
               setLocationState({
                 ...locationState,
-                segments: locationState.segments.filter((s) => s !== segment),
+                type: "route",
+                route: (locationState as LocationStateRoute).route,
+                segments: selectedSegments.filter((s) => s !== segment),
               });
             } else {
               setLocationState({
                 ...locationState,
-                segments: [...locationState.segments, segment],
+                type: "route",
+                route: (locationState as LocationStateRoute).route,
+                segments: [...selectedSegments, segment],
               });
             }
           }}

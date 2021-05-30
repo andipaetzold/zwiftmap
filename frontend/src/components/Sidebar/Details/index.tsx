@@ -17,7 +17,7 @@ export function Details({
 }: Props) {
   const [locationState] = useLocationState();
 
-  if (locationState.route) {
+  if (locationState.type === "route") {
     return (
       <RouteDetails
         route={locationState.route}
@@ -26,7 +26,7 @@ export function Details({
         onBackButtonClick={onBackButtonClick}
       />
     );
-  } else if (locationState.stravaActivityId) {
+  } else if (locationState.type === "strava-activity") {
     return (
       <StravaActivityDetails
         activityId={locationState.stravaActivityId}

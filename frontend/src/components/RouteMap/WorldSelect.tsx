@@ -21,14 +21,13 @@ export function WorldSelect() {
         options={options}
         value={locationState.world.slug}
         listboxStyle={{ zIndex: 3000 }}
-        onChange={(newWorldSlug) =>
+        onChange={(newWorldSlug) => {
           setLocationState({
-            ...locationState,
             world: worlds.find((w) => w.slug === newWorldSlug)!,
-            route: undefined,
-            segments: [],
-          })
-        }
+            query: "",
+            type: "default",
+          });
+        }}
       />
     </div>
   );

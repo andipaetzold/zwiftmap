@@ -45,7 +45,8 @@ export function Sidebar({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
           <Divider className={styles.NoGapDivider} />
         </List>
         <div className={styles.Content}>
-          {locationState.route || locationState.stravaActivityId ? (
+          {locationState.type === "route" ||
+          locationState.type === "strava-activity" ? (
             <Details
               onMouseHoverDistanceChange={onMouseHoverDistanceChange}
               backButtonText={
@@ -56,8 +57,8 @@ export function Sidebar({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
               onBackButtonClick={() => {
                 setLocationState({
                   world: locationState.world,
-                  segments: [],
                   query: locationState.query,
+                  type: "default",
                 });
               }}
             />

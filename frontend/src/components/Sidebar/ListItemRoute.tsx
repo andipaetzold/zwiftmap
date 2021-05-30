@@ -22,6 +22,7 @@ export function ListItemRoute({ route, onHoverRoute, showWorldName }: Props) {
       route,
       segments: [],
       query: locationState.query,
+      type: "route",
     });
     onHoverRoute(undefined);
   };

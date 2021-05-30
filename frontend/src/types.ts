@@ -63,10 +63,32 @@ export interface Settings {
   units: "imperial" | "metric";
 }
 
-export interface LocationState {
+interface LocationStateBase {
   world: World;
-  route?: Route;
-  stravaActivityId?: string;
-  segments: Segment[];
   query: string;
 }
+
+export interface LocationStateDefault extends LocationStateBase {
+  type: "default";
+}
+
+export interface LocationStateRoute extends LocationStateBase {
+  type: "route";
+  route: Route;
+  segments: Segment[];
+}
+
+export interface LocationStateStravaActivity extends LocationStateBase {
+  type: "strava-activity";
+  stravaActivityId: string;
+}
+
+export interface LocationStateStravaActivities extends LocationStateBase {
+  type: "strava-activities";
+}
+
+export type LocationState =
+  | LocationStateDefault
+  | LocationStateRoute
+  | LocationStateStravaActivity
+  | LocationStateStravaActivities;

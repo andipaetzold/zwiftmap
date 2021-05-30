@@ -16,7 +16,7 @@ import {
   getStravaSegmentStream,
   getStravaSegmentStreams,
 } from "../../services/StravaSegmentRepository";
-import { Route, Segment } from "../../types";
+import { LocationState } from "../../types";
 import { worldConfigs } from "../../worldConfig";
 import styles from "./index.module.css";
 import { WorldSelect } from "./WorldSelect";
@@ -32,16 +32,21 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
   const worldConfig = worldConfigs[world.slug];
 
   const { result: stravaSegmentsToShow } = useAsync(
-    async (fs: Segment[]) => {
+    async (state: LocationState) => {
+      if (state.type !== "route") {
+        return [];
+      }
       const stravaSegments = await Promise.all(
-        fs.map((s) => getStravaSegmentStream(s.slug, "segments", "latlng"))
+        state.segments.map((s) =>
+          getStravaSegmentStream(s.slug, "segments", "latlng")
+        )
       );
-      return fs.map((s, i) => ({
+      return state.segments.map((s, i) => ({
         ...s,
         stravaData: stravaSegments[i],
       }));
     },
-    [locationState.segments]
+    [locationState]
   );
 
   const [map, setMap] = useState<Map | undefined>();
@@ -50,28 +55,28 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
   }, [map]);
 
   const { result: routeStravaSegment } = useAsync(
-    async (r?: Route) => {
-      if (r === undefined) {
+    async (state: LocationState) => {
+      if (state.type !== "route") {
         return;
       }
 
-      return await getStravaSegmentStreams(r.slug, "routes", [
+      return await getStravaSegmentStreams(state.route.slug, "routes", [
         "distance",
         "latlng",
       ]);
     },
-    [locationState.route]
+    [locationState]
   );
 
   const isLoggedInStrava = useIsLoggedInStrava();
   const { result: stravaActivity } = useAsync(
-    async (loggedIn: boolean, activityId: string | undefined) => {
-      if (!loggedIn || activityId === undefined) {
+    async (loggedIn: boolean, state: LocationState) => {
+      if (!loggedIn || state.type !== "strava-activity") {
         return;
       }
-      return await getStravaActivity(activityId);
+      return await getStravaActivity(state.stravaActivityId);
     },
-    [isLoggedInStrava, locationState.stravaActivityId]
+    [isLoggedInStrava, locationState]
   );
 
   const { result: previewRouteStravaSegment } = useAsync(
@@ -103,7 +108,7 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
   }, [map, routeStravaSegment, worldConfig]);
 
   useEffect(() => {
-    if (!map || !locationState) {
+    if (!map) {
       return;
     }
 
@@ -115,10 +120,10 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
     const minZoom = map.getBoundsZoom(worldConfig.imageBounds, false);
     map.setMinZoom(minZoom);
 
-    if (!locationState.route) {
+    if (locationState.type !== "route") {
       map.fitBounds(worldConfig.initialBounds);
     }
-  }, [map, locationState]);
+  }, [map, locationState.world, locationState.type]);
 
   const pointCoordinates = useMemo<LatLngExpression | undefined>(() => {
     if (!routeStravaSegment || !mouseHoverDistance) {

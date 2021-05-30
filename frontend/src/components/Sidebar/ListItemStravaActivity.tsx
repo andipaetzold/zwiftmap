@@ -18,10 +18,7 @@ export interface Props {
   onHoverRoute: (route?: string) => void;
 }
 
-export function ListItemStravaActivity({
-  activity,
-  onHoverRoute,
-}: Props) {
+export function ListItemStravaActivity({ activity, onHoverRoute }: Props) {
   const isLoggedInStrava = useIsLoggedInStrava();
 
   if (!isLoggedInStrava) {
@@ -84,8 +81,8 @@ function SearchResultCardStravaActivityWithToken({
     setLocationState({
       world: activity.world,
       stravaActivityId: activity.id,
-      segments: [],
       query: "",
+      type: "strava-activity",
     });
   };
 

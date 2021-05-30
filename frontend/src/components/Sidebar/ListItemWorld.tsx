@@ -21,8 +21,8 @@ export function ListItemWorld({ world }: Props) {
   const handleClick = () => {
     setLocationState({
       world,
-      segments: [],
       query: "",
+      type: "default",
     });
   };
 
