@@ -16,7 +16,7 @@ import {
   getStravaSegmentStream,
   getStravaSegmentStreams,
 } from "../../services/StravaSegmentRepository";
-import { LocationState } from "../../types";
+import { LocationState, LocationStateRoute, Route } from "../../types";
 import { worldConfigs } from "../../worldConfig";
 import styles from "./index.module.css";
 import { WorldSelect } from "./WorldSelect";
@@ -55,17 +55,17 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
   }, [map]);
 
   const { result: routeStravaSegment } = useAsync(
-    async (state: LocationState) => {
-      if (state.type !== "route") {
+    async (type: string, route?: Route) => {
+      if (type !== "route") {
         return;
       }
 
-      return await getStravaSegmentStreams(state.route.slug, "routes", [
+      return await getStravaSegmentStreams(route!.slug, "routes", [
         "distance",
         "latlng",
       ]);
     },
-    [locationState]
+    [locationState.type, (locationState as LocationStateRoute).route]
   );
 
   const isLoggedInStrava = useIsLoggedInStrava();
@@ -157,7 +157,7 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
         />
 
         {previewRouteStravaSegment && (
-          <Pane name="preview-route">
+          <Pane name="preview-route" style={{ zIndex: 506 }}>
             <Polyline
               positions={previewRouteStravaSegment.latlng}
               pathOptions={{ color: "#D3D3D3", weight: 5 }}
@@ -166,7 +166,7 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
         )}
 
         {routeStravaSegment && (
-          <Pane name="route">
+          <Pane name="route" style={{ zIndex: 504 }}>
             <Polyline
               positions={routeStravaSegment.latlng}
               pathOptions={{ color: "#fc6719", weight: 5 }}
@@ -175,7 +175,7 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
         )}
 
         {stravaActivity && (
-          <Pane name="strava-activity">
+          <Pane name="strava-activity" style={{ zIndex: 504 }}>
             <Polyline
               positions={stravaActivity.streams.latlng}
               pathOptions={{ color: "#fc6719", weight: 5 }}
@@ -184,7 +184,7 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
         )}
 
         {stravaSegmentsToShow && (
-          <Pane name="segments">
+          <Pane name="segments" style={{ zIndex: 505 }}>
             {stravaSegmentsToShow?.map((s) => (
               <Polyline
                 key={s.slug}
@@ -196,7 +196,7 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
         )}
 
         {pointCoordinates && (
-          <Pane name="mouse-position">
+          <Pane name="mouse-position" style={{ zIndex: 507 }}>
             <Circle
               center={pointCoordinates}
               radius={15}
