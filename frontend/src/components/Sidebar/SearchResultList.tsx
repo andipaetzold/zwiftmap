@@ -1,22 +1,22 @@
 import { Divider } from "@react-md/divider";
 import { ListSubheader, SimpleListItem } from "@react-md/list";
 import React, { Fragment } from "react";
-import { SearchResult, searchResultTypes } from "../../services/search";
-import { SearchResultCardRoute } from "./SearchResultCardRoute";
-import { SearchResultCardStravaActivity } from "./SearchResultCardStravaActivity";
-import { SearchResultCardWorld } from "./SearchResultCardWorld";
+import { useLocationState } from "../../hooks/useLocationState";
+import { useSettings } from "../../hooks/useSettings";
+import { search, SearchResult, searchResultTypes } from "../../services/search";
+import { ListItemRoute } from "./ListItemRoute";
+import { ListItemStravaActivity } from "./ListItemStravaActivity";
+import { ListItemWorld } from "./ListItemWorld";
 
 interface Props {
-  searchResults: ReadonlyArray<SearchResult>;
-  onResultClick: (searchResult: SearchResult) => void;
   onHoverRoute: (route?: string) => void;
 }
 
-export function SearchResultList({
-  searchResults,
-  onResultClick,
-  onHoverRoute,
-}: Props) {
+export function SearchResultList({ onHoverRoute }: Props) {
+  const [locationState] = useLocationState();
+  const [settings] = useSettings();
+  const searchResults = search(locationState.query, settings.sport);
+
   if (searchResults.length === 0) {
     return <SimpleListItem>No worlds or routes found</SimpleListItem>;
   }
@@ -35,7 +35,6 @@ export function SearchResultList({
           )}
           <SearchResultCard
             searchResult={searchResult}
-            onClick={() => onResultClick(searchResult)}
             onHoverRoute={onHoverRoute}
           />
         </Fragment>
@@ -46,32 +45,27 @@ export function SearchResultList({
 
 interface SearchResultCardProps {
   searchResult: SearchResult;
-  onClick: () => void;
   onHoverRoute: (route?: string) => void;
 }
 
 function SearchResultCard({
   searchResult,
-  onClick,
   onHoverRoute,
 }: SearchResultCardProps) {
   switch (searchResult.type) {
     case "world":
-      return (
-        <SearchResultCardWorld world={searchResult.data} onClick={onClick} />
-      );
+      return <ListItemWorld world={searchResult.data} />;
     case "route":
       return (
-        <SearchResultCardRoute
+        <ListItemRoute
           route={searchResult.data}
-          onClick={onClick}
           onHoverRoute={onHoverRoute}
           showWorldName={true}
         />
       );
     case "strava-activity":
       return (
-        <SearchResultCardStravaActivity
+        <ListItemStravaActivity
           activity={searchResult.data}
           onHoverRoute={onHoverRoute}
         />

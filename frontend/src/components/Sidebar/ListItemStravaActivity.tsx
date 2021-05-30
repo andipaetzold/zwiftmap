@@ -18,7 +18,7 @@ export interface Props {
   onHoverRoute: (route?: string) => void;
 }
 
-export function SearchResultCardStravaActivity({
+export function ListItemStravaActivity({
   activity,
   onHoverRoute,
 }: Props) {

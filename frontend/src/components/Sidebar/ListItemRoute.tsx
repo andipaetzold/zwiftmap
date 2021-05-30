@@ -1,6 +1,7 @@
 import { ListItem } from "@react-md/list";
 import React, { useRef } from "react";
 import { worlds } from "../../data";
+import { useLocationState } from "../../hooks/useLocationState";
 import { useOnScreen } from "../../hooks/useOnScreen";
 import { Route } from "../../types";
 import { Distance } from "../Distance";
@@ -9,22 +10,27 @@ import { ElevationChartPreview } from "../ElevationChartPreview";
 
 export interface Props {
   route: Route;
-  onClick: () => void;
   onHoverRoute: (route?: string) => void;
   showWorldName: boolean;
 }
 
-export function SearchResultCardRoute({
-  route,
-  onClick,
-  onHoverRoute,
-  showWorldName,
-}: Props) {
+export function ListItemRoute({ route, onHoverRoute, showWorldName }: Props) {
+  const [locationState, setLocationState] = useLocationState();
+  const handleClick = () => {
+    setLocationState({
+      world: worlds.find((w) => w.slug === route.world)!,
+      route,
+      segments: [],
+      query: locationState.query,
+    });
+    onHoverRoute(undefined);
+  };
+
   return (
     <ListItem
       secondaryText={<RouteInfo route={route} showWorldName={showWorldName} />}
       threeLines={showWorldName}
-      onClick={onClick}
+      onClick={handleClick}
       rightAddonType="large-media"
       rightAddon={<ChartContainer route={route} />}
       onMouseEnter={() => onHoverRoute(route.slug)}
