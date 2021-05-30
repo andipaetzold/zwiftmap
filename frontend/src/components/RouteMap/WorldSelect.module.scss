@@ -7,10 +7,10 @@
     background-color: white;
     cursor: pointer;
     width: 150px;
-    z-index: 3000;
+    z-index: 500;
   }
 
   :global(.rmd-list-item) {
-    z-index: 3000;
+    z-index: 500;
   }
 }
