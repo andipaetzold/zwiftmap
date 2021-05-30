@@ -46,15 +46,11 @@ $drag-handle-height: 25px;
 
 .BottomMenu {
   flex-grow: 0;
-  padding-top: 0;
-  padding-bottom: 0;
+  --rmd-list-vertical-padding: 0;
 }
 
 .NoGapDivider {
-  padding-top: 0;
-  padding-bottom: 0;
-  margin-top: 0;
-  margin-bottom: 0;
+  --rmd-divider-spacing: 0;
 }
 
 .DragHandle {
