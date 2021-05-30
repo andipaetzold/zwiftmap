@@ -44,54 +44,54 @@ export function InfoDialog({ visible, onClose }: Props) {
 
         <Text>
           Route and Segment Information is collected and combined from:{" "}
-          <ul>
-            <li>
-              <a
-                href="https://strava.com"
-                rel="noreferrer noopener"
-                target="_blank"
-              >
-                Strava
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://whatsonzwift.com"
-                rel="noreferrer noopener"
-                target="_blank"
-              >
-                What's on Zwift
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://zwift.com"
-                rel="noreferrer noopener"
-                target="_blank"
-              >
-                Zwift
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://zwifthub.com"
-                rel="noreferrer noopener"
-                target="_blank"
-              >
-                ZwiftHub
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://zwiftpower.com"
-                rel="noreferrer noopener"
-                target="_blank"
-              >
-                Zwift Power
-              </a>
-            </li>
-          </ul>
         </Text>
+        <ul>
+          <li>
+            <a
+              href="https://strava.com"
+              rel="noreferrer noopener"
+              target="_blank"
+            >
+              Strava
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://whatsonzwift.com"
+              rel="noreferrer noopener"
+              target="_blank"
+            >
+              What's on Zwift
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://zwift.com"
+              rel="noreferrer noopener"
+              target="_blank"
+            >
+              Zwift
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://zwifthub.com"
+              rel="noreferrer noopener"
+              target="_blank"
+            >
+              ZwiftHub
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://zwiftpower.com"
+              rel="noreferrer noopener"
+              target="_blank"
+            >
+              Zwift Power
+            </a>
+          </li>
+        </ul>
 
         <Text>
           World maps were created by
