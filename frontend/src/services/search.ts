@@ -1,5 +1,4 @@
-import { routes, worlds } from "../data";
-import { Route, Segment, Sport, World } from "../types";
+import { Route, routes, Segment, Sport, World, worlds } from "zwift-data";
 
 const REGEX_STRAVA_ACTIVITY = /strava\.com\/activities\/(\d{10})/;
 

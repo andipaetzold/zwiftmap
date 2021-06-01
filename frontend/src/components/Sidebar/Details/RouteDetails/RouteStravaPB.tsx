@@ -3,9 +3,9 @@ import { OpenInNewFontIcon, TimerFontIcon } from "@react-md/material-icons";
 import { CircularProgress } from "@react-md/progress";
 import React from "react";
 import { useAsync } from "react-async-hook";
+import { Route } from "zwift-data";
 import { useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";
 import { fetchSegment } from "../../../../services/strava/api";
-import { Route } from "../../../../types";
 import { Time } from "../../../Time";
 
 interface Props {

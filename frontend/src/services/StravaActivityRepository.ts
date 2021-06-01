@@ -1,4 +1,4 @@
-import { World } from "../types";
+import { World } from "zwift-data";
 import { getWorld } from "../util/strava";
 import { fetchActivity, fetchActivityStreams } from "./strava/api";
 

@@ -1,4 +1,5 @@
 import { LatLngTuple } from "leaflet";
+import { WorldSlug } from "zwift-data";
 import bolognaMap from "./maps/bologna.png";
 import critCityMap from "./maps/crit-city.png";
 import franceMap from "./maps/france.png";
@@ -10,7 +11,6 @@ import parisMap from "./maps/paris.png";
 import richmondMap from "./maps/richmond.png";
 import watopiaMap from "./maps/watopia.png";
 import yorkshireMap from "./maps/yorkshire.png";
-import { WorldSlug } from "./types";
 
 export type WorldConfig = {
   imageBounds: [LatLngTuple, LatLngTuple];

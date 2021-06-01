@@ -1,6 +1,6 @@
 import { Select } from "@react-md/form";
 import React from "react";
-import { worlds } from "../../data";
+import { worlds } from "zwift-data";
 import { useLocationState } from "../../hooks/useLocationState";
 import styles from "./WorldSelect.module.scss";
 

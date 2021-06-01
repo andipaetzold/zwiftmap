@@ -1,6 +1,6 @@
 import { Divider } from "@react-md/divider";
 import { ListItem } from "@react-md/list";
-import { routes } from "../../data";
+import { routes } from "zwift-data";
 import { useIsLoggedInStrava } from "../../hooks/useIsLoggedInStrava";
 import { useLocationState } from "../../hooks/useLocationState";
 import { useSettings } from "../../hooks/useSettings";

@@ -1,6 +1,5 @@
-import { worlds } from "../data";
+import { World, worlds } from "zwift-data";
 import { DetailedActivity, SummaryActivity } from "../services/strava/types";
-import { World } from "../types";
 import { worldConfigs } from "../worldConfig";
 
 export function getWorld(

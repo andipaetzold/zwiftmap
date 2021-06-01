@@ -9,6 +9,7 @@ import {
   Pane,
   Polyline,
 } from "react-leaflet";
+import { Route } from "zwift-data";
 import { useIsLoggedInStrava } from "../../hooks/useIsLoggedInStrava";
 import { useLocationState } from "../../hooks/useLocationState";
 import { getStravaActivity } from "../../services/StravaActivityRepository";
@@ -16,7 +17,7 @@ import {
   getStravaSegmentStream,
   getStravaSegmentStreams,
 } from "../../services/StravaSegmentRepository";
-import { LocationState, LocationStateRoute, Route } from "../../types";
+import { LocationState, LocationStateRoute } from "../../types";
 import { worldConfigs } from "../../worldConfig";
 import styles from "./index.module.css";
 import { WorldSelect } from "./WorldSelect";

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
-import { routes, worlds, segments } from "../data";
-import { LocationState, Segment } from "../types";
+import { routes, worlds, segments, Segment } from "zwift-data";
+import { LocationState } from "../types";
 
 const DEFAULT_WORLD = worlds.find((w) => w.slug === "watopia")!;
 

@@ -5,8 +5,8 @@ import { Text } from "@react-md/typography";
 import round from "lodash/round";
 import React, { useMemo } from "react";
 import { useAsync } from "react-async-hook";
+import { Route } from "zwift-data";
 import { fetchEvents, ZwiftEventType } from "../../../../services/fetchEvents";
-import { Route } from "../../../../types";
 import { Distance } from "../../../Distance";
 
 interface Props {
@@ -27,7 +27,7 @@ export function RouteEvents({ route }: Props) {
           ...event.eventSubgroups.map((esg) => esg.routeId),
         ];
 
-        return eventRouteIds.includes(route.id);
+        return route.id && eventRouteIds.includes(route.id);
       })
       .sort((a, b) => a.eventStart.localeCompare(b.eventStart));
   }, [events, route]);

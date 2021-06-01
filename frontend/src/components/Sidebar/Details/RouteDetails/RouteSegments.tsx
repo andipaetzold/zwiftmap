@@ -6,16 +6,11 @@ import {
 import { Text } from "@react-md/typography";
 import React from "react";
 import { useAsync } from "react-async-hook";
-import { segments } from "../../../../data";
+import { Route, Segment, segments, SegmentType } from "zwift-data";
 import { useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";
 import { useLocationState } from "../../../../hooks/useLocationState";
 import { fetchSegment } from "../../../../services/strava/api";
-import {
-  LocationStateRoute,
-  Route,
-  Segment,
-  SegmentType,
-} from "../../../../types";
+import { LocationStateRoute } from "../../../../types";
 import { Distance } from "../../../Distance";
 import { Time } from "../../../Time";
 

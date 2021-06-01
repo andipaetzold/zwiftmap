@@ -8,8 +8,9 @@ import {
 } from "@react-md/dialog";
 import { Fieldset, Radio } from "@react-md/form";
 import React, { ChangeEvent } from "react";
+import { Sport } from "zwift-data";
 import { useSettings } from "../../hooks/useSettings";
-import { Settings, Sport } from "../../types";
+import { Settings } from "../../types";
 
 interface Props {
   visible: boolean;

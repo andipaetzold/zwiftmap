@@ -1,7 +1,6 @@
 const fetch = require("node-fetch");
 const { writeFileSync, mkdirSync, existsSync } = require("fs");
-const routes = require("../src/data/routes.json");
-const segments = require("../src/data/segments.json");
+const { routes, segments } = require("zwift-data");
 
 const BASE_DIR = `${__dirname}/../public`;
 

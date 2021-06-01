@@ -1,8 +1,7 @@
 import { ListItem } from "@react-md/list";
-import { routes, segments } from "../../data";
+import { routes, segments, World } from "zwift-data";
 import { useLocationState } from "../../hooks/useLocationState";
 import { useSettings } from "../../hooks/useSettings";
-import { World } from "../../types";
 
 export interface Props {
   world: World;

@@ -1,4 +1,4 @@
-import { World } from "../../../types";
+import { World } from "zwift-data";
 
 interface Props {
   world: World;

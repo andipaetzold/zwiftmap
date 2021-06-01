@@ -12,11 +12,12 @@ import {
   YAxis,
 } from "recharts";
 import { getStravaSegmentStreams } from "../../services/StravaSegmentRepository";
-import { Route, StravaSegment } from "../../types";
+import { StravaSegment } from "../../types";
 import { ElevationGradient } from "../ElevationGradient";
 import { Text } from "@react-md/typography";
 import { Distance } from "../Distance";
 import { Elevation } from "../Elevation";
+import { Route } from "zwift-data";
 
 interface HoverData {
   distance: number;

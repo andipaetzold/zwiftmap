@@ -3,8 +3,9 @@ import uniqWith from "lodash/uniqWith";
 import React, { useMemo } from "react";
 import { useAsync } from "react-async-hook";
 import { Area, AreaChart, XAxis, YAxis } from "recharts";
+import { Route } from "zwift-data";
 import { getStravaSegmentStreams } from "../../services/StravaSegmentRepository";
-import { Route, StravaSegment } from "../../types";
+import { StravaSegment } from "../../types";
 import { ElevationGradient } from "../ElevationGradient";
 
 interface Props {
