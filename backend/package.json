@@ -9,7 +9,7 @@
     "build": "tsc -P tsconfig.json"
   },
   "devDependencies": {
-    "@tsconfig/node14": "1.0.0",
+    "@tsconfig/node14": "1.0.1",
     "tsc-watch": "4.4.0",
     "typescript": "4.3.2"
   },
