@@ -68,7 +68,6 @@
     ]
   },
   "devDependencies": {
-    "sass": "1.35.1",
-    "worker-loader": "3.0.8"
+    "sass": "1.35.1"
   }
 }
