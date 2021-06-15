@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@react-leaflet/core": "1.0.2",
     "@react-md/avatar": "2.8.4",
     "@react-md/button": "2.8.4",
     "@react-md/dialog": "2.8.4",
