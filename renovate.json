@@ -9,5 +9,6 @@
       "matchPackagePatterns": ["^@react-md/"],
       "groupName": "react-md monorepo"
     }
-  ]
+  ],
+  "ignoreDeps": ["react-leaflet", "@react-leaflet/core"]
 }
