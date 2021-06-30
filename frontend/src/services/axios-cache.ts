@@ -52,18 +52,16 @@ export function axiosCache(): {
 class Cache {
   private store: Record<string, Promise<any>> = {};
 
-  private emitter = mitt();
+  private emitter = mitt<Record<string, any>>();
 
   public prepareResponse(url: string) {
     this.store[url] = new Promise((resolve) => {
       const handler = (response: any) => {
-        // @ts-ignore
         this.emitter.off(url, handler);
 
         resolve(response);
       };
 
-      // @ts-ignore
       this.emitter.on(url, handler);
     });
   }

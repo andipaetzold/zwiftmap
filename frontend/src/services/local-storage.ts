@@ -2,7 +2,7 @@ import mitt from "mitt";
 
 export const STRAVA_AUTH_KEY = "strava-auth";
 
-const emitter = mitt();
+const emitter = mitt<Record<string, string | null>>();
 
 window.addEventListener("storage", (e) => {
   if (e.key) {
@@ -29,6 +29,6 @@ export function addLocalStorageListener(
 ): () => void {
   const listener = (v: string | null | undefined) =>
     callback(v as string | null);
-  emitter.on<string>(key, listener);
+  emitter.on(key, listener);
   return () => emitter.off(key, listener);
 }
