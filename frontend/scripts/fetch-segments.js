@@ -18,12 +18,19 @@ async function main() {
 if (!existsSync(BASE_DIR)) {
   mkdirSync(BASE_DIR);
 }
+
 main();
 
 async function fetchSegment({ name, slug, stravaSegmentId }, type) {
   const response = await fetch(
     `https://www.strava.com/stream/segments/${stravaSegmentId}?streams%5B%5D=latlng&streams%5B%5D=distance&streams%5B%5D=altitude`
   );
+
+  if (response.status !== 200) {
+    console.error(`Could not fetch segment '${name}'`);
+    process.exit(1);
+  }
+
   const stravaData = await response.json();
 
   const segmentDir = `${BASE_DIR}/${type}/${slug}`;
