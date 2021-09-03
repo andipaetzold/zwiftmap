@@ -1,8 +1,12 @@
-const fetch = require("node-fetch");
-const { writeFileSync, mkdirSync, existsSync } = require("fs");
-const { routes, segments } = require("zwift-data");
+import { existsSync, mkdirSync, writeFileSync } from "fs";
+import fetch from "node-fetch";
+import path, { dirname } from "path";
+import { routes, segments } from "zwift-data";
+import { fileURLToPath } from "url";
 
-const BASE_DIR = `${__dirname}/../public`;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const BASE_DIR = path.resolve(__dirname, "../public");
 
 async function main() {
   await Promise.all([

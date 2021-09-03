@@ -46,10 +46,11 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "prebuild": "node scripts/fetch-segments.js",
+    "prebuild": "node scripts/fetch-segments.mjs",
     "build": "react-scripts build",
     "test": "react-scripts test"
   },
+  "type": "module",
   "eslintConfig": {
     "extends": [
       "react-app"
