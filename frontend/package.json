@@ -33,7 +33,7 @@
     "leaflet": "1.7.1",
     "lodash": "4.17.21",
     "mitt": "3.0.0",
-    "node-fetch": "2.6.1",
+    "node-fetch": "3.0.0",
     "react": "17.0.2",
     "react-async-hook": "3.6.2",
     "react-dom": "17.0.2",
@@ -46,10 +46,11 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "prebuild": "node scripts/fetch-segments.js",
+    "prebuild": "node scripts/fetch-segments.mjs",
     "build": "react-scripts build",
     "test": "react-scripts test"
   },
+  "type": "module",
   "eslintConfig": {
     "extends": [
       "react-app"
