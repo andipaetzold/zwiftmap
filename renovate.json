@@ -10,5 +10,5 @@
       "groupName": "react-md monorepo"
     }
   ],
-  "ignoreDeps": ["react-leaflet", "@react-leaflet/core"]
+  "ignoreDeps": ["react-leaflet", "@react-leaflet/core", "node-fetch"]
 }
