@@ -69,6 +69,6 @@
     ]
   },
   "devDependencies": {
-    "sass": "1.40.1"
+    "sass": "1.41.0"
   }
 }
