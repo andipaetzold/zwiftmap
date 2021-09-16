@@ -28,6 +28,7 @@ api.interceptors.request.use(async (config) => {
         writeStravaToken(token);
       } catch {
         await removeStravaToken();
+        return config;
       }
     }
 
