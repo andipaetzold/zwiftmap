@@ -119,7 +119,7 @@ export function ElevationChart({ route, onMouseHoverDistanceChange }: Props) {
         </AreaChart>
       </ResponsiveContainer>
       <div style={{ display: "flex", gap: "1em" }}>
-        <Text type="caption" style={{ whiteSpace: "nowrap" }}>
+        <Text type="body-2" style={{ whiteSpace: "nowrap" }}>
           Distance:{" "}
           {hoverData?.distance ? (
             <Distance distance={hoverData.distance} />
@@ -127,7 +127,7 @@ export function ElevationChart({ route, onMouseHoverDistanceChange }: Props) {
             "- km"
           )}
         </Text>
-        <Text type="caption" style={{ whiteSpace: "nowrap" }}>
+        <Text type="body-2" style={{ whiteSpace: "nowrap" }}>
           Altitude:{" "}
           {hoverData?.altitude ? (
             <Elevation elevation={hoverData.altitude} />
