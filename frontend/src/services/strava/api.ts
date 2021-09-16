@@ -8,6 +8,7 @@ import axios from "axios";
 import { getStravaToken, removeStravaToken, writeStravaToken } from "./token";
 import { getRefreshedToken } from "./auth";
 import { axiosCache } from "../axios-cache";
+import identity from "lodash/identity";
 
 const cache = axiosCache();
 
@@ -39,6 +40,11 @@ api.interceptors.request.use(async (config) => {
   }
 
   return config;
+});
+
+api.interceptors.response.use(identity, async (error) => {
+  await removeStravaToken();
+  return error;
 });
 
 export async function fetchActivity(activityId: string) {
