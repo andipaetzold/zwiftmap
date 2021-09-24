@@ -35,7 +35,7 @@
     "mitt": "3.0.0",
     "node-fetch": "3.0.0",
     "react": "17.0.2",
-    "react-async-hook": "3.6.2",
+    "react-async-hook": "4.0.0",
     "react-dom": "17.0.2",
     "react-leaflet": "3.1.0",
     "react-responsive": "8.2.0",
