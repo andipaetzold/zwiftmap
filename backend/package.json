@@ -9,7 +9,7 @@
     "build": "tsc -P tsconfig.json"
   },
   "devDependencies": {
-    "@tsconfig/node14": "1.0.1",
+    "@tsconfig/node16": "1.0.2",
     "@types/compression": "1.7.2",
     "@types/cors": "2.8.12",
     "@types/express": "4.17.13",

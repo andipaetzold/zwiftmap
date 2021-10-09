@@ -1,6 +1,6 @@
 {
   "name": "zwiftmap-frontend",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "private": true,
   "dependencies": {
     "@react-leaflet/core": "1.0.2",
