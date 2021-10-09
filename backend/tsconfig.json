@@ -2,7 +2,8 @@
   "extends": "@tsconfig/node14/tsconfig.json",
   "compilerOptions": {
     "outDir": "build",
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "sourceMap": true
   },
   "files": ["./src/index.ts"]
 }

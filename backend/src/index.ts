@@ -1,3 +1,4 @@
+import 'source-map-support/register'
 import { FRONTEND_URL, PORT, SENTRY_DSN } from "./config";
 import { app } from "./server";
 import { initStravaHandlers } from "./strava";
