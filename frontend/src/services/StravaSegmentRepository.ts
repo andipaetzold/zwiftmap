@@ -14,7 +14,7 @@ export async function getStravaSegmentStream<
   type: "segments" | "routes",
   stream: Stream
 ): Promise<StravaSegment[Stream]> {
-  const response = await api.get(`${type}/${segmentSlug}/${stream}.json`);
+  const response = await api.get<StravaSegment[Stream]>(`${type}/${segmentSlug}/${stream}.json`);
   return response.data;
 }
 
