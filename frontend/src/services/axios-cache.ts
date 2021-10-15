@@ -20,7 +20,7 @@ export function axiosCache(): {
     const cacheKey = getCacheKey(request);
     if (request.method === "get") {
       if (cache.hasResponse(cacheKey)) {
-        request.headers.cached = "true";
+        request.headers = { ...request.headers, cached: "true" };
         request.data = await cache.getResponse(cacheKey);
         throw request;
       } else {
