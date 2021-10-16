@@ -99,6 +99,6 @@ interface GetLoggedInAthleteActivitiesParams {
 export async function getLoggedInAthleteActivities(
   params: GetLoggedInAthleteActivitiesParams = {}
 ): Promise<Array<SummaryActivity>> {
-  const response = await api.get(`/athlete/activities`, { params });
+  const response = await api.get<SummaryActivity[]>(`/athlete/activities`, { params });
   return response.data;
 }

@@ -4,8 +4,10 @@ let cache: Promise<ZwiftEvent[]>;
 
 export async function fetchEvents(): Promise<ZwiftEvent[]> {
   if (!cache) {
-    cache = await axios
-      .get("https://us-or-rly101.zwift.com/api/public/events/upcoming")
+    cache = axios
+      .get<ZwiftEvent[]>(
+        "https://us-or-rly101.zwift.com/api/public/events/upcoming"
+      )
       .then((r) => r.data);
   }
 

@@ -27,7 +27,7 @@
     "@types/react": "17.0.30",
     "@types/react-dom": "17.0.9",
     "@types/react-responsive": "8.0.4",
-    "axios": "0.21.4",
+    "axios": "0.23.0",
     "axios-cache-adapter": "2.7.3",
     "classnames": "2.3.1",
     "leaflet": "1.7.1",

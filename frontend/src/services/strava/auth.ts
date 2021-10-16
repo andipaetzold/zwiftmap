@@ -25,7 +25,7 @@ export async function getRefreshedToken(refreshToken: string): Promise<Token> {
       : "http://localhost:3001"
   }/strava/refresh`;
 
-  const response = await axios.post(url, {
+  const response = await axios.post<Token>(url, {
     refresh_token: refreshToken,
   });
 
