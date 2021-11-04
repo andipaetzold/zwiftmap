@@ -122,7 +122,7 @@ export function InfoDialog({ visible, onClose }: Props) {
           <br />
           Support this project via{" "}
           <a
-            href="https://paypal.me/andipaetzold"
+            href="https://paypal.com/donate?hosted_button_id=PWQGBVL8H88QW"
             rel="noreferrer noopener"
             target="_blank"
           >
