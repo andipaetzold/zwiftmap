@@ -1,12 +1,13 @@
-import { routes, Segment, segments, worlds } from "zwift-data";
+import { routes, Segment, segments, World, worlds } from "zwift-data";
 import { LocationState } from "../../types";
 import { DEFAULT_WORLD } from "./constants";
 
-export function getLocationState(): LocationState {
-  const searchParams = new URLSearchParams(window.location.search);
+export function getLocationState(
+  { search, pathname }: Pick<Location, "pathname" | "search"> = window.location
+): LocationState {
+  const searchParams = new URLSearchParams(search);
 
-  const world =
-    worlds.find((w) => w.slug === searchParams.get("world")) ?? DEFAULT_WORLD;
+  const world = getWorld({ searchParams, pathname });
   const query = searchParams.get("q") ?? "";
 
   if (searchParams.has("route")) {
@@ -42,4 +43,21 @@ export function getLocationState(): LocationState {
   } else {
     return { world, query, type: "default" };
   }
+}
+
+function getWorld({
+  searchParams,
+  pathname,
+}: {
+  searchParams: URLSearchParams;
+  pathname: string;
+}): World {
+  const pathParts = pathname.split("/").slice(1);
+
+  const worldFromPath = worlds.find((w) => w.slug === pathParts[0]);
+  const worldFromSearch = worlds.find(
+    (w) => w.slug === searchParams.get("world")
+  );
+
+  return worldFromPath ?? worldFromSearch ?? DEFAULT_WORLD;
 }

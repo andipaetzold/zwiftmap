@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { LocationState } from "../../types";
+import { createUrl } from "./createUrl";
 import { getLocationState } from "./getLocationState";
 
 type Listener = (state: LocationState) => void;
@@ -27,35 +28,8 @@ export function useLocationState(): [
   }, []);
 
   const updateLocationState = useCallback((newState: LocationState) => {
-    const searchParams = new URLSearchParams();
-    searchParams.set("world", newState.world.slug);
-    if (newState.query.length > 0) {
-      searchParams.set("q", newState.query);
-    }
-
-    switch (newState.type) {
-      case "default":
-        break;
-      case "route":
-        searchParams.set("route", newState.route.slug);
-        if (newState.segments.length > 0) {
-          searchParams.set(
-            "segments",
-            newState.segments.map((s) => s.slug).join(",")
-          );
-        }
-        break;
-
-      case "strava-activities":
-        searchParams.set("strava-activities", "");
-        break;
-
-      case "strava-activity":
-        searchParams.set("strava-activity", newState.stravaActivityId);
-        break;
-    }
-
-    window.history.pushState(undefined, "", `?${searchParams.toString()}`);
+    const url = createUrl(newState);
+    window.history.pushState(undefined, "", url);
     setState(newState);
     listeners.forEach((l) => l(newState));
   }, []);
