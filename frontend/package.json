@@ -48,6 +48,7 @@
     "start": "react-scripts start",
     "prebuild": "node scripts/fetch-segments.mjs",
     "build": "react-scripts build",
+    "postbuild": "node scripts/create-404.mjs",
     "test": "react-scripts test"
   },
   "type": "module",
