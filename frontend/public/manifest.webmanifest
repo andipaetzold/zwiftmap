@@ -1,0 +1,17 @@
+{
+    "dir": "ltr",
+    "lang": "en-US",
+    "name": "Zwift Map",
+    "short_name": "Zwift Map",
+    "description": "Interactive map to discover all worlds and routes of Zwift.",
+    "scope": "/",
+    "display": "standalone",
+    "orientation": "any",
+    "start_url": "/",
+    "icons": [],
+    "theme_color": "#fff",
+    "background_color": "#fff",
+    "related_applications": [],
+    "prefer_related_applications": false
+  }
+  
