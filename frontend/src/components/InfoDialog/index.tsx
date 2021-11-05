@@ -94,7 +94,7 @@ export function InfoDialog({ visible, onClose }: Props) {
         </ul>
 
         <Text>
-          World maps were created by
+          World maps were created by{" "}
           <a href="https://zwift.com" rel="noreferrer noopener" target="_blank">
             Zwift
           </a>
