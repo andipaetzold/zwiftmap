@@ -26,9 +26,11 @@
     "cors": "2.8.5",
     "dotenv": "10.0.0",
     "express": "4.17.1",
+    "form-data": "4.0.0",
     "morgan": "1.10.0",
     "nocache": "3.0.1",
     "node-fetch": "2.6.2",
+    "runtypes": "6.5.0",
     "source-map-support": "0.5.20"
   }
 }
