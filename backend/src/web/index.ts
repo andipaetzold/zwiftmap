@@ -26,7 +26,6 @@ app.post("/strava/webhook", handlers.handleWebhook);
 app.get("/strava/webhook", handlers.handleWebhookVerification);
 app.post("/logout", handlers.handleLogout);
 app.get("/ping", handlers.handlePing);
-app.get("*", handlers.handleDefault);
 
 app.use(Sentry.Handlers.errorHandler());
 
