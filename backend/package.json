@@ -30,6 +30,7 @@
     "morgan": "1.10.0",
     "nocache": "3.0.1",
     "node-fetch": "2.6.2",
+    "runtypes": "6.5.0",
     "source-map-support": "0.5.20"
   }
 }
