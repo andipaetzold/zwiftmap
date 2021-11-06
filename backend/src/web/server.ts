@@ -8,8 +8,7 @@ import nocache from "nocache";
 import {
   AUTH_COOKIE_NAME,
   AUTH_SECRET,
-  BACKEND_DOMAIN,
-  BACKEND_URL,
+  ENVIRONMENT,
   FRONTEND_URL,
 } from "../shared/config";
 import { redisClient } from "../shared/persistence/redis";
@@ -40,13 +39,16 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: BACKEND_URL.startsWith("https://"),
+      secure: ENVIRONMENT === "production",
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1_000,
-      domain: BACKEND_DOMAIN,
       sameSite: true,
     },
     name: AUTH_COOKIE_NAME,
     unset: "destroy",
   })
 );
+
+if (ENVIRONMENT === "production") {
+  app.set("trust proxy", 1);
+}

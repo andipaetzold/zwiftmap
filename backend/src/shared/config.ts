@@ -3,8 +3,11 @@ import { randomString } from "./util";
 
 export const PORT = Number.parseInt(process.env.PORT!);
 
+export const ENVIRONMENT = process.env.ENVIRONMENT as
+  | "development"
+  | "production";
+
 export const BACKEND_URL = process.env.BACKEND_URL!;
-export const BACKEND_DOMAIN = process.env.BACKEND_DOMAIN!;
 export const FRONTEND_URL = process.env.FRONTEND_URL!;
 
 export const STRAVA_CLIENT_ID = +process.env.STRAVA_CLIENT_ID!;
