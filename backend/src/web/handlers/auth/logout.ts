@@ -1,12 +1,31 @@
+import axios from "axios";
 import { Request, Response } from "express";
-import { AUTH_COOKIE_NAME } from "../../../shared/config";
+import { Record, String } from "runtypes";
+import { AUTH_COOKIE_NAME, STRAVA_DEV_ACCOUNTS } from "../../../shared/config";
+import { Session } from "../../types";
 
-export function handleLogout(req: Request, res: Response) {
-  req.session.destroy((err) => {
-    if (err) {
-      res.sendStatus(400);
-    } else {
-      res.clearCookie(AUTH_COOKIE_NAME).sendStatus(204);
-    }
-  });
+const Body = Record({
+  stravaToken: String,
+});
+
+export async function handleLogout(req: Request, res: Response) {
+  const session = req.session as Session;
+  if (session.athleteId && STRAVA_DEV_ACCOUNTS.includes(session.athleteId)) {
+    await new Promise<void>((resolve, reject) => {
+      req.session.destroy((err) => {
+        if (err) {
+          reject(err);
+        }
+        resolve();
+      });
+    });
+
+    res.clearCookie(AUTH_COOKIE_NAME);
+  } else if (Body.guard(req.body)) {
+    await axios.post("https://www.strava.com/oauth/deauthorize", undefined, {
+      params: { access_token: req.body.stravaToken },
+    });
+  }
+
+  res.sendStatus(204);
 }

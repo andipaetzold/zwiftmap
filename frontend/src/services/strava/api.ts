@@ -1,14 +1,15 @@
+import axios from "axios";
+import identity from "lodash/identity";
+import { logout } from "../auth";
+import { axiosCache } from "../axios-cache";
+import { getRefreshedToken } from "./auth";
+import { getStravaToken, writeStravaToken } from "./token";
 import {
   DetailedActivity,
-  StreamSet,
   DetailedSegment,
+  StreamSet,
   SummaryActivity,
 } from "./types";
-import axios from "axios";
-import { getStravaToken, removeStravaToken, writeStravaToken } from "./token";
-import { getRefreshedToken } from "./auth";
-import { axiosCache } from "../axios-cache";
-import identity from "lodash/identity";
 
 const cache = axiosCache();
 
@@ -28,7 +29,7 @@ api.interceptors.request.use(async (config) => {
         token = await getRefreshedToken(token.refresh_token);
         writeStravaToken(token);
       } catch {
-        await removeStravaToken();
+        await logout();
         return config;
       }
     }
@@ -43,7 +44,7 @@ api.interceptors.request.use(async (config) => {
 });
 
 api.interceptors.response.use(identity, async (error) => {
-  await removeStravaToken();
+  await logout();
   return error;
 });
 
@@ -99,6 +100,8 @@ interface GetLoggedInAthleteActivitiesParams {
 export async function getLoggedInAthleteActivities(
   params: GetLoggedInAthleteActivitiesParams = {}
 ): Promise<Array<SummaryActivity>> {
-  const response = await api.get<SummaryActivity[]>(`/athlete/activities`, { params });
+  const response = await api.get<SummaryActivity[]>(`/athlete/activities`, {
+    params,
+  });
   return response.data;
 }

@@ -1,4 +1,3 @@
-import axios from "axios";
 import {
   getLocalStorageItem,
   setLocalStorageItem,
@@ -16,19 +15,4 @@ export function getStravaToken(): Token | null {
 
 export function writeStravaToken(token: Token): void {
   setLocalStorageItem(STRAVA_AUTH_KEY, JSON.stringify(token));
-}
-
-export async function removeStravaToken(): Promise<void> {
-  const token = getStravaToken();
-  if (!token) {
-    return;
-  }
-
-  setLocalStorageItem(STRAVA_AUTH_KEY, null);
-
-  try {
-    await axios.post(`https://www.strava.com/oauth/deauthorize`, undefined, {
-      params: { access_token: token.access_token },
-    });
-  } catch {}
 }

@@ -11,9 +11,8 @@ import { BOTTOM_RIGHT_ANCHOR, useToggle } from "@react-md/utils";
 import React, { useRef, useState } from "react";
 import { useIsLoggedInStrava } from "../../hooks/useIsLoggedInStrava";
 import { useIsMobile } from "../../hooks/useIsMobile";
+import { logout } from "../../services/auth";
 import { openStravaAuthUrl } from "../../services/strava/auth";
-import { removeStravaToken } from "../../services/strava/token";
-import { zwiftMapApi } from "../../services/zwiftMapApi";
 import { InfoDialog } from "../InfoDialog";
 import { SettingsDialog } from "../SettingsDialog";
 
@@ -80,8 +79,7 @@ export function MenuButton({ onBottomSheetClose }: Props) {
           {isStravaLoggedIn ? (
             <MenuItem
               onClick={() => {
-                removeStravaToken();
-                zwiftMapApi.post("/auth/logout");
+                logout();
               }}
             >
               Logout from Strava
