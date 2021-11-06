@@ -4,6 +4,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import "./index.scss";
+import { listenForStravaToken } from "./services/listenForStravaToken";
 
 Sentry.init({
   enabled: (process.env.REACT_APP_SENTRY_DSN ?? "").length > 0,
@@ -11,6 +12,8 @@ Sentry.init({
   integrations: [new Integrations.BrowserTracing()],
   tracesSampleRate: 1.0,
 });
+
+listenForStravaToken();
 
 ReactDOM.render(
   <React.StrictMode>

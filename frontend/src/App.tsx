@@ -3,11 +3,9 @@ import styles from "./App.module.scss";
 import RouteMap from "./components/RouteMap";
 import { Sidebar } from "./components/Sidebar";
 import { usePing } from "./hooks/usePing";
-import { useStravaTokenListener } from "./hooks/useStravaTokenListener";
 
 export default function App() {
   usePing();
-  useStravaTokenListener();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [mouseHoverDistance, setMouseHoverDistance] =
