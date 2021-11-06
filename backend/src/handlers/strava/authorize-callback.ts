@@ -30,14 +30,19 @@ export async function handleStravaAuthorizeCallback(
 
   const redirectParams = new URLSearchParams();
   redirectParams.set("strava-auth", JSON.stringify(responseJSON));
+
+  let path = "/";
   if (typeof req.query.state === "string") {
     try {
-      const state: Record<string, string> = JSON.parse(req.query.state);
-      Object.entries(state).forEach(([key, value]) => {
+      const state: { path: string; search: Record<string, string> } =
+        JSON.parse(req.query.state);
+
+      path = state.path;
+      Object.entries(state.search).forEach(([key, value]) => {
         redirectParams.set(key, value);
       });
     } catch {}
   }
-  const redirectUrl = `${FRONTEND_URL}?${redirectParams.toString()}`;
+  const redirectUrl = `${FRONTEND_URL}${path}?${redirectParams.toString()}`;
   res.redirect(redirectUrl);
 }

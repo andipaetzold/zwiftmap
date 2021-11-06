@@ -1,9 +1,17 @@
 import axios from "axios";
 import { Token } from "./types";
 
-function getStravaAuthUrl(state: Record<string, string>) {
+function getStravaAuthUrl() {
   const params = new URLSearchParams();
-  params.set("state", JSON.stringify(state));
+  params.set(
+    "state",
+    JSON.stringify({
+      path: window.location.pathname,
+      search: Object.fromEntries(
+        new URLSearchParams(window.location.search).entries()
+      ),
+    })
+  );
 
   return `${
     process.env.NODE_ENV === "production"
@@ -13,9 +21,7 @@ function getStravaAuthUrl(state: Record<string, string>) {
 }
 
 export function openStravaAuthUrl() {
-  window.location.href = getStravaAuthUrl(
-    Object.fromEntries(new URLSearchParams(window.location.search).entries())
-  );
+  window.location.href = getStravaAuthUrl();
 }
 
 export async function getRefreshedToken(refreshToken: string): Promise<Token> {
