@@ -4,6 +4,7 @@ import * as Tracing from "@sentry/tracing";
 import { PORT, SENTRY_DSN } from "./config";
 import * as handlers from "./handlers";
 import { app } from "./server";
+import { setupWebhook } from "./services/webhook";
 
 Sentry.init({
   enabled: SENTRY_DSN.length > 0,
@@ -21,6 +22,8 @@ app.use(Sentry.Handlers.tracingHandler());
 app.get("/strava/authorize", handlers.handleStravaAuthorize);
 app.get("/strava/callback", handlers.handleStravaAuthorizeCallback);
 app.post("/strava/refresh", handlers.handleStravaTokenRefresh);
+app.post("/strava/webhook", handlers.handleWebhook);
+app.get("/strava/webhook", handlers.handleWebhookVerification);
 app.get("/ping", handlers.handlePing);
 app.get("*", handlers.handleDefault);
 
@@ -28,4 +31,6 @@ app.use(Sentry.Handlers.errorHandler());
 
 app.listen(PORT, () => {
   console.log(`Listening at port ${PORT}`);
+
+  setupWebhook();
 });
