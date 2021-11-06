@@ -1,4 +1,5 @@
 import axios from "axios";
+import { BACKEND_HOST } from "../../config";
 import { Token } from "./types";
 
 function getStravaAuthUrl() {
@@ -13,11 +14,7 @@ function getStravaAuthUrl() {
     })
   );
 
-  return `${
-    process.env.NODE_ENV === "production"
-      ? "https://api.zwiftmap.com"
-      : "http://localhost:3001"
-  }/strava/authorize?${params.toString()}`;
+  return `${BACKEND_HOST}/strava/authorize?${params.toString()}`;
 }
 
 export function openStravaAuthUrl() {
@@ -25,11 +22,7 @@ export function openStravaAuthUrl() {
 }
 
 export async function getRefreshedToken(refreshToken: string): Promise<Token> {
-  const url = `${
-    process.env.NODE_ENV === "production"
-      ? "https://api.zwiftmap.com"
-      : "http://localhost:3001"
-  }/strava/refresh`;
+  const url = `${BACKEND_HOST}/strava/refresh`;
 
   const response = await axios.post<Token>(url, {
     refresh_token: refreshToken,
