@@ -4,7 +4,7 @@ on:
   - push
 
 jobs:
-  build-deploy:
+  frontend:
     runs-on: ubuntu-20.04
 
     steps:
@@ -13,24 +13,17 @@ jobs:
         shell: bash -l {0}
         run: nvm install
 
-      - name: Install (Frontend)
+      - name: Install
         run: npm install --no-optional
         working-directory: frontend
-      - name: Test (Frontend)
+      - name: Test
         run: npm test
         working-directory: frontend
-      - name: Build (Frontend)
+      - name: Build
         run: npm run build
         working-directory: frontend
 
-      - name: Install (Backend)
-        run: npm ci
-        working-directory: backend
-      - name: Build (Backend)
-        run: npm run build
-        working-directory: backend
-
-      - name: Deploy (Frontend)
+      - name: Deploy
         run: |
           if [[ ${{ github.ref }} == "refs/heads/main" ]]; then
             npm run deploy -- --prod
@@ -41,3 +34,19 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+  backend:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Switch node version
+        shell: bash -l {0}
+        run: nvm install
+
+      - name: Install
+        run: npm ci
+        working-directory: backend
+      - name: Build
+        run: npm run build
+        working-directory: backend
