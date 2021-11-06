@@ -1,5 +1,5 @@
-import axios from "axios";
 import { BACKEND_HOST } from "../../config";
+import { zwiftMapApi } from "../zwiftMapApi";
 import { Token } from "./types";
 
 function getStravaAuthUrl() {
@@ -22,9 +22,7 @@ export function openStravaAuthUrl() {
 }
 
 export async function getRefreshedToken(refreshToken: string): Promise<Token> {
-  const url = `${BACKEND_HOST}/strava/refresh`;
-
-  const response = await axios.post<Token>(url, {
+  const response = await zwiftMapApi.post<Token>("/strava/refresh", {
     refresh_token: refreshToken,
   });
 
