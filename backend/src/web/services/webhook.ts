@@ -40,7 +40,7 @@ async function createWebhookSubscription() {
   console.log("Creating Webhook Subscription");
 
   try {
-    await stravaAppAPI.post("/push_subscriptions", {
+    await stravaAppAPI.post("/api/v3/push_subscriptions", {
       callback_url: `${STRAVA_WEBHOOK_HOST}/strava/webhook`,
       verify_token: STRAVA_VERIFY_TOKEN,
     });
@@ -56,7 +56,7 @@ async function getWebhookSubscription(): Promise<
 
   try {
     const response = await stravaAppAPI.get<WebhookSubscription[]>(
-      "/push_subscriptions"
+      "/api/v3/push_subscriptions"
     );
     return response.data[0];
   } catch (e: any) {
@@ -69,7 +69,7 @@ async function deleteWebhookSubscription(subscription: WebhookSubscription) {
   console.log("Deleting Webhook Subscription");
 
   try {
-    await stravaAppAPI.delete(`/push_subscriptions/${subscription.id}`);
+    await stravaAppAPI.delete(`/api/v3/push_subscriptions/${subscription.id}`);
   } catch (e: any) {
     console.error("Error deleting Webhook Subscription", e);
   }

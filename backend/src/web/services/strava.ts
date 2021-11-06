@@ -12,7 +12,7 @@ export const stravaUserAPI = axios.create({
 });
 
 export const stravaAppAPI = axios.create({
-  baseURL: "https://www.strava.com/api/v3",
+  baseURL: "https://www.strava.com",
   params: {
     client_id: STRAVA_CLIENT_ID,
     client_secret: STRAVA_CLIENT_SECRET,
