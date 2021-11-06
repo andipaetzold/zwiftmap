@@ -13,3 +13,10 @@ export const STRAVA_WEBHOOK_HOST =
 export const STRAVA_VERIFY_TOKEN = randomString();
 
 export const SENTRY_DSN = process.env.SENTRY_DSN ?? "";
+
+export const REDIS_URL = process.env.REDIS_URL!;
+
+export const STRAVA_DEV_ACCOUNTS = (process.env.STRAVA_DEV_ACCOUNTS ?? "")
+  .split(",")
+  .filter((id: string) => id !== "")
+  .map((id) => +id);

@@ -6,6 +6,7 @@ import {
   STRAVA_CLIENT_ID,
   STRAVA_CLIENT_SECRET,
 } from "../../../shared/config";
+import { writeStravaToken } from "../../../shared/persistence/stravaToken";
 
 export async function handleStravaAuthorizeCallback(
   req: Request,
@@ -27,6 +28,13 @@ export async function handleStravaAuthorizeCallback(
 
   const response = await fetch(url, { method: "POST" });
   const responseJSON = await response.json();
+
+  await writeStravaToken({
+    athleteId: responseJSON.athlete.id,
+    expiresAt: responseJSON.expires_at,
+    token: responseJSON.access_token,
+    refreshToken: responseJSON.refresh_token,
+  });
 
   const redirectParams = new URLSearchParams();
   redirectParams.set("strava-auth", JSON.stringify(responseJSON));
