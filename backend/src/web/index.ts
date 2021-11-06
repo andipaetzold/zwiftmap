@@ -30,8 +30,8 @@ app.get("*", handlers.handleDefault);
 
 app.use(Sentry.Handlers.errorHandler());
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`Listening at port ${PORT}`);
 
-  setupWebhook();
+  await setupWebhook();
 });
