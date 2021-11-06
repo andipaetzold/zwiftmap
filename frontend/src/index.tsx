@@ -5,6 +5,7 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import "./index.scss";
 import { listenForStravaToken } from "./services/listenForStravaToken";
+import { ping } from "./services/ping";
 
 Sentry.init({
   enabled: (process.env.REACT_APP_SENTRY_DSN ?? "").length > 0,
@@ -14,6 +15,7 @@ Sentry.init({
 });
 
 listenForStravaToken();
+ping();
 
 ReactDOM.render(
   <React.StrictMode>
