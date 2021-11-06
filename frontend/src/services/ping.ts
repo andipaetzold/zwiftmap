@@ -1,7 +1,7 @@
-import { BACKEND_HOST } from "../config";
+import { zwiftMapApi } from "./zwiftMapApi";
 
 export async function ping() {
   try {
-    await fetch(`${BACKEND_HOST}/ping`);
+    await zwiftMapApi.get("/ping");
   } catch {}
 }

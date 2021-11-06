@@ -5,7 +5,13 @@ import express from "express";
 import session from "express-session";
 import morgan from "morgan";
 import nocache from "nocache";
-import { AUTH_SECRET, BACKEND_URL, FRONTEND_URL } from "../shared/config";
+import {
+  AUTH_COOKIE_NAME,
+  AUTH_SECRET,
+  BACKEND_DOMAIN,
+  BACKEND_URL,
+  FRONTEND_URL,
+} from "../shared/config";
 import { redisClient } from "../shared/persistence/redis";
 
 export const app = express();
@@ -15,6 +21,7 @@ app.use(morgan("tiny"));
 
 const corsOptions: cors.CorsOptions = {
   origin: FRONTEND_URL,
+  credentials: true,
 };
 app.use(cors(corsOptions));
 
@@ -36,6 +43,10 @@ app.use(
       secure: BACKEND_URL.startsWith("https://"),
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1_000,
+      domain: BACKEND_DOMAIN,
+      sameSite: true,
     },
+    name: AUTH_COOKIE_NAME,
+    unset: "destroy",
   })
 );
