@@ -1,7 +1,7 @@
 import "source-map-support/register";
 import * as Sentry from "@sentry/node";
 import * as Tracing from "@sentry/tracing";
-import { PORT, SENTRY_DSN } from "./config";
+import { PORT, SENTRY_DSN } from "../shared/config";
 import * as handlers from "./handlers";
 import { app } from "./server";
 import { setupWebhook } from "./services/webhook";

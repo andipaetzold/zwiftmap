@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { URLSearchParams } from "url";
-import { BACKEND_URL, STRAVA_CLIENT_ID } from "../../config";
+import { BACKEND_URL, STRAVA_CLIENT_ID } from "../../../shared/config";
 
 export function handleStravaAuthorize(req: Request, res: Response) {
   const params = new URLSearchParams();

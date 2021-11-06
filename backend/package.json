@@ -2,11 +2,14 @@
   "name": "zwiftmap-backend",
   "version": "0.0.0",
   "private": true,
-  "main": "build/index.js",
   "scripts": {
-    "start": "node .",
-    "dev": "tsc-watch -P tsconfig.json --preserveWatchOutput --onSuccess \"node .\"",
-    "build": "tsc -P tsconfig.json"
+    "start:web": "node ./build-web/web",
+    "start:worker": "node ./build-worker/worker",
+    "dev:web": "tsc-watch -P web.tsconfig.json --preserveWatchOutput --onSuccess \"node ./build-web/web\"",
+    "dev:worker": "tsc-watch -P worker.tsconfig.json --preserveWatchOutput --onSuccess \"node ./build-worker/worker\"",
+    "build": "npm run build:web && npm run build:worker",
+    "build:web": "tsc -P web.tsconfig.json",
+    "build:worker": "tsc -P worker.tsconfig.json"
   },
   "devDependencies": {
     "@tsconfig/node16": "1.0.2",

@@ -1,0 +1,9 @@
+{
+  "extends": "@tsconfig/node16/tsconfig.json",
+  "compilerOptions": {
+    "outDir": "build-worker",
+    "baseUrl": "src",
+    "sourceMap": true
+  },
+  "files": ["./src/worker/index.ts"]
+}

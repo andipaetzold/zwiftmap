@@ -2,7 +2,8 @@
 /node_modules
 
 # production
-/build
+/build-web
+/build-worker
 
 # misc
 .env

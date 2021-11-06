@@ -1,5 +1,5 @@
 import compression from "compression";
-import { FRONTEND_URL } from "./config";
+import { FRONTEND_URL } from "../shared/config";
 import cors from "cors";
 import express from "express";
 import morgan from "morgan";

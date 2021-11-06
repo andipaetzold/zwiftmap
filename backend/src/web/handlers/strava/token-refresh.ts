@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import fetch from "node-fetch";
 import { URLSearchParams } from "url";
-import { STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET } from "../../config";
+import { STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET } from "../../../shared/config";
 
 export async function handleStravaTokenRefresh(req: Request, res: Response) {
   const refreshToken = req.body.refresh_token;

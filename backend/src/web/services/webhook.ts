@@ -5,7 +5,7 @@ import {
   STRAVA_CLIENT_SECRET,
   STRAVA_VERIFY_TOKEN,
   STRAVA_WEBHOOK_HOST,
-} from "../config";
+} from "../../shared/config";
 
 export async function setupWebhook() {
   const subscriptionId = await getWebhookSubscriptionId();

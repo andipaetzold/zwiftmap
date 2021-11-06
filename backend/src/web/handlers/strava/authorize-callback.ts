@@ -5,7 +5,7 @@ import {
   FRONTEND_URL,
   STRAVA_CLIENT_ID,
   STRAVA_CLIENT_SECRET,
-} from "../../config";
+} from "../../../shared/config";
 
 export async function handleStravaAuthorizeCallback(
   req: Request,
