@@ -1,11 +1,5 @@
-import FormData from "form-data";
-import fetch from "node-fetch";
-import {
-  STRAVA_CLIENT_ID,
-  STRAVA_CLIENT_SECRET,
-  STRAVA_VERIFY_TOKEN,
-  STRAVA_WEBHOOK_HOST,
-} from "../../shared/config";
+import { STRAVA_VERIFY_TOKEN, STRAVA_WEBHOOK_HOST } from "../../shared/config";
+import { stravaAppAPI } from "./strava";
 
 export async function setupWebhook() {
   const subscriptionId = await getWebhookSubscriptionId();
@@ -18,37 +12,29 @@ export async function setupWebhook() {
 async function createWebhookSubscription() {
   console.log("Creating Webhook Subscription");
 
-  const form = new FormData();
-  form.append("client_id", STRAVA_CLIENT_ID);
-  form.append("client_secret", STRAVA_CLIENT_SECRET);
-  form.append("callback_url", `${STRAVA_WEBHOOK_HOST}/strava/webhook`);
-  form.append("verify_token", STRAVA_VERIFY_TOKEN);
-
-  await fetch("https://www.strava.com/api/v3/push_subscriptions", {
-    method: "POST",
-    body: form,
-  });
+  try {
+    const r = await stravaAppAPI.post("/push_subscriptions", {
+      callback_url: `${STRAVA_WEBHOOK_HOST}/strava/webhook`,
+      verify_token: STRAVA_VERIFY_TOKEN,
+    });
+  } catch (e: any) {
+    console.error("Error creating Webhook Subscription", e);
+  }
 }
 
 async function getWebhookSubscriptionId(): Promise<number | undefined> {
   console.log("Fetching Webhook Subscription");
 
-  // @ts-ignore
-  const params = new URLSearchParams();
-  params.append("client_id", STRAVA_CLIENT_ID);
-  params.append("client_secret", STRAVA_CLIENT_SECRET);
+  try {
+    const response = await stravaAppAPI.get("/push_subscriptions");
 
-  const response = await fetch(
-    `https://www.strava.com/api/v3/push_subscriptions?${params.toString()}`
-  );
-
-  if (response.ok) {
-    const subscriptions: any[] = await response.json();
+    const subscriptions: any[] = await response.data;
     if (subscriptions.length === 0) {
       return undefined;
     }
     return subscriptions[0].id;
-  } else {
+  } catch (e: any) {
+    console.error("Error fetching Webhook Subscription", e);
     return undefined;
   }
 }
@@ -56,15 +42,9 @@ async function getWebhookSubscriptionId(): Promise<number | undefined> {
 async function deleteWebhookSubscription(subscriptionId: number) {
   console.log("Deleting Webhook Subscription");
 
-  const form = new FormData();
-  form.append("client_id", STRAVA_CLIENT_ID);
-  form.append("client_secret", STRAVA_CLIENT_SECRET);
-
-  await fetch(
-    `https://www.strava.com/api/v3/push_subscriptions/${subscriptionId}`,
-    {
-      method: "DELETE",
-      body: form,
-    }
-  );
+  try {
+    await stravaAppAPI.delete(`/push_subscriptions/${subscriptionId}`);
+  } catch (e: any) {
+    console.error("Error deleting Webhook Subscription", e);
+  }
 }

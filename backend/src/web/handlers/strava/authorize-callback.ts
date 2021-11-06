@@ -1,12 +1,8 @@
 import { Request, Response } from "express";
-import fetch from "node-fetch";
 import { URLSearchParams } from "url";
-import {
-  FRONTEND_URL,
-  STRAVA_CLIENT_ID,
-  STRAVA_CLIENT_SECRET,
-} from "../../../shared/config";
+import { FRONTEND_URL } from "../../../shared/config";
 import { writeStravaToken } from "../../../shared/persistence/stravaToken";
+import { stravaAppAPI } from "../../services/strava";
 
 export async function handleStravaAuthorizeCallback(
   req: Request,
@@ -19,15 +15,11 @@ export async function handleStravaAuthorizeCallback(
     return;
   }
 
-  const params = new URLSearchParams();
-  params.set("client_id", STRAVA_CLIENT_ID);
-  params.set("client_secret", STRAVA_CLIENT_SECRET);
-  params.set("code", code);
-  params.set("grant_type", "authorization_code");
-  const url = `https://www.strava.com/api/v3/oauth/token?${params.toString()}`;
-
-  const response = await fetch(url, { method: "POST" });
-  const responseJSON = await response.json();
+  const response = await stravaAppAPI.post("/oauth/token", {
+    code: code,
+    grant_type: "authorization_code",
+  });
+  const responseJSON = response.data;
 
   await writeStravaToken({
     athleteId: responseJSON.athlete.id,
