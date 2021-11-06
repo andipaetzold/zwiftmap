@@ -1,9 +1,9 @@
-import 'source-map-support/register'
-import { FRONTEND_URL, PORT, SENTRY_DSN } from "./config";
-import { app } from "./server";
-import { initStravaHandlers } from "./strava";
+import "source-map-support/register";
 import * as Sentry from "@sentry/node";
 import * as Tracing from "@sentry/tracing";
+import { PORT, SENTRY_DSN } from "./config";
+import * as handlers from "./handlers";
+import { app } from "./server";
 
 Sentry.init({
   enabled: SENTRY_DSN.length > 0,
@@ -18,9 +18,11 @@ Sentry.init({
 app.use(Sentry.Handlers.requestHandler());
 app.use(Sentry.Handlers.tracingHandler());
 
-initStravaHandlers(app);
-app.get("/ping", (req, res) => res.sendStatus(204));
-app.get("*", (req, res) => res.redirect(FRONTEND_URL));
+app.get("/strava/authorize", handlers.handleStravaAuthorize);
+app.get("/strava/callback", handlers.handleStravaAuthorizeCallback);
+app.post("/strava/refresh", handlers.handleStravaTokenRefresh);
+app.get("/ping", handlers.handlePing);
+app.get("*", handlers.handleDefault);
 
 app.use(Sentry.Handlers.errorHandler());
 
