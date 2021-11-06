@@ -1,11 +1,38 @@
-import { STRAVA_VERIFY_TOKEN, STRAVA_WEBHOOK_HOST } from "../../shared/config";
+import {
+  STRAVA_CLIENT_ID,
+  STRAVA_VERIFY_TOKEN,
+  STRAVA_WEBHOOK_HOST,
+} from "../../shared/config";
 import { stravaAppAPI } from "./strava";
 
+interface WebhookSubscription {
+  id: number;
+  resource_state: number;
+  application_id: number;
+  callback_url: string;
+  created_at: string;
+  updated_at: string;
+}
+
+const CALLBACK_URL = `${STRAVA_WEBHOOK_HOST}/strava/webhook`;
+
 export async function setupWebhook() {
-  const subscriptionId = await getWebhookSubscriptionId();
-  if (subscriptionId) {
-    await deleteWebhookSubscription(subscriptionId);
+  const subscription = await getWebhookSubscription();
+
+  if (!subscription) {
+    await createWebhookSubscription();
+    return;
   }
+
+  if (
+    subscription.callback_url === CALLBACK_URL &&
+    subscription.application_id === STRAVA_CLIENT_ID
+  ) {
+    console.log("Webhook already created");
+    return;
+  }
+
+  await deleteWebhookSubscription(subscription);
   await createWebhookSubscription();
 }
 
@@ -13,7 +40,7 @@ async function createWebhookSubscription() {
   console.log("Creating Webhook Subscription");
 
   try {
-    const r = await stravaAppAPI.post("/push_subscriptions", {
+    await stravaAppAPI.post("/push_subscriptions", {
       callback_url: `${STRAVA_WEBHOOK_HOST}/strava/webhook`,
       verify_token: STRAVA_VERIFY_TOKEN,
     });
@@ -22,28 +49,27 @@ async function createWebhookSubscription() {
   }
 }
 
-async function getWebhookSubscriptionId(): Promise<number | undefined> {
+async function getWebhookSubscription(): Promise<
+  WebhookSubscription | undefined
+> {
   console.log("Fetching Webhook Subscription");
 
   try {
-    const response = await stravaAppAPI.get("/push_subscriptions");
-
-    const subscriptions: any[] = await response.data;
-    if (subscriptions.length === 0) {
-      return undefined;
-    }
-    return subscriptions[0].id;
+    const response = await stravaAppAPI.get<WebhookSubscription[]>(
+      "/push_subscriptions"
+    );
+    return response.data[0];
   } catch (e: any) {
     console.error("Error fetching Webhook Subscription", e);
     return undefined;
   }
 }
 
-async function deleteWebhookSubscription(subscriptionId: number) {
+async function deleteWebhookSubscription(subscription: WebhookSubscription) {
   console.log("Deleting Webhook Subscription");
 
   try {
-    await stravaAppAPI.delete(`/push_subscriptions/${subscriptionId}`);
+    await stravaAppAPI.delete(`/push_subscriptions/${subscription.id}`);
   } catch (e: any) {
     console.error("Error deleting Webhook Subscription", e);
   }

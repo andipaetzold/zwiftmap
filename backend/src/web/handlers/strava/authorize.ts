@@ -4,7 +4,7 @@ import { BACKEND_URL, STRAVA_CLIENT_ID } from "../../../shared/config";
 
 export function handleStravaAuthorize(req: Request, res: Response) {
   const params = new URLSearchParams();
-  params.set("client_id", STRAVA_CLIENT_ID);
+  params.set("client_id", STRAVA_CLIENT_ID.toString());
   params.set("redirect_uri", `${BACKEND_URL}/strava/callback`);
   params.set("response_type", "code");
   params.set("approval_prompt", "auto");
