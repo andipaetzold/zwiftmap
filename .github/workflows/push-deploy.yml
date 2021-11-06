@@ -29,11 +29,3 @@ jobs:
       - name: Build (Backend)
         run: npm run build
         working-directory: backend
-
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@4.1.5
-        with:
-          branch: gh-pages
-          folder: frontend/build
-          clean: true
-          dry-run: ${{ github.ref != 'refs/heads/main' }}
