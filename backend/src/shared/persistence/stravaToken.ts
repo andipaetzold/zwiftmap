@@ -1,4 +1,3 @@
-import { STRAVA_DEV_ACCOUNTS } from "../config";
 import { read, remove, write } from "./redis";
 
 export interface StravaToken {
@@ -13,10 +12,6 @@ function createKey(athleteId: number): string {
 }
 
 export async function writeStravaToken(stravaToken: StravaToken) {
-  if (!STRAVA_DEV_ACCOUNTS.includes(stravaToken.athleteId)) {
-    return;
-  }
-
   const key = createKey(stravaToken.athleteId);
   await write(key, stravaToken);
 }

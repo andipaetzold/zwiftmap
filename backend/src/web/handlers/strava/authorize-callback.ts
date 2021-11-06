@@ -9,35 +9,36 @@ export async function handleStravaAuthorizeCallback(
   req: Request,
   res: Response
 ) {
-  const session: Session = req.session;
-  const code = req.query.code;
-
-  if (typeof code !== "string" || code.length === 0) {
-    res.sendStatus(400);
-    return;
-  }
-
-  const response = await stravaAppAPI.post("/oauth/token", {
-    code: code,
-    grant_type: "authorization_code",
-  });
-  const responseJSON = response.data;
-  const athleteId: number = responseJSON.athlete.id;
-
-  await writeStravaToken({
-    athleteId,
-    expiresAt: responseJSON.expires_at,
-    token: responseJSON.access_token,
-    refreshToken: responseJSON.refresh_token,
-  });
-
   const params = new URLSearchParams();
 
-  if (STRAVA_DEV_ACCOUNTS.includes(athleteId)) {
-    session.athleteId = athleteId
-  }
+  if (!req.query.error) {
+    const session: Session = req.session;
+    const code = req.query.code;
 
-  params.set("strava-auth", JSON.stringify(responseJSON));
+    if (typeof code !== "string" || code.length === 0) {
+      res.sendStatus(400);
+      return;
+    }
+
+    const response = await stravaAppAPI.post("/oauth/token", {
+      code: code,
+      grant_type: "authorization_code",
+    });
+    const responseJSON = response.data;
+    const athleteId: number = responseJSON.athlete.id;
+
+    if (STRAVA_DEV_ACCOUNTS.includes(athleteId)) {
+      await writeStravaToken({
+        athleteId,
+        expiresAt: responseJSON.expires_at,
+        token: responseJSON.access_token,
+        refreshToken: responseJSON.refresh_token,
+      });
+      session.athleteId = athleteId;
+    }
+
+    params.set("strava-auth", JSON.stringify(responseJSON));
+  }
 
   let path = "/";
   if (typeof req.query.state === "string") {
@@ -51,7 +52,11 @@ export async function handleStravaAuthorizeCallback(
       });
     } catch {}
   }
+  const paramsString = params.toString();
 
-  const redirectUrl = `${FRONTEND_URL}${path}?${params.toString()}`;
+  let redirectUrl = `${FRONTEND_URL}${path}`;
+  if (paramsString !== "") {
+    redirectUrl += `?${paramsString}`;
+  }
   res.redirect(redirectUrl);
 }
