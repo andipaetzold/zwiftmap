@@ -24,13 +24,10 @@ async function createWebhookSubscription() {
   form.append("callback_url", `${STRAVA_WEBHOOK_HOST}/strava/webhook`);
   form.append("verify_token", STRAVA_VERIFY_TOKEN);
 
-  const response = await fetch(
-    "https://www.strava.com/api/v3/push_subscriptions",
-    {
-      method: "POST",
-      body: form,
-    }
-  );
+  await fetch("https://www.strava.com/api/v3/push_subscriptions", {
+    method: "POST",
+    body: form,
+  });
 }
 
 async function getWebhookSubscriptionId(): Promise<number | undefined> {
@@ -46,8 +43,8 @@ async function getWebhookSubscriptionId(): Promise<number | undefined> {
   );
 
   if (response.ok) {
-    const subscriptions = await response.json();
-    if (subscriptions.lenth === 0) {
+    const subscriptions: any[] = await response.json();
+    if (subscriptions.length === 0) {
       return undefined;
     }
     return subscriptions[0].id;
