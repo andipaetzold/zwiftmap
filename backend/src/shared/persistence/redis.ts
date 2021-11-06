@@ -1,7 +1,7 @@
 import { createClient } from "redis";
 import { REDIS_URL } from "../config";
 
-const client = createClient({
+export const redisClient = createClient({
   url: REDIS_URL,
 });
 
@@ -9,7 +9,7 @@ export async function write<T = any>(key: string, value: T): Promise<void> {
   const stringified = JSON.stringify(value);
 
   await new Promise((resolve, reject) => {
-    client.set(key, stringified, (err, reply) => {
+    redisClient.set(key, stringified, (err, reply) => {
       if (err) {
         reject(err);
       } else {
@@ -21,7 +21,7 @@ export async function write<T = any>(key: string, value: T): Promise<void> {
 
 export async function read<T = any>(key: string): Promise<T | undefined> {
   return await new Promise((resolve, reject) => {
-    client.get(key, (err, value) => {
+    redisClient.get(key, (err, value) => {
       if (err) {
         reject(err);
       } else {
@@ -33,7 +33,7 @@ export async function read<T = any>(key: string): Promise<T | undefined> {
 
 export async function remove(key: string): Promise<void> {
   return await new Promise((resolve, reject) => {
-    client.del(key, (err) => {
+    redisClient.del(key, (err) => {
       if (err) {
         reject(err);
       } else {
@@ -45,7 +45,7 @@ export async function remove(key: string): Promise<void> {
 
 export async function exists(key: string): Promise<boolean> {
   return await new Promise((resolve, reject) => {
-    client.exists(key, (err, reply) => {
+    redisClient.exists(key, (err, reply) => {
       if (err) {
         reject(err);
       } else {

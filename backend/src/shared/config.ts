@@ -20,3 +20,5 @@ export const STRAVA_DEV_ACCOUNTS = (process.env.STRAVA_DEV_ACCOUNTS ?? "")
   .split(",")
   .filter((id: string) => id !== "")
   .map((id) => +id);
+
+export const AUTH_SECRET = process.env.AUTH_SECRET!;

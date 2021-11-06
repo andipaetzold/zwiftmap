@@ -1,13 +1,15 @@
 import { Request, Response } from "express";
 import { URLSearchParams } from "url";
-import { FRONTEND_URL } from "../../../shared/config";
+import { FRONTEND_URL, STRAVA_DEV_ACCOUNTS } from "../../../shared/config";
 import { writeStravaToken } from "../../../shared/persistence/stravaToken";
 import { stravaAppAPI } from "../../services/strava";
+import { Session } from "../../types";
 
 export async function handleStravaAuthorizeCallback(
   req: Request,
   res: Response
 ) {
+  const session: Session = req.session;
   const code = req.query.code;
 
   if (typeof code !== "string" || code.length === 0) {
@@ -20,16 +22,22 @@ export async function handleStravaAuthorizeCallback(
     grant_type: "authorization_code",
   });
   const responseJSON = response.data;
+  const athleteId: number = responseJSON.athlete.id;
 
   await writeStravaToken({
-    athleteId: responseJSON.athlete.id,
+    athleteId,
     expiresAt: responseJSON.expires_at,
     token: responseJSON.access_token,
     refreshToken: responseJSON.refresh_token,
   });
 
-  const redirectParams = new URLSearchParams();
-  redirectParams.set("strava-auth", JSON.stringify(responseJSON));
+  const params = new URLSearchParams();
+
+  if (STRAVA_DEV_ACCOUNTS.includes(athleteId)) {
+    session.athleteId = athleteId
+  }
+
+  params.set("strava-auth", JSON.stringify(responseJSON));
 
   let path = "/";
   if (typeof req.query.state === "string") {
@@ -39,10 +47,11 @@ export async function handleStravaAuthorizeCallback(
 
       path = state.path;
       Object.entries(state.search).forEach(([key, value]) => {
-        redirectParams.set(key, value);
+        params.set(key, value);
       });
     } catch {}
   }
-  const redirectUrl = `${FRONTEND_URL}${path}?${redirectParams.toString()}`;
+
+  const redirectUrl = `${FRONTEND_URL}${path}?${params.toString()}`;
   res.redirect(redirectUrl);
 }
