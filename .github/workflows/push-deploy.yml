@@ -29,3 +29,15 @@ jobs:
       - name: Build (Backend)
         run: npm run build
         working-directory: backend
+
+      - name: Deploy (Frontend)
+        run: |
+          if [[ ${{ github.ref }} == "refs/heads/main" ]]; then
+            npm run deploy -- --prod
+          else
+            npm run deploy
+          fi
+        working-directory: frontend
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

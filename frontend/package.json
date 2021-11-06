@@ -48,7 +48,8 @@
     "start": "react-scripts start",
     "prebuild": "node scripts/fetch-segments.mjs",
     "build": "react-scripts build",
-    "test": "react-scripts test"
+    "test": "react-scripts test",
+    "deploy": "netlify deploy"
   },
   "type": "module",
   "eslintConfig": {
@@ -69,6 +70,7 @@
     ]
   },
   "devDependencies": {
+    "netlify-cli": "6.14.16",
     "sass": "1.43.4"
   }
 }

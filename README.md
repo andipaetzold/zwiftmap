@@ -1,5 +1,3 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/5d2dee4f-83e0-480b-a679-7a894cd86350/deploy-status)](https://app.netlify.com/sites/zwiftmap/deploys)
-
 # Zwift Map
 
 https://zwiftmap.com
