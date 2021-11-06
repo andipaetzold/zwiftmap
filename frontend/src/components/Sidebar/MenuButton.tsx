@@ -81,7 +81,7 @@ export function MenuButton({ onBottomSheetClose }: Props) {
             <MenuItem
               onClick={() => {
                 removeStravaToken();
-                zwiftMapApi.post("/logout");
+                zwiftMapApi.post("/auth/logout");
               }}
             >
               Logout from Strava
