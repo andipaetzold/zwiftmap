@@ -10,9 +10,7 @@ export async function logout(): Promise<void> {
 
   setLocalStorageItem(STRAVA_AUTH_KEY, null);
 
-  try {
-    await zwiftMapApi.post("/auth/logout", {
-      stravaToken: token.access_token,
-    });
-  } catch {}
+  await zwiftMapApi.post("/auth/logout", {
+    stravaToken: token.access_token,
+  });
 }
