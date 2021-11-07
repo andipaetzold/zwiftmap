@@ -8,6 +8,7 @@ import {
   MapFontIcon,
   OpenInNewFontIcon,
   SpaceBarFontIcon,
+  ThumbUpFontIcon,
   TimerFontIcon,
 } from "@react-md/material-icons";
 import { CircularProgress } from "@react-md/progress";
@@ -132,6 +133,12 @@ function StravaActivityDetailsWithToken({ activityId }: Props) {
       <SimpleListItem clickable={false} leftAddon={<MapFontIcon />}>
         {activity.world.name}
       </SimpleListItem>
+
+      {activity.kudos > 0 && (
+        <SimpleListItem clickable={false} leftAddon={<ThumbUpFontIcon />}>
+          {activity.kudos}
+        </SimpleListItem>
+      )}
 
       <ListSubheader>Links</ListSubheader>
       <ListItem

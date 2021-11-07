@@ -24,6 +24,7 @@ export async function getStravaActivity(
     avgWatts: esa.average_watts,
     photoUrl: esa.photos.primary?.urls["100"],
     streams: await fetchStravaActivityStreams(activityId),
+    kudos: esa.kudos_count,
   };
 }
 
@@ -55,6 +56,7 @@ export interface StravaActivity {
   avgWatts?: number;
   photoUrl?: string;
   streams: StravaActivityStreams;
+  kudos: number;
 }
 
 export interface StravaActivityStreams {
