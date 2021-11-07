@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { URLSearchParams } from "url";
-import { FRONTEND_URL, STRAVA_DEV_ACCOUNTS } from "../../../shared/config";
+import { FRONTEND_URL } from "../../../shared/config";
 import { writeStravaToken } from "../../../shared/persistence/stravaToken";
 import { stravaAppAPI } from "../../../shared/services/strava";
 import { Session } from "../../types";
@@ -27,15 +27,13 @@ export async function handleStravaAuthorizeCallback(
     const responseJSON = response.data;
     const athleteId: number = responseJSON.athlete.id;
 
-    if (STRAVA_DEV_ACCOUNTS.includes(athleteId)) {
-      await writeStravaToken({
-        athleteId,
-        expiresAt: responseJSON.expires_at,
-        token: responseJSON.access_token,
-        refreshToken: responseJSON.refresh_token,
-      });
-      session.athleteId = athleteId;
-    }
+    await writeStravaToken({
+      athleteId,
+      expiresAt: responseJSON.expires_at,
+      token: responseJSON.access_token,
+      refreshToken: responseJSON.refresh_token,
+    });
+    session.athleteId = athleteId;
 
     params.set("strava-auth", JSON.stringify(responseJSON));
   }
