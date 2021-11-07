@@ -1,4 +1,4 @@
-import { TextIconSpacing } from "@react-md/icon";
+import { Chip } from "@react-md/chip";
 import { List, SimpleListItem } from "@react-md/list";
 import {
   LabelFontIcon,
@@ -7,11 +7,10 @@ import {
   SpaceBarFontIcon,
   StarFontIcon,
 } from "@react-md/material-icons";
-import { DropdownMenu, Menu, MenuItem } from "@react-md/menu";
+import { Menu, MenuItem } from "@react-md/menu";
 import { BELOW_INNER_LEFT_ANCHOR, useToggle } from "@react-md/utils";
 import c from "classnames";
 import styles from "./SortButton.module.scss";
-import { Chip } from "@react-md/chip";
 
 export type SortKey =
   | "name"
