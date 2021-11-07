@@ -50,3 +50,31 @@ jobs:
       - name: Build
         run: npm run build
         working-directory: backend
+
+  static-map:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Switch node version
+        shell: bash -l {0}
+        run: nvm install
+
+      - name: Install
+        run: npm ci
+        working-directory: static-map
+      - name: Build
+        run: npm run build
+        working-directory: static-map
+
+      - name: Deploy
+        run: |
+          if [[ ${{ github.ref }} == "refs/heads/main" ]]; then
+            npm run deploy -- --prod
+          else
+            npm run deploy
+          fi
+        working-directory: frontend
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_STATIC_SITE_ID }}
