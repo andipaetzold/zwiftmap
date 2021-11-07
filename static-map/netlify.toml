@@ -1,4 +1,4 @@
 [build]
-base = "/"
+base = "static-map/"
 command = "npm run build"
 publish = "build/"

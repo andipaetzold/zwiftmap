@@ -74,7 +74,7 @@ jobs:
           else
             npm run deploy
           fi
-        working-directory: frontend
+        working-directory: static-map
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_STATIC_SITE_ID }}
