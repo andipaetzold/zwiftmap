@@ -1,5 +1,5 @@
 import { TextIconSpacing } from "@react-md/icon";
-import { SimpleListItem } from "@react-md/list";
+import { List, SimpleListItem } from "@react-md/list";
 import {
   LabelFontIcon,
   LandscapeFontIcon,
@@ -7,10 +7,11 @@ import {
   SpaceBarFontIcon,
   StarFontIcon,
 } from "@react-md/material-icons";
-import { DropdownMenu } from "@react-md/menu";
-import { BELOW_INNER_LEFT_ANCHOR } from "@react-md/utils";
+import { DropdownMenu, Menu, MenuItem } from "@react-md/menu";
+import { BELOW_INNER_LEFT_ANCHOR, useToggle } from "@react-md/utils";
 import c from "classnames";
 import styles from "./SortButton.module.scss";
+import { Chip } from "@react-md/chip";
 
 export type SortKey =
   | "name"
@@ -41,6 +42,8 @@ interface Props {
 }
 
 export function SortButton({ state, onChange }: Props) {
+  const [menuVisible, , hideMenu, toggleMenu] = useToggle(false);
+
   const handleItemClick = (key: SortKey) => {
     if (state.key === key) {
       onChange({ key, dir: state.dir === "ASC" ? "DESC" : "ASC" });
@@ -52,55 +55,71 @@ export function SortButton({ state, onChange }: Props) {
   return (
     <>
       <SimpleListItem>
-        <DropdownMenu
-          id="sort-button"
-          themeType="outline"
-          items={[
-            {
-              onClick: () => handleItemClick("name"),
-              leftAddon: <LabelFontIcon />,
-              children: NAME_MAP["name"],
-            },
-            {
-              onClick: () => handleItemClick("distance"),
-              leftAddon: <SpaceBarFontIcon />,
-              children: NAME_MAP["distance"],
-            },
-            {
-              onClick: () => handleItemClick("elevation"),
-              leftAddon: <LandscapeFontIcon />,
-              children: NAME_MAP["elevation"],
-            },
-            {
-              onClick: () => handleItemClick("experience"),
-              leftAddon: <StarFontIcon />,
-              children: NAME_MAP["experience"],
-            },
-            {
-              onClick: () => handleItemClick("leadInDistance"),
-              leftAddon: <SpaceBarFontIcon />,
-              children: NAME_MAP["leadInDistance"],
-            },
-            {
-              onClick: () => handleItemClick("leadInElevation"),
-              leftAddon: <LandscapeFontIcon />,
-              children: NAME_MAP["leadInElevation"],
-            },
-          ]}
-          anchor={BELOW_INNER_LEFT_ANCHOR}
+        <Chip
+          id="sort-chip"
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleMenu();
+          }}
+          rightIcon={
+            <SortFontIcon
+              className={c({
+                [styles.iconFlip]: state.dir === "ASC",
+              })}
+            />
+          }
         >
-          <TextIconSpacing
-            icon={
-              <SortFontIcon
-                className={c({
-                  [styles.iconFlip]: state.dir === "ASC",
-                })}
-              />
-            }
-          >
-            {NAME_MAP[state.key]}
-          </TextIconSpacing>
-        </DropdownMenu>
+          {NAME_MAP[state.key]}
+        </Chip>
+
+        <Menu
+          id="sort-menu"
+          controlId="sort-chip"
+          aria-labelledby="sort-chip"
+          visible={menuVisible}
+          onRequestClose={hideMenu}
+          anchor={BELOW_INNER_LEFT_ANCHOR}
+          portal
+        >
+          <List>
+            <MenuItem
+              onClick={() => handleItemClick("name")}
+              leftAddon={<LabelFontIcon />}
+            >
+              {NAME_MAP["name"]}
+            </MenuItem>
+            <MenuItem
+              onClick={() => handleItemClick("distance")}
+              leftAddon={<SpaceBarFontIcon />}
+            >
+              {NAME_MAP["distance"]}
+            </MenuItem>
+            <MenuItem
+              onClick={() => handleItemClick("elevation")}
+              leftAddon={<LandscapeFontIcon />}
+            >
+              {NAME_MAP["elevation"]}
+            </MenuItem>
+            <MenuItem
+              onClick={() => handleItemClick("experience")}
+              leftAddon={<StarFontIcon />}
+            >
+              {NAME_MAP["experience"]}
+            </MenuItem>
+            <MenuItem
+              onClick={() => handleItemClick("leadInDistance")}
+              leftAddon={<SpaceBarFontIcon />}
+            >
+              {NAME_MAP["leadInDistance"]}
+            </MenuItem>
+            <MenuItem
+              onClick={() => handleItemClick("leadInElevation")}
+              leftAddon={<LandscapeFontIcon />}
+            >
+              {NAME_MAP["leadInElevation"]}
+            </MenuItem>
+          </List>
+        </Menu>
       </SimpleListItem>
     </>
   );
