@@ -43,14 +43,16 @@ export function Map({
 
     const minZoom = map.getBoundsZoom(world.bounds, false);
     map.setMinZoom(minZoom);
-
-    if (!routeLatLngStream) {
-      map.fitBounds(worldConfig.initialBounds);
-    }
   }, [map, worldConfig, world, routeLatLngStream]);
 
   useEffect(() => {
-    if (!map || !routeLatLngStream) {
+    if (!map) {
+      return;
+    }
+
+    map.invalidateSize();
+    if (!routeLatLngStream) {
+      map.fitBounds(worldConfig.initialBounds);
       return;
     }
 
@@ -59,7 +61,6 @@ export function Map({
       new LatLngBounds(routeLatLngStream[0], routeLatLngStream[0])
     );
 
-    map.invalidateSize();
     map.fitBounds(bounds);
   }, [map, routeLatLngStream, worldConfig]);
 
