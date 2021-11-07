@@ -1,4 +1,5 @@
-import { LatLngTuple, Map as MapType } from "leaflet";
+import { LatLngBounds, LatLngTuple, Map as MapType } from "leaflet";
+import { useEffect, useState } from "react";
 import {
   Circle,
   ImageOverlay,
@@ -12,9 +13,6 @@ import styles from "./index.module.css";
 
 interface Props {
   world: World;
-
-  onMapChange: (map: MapType) => void;
-
   hoverPoint?: LatLngTuple;
   routeLatLngStream?: LatLngTuple[];
   previewRouteLatLngStream?: LatLngTuple[];
@@ -23,7 +21,6 @@ interface Props {
 
 export function Map({
   world,
-  onMapChange,
   hoverPoint,
   previewRouteLatLngStream,
   routeLatLngStream,
@@ -31,9 +28,44 @@ export function Map({
 }: Props) {
   const worldConfig = worldConfigs[world.slug];
 
+  const [map, setMap] = useState<MapType | undefined>();
+  useEffect(() => {
+    map?.zoomControl.setPosition("topright");
+  }, [map]);
+
+  useEffect(() => {
+    if (!map) {
+      return;
+    }
+
+    map.invalidateSize();
+    map.setMaxBounds(world.bounds);
+
+    const minZoom = map.getBoundsZoom(world.bounds, false);
+    map.setMinZoom(minZoom);
+
+    if (!routeLatLngStream) {
+      map.fitBounds(worldConfig.initialBounds);
+    }
+  }, [map, worldConfig, world, routeLatLngStream]);
+
+  useEffect(() => {
+    if (!map || !routeLatLngStream) {
+      return;
+    }
+
+    const bounds = routeLatLngStream.reduce(
+      (bounds, coord) => bounds.extend(coord),
+      new LatLngBounds(routeLatLngStream[0], routeLatLngStream[0])
+    );
+
+    map.invalidateSize();
+    map.fitBounds(bounds);
+  }, [map, routeLatLngStream, worldConfig]);
+
   return (
     <MapContainer
-      whenCreated={(map) => onMapChange(map)}
+      whenCreated={(map) => setMap(map)}
       bounds={world.bounds}
       style={{ backgroundColor: worldConfig.backgroundColor }}
       maxZoom={19}

@@ -1,6 +1,6 @@
-import { LatLngBounds, LatLngTuple, Map as MapType } from "leaflet";
+import { LatLngTuple } from "leaflet";
 import "leaflet/dist/leaflet.css";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { useAsync } from "react-async-hook";
 import { Route } from "zwift-data";
 import { useIsLoggedInStrava } from "../../hooks/useIsLoggedInStrava";
@@ -11,7 +11,6 @@ import {
   getStravaSegmentStreams,
 } from "../../services/StravaSegmentRepository";
 import { LocationState, LocationStateRoute } from "../../types";
-import { worldConfigs } from "../../worldConfig";
 import styles from "./index.module.css";
 import { Map } from "./Map";
 import { WorldSelect } from "./WorldSelect";
@@ -24,7 +23,6 @@ interface Props {
 export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
   const [locationState] = useLocationState();
   const world = locationState.world;
-  const worldConfig = worldConfigs[world.slug];
 
   const { result: segmentsLatLngStreams } = useAsync(
     async (state: LocationState) => {
@@ -39,11 +37,6 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
     },
     [locationState]
   );
-
-  const [map, setMap] = useState<MapType | undefined>();
-  useEffect(() => {
-    map?.zoomControl.setPosition("topright");
-  }, [map]);
 
   const { result: routeStravaSegment } = useAsync(
     async (type: string, route?: Route) => {
@@ -81,39 +74,6 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
     [previewRoute]
   );
 
-  useEffect(() => {
-    if (!map || !routeStravaSegment) {
-      return;
-    }
-
-    const bounds = routeStravaSegment.latlng.reduce(
-      (bounds, coord) => bounds.extend(coord),
-      new LatLngBounds(
-        routeStravaSegment.latlng[0],
-        routeStravaSegment.latlng[0]
-      )
-    );
-
-    map.invalidateSize();
-    map.fitBounds(bounds);
-  }, [map, routeStravaSegment, worldConfig]);
-
-  useEffect(() => {
-    if (!map) {
-      return;
-    }
-
-    map.invalidateSize();
-    map.setMaxBounds(world.bounds);
-
-    const minZoom = map.getBoundsZoom(world.bounds, false);
-    map.setMinZoom(minZoom);
-
-    if (locationState.type !== "route") {
-      map.fitBounds(worldConfig.initialBounds);
-    }
-  }, [map, worldConfig, world, locationState.type]);
-
   const pointCoordinates = useMemo<LatLngTuple | undefined>(() => {
     if ((!routeStravaSegment && !stravaActivity) || !mouseHoverDistance) {
       return;
@@ -139,9 +99,8 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
     <div className={styles.Container}>
       <WorldSelect />
       <Map
-        onMapChange={setMap}
-        world={world}
         key={world.slug}
+        world={world}
         hoverPoint={pointCoordinates}
         previewRouteLatLngStream={previewRouteStravaSegment?.latlng}
         routeLatLngStream={
