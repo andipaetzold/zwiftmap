@@ -3,6 +3,13 @@ import { worlds } from "zwift-data";
 import { readStravaToken } from "../shared/persistence/stravaToken";
 import { uploadStravaMapQueue } from "../shared/queue";
 import { stravaUserAPI } from "../shared/services/strava";
+import * as Sentry from "@sentry/node";
+import { SENTRY_DSN } from "../shared/config";
+
+Sentry.init({
+  enabled: SENTRY_DSN.length > 0,
+  dsn: SENTRY_DSN,
+});
 
 interface Activity {
   type: string;
