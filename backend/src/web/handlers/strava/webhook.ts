@@ -10,6 +10,6 @@ export async function handleWebhook(req: Request, res: Response) {
   }
 
   const job = await stravaWebhookEventQueue.add(webhookEvent);
-  console.log(`Equeued job ${job.id}`);
+  console.log(`Enqueued job ${job.id}`);
   res.sendStatus(204);
 }
