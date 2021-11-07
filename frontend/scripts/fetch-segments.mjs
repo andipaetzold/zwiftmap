@@ -44,13 +44,21 @@ async function fetchSegment({ name, slug, stravaSegmentId }, type) {
 
   writeFileSync(
     `${segmentDir}/altitude.json`,
-    JSON.stringify(stravaData.altitude)
+    JSON.stringify(getRoundedAltitude(stravaData))
   );
   writeFileSync(
     `${segmentDir}/distance.json`,
-    JSON.stringify(stravaData.distance)
+    JSON.stringify(getRoundedDistances(stravaData))
   );
   writeFileSync(`${segmentDir}/latlng.json`, JSON.stringify(stravaData.latlng));
 
   console.log(name);
+}
+
+function getRoundedAltitude(stravaData) {
+  return stravaData.altitude.map((d) => Math.round(d));
+}
+
+function getRoundedDistances(stravaData) {
+  return stravaData.distance.map((d) => Math.round(d * 100) / 100);
 }
