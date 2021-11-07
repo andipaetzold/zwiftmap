@@ -22,9 +22,11 @@ export async function handleLogout(req: Request, res: Response) {
 
     res.clearCookie(AUTH_COOKIE_NAME);
   } else if (Body.guard(req.body)) {
-    await axios.post("https://www.strava.com/oauth/deauthorize", undefined, {
-      params: { access_token: req.body.stravaToken },
-    });
+    try {
+      await axios.post("https://www.strava.com/oauth/deauthorize", undefined, {
+        params: { access_token: req.body.stravaToken },
+      });
+    } catch {}
   }
 
   res.sendStatus(204);
