@@ -1,13 +1,8 @@
 import Queue from "bull";
 import { REDIS_URL } from "./config";
+import { WebhookEventType } from "./types";
 
-interface UploadStravaMapData {
-  athleteId: number;
-  activityId: number;
-}
-
-export const uploadStravaMapQueue =
-  new Queue<UploadStravaMapData>(
-    "upload-strava-map",
-    REDIS_URL
-  );
+export const stravaWebhookEventQueue = new Queue<WebhookEventType>(
+  "strava-webhook-event",
+  REDIS_URL
+);
