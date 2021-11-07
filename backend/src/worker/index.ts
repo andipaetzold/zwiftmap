@@ -1,3 +1,7 @@
-import { STRAVA_CLIENT_ID } from "../shared/config";
+import { activityCreateQueue } from "../shared/queue";
 
-console.log({ STRAVA_CLIENT_ID });
+activityCreateQueue.process((job, jobDone) => {
+  console.log(job.data);
+
+  jobDone();
+});

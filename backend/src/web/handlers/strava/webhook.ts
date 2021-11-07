@@ -1,16 +1,15 @@
 import { Request, Response } from "express";
 import {
+  Dictionary,
   Literal,
   Number,
   Record,
   StringDictionary,
-  String,
   Union,
   Unknown,
-  Static,
-  Dictionary,
 } from "runtypes";
 import { removeStravaToken } from "../../../shared/persistence/stravaToken";
+import { activityCreateQueue } from "../../../shared/queue";
 
 const WebhookEvent = Record({
   aspect_type: Union(Literal("create"), Literal("update"), Literal("delete")),
@@ -44,5 +43,6 @@ export async function handleWebhook(req: Request, res: Response) {
     return;
   }
 
+  await activityCreateQueue.add(event);
   res.sendStatus(204);
 }
