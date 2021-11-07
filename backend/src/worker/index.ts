@@ -1,7 +1,8 @@
-import { readStravaToken } from "../shared/persistence/stravaToken";
-import { activityCreateQueue } from "../shared/queue";
-import { stravaUserAPI } from "../shared/services/strava";
+import { AxiosResponse } from "axios";
 import { worlds } from "zwift-data";
+import { readStravaToken } from "../shared/persistence/stravaToken";
+import { uploadStravaActivityMapQueue } from "../shared/queue";
+import { stravaUserAPI } from "../shared/services/strava";
 
 interface Activity {
   type: string;
@@ -9,34 +10,33 @@ interface Activity {
   start_latlng: [latitude: number, longitude: number] | null;
 }
 
-activityCreateQueue.process(async (job, jobDone) => {
-  console.log(`Processing WebhookEvent`, {
+uploadStravaActivityMapQueue.process(async (job, jobDone) => {
+  console.log(`Processing`, {
     jobId: job.id,
-    event: job.data,
+    data: job.data,
   });
 
-  const webhookEvent = job.data;
+  const data = job.data;
 
-  if (
-    webhookEvent.object_type !== "activity" ||
-    webhookEvent.aspect_type !== "create"
-  ) {
-    console.log("Wrong WebhookEvent type");
-    jobDone();
-    return;
-  }
-
-  const token = await readStravaToken(webhookEvent.owner_id);
+  const token = await readStravaToken(data.athleteId);
   if (!token) {
     console.log("Missing strava token");
     jobDone();
     return;
   }
 
-  const activityResponse = await stravaUserAPI.get(
-    `/activities/${webhookEvent.object_id}`,
-    { headers: { Authorization: `Bearer ${token}` } }
-  );
+  let activityResponse: AxiosResponse<any>;
+  try {
+    activityResponse = await stravaUserAPI.get(
+      `/activities/${data.activityId}`,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+  } catch {
+    console.log("Error fetching activity");
+    jobDone();
+    return;
+  }
+
   const activity = activityResponse.data;
 
   if (!isZwiftActivity(activity)) {
