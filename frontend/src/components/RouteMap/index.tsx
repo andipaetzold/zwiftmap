@@ -125,18 +125,25 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
   }, [map, worldConfig, world, locationState.type]);
 
   const pointCoordinates = useMemo<LatLngExpression | undefined>(() => {
-    if (!routeStravaSegment || !mouseHoverDistance) {
+    if ((!routeStravaSegment && !stravaActivity) || !mouseHoverDistance) {
       return;
     }
 
-    const pointIndex = routeStravaSegment.distance.findIndex(
+    const distanceStream =
+      routeStravaSegment?.distance ??
+      (stravaActivity?.streams.distance as number[]);
+    const latLngStream =
+      routeStravaSegment?.latlng ??
+      (stravaActivity?.streams.latlng as [number, number][]);
+
+    const pointIndex = distanceStream.findIndex(
       (d) => d > mouseHoverDistance * 1_000
     );
     if (!pointIndex) {
       return;
     }
-    return routeStravaSegment.latlng[pointIndex];
-  }, [routeStravaSegment, mouseHoverDistance]);
+    return latLngStream[pointIndex];
+  }, [routeStravaSegment, stravaActivity, mouseHoverDistance]);
 
   return (
     <div className={styles.Container}>

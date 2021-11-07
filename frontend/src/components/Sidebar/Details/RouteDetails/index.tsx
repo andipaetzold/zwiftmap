@@ -12,13 +12,13 @@ import {
   StarFontIcon,
 } from "@react-md/material-icons";
 import { Text } from "@react-md/typography";
+import { Route, worlds } from "zwift-data";
 import stravaLogo from "../../../../assets/strava-40x40.png";
 import whatsOnZwiftLogo from "../../../../assets/WhatsOnZwift-40x40.png";
 import zwiftInsiderLogo from "../../../../assets/ZwiftInsider-40x40.jpg";
-import { Route, worlds } from "zwift-data";
 import { Distance } from "../../../Distance";
 import { Elevation } from "../../../Elevation";
-import { ElevationChart } from "../../ElevationChart";
+import { RouteElevationChart } from "../../ElevationChart";
 import { RouteEvents } from "./RouteEvents";
 import { RouteSegments } from "./RouteSegments";
 import { RouteStravaPB } from "./RouteStravaPB";
@@ -114,7 +114,7 @@ export function RouteDetails({
       <RouteStravaPB route={route} />
 
       <SimpleListItem>
-        <ElevationChart
+        <RouteElevationChart
           route={route}
           onMouseHoverDistanceChange={onMouseHoverDistanceChange}
         />

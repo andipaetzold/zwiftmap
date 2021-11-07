@@ -1,3 +1,4 @@
+import { Text } from "@react-md/typography";
 import uniqWith from "lodash/uniqWith";
 import React, { useEffect, useMemo, useState } from "react";
 import { useAsync } from "react-async-hook";
@@ -11,13 +12,40 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { Route } from "zwift-data";
 import { getStravaSegmentStreams } from "../../services/StravaSegmentRepository";
 import { StravaSegment } from "../../types";
-import { ElevationGradient } from "../ElevationGradient";
-import { Text } from "@react-md/typography";
 import { Distance } from "../Distance";
 import { Elevation } from "../Elevation";
-import { Route } from "zwift-data";
+import { ElevationGradient } from "../ElevationGradient";
+
+interface RouteElevationChartProps {
+  route: Route;
+  onMouseHoverDistanceChange: (distance: number | undefined) => void;
+}
+
+const REQUIRED_STREAMS = ["altitude", "distance"] as const;
+
+export function RouteElevationChart({
+  route,
+  onMouseHoverDistanceChange,
+}: RouteElevationChartProps) {
+  const { result: segment } = useAsync<
+    Pick<StravaSegment, "altitude" | "distance">
+  >(getStravaSegmentStreams, [route.slug, "routes", REQUIRED_STREAMS]);
+
+  if (!segment) {
+    return null;
+  }
+
+  return (
+    <ElevationChart
+      altitudeStream={segment.altitude}
+      distanceStream={segment.distance}
+      onMouseHoverDistanceChange={onMouseHoverDistanceChange}
+    />
+  );
+}
 
 interface HoverData {
   distance: number;
@@ -25,17 +53,16 @@ interface HoverData {
 }
 
 interface Props {
-  route: Route;
+  distanceStream: number[];
+  altitudeStream: number[];
   onMouseHoverDistanceChange: (distance: number | undefined) => void;
 }
 
-const REQUIRED_STREAMS = ["altitude", "distance"] as const;
-
-export function ElevationChart({ route, onMouseHoverDistanceChange }: Props) {
-  const { result: segment } = useAsync<
-    Pick<StravaSegment, "altitude" | "distance">
-  >(getStravaSegmentStreams, [route.slug, "routes", REQUIRED_STREAMS]);
-
+export function ElevationChart({
+  distanceStream,
+  altitudeStream,
+  onMouseHoverDistanceChange,
+}: Props) {
   const [hoverData, setHoverData] = useState<HoverData | undefined>(undefined);
 
   const handleMouseMove = (data?: HoverData) => {
@@ -44,18 +71,14 @@ export function ElevationChart({ route, onMouseHoverDistanceChange }: Props) {
   };
 
   const data: any[] | undefined = useMemo(() => {
-    if (segment === undefined) {
-      return;
-    }
-
     return uniqWith(
-      segment.distance.map((distance, index) => ({
+      distanceStream.map((distance, index) => ({
         distance: Math.round(distance / 10) / 100,
-        elevation: segment.altitude[index],
+        elevation: altitudeStream[index],
       })),
       (a, b) => a.distance === b.distance
     );
-  }, [segment]);
+  }, [distanceStream, altitudeStream]);
 
   if (data === undefined) {
     return null;

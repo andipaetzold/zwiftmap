@@ -23,12 +23,17 @@ import { getStravaActivity } from "../../../../services/StravaActivityRepository
 import { Distance } from "../../../Distance";
 import { Elevation } from "../../../Elevation";
 import { Time } from "../../../Time";
+import { ElevationChart } from "../../ElevationChart";
 
 interface Props {
   activityId: string;
+  onMouseHoverDistanceChange: (distance: number | undefined) => void;
 }
 
-export function StravaActivityDetails({ activityId }: Props) {
+export function StravaActivityDetails({
+  activityId,
+  onMouseHoverDistanceChange,
+}: Props) {
   const isLoggedInStrava = useIsLoggedInStrava();
 
   if (!isLoggedInStrava) {
@@ -52,10 +57,18 @@ export function StravaActivityDetails({ activityId }: Props) {
     );
   }
 
-  return <StravaActivityDetailsWithToken activityId={activityId} />;
+  return (
+    <StravaActivityDetailsWithToken
+      activityId={activityId}
+      onMouseHoverDistanceChange={onMouseHoverDistanceChange}
+    />
+  );
 }
 
-function StravaActivityDetailsWithToken({ activityId }: Props) {
+function StravaActivityDetailsWithToken({
+  activityId,
+  onMouseHoverDistanceChange,
+}: Props) {
   const [locationState, setLocationState] = useLocationState();
 
   const { result: activity, loading } = useAsync(getStravaActivity, [
@@ -139,6 +152,14 @@ function StravaActivityDetailsWithToken({ activityId }: Props) {
           {activity.kudos}
         </SimpleListItem>
       )}
+
+      <SimpleListItem>
+        <ElevationChart
+          distanceStream={activity.streams.distance}
+          altitudeStream={activity.streams.altitude}
+          onMouseHoverDistanceChange={onMouseHoverDistanceChange}
+        />
+      </SimpleListItem>
 
       <ListSubheader>Links</ListSubheader>
       <ListItem

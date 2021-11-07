@@ -28,7 +28,10 @@ export function Details({
     );
   } else if (locationState.type === "strava-activity") {
     return (
-      <StravaActivityDetails activityId={locationState.stravaActivityId} />
+      <StravaActivityDetails
+        activityId={locationState.stravaActivityId}
+        onMouseHoverDistanceChange={onMouseHoverDistanceChange}
+      />
     );
   } else {
     return <WorldDetails world={locationState.world} />;
