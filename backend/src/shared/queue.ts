@@ -1,13 +1,13 @@
 import Queue from "bull";
 import { REDIS_URL } from "./config";
 
-interface UploadStravaActivityMapData {
+interface UploadStravaMapData {
   athleteId: number;
   activityId: number;
 }
 
-export const uploadStravaActivityMapQueue =
-  new Queue<UploadStravaActivityMapData>(
-    "upload-strava-activity-map",
+export const uploadStravaMapQueue =
+  new Queue<UploadStravaMapData>(
+    "upload-strava-map",
     REDIS_URL
   );

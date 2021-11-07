@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
 import { worlds } from "zwift-data";
 import { readStravaToken } from "../shared/persistence/stravaToken";
-import { uploadStravaActivityMapQueue } from "../shared/queue";
+import { uploadStravaMapQueue } from "../shared/queue";
 import { stravaUserAPI } from "../shared/services/strava";
 
 interface Activity {
@@ -10,7 +10,7 @@ interface Activity {
   start_latlng: [latitude: number, longitude: number] | null;
 }
 
-uploadStravaActivityMapQueue.process(async (job, jobDone) => {
+uploadStravaMapQueue.process(async (job, jobDone) => {
   console.log(`Processing`, {
     jobId: job.id,
     data: job.data,

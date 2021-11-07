@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { removeStravaToken } from "../../../shared/persistence/stravaToken";
-import { uploadStravaActivityMapQueue } from "../../../shared/queue";
+import { uploadStravaMapQueue } from "../../../shared/queue";
 import { WebhookEvent } from "../../../shared/types";
 
 export async function handleWebhook(req: Request, res: Response) {
@@ -25,7 +25,7 @@ export async function handleWebhook(req: Request, res: Response) {
     return;
   }
 
-  await uploadStravaActivityMapQueue.add({
+  await uploadStravaMapQueue.add({
     activityId: event.object_id,
     athleteId: event.owner_id,
   });
