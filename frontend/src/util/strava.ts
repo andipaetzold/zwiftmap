@@ -1,6 +1,5 @@
 import { World, worlds } from "zwift-data";
 import { DetailedActivity, SummaryActivity } from "../services/strava/types";
-import { worldConfigs } from "../worldConfig";
 
 export function getWorld(
   activity: DetailedActivity | SummaryActivity
@@ -10,8 +9,7 @@ export function getWorld(
   }
 
   return worlds.find((world) => {
-    const worldConfig = worldConfigs[world.slug];
-    const bb = worldConfig.imageBounds;
+    const bb = world.bounds;
     return (
       bb[0][0] >= activity.start_latlng![0] &&
       activity.start_latlng![0] >= bb[1][0] &&

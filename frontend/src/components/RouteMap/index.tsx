@@ -113,18 +113,16 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
       return;
     }
 
-    const worldConfig = worldConfigs[locationState.world.slug];
-
     map.invalidateSize();
-    map.setMaxBounds(worldConfig.imageBounds);
+    map.setMaxBounds(world.bounds);
 
-    const minZoom = map.getBoundsZoom(worldConfig.imageBounds, false);
+    const minZoom = map.getBoundsZoom(world.bounds, false);
     map.setMinZoom(minZoom);
 
     if (locationState.type !== "route") {
       map.fitBounds(worldConfig.initialBounds);
     }
-  }, [map, locationState.world, locationState.type]);
+  }, [map, worldConfig, world, locationState.type]);
 
   const pointCoordinates = useMemo<LatLngExpression | undefined>(() => {
     if (!routeStravaSegment || !mouseHoverDistance) {
@@ -146,14 +144,14 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
       <MapContainer
         key={locationState.world.slug}
         whenCreated={(map) => setMap(map)}
-        bounds={worldConfig.imageBounds}
+        bounds={world.bounds}
         style={{ backgroundColor: worldConfig.backgroundColor }}
         maxZoom={19}
         className={styles.MapContainer}
       >
         <ImageOverlay
           url={worldConfig.image}
-          bounds={worldConfig.imageBounds}
+          bounds={world.bounds}
           attribution='&amp;copy <a href="https://zwift.com" rel="noreferrer noopener">Zwift</a>'
         />
 
