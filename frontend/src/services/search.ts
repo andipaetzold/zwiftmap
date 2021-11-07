@@ -34,52 +34,53 @@ export interface SearchResultStravaActivity {
   };
 }
 
-const searchResults: (
-  | SearchResultWorld
-  | SearchResultRoute
-  | SearchResultSegment
-)[] = [
-  ...[...worlds]
-    .sort((a, b) => a.name.localeCompare(b.name))
-    .map((world) => ({
-      type: "world" as const,
-      terms: [world.name].map((t) => t.toLocaleLowerCase()),
-      data: world,
-    })),
-  ...[...routes]
-    .sort((a, b) => a.name.localeCompare(b.name))
-    .filter((route) => route.stravaSegmentId !== undefined)
-    .map((route) => ({
-      type: "route" as const,
-      terms: [worlds.find((w) => w.slug === route.world)!.name, route.name].map(
-        (t) => t.toLocaleLowerCase()
-      ),
-      data: route,
-    })),
-  //   ...segments
-  //     .filter((route) => route.stravaSegmentId !== undefined)
-  //     .map((segment) => ({
-  //     type: "segment" as const,
-  //     terms: [
-  //       worlds.find((w) => w.slug === segment.slug)!.name,
-  //       segment.name,
-  //     ].map((t) => t.toLocaleLowerCase()),
-  //     data: segment,
-  //   })),
-];
+const searchResultsWorld = [...worlds]
+  .sort((a, b) => a.name.localeCompare(b.name))
+  .map((world) => ({
+    type: "world" as const,
+    terms: [world.name].map((t) => t.toLocaleLowerCase()),
+    data: world,
+  }));
+const searchResultsRoute = [...routes]
+  .filter((route) => route.stravaSegmentId !== undefined)
+  .map((route) => ({
+    type: "route" as const,
+    terms: [worlds.find((w) => w.slug === route.world)!.name, route.name].map(
+      (t) => t.toLocaleLowerCase()
+    ),
+    data: route,
+  }));
+// const searchResultsSegment = [...segments]
+//   .filter((route) => route.stravaSegmentId !== undefined)
+//   .map((segment) => ({
+//     type: "segment" as const,
+//     terms: [
+//       worlds.find((w) => w.slug === segment.slug)!.name,
+//       segment.name,
+//     ].map((t) => t.toLocaleLowerCase()),
+//     data: segment,
+//   }));
 
-export function search(term: string, sport: Sport): SearchResult[] {
+export function search(
+  term: string,
+  sport: Sport
+): { [type in SearchResult["type"]]: SearchResult[] } {
   if (REGEX_STRAVA_ACTIVITY.test(term)) {
     const [, stravaActivityId] = REGEX_STRAVA_ACTIVITY.exec(term)!;
-    return [
-      {
-        type: "strava-activity",
-        data: {
-          activityId: stravaActivityId,
-          slug: `strava-activity-${stravaActivityId}`,
+    return {
+      "strava-activity": [
+        {
+          type: "strava-activity",
+          data: {
+            activityId: stravaActivityId,
+            slug: `strava-activity-${stravaActivityId}`,
+          },
         },
-      },
-    ];
+      ],
+      route: [],
+      segment: [],
+      world: [],
+    };
   }
 
   const terms = term
@@ -87,21 +88,28 @@ export function search(term: string, sport: Sport): SearchResult[] {
     .split(" ")
     .filter((t) => t.length > 0);
 
-  return searchResults
-    .filter((sr) => {
-      if (sr.type === "world" || sr.type === "segment") {
-        return true;
-      } else {
-        return sr.data.sports.includes(sport);
-      }
-    })
-
-    .filter((sr) =>
-      terms.every((t) => sr.terms.some((srt) => srt.includes(t)))
-    );
+  return {
+    world: searchResultsWorld.filter((world) =>
+      terms.every((t) => world.terms.some((worldTerm) => worldTerm.includes(t)))
+    ),
+    route: searchResultsRoute.filter((route) =>
+      terms.every((t) =>
+        route.terms.some((routerTerm) => routerTerm.includes(t))
+      )
+    ),
+    segment: [],
+    "strava-activity": [],
+  };
 }
 
-export const searchResultTypes = {
+export const SEARCH_RESULTS_ORDER: SearchResult["type"][] = [
+  "strava-activity",
+  "world",
+  "route",
+  "segment",
+];
+
+export const SEARCH_RESULTS_TYPES = {
   world: {
     title: "Worlds",
   },
