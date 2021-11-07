@@ -69,7 +69,9 @@ export function StravaActivitiesList() {
       {activities !== undefined &&
         [...activities]
           .sort((a, b) => -a.start_date.localeCompare(b.start_date))
-          .filter((activity) => activity.type === "VirtualRide")
+          .filter((activity) =>
+            ["VirtualRun", "VirtualRide"].includes(activity.type)
+          )
           .map((activity) => {
             const world = getWorld(activity);
             return { world, activity };

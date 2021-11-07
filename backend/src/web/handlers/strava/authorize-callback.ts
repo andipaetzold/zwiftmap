@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { URLSearchParams } from "url";
 import { FRONTEND_URL, STRAVA_DEV_ACCOUNTS } from "../../../shared/config";
 import { writeStravaToken } from "../../../shared/persistence/stravaToken";
-import { stravaAppAPI } from "../../services/strava";
+import { stravaAppAPI } from "../../../shared/services/strava";
 import { Session } from "../../types";
 
 export async function handleStravaAuthorizeCallback(

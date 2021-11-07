@@ -1,11 +1,11 @@
 import axios from "axios";
-import { STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET } from "../../shared/config";
+import { STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET } from "../config";
 import {
   readStravaToken,
   removeStravaToken,
   StravaToken,
   writeStravaToken,
-} from "../../shared/persistence/stravaToken";
+} from "../persistence/stravaToken";
 
 export const stravaUserAPI = axios.create({
   baseURL: "https://www.strava.com/api/v3",

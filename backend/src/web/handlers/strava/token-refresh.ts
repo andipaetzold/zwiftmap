@@ -4,7 +4,7 @@ import {
   readStravaToken,
   writeStravaToken,
 } from "../../../shared/persistence/stravaToken";
-import { stravaAppAPI } from "../../services/strava";
+import { stravaAppAPI } from "../../../shared/services/strava";
 import { Session } from "../../types";
 
 const Body = Record({
