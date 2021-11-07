@@ -1,14 +1,7 @@
-import { LatLngBounds, LatLngExpression, Map } from "leaflet";
+import { LatLngBounds, LatLngTuple, Map as MapType } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import React, { useEffect, useMemo, useState } from "react";
 import { useAsync } from "react-async-hook";
-import {
-  Circle,
-  ImageOverlay,
-  MapContainer,
-  Pane,
-  Polyline,
-} from "react-leaflet";
 import { Route } from "zwift-data";
 import { useIsLoggedInStrava } from "../../hooks/useIsLoggedInStrava";
 import { useLocationState } from "../../hooks/useLocationState";
@@ -20,6 +13,7 @@ import {
 import { LocationState, LocationStateRoute } from "../../types";
 import { worldConfigs } from "../../worldConfig";
 import styles from "./index.module.css";
+import { Map } from "./Map";
 import { WorldSelect } from "./WorldSelect";
 
 interface Props {
@@ -32,25 +26,21 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
   const world = locationState.world;
   const worldConfig = worldConfigs[world.slug];
 
-  const { result: stravaSegmentsToShow } = useAsync(
+  const { result: segmentsLatLngStreams } = useAsync(
     async (state: LocationState) => {
       if (state.type !== "route") {
         return [];
       }
-      const stravaSegments = await Promise.all(
+      return await Promise.all(
         state.segments.map((s) =>
           getStravaSegmentStream(s.slug, "segments", "latlng")
         )
       );
-      return state.segments.map((s, i) => ({
-        ...s,
-        stravaData: stravaSegments[i],
-      }));
     },
     [locationState]
   );
 
-  const [map, setMap] = useState<Map | undefined>();
+  const [map, setMap] = useState<MapType | undefined>();
   useEffect(() => {
     map?.zoomControl.setPosition("topright");
   }, [map]);
@@ -124,7 +114,7 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
     }
   }, [map, worldConfig, world, locationState.type]);
 
-  const pointCoordinates = useMemo<LatLngExpression | undefined>(() => {
+  const pointCoordinates = useMemo<LatLngTuple | undefined>(() => {
     if ((!routeStravaSegment && !stravaActivity) || !mouseHoverDistance) {
       return;
     }
@@ -148,73 +138,17 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
   return (
     <div className={styles.Container}>
       <WorldSelect />
-      <MapContainer
-        key={locationState.world.slug}
-        whenCreated={(map) => setMap(map)}
-        bounds={world.bounds}
-        style={{ backgroundColor: worldConfig.backgroundColor }}
-        maxZoom={19}
-        className={styles.MapContainer}
-      >
-        <ImageOverlay
-          url={worldConfig.image}
-          bounds={world.bounds}
-          attribution='&amp;copy <a href="https://zwift.com" rel="noreferrer noopener">Zwift</a>'
-        />
-
-        {previewRouteStravaSegment && (
-          <Pane name="preview-route" style={{ zIndex: 506 }}>
-            <Polyline
-              positions={previewRouteStravaSegment.latlng}
-              pathOptions={{ color: "#D3D3D3", weight: 5 }}
-            />
-          </Pane>
-        )}
-
-        {routeStravaSegment && (
-          <Pane name="route" style={{ zIndex: 504 }}>
-            <Polyline
-              positions={routeStravaSegment.latlng}
-              pathOptions={{ color: "#fc6719", weight: 5 }}
-            />
-          </Pane>
-        )}
-
-        {stravaActivity && (
-          <Pane name="strava-activity" style={{ zIndex: 504 }}>
-            <Polyline
-              positions={stravaActivity.streams.latlng}
-              pathOptions={{ color: "#fc6719", weight: 5 }}
-            />
-          </Pane>
-        )}
-
-        {stravaSegmentsToShow && (
-          <Pane name="segments" style={{ zIndex: 505 }}>
-            {stravaSegmentsToShow?.map((s) => (
-              <Polyline
-                key={s.slug}
-                positions={s.stravaData}
-                pathOptions={{ color: "#64ac39", weight: 8 }}
-              />
-            ))}
-          </Pane>
-        )}
-
-        {pointCoordinates && (
-          <Pane name="mouse-position" style={{ zIndex: 507 }}>
-            <Circle
-              center={pointCoordinates}
-              radius={15}
-              pathOptions={{
-                color: "black",
-                fillColor: "black",
-                fillOpacity: 1,
-              }}
-            />
-          </Pane>
-        )}
-      </MapContainer>
+      <Map
+        onMapChange={setMap}
+        world={world}
+        key={world.slug}
+        hoverPoint={pointCoordinates}
+        previewRouteLatLngStream={previewRouteStravaSegment?.latlng}
+        routeLatLngStream={
+          routeStravaSegment?.latlng ?? stravaActivity?.streams.latlng
+        }
+        segmentLatLngStreams={segmentsLatLngStreams}
+      />
     </div>
   );
 }
