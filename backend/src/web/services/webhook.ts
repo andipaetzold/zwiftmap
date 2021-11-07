@@ -3,7 +3,7 @@ import {
   STRAVA_VERIFY_TOKEN,
   STRAVA_WEBHOOK_HOST,
 } from "../../shared/config";
-import { stravaAppAPI } from "./strava";
+import { stravaAppAPI } from "../../shared/services/strava";
 
 interface WebhookSubscription {
   id: number;
