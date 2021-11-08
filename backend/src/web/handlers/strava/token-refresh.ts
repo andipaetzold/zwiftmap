@@ -1,3 +1,4 @@
+import axios, { AxiosResponse } from "axios";
 import { Request, Response } from "express";
 import { Record, String } from "runtypes";
 import {
@@ -29,11 +30,21 @@ export async function handleStravaTokenRefresh(req: Request, res: Response) {
     refreshToken = token.refreshToken;
   }
 
-  const response = await stravaAppAPI.post("/oauth/token", {
-    grant_type: "refresh_token",
-    refresh_token: req.body.refresh_token,
-  });
-  const responseData = response.data;
+  let refreshResponse: AxiosResponse;
+  try {
+    refreshResponse = await stravaAppAPI.post("/oauth/token", {
+      grant_type: "refresh_token",
+      refresh_token: req.body.refresh_token,
+    });
+  } catch (e) {
+    if (axios.isAxiosError(e) && e.response !== undefined) {
+      res.sendStatus(e.response.status);
+    } else {
+      res.sendStatus(500);
+    }
+    return;
+  }
+  const responseData = refreshResponse.data;
 
   if (session.athleteId) {
     await writeStravaToken({
