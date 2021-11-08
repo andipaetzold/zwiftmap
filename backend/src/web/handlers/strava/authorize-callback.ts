@@ -33,7 +33,7 @@ export async function handleStravaAuthorizeCallback(
       token: responseJSON.access_token,
       refreshToken: responseJSON.refresh_token,
     });
-    session.athleteId = athleteId;
+    session.stravaAthleteId = athleteId;
 
     params.set("strava-auth", JSON.stringify(responseJSON));
   }

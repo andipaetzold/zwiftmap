@@ -21,8 +21,8 @@ export async function handleStravaTokenRefresh(req: Request, res: Response) {
   const session = req.session as Session;
 
   let refreshToken = req.body.refresh_token;
-  if (session.athleteId) {
-    const token = await readStravaToken(session.athleteId);
+  if (session.stravaAthleteId) {
+    const token = await readStravaToken(session.stravaAthleteId);
     if (!token) {
       res.send(500);
       return;
@@ -46,9 +46,9 @@ export async function handleStravaTokenRefresh(req: Request, res: Response) {
   }
   const responseData = refreshResponse.data;
 
-  if (session.athleteId) {
+  if (session.stravaAthleteId) {
     await writeStravaToken({
-      athleteId: session.athleteId,
+      athleteId: session.stravaAthleteId,
       expiresAt: responseData.expires_at,
       refreshToken: responseData.refresh_token,
       token: responseData.access_token,
