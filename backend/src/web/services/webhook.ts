@@ -4,6 +4,7 @@ import {
   STRAVA_WEBHOOK_HOST,
 } from "../../shared/config";
 import { stravaAppAPI } from "../../shared/services/strava";
+import { setWebhookSubscriptionId } from "../state";
 
 interface WebhookSubscription {
   id: number;
@@ -40,10 +41,15 @@ async function createWebhookSubscription() {
   console.log("Creating Webhook Subscription");
 
   try {
-    await stravaAppAPI.post("/api/v3/push_subscriptions", {
-      callback_url: `${STRAVA_WEBHOOK_HOST}/strava/webhook`,
-      verify_token: STRAVA_VERIFY_TOKEN,
-    });
+    const response = await stravaAppAPI.post<{ id: number }>(
+      "/api/v3/push_subscriptions",
+      {
+        callback_url: `${STRAVA_WEBHOOK_HOST}/strava/webhook`,
+        verify_token: STRAVA_VERIFY_TOKEN,
+      }
+    );
+    const data = response.data;
+    setWebhookSubscriptionId(data.id);
   } catch (e: any) {
     console.error("Error creating Webhook Subscription", e);
   }
@@ -58,7 +64,11 @@ async function getWebhookSubscription(): Promise<
     const response = await stravaAppAPI.get<WebhookSubscription[]>(
       "/api/v3/push_subscriptions"
     );
-    return response.data[0];
+    const subscription = response.data[0];
+    if (subscription) {
+      setWebhookSubscriptionId(subscription.id);
+    }
+    return subscription;
   } catch (e: any) {
     console.error("Error fetching Webhook Subscription", e);
     return undefined;
@@ -73,4 +83,6 @@ async function deleteWebhookSubscription(subscription: WebhookSubscription) {
   } catch (e: any) {
     console.error("Error deleting Webhook Subscription", e);
   }
+
+  setWebhookSubscriptionId(undefined);
 }
