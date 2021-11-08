@@ -5,6 +5,7 @@ import { PORT, SENTRY_DSN } from "../shared/config";
 import * as handlers from "./handlers";
 import { app } from "./server";
 import { setupWebhook } from "./services/webhook";
+import { Request, Response } from "express";
 
 Sentry.init({
   enabled: SENTRY_DSN.length > 0,
@@ -28,6 +29,9 @@ app.post("/auth/logout", handlers.handleLogout);
 app.get("/ping", handlers.handlePing);
 
 app.use(Sentry.Handlers.errorHandler());
+app.use((_err: Error, _req: Request, res: Response) => {
+  res.sendStatus(500);
+});
 
 app.listen(PORT, async () => {
   console.log(`Listening at port ${PORT}`);
