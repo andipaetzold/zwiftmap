@@ -1,3 +1,4 @@
+import * as Sentry from "@sentry/node";
 import { DetailedActivity } from "strava";
 import { getToken, stravaUserAPI } from "../../shared/services/strava";
 import { WebhookEventType } from "../../shared/types";
@@ -19,8 +20,9 @@ export async function handleActivityCreate(webhookEvent: WebhookEventType) {
       }
     );
     activity = activityResponse.data;
-  } catch {
-    console.log("Error fetching activity");
+  } catch (e) {
+    const sentryEventId = Sentry.captureException(e);
+    console.log("Error fetching activity", { sentryEventId });
     return;
   }
 
