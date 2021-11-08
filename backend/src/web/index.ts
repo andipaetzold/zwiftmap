@@ -20,12 +20,15 @@ Sentry.init({
 app.use(Sentry.Handlers.requestHandler());
 app.use(Sentry.Handlers.tracingHandler());
 
+app.post("/auth/logout", handlers.handleLogout);
+
 app.get("/strava/authorize", handlers.handleStravaAuthorize);
 app.get("/strava/callback", handlers.handleStravaAuthorizeCallback);
 app.post("/strava/refresh", handlers.handleStravaTokenRefresh);
+app.post("/strava/share-activity", handlers.handleShareActivity);
 app.post("/strava/webhook", handlers.handleWebhook);
 app.get("/strava/webhook", handlers.handleWebhookVerification);
-app.post("/auth/logout", handlers.handleLogout);
+
 app.get("/ping", handlers.handlePing);
 
 app.use(Sentry.Handlers.errorHandler());

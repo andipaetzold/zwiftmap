@@ -73,7 +73,7 @@ export async function fetchActivityStreams(activityId: string) {
         "latlng",
         "time",
         "altitude",
-        "wattage",
+        "watts",
         "velocity_smooth",
         "watts",
         "cadence",

@@ -1,8 +1,8 @@
-import { AxiosResponse } from "axios";
-import { worlds } from "zwift-data";
+import { DetailedActivity, Strava } from "strava";
+import { STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET } from "../../shared/config";
 import { readStravaToken } from "../../shared/persistence/stravaToken";
-import { stravaUserAPI } from "../../shared/services/strava";
 import { WebhookEventType } from "../../shared/types";
+import { isZwiftActivity } from "../../shared/util";
 
 interface Activity {
   type: string;
@@ -17,18 +17,21 @@ export async function handleActivityCreate(webhookEvent: WebhookEventType) {
     return;
   }
 
-  let activityResponse: AxiosResponse<any>;
+  const client = new Strava({
+    client_id: STRAVA_CLIENT_ID.toString(),
+    client_secret: STRAVA_CLIENT_SECRET,
+    refresh_token: token.refreshToken,
+  });
+
+  let activity: DetailedActivity;
   try {
-    activityResponse = await stravaUserAPI.get(
-      `/activities/${webhookEvent.object_id}`,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+    activity = await client.activities.getActivityById({
+      id: webhookEvent.object_id,
+    });
   } catch {
     console.log("Error fetching activity");
     return;
   }
-
-  const activity = activityResponse.data;
 
   if (!isZwiftActivity(activity)) {
     console.log("Not a Zwift activity");
@@ -36,30 +39,4 @@ export async function handleActivityCreate(webhookEvent: WebhookEventType) {
   }
 
   console.log("This is a Zwift activity");
-}
-
-function isZwiftActivity(activity: Activity): boolean {
-  if (!["VirtualRun", "VirtualRide"].includes(activity.type)) {
-    return false;
-  }
-
-  if (activity.device_name !== "Zwift") {
-    return false;
-  }
-
-  const world = worlds.find((world) => {
-    const bb = world.bounds;
-    return (
-      bb[0][0] >= activity.start_latlng![0] &&
-      activity.start_latlng![0] >= bb[1][0] &&
-      bb[0][1] <= activity.start_latlng![1] &&
-      activity.start_latlng![1] <= bb[1][1]
-    );
-  });
-
-  if (world === undefined) {
-    return false;
-  }
-
-  return true;
 }

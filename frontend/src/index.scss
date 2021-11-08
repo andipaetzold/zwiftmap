@@ -1,6 +1,8 @@
 $rmd-dialog-z-index: 1000; // leaflet is around z-index 400
 $rmd-menu-z-index: 6000; // sidebar is z-index 5000
+$rmd-snackbar-z-index: 7000;
 
+@import "~@react-md/alert/dist/mixins";
 @import "~@react-md/avatar/dist/mixins";
 @import "~@react-md/button/dist/mixins";
 @import "~@react-md/chip/dist/mixins";

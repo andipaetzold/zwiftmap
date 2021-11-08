@@ -1,3 +1,6 @@
+import { DetailedActivity } from "strava";
+import { World, worlds } from "zwift-data";
+
 export function randomString(length = 16) {
   const CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
@@ -8,4 +11,34 @@ export function randomString(length = 16) {
   }
 
   return result;
+}
+
+export function isZwiftActivity(activity: DetailedActivity): boolean {
+  if (!["VirtualRun", "VirtualRide"].includes(activity.type)) {
+    return false;
+  }
+
+  if (activity.device_name !== "Zwift") {
+    return false;
+  }
+
+  const world = getWorld(activity);
+
+  if (world === undefined) {
+    return false;
+  }
+
+  return true;
+}
+
+export function getWorld(activity: DetailedActivity): World | undefined {
+  return worlds.find((world) => {
+    const bb = world.bounds;
+    return (
+      bb[0][0] >= activity.start_latlng![0] &&
+      activity.start_latlng![0] >= bb[1][0] &&
+      bb[0][1] <= activity.start_latlng![1] &&
+      activity.start_latlng![1] <= bb[1][1]
+    );
+  });
 }

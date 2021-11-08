@@ -1,3 +1,4 @@
+import { MessageQueue } from "@react-md/alert";
 import * as Sentry from "@sentry/react";
 import { Integrations } from "@sentry/tracing";
 import React from "react";
@@ -19,7 +20,9 @@ ping();
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <MessageQueue id="message-queue">
+      <App />
+    </MessageQueue>
   </React.StrictMode>,
   document.getElementById("app")
 );
