@@ -5,6 +5,7 @@ import {
 } from "../../shared/config";
 import { stravaAppAPI } from "../../shared/services/strava";
 import { setWebhookSubscriptionId } from "../state";
+import Sentry from "@sentry/node";
 
 interface WebhookSubscription {
   id: number;
@@ -50,8 +51,9 @@ async function createWebhookSubscription() {
     );
     const data = response.data;
     setWebhookSubscriptionId(data.id);
-  } catch (e: any) {
-    console.error("Error creating Webhook Subscription", e);
+  } catch (e) {
+    const sentryEventId = Sentry.captureException(e);
+    console.error("Error creating Webhook Subscription", { sentryEventId });
   }
 }
 
@@ -69,8 +71,9 @@ async function getWebhookSubscription(): Promise<
       setWebhookSubscriptionId(subscription.id);
     }
     return subscription;
-  } catch (e: any) {
-    console.error("Error fetching Webhook Subscription", e);
+  } catch (e) {
+    const sentryEventId = Sentry.captureException(e);
+    console.error("Error fetching Webhook Subscription", { sentryEventId });
     return undefined;
   }
 }
@@ -80,8 +83,9 @@ async function deleteWebhookSubscription(subscription: WebhookSubscription) {
 
   try {
     await stravaAppAPI.delete(`/api/v3/push_subscriptions/${subscription.id}`);
-  } catch (e: any) {
-    console.error("Error deleting Webhook Subscription", e);
+  } catch (e) {
+    const sentryEventId = Sentry.captureException(e);
+    console.error("Error deleting Webhook Subscription", { sentryEventId });
   }
 
   setWebhookSubscriptionId(undefined);
