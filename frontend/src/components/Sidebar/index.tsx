@@ -7,7 +7,6 @@ import {
 import c from "classnames";
 import React, { useRef, useState } from "react";
 import { useLocationState } from "../../hooks/useLocationState";
-import { getKeyFromLocationState } from "../../hooks/useLocationState/getKeyFromLocationState";
 import { Content } from "./Content";
 import styles from "./index.module.scss";
 import { MenuButton } from "./MenuButton";
@@ -44,10 +43,7 @@ export function Sidebar({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
           <Divider className={styles.NoGapDivider} />
         </List>
 
-        <div
-          className={styles.Content}
-          key={locationState.key}
-        >
+        <div className={styles.Content} key={locationState.key}>
           <Content
             onHoverRoute={onHoverRoute}
             onMouseHoverDistanceChange={onMouseHoverDistanceChange}
