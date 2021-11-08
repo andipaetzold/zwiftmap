@@ -180,6 +180,24 @@ function StravaActivityDetailsWithToken({
       >
         Activity on Strava
       </ListItem>
+      <ListItem
+        onClick={() =>
+          window.open(
+            `https://www.strava.com/athletes/${activity.athleteId}`,
+            "_blank"
+          )
+        }
+        leftAddon={
+          <Avatar color="#000000">
+            <img src={stravaLogo} alt="" />
+          </Avatar>
+        }
+        leftAddonType="avatar"
+        rightAddon={<OpenInNewFontIcon />}
+        rightAddonType="icon"
+      >
+        Athlete on Strava
+      </ListItem>
     </List>
   );
 }
