@@ -65,7 +65,7 @@ export const worldConfigs: Record<WorldSlug, WorldConfig> = {
       [-10.775156, 165.859212],
     ],
     image: makuriIslandsMap,
-    backgroundColor: "#7c9938",
+    backgroundColor: "#7d9a35",
   },
   "new-york": {
     initialBounds: [
