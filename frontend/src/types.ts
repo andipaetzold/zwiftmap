@@ -35,8 +35,13 @@ export interface LocationStateStravaActivities extends LocationStateBase {
   type: "strava-activities";
 }
 
+export interface LocationStateUpcomingEvents extends LocationStateBase {
+  type: "upcoming-events";
+}
+
 export type LocationState =
   | LocationStateDefault
   | LocationStateRoute
   | LocationStateStravaActivity
-  | LocationStateStravaActivities;
+  | LocationStateStravaActivities
+  | LocationStateUpcomingEvents;

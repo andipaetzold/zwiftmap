@@ -25,6 +25,10 @@ export function createUrl(state: LocationState): string {
     case "strava-activity":
       searchParams.set("strava-activity", state.stravaActivityId);
       break;
+
+    case "upcoming-events":
+      searchParams.set("upcoming-events", "");
+      break;
   }
 
   if (state.query.length > 0) {

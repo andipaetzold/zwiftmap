@@ -30,16 +30,30 @@ export function RouteList({ onHoverRoute }: Props) {
     });
   };
 
+  const handleUpcomingEvents = () => {
+    setLocationState({
+      world: locationState.world,
+      query: "",
+      type: "upcoming-events",
+    });
+  };
+
   return (
     <List>
       {isLoggedIn && (
-        <>
-          <ListItem secondaryText="Last 30 days" onClick={handleStravaClick}>
-            Recent Strava Activities
-          </ListItem>
-          <Divider />
-        </>
+        <ListItem secondaryText="Last 30 days" onClick={handleStravaClick}>
+          Recent Strava Activities
+        </ListItem>
       )}
+
+      {process.env.NODE_ENV === "development" && (
+        <ListItem secondaryText="Next 7 days" onClick={handleUpcomingEvents}>
+          Upcoming Events
+        </ListItem>
+      )}
+
+      {(process.env.NODE_ENV === "development" || isLoggedIn) && <Divider />}
+
       <SortButton state={sortState} onChange={setSortState} />
       {routes
         .filter((route) => route.world === locationState.world.slug)

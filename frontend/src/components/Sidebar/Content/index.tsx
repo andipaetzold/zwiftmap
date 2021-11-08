@@ -5,6 +5,7 @@ import { SearchResultList } from "./Lists/SearchResultList";
 import { StravaActivitiesList } from "./Lists/StravaActivitiesList";
 import { RouteDetails } from "./RouteDetails";
 import { StravaActivityDetails } from "./StravaActivityDetails";
+import { UpcomingEvents } from "./UpcomingEvents";
 
 interface Props {
   onMouseHoverDistanceChange: (distance: number | undefined) => void;
@@ -44,7 +45,8 @@ export function Content({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
       );
     case "strava-activities":
       return <StravaActivitiesList />;
-    default:
+    case "upcoming-events":
+      return <UpcomingEvents />;
     case "default":
       if (locationState.query === "") {
         return <RouteList onHoverRoute={onHoverRoute} />;

@@ -2,12 +2,14 @@ import axios from "axios";
 
 let cache: Promise<ZwiftEvent[]>;
 
+const api = axios.create({
+  baseURL: "https://us-or-rly101.zwift.com/api",
+});
+
 export async function fetchEvents(): Promise<ZwiftEvent[]> {
   if (!cache) {
-    cache = axios
-      .get<ZwiftEvent[]>(
-        "https://us-or-rly101.zwift.com/api/public/events/upcoming"
-      )
+    cache = api
+      .get<ZwiftEvent[]>("/public/events/upcoming")
       .then((r) => r.data);
   }
 

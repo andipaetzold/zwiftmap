@@ -26,6 +26,13 @@ export function getKeyFromLocationState(locationState: LocationState): string {
         locationState.query,
       ].join();
 
+    case "upcoming-events":
+      return [
+        locationState.type,
+        locationState.world.slug,
+        locationState.query,
+      ].join();
+
     case "default":
       return [
         locationState.type,

@@ -2,12 +2,12 @@ import { ListItem, SimpleListItem } from "@react-md/list";
 import { EventFontIcon } from "@react-md/material-icons";
 import { CircularProgress } from "@react-md/progress";
 import { Text } from "@react-md/typography";
-import round from "lodash/round";
 import React, { useMemo } from "react";
 import { useAsync } from "react-async-hook";
 import { Route } from "zwift-data";
-import { fetchEvents, ZwiftEventType } from "../../../../services/fetchEvents";
-import { Distance } from "../../../Distance";
+import { useSettings } from "../../../../hooks/useSettings";
+import { fetchEvents } from "../../../../services/fetchEvents";
+import { EventInfo } from "../../../EventInfo";
 
 interface Props {
   route: Route;
@@ -15,12 +15,15 @@ interface Props {
 
 export function RouteEvents({ route }: Props) {
   const { result: events } = useAsync(fetchEvents, []);
+  const [settings] = useSettings();
+
   const filteredEvents = useMemo(() => {
     if (!events) {
       return;
     }
 
     return events
+      .filter((e) => e.sport.toLowerCase() === settings.sport)
       .filter((event) => {
         const eventRouteIds = [
           event.routeId,
@@ -30,7 +33,7 @@ export function RouteEvents({ route }: Props) {
         return route.id && eventRouteIds.includes(route.id);
       })
       .sort((a, b) => a.eventStart.localeCompare(b.eventStart));
-  }, [events, route]);
+  }, [events, route, settings.sport]);
 
   if (filteredEvents === undefined) {
     return (
@@ -58,28 +61,11 @@ export function RouteEvents({ route }: Props) {
         <ListItem
           key={event.id}
           onClick={() =>
-            window.open(`http://zwift.com/events/view/${event.id}`, "_blank")
+            window.open(`https://zwift.com/events/view/${event.id}`, "_blank")
           }
           rightAddon={<EventFontIcon />}
           rightAddonType="icon"
-          secondaryText={
-            <>
-              {new Intl.DateTimeFormat("en-US", {
-                hour: "2-digit",
-                minute: "2-digit",
-                weekday: "short",
-              }).format(Date.parse(event.eventStart))}
-              <br />
-              {eventTypes[event.eventType] ?? event.eventType} |&nbsp;
-              {event.distanceInMeters !== 0 ? (
-                <Distance distance={event.distanceInMeters / 1_000} />
-              ) : event.durationInSeconds > 0 ? (
-                <>{round(event.durationInSeconds) / 60}min</>
-              ) : (
-                <>{event.laps === 1 ? `1 lap` : `${event.laps} laps`}</>
-              )}
-            </>
-          }
+          secondaryText={<EventInfo event={event} />}
           threeLines
         >
           {event.name}
@@ -96,10 +82,3 @@ export function RouteEvents({ route }: Props) {
     </>
   );
 }
-
-const eventTypes: { [type in ZwiftEventType]: string } = {
-  GROUP_RIDE: "Group Ride",
-  GROUP_WORKOUT: "Workout",
-  RACE: "Race",
-  TIME_TRIAL: "Time Trial",
-};
