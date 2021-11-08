@@ -5,7 +5,7 @@ import {
 } from "../../shared/config";
 import { stravaAppAPI } from "../../shared/services/strava";
 import { setWebhookSubscriptionId } from "../state";
-import Sentry from "@sentry/node";
+import * as Sentry from "@sentry/node";
 
 interface WebhookSubscription {
   id: number;
