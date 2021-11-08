@@ -103,5 +103,5 @@ export async function handleShareActivity(req: Request, res: Response) {
 
   const url = `${FRONTEND_URL}/${world.slug}?shared=${sharedItemId}`;
 
-  res.status(201).header({ Location: url }).send({ url });
+  res.status(201).header({ Location: url }).json({ url });
 }
