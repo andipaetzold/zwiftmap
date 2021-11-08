@@ -10,7 +10,7 @@ import {
 import { Menu, MenuItem } from "@react-md/menu";
 import { BELOW_INNER_LEFT_ANCHOR, useToggle } from "@react-md/utils";
 import c from "classnames";
-import styles from "./SortButton.module.scss";
+import styles from "./index.module.scss";
 
 export type SortKey =
   | "name"

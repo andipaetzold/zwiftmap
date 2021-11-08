@@ -18,7 +18,7 @@ import whatsOnZwiftLogo from "../../../../assets/WhatsOnZwift-40x40.png";
 import zwiftInsiderLogo from "../../../../assets/ZwiftInsider-40x40.jpg";
 import { Distance } from "../../../Distance";
 import { Elevation } from "../../../Elevation";
-import { RouteElevationChart } from "../../ElevationChart";
+import { RouteElevationChart } from "../../../ElevationChart";
 import { RouteEvents } from "./RouteEvents";
 import { RouteSegments } from "./RouteSegments";
 import { RouteStravaPB } from "./RouteStravaPB";

@@ -37,13 +37,6 @@ $drag-handle-height: 25px;
   padding-bottom: 0;
 }
 
-.Content {
-  flex: 1;
-  overflow-y: auto;
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
 .BottomMenu {
   flex-grow: 0;
   --rmd-list-vertical-padding: 0;

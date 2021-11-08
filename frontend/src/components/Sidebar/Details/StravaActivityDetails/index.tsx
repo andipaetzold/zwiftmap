@@ -23,7 +23,7 @@ import { getStravaActivity } from "../../../../services/StravaActivityRepository
 import { Distance } from "../../../Distance";
 import { Elevation } from "../../../Elevation";
 import { Time } from "../../../Time";
-import { ElevationChart } from "../../ElevationChart";
+import { ElevationChart } from "../../../ElevationChart";
 
 interface Props {
   activityId: string;

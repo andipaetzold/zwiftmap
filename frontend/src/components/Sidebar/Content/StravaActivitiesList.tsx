@@ -5,13 +5,13 @@ import { ListFontIcon } from "@react-md/material-icons";
 import { CircularProgress } from "@react-md/progress";
 import React from "react";
 import { useAsync } from "react-async-hook";
-import { useLocationState } from "../../hooks/useLocationState";
-import { getLoggedInAthleteActivities } from "../../services/strava/api";
-import { SummaryActivity } from "../../services/strava/types";
-import { getWorld } from "../../util/strava";
-import { Distance } from "../Distance";
-import { Elevation } from "../Elevation";
-import { Time } from "../Time";
+import { useLocationState } from "../../../hooks/useLocationState";
+import { getLoggedInAthleteActivities } from "../../../services/strava/api";
+import { SummaryActivity } from "../../../services/strava/types";
+import { getWorld } from "../../../util/strava";
+import { Distance } from "../../Distance";
+import { Elevation } from "../../Elevation";
+import { Time } from "../../Time";
 
 const PER_PAGE = 30;
 
