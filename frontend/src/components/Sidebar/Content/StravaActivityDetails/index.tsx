@@ -4,6 +4,7 @@ import { Button } from "@react-md/button";
 import { TextIconSpacing } from "@react-md/icon";
 import { List, ListItem, ListSubheader, SimpleListItem } from "@react-md/list";
 import {
+  InsertLinkFontIcon,
   LandscapeFontIcon,
   ListFontIcon,
   MapFontIcon,
@@ -15,6 +16,7 @@ import {
 } from "@react-md/material-icons";
 import { CircularProgress } from "@react-md/progress";
 import { Text } from "@react-md/typography";
+import { noop } from "lodash";
 import React from "react";
 import { useAsync } from "react-async-hook";
 import stravaLogo from "../../../../assets/strava-40x40.png";
@@ -234,6 +236,13 @@ function StravaActivityDetailsWithToken({
               onClick={handleShare}
             >
               Share activity
+            </ListItem>
+            <ListItem
+              rightAddon={<InsertLinkFontIcon />}
+              rightAddonType="icon"
+              onClick={noop}
+            >
+              Add link to activity description
             </ListItem>
           </>
         )}
