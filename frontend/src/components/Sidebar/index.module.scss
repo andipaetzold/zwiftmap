@@ -78,3 +78,10 @@ $drag-handle-height: 25px;
     display: none;
   }
 }
+
+.Content {
+  flex: 1;
+  overflow-y: auto;
+  padding-top: 0;
+  padding-bottom: 0;
+}

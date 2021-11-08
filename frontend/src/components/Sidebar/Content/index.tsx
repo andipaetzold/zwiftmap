@@ -1,10 +1,10 @@
-import { List } from "@react-md/list";
+import React, { useCallback } from "react";
 import { useLocationState } from "../../../hooks/useLocationState";
-import { Details } from "../Details";
-import styles from "./index.module.scss";
-import { RouteList } from "./RouteList";
-import { SearchResultList } from "./SearchResultList";
-import { StravaActivitiesList } from "./StravaActivitiesList";
+import { RouteList } from "./Lists/RouteList";
+import { SearchResultList } from "./Lists/SearchResultList";
+import { StravaActivitiesList } from "./Lists/StravaActivitiesList";
+import { RouteDetails } from "./RouteDetails";
+import { StravaActivityDetails } from "./StravaActivityDetails";
 
 interface Props {
   onMouseHoverDistanceChange: (distance: number | undefined) => void;
@@ -14,34 +14,42 @@ interface Props {
 export function Content({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
   const [locationState, setLocationState] = useLocationState();
 
-  return (
-    <div className={styles.Content}>
-      {locationState.type === "route" ||
-      locationState.type === "strava-activity" ? (
-        <Details
+  const backButtonText =
+    locationState.query === "" ? "Route List" : "Search Results";
+  const onBackButtonClick = useCallback(() => {
+    setLocationState({
+      world: locationState.world,
+      query: locationState.query,
+      type: "default",
+    });
+  }, [setLocationState, locationState]);
+
+  switch (locationState.type) {
+    case "route":
+      return (
+        <RouteDetails
+          key={locationState.route.slug}
+          backButtonText={backButtonText}
+          onBackButtonClick={onBackButtonClick}
           onMouseHoverDistanceChange={onMouseHoverDistanceChange}
-          backButtonText={
-            locationState.query === "" ? "Route List" : "Search Results"
-          }
-          onBackButtonClick={() => {
-            setLocationState({
-              world: locationState.world,
-              query: locationState.query,
-              type: "default",
-            });
-          }}
+          route={locationState.route}
         />
-      ) : locationState.type === "strava-activities" ? (
-        <StravaActivitiesList />
-      ) : (
-        <List>
-          {locationState.query === "" ? (
-            <RouteList onHoverRoute={onHoverRoute} />
-          ) : (
-            <SearchResultList onHoverRoute={onHoverRoute} />
-          )}
-        </List>
-      )}
-    </div>
-  );
+      );
+    case "strava-activity":
+      return (
+        <StravaActivityDetails
+          activityId={locationState.stravaActivityId}
+          onMouseHoverDistanceChange={onMouseHoverDistanceChange}
+        />
+      );
+    case "strava-activities":
+      return <StravaActivitiesList />;
+    default:
+    case "default":
+      if (locationState.query === "") {
+        return <RouteList onHoverRoute={onHoverRoute} />;
+      } else {
+        return <SearchResultList onHoverRoute={onHoverRoute} />;
+      }
+  }
 }

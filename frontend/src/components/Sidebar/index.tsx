@@ -6,8 +6,11 @@ import {
 } from "@react-md/material-icons";
 import c from "classnames";
 import React, { useRef, useState } from "react";
+import { useLocationState } from "../../hooks/useLocationState";
+import { getKeyFromLocationState } from "../../hooks/useLocationState/getKeyFromLocationState";
 import { Content } from "./Content";
 import styles from "./index.module.scss";
+import { MenuButton } from "./MenuButton";
 import { SearchInput } from "./SearchInput";
 
 interface Props {
@@ -18,6 +21,7 @@ interface Props {
 export function Sidebar({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const [locationState] = useLocationState();
 
   return (
     <>
@@ -40,10 +44,20 @@ export function Sidebar({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
           <Divider className={styles.NoGapDivider} />
         </List>
 
-        <Content
-          onHoverRoute={onHoverRoute}
-          onMouseHoverDistanceChange={onMouseHoverDistanceChange}
-        />
+        <div
+          className={styles.Content}
+          key={locationState.key}
+        >
+          <Content
+            onHoverRoute={onHoverRoute}
+            onMouseHoverDistanceChange={onMouseHoverDistanceChange}
+          />
+        </div>
+
+        <List className={styles.BottomMenu}>
+          <Divider className={styles.NoGapDivider} />
+          <MenuButton onBottomSheetClose={() => setBottomSheetOpen(false)} />
+        </List>
       </div>
 
       <button

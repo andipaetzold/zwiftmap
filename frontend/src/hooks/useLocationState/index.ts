@@ -1,16 +1,23 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { LocationState } from "../../types";
 import { createUrl } from "./createUrl";
+import { getKeyFromLocationState } from "./getKeyFromLocationState";
 import { getLocationState } from "./getLocationState";
 
 type Listener = (state: LocationState) => void;
 const listeners: Listener[] = [];
 
 export function useLocationState(): [
-  LocationState,
+  LocationState & { key: string },
   (s: LocationState) => void
 ] {
   const [state, setState] = useState(getLocationState);
+  const stateWithKey = useMemo(() => {
+    return {
+      ...state,
+      key: getKeyFromLocationState(state),
+    };
+  }, [state]);
 
   useEffect(() => {
     const listener = () => setState(getLocationState());
@@ -34,5 +41,5 @@ export function useLocationState(): [
     listeners.forEach((l) => l(newState));
   }, []);
 
-  return [state, updateLocationState];
+  return [stateWithKey, updateLocationState];
 }
