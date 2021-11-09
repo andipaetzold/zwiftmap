@@ -46,7 +46,7 @@ export function RouteList({ onHoverRoute }: Props) {
         </ListItem>
       )}
 
-      <ListItem secondaryText="Next 7 days" onClick={handleUpcomingEvents}>
+      <ListItem secondaryText="Next 200 events" onClick={handleUpcomingEvents}>
         Upcoming Events
       </ListItem>
 
