@@ -5,11 +5,15 @@ import {
   MapFontIcon,
   PlaceFontIcon,
   RefreshFontIcon,
+  SpaceBarFontIcon,
+  TimerFontIcon,
 } from "@react-md/material-icons";
+import round from "lodash/round";
 import { routes, worlds } from "zwift-data";
 import { useLocationState } from "../../../../hooks/useLocationState";
 import { ZwiftEvent } from "../../../../services/events";
 import { EVENT_TYPES } from "../../../../services/events/constants";
+import { Distance } from "../../../Distance";
 
 const FORMAT = new Intl.DateTimeFormat("en-US", {
   hour: "2-digit",
@@ -42,6 +46,16 @@ export function EventFacts({ event }: Props) {
       >
         {EVENT_TYPES[event.eventType]}
       </SimpleListItem>
+      {event.durationInSeconds > 0 && (
+        <SimpleListItem clickable={false} leftAddon={<TimerFontIcon />}>
+          {round(event.durationInSeconds) / 60}min
+        </SimpleListItem>
+      )}
+      {event.distanceInMeters > 0 && (
+        <SimpleListItem clickable={false} leftAddon={<SpaceBarFontIcon />}>
+          <Distance distance={event.distanceInMeters} />
+        </SimpleListItem>
+      )}
       {event.laps > 0 && (
         <SimpleListItem clickable={false} leftAddon={<RefreshFontIcon />}>
           {event.laps === 1 ? "1 Lap" : `${event.laps} Laps`}
