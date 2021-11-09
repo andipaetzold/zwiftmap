@@ -2,6 +2,7 @@ import { ListItem, SimpleListItem } from "@react-md/list";
 import {
   AssessmentFontIcon,
   EventFontIcon,
+  LandscapeFontIcon,
   MapFontIcon,
   PlaceFontIcon,
   RefreshFontIcon,
@@ -14,6 +15,7 @@ import { useLocationState } from "../../../../hooks/useLocationState";
 import { ZwiftEvent } from "../../../../services/events";
 import { EVENT_TYPES } from "../../../../services/events/constants";
 import { Distance } from "../../../Distance";
+import { Elevation } from "../../../Elevation";
 
 const FORMAT = new Intl.DateTimeFormat("en-US", {
   hour: "2-digit",
@@ -31,6 +33,7 @@ export function EventFacts({ event }: Props) {
   const world = worlds.find((w) => w.id === event.mapId);
 
   const distance = getDistance(event);
+  const elevation = getElevation(event);
 
   return (
     <>
@@ -56,6 +59,11 @@ export function EventFacts({ event }: Props) {
       {distance && (
         <SimpleListItem clickable={false} leftAddon={<SpaceBarFontIcon />}>
           <Distance distance={distance} />
+        </SimpleListItem>
+      )}
+      {elevation && (
+        <SimpleListItem clickable={false} leftAddon={<LandscapeFontIcon />}>
+          <Elevation elevation={elevation} />
         </SimpleListItem>
       )}
       {event.laps > 0 && (
@@ -101,5 +109,12 @@ function getDistance(event: ZwiftEvent): number | undefined {
     return event.distanceInMeters;
   } else if (route && event.laps > 0) {
     return event.laps * route.distance + (route.leadInDistance ?? 0);
+  }
+}
+
+function getElevation(event: ZwiftEvent): number | undefined {
+  const route = routes.find((r) => r.id === event.routeId);
+  if (route && event.laps > 0) {
+    return event.laps * route.elevation + (route.leadInElevation ?? 0);
   }
 }
