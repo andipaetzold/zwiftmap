@@ -30,6 +30,8 @@ export function EventFacts({ event }: Props) {
   const route = routes.find((r) => r.id === event.routeId);
   const world = worlds.find((w) => w.id === event.mapId);
 
+  const distance = getDistance(event);
+
   return (
     <>
       <SimpleListItem
@@ -51,9 +53,9 @@ export function EventFacts({ event }: Props) {
           {round(event.durationInSeconds) / 60}min
         </SimpleListItem>
       )}
-      {event.distanceInMeters > 0 && (
+      {distance && (
         <SimpleListItem clickable={false} leftAddon={<SpaceBarFontIcon />}>
-          <Distance distance={event.distanceInMeters} />
+          <Distance distance={distance} />
         </SimpleListItem>
       )}
       {event.laps > 0 && (
@@ -90,4 +92,14 @@ export function EventFacts({ event }: Props) {
       )}
     </>
   );
+}
+
+function getDistance(event: ZwiftEvent): number | undefined {
+  const route = routes.find((r) => r.id === event.routeId);
+
+  if (event.distanceInMeters) {
+    return event.distanceInMeters;
+  } else if (route && event.laps > 0) {
+    return event.laps * route.distance + (route.leadInDistance ?? 0);
+  }
 }
