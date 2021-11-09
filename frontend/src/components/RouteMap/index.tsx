@@ -2,15 +2,20 @@ import { LatLngTuple } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import React, { useMemo } from "react";
 import { useAsync } from "react-async-hook";
-import { Route } from "zwift-data";
-import { useIsLoggedInStrava } from "../../hooks/useIsLoggedInStrava";
+import { Route, routes } from "zwift-data";
 import { useLocationState } from "../../hooks/useLocationState";
+import { fetchEvent } from "../../services/events";
 import { getStravaActivity } from "../../services/StravaActivityRepository";
 import {
   getStravaSegmentStream,
   getStravaSegmentStreams,
 } from "../../services/StravaSegmentRepository";
-import { LocationState, LocationStateRoute } from "../../types";
+import {
+  LocationState,
+  LocationStateRoute,
+  LocationStateStravaActivity,
+  LocationStateUpcomingEvent,
+} from "../../types";
 import styles from "./index.module.css";
 import { Map } from "./Map";
 import { WorldSelect } from "./WorldSelect";
@@ -38,29 +43,60 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
     [locationState]
   );
 
-  const { result: routeStravaSegment } = useAsync(
-    async (type: string, route?: Route) => {
-      if (type !== "route") {
-        return;
+  const { result: routeStreamSet } = useAsync<
+    | {
+        latlng: LatLngTuple[];
+        distance: number[];
       }
-
-      return await getStravaSegmentStreams(route!.slug, "routes", [
-        "distance",
-        "latlng",
-      ]);
-    },
-    [locationState.type, (locationState as LocationStateRoute).route]
-  );
-
-  const isLoggedInStrava = useIsLoggedInStrava();
-  const { result: stravaActivity } = useAsync(
-    async (loggedIn: boolean, state: LocationState) => {
-      if (!loggedIn || state.type !== "strava-activity") {
-        return;
+    | undefined
+  >(
+    async (
+      type: LocationState["type"],
+      route: Route | undefined,
+      stravaActivityId: string | undefined,
+      eventId: string | undefined
+    ) => {
+      switch (type) {
+        case "route": {
+          const segment = await getStravaSegmentStreams(route!.slug, "routes", [
+            "distance",
+            "latlng",
+          ]);
+          return {
+            distance: segment.distance,
+            latlng: segment.latlng,
+          };
+        }
+        case "strava-activity": {
+          const activity = await getStravaActivity(stravaActivityId!);
+          return {
+            distance: activity.streams.distance,
+            latlng: activity.streams.latlng,
+          };
+        }
+        case "event": {
+          const event = await fetchEvent(eventId!);
+          const route = routes.find((r) => r.id === event.routeId);
+          if (route) {
+            const segment = await getStravaSegmentStreams(
+              route!.slug,
+              "routes",
+              ["distance", "latlng"]
+            );
+            return {
+              distance: segment.distance,
+              latlng: segment.latlng,
+            };
+          }
+        }
       }
-      return await getStravaActivity(state.stravaActivityId);
     },
-    [isLoggedInStrava, locationState]
+    [
+      locationState.type,
+      (locationState as LocationStateRoute).route,
+      (locationState as LocationStateStravaActivity).stravaActivityId,
+      (locationState as LocationStateUpcomingEvent).eventId,
+    ]
   );
 
   const { result: previewRouteStravaSegment } = useAsync(
@@ -75,25 +111,18 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
   );
 
   const pointCoordinates = useMemo<LatLngTuple | undefined>(() => {
-    if ((!routeStravaSegment && !stravaActivity) || !mouseHoverDistance) {
+    if (!routeStreamSet || !mouseHoverDistance) {
       return;
     }
 
-    const distanceStream =
-      routeStravaSegment?.distance ??
-      (stravaActivity?.streams.distance as number[]);
-    const latLngStream =
-      routeStravaSegment?.latlng ??
-      (stravaActivity?.streams.latlng as [number, number][]);
-
-    const pointIndex = distanceStream.findIndex(
+    const pointIndex = routeStreamSet.distance.findIndex(
       (d) => d > mouseHoverDistance * 1_000
     );
     if (!pointIndex) {
       return;
     }
-    return latLngStream[pointIndex];
-  }, [routeStravaSegment, stravaActivity, mouseHoverDistance]);
+    return routeStreamSet.latlng[pointIndex];
+  }, [routeStreamSet, mouseHoverDistance]);
 
   return (
     <div className={styles.Container}>
@@ -103,9 +132,7 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
         world={world}
         hoverPoint={pointCoordinates}
         previewRouteLatLngStream={previewRouteStravaSegment?.latlng}
-        routeLatLngStream={
-          routeStravaSegment?.latlng ?? stravaActivity?.streams.latlng
-        }
+        routeLatLngStream={routeStreamSet?.latlng}
         segmentLatLngStreams={segmentsLatLngStreams}
       />
     </div>
