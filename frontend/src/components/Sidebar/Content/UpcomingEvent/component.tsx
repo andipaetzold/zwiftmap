@@ -4,6 +4,7 @@ import { ZwiftEvent } from "../../../../services/events";
 import { EventFacts } from "./EventFacts";
 import { EventLinks } from "./EventLinks";
 import { EventRules } from "./EventRules";
+import { EventTimeTrial } from "./EventTimeTrial";
 
 interface Props {
   event: ZwiftEvent;
@@ -19,6 +20,7 @@ export function UpcomingEventComponent({ event }: Props) {
       </SimpleListItem>
 
       <EventFacts event={event} />
+      <EventTimeTrial event={event} />
       <EventRules event={event} />
       <EventLinks event={event} />
     </>
