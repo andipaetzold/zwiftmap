@@ -1,4 +1,9 @@
-import { ListItemLink, ListSubheader, SimpleListItem } from "@react-md/list";
+import {
+  ListItemLink,
+  ListItemText,
+  ListSubheader,
+  SimpleListItem,
+} from "@react-md/list";
 import { EventFontIcon } from "@react-md/material-icons";
 import { CircularProgress } from "@react-md/progress";
 import { Text } from "@react-md/typography";
@@ -68,7 +73,7 @@ export function RouteEvents({ route }: Props) {
           secondaryText={<EventInfo event={event} />}
           threeLines
         >
-          {event.name}
+          <ListItemText>{event.name}</ListItemText>
         </ListItemLink>
       ))}
       {filteredEvents.length > 3 && (

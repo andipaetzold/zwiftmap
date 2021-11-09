@@ -6,6 +6,7 @@ import {
   List,
   ListItem,
   ListItemLink,
+  ListItemText,
   ListSubheader,
   SimpleListItem,
 } from "@react-md/list";
@@ -238,7 +239,7 @@ function StravaActivityDetailsWithToken({
           rightAddon={<OpenInNewFontIcon />}
           rightAddonType="icon"
         >
-          Activity on Strava
+          <ListItemText>Activity on Strava</ListItemText>
         </ListItemLink>
         <ListItemLink
           href={`https://www.strava.com/athletes/${activity.athleteId}`}
@@ -252,7 +253,7 @@ function StravaActivityDetailsWithToken({
           rightAddon={<OpenInNewFontIcon />}
           rightAddonType="icon"
         >
-          Athlete on Strava
+          <ListItemText>Athlete on Strava</ListItemText>
         </ListItemLink>
 
         {process.env.NODE_ENV === "development" && (
@@ -273,7 +274,11 @@ function StravaActivityDetailsWithToken({
               Add link to activity description
             </ListItem>
             <SimpleListItem>
-              <i>Sharing will store activity details on the ZwiftMap server.</i>
+              <ListItemText>
+                <i>
+                  Sharing will store activity details on the ZwiftMap server.
+                </i>
+              </ListItemText>
             </SimpleListItem>
           </>
         )}

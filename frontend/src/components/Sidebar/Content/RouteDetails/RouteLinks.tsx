@@ -1,5 +1,5 @@
 import { Avatar } from "@react-md/avatar";
-import { ListItemLink, ListSubheader } from "@react-md/list";
+import { ListItemLink, ListItemText, ListSubheader } from "@react-md/list";
 import { OpenInNewFontIcon } from "@react-md/material-icons";
 import { Route } from "zwift-data";
 import stravaLogo from "../../../../assets/strava-40x40.png";
@@ -27,7 +27,7 @@ export function RouteLinks({ route }: Props) {
           rightAddon={<OpenInNewFontIcon />}
           rightAddonType="icon"
         >
-          ZwiftInsider
+          <ListItemText>ZwiftInsider</ListItemText>
         </ListItemLink>
       )}
       {route.stravaSegmentUrl && (
@@ -43,7 +43,7 @@ export function RouteLinks({ route }: Props) {
           rightAddon={<OpenInNewFontIcon />}
           rightAddonType="icon"
         >
-          Strava Segment
+          <ListItemText>Strava Segment</ListItemText>
         </ListItemLink>
       )}
       {route.whatsOnZwiftUrl && (
@@ -59,7 +59,7 @@ export function RouteLinks({ route }: Props) {
           rightAddon={<OpenInNewFontIcon />}
           rightAddonType="icon"
         >
-          What's on Zwift
+          <ListItemText>What's on Zwift</ListItemText>
         </ListItemLink>
       )}
     </>
