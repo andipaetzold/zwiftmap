@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { RefreshTokenResponse } from "strava/dist/types";
 import { BACKEND_HOST } from "../../config";
 import { zwiftMapApi } from "../zwiftMapApi";
@@ -17,8 +18,15 @@ function getStravaAuthUrl() {
   return `${BACKEND_HOST}/strava/authorize?${params.toString()}`;
 }
 
-export function openStravaAuthUrl() {
-  window.location.href = getStravaAuthUrl();
+export function useStravaAuthUrl(): string {
+  const [url, setUrl] = useState(getStravaAuthUrl);
+
+  useEffect(() => {
+    const listener = () => setUrl(getStravaAuthUrl());
+    window.addEventListener("popstate", listener);
+    return () => window.removeEventListener("popstate", listener);
+  }, []);
+  return url;
 }
 
 export async function getRefreshedToken(

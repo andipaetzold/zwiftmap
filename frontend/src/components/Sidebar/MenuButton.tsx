@@ -6,13 +6,13 @@ import {
   MenuFontIcon,
   SettingsFontIcon,
 } from "@react-md/material-icons";
-import { Menu, MenuItem } from "@react-md/menu";
+import { Menu, MenuItem, MenuItemLink } from "@react-md/menu";
 import { BOTTOM_RIGHT_ANCHOR, useToggle } from "@react-md/utils";
 import React, { useState } from "react";
 import { useIsLoggedInStrava } from "../../hooks/useIsLoggedInStrava";
 import { useIsMobile } from "../../hooks/useIsMobile";
 import { logout } from "../../services/auth";
-import { openStravaAuthUrl } from "../../services/strava/auth";
+import { useStravaAuthUrl } from "../../services/strava/auth";
 import { InfoDialog } from "../InfoDialog";
 import { SettingsDialog } from "../SettingsDialog";
 
@@ -28,6 +28,7 @@ export function MenuButton({ onBottomSheetClose }: Props) {
 
   const isMobile = useIsMobile();
   const isStravaLoggedIn = useIsLoggedInStrava();
+  const stravaAuthUrl = useStravaAuthUrl();
 
   return (
     <>
@@ -75,15 +76,9 @@ export function MenuButton({ onBottomSheetClose }: Props) {
           </MenuItem>
           <Divider />
           {isStravaLoggedIn ? (
-            <MenuItem
-              onClick={() => {
-                logout();
-              }}
-            >
-              Logout from Strava
-            </MenuItem>
+            <MenuItem onClick={() => logout()}>Logout from Strava</MenuItem>
           ) : (
-            <MenuItem onClick={openStravaAuthUrl}>Login to Strava</MenuItem>
+            <MenuItemLink href={stravaAuthUrl}>Login to Strava</MenuItemLink>
           )}
         </List>
       </Menu>

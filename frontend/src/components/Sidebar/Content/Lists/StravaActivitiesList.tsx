@@ -1,7 +1,14 @@
 import { Avatar } from "@react-md/avatar";
 import { Button } from "@react-md/button";
 import { TextIconSpacing } from "@react-md/icon";
-import { List, ListItem, ListSubheader, SimpleListItem } from "@react-md/list";
+import {
+  List,
+  ListItem,
+  ListItemLink,
+  ListItemText,
+  ListSubheader,
+  SimpleListItem,
+} from "@react-md/list";
 import { ListFontIcon, OpenInNewFontIcon } from "@react-md/material-icons";
 import { CircularProgress } from "@react-md/progress";
 import React from "react";
@@ -11,7 +18,7 @@ import stravaLogo from "../../../../assets/strava-40x40.png";
 import { useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";
 import { useLocationState } from "../../../../hooks/useLocationState";
 import { getLoggedInAthleteActivities } from "../../../../services/strava/api";
-import { openStravaAuthUrl } from "../../../../services/strava/auth";
+import { useStravaAuthUrl } from "../../../../services/strava/auth";
 import { getWorld } from "../../../../util/strava";
 import { Distance } from "../../../Distance";
 import { Elevation } from "../../../Elevation";
@@ -24,11 +31,12 @@ const now = new Date().getTime() / 1_000;
 
 export function StravaActivitiesList() {
   const isLoggedInStrava = useIsLoggedInStrava();
+  const stravaAuthUrl = useStravaAuthUrl();
 
   if (!isLoggedInStrava) {
     return (
       <List>
-        <ListItem
+        <ListItemLink
           leftAddon={
             <Avatar color="#ff6b00">
               <img src={stravaLogo} alt="" />
@@ -38,10 +46,10 @@ export function StravaActivitiesList() {
           rightAddon={<OpenInNewFontIcon />}
           rightAddonType="icon"
           secondaryText="…to view Strava activities"
-          onClick={openStravaAuthUrl}
+          href={stravaAuthUrl}
         >
-          Authorize Strava App…
-        </ListItem>
+          <ListItemText>Authorize Strava App…</ListItemText>
+        </ListItemLink>
       </List>
     );
   }

@@ -28,7 +28,7 @@ import { useAsync } from "react-async-hook";
 import stravaLogo from "../../../../assets/strava-40x40.png";
 import { useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";
 import { useLocationState } from "../../../../hooks/useLocationState";
-import { openStravaAuthUrl } from "../../../../services/strava/auth";
+import { useStravaAuthUrl } from "../../../../services/strava/auth";
 import { getStravaActivity } from "../../../../services/StravaActivityRepository";
 import { zwiftMapApi } from "../../../../services/zwiftMapApi";
 import { Distance } from "../../../Distance";
@@ -46,11 +46,12 @@ export function StravaActivityDetails({
   onMouseHoverDistanceChange,
 }: Props) {
   const isLoggedInStrava = useIsLoggedInStrava();
+  const stravaAuthUrl = useStravaAuthUrl();
 
   if (!isLoggedInStrava) {
     return (
       <List>
-        <ListItem
+        <ListItemLink
           leftAddon={
             <Avatar color="#ff6b00">
               <img src={stravaLogo} alt="" />
@@ -60,10 +61,10 @@ export function StravaActivityDetails({
           rightAddon={<OpenInNewFontIcon />}
           rightAddonType="icon"
           secondaryText="…to view Strava activity"
-          onClick={openStravaAuthUrl}
+          href={stravaAuthUrl}
         >
           Authorize Strava App…
-        </ListItem>
+        </ListItemLink>
       </List>
     );
   }
