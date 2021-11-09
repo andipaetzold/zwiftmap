@@ -16,7 +16,6 @@ import {
 } from "@react-md/material-icons";
 import { CircularProgress } from "@react-md/progress";
 import { Text } from "@react-md/typography";
-import { noop } from "lodash";
 import React from "react";
 import { useAsync } from "react-async-hook";
 import stravaLogo from "../../../../assets/strava-40x40.png";
@@ -104,6 +103,7 @@ function StravaActivityDetailsWithToken({
   }
 
   const handleShare = async () => {
+    addMessage({ children: "Sharing…" });
     const response = await zwiftMapApi.post<{ url: string }>(
       "/strava/share-activity",
       {
@@ -118,10 +118,23 @@ function StravaActivityDetailsWithToken({
         url,
       });
     } else {
-      console.log(url);
       await navigator.clipboard.writeText(url);
-      addMessage({ children: "URL copied to the clipboard" });
+      addMessage({
+        children: "URL copied to the clipboard",
+        messagePriority: "replace",
+      });
     }
+  };
+
+  const handleAddLink = async () => {
+    addMessage({ children: "Posting link to activity description…" });
+    await zwiftMapApi.post<{ url: string }>("/strava/add-activity-link", {
+      activityId,
+    });
+    addMessage({
+      children: "Link posted to activity description",
+      messagePriority: "replace",
+    });
   };
 
   return (
@@ -240,7 +253,7 @@ function StravaActivityDetailsWithToken({
             <ListItem
               rightAddon={<InsertLinkFontIcon />}
               rightAddonType="icon"
-              onClick={noop}
+              onClick={handleAddLink}
             >
               Add link to activity description
             </ListItem>
