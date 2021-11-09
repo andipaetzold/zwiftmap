@@ -2,7 +2,7 @@ import * as Sentry from "@sentry/node";
 import { Request, Response } from "express";
 import { Record, String } from "runtypes";
 import { ErrorWithStatusCode } from "../../../shared/ErrorWithStatusCode";
-import { shareActivity } from "../../../shared/services/sharing";
+import { addLinkToActivity } from "../../../shared/services/sharing";
 import { getToken } from "../../../shared/services/strava";
 import { Session } from "../../types";
 
@@ -10,7 +10,7 @@ const Body = Record({
   activityId: String,
 });
 
-export async function handleShareActivity(req: Request, res: Response) {
+export async function handleAddActivityLink(req: Request, res: Response) {
   const session: Session = req.session;
 
   if (!session.stravaAthleteId) {
@@ -36,10 +36,11 @@ export async function handleShareActivity(req: Request, res: Response) {
 
   const body = req.body;
   try {
-    const url = await shareActivity(session.stravaAthleteId, body.activityId);
+    await addLinkToActivity(session.stravaAthleteId, body.activityId);
 
-    res.status(201).header({ Location: url }).json({ url });
+    res.sendStatus(204);
   } catch (e) {
+    console.log(e);
     if (e instanceof ErrorWithStatusCode) {
       Sentry.captureException(e);
       res.sendStatus(e.statusCode);

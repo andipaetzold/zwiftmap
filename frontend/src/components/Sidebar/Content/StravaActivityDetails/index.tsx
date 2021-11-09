@@ -104,7 +104,7 @@ function StravaActivityDetailsWithToken({
 
   const handleShare = async () => {
     try {
-      addMessage({ children: "Sharing…" });
+      addMessage({ children: "Sharing…", messagePriority: "replace" });
       const response = await zwiftMapApi.post<{ url: string }>(
         "/strava/share-activity",
         {
@@ -135,7 +135,10 @@ function StravaActivityDetailsWithToken({
 
   const handleAddLink = async () => {
     try {
-      addMessage({ children: "Posting link to activity description…" });
+      addMessage({
+        children: "Posting link to activity description…",
+        messagePriority: "replace",
+      });
       await zwiftMapApi.post<{ url: string }>("/strava/add-activity-link", {
         activityId,
       });
