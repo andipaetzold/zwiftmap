@@ -8,22 +8,18 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const BASE_DIR = path.resolve(__dirname, "../public");
 
-async function main() {
-  await Promise.all([
-    ...routes
-      .filter((route) => route.stravaSegmentId !== undefined)
-      .map((route) => fetchSegment(route, "routes")),
-    ...segments
-      .filter((segment) => segment.stravaSegmentId !== undefined)
-      .map((segment) => fetchSegment(segment, "segments")),
-  ]);
-}
-
 if (!existsSync(BASE_DIR)) {
   mkdirSync(BASE_DIR);
 }
 
-main();
+await Promise.all([
+  ...routes
+    .filter((route) => route.stravaSegmentId !== undefined)
+    .map((route) => fetchSegment(route, "routes")),
+  ...segments
+    .filter((segment) => segment.stravaSegmentId !== undefined)
+    .map((segment) => fetchSegment(segment, "segments")),
+]);
 
 async function fetchSegment({ name, slug, stravaSegmentId }, type) {
   const response = await fetch(
