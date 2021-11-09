@@ -1,29 +1,12 @@
-import { Avatar } from "@react-md/avatar";
 import { Button } from "@react-md/button";
 import { TextIconSpacing } from "@react-md/icon";
-import {
-  List, ListItemLink,
-  ListSubheader,
-  SimpleListItem
-} from "@react-md/list";
-import {
-  EventFontIcon,
-  LandscapeFontIcon,
-  ListFontIcon,
-  MapFontIcon,
-  OpenInNewFontIcon,
-  SpaceBarFontIcon,
-  StarFontIcon
-} from "@react-md/material-icons";
+import { List, SimpleListItem } from "@react-md/list";
+import { ListFontIcon } from "@react-md/material-icons";
 import { Text } from "@react-md/typography";
-import { Route, worlds } from "zwift-data";
-import stravaLogo from "../../../../assets/strava-40x40.png";
-import whatsOnZwiftLogo from "../../../../assets/WhatsOnZwift-40x40.png";
-import zwiftInsiderLogo from "../../../../assets/ZwiftInsider-40x40.jpg";
-import { Distance } from "../../../Distance";
-import { Elevation } from "../../../Elevation";
+import { Route } from "zwift-data";
 import { RouteElevationChart } from "../../../ElevationChart";
 import { RouteEvents } from "./RouteEvents";
+import { RouteLinks } from "./RouteLinks";
 import { RouteSegments } from "./RouteSegments";
 import { RouteStravaPB } from "./RouteStravaPB";
 
@@ -40,8 +23,6 @@ export function RouteDetails({
   backButtonText,
   onBackButtonClick,
 }: Props) {
-  const world = worlds.find((w) => w.slug === route.world)!;
-
   return (
     <List>
       <SimpleListItem>
@@ -51,68 +32,11 @@ export function RouteDetails({
           </TextIconSpacing>
         </Button>
       </SimpleListItem>
+
       <SimpleListItem>
         <Text type="headline-6" style={{ margin: 0 }}>
           {route.name}
         </Text>
-      </SimpleListItem>
-
-      <SimpleListItem
-        clickable={false}
-        leftAddon={<SpaceBarFontIcon />}
-        leftAddonType="icon"
-      >
-        <Distance distance={route.distance} />
-        {route.leadInDistance !== undefined && (
-          <>
-            &nbsp;
-            <small>
-              (+
-              <Distance distance={route.leadInDistance} />)
-            </small>
-          </>
-        )}
-      </SimpleListItem>
-
-      <SimpleListItem
-        clickable={false}
-        leftAddon={<LandscapeFontIcon />}
-        leftAddonType="icon"
-      >
-        <Elevation elevation={route.elevation} />
-        {route.leadInElevation !== undefined && (
-          <>
-            &nbsp;
-            <small>
-              (+
-              <Elevation elevation={route.leadInElevation} />)
-            </small>
-          </>
-        )}
-      </SimpleListItem>
-
-      {route.experience && (
-        <SimpleListItem
-          clickable={false}
-          leftAddon={<StarFontIcon />}
-          leftAddonType="icon"
-        >
-          {route.experience}XP
-        </SimpleListItem>
-      )}
-
-      {route.eventOnly && (
-        <SimpleListItem
-          clickable={false}
-          leftAddon={<EventFontIcon />}
-          leftAddonType="icon"
-        >
-          Event only route
-        </SimpleListItem>
-      )}
-
-      <SimpleListItem clickable={false} leftAddon={<MapFontIcon />}>
-        {world.name}
       </SimpleListItem>
 
       <RouteStravaPB route={route} />
@@ -124,61 +48,9 @@ export function RouteDetails({
         />
       </SimpleListItem>
 
-      <ListSubheader>Upcoming Events</ListSubheader>
       <RouteEvents route={route} />
-
-      <ListSubheader>Segments</ListSubheader>
       <RouteSegments route={route} />
-
-      <ListSubheader>Links</ListSubheader>
-      {route.zwiftInsiderUrl && (
-        <ListItemLink
-          href={route.zwiftInsiderUrl}
-          target="_blank"
-          leftAddon={
-            <Avatar color="#fc6719">
-              <img src={zwiftInsiderLogo} alt="" />
-            </Avatar>
-          }
-          leftAddonType="avatar"
-          rightAddon={<OpenInNewFontIcon />}
-          rightAddonType="icon"
-        >
-          ZwiftInsider
-        </ListItemLink>
-      )}
-      {route.stravaSegmentUrl && (
-        <ListItemLink
-          href={route.stravaSegmentUrl}
-          target="_blank"
-          leftAddon={
-            <Avatar color="#ff6b00">
-              <img src={stravaLogo} alt="" />
-            </Avatar>
-          }
-          leftAddonType="avatar"
-          rightAddon={<OpenInNewFontIcon />}
-          rightAddonType="icon"
-        >
-          Strava Segment
-        </ListItemLink>
-      )}
-      {route.whatsOnZwiftUrl && (
-        <ListItemLink
-          href={route.whatsOnZwiftUrl}
-          target="_blank"
-          leftAddon={
-            <Avatar color="#000000">
-              <img src={whatsOnZwiftLogo} alt="" />
-            </Avatar>
-          }
-          leftAddonType="avatar"
-          rightAddon={<OpenInNewFontIcon />}
-          rightAddonType="icon"
-        >
-          What's on Zwift
-        </ListItemLink>
-      )}
+      <RouteLinks route={route} />
     </List>
   );
 }

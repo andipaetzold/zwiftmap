@@ -1,4 +1,4 @@
-import { ListItem, SimpleListItem } from "@react-md/list";
+import { ListItem, ListSubheader, SimpleListItem } from "@react-md/list";
 import {
   VisibilityFontIcon,
   VisibilityOffFontIcon,
@@ -37,6 +37,7 @@ export function RouteSegments({ route }: Props) {
 
   return (
     <>
+      <ListSubheader>Segments</ListSubheader>
       {segmentsOnRoute.map((segment) => (
         <ListItem
           key={segment.slug}

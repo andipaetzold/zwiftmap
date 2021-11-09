@@ -1,4 +1,4 @@
-import { ListItemLink, SimpleListItem } from "@react-md/list";
+import { ListItemLink, ListSubheader, SimpleListItem } from "@react-md/list";
 import { EventFontIcon } from "@react-md/material-icons";
 import { CircularProgress } from "@react-md/progress";
 import { Text } from "@react-md/typography";
@@ -57,6 +57,7 @@ export function RouteEvents({ route }: Props) {
 
   return (
     <>
+      <ListSubheader>Upcoming Events</ListSubheader>
       {filteredEvents.slice(0, 3).map((event) => (
         <ListItemLink
           key={event.id}
