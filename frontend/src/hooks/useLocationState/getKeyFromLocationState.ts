@@ -26,7 +26,7 @@ export function getKeyFromLocationState(locationState: LocationState): string {
         locationState.query,
       ].join();
 
-    case "upcoming-events":
+    case "events":
       return [
         locationState.type,
         locationState.world.slug,

@@ -40,8 +40,8 @@ export function getLocationState(
       type: "strava-activity",
       stravaActivityId: searchParams.get("strava-activity")!,
     };
-  } else if (searchParams.has("upcoming-events")) {
-    return { world, query, type: "upcoming-events" };
+  } else if (searchParams.has("events")) {
+    return { world, query, type: "events" };
   } else {
     return { world, query, type: "default" };
   }

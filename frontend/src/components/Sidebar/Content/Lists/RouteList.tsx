@@ -34,7 +34,7 @@ export function RouteList({ onHoverRoute }: Props) {
     setLocationState({
       world: locationState.world,
       query: "",
-      type: "upcoming-events",
+      type: "events",
     });
   };
 

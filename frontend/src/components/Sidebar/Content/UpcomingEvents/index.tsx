@@ -22,7 +22,7 @@ export function UpcomingEvents({ onHoverRoute }: Props) {
     if (loading) {
       return (
         <CircularProgress
-          id={"upcoming-events-progress"}
+          id={"events-progress"}
           circleStyle={{ stroke: "black" }}
         />
       );
