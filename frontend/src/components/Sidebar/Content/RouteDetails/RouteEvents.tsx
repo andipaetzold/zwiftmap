@@ -1,15 +1,14 @@
 import {
-  ListItemLink,
-  ListItemText,
+  ListItem, ListItemText,
   ListSubheader,
-  SimpleListItem,
+  SimpleListItem
 } from "@react-md/list";
-import { EventFontIcon } from "@react-md/material-icons";
 import { CircularProgress } from "@react-md/progress";
 import { Text } from "@react-md/typography";
 import React, { useMemo } from "react";
 import { useAsync } from "react-async-hook";
-import { Route } from "zwift-data";
+import { Route, worlds } from "zwift-data";
+import { useLocationState } from "../../../../hooks/useLocationState";
 import { useSettings } from "../../../../hooks/useSettings";
 import { fetchEvents } from "../../../../services/events/api";
 import { EventInfo } from "../../../EventInfo";
@@ -21,6 +20,7 @@ interface Props {
 export function RouteEvents({ route }: Props) {
   const { result: events } = useAsync(fetchEvents, []);
   const [settings] = useSettings();
+  const [locationState, setLocationState] = useLocationState()
 
   const filteredEvents = useMemo(() => {
     if (!events) {
@@ -64,17 +64,20 @@ export function RouteEvents({ route }: Props) {
     <>
       <ListSubheader>Upcoming Events</ListSubheader>
       {filteredEvents.slice(0, 3).map((event) => (
-        <ListItemLink
+        <ListItem
           key={event.id}
-          href={`https://zwift.com/events/view/${event.id}`}
-          target="_blank"
-          rightAddon={<EventFontIcon />}
-          rightAddonType="icon"
+          onClick={() => setLocationState({
+            type: 'event',
+            world: worlds.find(w => w.id === event.mapId)!,
+            eventId: event.id.toString(),
+            query: locationState.query
+          })}
+          
           secondaryText={<EventInfo event={event} />}
           threeLines
         >
           <ListItemText>{event.name}</ListItemText>
-        </ListItemLink>
+        </ListItem>
       ))}
       {filteredEvents.length > 3 && (
         <SimpleListItem>
