@@ -17,6 +17,7 @@ interface Props {
 export function EventInfo({ event, showWorld = false }: Props) {
   const date = FORMAT.format(Date.parse(event.eventStart));
   const world = worlds.find((w) => w.id === event.mapId)?.name;
+
   const type = EVENT_TYPES[event.eventType] ?? event.eventType;
   const content = getEventContent(event);
 

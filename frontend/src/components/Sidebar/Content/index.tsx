@@ -46,7 +46,7 @@ export function Content({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
     case "strava-activities":
       return <StravaActivitiesList />;
     case "upcoming-events":
-      return <UpcomingEvents />;
+      return <UpcomingEvents onHoverRoute={onHoverRoute} />;
     case "default":
       if (locationState.query === "") {
         return <RouteList onHoverRoute={onHoverRoute} />;

@@ -1,15 +1,19 @@
 import { Button } from "@react-md/button";
 import { TextIconSpacing } from "@react-md/icon";
-import { List, ListItem, ListSubheader, SimpleListItem } from "@react-md/list";
+import { List, ListSubheader, SimpleListItem } from "@react-md/list";
 import { ListFontIcon } from "@react-md/material-icons";
 import { CircularProgress } from "@react-md/progress";
 import { useAsync } from "react-async-hook";
 import { useLocationState } from "../../../../hooks/useLocationState";
 import { useSettings } from "../../../../hooks/useSettings";
 import { fetchEvents } from "../../../../services/fetchEvents";
-import { EventInfo } from "../../../EventInfo";
+import { EventItem } from "./EventItem";
 
-export function UpcomingEvents() {
+interface Props {
+  onHoverRoute: (route?: string) => void;
+}
+
+export function UpcomingEvents({ onHoverRoute }: Props) {
   const { result: events, loading } = useAsync(fetchEvents, []);
   const [settings] = useSettings();
   const [locationState, setLocationState] = useLocationState();
@@ -58,16 +62,7 @@ export function UpcomingEvents() {
       {events
         .filter((e) => e.sport.toLowerCase() === settings.sport)
         .map((event) => (
-          <ListItem
-            key={event.id}
-            secondaryText={<EventInfo event={event} showWorld />}
-            threeLines
-            onClick={() =>
-              window.open(`https://zwift.com/events/view/${event.id}`, "_blank")
-            }
-          >
-            {event.name}
-          </ListItem>
+          <EventItem key={event.id} event={event} onHoverRoute={onHoverRoute} />
         ))}
     </List>
   );

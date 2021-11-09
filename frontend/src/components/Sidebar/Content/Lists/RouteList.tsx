@@ -46,13 +46,11 @@ export function RouteList({ onHoverRoute }: Props) {
         </ListItem>
       )}
 
-      {process.env.NODE_ENV === "development" && (
-        <ListItem secondaryText="Next 7 days" onClick={handleUpcomingEvents}>
-          Upcoming Events
-        </ListItem>
-      )}
+      <ListItem secondaryText="Next 7 days" onClick={handleUpcomingEvents}>
+        Upcoming Events
+      </ListItem>
 
-      {(process.env.NODE_ENV === "development" || isLoggedIn) && <Divider />}
+      <Divider />
 
       <SortButton state={sortState} onChange={setSortState} />
       {routes
