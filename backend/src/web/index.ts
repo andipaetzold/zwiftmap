@@ -32,9 +32,6 @@ app.get("/strava/webhook", handlers.handleWebhookVerification);
 app.get("/ping", handlers.handlePing);
 
 app.use(Sentry.Handlers.errorHandler());
-app.use((_err: Error, _req: Request, res: Response) => {
-  res.sendStatus(500);
-});
 
 app.listen(PORT, async () => {
   console.log(`Listening at port ${PORT}`);
