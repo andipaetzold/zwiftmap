@@ -45,10 +45,11 @@ export function StravaActivitiesList() {
           leftAddonType="avatar"
           rightAddon={<OpenInNewFontIcon />}
           rightAddonType="icon"
-          secondaryText="…to view Strava activities"
           href={stravaAuthUrl}
         >
-          <ListItemText>Authorize Strava App…</ListItemText>
+          <ListItemText secondaryText="…to view Strava activities">
+            Authorize Strava App…
+          </ListItemText>
         </ListItemLink>
       </List>
     );

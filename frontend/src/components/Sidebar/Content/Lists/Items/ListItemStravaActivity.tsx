@@ -38,10 +38,11 @@ export function ListItemStravaActivity({ activity, onHoverRoute }: Props) {
         leftAddonType="avatar"
         rightAddon={<OpenInNewFontIcon />}
         rightAddonType="icon"
-        secondaryText="…to view Strava activity"
         href={stravaAuthUrl}
       >
-        <ListItemText>Authorize Strava App…</ListItemText>
+        <ListItemText secondaryText="…to view Strava activity">
+          Authorize Strava App…
+        </ListItemText>
       </ListItemLink>
     );
   }
