@@ -2,7 +2,13 @@ import { useAddMessage } from "@react-md/alert";
 import { Avatar } from "@react-md/avatar";
 import { Button } from "@react-md/button";
 import { TextIconSpacing } from "@react-md/icon";
-import { List, ListItem, ListSubheader, SimpleListItem } from "@react-md/list";
+import {
+  List,
+  ListItem,
+  ListItemLink,
+  ListSubheader,
+  SimpleListItem,
+} from "@react-md/list";
 import {
   InsertLinkFontIcon,
   LandscapeFontIcon,
@@ -220,13 +226,9 @@ function StravaActivityDetailsWithToken({
         </SimpleListItem>
 
         <ListSubheader>Links</ListSubheader>
-        <ListItem
-          onClick={() =>
-            window.open(
-              `https://www.strava.com/activities/${activity.id}`,
-              "_blank"
-            )
-          }
+        <ListItemLink
+          href={`https://www.strava.com/activities/${activity.id}`}
+          target="_blank"
           leftAddon={
             <Avatar color="#000000">
               <img src={stravaLogo} alt="" />
@@ -237,14 +239,10 @@ function StravaActivityDetailsWithToken({
           rightAddonType="icon"
         >
           Activity on Strava
-        </ListItem>
-        <ListItem
-          onClick={() =>
-            window.open(
-              `https://www.strava.com/athletes/${activity.athleteId}`,
-              "_blank"
-            )
-          }
+        </ListItemLink>
+        <ListItemLink
+          href={`https://www.strava.com/athletes/${activity.athleteId}`}
+          target="_blank"
           leftAddon={
             <Avatar color="#000000">
               <img src={stravaLogo} alt="" />
@@ -255,7 +253,7 @@ function StravaActivityDetailsWithToken({
           rightAddonType="icon"
         >
           Athlete on Strava
-        </ListItem>
+        </ListItemLink>
 
         {process.env.NODE_ENV === "development" && (
           <>
@@ -275,9 +273,7 @@ function StravaActivityDetailsWithToken({
               Add link to activity description
             </ListItem>
             <SimpleListItem>
-              <i>
-                Sharing will store activity details on the ZwiftMap server.
-              </i>
+              <i>Sharing will store activity details on the ZwiftMap server.</i>
             </SimpleListItem>
           </>
         )}

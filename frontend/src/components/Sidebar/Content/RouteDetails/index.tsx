@@ -1,7 +1,11 @@
 import { Avatar } from "@react-md/avatar";
 import { Button } from "@react-md/button";
 import { TextIconSpacing } from "@react-md/icon";
-import { List, ListItem, ListSubheader, SimpleListItem } from "@react-md/list";
+import {
+  List, ListItemLink,
+  ListSubheader,
+  SimpleListItem
+} from "@react-md/list";
 import {
   EventFontIcon,
   LandscapeFontIcon,
@@ -9,7 +13,7 @@ import {
   MapFontIcon,
   OpenInNewFontIcon,
   SpaceBarFontIcon,
-  StarFontIcon,
+  StarFontIcon
 } from "@react-md/material-icons";
 import { Text } from "@react-md/typography";
 import { Route, worlds } from "zwift-data";
@@ -128,8 +132,9 @@ export function RouteDetails({
 
       <ListSubheader>Links</ListSubheader>
       {route.zwiftInsiderUrl && (
-        <ListItem
-          onClick={() => window.open(route.zwiftInsiderUrl, "_blank")}
+        <ListItemLink
+          href={route.zwiftInsiderUrl}
+          target="_blank"
           leftAddon={
             <Avatar color="#fc6719">
               <img src={zwiftInsiderLogo} alt="" />
@@ -140,11 +145,12 @@ export function RouteDetails({
           rightAddonType="icon"
         >
           ZwiftInsider
-        </ListItem>
+        </ListItemLink>
       )}
       {route.stravaSegmentUrl && (
-        <ListItem
-          onClick={() => window.open(route.stravaSegmentUrl, "_blank")}
+        <ListItemLink
+          href={route.stravaSegmentUrl}
+          target="_blank"
           leftAddon={
             <Avatar color="#ff6b00">
               <img src={stravaLogo} alt="" />
@@ -155,11 +161,12 @@ export function RouteDetails({
           rightAddonType="icon"
         >
           Strava Segment
-        </ListItem>
+        </ListItemLink>
       )}
       {route.whatsOnZwiftUrl && (
-        <ListItem
-          onClick={() => window.open(route.whatsOnZwiftUrl, "_blank")}
+        <ListItemLink
+          href={route.whatsOnZwiftUrl}
+          target="_blank"
           leftAddon={
             <Avatar color="#000000">
               <img src={whatsOnZwiftLogo} alt="" />
@@ -170,7 +177,7 @@ export function RouteDetails({
           rightAddonType="icon"
         >
           What's on Zwift
-        </ListItem>
+        </ListItemLink>
       )}
     </List>
   );

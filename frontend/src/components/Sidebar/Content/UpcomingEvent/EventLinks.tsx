@@ -1,13 +1,13 @@
 import { Avatar } from "@react-md/avatar";
-import { ListItem, ListSubheader } from "@react-md/list";
+import { ListItemLink, ListSubheader } from "@react-md/list";
 import { OpenInNewFontIcon } from "@react-md/material-icons";
-import zwiftLogo from "../../../../assets/Zwift-40x40.png";
-import zwiftPowerLogo from "../../../../assets/ZwiftPower-40x40.png";
-import { ZwiftEvent } from "../../../../services/events";
+import { routes } from "zwift-data";
 import stravaLogo from "../../../../assets/strava-40x40.png";
 import whatsOnZwiftLogo from "../../../../assets/WhatsOnZwift-40x40.png";
+import zwiftLogo from "../../../../assets/Zwift-40x40.png";
 import zwiftInsiderLogo from "../../../../assets/ZwiftInsider-40x40.jpg";
-import { routes } from "zwift-data";
+import zwiftPowerLogo from "../../../../assets/ZwiftPower-40x40.png";
+import { ZwiftEvent } from "../../../../services/events";
 
 interface Props {
   event: ZwiftEvent;
@@ -20,10 +20,10 @@ export function EventLinks({ event }: Props) {
     <>
       <ListSubheader>Links</ListSubheader>
 
-      <ListItem
-        onClick={() =>
-          window.open(`https://zwift.com/events/view/${event.id}`, "_blank")
-        }
+      <ListItemLink href="https://google.com">test</ListItemLink>
+      <ListItemLink
+        href={`https://zwift.com/events/view/${event.id}`}
+        target="_blank"
         leftAddon={
           <Avatar>
             <img src={zwiftLogo} alt="" />
@@ -34,15 +34,11 @@ export function EventLinks({ event }: Props) {
         rightAddonType="icon"
       >
         Event on Zwift
-      </ListItem>
+      </ListItemLink>
 
-      <ListItem
-        onClick={() =>
-          window.open(
-            `https://zwiftpower.com/events.php?zid=${event.id}`,
-            "_blank"
-          )
-        }
+      <ListItemLink
+        href={`https://zwiftpower.com/events.php?zid=${event.id}`}
+        target="_blank"
         leftAddon={
           <Avatar>
             <img src={zwiftPowerLogo} alt="" />
@@ -53,13 +49,14 @@ export function EventLinks({ event }: Props) {
         rightAddonType="icon"
       >
         Event on ZwiftPower
-      </ListItem>
+      </ListItemLink>
 
       {route && (
         <>
           {route.zwiftInsiderUrl && (
-            <ListItem
-              onClick={() => window.open(route.zwiftInsiderUrl, "_blank")}
+            <ListItemLink
+              href={route.zwiftInsiderUrl}
+              target="_blank"
               leftAddon={
                 <Avatar color="#fc6719">
                   <img src={zwiftInsiderLogo} alt="" />
@@ -70,11 +67,12 @@ export function EventLinks({ event }: Props) {
               rightAddonType="icon"
             >
               Route on ZwiftInsider
-            </ListItem>
+            </ListItemLink>
           )}
           {route.stravaSegmentUrl && (
-            <ListItem
-              onClick={() => window.open(route.stravaSegmentUrl, "_blank")}
+            <ListItemLink
+              href={route.stravaSegmentUrl}
+              target="_blank"
               leftAddon={
                 <Avatar color="#ff6b00">
                   <img src={stravaLogo} alt="" />
@@ -85,11 +83,12 @@ export function EventLinks({ event }: Props) {
               rightAddonType="icon"
             >
               Route on Strava Segment
-            </ListItem>
+            </ListItemLink>
           )}
           {route.whatsOnZwiftUrl && (
-            <ListItem
-              onClick={() => window.open(route.whatsOnZwiftUrl, "_blank")}
+            <ListItemLink
+              href={route.whatsOnZwiftUrl}
+              target="_blank"
               leftAddon={
                 <Avatar color="#000000">
                   <img src={whatsOnZwiftLogo} alt="" />
@@ -100,7 +99,7 @@ export function EventLinks({ event }: Props) {
               rightAddonType="icon"
             >
               Route on What's on Zwift
-            </ListItem>
+            </ListItemLink>
           )}
         </>
       )}

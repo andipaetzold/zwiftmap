@@ -1,4 +1,4 @@
-import { ListItem, SimpleListItem } from "@react-md/list";
+import { ListItemLink, SimpleListItem } from "@react-md/list";
 import { OpenInNewFontIcon, TimerFontIcon } from "@react-md/material-icons";
 import { CircularProgress } from "@react-md/progress";
 import React from "react";
@@ -51,23 +51,20 @@ export function RouteStravaPB({ route }: Props) {
     return null;
   }
 
-  const handleClick = () => {
-    window.open(`https://www.strava.com/segments/${segment.id}`, "_blank");
-  };
-
   return (
-    <ListItem
+    <ListItemLink
+      href={`https://www.strava.com/segments/${segment.id}`}
+      target="_blank"
       leftAddon={<TimerFontIcon />}
       leftAddonType="icon"
       rightAddon={<OpenInNewFontIcon />}
       rightAddonType="icon"
-      onClick={handleClick}
     >
       {segment.athlete_segment_stats.effort_count === 0 ? (
         <>No time set</>
       ) : (
         <Time seconds={segment.athlete_segment_stats.pr_elapsed_time!} />
       )}
-    </ListItem>
+    </ListItemLink>
   );
 }

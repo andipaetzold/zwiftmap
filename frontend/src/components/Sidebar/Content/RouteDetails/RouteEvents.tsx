@@ -1,4 +1,4 @@
-import { ListItem, SimpleListItem } from "@react-md/list";
+import { ListItemLink, SimpleListItem } from "@react-md/list";
 import { EventFontIcon } from "@react-md/material-icons";
 import { CircularProgress } from "@react-md/progress";
 import { Text } from "@react-md/typography";
@@ -58,18 +58,17 @@ export function RouteEvents({ route }: Props) {
   return (
     <>
       {filteredEvents.slice(0, 3).map((event) => (
-        <ListItem
+        <ListItemLink
           key={event.id}
-          onClick={() =>
-            window.open(`https://zwift.com/events/view/${event.id}`, "_blank")
-          }
+          href={`https://zwift.com/events/view/${event.id}`}
+          target="_blank"
           rightAddon={<EventFontIcon />}
           rightAddonType="icon"
           secondaryText={<EventInfo event={event} />}
           threeLines
         >
           {event.name}
-        </ListItem>
+        </ListItemLink>
       ))}
       {filteredEvents.length > 3 && (
         <SimpleListItem>
