@@ -20,7 +20,6 @@ export function EventLinks({ event }: Props) {
     <>
       <ListSubheader>Links</ListSubheader>
 
-      <ListItemLink href="https://google.com">test</ListItemLink>
       <ListItemLink
         href={`https://zwift.com/events/view/${event.id}`}
         target="_blank"
