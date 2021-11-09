@@ -1,6 +1,7 @@
 import round from "lodash/round";
 import { worlds } from "zwift-data";
-import { ZwiftEvent, ZwiftEventType } from "../../services/fetchEvents";
+import { ZwiftEvent } from "../../services/events";
+import { EVENT_TYPES } from "../../services/events/constants";
 import { Distance } from "../Distance";
 
 const FORMAT = new Intl.DateTimeFormat("en-US", {
@@ -41,13 +42,6 @@ export function EventInfo({ event, showWorld = false }: Props) {
     </>
   );
 }
-
-export const EVENT_TYPES: { [type in ZwiftEventType]: string } = {
-  GROUP_RIDE: "Group Ride",
-  GROUP_WORKOUT: "Workout",
-  RACE: "Race",
-  TIME_TRIAL: "Time Trial",
-};
 
 function getEventContent(event: ZwiftEvent) {
   if (event.distanceInMeters !== 0) {

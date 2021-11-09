@@ -6,7 +6,7 @@ import React, { useMemo } from "react";
 import { useAsync } from "react-async-hook";
 import { Route } from "zwift-data";
 import { useSettings } from "../../../../hooks/useSettings";
-import { fetchEvents } from "../../../../services/fetchEvents";
+import { fetchEvents } from "../../../../services/events/fetchEvents";
 import { EventInfo } from "../../../EventInfo";
 
 interface Props {

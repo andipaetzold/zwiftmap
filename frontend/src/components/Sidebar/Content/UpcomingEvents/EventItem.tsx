@@ -2,7 +2,7 @@ import { ListItem } from "@react-md/list";
 import { OpenInNewFontIcon } from "@react-md/material-icons";
 import { routes, worlds } from "zwift-data";
 import { useLocationState } from "../../../../hooks/useLocationState";
-import { ZwiftEvent } from "../../../../services/fetchEvents";
+import { ZwiftEvent } from "../../../../services/events";
 import { EventInfo } from "../../../EventInfo";
 
 interface Props {

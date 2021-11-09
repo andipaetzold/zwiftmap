@@ -6,7 +6,7 @@ import { CircularProgress } from "@react-md/progress";
 import { useAsync } from "react-async-hook";
 import { useLocationState } from "../../../../hooks/useLocationState";
 import { useSettings } from "../../../../hooks/useSettings";
-import { fetchEvents } from "../../../../services/fetchEvents";
+import { fetchEvents } from "../../../../services/events/fetchEvents";
 import { EventItem } from "./EventItem";
 
 interface Props {
