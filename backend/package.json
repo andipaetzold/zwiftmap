@@ -45,6 +45,6 @@
     "short-uuid": "4.2.0",
     "source-map-support": "0.5.20",
     "strava": "2.0.0",
-    "zwift-data": "1.4.0"
+    "zwift-data": "1.6.0"
   }
 }
