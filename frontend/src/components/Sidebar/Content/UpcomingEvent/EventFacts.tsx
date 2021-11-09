@@ -42,7 +42,7 @@ export function EventFacts({ event }: Props) {
       >
         {EVENT_TYPES[event.eventType]}
       </SimpleListItem>
-      {event.laps && (
+      {event.laps > 0 && (
         <SimpleListItem clickable={false} leftAddon={<RefreshFontIcon />}>
           {event.laps === 1 ? "1 Lap" : `${event.laps} Laps`}
         </SimpleListItem>
