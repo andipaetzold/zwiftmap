@@ -103,38 +103,52 @@ function StravaActivityDetailsWithToken({
   }
 
   const handleShare = async () => {
-    addMessage({ children: "Sharing…" });
-    const response = await zwiftMapApi.post<{ url: string }>(
-      "/strava/share-activity",
-      {
-        activityId,
-      }
-    );
+    try {
+      addMessage({ children: "Sharing…" });
+      const response = await zwiftMapApi.post<{ url: string }>(
+        "/strava/share-activity",
+        {
+          activityId,
+        }
+      );
 
-    const url = response.data.url;
-    if (navigator.share) {
-      await navigator.share({
-        title: `${activity.name} - Zwift Map`,
-        url,
-      });
-    } else {
-      await navigator.clipboard.writeText(url);
+      const url = response.data.url;
+      if (navigator.share) {
+        await navigator.share({
+          title: `${activity.name} - Zwift Map`,
+          url,
+        });
+      } else {
+        await navigator.clipboard.writeText(url);
+        addMessage({
+          children: "URL copied to the clipboard",
+          messagePriority: "replace",
+        });
+      }
+    } catch {
       addMessage({
-        children: "URL copied to the clipboard",
+        children: "Error sharing the acitivty",
         messagePriority: "replace",
       });
     }
   };
 
   const handleAddLink = async () => {
-    addMessage({ children: "Posting link to activity description…" });
-    await zwiftMapApi.post<{ url: string }>("/strava/add-activity-link", {
-      activityId,
-    });
-    addMessage({
-      children: "Link posted to activity description",
-      messagePriority: "replace",
-    });
+    try {
+      addMessage({ children: "Posting link to activity description…" });
+      await zwiftMapApi.post<{ url: string }>("/strava/add-activity-link", {
+        activityId,
+      });
+      addMessage({
+        children: "Link posted to activity description",
+        messagePriority: "replace",
+      });
+    } catch {
+      addMessage({
+        children: "Error posting link to activity description",
+        messagePriority: "replace",
+      });
+    }
   };
 
   return (

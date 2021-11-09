@@ -20,7 +20,7 @@ ping();
 
 ReactDOM.render(
   <React.StrictMode>
-    <MessageQueue id="message-queue" timeout={5000}>
+    <MessageQueue id="message-queue" timeout={3_000}>
       <App />
     </MessageQueue>
   </React.StrictMode>,
