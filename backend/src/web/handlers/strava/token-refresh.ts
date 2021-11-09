@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { Request, Response } from "express";
 import { Record, String } from "runtypes";
+import { RefreshTokenResponse } from "strava/dist/types";
 import {
   readStravaToken,
   writeStravaToken,
@@ -32,10 +33,13 @@ export async function handleStravaTokenRefresh(req: Request, res: Response) {
 
   let refreshResponse: AxiosResponse;
   try {
-    refreshResponse = await stravaAppAPI.post("/oauth/token", {
-      grant_type: "refresh_token",
-      refresh_token: req.body.refresh_token,
-    });
+    refreshResponse = await stravaAppAPI.post<RefreshTokenResponse>(
+      "/oauth/token",
+      {
+        grant_type: "refresh_token",
+        refresh_token: req.body.refresh_token,
+      }
+    );
   } catch (e) {
     if (axios.isAxiosError(e) && e.response !== undefined) {
       res.sendStatus(e.response.status);

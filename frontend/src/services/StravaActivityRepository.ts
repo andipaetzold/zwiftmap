@@ -38,7 +38,7 @@ async function fetchStravaActivityStreams(
     cadence: streams.cadence?.data,
     distance: streams.distance.data,
     heartrate: streams.heartrate?.data,
-    latlng: streams.latlng.data,
+    latlng: streams.latlng.data as unknown as [number, number][],
     time: streams.time.data,
     velocity: streams.velocity_smooth.data,
     watts: streams.watts?.data,

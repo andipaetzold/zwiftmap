@@ -1,11 +1,11 @@
+import { RefreshTokenResponse } from "strava/dist/types";
 import {
   getLocalStorageItem,
   setLocalStorageItem,
   STRAVA_AUTH_KEY,
 } from "../local-storage";
-import { Token } from "./types";
 
-export function getStravaToken(): Token | null {
+export function getStravaToken(): RefreshTokenResponse | null {
   const tokenString = getLocalStorageItem(STRAVA_AUTH_KEY);
   if (tokenString === null) {
     return null;
@@ -13,6 +13,6 @@ export function getStravaToken(): Token | null {
   return JSON.parse(tokenString);
 }
 
-export function writeStravaToken(token: Token): void {
+export function writeStravaToken(token: RefreshTokenResponse): void {
   setLocalStorageItem(STRAVA_AUTH_KEY, JSON.stringify(token));
 }

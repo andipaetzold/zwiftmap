@@ -9,7 +9,7 @@ import {
   DetailedSegment,
   StreamSet,
   SummaryActivity,
-} from "./types";
+} from "strava";
 
 const cache = axiosCache();
 
@@ -36,7 +36,7 @@ api.interceptors.request.use(async (config) => {
 
     config.headers = {
       ...config.headers,
-      Authorization: `${token.token_type} ${token.access_token}`,
+      Authorization: `Bearer ${token.access_token}`,
     };
   }
 

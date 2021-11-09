@@ -1,5 +1,5 @@
+import { DetailedActivity, SummaryActivity } from "strava";
 import { World, worlds } from "zwift-data";
-import { DetailedActivity, SummaryActivity } from "../services/strava/types";
 
 export function getWorld(
   activity: DetailedActivity | SummaryActivity

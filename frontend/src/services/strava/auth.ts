@@ -1,6 +1,6 @@
+import { RefreshTokenResponse } from "strava/dist/types";
 import { BACKEND_HOST } from "../../config";
 import { zwiftMapApi } from "../zwiftMapApi";
-import { Token } from "./types";
 
 function getStravaAuthUrl() {
   const params = new URLSearchParams();
@@ -21,10 +21,15 @@ export function openStravaAuthUrl() {
   window.location.href = getStravaAuthUrl();
 }
 
-export async function getRefreshedToken(refreshToken: string): Promise<Token> {
-  const response = await zwiftMapApi.post<Token>("/strava/refresh", {
-    refresh_token: refreshToken,
-  });
+export async function getRefreshedToken(
+  refreshToken: string
+): Promise<RefreshTokenResponse> {
+  const response = await zwiftMapApi.post<RefreshTokenResponse>(
+    "/strava/refresh",
+    {
+      refresh_token: refreshToken,
+    }
+  );
 
   return response.data;
 }
