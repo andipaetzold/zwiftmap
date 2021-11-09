@@ -31,6 +31,7 @@ export function EventItem({ event, onHoverRoute }: Props) {
             eventId: event.id.toString(),
             query: locationState.query,
           });
+          onHoverRoute(undefined);
         } else {
           window.open(`https://zwift.com/events/view/${event.id}`, "_blank");
         }
