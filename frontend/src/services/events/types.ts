@@ -68,13 +68,8 @@ export enum CullingType {
 export interface EventSeries {
   id: number;
   name: string;
-  description: Description | null;
+  description: string | null;
   imported: boolean;
-}
-
-export enum Description {
-  TourOfWatopiaRideStage5 = "Tour of Watopia - Ride Stage 5",
-  TourOfWatopiaRunStage5 = "Tour of Watopia - Run Stage 5",
 }
 
 export interface EventSubgroup {
