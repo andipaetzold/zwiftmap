@@ -25,7 +25,7 @@ export function InfoDialog({ visible, onClose }: Props) {
       className={styles.Dialog}
     >
       <DialogHeader style={{ paddingBottom: 0 }}>
-        <DialogTitle id="info-dialog-title">Zwift Map</DialogTitle>
+        <DialogTitle id="info-dialog-title">ZwiftMap</DialogTitle>
       </DialogHeader>
       <DialogContent>
         <Text>ZwiftMap is a fan project created by Andi Pätzold.</Text>

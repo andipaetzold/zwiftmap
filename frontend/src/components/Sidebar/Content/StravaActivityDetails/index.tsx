@@ -115,7 +115,7 @@ function StravaActivityDetailsWithToken({
       const url = response.data.url;
       if (navigator.share) {
         await navigator.share({
-          title: `${activity.name} - Zwift Map`,
+          title: `${activity.name} - ZwiftMap`,
           url,
         });
       } else {
@@ -276,7 +276,7 @@ function StravaActivityDetailsWithToken({
             </ListItem>
             <SimpleListItem>
               <i>
-                Sharing will store activity details on the Zwift Map server.
+                Sharing will store activity details on the ZwiftMap server.
               </i>
             </SimpleListItem>
           </>

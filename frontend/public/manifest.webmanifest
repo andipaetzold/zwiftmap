@@ -1,8 +1,8 @@
 {
     "dir": "ltr",
     "lang": "en-US",
-    "name": "Zwift Map",
-    "short_name": "Zwift Map",
+    "name": "ZwiftMap",
+    "short_name": "ZwiftMap",
     "description": "Interactive map to discover all worlds and routes of Zwift.",
     "scope": "/",
     "display": "standalone",

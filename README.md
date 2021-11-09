@@ -1,4 +1,4 @@
-# Zwift Map
+# ZwiftMap
 
 https://zwiftmap.com
 
