@@ -3,6 +3,7 @@ import { Text } from "@react-md/typography";
 import { ZwiftEvent } from "../../../../services/events";
 import { EventFacts } from "./EventFacts";
 import { EventLinks } from "./EventLinks";
+import { EventRules } from "./EventRules";
 
 interface Props {
   event: ZwiftEvent;
@@ -18,6 +19,7 @@ export function UpcomingEventComponent({ event }: Props) {
       </SimpleListItem>
 
       <EventFacts event={event} />
+      <EventRules event={event} />
       <EventLinks event={event} />
     </>
   );
