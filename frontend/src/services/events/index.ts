@@ -1,2 +1,2 @@
-export * from "./fetchEvents";
+export * from "./api";
 export * from "./types";

@@ -16,3 +16,7 @@ export async function fetchEvents(): Promise<ZwiftEvent[]> {
 
   return await cache;
 }
+
+export async function fetchEvent(eventId: string): Promise<ZwiftEvent> {
+  return api.get<ZwiftEvent>(`/public/events/${eventId}`).then((r) => r.data);
+}

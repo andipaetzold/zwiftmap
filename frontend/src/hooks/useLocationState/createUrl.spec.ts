@@ -107,3 +107,41 @@ it("strava-activity", () => {
     })
   ).toBe("/london?strava-activity=42&q=query");
 });
+
+it("events", () => {
+  expect(
+    createUrl({
+      type: "events",
+      world: worldLondon,
+      query: "",
+    })
+  ).toBe("/london?events=");
+
+  expect(
+    createUrl({
+      type: "events",
+      world: worldLondon,
+      query: "query",
+    })
+  ).toBe("/london?events=&q=query");
+});
+
+it("event", () => {
+  expect(
+    createUrl({
+      type: "event",
+      world: worldLondon,
+      eventId: "42",
+      query: "",
+    })
+  ).toBe("/london?event=42");
+
+  expect(
+    createUrl({
+      type: "event",
+      world: worldLondon,
+      eventId: "42",
+      query: "query",
+    })
+  ).toBe("/london?event=42&q=query");
+});

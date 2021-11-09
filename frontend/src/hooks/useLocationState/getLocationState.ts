@@ -36,12 +36,18 @@ export function getLocationState(
     return {
       world,
       query,
-
       type: "strava-activity",
       stravaActivityId: searchParams.get("strava-activity")!,
     };
   } else if (searchParams.has("events")) {
     return { world, query, type: "events" };
+  } else if (searchParams.has("event")) {
+    return {
+      world,
+      query,
+      type: "event",
+      eventId: searchParams.get("event")!,
+    };
   } else {
     return { world, query, type: "default" };
   }

@@ -29,6 +29,10 @@ export function createUrl(state: LocationState): string {
     case "events":
       searchParams.set("events", "");
       break;
+
+    case "event":
+      searchParams.set("event", state.eventId);
+      break;
   }
 
   if (state.query.length > 0) {

@@ -26,10 +26,9 @@ export function EventItem({ event, onHoverRoute }: Props) {
       onClick={() => {
         if (route) {
           setLocationState({
-            type: "route",
+            type: "event",
             world: worlds.find((w) => w.slug === route.world)!,
-            route,
-            segments: [],
+            eventId: event.id.toString(),
             query: locationState.query,
           });
         } else {
