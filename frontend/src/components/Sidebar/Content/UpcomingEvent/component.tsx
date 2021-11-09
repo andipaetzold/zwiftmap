@@ -2,6 +2,7 @@ import { SimpleListItem } from "@react-md/list";
 import { Text } from "@react-md/typography";
 import { ZwiftEvent } from "../../../../services/events";
 import { EventFacts } from "./EventFacts";
+import { EventKit } from "./EventKit";
 import { EventLinks } from "./EventLinks";
 import { EventRules } from "./EventRules";
 import { EventTimeTrial } from "./EventTimeTrial";
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export function UpcomingEventComponent({ event }: Props) {
+  console.log(event);
   return (
     <>
       <SimpleListItem>
@@ -22,6 +24,7 @@ export function UpcomingEventComponent({ event }: Props) {
       <EventFacts event={event} />
       <EventTimeTrial event={event} />
       <EventRules event={event} />
+      <EventKit event={event} />
       <EventLinks event={event} />
     </>
   );
