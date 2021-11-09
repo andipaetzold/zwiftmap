@@ -2,6 +2,7 @@ import { SimpleListItem } from "@react-md/list";
 import { Text } from "@react-md/typography";
 import { ZwiftEvent } from "../../../../services/events";
 import { EventFacts } from "./EventFacts";
+import { EventImage } from "./EventImage";
 import { EventKit } from "./EventKit";
 import { EventLinks } from "./EventLinks";
 import { EventRules } from "./EventRules";
@@ -15,6 +16,8 @@ export function UpcomingEventComponent({ event }: Props) {
   console.log(event);
   return (
     <>
+      <EventImage event={event} />
+
       <SimpleListItem>
         <Text type="headline-6" style={{ margin: 0 }}>
           {event.name}
