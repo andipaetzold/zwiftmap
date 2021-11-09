@@ -10,6 +10,7 @@
       "groupName": "react-md monorepo"
     }
   ],
+  "postUpdateOptions": ["npmDedupe"],
   "ignoreDeps": [
     "react-leaflet",
     "@react-leaflet/core",
