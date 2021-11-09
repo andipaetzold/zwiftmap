@@ -44,7 +44,7 @@
     "recharts": "2.1.6",
     "strava": "2.0.0",
     "typescript": "4.4.4",
-    "zwift-data": "1.3.0"
+    "zwift-data": "1.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
