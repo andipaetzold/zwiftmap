@@ -13,7 +13,6 @@ interface Props {
 }
 
 export function UpcomingEventComponent({ event }: Props) {
-  console.log(event);
   return (
     <>
       <EventImage event={event} />
