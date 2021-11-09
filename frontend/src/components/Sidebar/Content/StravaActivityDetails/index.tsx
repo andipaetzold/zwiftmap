@@ -244,6 +244,11 @@ function StravaActivityDetailsWithToken({
             >
               Add link to activity description
             </ListItem>
+            <SimpleListItem>
+              <i>
+                Sharing will store activity details on the Zwift Map server.
+              </i>
+            </SimpleListItem>
           </>
         )}
       </List>
