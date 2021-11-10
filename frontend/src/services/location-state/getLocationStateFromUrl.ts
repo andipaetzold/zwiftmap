@@ -1,4 +1,4 @@
-import { URLPattern, URLPatternResult } from "urlpattern-polyfill";
+import { URLPattern, URLPatternResult } from "../../polyfills/urlpattern";
 import { routes, Segment, segments, worlds } from "zwift-data";
 import { DEFAULT_WORLD } from "./constants";
 import { createUrl } from "./createUrl";
@@ -78,15 +78,16 @@ const PATTERNS: {
     }),
     toState: (result, query) => {
       const searchParams = new URLSearchParams(result.search.input);
-      const worldSlug = result.pathname.groups[0];
+
+      const worldSlug = result.pathname.groups[0] || searchParams.get("world");
       const world =
-        worlds.find((w) => w.slug === result.pathname.groups[0]) ??
+        worlds.find((w) => w.slug === worldSlug) ??
         DEFAULT_WORLD;
 
       const fallbackState: LocationState = {
         type: "default",
         world,
-        query: "",
+        query,
       };
 
       if (searchParams.has("list")) {
@@ -166,11 +167,11 @@ const PATTERNS: {
   },
 ];
 
-export function getLocationStateFromHistory(
-  location: Pick<Location, "pathname" | "search"> = window.location
+export function getLocationStateFromUrl(
+  url = window.location.href
 ): LocationState {
   for (let { pattern, toState } of PATTERNS) {
-    const result = pattern.exec(location);
+    const result = pattern.exec(url);
     if (result === null) {
       continue;
     }

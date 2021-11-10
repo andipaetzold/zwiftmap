@@ -4,13 +4,13 @@ import { worlds } from "zwift-data";
 import { fetchEvent } from "../events";
 import { getStravaActivity } from "../StravaActivityRepository";
 import { getKeyFromLocationState } from "./getKeyFromLocationState";
-import { getLocationStateFromHistory } from "./getLocationStateFromHistory";
+import { getLocationStateFromUrl } from "./getLocationStateFromUrl";
 import { LocationState, LocationStateWithKey } from "./types";
 
 export type Listener = (newState: LocationStateWithKey) => void;
 const listeners: Listener[] = [];
 
-const INITIAL_STATE: LocationState = getLocationStateFromHistory();
+const INITIAL_STATE: LocationState = getLocationStateFromUrl();
 const INITIAL_STATE_WITH_KEY = {
   ...INITIAL_STATE,
   key: getKeyFromLocationState(INITIAL_STATE),
@@ -62,6 +62,6 @@ async function fetchWorld() {
 }
 
 window.addEventListener("popstate", () => {
-  const newState = getLocationStateFromHistory();
+  const newState = getLocationStateFromUrl();
   setLocationState(newState);
 });
