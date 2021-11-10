@@ -121,6 +121,26 @@ describe("route", () => {
       expect(r1.segments).toStrictEqual([LONDON_SPRINT]);
       expect(r1.query).toBe("query");
     });
+
+    it("invalid route", () => {
+      const r1 = getLocationStateFromUrl(
+        "/london/test",
+        "segments=london-sprint&q=query"
+      ) as LocationStateRoute;
+      expect(r1.type).toBe("default");
+      expect(r1.world).toBe(LONDON);
+      expect(r1.query).toBe("query");
+    });
+
+    it("invalid route & world", () => {
+      const r1 = getLocationStateFromUrl(
+        "/test/test",
+        "segments=london-sprint&q=query"
+      ) as LocationStateRoute;
+      expect(r1.type).toBe("default");
+      expect(r1.world).toBe(WATOPIA);
+      expect(r1.query).toBe("query");
+    });
   });
 
   describe("legacy", () => {
@@ -167,6 +187,26 @@ describe("route", () => {
       expect(r1.world).toBe(LONDON);
       expect(r1.route).toBe(LONDON_CLASSIQUE);
       expect(r1.segments).toStrictEqual([]);
+      expect(r1.query).toBe("");
+    });
+
+    it("invalid route", () => {
+      const r1 = getLocationStateFromUrl(
+        "/london",
+        "segments=test&q=query"
+      ) as LocationStateRoute;
+      expect(r1.type).toBe("default");
+      expect(r1.world).toBe(LONDON);
+      expect(r1.query).toBe("query");
+    });
+
+    it("invalid route & world", () => {
+      const r1 = getLocationStateFromUrl(
+        "/test",
+        "route=test"
+      ) as LocationStateRoute;
+      expect(r1.type).toBe("default");
+      expect(r1.world).toBe(WATOPIA);
       expect(r1.query).toBe("");
     });
   });
