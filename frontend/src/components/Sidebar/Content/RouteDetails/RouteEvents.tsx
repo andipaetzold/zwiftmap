@@ -59,9 +59,12 @@ export function RouteEvents({ route }: Props) {
 
   if (filteredEvents.length === 0) {
     return (
-      <SimpleListItem>
-        <Text type="body-2">No events on this route today.</Text>
-      </SimpleListItem>
+      <>
+        <ListSubheader>Upcoming Events</ListSubheader>
+        <SimpleListItem>
+          <Text type="body-2">No events on this route today.</Text>
+        </SimpleListItem>
+      </>
     );
   }
 
