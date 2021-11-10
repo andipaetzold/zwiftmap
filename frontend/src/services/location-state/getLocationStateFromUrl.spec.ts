@@ -17,31 +17,29 @@ const LONDON_SPRINT = segments.find((s) => s.slug === "london-sprint");
 
 describe("default", () => {
   it("current", () => {
-    const r1 = getLocationStateFromUrl("https://zwiftmap.com");
+    const r1 = getLocationStateFromUrl("/", "");
     expect(r1.type).toBe("default");
     expect(r1.world).toBe(WATOPIA);
     expect(r1.query).toBe("");
 
-    const r2 = getLocationStateFromUrl("https://zwiftmap.com/?q=query");
+    const r2 = getLocationStateFromUrl("/", "q=query");
     expect(r2.type).toBe("default");
     expect(r2.world).toBe(WATOPIA);
     expect(r2.query).toBe("query");
 
-    const r3 = getLocationStateFromUrl("https://zwiftmap.com/london?q=query");
+    const r3 = getLocationStateFromUrl("/london", "q=query");
     expect(r3.type).toBe("default");
     expect(r3.world).toBe(LONDON);
     expect(r3.query).toBe("query");
   });
 
   it("legacy", () => {
-    const r1 = getLocationStateFromUrl("https://zwiftmap.com/?world=london");
+    const r1 = getLocationStateFromUrl("/", "world=london");
     expect(r1.type).toBe("default");
     expect(r1.world).toBe(LONDON);
     expect(r1.query).toBe("");
 
-    const r2 = getLocationStateFromUrl(
-      "https://zwiftmap.com/?world=london&q=query"
-    );
+    const r2 = getLocationStateFromUrl("/", "world=london&q=query");
     expect(r2.type).toBe("default");
     expect(r2.world).toBe(LONDON);
     expect(r2.query).toBe("query");
@@ -51,7 +49,8 @@ describe("default", () => {
 describe("route", () => {
   it("current", () => {
     const r1 = getLocationStateFromUrl(
-      "https://zwiftmap.com/london/london-classique"
+      "/london/london-classique",
+      ""
     ) as LocationStateRoute;
     expect(r1.type).toBe("route");
     expect(r1.world).toBe(LONDON);
@@ -60,7 +59,8 @@ describe("route", () => {
     expect(r1.query).toBe("");
 
     const r2 = getLocationStateFromUrl(
-      "https://zwiftmap.com/watopia/london-classique"
+      "/watopia/london-classique",
+      ""
     ) as LocationStateRoute;
     expect(r2.type).toBe("route");
     expect(r2.world).toBe(LONDON);
@@ -69,7 +69,8 @@ describe("route", () => {
     expect(r2.query).toBe("");
 
     const r3 = getLocationStateFromUrl(
-      "https://zwiftmap.com/watopia/london-classique?q=query"
+      "/watopia/london-classique",
+      "q=query"
     ) as LocationStateRoute;
     expect(r3.type).toBe("route");
     expect(r3.world).toBe(LONDON);
@@ -78,7 +79,8 @@ describe("route", () => {
     expect(r3.query).toBe("query");
 
     const r4 = getLocationStateFromUrl(
-      "https://zwiftmap.com/watopia/london-classique?segments=london-sprint&q=query"
+      "/watopia/london-classique",
+      "segments=london-sprint&q=query"
     ) as LocationStateRoute;
     expect(r4.type).toBe("route");
     expect(r4.world).toBe(LONDON);
@@ -89,7 +91,8 @@ describe("route", () => {
 
   it("legacy", () => {
     const r1 = getLocationStateFromUrl(
-      "https://zwiftmap.com/london?route=london-classique"
+      "/london",
+      "route=london-classique"
     ) as LocationStateRoute;
     expect(r1.type).toBe("route");
     expect(r1.world).toBe(LONDON);
@@ -98,7 +101,8 @@ describe("route", () => {
     expect(r1.query).toBe("");
 
     const r2 = getLocationStateFromUrl(
-      "https://zwiftmap.com/watopia?route=london-classique"
+      "/watopia",
+      "route=london-classique"
     ) as LocationStateRoute;
     expect(r2.type).toBe("route");
     expect(r2.world).toBe(LONDON);
@@ -107,7 +111,8 @@ describe("route", () => {
     expect(r2.query).toBe("");
 
     const r3 = getLocationStateFromUrl(
-      "https://zwiftmap.com/?world=london&route=london-classique"
+      "/",
+      "world=london&route=london-classique"
     ) as LocationStateRoute;
     expect(r3.type).toBe("route");
     expect(r3.world).toBe(LONDON);
@@ -120,7 +125,8 @@ describe("route", () => {
 describe("event", () => {
   it("current", () => {
     const r1 = getLocationStateFromUrl(
-      "https://zwiftmap.com/events/42"
+      "/events/42",
+      ""
     ) as LocationStateUpcomingEvent;
     expect(r1.type).toBe("event");
     expect(r1.world).toBeNull();
@@ -128,7 +134,8 @@ describe("event", () => {
     expect(r1.query).toBe("");
 
     const r2 = getLocationStateFromUrl(
-      "https://zwiftmap.com/events/42?q=query"
+      "/events/42",
+      "q=query"
     ) as LocationStateUpcomingEvent;
     expect(r2.type).toBe("event");
     expect(r2.world).toBeNull();
@@ -138,7 +145,8 @@ describe("event", () => {
 
   it("legacy", () => {
     const r1 = getLocationStateFromUrl(
-      "https://zwiftmap.com/?event=42"
+      "/",
+      "event=42"
     ) as LocationStateUpcomingEvent;
     expect(r1.type).toBe("event");
     expect(r1.world).toBeNull();
@@ -146,7 +154,8 @@ describe("event", () => {
     expect(r1.query).toBe("");
 
     const r2 = getLocationStateFromUrl(
-      "https://zwiftmap.com/london?event=42"
+      "/london",
+      "event=42"
     ) as LocationStateUpcomingEvent;
     expect(r2.type).toBe("event");
     expect(r2.world).toBeNull();
@@ -154,7 +163,8 @@ describe("event", () => {
     expect(r2.query).toBe("");
 
     const r3 = getLocationStateFromUrl(
-      "https://zwiftmap.com/london?event=42&q=query"
+      "/london",
+      "event=42&q=query"
     ) as LocationStateUpcomingEvent;
     expect(r3.type).toBe("event");
     expect(r3.world).toBeNull();
@@ -166,21 +176,24 @@ describe("event", () => {
 describe("events", () => {
   it("current", () => {
     const r1 = getLocationStateFromUrl(
-      "https://zwiftmap.com/?list=events"
+      "/",
+      "list=events"
     ) as LocationStateUpcomingEvents;
     expect(r1.type).toBe("events");
     expect(r1.world).toBe(WATOPIA);
     expect(r1.query).toBe("");
 
     const r2 = getLocationStateFromUrl(
-      "https://zwiftmap.com/?list=events&q=query"
+      "/",
+      "list=events&q=query"
     ) as LocationStateUpcomingEvents;
     expect(r2.type).toBe("events");
     expect(r2.world).toBe(WATOPIA);
     expect(r2.query).toBe("query");
 
     const r3 = getLocationStateFromUrl(
-      "https://zwiftmap.com/london?list=events&q=query"
+      "/london",
+      "list=events&q=query"
     ) as LocationStateUpcomingEvents;
     expect(r3.type).toBe("events");
     expect(r3.world).toBe(LONDON);
@@ -189,21 +202,24 @@ describe("events", () => {
 
   it("legacy", () => {
     const r1 = getLocationStateFromUrl(
-      "https://zwiftmap.com/?events="
+      "/",
+      "events="
     ) as LocationStateUpcomingEvents;
     expect(r1.type).toBe("events");
     expect(r1.world).toBe(WATOPIA);
     expect(r1.query).toBe("");
 
     const r2 = getLocationStateFromUrl(
-      "https://zwiftmap.com/?events=&q=query"
+      "/",
+      "events=&q=query"
     ) as LocationStateUpcomingEvents;
     expect(r2.type).toBe("events");
     expect(r2.world).toBe(WATOPIA);
     expect(r2.query).toBe("query");
 
     const r3 = getLocationStateFromUrl(
-      "https://zwiftmap.com/?world=london&events=&q=query"
+      "/",
+      "world=london&events=&q=query"
     ) as LocationStateUpcomingEvents;
     expect(r3.type).toBe("events");
     expect(r3.world).toBe(LONDON);
@@ -214,7 +230,8 @@ describe("events", () => {
 describe("strava-activity", () => {
   it("current", () => {
     const r1 = getLocationStateFromUrl(
-      "https://zwiftmap.com/strava-activities/42"
+      "/strava-activities/42",
+      ""
     ) as LocationStateStravaActivity;
     expect(r1.type).toBe("strava-activity");
     expect(r1.world).toBeNull();
@@ -222,7 +239,8 @@ describe("strava-activity", () => {
     expect(r1.query).toBe("");
 
     const r2 = getLocationStateFromUrl(
-      "https://zwiftmap.com/strava-activities/42?q=query"
+      "/strava-activities/42",
+      "q=query"
     ) as LocationStateStravaActivity;
     expect(r2.type).toBe("strava-activity");
     expect(r2.world).toBeNull();
@@ -232,7 +250,8 @@ describe("strava-activity", () => {
 
   it("legacy", () => {
     const r1 = getLocationStateFromUrl(
-      "https://zwiftmap.com/?strava-activity=42"
+      "/",
+      "strava-activity=42"
     ) as LocationStateStravaActivity;
     expect(r1.type).toBe("strava-activity");
     expect(r1.world).toBeNull();
@@ -240,7 +259,8 @@ describe("strava-activity", () => {
     expect(r1.query).toBe("");
 
     const r2 = getLocationStateFromUrl(
-      "https://zwiftmap.com/london?strava-activity=42"
+      "/london",
+      "strava-activity=42"
     ) as LocationStateStravaActivity;
     expect(r2.type).toBe("strava-activity");
     expect(r2.world).toBeNull();
@@ -248,7 +268,8 @@ describe("strava-activity", () => {
     expect(r2.query).toBe("");
 
     const r3 = getLocationStateFromUrl(
-      "https://zwiftmap.com/london?strava-activity=42&q=query"
+      "/london",
+      "strava-activity=42&q=query"
     ) as LocationStateStravaActivity;
     expect(r3.type).toBe("strava-activity");
     expect(r3.world).toBeNull();
@@ -260,21 +281,24 @@ describe("strava-activity", () => {
 describe("strava-activities", () => {
   it("current", () => {
     const r1 = getLocationStateFromUrl(
-      "https://zwiftmap.com/?list=strava-activities"
+      "/",
+      "list=strava-activities"
     ) as LocationStateStravaActivities;
     expect(r1.type).toBe("strava-activities");
     expect(r1.world).toBe(WATOPIA);
     expect(r1.query).toBe("");
 
     const r2 = getLocationStateFromUrl(
-      "https://zwiftmap.com/?list=strava-activities&q=query"
+      "/",
+      "list=strava-activities&q=query"
     ) as LocationStateStravaActivities;
     expect(r2.type).toBe("strava-activities");
     expect(r2.world).toBe(WATOPIA);
     expect(r2.query).toBe("query");
 
     const r3 = getLocationStateFromUrl(
-      "https://zwiftmap.com/london?list=strava-activities&q=query"
+      "/london",
+      "list=strava-activities&q=query"
     ) as LocationStateStravaActivities;
     expect(r3.type).toBe("strava-activities");
     expect(r3.world).toBe(LONDON);
@@ -283,21 +307,24 @@ describe("strava-activities", () => {
 
   it("legacy", () => {
     const r1 = getLocationStateFromUrl(
-      "https://zwiftmap.com/?strava-activities="
+      "/",
+      "strava-activities="
     ) as LocationStateStravaActivities;
     expect(r1.type).toBe("strava-activities");
     expect(r1.world).toBe(WATOPIA);
     expect(r1.query).toBe("");
 
     const r2 = getLocationStateFromUrl(
-      "https://zwiftmap.com/?strava-activities=&q=query"
+      "/",
+      "strava-activities=&q=query"
     ) as LocationStateStravaActivities;
     expect(r2.type).toBe("strava-activities");
     expect(r2.world).toBe(WATOPIA);
     expect(r2.query).toBe("query");
 
     const r3 = getLocationStateFromUrl(
-      "https://zwiftmap.com/?world=london&strava-activities=&q=query"
+      "/",
+      "world=london&strava-activities=&q=query"
     ) as LocationStateStravaActivities;
     expect(r3.type).toBe("strava-activities");
     expect(r3.world).toBe(LONDON);

@@ -1,51 +1,51 @@
-import { URLPattern, URLPatternResult } from "../../polyfills/urlpattern";
-import { routes, Segment, segments, worlds } from "zwift-data";
+import { routes, Segment, segments, World, worlds } from "zwift-data";
 import { DEFAULT_WORLD } from "./constants";
 import { createUrl } from "./createUrl";
 import { LocationState } from "./types";
+import {
+  PATTERN_EVENT,
+  PATTERN_ROUTE,
+  PATTERN_STRAVA_ACTIVITY,
+  PATTERN_WORLD,
+} from "../routing";
 
 const PATTERNS: {
-  pattern: any;
+  pattern: RegExp;
   toState: (
-    result: URLPatternResult,
+    result: RegExpExecArray,
+    searchParams: URLSearchParams,
     query: string
   ) => [state: LocationState, updateUrl: boolean];
 }[] = [
   {
-    pattern: new URLPattern({ pathname: "/events/:eventId" }),
-    toState: (result, query) => [
+    pattern: PATTERN_EVENT,
+    toState: (result, _searchParams, query) => [
       {
         type: "event",
         world: null,
-        eventId: result.pathname.groups.eventId,
+        eventId: result.groups!.eventId,
         query,
       },
       false,
     ],
   },
   {
-    pattern: new URLPattern({
-      pathname: "/strava-activities/:stravaActivityId",
-    }),
-    toState: (result, query) => [
+    pattern: PATTERN_STRAVA_ACTIVITY,
+    toState: (result, _searchParams, query) => [
       {
         type: "strava-activity",
         world: null,
-        stravaActivityId: result.pathname.groups.stravaActivityId,
+        stravaActivityId: result.groups!.stravaActivityId,
         query,
       },
       false,
     ],
   },
   {
-    pattern: new URLPattern({
-      pathname: "/:worldSlug/:routeSlug",
-    }),
-    toState: (result, query) => {
-      const worldSlug = result.pathname.groups.worldSlug;
-      const route = routes.find(
-        (r) => r.slug === result.pathname.groups.routeSlug
-      );
+    pattern: PATTERN_ROUTE,
+    toState: (result, searchParams, query) => {
+      const worldSlug = result.groups!.worldSlug;
+      const route = routes.find((r) => r.slug === result.groups!.routeSlug);
       if (!route) {
         return [
           {
@@ -59,8 +59,6 @@ const PATTERNS: {
 
       const world = worlds.find((w) => w.slug === route.world)!;
 
-      const searchParams = new URLSearchParams(result.search.input);
-
       const selectedSegments = (searchParams.get("segments") ?? "")
         .split(",")
         .map((slug) => segments.find((s) => s.slug === slug))
@@ -73,16 +71,10 @@ const PATTERNS: {
     },
   },
   {
-    pattern: new URLPattern({
-      pathname: "/*?",
-    }),
-    toState: (result, query) => {
-      const searchParams = new URLSearchParams(result.search.input);
-
-      const worldSlug = result.pathname.groups[0] || searchParams.get("world");
-      const world =
-        worlds.find((w) => w.slug === worldSlug) ??
-        DEFAULT_WORLD;
+    pattern: PATTERN_WORLD,
+    toState: (result, searchParams, query) => {
+      const worldSlug = result.groups!.worldSlug;
+      const world = worlds.find((w) => w.slug === worldSlug) ?? DEFAULT_WORLD;
 
       const fallbackState: LocationState = {
         type: "default",
@@ -104,79 +96,106 @@ const PATTERNS: {
         }
       }
 
-      if (searchParams.has("route")) {
-        const route = routes.find((r) => r.slug === searchParams.get("route"));
-        const selectedSegments = (searchParams.get("segments") ?? "")
-          .split(",")
-          .map((slug) => segments.find((s) => s.slug === slug))
-          .filter((segment): segment is Segment => !!segment);
-
-        if (!route) {
-          return [{ world, query, type: "default" }, world.slug !== worldSlug];
-        } else {
-          return [
-            {
-              world: worlds.find((w) => w.slug === route.world)!,
-              query,
-              type: "route",
-              route,
-              segments: selectedSegments,
-            },
-            route.world !== result.pathname.groups.worldSlug,
-          ];
+      return [getLegacyStateWithWorld(searchParams, world, query), true];
+    },
+  },
+  {
+    pattern: /^(.*)$/,
+    toState: (_result, searchParams, query) => {
+      if (searchParams.has("list")) {
+        switch (searchParams.get("list")) {
+          case "events":
+            return [{ type: "events", world: DEFAULT_WORLD, query }, true];
+          case "strava-activities":
+            return [
+              { type: "strava-activities", world: DEFAULT_WORLD, query },
+              true,
+            ];
         }
       }
 
-      if (searchParams.has("strava-activities")) {
-        return [
-          { world, query, type: "strava-activities" },
-          world.slug !== worldSlug,
-        ];
-      }
-
-      if (searchParams.has("strava-activity")) {
-        return [
-          {
-            world: null,
-            query,
-            type: "strava-activity",
-            stravaActivityId: searchParams.get("strava-activity")!,
-          },
-          true,
-        ];
-      }
-
-      if (searchParams.has("events")) {
-        return [{ world, query, type: "events" }, world.slug !== worldSlug];
-      }
-
-      if (searchParams.has("event")) {
-        return [
-          {
-            world: null,
-            query,
-            type: "event",
-            eventId: searchParams.get("event")!,
-          },
-          true,
-        ];
-      }
-
-      return [fallbackState, world.slug !== worldSlug];
+      return [getLegacyStateWithoutWorld(searchParams, query), true];
     },
   },
 ];
 
+function getLegacyStateWithoutWorld(
+  searchParams: URLSearchParams,
+  query: string
+): LocationState {
+  const worldSlug = searchParams.get("world");
+  const world = worlds.find((w) => w.slug === worldSlug) ?? DEFAULT_WORLD;
+
+  return getLegacyStateWithWorld(searchParams, world, query);
+}
+
+function getLegacyStateWithWorld(
+  searchParams: URLSearchParams,
+  world: World,
+  query: string
+): LocationState {
+  if (searchParams.has("route")) {
+    const route = routes.find((r) => r.slug === searchParams.get("route"));
+    const selectedSegments = (searchParams.get("segments") ?? "")
+      .split(",")
+      .map((slug) => segments.find((s) => s.slug === slug))
+      .filter((segment): segment is Segment => !!segment);
+
+    if (!route) {
+      return { world, query, type: "default" };
+    } else {
+      return {
+        world: worlds.find((w) => w.slug === route.world)!,
+        query,
+        type: "route",
+        route,
+        segments: selectedSegments,
+      };
+    }
+  }
+
+  if (searchParams.has("strava-activities")) {
+    return { world, query, type: "strava-activities" };
+  }
+
+  if (searchParams.has("strava-activity")) {
+    return {
+      world: null,
+      query,
+      type: "strava-activity",
+      stravaActivityId: searchParams.get("strava-activity")!,
+    };
+  }
+
+  if (searchParams.has("events")) {
+    return { world, query, type: "events" };
+  }
+
+  if (searchParams.has("event")) {
+    return {
+      world: null,
+      query,
+      type: "event",
+      eventId: searchParams.get("event")!,
+    };
+  }
+
+  return { type: "default", world, query };
+}
+
 export function getLocationStateFromUrl(
-  url = window.location.href
+  pathname = window.location.pathname,
+  search = window.location.search
 ): LocationState {
   for (let { pattern, toState } of PATTERNS) {
-    const result = pattern.exec(url);
+    const result = pattern.exec(pathname);
+
     if (result === null) {
       continue;
     }
-    const query = new URLSearchParams(result.search.input).get("q") ?? "";
-    const [state, updateUrl] = toState(result, query);
+    const searchParams = new URLSearchParams(search);
+    const query = searchParams.get("q") ?? "";
+    const [state, updateUrl] = toState(result, searchParams, query);
 
     if (updateUrl) {
       const url = createUrl(state);
