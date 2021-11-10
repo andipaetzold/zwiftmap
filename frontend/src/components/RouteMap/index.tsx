@@ -3,19 +3,20 @@ import "leaflet/dist/leaflet.css";
 import React, { useMemo } from "react";
 import { useAsync } from "react-async-hook";
 import { Route, routes } from "zwift-data";
-import { useLocationState } from "../../hooks/useLocationState";
+import {
+  DEFAULT_WORLD,
+  LocationState,
+  LocationStateRoute,
+  LocationStateStravaActivity,
+  LocationStateUpcomingEvent,
+  useLocationState,
+} from "../../services/location-state";
 import { fetchEvent } from "../../services/events";
 import { getStravaActivity } from "../../services/StravaActivityRepository";
 import {
   getStravaSegmentStream,
   getStravaSegmentStreams,
 } from "../../services/StravaSegmentRepository";
-import {
-  LocationState,
-  LocationStateRoute,
-  LocationStateStravaActivity,
-  LocationStateUpcomingEvent,
-} from "../../types";
 import styles from "./index.module.css";
 import { Map } from "./Map";
 import { WorldSelect } from "./WorldSelect";
@@ -26,8 +27,7 @@ interface Props {
 }
 
 export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
-  const [locationState] = useLocationState();
-  const world = locationState.world;
+  const [locationState, setLocationState] = useLocationState();
 
   const { result: segmentsLatLngStreams } = useAsync(
     async (state: LocationState) => {
@@ -124,12 +124,23 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
     return routeStreamSet.latlng[pointIndex];
   }, [routeStreamSet, mouseHoverDistance]);
 
+  const selectedWorld = locationState.world ?? DEFAULT_WORLD;
+
   return (
     <div className={styles.Container}>
-      <WorldSelect />
+      <WorldSelect
+        world={selectedWorld}
+        onWorldChange={(newWorld) => {
+          setLocationState({
+            world: newWorld,
+            query: "",
+            type: "default",
+          });
+        }}
+      />
       <Map
-        key={world.slug}
-        world={world}
+        key={selectedWorld.slug}
+        world={selectedWorld}
         hoverPoint={pointCoordinates}
         previewRouteLatLngStream={previewRouteStravaSegment?.latlng}
         routeLatLngStream={routeStreamSet?.latlng}

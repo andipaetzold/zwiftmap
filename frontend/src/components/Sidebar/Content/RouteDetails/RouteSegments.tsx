@@ -8,9 +8,11 @@ import React from "react";
 import { useAsync } from "react-async-hook";
 import { Route, Segment, segments, SegmentType } from "zwift-data";
 import { useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";
-import { useLocationState } from "../../../../hooks/useLocationState";
+import {
+  LocationStateRoute,
+  useLocationState,
+} from "../../../../services/location-state";
 import { fetchSegment } from "../../../../services/strava/api";
-import { LocationStateRoute } from "../../../../types";
 import { Distance } from "../../../Distance";
 import { Time } from "../../../Time";
 
@@ -19,7 +21,8 @@ interface Props {
 }
 
 export function RouteSegments({ route }: Props) {
-  const [locationState, setLocationState] = useLocationState();
+  const [locationState, setLocationState] =
+    useLocationState<LocationStateRoute>();
   const segmentsOnRoute = segments
     .filter((s) => s.world === route.world)
     .filter((s) => route.segments.includes(s.slug))

@@ -1,7 +1,10 @@
 import { List, ListSubheader, SimpleListItem } from "@react-md/list";
 import React, { useState } from "react";
 import { Route, World } from "zwift-data";
-import { useLocationState } from "../../../../hooks/useLocationState";
+import {
+  LocationStateDefault,
+  useLocationState,
+} from "../../../../services/location-state";
 import { useSettings } from "../../../../hooks/useSettings";
 import {
   search,
@@ -20,7 +23,7 @@ interface Props {
 }
 
 export function SearchResultList({ onHoverRoute }: Props) {
-  const [locationState] = useLocationState();
+  const [locationState] = useLocationState<LocationStateDefault>();
   const [settings] = useSettings();
   const [sortState, setSortState] = useState<SortState>({
     key: "name",

@@ -16,7 +16,10 @@ import { useAsync } from "react-async-hook";
 import { SummaryActivity } from "strava";
 import stravaLogo from "../../../../assets/strava-40x40.png";
 import { useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";
-import { useLocationState } from "../../../../hooks/useLocationState";
+import {
+  LocationStateStravaActivities,
+  useLocationState,
+} from "../../../../services/location-state";
 import { getLoggedInAthleteActivities } from "../../../../services/strava/api";
 import { useStravaAuthUrl } from "../../../../services/strava/auth";
 import { getWorld } from "../../../../util/strava";
@@ -59,7 +62,8 @@ export function StravaActivitiesList() {
 }
 
 export function StravaActivitiesListWithToken() {
-  const [locationState, setLocationState] = useLocationState();
+  const [locationState, setLocationState] =
+    useLocationState<LocationStateStravaActivities>();
 
   const { result: activities } = useAsync(async () => {
     const result: SummaryActivity[] = [];

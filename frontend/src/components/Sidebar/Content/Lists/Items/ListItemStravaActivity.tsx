@@ -11,7 +11,10 @@ import React from "react";
 import { useAsync } from "react-async-hook";
 import stravaLogo from "../../../../../assets/strava-40x40.png";
 import { useIsLoggedInStrava } from "../../../../../hooks/useIsLoggedInStrava";
-import { useLocationState } from "../../../../../hooks/useLocationState";
+import {
+  LocationStateStravaActivities,
+  useLocationState,
+} from "../../../../../services/location-state";
 import { useStravaAuthUrl } from "../../../../../services/strava/auth";
 import { getStravaActivity } from "../../../../../services/StravaActivityRepository";
 import { Distance } from "../../../../Distance";
@@ -62,7 +65,8 @@ function SearchResultCardStravaActivityWithToken({
   const { result: activity, loading } = useAsync(getStravaActivity, [
     activityId,
   ]);
-  const [, setLocationState] = useLocationState();
+  const [, setLocationState] =
+    useLocationState<LocationStateStravaActivities>();
 
   if (!activity) {
     if (loading) {

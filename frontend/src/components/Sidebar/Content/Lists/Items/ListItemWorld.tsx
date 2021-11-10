@@ -1,6 +1,9 @@
 import { ListItem } from "@react-md/list";
 import { routes, segments, World } from "zwift-data";
-import { useLocationState } from "../../../../../hooks/useLocationState";
+import {
+  LocationStateDefault,
+  useLocationState,
+} from "../../../../../services/location-state";
 import { useSettings } from "../../../../../hooks/useSettings";
 
 export interface Props {
@@ -8,7 +11,7 @@ export interface Props {
 }
 
 export function ListItemWorld({ world }: Props) {
-  const [, setLocationState] = useLocationState();
+  const [, setLocationState] = useLocationState<LocationStateDefault>();
 
   const [settings] = useSettings();
   const secondaryText = `${

@@ -4,8 +4,12 @@ import { List, SimpleListItem } from "@react-md/list";
 import { ListFontIcon } from "@react-md/material-icons";
 import { CircularProgress } from "@react-md/progress";
 import { useAsync } from "react-async-hook";
-import { useLocationState } from "../../../../hooks/useLocationState";
 import { fetchEvent } from "../../../../services/events";
+import {
+  DEFAULT_WORLD,
+  LocationStateUpcomingEvent,
+  useLocationState,
+} from "../../../../services/location-state";
 import { UpcomingEventComponent } from "./component";
 
 interface Props {
@@ -15,7 +19,8 @@ interface Props {
 
 export function UpcomingEvent({ eventId }: Props) {
   const { result: event, loading } = useAsync(fetchEvent, [eventId]);
-  const [locationState, setLocationState] = useLocationState();
+  const [locationState, setLocationState] =
+    useLocationState<LocationStateUpcomingEvent>();
 
   const backButton = (
     <SimpleListItem>
@@ -25,7 +30,7 @@ export function UpcomingEvent({ eventId }: Props) {
           setLocationState({
             type: "events",
             query: locationState.query,
-            world: locationState.world,
+            world: locationState.world ?? DEFAULT_WORLD,
           })
         }
       >
@@ -39,32 +44,30 @@ export function UpcomingEvent({ eventId }: Props) {
   if (!event) {
     if (loading) {
       return (
-        <>
+        <List>
           {backButton}
           <CircularProgress
             id={`event-${eventId}`}
             circleStyle={{ stroke: "black" }}
           />
-        </>
+        </List>
       );
     } else {
       return (
-        <>
+        <List>
           {backButton}
-          <List>
-            <SimpleListItem secondaryText="Error loading event">
-              An error occurred
-            </SimpleListItem>
-          </List>
-        </>
+          <SimpleListItem secondaryText="Error loading event">
+            An error occurred
+          </SimpleListItem>
+        </List>
       );
     }
   }
 
   return (
-    <>
+    <List>
       {backButton}
       <UpcomingEventComponent event={event} />
-    </>
+    </List>
   );
 }

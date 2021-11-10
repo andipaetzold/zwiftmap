@@ -1,5 +1,8 @@
 import React, { useCallback } from "react";
-import { useLocationState } from "../../../hooks/useLocationState";
+import {
+  DEFAULT_WORLD,
+  useLocationState,
+} from "../../../services/location-state";
 import { RouteList } from "./Lists/RouteList";
 import { SearchResultList } from "./Lists/SearchResultList";
 import { StravaActivitiesList } from "./Lists/StravaActivitiesList";
@@ -20,7 +23,7 @@ export function Content({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
     locationState.query === "" ? "Route List" : "Search Results";
   const onBackButtonClick = useCallback(() => {
     setLocationState({
-      world: locationState.world,
+      world: locationState.world ?? DEFAULT_WORLD,
       query: locationState.query,
       type: "default",
     });

@@ -1,15 +1,15 @@
-import { LocationState } from "../../types";
+import { LocationState } from "./types";
 
 export function createUrl(state: LocationState): string {
-  const path = `/${state.world.slug}`;
-
+  let path = "/";
   const searchParams = new URLSearchParams();
 
   switch (state.type) {
     case "default":
+      path = `/${state.world.slug}`;
       break;
     case "route":
-      searchParams.set("route", state.route.slug);
+      path = `/${state.world.slug}/${state.route.slug}`;
       if (state.segments.length > 0) {
         searchParams.set(
           "segments",
@@ -19,19 +19,21 @@ export function createUrl(state: LocationState): string {
       break;
 
     case "strava-activities":
-      searchParams.set("strava-activities", "");
+      path = `/${state.world.slug}`;
+      searchParams.set("list", "strava-activities");
       break;
 
     case "strava-activity":
-      searchParams.set("strava-activity", state.stravaActivityId);
+      path = `/strava-activities/${state.stravaActivityId}`;
       break;
 
     case "events":
-      searchParams.set("events", "");
+      path = `/${state.world.slug}`;
+      searchParams.set("list", "events");
       break;
 
     case "event":
-      searchParams.set("event", state.eventId);
+      path = `/events/${state.eventId}`;
       break;
   }
 

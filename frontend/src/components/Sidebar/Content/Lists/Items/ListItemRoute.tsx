@@ -1,8 +1,11 @@
 import { ListItem } from "@react-md/list";
 import React, { useRef } from "react";
 import { Route, worlds } from "zwift-data";
-import { useLocationState } from "../../../../../hooks/useLocationState";
 import { useOnScreen } from "../../../../../hooks/useOnScreen";
+import {
+  LocationStateDefault,
+  useLocationState,
+} from "../../../../../services/location-state";
 import { Distance } from "../../../../Distance";
 import { Elevation } from "../../../../Elevation";
 import { ElevationChartPreview } from "../../../../ElevationChartPreview";
@@ -14,7 +17,8 @@ export interface Props {
 }
 
 export function ListItemRoute({ route, onHoverRoute, showWorldName }: Props) {
-  const [locationState, setLocationState] = useLocationState();
+  const [locationState, setLocationState] =
+    useLocationState<LocationStateDefault>();
   const handleClick = () => {
     setLocationState({
       world: worlds.find((w) => w.slug === route.world)!,

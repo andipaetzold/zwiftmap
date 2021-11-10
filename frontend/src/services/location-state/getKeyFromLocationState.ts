@@ -1,4 +1,5 @@
-import { LocationState } from "../../types";
+import { World } from "zwift-data";
+import { LocationState } from "./types";
 
 export function getKeyFromLocationState(locationState: LocationState): string {
   switch (locationState.type) {
@@ -6,15 +7,14 @@ export function getKeyFromLocationState(locationState: LocationState): string {
       return [
         locationState.type,
         locationState.route.slug,
-        locationState.segments.map((s) => s.slug).join(),
-        locationState.world.slug,
+        getKeyFromWorld(locationState.world),
         locationState.query,
       ].join();
 
     case "strava-activities":
       return [
         locationState.type,
-        locationState.world.slug,
+        getKeyFromWorld(locationState.world),
         locationState.query,
       ].join();
 
@@ -22,21 +22,21 @@ export function getKeyFromLocationState(locationState: LocationState): string {
       return [
         locationState.type,
         locationState.stravaActivityId,
-        locationState.world.slug,
+        getKeyFromWorld(locationState.world),
         locationState.query,
       ].join();
 
     case "events":
       return [
         locationState.type,
-        locationState.world.slug,
+        getKeyFromWorld(locationState.world),
         locationState.query,
       ].join();
 
     case "event":
       return [
         locationState.type,
-        locationState.world.slug,
+        getKeyFromWorld(locationState.world),
         locationState.eventId,
         locationState.query,
       ].join();
@@ -44,8 +44,16 @@ export function getKeyFromLocationState(locationState: LocationState): string {
     case "default":
       return [
         locationState.type,
-        locationState.world.slug,
+        getKeyFromWorld(locationState.world),
         locationState.query,
       ].join();
+  }
+}
+
+export function getKeyFromWorld(world: World | null) {
+  if (world === null) {
+    return "loading";
+  } else {
+    return world.slug;
   }
 }

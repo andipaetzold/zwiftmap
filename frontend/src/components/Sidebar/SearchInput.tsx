@@ -2,7 +2,7 @@ import { Button } from "@react-md/button";
 import { TextField } from "@react-md/form";
 import { FontIcon } from "@react-md/icon";
 import React from "react";
-import { useLocationState } from "../../hooks/useLocationState";
+import { DEFAULT_WORLD, useLocationState } from "../../services/location-state";
 
 export function SearchInput() {
   const [locationState, setLocationState] = useLocationState();
@@ -14,7 +14,7 @@ export function SearchInput() {
       value={locationState.query}
       onChange={(e) => {
         setLocationState({
-          world: locationState.world,
+          world: locationState.world ?? DEFAULT_WORLD,
           type: "default",
           query: e.target.value,
         });

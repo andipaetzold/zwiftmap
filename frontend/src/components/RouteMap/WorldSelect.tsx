@@ -1,7 +1,6 @@
 import { Select } from "@react-md/form";
 import React from "react";
-import { worlds } from "zwift-data";
-import { useLocationState } from "../../hooks/useLocationState";
+import { World, worlds } from "zwift-data";
 import styles from "./WorldSelect.module.scss";
 
 const options = [...worlds]
@@ -11,23 +10,22 @@ const options = [...worlds]
     value: world.slug,
   }));
 
-export function WorldSelect() {
-  const [locationState, setLocationState] = useLocationState();
+interface Props {
+  world: World;
+  onWorldChange: (newWorld: World) => void;
+}
 
+export function WorldSelect({ world, onWorldChange }: Props) {
   return (
     <div className={styles.Container}>
       <Select
         id="world-select"
         options={options}
-        value={locationState.world.slug}
+        value={world.slug}
         listboxStyle={{ zIndex: 3000 }}
-        onChange={(newWorldSlug) => {
-          setLocationState({
-            world: worlds.find((w) => w.slug === newWorldSlug)!,
-            query: "",
-            type: "default",
-          });
-        }}
+        onChange={(newWorldSlug) =>
+          onWorldChange(worlds.find((w) => w.slug === newWorldSlug)!)
+        }
       />
     </div>
   );

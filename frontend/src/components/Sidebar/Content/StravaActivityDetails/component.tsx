@@ -4,7 +4,11 @@ import { List, SimpleListItem } from "@react-md/list";
 import { ListFontIcon } from "@react-md/material-icons";
 import { Text } from "@react-md/typography";
 import React from "react";
-import { useLocationState } from "../../../../hooks/useLocationState";
+import {
+  DEFAULT_WORLD,
+  LocationStateStravaActivity,
+  useLocationState,
+} from "../../../../services/location-state";
 import { StravaActivity } from "../../../../services/StravaActivityRepository";
 import { ElevationChart } from "../../../ElevationChart";
 import { StravaActivityFacts } from "./StravaActivityFacts";
@@ -20,7 +24,8 @@ export function StravaActivityDetailsComponent({
   activity,
   onMouseHoverDistanceChange,
 }: Props) {
-  const [locationState, setLocationState] = useLocationState();
+  const [locationState, setLocationState] =
+    useLocationState<LocationStateStravaActivity>();
 
   return (
     <>
@@ -30,7 +35,7 @@ export function StravaActivityDetailsComponent({
             themeType="outline"
             onClick={() => {
               setLocationState({
-                world: locationState.world,
+                world: locationState.world ?? DEFAULT_WORLD,
                 query: locationState.query,
                 type: "strava-activities",
               });

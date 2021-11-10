@@ -1,7 +1,10 @@
 import { ListItem } from "@react-md/list";
 import { OpenInNewFontIcon } from "@react-md/material-icons";
 import { routes, worlds } from "zwift-data";
-import { useLocationState } from "../../../../hooks/useLocationState";
+import {
+  LocationStateUpcomingEvents,
+  useLocationState,
+} from "../../../../services/location-state";
 import { ZwiftEvent } from "../../../../services/events";
 import { EventInfo } from "../../../EventInfo";
 
@@ -12,7 +15,8 @@ interface Props {
 
 export function EventItem({ event, onHoverRoute }: Props) {
   const route = routes.find((r) => r.id === event.routeId);
-  const [locationState, setLocationState] = useLocationState();
+  const [locationState, setLocationState] =
+    useLocationState<LocationStateUpcomingEvents>();
 
   return (
     <ListItem

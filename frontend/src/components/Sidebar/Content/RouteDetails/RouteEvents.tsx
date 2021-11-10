@@ -1,14 +1,18 @@
 import {
-  ListItem, ListItemText,
+  ListItem,
+  ListItemText,
   ListSubheader,
-  SimpleListItem
+  SimpleListItem,
 } from "@react-md/list";
 import { CircularProgress } from "@react-md/progress";
 import { Text } from "@react-md/typography";
 import React, { useMemo } from "react";
 import { useAsync } from "react-async-hook";
 import { Route, worlds } from "zwift-data";
-import { useLocationState } from "../../../../hooks/useLocationState";
+import {
+  LocationStateRoute,
+  useLocationState,
+} from "../../../../services/location-state";
 import { useSettings } from "../../../../hooks/useSettings";
 import { fetchEvents } from "../../../../services/events/api";
 import { EventInfo } from "../../../EventInfo";
@@ -20,7 +24,8 @@ interface Props {
 export function RouteEvents({ route }: Props) {
   const { result: events } = useAsync(fetchEvents, []);
   const [settings] = useSettings();
-  const [locationState, setLocationState] = useLocationState()
+  const [locationState, setLocationState] =
+    useLocationState<LocationStateRoute>();
 
   const filteredEvents = useMemo(() => {
     if (!events) {
@@ -66,13 +71,14 @@ export function RouteEvents({ route }: Props) {
       {filteredEvents.slice(0, 3).map((event) => (
         <ListItem
           key={event.id}
-          onClick={() => setLocationState({
-            type: 'event',
-            world: worlds.find(w => w.id === event.mapId)!,
-            eventId: event.id.toString(),
-            query: locationState.query
-          })}
-          
+          onClick={() =>
+            setLocationState({
+              type: "event",
+              world: worlds.find((w) => w.id === event.mapId)!,
+              eventId: event.id.toString(),
+              query: locationState.query,
+            })
+          }
           secondaryText={<EventInfo event={event} />}
           threeLines
         >

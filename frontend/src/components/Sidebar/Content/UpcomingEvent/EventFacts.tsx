@@ -11,7 +11,10 @@ import {
 } from "@react-md/material-icons";
 import round from "lodash/round";
 import { routes, worlds } from "zwift-data";
-import { useLocationState } from "../../../../hooks/useLocationState";
+import {
+  LocationStateUpcomingEvent,
+  useLocationState,
+} from "../../../../services/location-state";
 import { ZwiftEvent } from "../../../../services/events";
 import { EVENT_TYPES } from "../../../../services/events/constants";
 import { Distance } from "../../../Distance";
@@ -28,7 +31,8 @@ interface Props {
 }
 
 export function EventFacts({ event }: Props) {
-  const [locationState, setLocationState] = useLocationState();
+  const [locationState, setLocationState] =
+    useLocationState<LocationStateUpcomingEvent>();
   const route = routes.find((r) => r.id === event.routeId);
   const world = worlds.find((w) => w.id === event.mapId);
 

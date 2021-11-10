@@ -4,7 +4,6 @@ import RouteMap from "./components/RouteMap";
 import { Sidebar } from "./components/Sidebar";
 
 export default function App() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [mouseHoverDistance, setMouseHoverDistance] = useState<
     number | undefined
   >(undefined);

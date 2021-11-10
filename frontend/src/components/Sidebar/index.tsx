@@ -6,7 +6,7 @@ import {
 } from "@react-md/material-icons";
 import c from "classnames";
 import React, { useRef, useState } from "react";
-import { useLocationState } from "../../hooks/useLocationState";
+import { useLocationState } from "../../services/location-state";
 import { Content } from "./Content";
 import styles from "./index.module.scss";
 import { MenuButton } from "./MenuButton";
