@@ -1,3 +1,5 @@
+import { SimpleListItem } from "@react-md/list";
+import { CircularProgress } from "@react-md/progress";
 import { Text } from "@react-md/typography";
 import uniqWith from "lodash/uniqWith";
 import React, { useEffect, useMemo, useState } from "react";
@@ -30,20 +32,33 @@ export function RouteElevationChart({
   route,
   onMouseHoverDistanceChange,
 }: RouteElevationChartProps) {
-  const { result: segment } = useAsync<
+  const { result: segment, error } = useAsync<
     Pick<StravaSegment, "altitude" | "distance">
   >(getStravaSegmentStreams, [route.slug, "routes", REQUIRED_STREAMS]);
 
-  if (!segment) {
+  if (error) {
     return null;
   }
 
+  if (!segment) {
+    return (
+      <SimpleListItem>
+        <CircularProgress
+          id={`route-elevation-chart-${route.id}`}
+          circleStyle={{ stroke: "black" }}
+        />
+      </SimpleListItem>
+    );
+  }
+
   return (
-    <ElevationChart
-      altitudeStream={segment.altitude}
-      distanceStream={segment.distance}
-      onMouseHoverDistanceChange={onMouseHoverDistanceChange}
-    />
+    <SimpleListItem>
+      <ElevationChart
+        altitudeStream={segment.altitude}
+        distanceStream={segment.distance}
+        onMouseHoverDistanceChange={onMouseHoverDistanceChange}
+      />
+    </SimpleListItem>
   );
 }
 

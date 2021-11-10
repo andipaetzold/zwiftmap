@@ -41,12 +41,10 @@ export function RouteDetails({
 
       <RouteStravaPB route={route} />
 
-      <SimpleListItem>
-        <RouteElevationChart
-          route={route}
-          onMouseHoverDistanceChange={onMouseHoverDistanceChange}
-        />
-      </SimpleListItem>
+      <RouteElevationChart
+        route={route}
+        onMouseHoverDistanceChange={onMouseHoverDistanceChange}
+      />
 
       <RouteEvents route={route} />
       <RouteSegments route={route} />
