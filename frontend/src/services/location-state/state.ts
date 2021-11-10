@@ -1,6 +1,6 @@
 import cloneDeep from "lodash/cloneDeep";
 import isEqual from "lodash/isEqual";
-import { worlds } from "zwift-data";
+import { routes, worlds } from "zwift-data";
 import { fetchEvent } from "../events";
 import { getStravaActivity } from "../StravaActivityRepository";
 import { getKeyFromLocationState } from "./getKeyFromLocationState";
@@ -52,8 +52,15 @@ async function fetchWorld() {
       case "event":
         const event = await fetchEvent(state.eventId);
         if (isEqual(stateBefore, state)) {
-          const world = worlds.find((w) => w.id === event.mapId)!;
-          setLocationState({ ...state, world });
+          const worldId = event.mapId;
+          const worldSlug = routes.find((r) => r.id === event.routeId)?.world;
+          const world = worlds.find(
+            (w) => w.id === worldId || w.slug === worldSlug
+          );
+
+          if (world) {
+            setLocationState({ ...state, world });
+          }
         }
 
         break;
