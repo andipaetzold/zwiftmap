@@ -1,24 +1,20 @@
 import axios from "axios";
 import identity from "lodash/identity";
-import { logout } from "../auth";
-import { axiosCache } from "../axios-cache";
-import { getRefreshedToken } from "./auth";
-import { getStravaToken, writeStravaToken } from "./token";
 import {
   DetailedActivity,
   DetailedSegment,
   StreamSet,
   SummaryActivity,
 } from "strava";
-
-const cache = axiosCache();
+import { logout } from "../auth";
+import { createAxiosCacheAdapter } from "../axios-cache-adapter";
+import { getRefreshedToken } from "./auth";
+import { getStravaToken, writeStravaToken } from "./token";
 
 const api = axios.create({
   baseURL: "https://www.strava.com/api/v3",
+  adapter: createAxiosCacheAdapter(),
 });
-
-api.interceptors.request.use(cache.request);
-api.interceptors.response.use(...cache.response);
 
 api.interceptors.request.use(async (config) => {
   let token = getStravaToken();

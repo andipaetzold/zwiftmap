@@ -1,11 +1,10 @@
 import axios from "axios";
 import { StravaSegment } from "../types";
-import { axiosCache } from "./axios-cache";
+import { createAxiosCacheAdapter } from "./axios-cache-adapter";
 
-const cache = axiosCache();
-const api = axios.create();
-api.interceptors.request.use(cache.request);
-api.interceptors.response.use(...cache.response);
+const api = axios.create({
+  adapter: createAxiosCacheAdapter(),
+});
 
 export async function getStravaSegmentStream<
   Stream extends "altitude" | "distance" | "latlng"
@@ -14,7 +13,9 @@ export async function getStravaSegmentStream<
   type: "segments" | "routes",
   stream: Stream
 ): Promise<StravaSegment[Stream]> {
-  const response = await api.get<StravaSegment[Stream]>(`/${type}/${segmentSlug}/${stream}.json`);
+  const response = await api.get<StravaSegment[Stream]>(
+    `/${type}/${segmentSlug}/${stream}.json`
+  );
   return response.data;
 }
 
