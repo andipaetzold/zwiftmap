@@ -8,6 +8,12 @@ import { BACKEND_HOST } from "./config";
 import "./index.scss";
 import { listenForStravaToken } from "./services/listenForStravaToken";
 import { ping } from "./services/ping";
+import {
+  PATTERN_EVENT,
+  PATTERN_ROUTE,
+  PATTERN_STRAVA_ACTIVITY,
+  PATTERN_WORLD,
+} from "./services/routing";
 
 Sentry.init({
   enabled: (process.env.REACT_APP_SENTRY_DSN ?? "").length > 0,
@@ -16,14 +22,39 @@ Sentry.init({
     new Integrations.BrowserTracing({
       tracingOrigins: [BACKEND_HOST],
       beforeNavigate: (context) => {
-        const pathParts = context.name.split("/");
-        if (pathParts.length >= 2) {
-          pathParts[1] = ":worldSlug";
+        const resultEvent = PATTERN_EVENT.exec(context.name);
+        if (resultEvent) {
+          return {
+            ...context,
+            name: "/events/:eventId",
+          };
         }
-        return {
-          ...context,
-          name: pathParts.join("/"),
-        };
+
+        const resultStravaActivity = PATTERN_STRAVA_ACTIVITY.exec(context.name);
+        if (resultStravaActivity) {
+          return {
+            ...context,
+            name: "/strava-activities/:stravaActivityId",
+          };
+        }
+
+        const resultRoute = PATTERN_ROUTE.exec(context.name);
+        if (resultRoute) {
+          return {
+            ...context,
+            name: "/:worldSlug/:routeSlug",
+          };
+        }
+
+        const resultWorld = PATTERN_WORLD.exec(context.name);
+        if (resultWorld) {
+          return {
+            ...context,
+            name: "/:worldSlug",
+          };
+        }
+
+        return context;
       },
     }),
   ],
