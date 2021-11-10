@@ -22,6 +22,7 @@ export function setLocationState(newState: LocationState) {
   const key = getKeyFromLocationState(newState);
   state = { ...newState, key };
   listeners.forEach((l) => l(state));
+  fetchWorld();
 }
 
 export function getLocationState(): LocationStateWithKey {
@@ -37,7 +38,6 @@ export function removeListener(listener: Listener) {
 }
 
 fetchWorld();
-
 async function fetchWorld() {
   if (state.world === null) {
     const stateBefore = cloneDeep(state);
@@ -64,5 +64,4 @@ async function fetchWorld() {
 window.addEventListener("popstate", () => {
   const newState = getLocationStateFromHistory();
   setLocationState(newState);
-  fetchWorld();
 });
