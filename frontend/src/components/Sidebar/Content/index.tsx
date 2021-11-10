@@ -1,14 +1,14 @@
 import React, { useCallback } from "react";
 import {
   DEFAULT_WORLD,
-  useLocationState,
+  useLocationState
 } from "../../../services/location-state";
+import { Event } from "./Event";
 import { RouteList } from "./Lists/RouteList";
 import { SearchResultList } from "./Lists/SearchResultList";
 import { StravaActivitiesList } from "./Lists/StravaActivitiesList";
 import { RouteDetails } from "./RouteDetails";
 import { StravaActivityDetails } from "./StravaActivityDetails";
-import { UpcomingEvent } from "./UpcomingEvent";
 import { UpcomingEvents } from "./UpcomingEvents";
 
 interface Props {
@@ -53,7 +53,7 @@ export function Content({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
       return <UpcomingEvents onHoverRoute={onHoverRoute} />;
     case "event":
       return (
-        <UpcomingEvent
+        <Event
           onMouseHoverDistanceChange={onMouseHoverDistanceChange}
           eventId={locationState.eventId}
         />

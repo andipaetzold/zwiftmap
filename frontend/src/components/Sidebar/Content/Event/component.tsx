@@ -12,7 +12,7 @@ interface Props {
   event: ZwiftEvent;
 }
 
-export function UpcomingEventComponent({ event }: Props) {
+export function EventComponent({ event }: Props) {
   return (
     <>
       <EventImage event={event} />

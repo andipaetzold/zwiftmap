@@ -10,14 +10,14 @@ import {
   LocationStateUpcomingEvent,
   useLocationState,
 } from "../../../../services/location-state";
-import { UpcomingEventComponent } from "./component";
+import { EventComponent } from "./component";
 
 interface Props {
   onMouseHoverDistanceChange: (distance: number | undefined) => void;
   eventId: string;
 }
 
-export function UpcomingEvent({ eventId }: Props) {
+export function Event({ eventId }: Props) {
   const { result: event, loading } = useAsync(fetchEvent, [eventId]);
   const [locationState, setLocationState] =
     useLocationState<LocationStateUpcomingEvent>();
@@ -67,7 +67,7 @@ export function UpcomingEvent({ eventId }: Props) {
   return (
     <List>
       {backButton}
-      <UpcomingEventComponent event={event} />
+      <EventComponent event={event} />
     </List>
   );
 }
