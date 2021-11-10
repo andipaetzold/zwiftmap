@@ -42,12 +42,22 @@ const PATTERNS: {
       pathname: "/:worldSlug/:routeSlug",
     }),
     toState: (result, query) => {
-      const world = worlds.find(
-        (w) => w.slug === result.pathname.groups.worldSlug
-      )!;
+      const worldSlug = result.pathname.groups.worldSlug;
       const route = routes.find(
         (r) => r.slug === result.pathname.groups.routeSlug
-      )!;
+      );
+      if (!route) {
+        return [
+          {
+            type: "default",
+            world: worlds.find((w) => w.slug === worldSlug) ?? DEFAULT_WORLD,
+            query,
+          },
+          true,
+        ];
+      }
+
+      const world = worlds.find((w) => w.slug === route.world)!;
 
       const searchParams = new URLSearchParams(result.search.input);
 
@@ -58,7 +68,7 @@ const PATTERNS: {
 
       return [
         { type: "route", world, route, segments: selectedSegments, query },
-        false,
+        world.slug !== worldSlug,
       ];
     },
   },
@@ -169,7 +179,7 @@ export function getLocationStateFromHistory(
 
     if (updateUrl) {
       const url = createUrl(state);
-      window.history.pushState(undefined, "", url);
+      window.history.replaceState(undefined, "", url);
     }
 
     return state;
