@@ -1,4 +1,3 @@
-import short from "short-uuid";
 import { DetailedActivity, StreamSet } from "strava";
 import { ErrorWithStatusCode } from "../ErrorWithStatusCode";
 import {
@@ -53,8 +52,7 @@ async function createSharedItem(
   activity: DetailedActivity,
   activityStreams: StreamSet
 ): Promise<SharedItem> {
-  const sharedItem: SharedItem = {
-    id: short.generate(),
+  const sharedItem: Omit<SharedItem, "id"> = {
     type: "strava-activity",
     activity: {
       id: activity.id,
@@ -69,6 +67,5 @@ async function createSharedItem(
       latlng: activity.start_latlng as [number, number],
     },
   };
-  await writeSharedItem(sharedItem);
-  return sharedItem;
+  return await writeSharedItem(sharedItem);
 }
