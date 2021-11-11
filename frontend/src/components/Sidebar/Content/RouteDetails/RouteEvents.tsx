@@ -2,20 +2,20 @@ import {
   ListItem,
   ListItemText,
   ListSubheader,
-  SimpleListItem,
+  SimpleListItem
 } from "@react-md/list";
-import { CircularProgress } from "@react-md/progress";
 import { Text } from "@react-md/typography";
 import React, { useMemo } from "react";
 import { useAsync } from "react-async-hook";
 import { Route, worlds } from "zwift-data";
-import {
-  LocationStateRoute,
-  useLocationState,
-} from "../../../../services/location-state";
 import { useSettings } from "../../../../hooks/useSettings";
 import { fetchEvents } from "../../../../services/events/api";
+import {
+  LocationStateRoute,
+  useLocationState
+} from "../../../../services/location-state";
 import { EventInfo } from "../../../EventInfo";
+import { LoadingSpinnerListItem } from "../../../Loading";
 
 interface Props {
   route: Route;
@@ -46,15 +46,7 @@ export function RouteEvents({ route }: Props) {
   }, [events, route, settings.sport]);
 
   if (filteredEvents === undefined) {
-    return (
-      <SimpleListItem>
-        <CircularProgress
-          id="loading-events"
-          small
-          circleStyle={{ stroke: "black" }}
-        />
-      </SimpleListItem>
-    );
+    return <LoadingSpinnerListItem small />;
   }
 
   if (filteredEvents.length === 0) {

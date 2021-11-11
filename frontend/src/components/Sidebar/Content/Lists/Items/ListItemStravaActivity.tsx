@@ -3,22 +3,22 @@ import {
   ListItem,
   ListItemLink,
   ListItemText,
-  SimpleListItem,
+  SimpleListItem
 } from "@react-md/list";
 import { OpenInNewFontIcon } from "@react-md/material-icons";
-import { CircularProgress } from "@react-md/progress";
 import React from "react";
 import { useAsync } from "react-async-hook";
 import stravaLogo from "../../../../../assets/strava-40x40.png";
 import { useIsLoggedInStrava } from "../../../../../hooks/useIsLoggedInStrava";
 import {
   LocationStateStravaActivities,
-  useLocationState,
+  useLocationState
 } from "../../../../../services/location-state";
 import { useStravaAuthUrl } from "../../../../../services/strava/auth";
 import { getStravaActivity } from "../../../../../services/StravaActivityRepository";
 import { Distance } from "../../../../Distance";
 import { Elevation } from "../../../../Elevation";
+import { LoadingSpinnerListItem } from "../../../../Loading";
 import { Time } from "../../../../Time";
 
 export interface Props {
@@ -68,24 +68,19 @@ function SearchResultCardStravaActivityWithToken({
   const [, setLocationState] =
     useLocationState<LocationStateStravaActivities>();
 
+  if (loading) {
+    return <LoadingSpinnerListItem />;
+  }
+
   if (!activity) {
-    if (loading) {
-      return (
-        <CircularProgress
-          id={`strava-activity-${activityId}`}
-          circleStyle={{ stroke: "black" }}
-        />
-      );
-    } else {
-      return (
-        <SimpleListItem
-          secondaryText="Make sure you can access the activity and it was recorded in Zwift."
-          threeLines
-        >
-          An error occurred
-        </SimpleListItem>
-      );
-    }
+    return (
+      <SimpleListItem
+        secondaryText="Make sure you can access the activity and it was recorded in Zwift."
+        threeLines
+      >
+        An error occurred
+      </SimpleListItem>
+    );
   }
 
   const handleClick = () => {

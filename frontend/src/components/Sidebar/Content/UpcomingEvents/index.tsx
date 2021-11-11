@@ -2,7 +2,6 @@ import { Button } from "@react-md/button";
 import { TextIconSpacing } from "@react-md/icon";
 import { List, ListSubheader, SimpleListItem } from "@react-md/list";
 import { ListFontIcon } from "@react-md/material-icons";
-import { CircularProgress } from "@react-md/progress";
 import { useAsync } from "react-async-hook";
 import { useSettings } from "../../../../hooks/useSettings";
 import { fetchEvents } from "../../../../services/events";
@@ -10,6 +9,7 @@ import {
   LocationStateUpcomingEvents,
   useLocationState,
 } from "../../../../services/location-state";
+import { LoadingSpinnerListItem } from "../../../Loading";
 import { EventItem } from "./EventItem";
 
 interface Props {
@@ -45,12 +45,7 @@ export function UpcomingEvents({ onHoverRoute }: Props) {
         <List>
           {backButton}
           <ListSubheader>Upcoming Event</ListSubheader>
-          <SimpleListItem>
-            <CircularProgress
-              id={"events-progress"}
-              circleStyle={{ stroke: "black" }}
-            />
-          </SimpleListItem>
+          <LoadingSpinnerListItem />
         </List>
       );
     } else {

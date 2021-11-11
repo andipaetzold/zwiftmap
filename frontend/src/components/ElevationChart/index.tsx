@@ -1,5 +1,4 @@
 import { SimpleListItem } from "@react-md/list";
-import { CircularProgress } from "@react-md/progress";
 import { Text } from "@react-md/typography";
 import uniqWith from "lodash/uniqWith";
 import React, { useEffect, useMemo, useState } from "react";
@@ -12,7 +11,7 @@ import {
   Tooltip,
   TooltipProps,
   XAxis,
-  YAxis,
+  YAxis
 } from "recharts";
 import { Route } from "zwift-data";
 import { getStravaSegmentStreams } from "../../services/StravaSegmentRepository";
@@ -20,6 +19,7 @@ import { StravaSegment } from "../../types";
 import { Distance } from "../Distance";
 import { Elevation } from "../Elevation";
 import { ElevationGradient } from "../ElevationGradient";
+import { LoadingSpinnerListItem } from "../Loading";
 
 interface RouteElevationChartProps {
   route: Route;
@@ -41,14 +41,7 @@ export function RouteElevationChart({
   }
 
   if (!segment) {
-    return (
-      <SimpleListItem>
-        <CircularProgress
-          id={`route-elevation-chart-${route.id}`}
-          circleStyle={{ stroke: "black" }}
-        />
-      </SimpleListItem>
-    );
+    return <LoadingSpinnerListItem />;
   }
 
   return (

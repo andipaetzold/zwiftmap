@@ -1,14 +1,14 @@
 import { ListItemLink, ListItemText, SimpleListItem } from "@react-md/list";
 import { OpenInNewFontIcon, TimerFontIcon } from "@react-md/material-icons";
-import { CircularProgress } from "@react-md/progress";
 import React from "react";
 import { useAsync } from "react-async-hook";
 import { Route } from "zwift-data";
 import {
   IsLoggedInStrava,
-  useIsLoggedInStrava,
+  useIsLoggedInStrava
 } from "../../../../hooks/useIsLoggedInStrava";
 import { fetchSegment } from "../../../../services/strava/api";
+import { LoadingSpinner, LoadingSpinnerListItem } from "../../../Loading";
 import { Time } from "../../../Time";
 
 interface Props {
@@ -34,12 +34,7 @@ export function RouteStravaPB({ route }: Props) {
   );
 
   if (isLoggedInStrava === null) {
-    return (
-      <CircularProgress
-        id="strava-activities-list"
-        circleStyle={{ stroke: "black" }}
-      />
-    );
+    return <LoadingSpinnerListItem />;
   }
 
   if (loading) {
@@ -50,11 +45,7 @@ export function RouteStravaPB({ route }: Props) {
         rightAddon={<OpenInNewFontIcon />}
         rightAddonType="icon"
       >
-        <CircularProgress
-          id={`strava-route-pb-${route.id}`}
-          circleStyle={{ stroke: "black" }}
-          small
-        />
+        <LoadingSpinner small />
       </SimpleListItem>
     );
   }

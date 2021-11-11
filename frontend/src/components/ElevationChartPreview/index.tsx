@@ -1,4 +1,3 @@
-import { CircularProgress } from "@react-md/progress";
 import uniqWith from "lodash/uniqWith";
 import React, { useMemo } from "react";
 import { useAsync } from "react-async-hook";
@@ -7,6 +6,7 @@ import { Route } from "zwift-data";
 import { getStravaSegmentStreams } from "../../services/StravaSegmentRepository";
 import { StravaSegment } from "../../types";
 import { ElevationGradient } from "../ElevationGradient";
+import { LoadingSpinner } from "../Loading";
 
 interface Props {
   route: Route;
@@ -45,13 +45,7 @@ export function ElevationChartPreview({ route }: Props) {
   }
 
   if (!data) {
-    return (
-      <CircularProgress
-        id={`elevation-preview-${route.slug}`}
-        small
-        circleStyle={{ stroke: "black" }}
-      />
-    );
+    return <LoadingSpinner small />;
   }
 
   return (

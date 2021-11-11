@@ -3,16 +3,17 @@ import {
   List,
   ListItemLink,
   ListItemText,
-  SimpleListItem,
+  SimpleListItem
 } from "@react-md/list";
 import { OpenInNewFontIcon } from "@react-md/material-icons";
-import { CircularProgress } from "@react-md/progress";
 import React from "react";
 import { useAsync } from "react-async-hook";
 import stravaLogo from "../../../../assets/strava-40x40.png";
 import { useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";
 import { useStravaAuthUrl } from "../../../../services/strava/auth";
 import { getStravaActivity } from "../../../../services/StravaActivityRepository";
+import { LoadingSpinnerListItem } from "../../../Loading";
+import { BackButton } from "./BackButton";
 import { StravaActivityDetailsComponent } from "./component";
 
 interface Props {
@@ -20,7 +21,16 @@ interface Props {
   onMouseHoverDistanceChange: (distance: number | undefined) => void;
 }
 
-export function StravaActivityDetails({
+export function StravaActivityDetails(props: Props) {
+  return (
+    <List>
+      <BackButton />
+      <StravaActivityDetailsContent {...props} />
+    </List>
+  );
+}
+
+function StravaActivityDetailsContent({
   activityId,
   onMouseHoverDistanceChange,
 }: Props) {
@@ -31,56 +41,42 @@ export function StravaActivityDetails({
   ]);
 
   if (isLoggedInStrava === null) {
-    return (
-      <CircularProgress
-        id="strava-activities-list"
-        circleStyle={{ stroke: "black" }}
-      />
-    );
+    return <LoadingSpinnerListItem />;
   }
 
   if (!isLoggedInStrava) {
     return (
-      <List>
-        <ListItemLink
-          leftAddon={
-            <Avatar color="#ff6b00">
-              <img src={stravaLogo} alt="" />
-            </Avatar>
-          }
-          leftAddonType="avatar"
-          rightAddon={<OpenInNewFontIcon />}
-          rightAddonType="icon"
-          href={stravaAuthUrl}
-        >
-          <ListItemText secondaryText="…to view Strava activity">
-            Authorize Strava App…
-          </ListItemText>
-        </ListItemLink>
-      </List>
+      <ListItemLink
+        leftAddon={
+          <Avatar color="#ff6b00">
+            <img src={stravaLogo} alt="" />
+          </Avatar>
+        }
+        leftAddonType="avatar"
+        rightAddon={<OpenInNewFontIcon />}
+        rightAddonType="icon"
+        href={stravaAuthUrl}
+      >
+        <ListItemText secondaryText="…to view Strava activity">
+          Authorize Strava App…
+        </ListItemText>
+      </ListItemLink>
     );
   }
 
+  if (loading) {
+    return <LoadingSpinnerListItem />;
+  }
+
   if (!activity) {
-    if (loading) {
-      return (
-        <CircularProgress
-          id={`strava-activity-${activityId}`}
-          circleStyle={{ stroke: "black" }}
-        />
-      );
-    } else {
-      return (
-        <List>
-          <SimpleListItem
-            secondaryText="Make sure you can access the activity and it was recorded in Zwift."
-            threeLines
-          >
-            An error occurred
-          </SimpleListItem>
-        </List>
-      );
-    }
+    return (
+      <SimpleListItem
+        secondaryText="Make sure you can access the activity and it was recorded in Zwift."
+        threeLines
+      >
+        An error occurred
+      </SimpleListItem>
+    );
   }
 
   return (
