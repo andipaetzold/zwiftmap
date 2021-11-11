@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@tsconfig/create-react-app": "1.0.2",
-    "netlify-cli": "6.14.19",
+    "netlify-cli": "6.14.21",
     "sass": "1.43.4"
   }
 }
