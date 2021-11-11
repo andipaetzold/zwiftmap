@@ -6,7 +6,6 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import { BACKEND_HOST } from "./config";
 import "./index.scss";
-import { listenForStravaToken } from "./services/listenForStravaToken";
 import { ping } from "./services/ping";
 import {
   PATTERN_EVENT,
@@ -70,7 +69,6 @@ Sentry.init({
   tracesSampleRate: 1.0,
 });
 
-listenForStravaToken();
 ping();
 
 ReactDOM.render(

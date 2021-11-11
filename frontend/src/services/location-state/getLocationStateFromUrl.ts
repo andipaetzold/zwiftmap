@@ -9,6 +9,7 @@ import {
   PATTERN_WORLD,
   PATTERN_EVENT,
 } from "../routing";
+import { writeStravaToken } from "../strava/token";
 
 const PATTERNS: {
   pattern: RegExp;
@@ -200,23 +201,37 @@ export function getLocationStateFromUrl(
   pathname = window.location.pathname,
   search = window.location.search
 ): LocationState {
+  let updateUrl = true;
+  const searchParams = new URLSearchParams(search);
+  if (searchParams.has("strava-auth")) {
+    writeStravaToken(JSON.parse(searchParams.get("strava-auth")!));
+  }
+
+  let state: LocationState | undefined;
   for (let { pattern, toState } of PATTERNS) {
     const result = pattern.exec(pathname);
 
     if (result === null) {
       continue;
     }
-    const searchParams = new URLSearchParams(search);
     const query = searchParams.get("q") ?? "";
-    const [state, updateUrl] = toState(result, searchParams, query);
+    const toStateResult = toState(result, searchParams, query);
 
-    if (updateUrl) {
-      const url = createUrl(state);
-      window.history.replaceState(undefined, "", url);
-    }
+    state = toStateResult[0];
+    updateUrl = updateUrl || toStateResult[1];
 
-    return state;
+    break;
   }
 
-  return { type: "default", world: DEFAULT_WORLD, query: "" };
+  if (state === undefined) {
+    state = { type: "default", world: DEFAULT_WORLD, query: "" };
+    updateUrl = true;
+  }
+
+  if (updateUrl) {
+    const url = createUrl(state);
+    window.history.replaceState(undefined, "", url);
+  }
+
+  return state;
 }
