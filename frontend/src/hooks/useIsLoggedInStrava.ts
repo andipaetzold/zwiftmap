@@ -1,18 +1,37 @@
 import { useEffect, useState } from "react";
-import {
-  addLocalStorageListener,
-  getLocalStorageItem,
-  STRAVA_AUTH_KEY,
-} from "../services/local-storage";
+import { RefreshTokenResponse } from "strava/dist/types";
+import { emitter, STRAVA_TOKEN_UPDATE } from "../services/emitter";
+import { getStravaToken, StravaTokenLoading } from "../services/strava/token";
 
-export function useIsLoggedInStrava() {
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    () => getLocalStorageItem(STRAVA_AUTH_KEY) !== null
+export type IsLoggedInStrava = boolean | null;
+
+function stravaTokenToState(
+  stravaToken: RefreshTokenResponse | null | typeof StravaTokenLoading
+): IsLoggedInStrava {
+  if (stravaToken === StravaTokenLoading) {
+    return null;
+  }
+
+  if (stravaToken === null) {
+    return false;
+  }
+
+  return true;
+}
+
+export function useIsLoggedInStrava(): IsLoggedInStrava {
+  const [state, setState] = useState<IsLoggedInStrava>(
+    stravaTokenToState(getStravaToken())
   );
 
   useEffect(() => {
-    addLocalStorageListener(STRAVA_AUTH_KEY, (v) => setIsLoggedIn(v !== null));
+    const listener = (newToken: RefreshTokenResponse | null) => {
+      setState(stravaTokenToState(newToken));
+    };
+
+    emitter.on(STRAVA_TOKEN_UPDATE, listener);
+    return () => emitter.off(STRAVA_TOKEN_UPDATE, listener);
   }, []);
 
-  return isLoggedIn;
+  return state;
 }

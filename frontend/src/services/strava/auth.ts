@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { RefreshTokenResponse } from "strava/dist/types";
 import { BACKEND_HOST } from "../../config";
 import { zwiftMapApi } from "../zwiftMapApi";
+import { writeStravaToken } from "./token";
 
 function getStravaAuthUrl() {
   const params = new URLSearchParams();
@@ -29,15 +30,12 @@ export function useStravaAuthUrl(): string {
   return url;
 }
 
-export async function getRefreshedToken(
-  refreshToken: string
-): Promise<RefreshTokenResponse> {
+export async function getRefreshedToken(): Promise<RefreshTokenResponse> {
   const response = await zwiftMapApi.post<RefreshTokenResponse>(
-    "/strava/refresh",
-    {
-      refresh_token: refreshToken,
-    }
+    "/strava/refresh"
   );
+
+  writeStravaToken(response.data);
 
   return response.data;
 }

@@ -1,10 +1,5 @@
 import { Request, Response } from "express";
-import { Record, String } from "runtypes";
 import { AUTH_COOKIE_NAME } from "../../../shared/config";
-
-const Body = Record({
-  stravaToken: String,
-});
 
 export async function handleLogout(req: Request, res: Response) {
   await new Promise<void>((resolve, reject) => {

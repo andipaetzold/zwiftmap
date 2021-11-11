@@ -1,15 +1,14 @@
 import { routes, Segment, segments, World, worlds } from "zwift-data";
+import {
+  PATTERN_EVENT,
+  PATTERN_ROUTE,
+  PATTERN_SHARED_ITEM,
+  PATTERN_STRAVA_ACTIVITY,
+  PATTERN_WORLD,
+} from "../routing";
 import { DEFAULT_WORLD } from "./constants";
 import { createUrl } from "./createUrl";
 import { LocationState } from "./types";
-import {
-  PATTERN_SHARED_ITEM,
-  PATTERN_ROUTE,
-  PATTERN_STRAVA_ACTIVITY,
-  PATTERN_WORLD,
-  PATTERN_EVENT,
-} from "../routing";
-import { writeStravaToken } from "../strava/token";
 
 const PATTERNS: {
   pattern: RegExp;
@@ -201,12 +200,8 @@ export function getLocationStateFromUrl(
   pathname = window.location.pathname,
   search = window.location.search
 ): LocationState {
-  let updateUrl = true;
+  let updateUrl = false;
   const searchParams = new URLSearchParams(search);
-  if (searchParams.has("strava-auth")) {
-    writeStravaToken(JSON.parse(searchParams.get("strava-auth")!));
-  }
-
   let state: LocationState | undefined;
   for (let { pattern, toState } of PATTERNS) {
     const result = pattern.exec(pathname);

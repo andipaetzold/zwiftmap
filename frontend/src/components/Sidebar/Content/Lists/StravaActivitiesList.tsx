@@ -36,6 +36,15 @@ export function StravaActivitiesList() {
   const isLoggedInStrava = useIsLoggedInStrava();
   const stravaAuthUrl = useStravaAuthUrl();
 
+  if (isLoggedInStrava === null) {
+    return (
+      <CircularProgress
+        id="strava-activities-list"
+        circleStyle={{ stroke: "black" }}
+      />
+    );
+  }
+
   if (!isLoggedInStrava) {
     return (
       <List>

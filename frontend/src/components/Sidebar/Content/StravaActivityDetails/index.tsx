@@ -30,6 +30,15 @@ export function StravaActivityDetails({
     activityId,
   ]);
 
+  if (isLoggedInStrava === null) {
+    return (
+      <CircularProgress
+        id="strava-activities-list"
+        circleStyle={{ stroke: "black" }}
+      />
+    );
+  }
+
   if (!isLoggedInStrava) {
     return (
       <List>

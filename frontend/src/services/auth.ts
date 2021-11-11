@@ -1,5 +1,4 @@
-import { setLocalStorageItem, STRAVA_AUTH_KEY } from "./local-storage";
-import { getStravaToken } from "./strava/token";
+import { getStravaToken, writeStravaToken } from "./strava/token";
 import { zwiftMapApi } from "./zwiftMapApi";
 
 export async function logout(): Promise<void> {
@@ -8,9 +7,6 @@ export async function logout(): Promise<void> {
     return;
   }
 
-  setLocalStorageItem(STRAVA_AUTH_KEY, null);
-
-  await zwiftMapApi.post("/auth/logout", {
-    stravaToken: token.access_token,
-  });
+  writeStravaToken(null);
+  await zwiftMapApi.post("/auth/logout");
 }

@@ -49,8 +49,6 @@ export async function handleStravaAuthorizeCallback(
       scope: query.scope.split(","),
     });
     session.stravaAthleteId = athleteId;
-
-    params.set("strava-auth", JSON.stringify(responseJSON));
   }
 
   let path = "/";

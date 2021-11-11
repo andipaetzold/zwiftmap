@@ -1,18 +1,19 @@
 import { RefreshTokenResponse } from "strava/dist/types";
-import {
-  getLocalStorageItem,
-  setLocalStorageItem,
-  STRAVA_AUTH_KEY,
-} from "../local-storage";
+import { emitter, STRAVA_TOKEN_UPDATE } from "../emitter";
 
-export function getStravaToken(): RefreshTokenResponse | null {
-  const tokenString = getLocalStorageItem(STRAVA_AUTH_KEY);
-  if (tokenString === null) {
-    return null;
-  }
-  return JSON.parse(tokenString);
+export const StravaTokenLoading = Symbol("Strava Token Loading");
+
+let token: RefreshTokenResponse | null | typeof StravaTokenLoading =
+  StravaTokenLoading;
+
+export function getStravaToken():
+  | RefreshTokenResponse
+  | null
+  | typeof StravaTokenLoading {
+  return token;
 }
 
-export function writeStravaToken(token: RefreshTokenResponse): void {
-  setLocalStorageItem(STRAVA_AUTH_KEY, JSON.stringify(token));
+export function writeStravaToken(newToken: RefreshTokenResponse | null): void {
+  token = newToken;
+  emitter.emit(STRAVA_TOKEN_UPDATE, token);
 }

@@ -4,7 +4,10 @@ import { CircularProgress } from "@react-md/progress";
 import React from "react";
 import { useAsync } from "react-async-hook";
 import { Route } from "zwift-data";
-import { useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";
+import {
+  IsLoggedInStrava,
+  useIsLoggedInStrava,
+} from "../../../../hooks/useIsLoggedInStrava";
 import { fetchSegment } from "../../../../services/strava/api";
 import { Time } from "../../../Time";
 
@@ -20,8 +23,8 @@ export function RouteStravaPB({ route }: Props) {
     loading,
     error,
   } = useAsync(
-    async (loggedIn: boolean, segmentId?: number) => {
-      if (!loggedIn || segmentId === undefined) {
+    async (loggedIn: IsLoggedInStrava, segmentId?: number) => {
+      if (loggedIn === true || segmentId === undefined) {
         return null;
       }
 
@@ -29,6 +32,15 @@ export function RouteStravaPB({ route }: Props) {
     },
     [isLoggedInStrava, route.stravaSegmentId]
   );
+
+  if (isLoggedInStrava === null) {
+    return (
+      <CircularProgress
+        id="strava-activities-list"
+        circleStyle={{ stroke: "black" }}
+      />
+    );
+  }
 
   if (loading) {
     return (

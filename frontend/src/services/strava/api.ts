@@ -9,7 +9,7 @@ import {
 import { logout } from "../auth";
 import { createAxiosCacheAdapter } from "../axios-cache-adapter";
 import { getRefreshedToken } from "./auth";
-import { getStravaToken, writeStravaToken } from "./token";
+import { getStravaToken, StravaTokenLoading } from "./token";
 
 const api = axios.create({
   baseURL: "https://www.strava.com/api/v3",
@@ -20,10 +20,12 @@ api.interceptors.request.use(async (config) => {
   let token = getStravaToken();
 
   if (token) {
-    if (token.expires_at < Math.round(Date.now() / 1_000)) {
+    if (
+      token === StravaTokenLoading ||
+      token.expires_at < Math.round(Date.now() / 1_000)
+    ) {
       try {
-        token = await getRefreshedToken(token.refresh_token);
-        writeStravaToken(token);
+        token = await getRefreshedToken();
       } catch {
         await logout();
         return config;

@@ -1,7 +1,5 @@
 import mitt from "mitt";
 
-export const STRAVA_AUTH_KEY = "strava-auth";
-
 const emitter = mitt<Record<string, string | null>>();
 
 window.addEventListener("storage", (e) => {

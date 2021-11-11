@@ -1,16 +1,16 @@
 import { ListItem, ListSubheader, SimpleListItem } from "@react-md/list";
 import {
   VisibilityFontIcon,
-  VisibilityOffFontIcon,
+  VisibilityOffFontIcon
 } from "@react-md/material-icons";
 import { Text } from "@react-md/typography";
 import React from "react";
 import { useAsync } from "react-async-hook";
 import { Route, Segment, segments, SegmentType } from "zwift-data";
-import { useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";
+import { IsLoggedInStrava, useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";
 import {
   LocationStateRoute,
-  useLocationState,
+  useLocationState
 } from "../../../../services/location-state";
 import { fetchSegment } from "../../../../services/strava/api";
 import { Distance } from "../../../Distance";
@@ -92,8 +92,8 @@ interface SecondaryTextProps {
 function SecondaryText({ segment }: SecondaryTextProps) {
   const isLoggedIn = useIsLoggedInStrava();
   const { result: stravaSegment } = useAsync(
-    async (sid: number | undefined, loggedIn: boolean) => {
-      if (sid === undefined || !loggedIn) {
+    async (sid: number | undefined, loggedIn: IsLoggedInStrava) => {
+      if (sid === undefined || loggedIn === true) {
         return null;
       }
       return await fetchSegment(sid.toString());
