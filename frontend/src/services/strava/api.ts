@@ -6,8 +6,10 @@ import {
   StreamSet,
   SummaryActivity,
 } from "strava";
+import { RefreshTokenResponse } from "strava/dist/types";
 import { logout } from "../auth";
 import { createAxiosCacheAdapter } from "../axios-cache-adapter";
+import { emitter, STRAVA_TOKEN_UPDATE } from "../emitter";
 import { getRefreshedToken } from "./auth";
 import { getStravaToken, StravaTokenLoading } from "./token";
 
@@ -19,11 +21,18 @@ const api = axios.create({
 api.interceptors.request.use(async (config) => {
   let token = getStravaToken();
 
+  if (token === StravaTokenLoading) {
+    token = await new Promise<RefreshTokenResponse | null>((resolve) => {
+      const listener = (newToken: RefreshTokenResponse | null) => {
+        emitter.off(STRAVA_TOKEN_UPDATE, listener);
+        resolve(newToken);
+      };
+      emitter.on(STRAVA_TOKEN_UPDATE, listener);
+    });
+  }
+
   if (token) {
-    if (
-      token === StravaTokenLoading ||
-      token.expires_at < Math.round(Date.now() / 1_000)
-    ) {
+    if (token.expires_at < Math.round(Date.now() / 1_000)) {
       try {
         token = await getRefreshedToken();
       } catch {
