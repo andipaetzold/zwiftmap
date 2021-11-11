@@ -36,18 +36,44 @@ export function StravaActivitiesList() {
   const isLoggedInStrava = useIsLoggedInStrava();
   const stravaAuthUrl = useStravaAuthUrl();
 
+  const [locationState, setLocationState] =
+    useLocationState<LocationStateStravaActivities>();
+
+  const backButton = (
+    <SimpleListItem>
+      <Button
+        themeType="outline"
+        onClick={() => {
+          setLocationState({
+            world: locationState.world,
+            query: "",
+            type: "default",
+          });
+        }}
+      >
+        <TextIconSpacing icon={<ListFontIcon />}>Route List</TextIconSpacing>
+      </Button>
+    </SimpleListItem>
+  );
+
   if (isLoggedInStrava === null) {
     return (
-      <CircularProgress
-        id="strava-activities-list"
-        circleStyle={{ stroke: "black" }}
-      />
+      <List>
+        {backButton}
+        <SimpleListItem>
+          <CircularProgress
+            id="strava-activities-list"
+            circleStyle={{ stroke: "black" }}
+          />
+        </SimpleListItem>
+      </List>
     );
   }
 
   if (!isLoggedInStrava) {
     return (
       <List>
+        {backButton}
         <ListItemLink
           leftAddon={
             <Avatar color="#ff6b00">
