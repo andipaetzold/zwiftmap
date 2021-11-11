@@ -1,4 +1,5 @@
-import { DetailedActivity, StreamSet } from "strava";
+import { StreamSet } from "strava";
+import { FRONTEND_URL } from "../config";
 import { read, remove, write } from "./redis";
 
 export type SharedItem = SharedItemStravaActivity;
@@ -6,8 +7,21 @@ export type SharedItem = SharedItemStravaActivity;
 export interface SharedItemStravaActivity {
   id: string;
   type: "strava-activity";
-  activity: DetailedActivity;
-  streams: StreamSet;
+  activity: {
+    id: number;
+    athleteId: number;
+    name: string;
+    distance: number;
+    time: number;
+    elevation: number;
+    avgWatts?: number;
+    photoUrl?: string;
+    streams: StreamSet;
+  };
+}
+
+export function getSharedItemUrl(id: string) {
+  return `${FRONTEND_URL}/s/${id}`;
 }
 
 function createKey(sharedItemId: string): string {

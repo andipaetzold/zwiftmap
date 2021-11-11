@@ -3,7 +3,6 @@ import { Request, Response } from "express";
 import { Record, String } from "runtypes";
 import { ErrorWithStatusCode } from "../../../shared/ErrorWithStatusCode";
 import { addLinkToActivity } from "../../../shared/services/sharing";
-import { getToken } from "../../../shared/services/strava";
 import { Session } from "../../types";
 
 const Body = Record({
@@ -23,12 +22,6 @@ export async function handleAddActivityLink(req: Request, res: Response) {
     return;
   }
 
-  const accessToken = await getToken(session.stravaAthleteId);
-  if (!accessToken) {
-    res.sendStatus(403);
-    return;
-  }
-
   if (!Body.guard(req.body)) {
     res.sendStatus(400);
     return;
@@ -36,7 +29,7 @@ export async function handleAddActivityLink(req: Request, res: Response) {
 
   const body = req.body;
   try {
-    await addLinkToActivity(session.stravaAthleteId, body.activityId);
+    await addLinkToActivity(session.stravaAthleteId, +body.activityId);
 
     res.sendStatus(204);
   } catch (e) {

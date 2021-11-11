@@ -1,4 +1,5 @@
-import axios from "axios";
+import axios, { AxiosInstance } from "axios";
+import { DetailedActivity, StreamSet } from "strava";
 import { STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET } from "../config";
 import {
   readStravaToken,
@@ -7,9 +8,18 @@ import {
   writeStravaToken,
 } from "../persistence/stravaToken";
 
-export const stravaUserAPI = axios.create({
-  baseURL: "https://www.strava.com/api/v3",
-});
+export class TokenNotFoundError extends Error {}
+
+async function getStravaUserAPI(athleteId: number): Promise<AxiosInstance> {
+  const token = await getToken(athleteId);
+
+  return axios.create({
+    baseURL: "https://www.strava.com/api/v3",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
 
 export const stravaAppAPI = axios.create({
   baseURL: "https://www.strava.com",
@@ -19,16 +29,16 @@ export const stravaAppAPI = axios.create({
   },
 });
 
-export async function getToken(athleteId: number): Promise<string | undefined> {
+async function getToken(athleteId: number): Promise<string> {
   let stravaToken = await readStravaToken(athleteId);
   if (!stravaToken) {
-    return;
+    throw new TokenNotFoundError();
   }
 
   if (stravaToken.expiresAt < Date.now() / 1_000 - 60) {
     stravaToken = await refreshToken(stravaToken);
     if (!stravaToken) {
-      return;
+      throw new TokenNotFoundError();
     }
   }
 
@@ -56,4 +66,48 @@ async function refreshToken(
     await removeStravaToken(stravaToken.athleteId);
     return undefined;
   }
+}
+
+export async function getActivityById(
+  athleteId: number,
+  activityId: number
+): Promise<DetailedActivity> {
+  const api = await getStravaUserAPI(athleteId);
+  const response = await api.get<DetailedActivity>(`/activities/${activityId}`);
+  return response.data;
+}
+
+export async function updateActivity(
+  athleteId: number,
+  activity: DetailedActivity
+): Promise<void> {
+  const api = await getStravaUserAPI(athleteId);
+  await api.put<DetailedActivity>(`/activities/${activity.id}`, activity);
+}
+
+export async function getActivityStreams(
+  athleteId: number,
+  activityId: number
+): Promise<StreamSet> {
+  const api = await getStravaUserAPI(athleteId);
+  const response = await api.get<StreamSet>(
+    `/activities/${activityId}/streams`,
+    {
+      params: {
+        keys: [
+          "distance",
+          "latlng",
+          "time",
+          "altitude",
+          "watts",
+          "velocity_smooth",
+          "watts",
+          "cadence",
+          "heartrate",
+        ].join(","),
+        key_by_type: true,
+      },
+    }
+  );
+  return response.data;
 }

@@ -1,166 +1,90 @@
-import { AxiosResponse } from "axios";
 import short from "short-uuid";
 import { DetailedActivity, StreamSet } from "strava";
-import { FRONTEND_URL } from "../config";
 import { handleError } from "../error";
 import { ErrorWithStatusCode } from "../ErrorWithStatusCode";
-import { writeSharedItem } from "../persistence/sharedItem";
-import { getWorld, isZwiftActivity } from "../util";
-import { getToken, stravaUserAPI } from "./strava";
+import { getSharedItemUrl, writeSharedItem } from "../persistence/sharedItem";
+import { isZwiftActivity } from "../util";
+import { getActivityById, getActivityStreams, updateActivity } from "./strava";
 
 export async function shareActivity(
   athleteId: number,
-  activityId: string
+  activityId: number
 ): Promise<string> {
-  const accessToken = await getToken(athleteId);
-  if (!accessToken) {
-    throw new ErrorWithStatusCode("Missing Access Token", 403);
-  }
-
-  let activityResponse: AxiosResponse<DetailedActivity>;
+  let activity: DetailedActivity;
   try {
-    activityResponse = await stravaUserAPI.get<DetailedActivity>(
-      `/activities/${activityId}`,
-      {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      }
-    );
+    activity = await getActivityById(athleteId, activityId);
   } catch (e) {
     handleError(e, "Error fetching activity");
     return "Error";
   }
-
-  const activity = activityResponse.data;
 
   if (!isZwiftActivity(activity)) {
     throw new ErrorWithStatusCode("Activity is no Zwift activity", 404);
   }
 
-  let activityStreamsResponse: AxiosResponse<StreamSet>;
+  let activityStreams: StreamSet;
   try {
-    activityStreamsResponse = await stravaUserAPI.get<StreamSet>(
-      `/activities/${activityId}/streams`,
-      {
-        headers: { Authorization: `Bearer ${accessToken}` },
-        params: {
-          keys: [
-            "distance",
-            "latlng",
-            "time",
-            "altitude",
-            "watts",
-            "velocity_smooth",
-            "watts",
-            "cadence",
-            "heartrate",
-          ].join(","),
-          key_by_type: true,
-        },
-      }
-    );
+    activityStreams = await getActivityStreams(athleteId, activityId);
   } catch (e) {
     handleError(e, "Error fetching activity");
     return "Error";
   }
 
-  const activityStreams = activityStreamsResponse.data;
-
-  const world = getWorld(activity)!;
-
   const sharedItemId = short.generate();
-
-  await writeSharedItem({
-    id: sharedItemId,
-    type: "strava-activity",
-    activity: activity,
-    streams: activityStreams,
-  });
-
-  return `${FRONTEND_URL}/${world.slug}?shared=${sharedItemId}`;
+  await createSharedItem(sharedItemId, activity, activityStreams);
+  return getSharedItemUrl(sharedItemId);
 }
 
 export async function addLinkToActivity(
   athleteId: number,
-  activityId: string
+  activityId: number
 ): Promise<void> {
-  const accessToken = await getToken(athleteId);
-  if (!accessToken) {
-    throw new ErrorWithStatusCode("Missing Access Token", 403);
-  }
-
-  let activityResponse: AxiosResponse<DetailedActivity>;
+  let activity: DetailedActivity;
+  let activityStreams: StreamSet;
   try {
-    activityResponse = await stravaUserAPI.get<DetailedActivity>(
-      `/activities/${activityId}`,
-      {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      }
-    );
+    activity = await getActivityById(athleteId, activityId);
+    activityStreams = await getActivityStreams(athleteId, activityId);
   } catch (e) {
     handleError(e, "Error fetching activity");
     return;
   }
-
-  const activity = activityResponse.data;
 
   if (!isZwiftActivity(activity)) {
     throw new ErrorWithStatusCode("Activity is no Zwift activity", 404);
   }
 
-  let activityStreamsResponse: AxiosResponse<StreamSet>;
-  try {
-    activityStreamsResponse = await stravaUserAPI.get<StreamSet>(
-      `/activities/${activityId}/streams`,
-      {
-        headers: { Authorization: `Bearer ${accessToken}` },
-        params: {
-          keys: [
-            "distance",
-            "latlng",
-            "time",
-            "altitude",
-            "watts",
-            "velocity_smooth",
-            "watts",
-            "cadence",
-            "heartrate",
-          ].join(","),
-          key_by_type: true,
-        },
-      }
-    );
-  } catch (e) {
-    handleError(e, "Error fetching activity");
-    return;
-  }
-
-  const activityStreams = activityStreamsResponse.data;
-
-  const world = getWorld(activity)!;
-
   const sharedItemId = short.generate();
+  await createSharedItem(sharedItemId, activity, activityStreams);
 
-  await writeSharedItem({
-    id: sharedItemId,
-    type: "strava-activity",
-    activity: activity,
-    streams: activityStreams,
-  });
-
-  const url = `${FRONTEND_URL}/${world.slug}?shared=${sharedItemId}`;
+  const url = getSharedItemUrl(sharedItemId);
   const text = `View on ZwiftMap:\n${url}`;
+  const description =
+    activity.description === "" ? text : `${activity.description}\n\n${text}`;
 
-  await stravaUserAPI.put(
-    `/activities/${activityId}`,
-    {
-      ...activity,
-      description:
-        activity.description === ""
-          ? text
-          : `${activity.description}\n\n${text}`,
+  await updateActivity(athleteId, {
+    ...activity,
+    description,
+  });
+}
+
+async function createSharedItem(
+  id: string,
+  activity: DetailedActivity,
+  activityStreams: StreamSet
+): Promise<void> {
+  await writeSharedItem({
+    id,
+    type: "strava-activity",
+    activity: {
+      id: activity.id,
+      athleteId: activity.athlete.id,
+      name: activity.name,
+      distance: activity.distance / 1_000,
+      elevation: activity.total_elevation_gain,
+      time: activity.moving_time,
+      avgWatts: activity.average_watts,
+      photoUrl: activity.photos.primary?.urls["100"],
+      streams: activityStreams,
     },
-    {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    }
-  );
+  });
 }

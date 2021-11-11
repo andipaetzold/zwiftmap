@@ -1,24 +1,15 @@
 import { DetailedActivity } from "strava";
-import { getToken, stravaUserAPI } from "../../shared/services/strava";
+import { getActivityById } from "../../shared/services/strava";
 import { WebhookEventType } from "../../shared/types";
 import { isZwiftActivity } from "../../shared/util";
 
 export async function handleActivityCreate(webhookEvent: WebhookEventType) {
-  const accessToken = await getToken(webhookEvent.owner_id);
-  if (!accessToken) {
-    console.log("Missing strava token");
-    return;
-  }
-
   let activity: DetailedActivity;
   try {
-    const activityResponse = await stravaUserAPI.get<DetailedActivity>(
-      `/activities/${webhookEvent.object_id}`,
-      {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      }
+    activity = await getActivityById(
+      webhookEvent.owner_id,
+      webhookEvent.object_id
     );
-    activity = activityResponse.data;
   } catch (e) {
     console.log("Error fetching activity");
     return;
