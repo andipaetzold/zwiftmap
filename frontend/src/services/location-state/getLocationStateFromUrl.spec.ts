@@ -338,7 +338,7 @@ describe("strava-activity", () => {
     ) as LocationStateStravaActivity;
     expect(r1.type).toBe("strava-activity");
     expect(r1.world).toBeNull();
-    expect(r1.stravaActivityId).toBe("42");
+    expect(r1.stravaActivityId).toBe(42);
     expect(r1.query).toBe("");
 
     const r2 = getLocationStateFromUrl(
@@ -347,7 +347,7 @@ describe("strava-activity", () => {
     ) as LocationStateStravaActivity;
     expect(r2.type).toBe("strava-activity");
     expect(r2.world).toBeNull();
-    expect(r2.stravaActivityId).toBe("42");
+    expect(r2.stravaActivityId).toBe(42);
     expect(r2.query).toBe("query");
   });
 
@@ -358,7 +358,7 @@ describe("strava-activity", () => {
     ) as LocationStateStravaActivity;
     expect(r1.type).toBe("strava-activity");
     expect(r1.world).toBeNull();
-    expect(r1.stravaActivityId).toBe("42");
+    expect(r1.stravaActivityId).toBe(42);
     expect(r1.query).toBe("");
 
     const r2 = getLocationStateFromUrl(
@@ -367,7 +367,7 @@ describe("strava-activity", () => {
     ) as LocationStateStravaActivity;
     expect(r2.type).toBe("strava-activity");
     expect(r2.world).toBeNull();
-    expect(r2.stravaActivityId).toBe("42");
+    expect(r2.stravaActivityId).toBe(42);
     expect(r2.query).toBe("");
 
     const r3 = getLocationStateFromUrl(
@@ -376,7 +376,7 @@ describe("strava-activity", () => {
     ) as LocationStateStravaActivity;
     expect(r3.type).toBe("strava-activity");
     expect(r3.world).toBeNull();
-    expect(r3.stravaActivityId).toBe("42");
+    expect(r3.stravaActivityId).toBe(42);
     expect(r3.query).toBe("query");
   });
 });
