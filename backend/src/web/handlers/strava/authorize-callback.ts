@@ -46,6 +46,7 @@ export async function handleStravaAuthorizeCallback(
       expiresAt: responseJSON.expires_at,
       token: responseJSON.access_token,
       refreshToken: responseJSON.refresh_token,
+      scope: query.scope.split(","),
     });
     session.stravaAthleteId = athleteId;
 

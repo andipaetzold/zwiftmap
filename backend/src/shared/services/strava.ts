@@ -59,6 +59,7 @@ async function refreshToken(
       expiresAt: response.data.expires_at,
       refreshToken: response.data.refresh_token,
       token: response.data.access_token,
+      scope: stravaToken.scope,
     });
 
     return response.data;

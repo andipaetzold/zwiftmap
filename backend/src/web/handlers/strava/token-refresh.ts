@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from "axios";
 import { Request, Response } from "express";
-import { Record, String } from "runtypes";
 import { RefreshTokenResponse } from "strava/dist/types";
 import {
   readStravaToken,
@@ -9,26 +8,17 @@ import {
 import { stravaAppAPI } from "../../../shared/services/strava";
 import { Session } from "../../types";
 
-const Body = Record({
-  refresh_token: String.withConstraint((t) => t.length > 0),
-});
-
 export async function handleStravaTokenRefresh(req: Request, res: Response) {
-  if (!Body.guard(req.body)) {
-    res.sendStatus(400);
+  const session = req.session as Session;
+  if (!session.stravaAthleteId) {
+    res.sendStatus(403);
     return;
   }
 
-  const session = req.session as Session;
-
-  let refreshToken = req.body.refresh_token;
-  if (session.stravaAthleteId) {
-    const token = await readStravaToken(session.stravaAthleteId);
-    if (!token) {
-      res.sendStatus(500);
-      return;
-    }
-    refreshToken = token.refreshToken;
+  const stravaToken = await readStravaToken(session.stravaAthleteId);
+  if (!stravaToken) {
+    res.sendStatus(500);
+    return;
   }
 
   let refreshResponse: AxiosResponse;
@@ -37,7 +27,7 @@ export async function handleStravaTokenRefresh(req: Request, res: Response) {
       "/oauth/token",
       {
         grant_type: "refresh_token",
-        refresh_token: req.body.refresh_token,
+        refresh_token: stravaToken.refreshToken,
       }
     );
   } catch (e) {
@@ -50,14 +40,13 @@ export async function handleStravaTokenRefresh(req: Request, res: Response) {
   }
   const responseData = refreshResponse.data;
 
-  if (session.stravaAthleteId) {
-    await writeStravaToken({
-      athleteId: session.stravaAthleteId,
-      expiresAt: responseData.expires_at,
-      refreshToken: responseData.refresh_token,
-      token: responseData.access_token,
-    });
-  }
+  await writeStravaToken({
+    athleteId: session.stravaAthleteId,
+    expiresAt: responseData.expires_at,
+    refreshToken: responseData.refresh_token,
+    token: responseData.access_token,
+    scope: stravaToken.scope,
+  });
 
   res.json(responseData);
 }

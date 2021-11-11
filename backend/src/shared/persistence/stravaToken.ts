@@ -5,6 +5,7 @@ export interface StravaToken {
   token: string;
   refreshToken: string;
   expiresAt: number;
+  scope: string[];
 }
 
 function createKey(athleteId: number): string {
