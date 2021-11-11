@@ -1,13 +1,11 @@
 import { useAddMessage } from "@react-md/alert";
-import {
-  ListItem,
-  ListItemText,
-  ListSubheader,
-  SimpleListItem,
-} from "@react-md/list";
+import { ListItem, ListSubheader, SimpleListItem } from "@react-md/list";
 import { InsertLinkFontIcon, ShareFontIcon } from "@react-md/material-icons";
 import { createUrl } from "../../../../services/location-state/createUrl";
-import { appendStravaDescription, StravaActivity } from "../../../../services/StravaActivityRepository";
+import {
+  appendStravaDescription,
+  StravaActivity,
+} from "../../../../services/StravaActivityRepository";
 import { zwiftMapApi } from "../../../../services/zwiftMapApi";
 
 interface Props {
@@ -22,15 +20,16 @@ export function StravaActivitySharing({ activity }: Props) {
       addMessage({ children: "Sharing…", messagePriority: "replace" });
       const response = await zwiftMapApi.post<{ id: string }>("/shared", {
         type: "strava-activity",
-        stravaActivity: activity.id,
+        stravaActivityId: activity.id,
       });
 
-      const url = createUrl({
+      const path = createUrl({
         type: "shared-item",
         sharedItemId: response.data.id,
         world: null,
         query: "",
       });
+      const url = new URL(path, window.location.origin).toString();
 
       if (navigator.share) {
         await navigator.share({
@@ -58,19 +57,21 @@ export function StravaActivitySharing({ activity }: Props) {
         children: "Posting link to activity description…",
         messagePriority: "replace",
       });
+
       const response = await zwiftMapApi.post<{ id: string }>("/shared", {
         type: "strava-activity",
-        stravaActivity: activity.id,
+        stravaActivityId: activity.id,
       });
 
-      const url = createUrl({
+      const path = createUrl({
         type: "shared-item",
         sharedItemId: response.data.id,
         world: null,
         query: "",
       });
 
-      await appendStravaDescription(activity.id, `View on ZwiftMap:\n${url}`)
+      const url = new URL(path, window.location.origin).toString();
+      await appendStravaDescription(activity.id, `View on ZwiftMap:\n${url}`);
 
       addMessage({
         children: "Link posted to activity description",
@@ -102,9 +103,7 @@ export function StravaActivitySharing({ activity }: Props) {
         Add link to activity description
       </ListItem>
       <SimpleListItem>
-        <ListItemText>
-          <i>Sharing will store activity details on the ZwiftMap server.</i>
-        </ListItemText>
+        <i>Sharing will store activity details on the ZwiftMap server.</i>
       </SimpleListItem>
     </>
   );

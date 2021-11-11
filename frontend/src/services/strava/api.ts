@@ -49,7 +49,9 @@ export async function fetchActivity(activityId: number) {
   return response.data;
 }
 
-export async function updateActivity(activity: DetailedActivity) {
+export async function updateActivity(
+  activity: { id: number } & Partial<Omit<DetailedActivity, "id">>
+) {
   await api.put<DetailedActivity>(`/activities/${activity.id}`, activity);
 }
 

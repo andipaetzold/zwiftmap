@@ -55,10 +55,12 @@ export async function appendStravaDescription(
 ) {
   const activity = await fetchActivity(activityId);
 
-  activity.description =
-    activity.description === "" ? text : `${activity.description}\n\n${text}`;
+  const description =
+    activity.description === "" || activity.description === null
+      ? text
+      : `${activity.description}\n\n${text}`;
 
-  await updateActivity(activity);
+  await updateActivity({ id: activityId, description });
 }
 
 export interface StravaActivity {
