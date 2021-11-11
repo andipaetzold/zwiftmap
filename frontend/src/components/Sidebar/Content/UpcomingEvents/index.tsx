@@ -22,17 +22,41 @@ export function UpcomingEvents({ onHoverRoute }: Props) {
   const [locationState, setLocationState] =
     useLocationState<LocationStateUpcomingEvents>();
 
+  const backButton = (
+    <SimpleListItem>
+      <Button
+        themeType="outline"
+        onClick={() => {
+          setLocationState({
+            world: locationState.world,
+            query: "",
+            type: "default",
+          });
+        }}
+      >
+        <TextIconSpacing icon={<ListFontIcon />}>Route List</TextIconSpacing>
+      </Button>
+    </SimpleListItem>
+  );
+
   if (!events) {
     if (loading) {
       return (
-        <CircularProgress
-          id={"events-progress"}
-          circleStyle={{ stroke: "black" }}
-        />
+        <List>
+          {backButton}
+          <ListSubheader>Upcoming Event</ListSubheader>
+          <SimpleListItem>
+            <CircularProgress
+              id={"events-progress"}
+              circleStyle={{ stroke: "black" }}
+            />
+          </SimpleListItem>
+        </List>
       );
     } else {
       return (
         <List>
+          <ListSubheader>Upcoming Event</ListSubheader>
           <SimpleListItem
             secondaryText="Make sure you can access the activity and it was recorded in Zwift."
             threeLines
@@ -46,21 +70,7 @@ export function UpcomingEvents({ onHoverRoute }: Props) {
 
   return (
     <List>
-      <SimpleListItem>
-        <Button
-          themeType="outline"
-          onClick={() => {
-            setLocationState({
-              world: locationState.world,
-              query: "",
-              type: "default",
-            });
-          }}
-        >
-          <TextIconSpacing icon={<ListFontIcon />}>Route List</TextIconSpacing>
-        </Button>
-      </SimpleListItem>
-
+      {backButton}
       <ListSubheader>Upcoming Event</ListSubheader>
 
       {events

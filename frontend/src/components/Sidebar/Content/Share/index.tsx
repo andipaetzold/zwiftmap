@@ -21,10 +21,7 @@ export function Share({
   backButtonText,
   onMouseHoverDistanceChange,
 }: Props) {
-  const { result: share, loading } = useAsync<ShareType>(
-    getShare,
-    [shareId]
-  );
+  const { result: share, loading } = useAsync<ShareType>(getShare, [shareId]);
 
   const backButton = (
     <SimpleListItem>
@@ -39,14 +36,20 @@ export function Share({
   if (!share) {
     if (loading) {
       return (
-        <CircularProgress
-          id={`share-${shareId}`}
-          circleStyle={{ stroke: "black" }}
-        />
+        <List>
+          {backButton}
+          <SimpleListItem>
+            <CircularProgress
+              id={`share-${shareId}`}
+              circleStyle={{ stroke: "black" }}
+            />
+          </SimpleListItem>
+        </List>
       );
     } else {
       return (
         <List>
+          {backButton}
           <SimpleListItem>An error occurred</SimpleListItem>
         </List>
       );
