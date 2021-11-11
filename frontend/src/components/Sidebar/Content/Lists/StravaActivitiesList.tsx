@@ -129,7 +129,7 @@ export function StravaActivitiesListWithToken() {
                   world: world!,
                   query: "",
                   type: "strava-activity",
-                  stravaActivityId: activity.id.toString(),
+                  stravaActivityId: activity.id,
                 });
               }}
               secondaryText={

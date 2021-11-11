@@ -19,7 +19,7 @@ export interface LocationStateRoute extends LocationStateBase {
 export interface LocationStateStravaActivity extends LocationStateBase {
   type: "strava-activity";
   world: World | null;
-  stravaActivityId: string;
+  stravaActivityId: number;
 }
 
 export interface LocationStateStravaActivities extends LocationStateBase {
@@ -38,6 +38,12 @@ export interface LocationStateUpcomingEvent extends LocationStateBase {
   eventId: string;
 }
 
+export interface LocationStateSharedItem extends LocationStateBase {
+  type: "shared-item";
+  world: World | null;
+  sharedItemId: string;
+}
+
 export type LocationStateWithKey = LocationState & { key: string };
 export type LocationState =
   | LocationStateDefault
@@ -45,4 +51,5 @@ export type LocationState =
   | LocationStateStravaActivity
   | LocationStateStravaActivities
   | LocationStateUpcomingEvents
-  | LocationStateUpcomingEvent;
+  | LocationStateUpcomingEvent
+  | LocationStateSharedItem;

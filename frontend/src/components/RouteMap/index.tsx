@@ -53,7 +53,7 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
     async (
       type: LocationState["type"],
       route: Route | undefined,
-      stravaActivityId: string | undefined,
+      stravaActivityId: number | undefined,
       eventId: string | undefined
     ) => {
       switch (type) {

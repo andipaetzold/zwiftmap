@@ -44,12 +44,16 @@ api.interceptors.response.use(identity, async (error) => {
   return error;
 });
 
-export async function fetchActivity(activityId: string) {
+export async function fetchActivity(activityId: number) {
   const response = await api.get<DetailedActivity>(`/activities/${activityId}`);
   return response.data;
 }
 
-export async function fetchActivityStreams(activityId: string) {
+export async function updateActivity(activity: DetailedActivity) {
+  await api.put<DetailedActivity>(`/activities/${activity.id}`, activity);
+}
+
+export async function fetchActivityStreams(activityId: number) {
   const response = await api.get<
     Pick<
       StreamSet,

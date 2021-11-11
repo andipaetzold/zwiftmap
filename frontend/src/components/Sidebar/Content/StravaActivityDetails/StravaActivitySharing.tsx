@@ -1,12 +1,13 @@
 import { useAddMessage } from "@react-md/alert";
 import {
-    ListItem,
-    ListItemText,
-    ListSubheader,
-    SimpleListItem
+  ListItem,
+  ListItemText,
+  ListSubheader,
+  SimpleListItem,
 } from "@react-md/list";
 import { InsertLinkFontIcon, ShareFontIcon } from "@react-md/material-icons";
-import { StravaActivity } from "../../../../services/StravaActivityRepository";
+import { createUrl } from "../../../../services/location-state/createUrl";
+import { appendStravaDescription, StravaActivity } from "../../../../services/StravaActivityRepository";
 import { zwiftMapApi } from "../../../../services/zwiftMapApi";
 
 interface Props {
@@ -19,14 +20,18 @@ export function StravaActivitySharing({ activity }: Props) {
   const handleShare = async () => {
     try {
       addMessage({ children: "Sharing…", messagePriority: "replace" });
-      const response = await zwiftMapApi.post<{ url: string }>(
-        "/strava/share-activity",
-        {
-          activityId: activity.id,
-        }
-      );
+      const response = await zwiftMapApi.post<{ id: string }>("/shared", {
+        type: "strava-activity",
+        stravaActivity: activity.id,
+      });
 
-      const url = response.data.url;
+      const url = createUrl({
+        type: "shared-item",
+        sharedItemId: response.data.id,
+        world: null,
+        query: "",
+      });
+
       if (navigator.share) {
         await navigator.share({
           title: `${activity.name} - ZwiftMap`,
@@ -53,9 +58,20 @@ export function StravaActivitySharing({ activity }: Props) {
         children: "Posting link to activity description…",
         messagePriority: "replace",
       });
-      await zwiftMapApi.post<{ url: string }>("/strava/add-activity-link", {
-        activityId: activity.id,
+      const response = await zwiftMapApi.post<{ id: string }>("/shared", {
+        type: "strava-activity",
+        stravaActivity: activity.id,
       });
+
+      const url = createUrl({
+        type: "shared-item",
+        sharedItemId: response.data.id,
+        world: null,
+        query: "",
+      });
+
+      await appendStravaDescription(activity.id, `View on ZwiftMap:\n${url}`)
+
       addMessage({
         children: "Link posted to activity description",
         messagePriority: "replace",

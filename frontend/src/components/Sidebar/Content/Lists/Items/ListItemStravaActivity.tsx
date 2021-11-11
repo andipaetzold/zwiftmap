@@ -22,7 +22,7 @@ import { Elevation } from "../../../../Elevation";
 import { Time } from "../../../../Time";
 
 export interface Props {
-  activity: { activityId: string; slug: string };
+  activity: { activityId: number; slug: string };
   onHoverRoute: (route?: string) => void;
 }
 

@@ -1,13 +1,14 @@
 import React, { useCallback } from "react";
 import {
   DEFAULT_WORLD,
-  useLocationState
+  useLocationState,
 } from "../../../services/location-state";
 import { Event } from "./Event";
 import { RouteList } from "./Lists/RouteList";
 import { SearchResultList } from "./Lists/SearchResultList";
 import { StravaActivitiesList } from "./Lists/StravaActivitiesList";
 import { RouteDetails } from "./RouteDetails";
+import { SharedItem } from "./SharedItem";
 import { StravaActivityDetails } from "./StravaActivityDetails";
 import { UpcomingEvents } from "./UpcomingEvents";
 
@@ -58,6 +59,8 @@ export function Content({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
           eventId={locationState.eventId}
         />
       );
+    case "shared-item":
+      return <SharedItem sharedItemId={locationState.sharedItemId} />;
     case "default":
       if (locationState.query === "") {
         return <RouteList onHoverRoute={onHoverRoute} />;

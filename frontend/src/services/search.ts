@@ -30,7 +30,7 @@ export interface SearchResultStravaActivity {
   type: "strava-activity";
   data: {
     slug: string;
-    activityId: string;
+    activityId: number;
   };
 }
 
@@ -72,7 +72,7 @@ export function search(
         {
           type: "strava-activity",
           data: {
-            activityId: stravaActivityId,
+            activityId: +stravaActivityId,
             slug: `strava-activity-${stravaActivityId}`,
           },
         },

@@ -1,11 +1,10 @@
-import "source-map-support/register";
 import * as Sentry from "@sentry/node";
 import * as Tracing from "@sentry/tracing";
+import "source-map-support/register";
 import { PORT, SENTRY_DSN } from "../shared/config";
 import * as handlers from "./handlers";
 import { app } from "./server";
 import { setupWebhook } from "./services/webhook";
-import { Request, Response } from "express";
 
 Sentry.init({
   enabled: SENTRY_DSN.length > 0,
@@ -25,10 +24,11 @@ app.post("/auth/logout", handlers.handleLogout);
 app.get("/strava/authorize", handlers.handleStravaAuthorize);
 app.get("/strava/callback", handlers.handleStravaAuthorizeCallback);
 app.post("/strava/refresh", handlers.handleStravaTokenRefresh);
-app.post("/strava/share-activity", handlers.handleShareActivity);
-app.post("/strava/add-activity-link", handlers.handleAddActivityLink);
 app.post("/strava/webhook", handlers.handleWebhook);
 app.get("/strava/webhook", handlers.handleWebhookVerification);
+
+app.post("/shared", handlers.handleCreateSharedItem);
+app.get("/shared/:sharedItemId", handlers.handleGetSharedItem);
 
 app.get("/ping", handlers.handlePing);
 

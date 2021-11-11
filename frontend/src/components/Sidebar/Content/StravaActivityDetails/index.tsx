@@ -16,7 +16,7 @@ import { getStravaActivity } from "../../../../services/StravaActivityRepository
 import { StravaActivityDetailsComponent } from "./component";
 
 interface Props {
-  activityId: string;
+  activityId: number;
   onMouseHoverDistanceChange: (distance: number | undefined) => void;
 }
 

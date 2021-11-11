@@ -11,6 +11,7 @@ import { ping } from "./services/ping";
 import {
   PATTERN_EVENT,
   PATTERN_ROUTE,
+  PATTERN_SHARED_ITEM,
   PATTERN_STRAVA_ACTIVITY,
   PATTERN_WORLD,
 } from "./services/routing";
@@ -27,6 +28,14 @@ Sentry.init({
           return {
             ...context,
             name: "/events/:eventId",
+          };
+        }
+
+        const resultSharedItem = PATTERN_SHARED_ITEM.exec(context.name);
+        if (resultSharedItem) {
+          return {
+            ...context,
+            name: "/s/:sharedItemId",
           };
         }
 

@@ -3,10 +3,11 @@ import { DEFAULT_WORLD } from "./constants";
 import { createUrl } from "./createUrl";
 import { LocationState } from "./types";
 import {
-  PATTERN_EVENT,
+  PATTERN_SHARED_ITEM,
   PATTERN_ROUTE,
   PATTERN_STRAVA_ACTIVITY,
   PATTERN_WORLD,
+  PATTERN_EVENT,
 } from "../routing";
 
 const PATTERNS: {
@@ -30,12 +31,24 @@ const PATTERNS: {
     ],
   },
   {
+    pattern: PATTERN_SHARED_ITEM,
+    toState: (result, _searchParams, query) => [
+      {
+        type: "shared-item",
+        world: null,
+        sharedItemId: result.groups!.sharedItemId,
+        query,
+      },
+      false,
+    ],
+  },
+  {
     pattern: PATTERN_STRAVA_ACTIVITY,
     toState: (result, _searchParams, query) => [
       {
         type: "strava-activity",
         world: null,
-        stravaActivityId: result.groups!.stravaActivityId,
+        stravaActivityId: +result.groups!.stravaActivityId,
         query,
       },
       false,
@@ -163,7 +176,7 @@ function getLegacyStateWithWorld(
       world: null,
       query,
       type: "strava-activity",
-      stravaActivityId: searchParams.get("strava-activity")!,
+      stravaActivityId: +searchParams.get("strava-activity")!,
     };
   }
 

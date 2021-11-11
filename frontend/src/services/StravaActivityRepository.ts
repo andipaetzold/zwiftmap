@@ -1,35 +1,39 @@
 import { World } from "zwift-data";
 import { getWorld } from "../util/strava";
-import { fetchActivity, fetchActivityStreams } from "./strava/api";
+import {
+  fetchActivity,
+  fetchActivityStreams,
+  updateActivity,
+} from "./strava/api";
 
 export async function getStravaActivity(
-  activityId: string
+  activityId: number
 ): Promise<StravaActivity> {
-  const esa = await fetchActivity(activityId);
+  const activity = await fetchActivity(activityId);
 
-  const world = getWorld(esa);
+  const world = getWorld(activity);
 
   if (!world) {
     throw new Error("Activity was not recorded in Zwift");
   }
 
   return {
-    id: esa.id.toString(),
-    name: esa.name,
-    athleteId: esa.athlete.id.toString(),
-    distance: esa.distance / 1_000,
-    elevation: esa.total_elevation_gain,
-    time: esa.moving_time,
+    id: activity.id,
+    name: activity.name,
+    athleteId: activity.athlete.id.toString(),
+    distance: activity.distance / 1_000,
+    elevation: activity.total_elevation_gain,
+    time: activity.moving_time,
     world: world,
-    avgWatts: esa.average_watts,
-    photoUrl: esa.photos.primary?.urls["100"],
+    avgWatts: activity.average_watts,
+    photoUrl: activity.photos.primary?.urls["100"],
     streams: await fetchStravaActivityStreams(activityId),
-    kudos: esa.kudos_count,
+    kudos: activity.kudos_count,
   };
 }
 
 async function fetchStravaActivityStreams(
-  activityId: string
+  activityId: number
 ): Promise<StravaActivityStreams> {
   const streams = await fetchActivityStreams(activityId);
 
@@ -45,8 +49,20 @@ async function fetchStravaActivityStreams(
   };
 }
 
+export async function appendStravaDescription(
+  activityId: number,
+  text: string
+) {
+  const activity = await fetchActivity(activityId);
+
+  activity.description =
+    activity.description === "" ? text : `${activity.description}\n\n${text}`;
+
+  await updateActivity(activity);
+}
+
 export interface StravaActivity {
-  id: string;
+  id: number;
   athleteId: string;
   name: string;
   distance: number;

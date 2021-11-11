@@ -35,6 +35,10 @@ export function createUrl(state: LocationState): string {
     case "event":
       path = `/events/${state.eventId}`;
       break;
+
+    case "shared-item":
+      path = `/s/${state.sharedItemId}`;
+      break;
   }
 
   if (state.query.length > 0) {

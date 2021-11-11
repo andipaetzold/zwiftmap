@@ -41,6 +41,14 @@ export function getKeyFromLocationState(locationState: LocationState): string {
         locationState.query,
       ].join();
 
+      case 'shared-item':
+        return [
+          locationState.type,
+          getKeyFromWorld(locationState.world),
+          locationState.sharedItemId,
+          locationState.query
+        ].join()
+
     case "default":
       return [
         locationState.type,
