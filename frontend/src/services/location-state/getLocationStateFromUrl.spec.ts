@@ -1,7 +1,7 @@
 import { routes, segments, worlds } from "zwift-data";
 import {
   LocationStateRoute,
-  LocationStateSharedItem,
+  LocationStateShare,
   LocationStateStravaActivities,
   LocationStateStravaActivity,
   LocationStateUpcomingEvent,
@@ -460,18 +460,18 @@ describe("strava-activities", () => {
 });
 
 it("strava-activity", () => {
-  const r1 = getLocationStateFromUrl("/s/42", "") as LocationStateSharedItem;
-  expect(r1.type).toBe("shared-item");
+  const r1 = getLocationStateFromUrl("/s/42", "") as LocationStateShare;
+  expect(r1.type).toBe("share");
   expect(r1.world).toBeNull();
-  expect(r1.sharedItemId).toBe("42");
+  expect(r1.shareId).toBe("42");
   expect(r1.query).toBe("");
 
   const r2 = getLocationStateFromUrl(
     "/s/42",
     "q=query"
-  ) as LocationStateSharedItem;
-  expect(r2.type).toBe("shared-item");
+  ) as LocationStateShare;
+  expect(r2.type).toBe("share");
   expect(r2.world).toBeNull();
-  expect(r2.sharedItemId).toBe("42");
+  expect(r2.shareId).toBe("42");
   expect(r2.query).toBe("query");
 });

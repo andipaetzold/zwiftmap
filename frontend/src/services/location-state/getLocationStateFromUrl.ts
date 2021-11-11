@@ -35,9 +35,9 @@ const PATTERNS: {
     pattern: PATTERN_SHARED_ITEM,
     toState: (result, _searchParams, query) => [
       {
-        type: "shared-item",
+        type: "share",
         world: null,
-        sharedItemId: result.groups!.sharedItemId,
+        shareId: result.groups!.shareId,
         query,
       },
       false,

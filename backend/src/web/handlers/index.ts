@@ -1,4 +1,4 @@
 export * from "./auth";
 export * from "./ping";
-export * from "./shared";
+export * from "./share";
 export * from "./strava";

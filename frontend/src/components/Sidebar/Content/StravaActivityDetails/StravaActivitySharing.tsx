@@ -18,14 +18,14 @@ export function StravaActivitySharing({ activity }: Props) {
   const handleShare = async () => {
     try {
       addMessage({ children: "Sharing…", messagePriority: "replace" });
-      const response = await zwiftMapApi.post<{ id: string }>("/shared", {
+      const response = await zwiftMapApi.post<{ id: string }>("/share", {
         type: "strava-activity",
         stravaActivityId: activity.id,
       });
 
       const path = createUrl({
-        type: "shared-item",
-        sharedItemId: response.data.id,
+        type: "share",
+        shareId: response.data.id,
         world: null,
         query: "",
       });
@@ -58,14 +58,14 @@ export function StravaActivitySharing({ activity }: Props) {
         messagePriority: "replace",
       });
 
-      const response = await zwiftMapApi.post<{ id: string }>("/shared", {
+      const response = await zwiftMapApi.post<{ id: string }>("/share", {
         type: "strava-activity",
         stravaActivityId: activity.id,
       });
 
       const path = createUrl({
-        type: "shared-item",
-        sharedItemId: response.data.id,
+        type: "share",
+        shareId: response.data.id,
         world: null,
         query: "",
       });

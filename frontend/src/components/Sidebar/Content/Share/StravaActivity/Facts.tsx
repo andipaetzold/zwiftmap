@@ -5,18 +5,18 @@ import {
   SpaceBarFontIcon,
   TimerFontIcon,
 } from "@react-md/material-icons";
-import { SharedItemStravaActivity } from "../../../../../types";
+import { ShareStravaActivity } from "../../../../../types";
 import { getWorld } from "../../../../../util/strava";
 import { Distance } from "../../../../Distance";
 import { Elevation } from "../../../../Elevation";
 import { Time } from "../../../../Time";
 
 interface Props {
-  sharedItem: SharedItemStravaActivity;
+  share: ShareStravaActivity;
 }
 
-export function SharedStravaActivityFacts({ sharedItem }: Props) {
-  const world = getWorld(sharedItem.activity.latlng);
+export function SharedStravaActivityFacts({ share }: Props) {
+  const world = getWorld(share.activity.latlng);
 
   return (
     <>
@@ -25,21 +25,21 @@ export function SharedStravaActivityFacts({ sharedItem }: Props) {
         leftAddon={<TimerFontIcon />}
         leftAddonType="icon"
       >
-        <Time seconds={sharedItem.activity.time} />
+        <Time seconds={share.activity.time} />
       </SimpleListItem>
       <SimpleListItem
         clickable={false}
         leftAddon={<SpaceBarFontIcon />}
         leftAddonType="icon"
       >
-        <Distance distance={sharedItem.activity.distance} />
+        <Distance distance={share.activity.distance} />
       </SimpleListItem>
       <SimpleListItem
         clickable={false}
         leftAddon={<LandscapeFontIcon />}
         leftAddonType="icon"
       >
-        <Elevation elevation={sharedItem.activity.elevation} />
+        <Elevation elevation={share.activity.elevation} />
       </SimpleListItem>
       {world && (
         <SimpleListItem clickable={false} leftAddon={<MapFontIcon />}>

@@ -1,17 +1,17 @@
 import { DetailedActivity, StreamSet } from "strava";
 import { ErrorWithStatusCode } from "../ErrorWithStatusCode";
 import {
-  getSharedItemUrl,
-  SharedItem,
-  writeSharedItem,
-} from "../persistence/sharedItem";
+  getShareUrl,
+  Share,
+  writeShare,
+} from "../persistence/share";
 import { isZwiftActivity } from "../util";
 import { getActivityById, getActivityStreams, updateActivity } from "./strava";
 
 export async function shareActivity(
   athleteId: number,
   activityId: number
-): Promise<SharedItem> {
+): Promise<Share> {
   const activity = await getActivityById(athleteId, activityId);
   const activityStreams = await getActivityStreams(athleteId, activityId);
 
@@ -19,13 +19,13 @@ export async function shareActivity(
     throw new ErrorWithStatusCode("Activity is no Zwift activity", 404);
   }
 
-  return await createSharedItem(activity, activityStreams);
+  return await createShare(activity, activityStreams);
 }
 
 export async function addLinkToActivity(
   athleteId: number,
   activityId: number
-): Promise<SharedItem> {
+): Promise<Share> {
   const activity = await getActivityById(athleteId, activityId);
   const activityStreams = await getActivityStreams(athleteId, activityId);
 
@@ -33,9 +33,9 @@ export async function addLinkToActivity(
     throw new ErrorWithStatusCode("Activity is no Zwift activity", 404);
   }
 
-  const sharedItem = await createSharedItem(activity, activityStreams);
+  const share = await createShare(activity, activityStreams);
 
-  const url = getSharedItemUrl(sharedItem.id);
+  const url = getShareUrl(share.id);
   const text = `View on ZwiftMap:\n${url}`;
   const description =
     activity.description === "" ? text : `${activity.description}\n\n${text}`;
@@ -45,14 +45,14 @@ export async function addLinkToActivity(
     description,
   });
 
-  return sharedItem;
+  return share;
 }
 
-async function createSharedItem(
+async function createShare(
   activity: DetailedActivity,
   activityStreams: StreamSet
-): Promise<SharedItem> {
-  const sharedItem: Omit<SharedItem, "id"> = {
+): Promise<Share> {
+  const share: Omit<Share, "id"> = {
     type: "strava-activity",
     activity: {
       id: activity.id,
@@ -67,5 +67,5 @@ async function createSharedItem(
       latlng: activity.start_latlng as [number, number],
     },
   };
-  return await writeSharedItem(sharedItem);
+  return await writeShare(share);
 }

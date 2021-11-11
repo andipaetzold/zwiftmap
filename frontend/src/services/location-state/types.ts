@@ -38,10 +38,10 @@ export interface LocationStateUpcomingEvent extends LocationStateBase {
   eventId: string;
 }
 
-export interface LocationStateSharedItem extends LocationStateBase {
-  type: "shared-item";
+export interface LocationStateShare extends LocationStateBase {
+  type: "share";
   world: World | null;
-  sharedItemId: string;
+  shareId: string;
 }
 
 export type LocationStateWithKey = LocationState & { key: string };
@@ -52,4 +52,4 @@ export type LocationState =
   | LocationStateStravaActivities
   | LocationStateUpcomingEvents
   | LocationStateUpcomingEvent
-  | LocationStateSharedItem;
+  | LocationStateShare;

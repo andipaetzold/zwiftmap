@@ -36,8 +36,8 @@ export function createUrl(state: LocationState): string {
       path = `/events/${state.eventId}`;
       break;
 
-    case "shared-item":
-      path = `/s/${state.sharedItemId}`;
+    case "share":
+      path = `/s/${state.shareId}`;
       break;
   }
 

@@ -1,38 +1,38 @@
 import { SimpleListItem } from "@react-md/list";
 import { Text } from "@react-md/typography";
-import { SharedItemStravaActivity } from "../../../../../types";
+import { ShareStravaActivity } from "../../../../../types";
 import { ElevationChart } from "../../../../ElevationChart";
 import { SharedStravaActivityFacts } from "./Facts";
 import { SharedStravaActivityLinks } from "./Links";
 
 interface Props {
-  sharedItem: SharedItemStravaActivity;
+  share: ShareStravaActivity;
   onMouseHoverDistanceChange: (distance: number | undefined) => void;
 }
 
 export function SharedStravaActivity({
-  sharedItem,
+  share,
   onMouseHoverDistanceChange,
 }: Props) {
   return (
     <>
       <SimpleListItem>
         <Text type="headline-6" style={{ margin: 0 }}>
-          {sharedItem.activity.name}
+          {share.activity.name}
         </Text>
       </SimpleListItem>
 
-      <SharedStravaActivityFacts sharedItem={sharedItem} />
+      <SharedStravaActivityFacts share={share} />
 
       <SimpleListItem>
         <ElevationChart
-          distanceStream={sharedItem.activity.streams.distance.data}
-          altitudeStream={sharedItem.activity.streams.altitude.data}
+          distanceStream={share.activity.streams.distance.data}
+          altitudeStream={share.activity.streams.altitude.data}
           onMouseHoverDistanceChange={onMouseHoverDistanceChange}
         />
       </SimpleListItem>
 
-      <SharedStravaActivityLinks sharedItem={sharedItem} />
+      <SharedStravaActivityLinks share={share} />
     </>
   );
 }

@@ -41,11 +41,11 @@ export function getKeyFromLocationState(locationState: LocationState): string {
         locationState.query,
       ].join();
 
-      case 'shared-item':
+      case 'share':
         return [
           locationState.type,
           getKeyFromWorld(locationState.world),
-          locationState.sharedItemId,
+          locationState.shareId,
           locationState.query
         ].join()
 

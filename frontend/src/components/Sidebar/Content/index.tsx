@@ -8,7 +8,7 @@ import { RouteList } from "./Lists/RouteList";
 import { SearchResultList } from "./Lists/SearchResultList";
 import { StravaActivitiesList } from "./Lists/StravaActivitiesList";
 import { RouteDetails } from "./RouteDetails";
-import { SharedItem } from "./SharedItem";
+import { Share } from "./Share";
 import { StravaActivityDetails } from "./StravaActivityDetails";
 import { UpcomingEvents } from "./UpcomingEvents";
 
@@ -59,10 +59,10 @@ export function Content({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
           eventId={locationState.eventId}
         />
       );
-    case "shared-item":
+    case "share":
       return (
-        <SharedItem
-          sharedItemId={locationState.sharedItemId}
+        <Share
+          shareId={locationState.shareId}
           backButtonText={backButtonText}
           onBackButtonClick={onBackButtonClick}
           onMouseHoverDistanceChange={onMouseHoverDistanceChange}

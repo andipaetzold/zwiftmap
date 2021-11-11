@@ -4,26 +4,26 @@ import { List, SimpleListItem } from "@react-md/list";
 import { ListFontIcon } from "@react-md/material-icons";
 import { CircularProgress } from "@react-md/progress";
 import { useAsync } from "react-async-hook";
-import { getSharedItem } from "../../../../services/zwiftMapApi";
-import { SharedItem as SharedItemType } from "../../../../types";
+import { getShare } from "../../../../services/zwiftMapApi";
+import { Share as ShareType } from "../../../../types";
 import { SharedStravaActivity } from "./StravaActivity";
 
 interface Props {
-  sharedItemId: string;
+  shareId: string;
   backButtonText: string;
   onBackButtonClick: () => void;
   onMouseHoverDistanceChange: (distance: number | undefined) => void;
 }
 
-export function SharedItem({
-  sharedItemId,
+export function Share({
+  shareId,
   onBackButtonClick,
   backButtonText,
   onMouseHoverDistanceChange,
 }: Props) {
-  const { result: sharedItem, loading } = useAsync<SharedItemType>(
-    getSharedItem,
-    [sharedItemId]
+  const { result: share, loading } = useAsync<ShareType>(
+    getShare,
+    [shareId]
   );
 
   const backButton = (
@@ -36,11 +36,11 @@ export function SharedItem({
     </SimpleListItem>
   );
 
-  if (!sharedItem) {
+  if (!share) {
     if (loading) {
       return (
         <CircularProgress
-          id={`shared-item-${sharedItemId}`}
+          id={`share-${shareId}`}
           circleStyle={{ stroke: "black" }}
         />
       );
@@ -53,13 +53,13 @@ export function SharedItem({
     }
   }
 
-  switch (sharedItem.type) {
+  switch (share.type) {
     case "strava-activity": {
       return (
         <List>
           {backButton}
           <SharedStravaActivity
-            sharedItem={sharedItem}
+            share={share}
             onMouseHoverDistanceChange={onMouseHoverDistanceChange}
           />
         </List>

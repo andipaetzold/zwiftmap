@@ -27,8 +27,8 @@ app.post("/strava/refresh", handlers.handleStravaTokenRefresh);
 app.post("/strava/webhook", handlers.handleWebhook);
 app.get("/strava/webhook", handlers.handleWebhookVerification);
 
-app.post("/shared", handlers.handleCreateSharedItem);
-app.get("/shared/:sharedItemId", handlers.handleGetSharedItem);
+app.post("/share", handlers.handleCreateShare);
+app.get("/share/:shareId", handlers.handleGetShare);
 
 app.get("/ping", handlers.handlePing);
 

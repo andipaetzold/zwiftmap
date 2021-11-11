@@ -1,19 +1,19 @@
 import { Avatar } from "@react-md/avatar";
 import { ListItemLink, ListItemText, ListSubheader } from "@react-md/list";
 import { OpenInNewFontIcon } from "@react-md/material-icons";
-import { SharedItemStravaActivity } from "../../../../../types";
+import { ShareStravaActivity } from "../../../../../types";
 import stravaLogo from "../../../../../assets/strava-40x40.png";
 
 export interface Props {
-  sharedItem: SharedItemStravaActivity;
+  share: ShareStravaActivity;
 }
 
-export function SharedStravaActivityLinks({ sharedItem }: Props) {
+export function SharedStravaActivityLinks({ share }: Props) {
   return (
     <>
       <ListSubheader>Links</ListSubheader>
       <ListItemLink
-        href={`https://www.strava.com/activities/${sharedItem.activity.id}`}
+        href={`https://www.strava.com/activities/${share.activity.id}`}
         target="_blank"
         leftAddon={
           <Avatar>
@@ -27,7 +27,7 @@ export function SharedStravaActivityLinks({ sharedItem }: Props) {
         <ListItemText>Activity on Strava</ListItemText>
       </ListItemLink>
       <ListItemLink
-        href={`https://www.strava.com/athletes/${sharedItem.activity.athleteId}`}
+        href={`https://www.strava.com/athletes/${share.activity.athleteId}`}
         target="_blank"
         leftAddon={
           <Avatar>

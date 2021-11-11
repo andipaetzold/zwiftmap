@@ -12,9 +12,9 @@ export interface Settings {
   units: "imperial" | "metric";
 }
 
-export type SharedItem = SharedItemStravaActivity;
+export type Share = ShareStravaActivity;
 
-export interface SharedItemStravaActivity {
+export interface ShareStravaActivity {
   id: string;
   type: "strava-activity";
   activity: {

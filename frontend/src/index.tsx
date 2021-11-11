@@ -30,11 +30,11 @@ Sentry.init({
           };
         }
 
-        const resultSharedItem = PATTERN_SHARED_ITEM.exec(context.name);
-        if (resultSharedItem) {
+        const resultShare = PATTERN_SHARED_ITEM.exec(context.name);
+        if (resultShare) {
           return {
             ...context,
-            name: "/s/:sharedItemId",
+            name: "/s/:shareId",
           };
         }
 

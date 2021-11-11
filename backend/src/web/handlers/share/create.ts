@@ -2,7 +2,7 @@ import * as Sentry from "@sentry/node";
 import { Request, Response } from "express";
 import { Literal, Record, Number } from "runtypes";
 import { ErrorWithStatusCode } from "../../../shared/ErrorWithStatusCode";
-import { SharedItem } from "../../../shared/persistence/sharedItem";
+import { Share } from "../../../shared/persistence/share";
 import { shareActivity } from "../../../shared/services/sharing";
 import { Session } from "../../types";
 
@@ -11,7 +11,7 @@ const Body = Record({
   stravaActivityId: Number,
 });
 
-export async function handleCreateSharedItem(req: Request, res: Response) {
+export async function handleCreateShare(req: Request, res: Response) {
   const session = req.session as Session;
 
   if (!Body.guard(req.body)) {
@@ -20,10 +20,10 @@ export async function handleCreateSharedItem(req: Request, res: Response) {
   }
 
   try {
-    let sharedItem: SharedItem;
+    let share: Share;
     switch (req.body.type) {
       case "strava-activity": {
-        sharedItem = await handleStravaActivity(
+        share = await handleStravaActivity(
           session,
           req.body.stravaActivityId
         );
@@ -31,7 +31,7 @@ export async function handleCreateSharedItem(req: Request, res: Response) {
       }
     }
 
-    res.status(201).json({ id: sharedItem.id });
+    res.status(201).json({ id: share.id });
   } catch (e) {
     if (e instanceof ErrorWithStatusCode) {
       Sentry.captureException(e);
@@ -45,7 +45,7 @@ export async function handleCreateSharedItem(req: Request, res: Response) {
 async function handleStravaActivity(
   session: Session,
   stravaActivityId: number
-): Promise<SharedItem> {
+): Promise<Share> {
   if (!session.stravaAthleteId) {
     throw new ErrorWithStatusCode("Not authenticated with Strava", 403);
   }

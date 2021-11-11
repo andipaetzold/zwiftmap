@@ -4,7 +4,7 @@ import { routes, worlds } from "zwift-data";
 import { getWorld } from "../../util/strava";
 import { fetchEvent } from "../events";
 import { getStravaActivity } from "../StravaActivityRepository";
-import { getSharedItem } from "../zwiftMapApi";
+import { getShare } from "../zwiftMapApi";
 import { getKeyFromLocationState } from "./getKeyFromLocationState";
 import { getLocationStateFromUrl } from "./getLocationStateFromUrl";
 import { LocationState, LocationStateWithKey } from "./types";
@@ -68,12 +68,12 @@ async function fetchWorld() {
 
         break;
       }
-      case "shared-item": {
-        const sharedItem = await getSharedItem(state.sharedItemId);
+      case "share": {
+        const share = await getShare(state.shareId);
         if (isEqual(stateBefore, state)) {
-          switch (sharedItem.type) {
+          switch (share.type) {
             case "strava-activity": {
-              const world = getWorld(sharedItem.activity.latlng);
+              const world = getWorld(share.activity.latlng);
               if (!world) {
                 break;
               }
