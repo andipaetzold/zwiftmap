@@ -30,8 +30,6 @@ app.get("/strava/webhook", handlers.handleWebhookVerification);
 app.post("/share", handlers.handleCreateShare);
 app.get("/share/:shareId", handlers.handleGetShare);
 
-app.get("/ping", handlers.handlePing);
-
 app.use(Sentry.Handlers.errorHandler());
 
 app.listen(PORT, async () => {

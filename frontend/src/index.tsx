@@ -6,7 +6,6 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import { BACKEND_HOST } from "./config";
 import "./index.scss";
-import { ping } from "./services/ping";
 import {
   PATTERN_EVENT,
   PATTERN_ROUTE,
@@ -14,6 +13,7 @@ import {
   PATTERN_STRAVA_ACTIVITY,
   PATTERN_WORLD,
 } from "./services/routing";
+import { getRefreshedToken } from "./services/strava/auth";
 
 Sentry.init({
   enabled: (process.env.REACT_APP_SENTRY_DSN ?? "").length > 0,
@@ -69,7 +69,7 @@ Sentry.init({
   tracesSampleRate: 1.0,
 });
 
-ping();
+getRefreshedToken();
 
 ReactDOM.render(
   <React.StrictMode>
