@@ -35,10 +35,7 @@ export function StravaActivityDetailsComponent({
       </SimpleListItem>
 
       <StravaActivityLinks activity={activity} />
-
-      {process.env.NODE_ENV === "development" && (
-        <StravaActivitySharing activity={activity} />
-      )}
+      <StravaActivitySharing activity={activity} />
     </>
   );
 }

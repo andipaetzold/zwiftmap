@@ -2,9 +2,7 @@ import { Request, Response } from "express";
 import { Record, String } from "runtypes";
 import { URLSearchParams } from "url";
 import {
-  BACKEND_URL,
-  ENVIRONMENT,
-  STRAVA_CLIENT_ID,
+  BACKEND_URL, STRAVA_CLIENT_ID
 } from "../../../shared/config";
 
 const Query = Record({
@@ -22,14 +20,9 @@ export function handleStravaAuthorize(req: Request, res: Response) {
   params.set("redirect_uri", `${BACKEND_URL}/strava/callback`);
   params.set("response_type", "code");
   params.set("approval_prompt", "auto");
-  params.set(
-    "scope",
-    ENVIRONMENT === "development"
-      ? "activity:write,activity:read_all"
-      : "activity:read_all"
-  );
+  params.set("scope", "activity:write,activity:read_all");
   params.set("state", req.query.state);
-  const url = `https://www.strava.com/oauth/authorize?${params.toString()}`;
 
+  const url = `https://www.strava.com/oauth/authorize?${params.toString()}`;
   res.redirect(url);
 }
