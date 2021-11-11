@@ -6,6 +6,7 @@ import { Text } from "@react-md/typography";
 import { Route } from "zwift-data";
 import { RouteElevationChart } from "../../../ElevationChart";
 import { RouteEvents } from "./RouteEvents";
+import { RouteFacts } from "./RouteFacts";
 import { RouteLinks } from "./RouteLinks";
 import { RouteSegments } from "./RouteSegments";
 import { RouteStravaPB } from "./RouteStravaPB";
@@ -39,6 +40,7 @@ export function RouteDetails({
         </Text>
       </SimpleListItem>
 
+      <RouteFacts route={route} />
       <RouteStravaPB route={route} />
 
       <RouteElevationChart
