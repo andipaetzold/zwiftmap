@@ -17,6 +17,7 @@ export interface SharedItemStravaActivity {
     avgWatts?: number;
     photoUrl?: string;
     streams: StreamSet;
+    latlng: [number, number];
   };
 }
 

@@ -66,6 +66,7 @@ async function createSharedItem(
       avgWatts: activity.average_watts,
       photoUrl: activity.photos.primary?.urls["100"],
       streams: activityStreams,
+      latlng: activity.start_latlng as [number, number],
     },
   };
   await writeSharedItem(sharedItem);

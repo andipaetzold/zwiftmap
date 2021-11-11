@@ -31,7 +31,7 @@ export async function handleCreateSharedItem(req: Request, res: Response) {
       }
     }
 
-    res.status(201).json(sharedItem);
+    res.status(201).json({ id: sharedItem.id });
   } catch (e) {
     if (e instanceof ErrorWithStatusCode) {
       Sentry.captureException(e);

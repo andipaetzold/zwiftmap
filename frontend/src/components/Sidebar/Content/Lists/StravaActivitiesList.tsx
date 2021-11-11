@@ -117,7 +117,7 @@ export function StravaActivitiesListWithToken() {
             ["VirtualRun", "VirtualRide"].includes(activity.type)
           )
           .map((activity) => {
-            const world = getWorld(activity);
+            const world = getWorld(activity.start_latlng as [number, number]);
             return { world, activity };
           })
           .filter(({ world }) => world !== undefined)

@@ -11,7 +11,7 @@ export async function getStravaActivity(
 ): Promise<StravaActivity> {
   const activity = await fetchActivity(activityId);
 
-  const world = getWorld(activity);
+  const world = getWorld(activity.start_latlng as [number, number]);
 
   if (!world) {
     throw new Error("Activity was not recorded in Zwift");

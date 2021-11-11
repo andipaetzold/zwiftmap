@@ -1,8 +1,10 @@
 import cloneDeep from "lodash/cloneDeep";
 import isEqual from "lodash/isEqual";
 import { routes, worlds } from "zwift-data";
+import { getWorld } from "../../util/strava";
 import { fetchEvent } from "../events";
 import { getStravaActivity } from "../StravaActivityRepository";
+import { getSharedItem } from "../zwiftMapApi";
 import { getKeyFromLocationState } from "./getKeyFromLocationState";
 import { getLocationStateFromUrl } from "./getLocationStateFromUrl";
 import { LocationState, LocationStateWithKey } from "./types";
@@ -42,14 +44,15 @@ async function fetchWorld() {
   if (state.world === null) {
     const stateBefore = cloneDeep(state);
     switch (state.type) {
-      case "strava-activity":
+      case "strava-activity": {
         const activity = await getStravaActivity(state.stravaActivityId);
         if (isEqual(stateBefore, state)) {
           setLocationState({ ...state, world: activity.world });
         }
 
         break;
-      case "event":
+      }
+      case "event": {
         const event = await fetchEvent(state.eventId);
         if (isEqual(stateBefore, state)) {
           const worldId = event.mapId;
@@ -64,6 +67,24 @@ async function fetchWorld() {
         }
 
         break;
+      }
+      case "shared-item": {
+        const sharedItem = await getSharedItem(state.sharedItemId);
+        if (isEqual(stateBefore, state)) {
+          switch (sharedItem.type) {
+            case "strava-activity": {
+              const world = getWorld(sharedItem.activity.latlng);
+              if (!world) {
+                break;
+              }
+              setLocationState({ ...state, world: world });
+              break;
+            }
+          }
+        }
+
+        break;
+      }
     }
   }
 }

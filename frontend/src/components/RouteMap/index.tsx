@@ -7,6 +7,7 @@ import {
   DEFAULT_WORLD,
   LocationState,
   LocationStateRoute,
+  LocationStateSharedItem,
   LocationStateStravaActivity,
   LocationStateUpcomingEvent,
   useLocationState,
@@ -20,6 +21,7 @@ import {
 import styles from "./index.module.css";
 import { Map } from "./Map";
 import { WorldSelect } from "./WorldSelect";
+import { getSharedItem } from "../../services/zwiftMapApi";
 
 interface Props {
   mouseHoverDistance: number | undefined;
@@ -54,7 +56,8 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
       type: LocationState["type"],
       route: Route | undefined,
       stravaActivityId: number | undefined,
-      eventId: string | undefined
+      eventId: string | undefined,
+      sharedItemId: string | undefined
     ) => {
       switch (type) {
         case "route": {
@@ -88,6 +91,18 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
               latlng: segment.latlng,
             };
           }
+          break;
+        }
+
+        case "shared-item": {
+          const sharedItem = await getSharedItem(sharedItemId!);
+          return {
+            distance: sharedItem.activity.streams.distance.data,
+            latlng: sharedItem.activity.streams.latlng.data as unknown as [
+              number,
+              number
+            ][],
+          };
         }
       }
     },
@@ -96,6 +111,7 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
       (locationState as LocationStateRoute).route,
       (locationState as LocationStateStravaActivity).stravaActivityId,
       (locationState as LocationStateUpcomingEvent).eventId,
+      (locationState as LocationStateSharedItem).sharedItemId,
     ]
   );
 

@@ -60,7 +60,14 @@ export function Content({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
         />
       );
     case "shared-item":
-      return <SharedItem sharedItemId={locationState.sharedItemId} />;
+      return (
+        <SharedItem
+          sharedItemId={locationState.sharedItemId}
+          backButtonText={backButtonText}
+          onBackButtonClick={onBackButtonClick}
+          onMouseHoverDistanceChange={onMouseHoverDistanceChange}
+        />
+      );
     case "default":
       if (locationState.query === "") {
         return <RouteList onHoverRoute={onHoverRoute} />;
