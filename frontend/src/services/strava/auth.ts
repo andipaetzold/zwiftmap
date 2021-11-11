@@ -31,11 +31,16 @@ export function useStravaAuthUrl(): string {
 }
 
 export async function getRefreshedToken(): Promise<RefreshTokenResponse> {
-  const response = await zwiftMapApi.post<RefreshTokenResponse>(
-    "/strava/refresh"
-  );
+  try {
+    const response = await zwiftMapApi.post<RefreshTokenResponse>(
+      "/strava/refresh"
+    );
 
-  writeStravaToken(response.data);
+    writeStravaToken(response.data);
 
-  return response.data;
+    return response.data;
+  } catch (e) {
+    writeStravaToken(null);
+    throw e;
+  }
 }

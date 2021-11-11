@@ -20,11 +20,11 @@ function stravaTokenToState(
 }
 
 export function useIsLoggedInStrava(): IsLoggedInStrava {
-  const [state, setState] = useState<IsLoggedInStrava>(
-    stravaTokenToState(getStravaToken())
-  );
+  const [state, setState] = useState<IsLoggedInStrava>(null);
 
   useEffect(() => {
+    setState(stravaTokenToState(getStravaToken()));
+
     const listener = (newToken: RefreshTokenResponse | null) => {
       setState(stravaTokenToState(newToken));
     };
