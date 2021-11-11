@@ -24,7 +24,7 @@ export function RouteStravaPB({ route }: Props) {
     error,
   } = useAsync(
     async (loggedIn: IsLoggedInStrava, segmentId?: number) => {
-      if (loggedIn === true || segmentId === undefined) {
+      if (loggedIn !== true || segmentId === undefined) {
         return null;
       }
 

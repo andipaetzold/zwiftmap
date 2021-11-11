@@ -93,7 +93,7 @@ function SecondaryText({ segment }: SecondaryTextProps) {
   const isLoggedIn = useIsLoggedInStrava();
   const { result: stravaSegment } = useAsync(
     async (sid: number | undefined, loggedIn: IsLoggedInStrava) => {
-      if (sid === undefined || loggedIn === true) {
+      if (sid === undefined || loggedIn !== true) {
         return null;
       }
       return await fetchSegment(sid.toString());
