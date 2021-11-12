@@ -1,5 +1,6 @@
 import pick from "lodash/pick";
 import { DetailedActivity, StreamSet } from "strava";
+import { FRONTEND_URL } from "../config";
 import { ErrorWithStatusCode } from "../ErrorWithStatusCode";
 import { getShareUrl, Share, writeShare } from "../persistence/share";
 import { isZwiftActivity } from "../util";
@@ -28,6 +29,13 @@ export async function addLinkToActivity(
 
   if (!isZwiftActivity(activity)) {
     throw new ErrorWithStatusCode("Activity is no Zwift activity", 404);
+  }
+
+  if (activity.description.includes(FRONTEND_URL)) {
+    throw new ErrorWithStatusCode(
+      "ZwiftMap link was already added to description",
+      409
+    );
   }
 
   const share = await createShare(activity, activityStreams);
