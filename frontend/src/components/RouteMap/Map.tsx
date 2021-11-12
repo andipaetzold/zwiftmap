@@ -1,7 +1,7 @@
 import { LatLngBounds, LatLngTuple, Map as MapType } from "leaflet";
 import { useEffect, useState } from "react";
 import {
-  Circle,
+  CircleMarker,
   ImageOverlay,
   MapContainer,
   Pane,
@@ -10,6 +10,14 @@ import {
 import { World } from "zwift-data";
 import { worldConfigs } from "../../worldConfig";
 import styles from "./index.module.css";
+
+const Z_INDEX = {
+  previewRoute: 505,
+  segments: 506,
+  route: 507,
+  routeEnd: 508,
+  routeStart: 509,
+};
 
 interface Props {
   world: World;
@@ -79,7 +87,7 @@ export function Map({
       />
 
       {previewRouteLatLngStream && (
-        <Pane name="preview-route" style={{ zIndex: 506 }}>
+        <Pane name="preview-route" style={{ zIndex: Z_INDEX.previewRoute }}>
           <Polyline
             positions={previewRouteLatLngStream}
             pathOptions={{ color: "#D3D3D3", weight: 5 }}
@@ -88,16 +96,42 @@ export function Map({
       )}
 
       {routeLatLngStream && (
-        <Pane name="route" style={{ zIndex: 504 }}>
-          <Polyline
-            positions={routeLatLngStream}
-            pathOptions={{ color: "#fc6719", weight: 5 }}
-          />
-        </Pane>
+        <>
+          <Pane name="route" style={{ zIndex: 504 }}>
+            <Polyline
+              positions={routeLatLngStream}
+              pathOptions={{ color: "#fc6719", weight: 5 }}
+            />
+          </Pane>
+          <Pane name="route-start" style={{ zIndex: Z_INDEX.routeStart }}>
+            <CircleMarker
+              center={routeLatLngStream[0]}
+              radius={5}
+              weight={2}
+              pathOptions={{
+                color: "white",
+                fillColor: "green",
+                fillOpacity: 1,
+              }}
+            />
+          </Pane>
+          <Pane name="route-end" style={{ zIndex: Z_INDEX.routeEnd }}>
+            <CircleMarker
+              center={routeLatLngStream[routeLatLngStream.length - 1]}
+              radius={5}
+              weight={2}
+              pathOptions={{
+                color: "white",
+                fillColor: "red",
+                fillOpacity: 1,
+              }}
+            />
+          </Pane>
+        </>
       )}
 
       {segmentLatLngStreams && (
-        <Pane name="segments" style={{ zIndex: 505 }}>
+        <Pane name="segments" style={{ zIndex: Z_INDEX.segments }}>
           {segmentLatLngStreams.map((s, segmentIndex) => (
             <Polyline
               key={segmentIndex}
@@ -109,10 +143,11 @@ export function Map({
       )}
 
       {hoverPoint && (
-        <Pane name="mouse-position" style={{ zIndex: 507 }}>
-          <Circle
+        <Pane name="mouse-position" style={{ zIndex: 508 }}>
+          <CircleMarker
             center={hoverPoint}
-            radius={15}
+            radius={5}
+            weight={0}
             pathOptions={{
               color: "black",
               fillColor: "black",
