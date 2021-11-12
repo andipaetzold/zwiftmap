@@ -23,7 +23,7 @@ export async function shareActivity(
 export async function addLinkToActivity(
   athleteId: number,
   activityId: number
-): Promise<Share> {
+): Promise<void> {
   const activity = await getActivityById(athleteId, activityId);
   const activityStreams = await getActivityStreams(athleteId, activityId);
 
@@ -32,10 +32,7 @@ export async function addLinkToActivity(
   }
 
   if ((activity.description ?? "").includes(FRONTEND_URL)) {
-    throw new ErrorWithStatusCode(
-      "ZwiftMap link was already added to description",
-      409
-    );
+    return;
   }
 
   const share = await createShare(activity, activityStreams);
@@ -48,8 +45,6 @@ export async function addLinkToActivity(
       : `${activity.description}\n\n${text}`;
 
   await updateActivity(athleteId, { description });
-
-  return share;
 }
 
 async function createShare(
