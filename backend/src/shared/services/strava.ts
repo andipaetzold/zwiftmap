@@ -80,7 +80,7 @@ export async function getActivityById(
 
 export async function updateActivity(
   athleteId: number,
-  activity: DetailedActivity
+  activity: Partial<DetailedActivity>
 ): Promise<void> {
   const api = await getStravaUserAPI(athleteId);
   await api.put<DetailedActivity>(`/activities/${activity.id}`, activity);

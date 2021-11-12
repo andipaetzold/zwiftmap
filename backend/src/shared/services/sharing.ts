@@ -35,12 +35,11 @@ export async function addLinkToActivity(
   const url = getShareUrl(share.id);
   const text = `View on ZwiftMap:\n${url}`;
   const description =
-    activity.description === "" ? text : `${activity.description}\n\n${text}`;
+    (activity.description ?? "") === ""
+      ? text
+      : `${activity.description}\n\n${text}`;
 
-  await updateActivity(athleteId, {
-    ...activity,
-    description,
-  });
+  await updateActivity(athleteId, { description });
 
   return share;
 }
