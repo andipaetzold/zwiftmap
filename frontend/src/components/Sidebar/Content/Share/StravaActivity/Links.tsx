@@ -27,7 +27,7 @@ export function SharedStravaActivityLinks({ share }: Props) {
         <ListItemText>Activity on Strava</ListItemText>
       </ListItemLink>
       <ListItemLink
-        href={`https://www.strava.com/athletes/${share.activity.athleteId}`}
+        href={`https://www.strava.com/athletes/${share.athlete.id}`}
         target="_blank"
         leftAddon={
           <Avatar>

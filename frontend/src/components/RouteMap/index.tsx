@@ -97,8 +97,8 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
         case "share": {
           const share = await getShare(shareId!);
           return {
-            distance: share.activity.streams.distance.data,
-            latlng: share.activity.streams.latlng.data as unknown as [
+            distance: share.streams.distance.data,
+            latlng: share.streams.latlng.data as unknown as [
               number,
               number
             ][],

@@ -1,26 +1,27 @@
-import { StreamSet } from "strava";
-import { FRONTEND_URL } from "../config";
-import { read, remove, write } from "./redis";
 import objectHash from "object-hash";
 import short from "short-uuid";
+import { DetailedActivity, StreamSet } from "strava";
+import { FRONTEND_URL } from "../config";
+import { read, remove, write } from "./redis";
 
 export type Share = ShareStravaActivity;
 
 export interface ShareStravaActivity {
   id: string;
   type: "strava-activity";
-  activity: {
-    id: number;
-    athleteId: number;
-    name: string;
-    distance: number;
-    time: number;
-    elevation: number;
-    avgWatts?: number;
-    photoUrl?: string;
-    streams: StreamSet;
-    latlng: [number, number];
-  };
+  activity: Pick<
+    DetailedActivity,
+    | "id"
+    | "name"
+    | "distance"
+    | "moving_time"
+    | "total_elevation_gain"
+    | "average_watts"
+    | "start_latlng"
+    | "start_date"
+  >;
+  athlete: { id: number };
+  streams: StreamSet;
 }
 
 type ShareLookup = { [hash: string]: string };
@@ -34,9 +35,7 @@ function createKey(shareId: string): string {
 }
 const LOOKUP_KEY = createKey("lookup");
 
-export async function writeShare(
-  share: Omit<Share, "id">
-): Promise<Share> {
+export async function writeShare(share: Omit<Share, "id">): Promise<Share> {
   const hash = objectHash(share);
   const lookup = (await read<ShareLookup>(LOOKUP_KEY)) ?? {};
 
@@ -56,9 +55,7 @@ export async function writeShare(
   }
 }
 
-export async function readShare(
-  shareId: string
-): Promise<Share | undefined> {
+export async function readShare(shareId: string): Promise<Share | undefined> {
   return await read(createKey(shareId));
 }
 

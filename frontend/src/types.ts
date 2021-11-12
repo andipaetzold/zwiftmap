@@ -1,4 +1,4 @@
-import { StreamSet } from "strava";
+import { DetailedActivity, StreamSet } from "strava";
 import { Sport } from "zwift-data";
 
 export interface StravaSegment {
@@ -17,16 +17,17 @@ export type Share = ShareStravaActivity;
 export interface ShareStravaActivity {
   id: string;
   type: "strava-activity";
-  activity: {
-    id: number;
-    athleteId: number;
-    name: string;
-    distance: number;
-    time: number;
-    elevation: number;
-    avgWatts?: number;
-    photoUrl?: string;
-    streams: StreamSet;
-    latlng: [number, number]
-  };
+  activity: Pick<
+    DetailedActivity,
+    | "id"
+    | "name"
+    | "distance"
+    | "moving_time"
+    | "total_elevation_gain"
+    | "average_watts"
+    | "start_latlng"
+    | "start_date"
+  >;
+  athlete: { id: number };
+  streams: StreamSet;
 }

@@ -26,8 +26,8 @@ export function SharedStravaActivity({
 
       <SimpleListItem>
         <ElevationChart
-          distanceStream={share.activity.streams.distance.data}
-          altitudeStream={share.activity.streams.altitude.data}
+          distanceStream={share.streams.distance.data}
+          altitudeStream={share.streams.altitude.data}
           onMouseHoverDistanceChange={onMouseHoverDistanceChange}
         />
       </SimpleListItem>

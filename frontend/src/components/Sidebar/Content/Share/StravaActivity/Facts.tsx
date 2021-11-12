@@ -16,7 +16,7 @@ interface Props {
 }
 
 export function SharedStravaActivityFacts({ share }: Props) {
-  const world = getWorld(share.activity.latlng);
+  const world = getWorld(share.activity.start_latlng as [number, number]);
 
   return (
     <>
@@ -25,7 +25,7 @@ export function SharedStravaActivityFacts({ share }: Props) {
         leftAddon={<TimerFontIcon />}
         leftAddonType="icon"
       >
-        <Time seconds={share.activity.time} />
+        <Time seconds={share.activity.moving_time} />
       </SimpleListItem>
       <SimpleListItem
         clickable={false}
@@ -39,7 +39,7 @@ export function SharedStravaActivityFacts({ share }: Props) {
         leftAddon={<LandscapeFontIcon />}
         leftAddonType="icon"
       >
-        <Elevation elevation={share.activity.elevation} />
+        <Elevation elevation={share.activity.total_elevation_gain} />
       </SimpleListItem>
       {world && (
         <SimpleListItem clickable={false} leftAddon={<MapFontIcon />}>

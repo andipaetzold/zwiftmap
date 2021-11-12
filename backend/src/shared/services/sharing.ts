@@ -1,10 +1,7 @@
+import pick from "lodash/pick";
 import { DetailedActivity, StreamSet } from "strava";
 import { ErrorWithStatusCode } from "../ErrorWithStatusCode";
-import {
-  getShareUrl,
-  Share,
-  writeShare,
-} from "../persistence/share";
+import { getShareUrl, Share, writeShare } from "../persistence/share";
 import { isZwiftActivity } from "../util";
 import { getActivityById, getActivityStreams, updateActivity } from "./strava";
 
@@ -54,18 +51,18 @@ async function createShare(
 ): Promise<Share> {
   const share: Omit<Share, "id"> = {
     type: "strava-activity",
-    activity: {
-      id: activity.id,
-      athleteId: activity.athlete.id,
-      name: activity.name,
-      distance: activity.distance / 1_000,
-      elevation: activity.total_elevation_gain,
-      time: activity.moving_time,
-      avgWatts: activity.average_watts,
-      photoUrl: activity.photos.primary?.urls["100"],
-      streams: activityStreams,
-      latlng: activity.start_latlng as [number, number],
-    },
+    activity: pick(activity, [
+      "id",
+      "name",
+      "distance",
+      "total_elevation_gain",
+      "moving_time",
+      "average_watts",
+      "start_latlng",
+      "start_date",
+    ]),
+    athlete: pick(activity.athlete, "id"),
+    streams: activityStreams,
   };
   return await writeShare(share);
 }
