@@ -16,9 +16,9 @@ Cache-Control = "public, max-age=31536000"
 [[headers]]
 for = "/routes/*"
 [headers.values]
-Cache-Control = "public, max-age=3600"
+Cache-Control = "public, max-age=86400"
 
 [[headers]]
 for = "/segments/*"
 [headers.values]
-Cache-Control = "public, max-age=3600"
+Cache-Control = "public, max-age=86400"
