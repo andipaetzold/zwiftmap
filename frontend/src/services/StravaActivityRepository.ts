@@ -58,7 +58,7 @@ export async function appendStravaDescription(
   const activity = await fetchActivity(activityId);
 
   const description =
-    activity.description === "" || activity.description === null
+    (activity.description ?? "") === ""
       ? text
       : `${activity.description}\n\n${text}`;
 
