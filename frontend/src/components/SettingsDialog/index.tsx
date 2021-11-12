@@ -6,7 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@react-md/dialog";
-import { Fieldset, Radio } from "@react-md/form";
+import { NativeSelect } from "@react-md/form";
 import React, { ChangeEvent } from "react";
 import { Sport } from "zwift-data";
 import { useSettings } from "../../hooks/useSettings";
@@ -20,16 +20,12 @@ interface Props {
 export function SettingsDialog({ visible, onClose }: Props) {
   const [settings, setSettings] = useSettings();
 
-  const handleSportChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checked) {
-      setSettings({ ...settings, sport: e.target.value as Sport });
-    }
+  const handleSportChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setSettings({ ...settings, sport: e.target.value as Sport });
   };
 
-  const handleUnitsChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checked) {
-      setSettings({ ...settings, units: e.target.value as Settings["units"] });
-    }
+  const handleUnitsChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setSettings({ ...settings, units: e.target.value as Settings["units"] });
   };
 
   return (
@@ -43,43 +39,26 @@ export function SettingsDialog({ visible, onClose }: Props) {
         <DialogTitle id="settings-dialog-title">Settings</DialogTitle>
       </DialogHeader>
       <DialogContent>
-        <Fieldset legend="Sport">
-          <Radio
-            id="settings-dialog-cycling"
-            name="settings-dialog-sport"
-            label="Cycling"
-            value="cycling"
-            checked={settings.sport === "cycling"}
-            onChange={handleSportChange}
-          />
-          <Radio
-            id="settings-dialog-running"
-            name="settings-dialog-sport"
-            label="Running"
-            value="running"
-            checked={settings.sport === "running"}
-            onChange={handleSportChange}
-          />
-        </Fieldset>
+        <NativeSelect
+          id="settings-dialog-sport"
+          label="Sport"
+          value={settings.sport}
+          onChange={handleSportChange}
+          style={{ marginBottom: "1rem" }}
+        >
+          <option value="cycling">Cycling</option>
+          <option value="running">Running</option>
+        </NativeSelect>
 
-        <Fieldset legend="Units">
-          <Radio
-            id="settings-dialog-metric"
-            name="settings-dialog-units"
-            label="Metric"
-            value="metric"
-            checked={settings.units === "metric"}
-            onChange={handleUnitsChange}
-          />
-          <Radio
-            id="settings-dialog-imperial"
-            name="settings-dialog-units"
-            label="Imperial"
-            value="imperial"
-            checked={settings.units === "imperial"}
-            onChange={handleUnitsChange}
-          />
-        </Fieldset>
+        <NativeSelect
+          id="settings-dialog-Units"
+          label="Units"
+          value={settings.sport}
+          onChange={handleUnitsChange}
+        >
+          <option value="metric">Metric</option>
+          <option value="imperial">Imperial</option>
+        </NativeSelect>
       </DialogContent>
       <DialogFooter>
         <Button id="dialog-close" onClick={onClose}>
