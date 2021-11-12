@@ -11,6 +11,7 @@ import React, { ChangeEvent } from "react";
 import { Sport } from "zwift-data";
 import { useSettings } from "../../hooks/useSettings";
 import { Settings } from "../../types";
+import { StravaSettings } from "./StravaSettings";
 
 interface Props {
   visible: boolean;
@@ -55,10 +56,13 @@ export function SettingsDialog({ visible, onClose }: Props) {
           label="Units"
           value={settings.sport}
           onChange={handleUnitsChange}
+          style={{ marginBottom: "1rem" }}
         >
           <option value="metric">Metric</option>
           <option value="imperial">Imperial</option>
         </NativeSelect>
+
+        <StravaSettings />
       </DialogContent>
       <DialogFooter>
         <Button id="dialog-close" onClick={onClose}>

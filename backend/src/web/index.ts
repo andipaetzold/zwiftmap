@@ -26,6 +26,8 @@ app.get("/strava/callback", handlers.handleStravaAuthorizeCallback);
 app.post("/strava/refresh", handlers.handleStravaTokenRefresh);
 app.post("/strava/webhook", handlers.handleWebhook);
 app.get("/strava/webhook", handlers.handleWebhookVerification);
+app.get("/strava/settings", handlers.handleGETStravaSettings);
+app.put("/strava/settings", handlers.handlePUTStravaSettings);
 
 app.post("/share", handlers.handleCreateShare);
 app.get("/share/:shareId", handlers.handleGetShare);

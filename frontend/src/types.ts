@@ -31,3 +31,7 @@ export interface ShareStravaActivity {
   athlete: { id: number };
   streams: StreamSet;
 }
+
+export interface StravaSettings {
+  addLinkToActivityDescription: boolean;
+}
