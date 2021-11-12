@@ -31,7 +31,7 @@ export async function addLinkToActivity(
     throw new ErrorWithStatusCode("Activity is no Zwift activity", 404);
   }
 
-  if (activity.description.includes(FRONTEND_URL)) {
+  if ((activity.description ?? "").includes(FRONTEND_URL)) {
     throw new ErrorWithStatusCode(
       "ZwiftMap link was already added to description",
       409
