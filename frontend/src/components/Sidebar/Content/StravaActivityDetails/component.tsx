@@ -5,6 +5,8 @@ import { StravaActivity } from "../../../../services/StravaActivityRepository";
 import { ElevationChart } from "../../../ElevationChart";
 import { StravaActivityFacts } from "./StravaActivityFacts";
 import { StravaActivityLinks } from "./StravaActivityLinks";
+import { StravaActivityRoutes } from "./StravaActivityRoutes";
+import { StravaActivitySegments } from "./StravaActivitySegments";
 import { StravaActivitySharing } from "./StravaActivitySharing";
 
 interface Props {
@@ -33,6 +35,9 @@ export function StravaActivityDetailsComponent({
           onMouseHoverDistanceChange={onMouseHoverDistanceChange}
         />
       </SimpleListItem>
+
+      <StravaActivityRoutes activity={activity} />
+      <StravaActivitySegments activity={activity} />
 
       <StravaActivityLinks activity={activity} />
       <StravaActivitySharing activity={activity} />

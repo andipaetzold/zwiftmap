@@ -4,14 +4,13 @@ import { OpenInNewFontIcon } from "@react-md/material-icons";
 import { StravaActivity } from "../../../../services/StravaActivityRepository";
 import stravaLogo from "../../../../assets/strava-40x40.png";
 
-export interface Props {
+interface Props {
   activity: StravaActivity;
 }
 
 export function StravaActivityLinks({ activity }: Props) {
   return (
     <>
-      {" "}
       <ListSubheader>Links</ListSubheader>
       <ListItemLink
         href={`https://www.strava.com/activities/${activity.id}`}

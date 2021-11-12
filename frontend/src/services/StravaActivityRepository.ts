@@ -1,3 +1,4 @@
+import { DetailedSegmentEffort } from "strava";
 import { World } from "zwift-data";
 import { getWorld } from "../util/strava";
 import {
@@ -29,6 +30,7 @@ export async function getStravaActivity(
     photoUrl: activity.photos.primary?.urls["100"],
     streams: await fetchStravaActivityStreams(activityId),
     kudos: activity.kudos_count,
+    segmentEfforts: activity.segment_efforts,
   };
 }
 
@@ -75,6 +77,7 @@ export interface StravaActivity {
   photoUrl?: string;
   streams: StravaActivityStreams;
   kudos: number;
+  segmentEfforts: DetailedSegmentEffort[];
 }
 
 export interface StravaActivityStreams {

@@ -1,16 +1,20 @@
 import { ListItem, ListSubheader, SimpleListItem } from "@react-md/list";
 import {
   VisibilityFontIcon,
-  VisibilityOffFontIcon
+  VisibilityOffFontIcon,
 } from "@react-md/material-icons";
 import { Text } from "@react-md/typography";
 import React from "react";
 import { useAsync } from "react-async-hook";
 import { Route, Segment, segments, SegmentType } from "zwift-data";
-import { IsLoggedInStrava, useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";
+import { FORMAT_INCLINE } from "../../../../constants";
+import {
+  IsLoggedInStrava,
+  useIsLoggedInStrava,
+} from "../../../../hooks/useIsLoggedInStrava";
 import {
   LocationStateRoute,
-  useLocationState
+  useLocationState,
 } from "../../../../services/location-state";
 import { fetchSegment } from "../../../../services/strava/api";
 import { Distance } from "../../../Distance";
@@ -109,15 +113,7 @@ function SecondaryText({ segment }: SecondaryTextProps) {
     <>
       <Distance distance={segment.distance} />
       {segment.avgIncline && (
-        <>
-          {" "}
-          |{" "}
-          {new Intl.NumberFormat("en-US", {
-            minimumFractionDigits: 1,
-            maximumFractionDigits: 1,
-            style: "percent",
-          }).format(segment.avgIncline / 100)}
-        </>
+        <> | {FORMAT_INCLINE.format(segment.avgIncline / 100)}</>
       )}
       <br />
       {segmentPB ? (
