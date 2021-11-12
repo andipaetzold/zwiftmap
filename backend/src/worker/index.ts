@@ -11,10 +11,7 @@ Sentry.init({
 
 stravaWebhookEventQueue.process(async (job, jobDone) => {
   const webhookEvent = job.data;
-  console.log(`Processing Strava WebhookEvent`, {
-    jobId: job.id,
-    webhookEvent,
-  });
+  console.log(`Processing Strava WebhookEvent`, { jobId: job.id });
 
   switch (webhookEvent.object_type) {
     case "athlete": {
