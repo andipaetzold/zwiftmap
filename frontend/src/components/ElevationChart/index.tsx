@@ -1,7 +1,7 @@
 import { SimpleListItem } from "@react-md/list";
 import { Text } from "@react-md/typography";
 import uniqWith from "lodash/uniqWith";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { useAsync } from "react-async-hook";
 import {
   Area,
@@ -9,7 +9,6 @@ import {
   CartesianGrid,
   ResponsiveContainer,
   Tooltip,
-  TooltipProps,
   XAxis,
   YAxis,
 } from "recharts";
@@ -55,11 +54,6 @@ export function RouteElevationChart({
   );
 }
 
-interface HoverData {
-  distance: number;
-  altitude: number;
-}
-
 interface Props {
   distanceStream: number[];
   altitudeStream: number[];
@@ -71,12 +65,24 @@ export function ElevationChart({
   altitudeStream,
   onMouseHoverDistanceChange,
 }: Props) {
-  const [hoverData, setHoverData] = useState<HoverData | undefined>(undefined);
+  const [currentDistance, setCurrentDistance] = useState<number | undefined>(
+    undefined
+  );
+  const [currentAltitude, setCurrentAltitude] = useState<number | undefined>(
+    undefined
+  );
 
-  const handleMouseMove = (data?: HoverData) => {
-    onMouseHoverDistanceChange(data?.distance);
-    setHoverData(data);
-  };
+  const handleMouseMove = useCallback(
+    (data: any) => {
+      const distance = data.activePayload?.[0]?.payload.distance;
+      const elevation = data.activePayload?.[0]?.payload.elevation;
+
+      onMouseHoverDistanceChange(distance);
+      setCurrentDistance(distance);
+      setCurrentAltitude(elevation);
+    },
+    [onMouseHoverDistanceChange]
+  );
 
   const data: any[] | undefined = useMemo(() => {
     return uniqWith(
@@ -105,6 +111,7 @@ export function ElevationChart({
           }}
           // @ts-ignore
           baseValue="dataMin"
+          onMouseMove={handleMouseMove}
         >
           <defs>
             <ElevationGradient />
@@ -130,9 +137,7 @@ export function ElevationChart({
             hide={true}
           />
           <Tooltip
-            content={(props) => (
-              <TooltipContent {...props} onMouseMove={handleMouseMove} />
-            )}
+            content={TooltipContent}
             isAnimationActive={false}
             position={{ y: 10 }}
             cursor={{ stroke: "black" }}
@@ -152,40 +157,17 @@ export function ElevationChart({
       <div style={{ display: "flex", gap: "1em" }}>
         <Text type="body-2" style={{ whiteSpace: "nowrap" }}>
           Distance:{" "}
-          {hoverData?.distance ? (
-            <Distance distance={hoverData.distance} />
-          ) : (
-            "- km"
-          )}
+          {currentDistance ? <Distance distance={currentDistance} /> : "- km"}
         </Text>
         <Text type="body-2" style={{ whiteSpace: "nowrap" }}>
           Altitude:{" "}
-          {hoverData?.altitude ? (
-            <Elevation elevation={hoverData.altitude} />
-          ) : (
-            "- m"
-          )}
+          {currentAltitude ? <Elevation elevation={currentAltitude} /> : "- m"}
         </Text>
       </div>
     </div>
   );
 }
 
-interface TooltipContentProps extends TooltipProps<any, any> {
-  onMouseMove: (distance: HoverData | undefined) => void;
-}
-
-function TooltipContent(props: TooltipContentProps) {
-  useEffect(() => {
-    if (props.payload === undefined || props.payload.length === 0) {
-      props.onMouseMove(undefined);
-    } else {
-      props.onMouseMove({
-        distance: props.payload[0].payload.distance,
-        altitude: props.payload[0].payload.elevation,
-      });
-    }
-  }, [props]);
-
+function TooltipContent() {
   return null;
 }
