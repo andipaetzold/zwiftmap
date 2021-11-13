@@ -27,6 +27,6 @@ export async function handleWebhook(req: Request, res: Response) {
     removeOnComplete: true,
     removeOnFail: true,
   });
-  console.log(`Enqueued job ${job.id}`);
+  req.logger.log(`Enqueued job ${job.id}`);
   res.sendStatus(204);
 }

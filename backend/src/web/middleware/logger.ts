@@ -3,16 +3,18 @@ import { IncomingMessage, OutgoingMessage } from "http";
 
 type LogFn = (...data: any) => void;
 
+export interface Logger {
+  debug: LogFn;
+  info: LogFn;
+  log: LogFn;
+  error: LogFn;
+  trace: LogFn;
+  warn: LogFn;
+}
+
 declare module "http" {
   interface IncomingMessage {
-    logger: {
-      debug: LogFn;
-      info: LogFn;
-      log: LogFn;
-      error: LogFn;
-      trace: LogFn;
-      warn: LogFn;
-    };
+    logger: Logger;
   }
 }
 
