@@ -1,14 +1,14 @@
+import "source-map-support/register";
 import * as Sentry from "@sentry/node";
 import * as Tracing from "@sentry/tracing";
-import "source-map-support/register";
-import { PORT, SENTRY_DSN } from "../shared/config";
+import { PORT, SENTRY_WEB_DSN } from "../shared/config";
 import * as handlers from "./handlers";
 import { app } from "./server";
 import { setupWebhook } from "./services/webhook";
 
 Sentry.init({
-  enabled: SENTRY_DSN.length > 0,
-  dsn: SENTRY_DSN,
+  enabled: SENTRY_WEB_DSN.length > 0,
+  dsn: SENTRY_WEB_DSN,
   integrations: [
     new Sentry.Integrations.Http({ tracing: true }),
     new Tracing.Integrations.Express({ app }),

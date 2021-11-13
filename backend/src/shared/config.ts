@@ -16,7 +16,8 @@ export const STRAVA_WEBHOOK_HOST =
   process.env.STRAVA_WEBHOOK_HOST ?? BACKEND_URL;
 export const STRAVA_VERIFY_TOKEN = randomString();
 
-export const SENTRY_DSN = process.env.SENTRY_DSN ?? "";
+export const SENTRY_WEB_DSN = process.env.SENTRY_WEB_DSN ?? "";
+export const SENTRY_WORKER_DSN = process.env.SENTRY_WORKER_DSN ?? "";
 
 export const REDIS_URL = process.env.REDIS_URL!;
 

@@ -1,12 +1,12 @@
 import * as Sentry from "@sentry/node";
-import { SENTRY_DSN } from "../shared/config";
+import { SENTRY_WORKER_DSN } from "../shared/config";
 import { stravaWebhookEventQueue } from "../shared/queue";
 import { handleActivityCreate } from "./handler/activity-create";
 import { handleAthleteUpdate } from "./handler/athlete-update";
 
 Sentry.init({
-  enabled: SENTRY_DSN.length > 0,
-  dsn: SENTRY_DSN,
+  enabled: SENTRY_WORKER_DSN.length > 0,
+  dsn: SENTRY_WORKER_DSN,
 });
 
 stravaWebhookEventQueue.process(async (job, jobDone) => {
