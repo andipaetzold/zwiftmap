@@ -3,7 +3,6 @@ import connectRedis from "connect-redis";
 import cors from "cors";
 import express from "express";
 import session from "express-session";
-import morgan from "morgan";
 import nocache from "nocache";
 import {
   AUTH_COOKIE_NAME,
@@ -12,11 +11,16 @@ import {
   FRONTEND_URL,
 } from "../shared/config";
 import { redisClient } from "../shared/persistence/redis";
+import { logger } from "./middleware/logger";
+import { requestId } from "./middleware/requestId";
+import { requestLogger } from "./middleware/requestLogger";
 
 export const app = express();
 app.use(nocache());
 app.use(compression());
-app.use(morgan("tiny"));
+app.use(requestId);
+app.use(requestLogger);
+app.use(logger);
 
 const corsOptions: cors.CorsOptions = {
   origin: FRONTEND_URL,
