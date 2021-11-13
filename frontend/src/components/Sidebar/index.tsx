@@ -7,6 +7,7 @@ import {
 import c from "classnames";
 import React, { useRef, useState } from "react";
 import { useLocationState } from "../../services/location-state";
+import { HoverData } from "../../types";
 import { Content } from "./Content";
 import styles from "./index.module.scss";
 import { MenuButton } from "./MenuButton";
@@ -14,7 +15,7 @@ import { SearchInput } from "./SearchInput";
 
 interface Props {
   onMouseHoverDistanceChange: (distance: number | undefined) => void;
-  onHoverRoute: (previewRoute: string | undefined) => void;
+  onHoverRoute: (data: HoverData) => void;
 }
 
 export function Sidebar({ onMouseHoverDistanceChange, onHoverRoute }: Props) {

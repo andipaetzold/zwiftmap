@@ -16,6 +16,7 @@ import {
 } from "../../../../../services/location-state";
 import { useStravaAuthUrl } from "../../../../../services/strava/auth";
 import { getStravaActivity } from "../../../../../services/StravaActivityRepository";
+import { HoverData } from "../../../../../types";
 import { Distance } from "../../../../Distance";
 import { Elevation } from "../../../../Elevation";
 import { LoadingSpinnerListItem } from "../../../../Loading";
@@ -23,7 +24,7 @@ import { Time } from "../../../../Time";
 
 export interface Props {
   activity: { activityId: number; slug: string };
-  onHoverRoute: (route?: string) => void;
+  onHoverRoute: (data: HoverData) => void;
 }
 
 export function ListItemStravaActivity({ activity, onHoverRoute }: Props) {

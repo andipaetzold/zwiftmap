@@ -17,9 +17,10 @@ import { ListItemRoute } from "./Items/ListItemRoute";
 import { ListItemStravaActivity } from "./Items/ListItemStravaActivity";
 import { ListItemWorld } from "./Items/ListItemWorld";
 import { SortButton, SortState } from "../../../SortButton";
+import { HoverData } from "../../../../types";
 
 interface Props {
-  onHoverRoute: (route?: string) => void;
+  onHoverRoute: (data: HoverData) => void;
 }
 
 export function SearchResultList({ onHoverRoute }: Props) {
@@ -55,7 +56,7 @@ export function SearchResultList({ onHoverRoute }: Props) {
 interface SearchResultsTypeListProps {
   results: ReadonlyArray<SearchResult>;
   type: SearchResult["type"];
-  onHoverRoute: (route?: string) => void;
+  onHoverRoute: (data: HoverData) => void;
   sortState: SortState;
 }
 function SearchResultsTypeList({
@@ -95,7 +96,7 @@ function SearchResultsTypeList({
 
 interface SearchResultCardProps {
   searchResult: SearchResult;
-  onHoverRoute: (route?: string) => void;
+  onHoverRoute: (data: HoverData) => void;
 }
 
 function SearchResultCard({

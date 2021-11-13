@@ -6,13 +6,14 @@ import {
   LocationStateDefault,
   useLocationState,
 } from "../../../../../services/location-state";
+import { HoverData } from "../../../../../types";
 import { Distance } from "../../../../Distance";
 import { Elevation } from "../../../../Elevation";
 import { ElevationChartPreview } from "../../../../ElevationChartPreview";
 
 export interface Props {
   route: Route;
-  onHoverRoute: (route?: string) => void;
+  onHoverRoute: (data: HoverData) => void;
   showWorldName: boolean;
 }
 
@@ -37,7 +38,7 @@ export function ListItemRoute({ route, onHoverRoute, showWorldName }: Props) {
       onClick={handleClick}
       rightAddonType="large-media"
       rightAddon={<ChartContainer route={route} />}
-      onMouseEnter={() => onHoverRoute(route.slug)}
+      onMouseEnter={() => onHoverRoute({ type: "route", route: route.slug })}
       onMouseLeave={() => onHoverRoute(undefined)}
     >
       {route.name}

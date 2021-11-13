@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
+    "@mapbox/polyline": "1.1.1",
     "@react-leaflet/core": "1.0.2",
     "@react-md/alert": "3.1.0",
     "@react-md/avatar": "3.1.0",
@@ -73,6 +74,7 @@
   },
   "devDependencies": {
     "@tsconfig/create-react-app": "1.0.2",
+    "@types/mapbox__polyline": "1.0.2",
     "netlify-cli": "6.14.23",
     "prettier": "2.4.1",
     "sass": "1.43.4"

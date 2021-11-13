@@ -7,10 +7,11 @@ import {
 } from "../../../../services/location-state";
 import { ZwiftEvent } from "../../../../services/events";
 import { EventInfo } from "../../../EventInfo";
+import { HoverData } from "../../../../types";
 
 interface Props {
   event: ZwiftEvent;
-  onHoverRoute: (route?: string) => void;
+  onHoverRoute: (data: HoverData) => void;
 }
 
 export function EventItem({ event, onHoverRoute }: Props) {
@@ -42,7 +43,7 @@ export function EventItem({ event, onHoverRoute }: Props) {
       }}
       rightAddon={route ? undefined : <OpenInNewFontIcon />}
       rightAddonType={route ? undefined : "icon"}
-      onMouseEnter={() => onHoverRoute(route?.slug)}
+      onMouseEnter={() => onHoverRoute({ type: "route", route: route!.slug })}
       onMouseLeave={() => onHoverRoute(undefined)}
     >
       {event.name}

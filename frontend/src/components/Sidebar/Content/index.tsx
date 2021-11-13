@@ -3,6 +3,7 @@ import {
   DEFAULT_WORLD,
   useLocationState,
 } from "../../../services/location-state";
+import { HoverData } from "../../../types";
 import { Event } from "./Event";
 import { RouteList } from "./Lists/RouteList";
 import { SearchResultList } from "./Lists/SearchResultList";
@@ -14,7 +15,7 @@ import { UpcomingEvents } from "./UpcomingEvents";
 
 interface Props {
   onMouseHoverDistanceChange: (distance: number | undefined) => void;
-  onHoverRoute: (previewRoute: string | undefined) => void;
+  onHoverRoute: (data: HoverData) => void;
 }
 
 export function Content({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
@@ -49,7 +50,7 @@ export function Content({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
         />
       );
     case "strava-activities":
-      return <StravaActivitiesList />;
+      return <StravaActivitiesList onHoverRoute={onHoverRoute} />;
     case "events":
       return <UpcomingEvents onHoverRoute={onHoverRoute} />;
     case "event":

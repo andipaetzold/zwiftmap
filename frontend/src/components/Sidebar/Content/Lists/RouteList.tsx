@@ -11,9 +11,10 @@ import { useSettings } from "../../../../hooks/useSettings";
 import { sortRoute } from "../../../../util/sort";
 import { SortButton, SortState } from "../../../SortButton";
 import { ListItemRoute } from "./Items/ListItemRoute";
+import { HoverData } from "../../../../types";
 
 interface Props {
-  onHoverRoute: (route?: string) => void;
+  onHoverRoute: (data: HoverData) => void;
 }
 
 export function RouteList({ onHoverRoute }: Props) {

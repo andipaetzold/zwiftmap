@@ -7,7 +7,7 @@ import {
   ListItemLink,
   ListItemText,
   ListSubheader,
-  SimpleListItem
+  SimpleListItem,
 } from "@react-md/list";
 import { ListFontIcon, OpenInNewFontIcon } from "@react-md/material-icons";
 import React from "react";
@@ -17,7 +17,7 @@ import stravaLogo from "../../../../assets/strava-40x40.png";
 import { useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";
 import {
   LocationStateStravaActivities,
-  useLocationState
+  useLocationState,
 } from "../../../../services/location-state";
 import { getLoggedInAthleteActivities } from "../../../../services/strava/api";
 import { useStravaAuthUrl } from "../../../../services/strava/auth";
@@ -26,13 +26,19 @@ import { Distance } from "../../../Distance";
 import { Elevation } from "../../../Elevation";
 import { LoadingSpinnerListItem } from "../../../Loading";
 import { Time } from "../../../Time";
+import polyline from "@mapbox/polyline";
+import { HoverData } from "../../../../types";
 
 const PER_PAGE = 30;
 
 const monthInSeconds = 30 * 24 * 60 * 60;
 const now = new Date().getTime() / 1_000;
 
-export function StravaActivitiesList() {
+interface Props {
+  onHoverRoute: (data: HoverData) => void;
+}
+
+export function StravaActivitiesList(props: Props) {
   const isLoggedInStrava = useIsLoggedInStrava();
   const stravaAuthUrl = useStravaAuthUrl();
 
@@ -88,10 +94,10 @@ export function StravaActivitiesList() {
     );
   }
 
-  return <StravaActivitiesListWithToken />;
+  return <StravaActivitiesListWithToken {...props} />;
 }
 
-export function StravaActivitiesListWithToken() {
+export function StravaActivitiesListWithToken({ onHoverRoute }: Props) {
   const [locationState, setLocationState] =
     useLocationState<LocationStateStravaActivities>();
 
@@ -148,6 +154,7 @@ export function StravaActivitiesListWithToken() {
             <ListItem
               key={activity.id}
               onClick={() => {
+                onHoverRoute(undefined);
                 setLocationState({
                   world: world!,
                   query: "",
@@ -155,6 +162,13 @@ export function StravaActivitiesListWithToken() {
                   stravaActivityId: activity.id,
                 });
               }}
+              onMouseEnter={() =>
+                onHoverRoute({
+                  type: "latlng",
+                  latlng: polyline.decode(activity.map.summary_polyline),
+                })
+              }
+              onMouseLeave={() => onHoverRoute(undefined)}
               secondaryText={
                 <>
                   <Distance distance={activity.distance / 1_000} /> |{" "}

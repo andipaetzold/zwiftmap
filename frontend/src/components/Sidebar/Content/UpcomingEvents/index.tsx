@@ -9,11 +9,12 @@ import {
   LocationStateUpcomingEvents,
   useLocationState,
 } from "../../../../services/location-state";
+import { HoverData } from "../../../../types";
 import { LoadingSpinnerListItem } from "../../../Loading";
 import { EventItem } from "./EventItem";
 
 interface Props {
-  onHoverRoute: (route?: string) => void;
+  onHoverRoute: (data: HoverData) => void;
 }
 
 export function UpcomingEvents({ onHoverRoute }: Props) {

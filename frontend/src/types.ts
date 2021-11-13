@@ -1,3 +1,4 @@
+import { LatLngTuple } from "leaflet";
 import { DetailedActivity, StreamSet } from "strava";
 import { Sport } from "zwift-data";
 
@@ -34,4 +35,16 @@ export interface ShareStravaActivity {
 
 export interface StravaSettings {
   addLinkToActivityDescription: boolean;
+}
+
+export type HoverData = undefined | HoverDataRoute | HoverDataLatLng;
+
+export interface HoverDataRoute {
+  type: "route";
+  route: string;
+}
+
+export interface HoverDataLatLng {
+  type: "latlng";
+  latlng: LatLngTuple[];
 }

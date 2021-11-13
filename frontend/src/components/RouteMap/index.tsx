@@ -22,10 +22,11 @@ import styles from "./index.module.css";
 import { Map } from "./Map";
 import { WorldSelect } from "./WorldSelect";
 import { getShare } from "../../services/zwiftMapApi";
+import { HoverData } from "../../types";
 
 interface Props {
   mouseHoverDistance: number | undefined;
-  previewRoute?: string;
+  previewRoute: HoverData;
 }
 
 export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
@@ -98,10 +99,7 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
           const share = await getShare(shareId!);
           return {
             distance: share.streams.distance.data,
-            latlng: share.streams.latlng.data as unknown as [
-              number,
-              number
-            ][],
+            latlng: share.streams.latlng.data as unknown as [number, number][],
           };
         }
       }
@@ -115,13 +113,19 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
     ]
   );
 
-  const { result: previewRouteStravaSegment } = useAsync(
-    async (r: string | undefined) => {
+  const { result: previewLatLng } = useAsync<LatLngTuple[] | undefined>(
+    async (r: HoverData) => {
       if (r === undefined) {
         return;
       }
 
-      return await getStravaSegmentStreams(r, "routes", ["latlng"]);
+      switch (r.type) {
+        case "route":
+          return (await getStravaSegmentStreams(r.route, "routes", ["latlng"]))
+            .latlng;
+        case "latlng":
+          return r.latlng;
+      }
     },
     [previewRoute]
   );
@@ -158,7 +162,7 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
         key={selectedWorld.slug}
         world={selectedWorld}
         hoverPoint={pointCoordinates}
-        previewRouteLatLngStream={previewRouteStravaSegment?.latlng}
+        previewRouteLatLngStream={previewLatLng}
         routeLatLngStream={routeStreamSet?.latlng}
         segmentLatLngStreams={segmentsLatLngStreams}
       />
