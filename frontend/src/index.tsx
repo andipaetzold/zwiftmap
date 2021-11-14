@@ -18,6 +18,7 @@ import {
 Sentry.init({
   enabled: (process.env.REACT_APP_SENTRY_DSN ?? "").length > 0,
   dsn: process.env.REACT_APP_SENTRY_DSN,
+  environment: 'production',
   integrations: [
     new Integrations.BrowserTracing({
       tracingOrigins: [BACKEND_HOST],
