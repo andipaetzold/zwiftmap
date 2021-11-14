@@ -1,16 +1,12 @@
 import { DetailedSegmentEffort } from "strava";
 import { World } from "zwift-data";
 import { getWorld } from "../util/strava";
-import {
-  fetchActivity,
-  fetchActivityStreams,
-  updateActivity,
-} from "./strava/api";
+import { getStravaActivityById, getStravaActivityStreams, updateStravaActivity } from "./zwiftMapApi";
 
 export async function getStravaActivity(
   activityId: number
 ): Promise<StravaActivity> {
-  const activity = await fetchActivity(activityId);
+  const activity = await getStravaActivityById(activityId);
 
   const world = getWorld(activity.start_latlng as [number, number]);
 
@@ -37,7 +33,7 @@ export async function getStravaActivity(
 async function fetchStravaActivityStreams(
   activityId: number
 ): Promise<StravaActivityStreams> {
-  const streams = await fetchActivityStreams(activityId);
+  const streams = await getStravaActivityStreams(activityId);
 
   return {
     altitude: streams.altitude.data,
@@ -55,14 +51,14 @@ export async function appendStravaDescription(
   activityId: number,
   text: string
 ) {
-  const activity = await fetchActivity(activityId);
+  const activity = await getStravaActivityById(activityId);
 
   const description =
     (activity.description ?? "") === ""
       ? text
       : `${activity.description}\n\n${text}`;
 
-  await updateActivity({ id: activityId, description });
+  await updateStravaActivity(activityId, { description });
 }
 
 export interface StravaActivity {

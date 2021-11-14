@@ -7,7 +7,7 @@ import {
   IsLoggedInStrava,
   useIsLoggedInStrava
 } from "../../../../hooks/useIsLoggedInStrava";
-import { fetchSegment } from "../../../../services/strava/api";
+import { getStravaSegmentById } from "../../../../services/zwiftMapApi";
 import { LoadingSpinner, LoadingSpinnerListItem } from "../../../Loading";
 import { Time } from "../../../Time";
 
@@ -28,7 +28,7 @@ export function RouteStravaPB({ route }: Props) {
         return null;
       }
 
-      return await fetchSegment(segmentId.toString());
+      return await getStravaSegmentById(segmentId);
     },
     [isLoggedInStrava, route.stravaSegmentId]
   );

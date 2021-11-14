@@ -19,7 +19,6 @@ import {
   LocationStateStravaActivities,
   useLocationState,
 } from "../../../../services/location-state";
-import { getLoggedInAthleteActivities } from "../../../../services/strava/api";
 import { useStravaAuthUrl } from "../../../../services/strava/auth";
 import { getWorld } from "../../../../util/strava";
 import { Distance } from "../../../Distance";
@@ -28,6 +27,7 @@ import { LoadingSpinnerListItem } from "../../../Loading";
 import { Time } from "../../../Time";
 import polyline from "@mapbox/polyline";
 import { HoverData } from "../../../../types";
+import { getStravaActivities } from "../../../../services/zwiftMapApi";
 
 const PER_PAGE = 30;
 
@@ -107,7 +107,7 @@ export function StravaActivitiesListWithToken({ onHoverRoute }: Props) {
     let page = 1;
     let newResults = [];
     do {
-      newResults = await getLoggedInAthleteActivities({
+      newResults = await getStravaActivities({
         after: now - monthInSeconds,
         per_page: PER_PAGE,
         page,

@@ -1,5 +1,10 @@
 import axios, { AxiosInstance } from "axios";
-import { DetailedActivity, StreamSet } from "strava";
+import {
+  DetailedActivity,
+  DetailedSegment,
+  StreamSet,
+  SummaryActivity,
+} from "strava";
 import { STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET } from "../config";
 import {
   readStravaToken,
@@ -78,12 +83,37 @@ export async function getActivityById(
   return response.data;
 }
 
+interface GetActivitiesParams {
+  before?: number;
+  after?: number;
+  page?: number;
+  per_page?: number;
+}
+
+export async function getActivities(
+  athleteId: number,
+  params: GetActivitiesParams
+): Promise<SummaryActivity[]> {
+  const api = await getStravaUserAPI(athleteId);
+  const response = await api.get<SummaryActivity[]>(`/athlete/activities`, {
+    params,
+  });
+  return response.data;
+}
+
 export async function updateActivity(
   athleteId: number,
-  activity: Partial<DetailedActivity>
+  activityId: number,
+  activity: Partial<Pick<DetailedActivity, "description">>
 ): Promise<void> {
   const api = await getStravaUserAPI(athleteId);
-  await api.put<DetailedActivity>(`/activities/${activity.id}`, activity);
+  await api.put<DetailedActivity>(`/activities/${activityId}`, activity);
+}
+
+export async function getSegmentById(athleteId: number, segmentId: number) {
+  const api = await getStravaUserAPI(athleteId);
+  const response = await api.get<DetailedSegment>(`/segments/${segmentId}`);
+  return response.data;
 }
 
 export async function getActivityStreams(

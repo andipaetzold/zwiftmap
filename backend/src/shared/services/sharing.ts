@@ -44,7 +44,7 @@ export async function addLinkToActivity(
       ? text
       : `${activity.description}\n\n${text}`;
 
-  await updateActivity(athleteId, { description });
+  await updateActivity(athleteId, activityId, { description });
 }
 
 async function createShare(

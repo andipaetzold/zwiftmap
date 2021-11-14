@@ -8,10 +8,20 @@ function getCacheKey(config: AxiosRequestConfig): string {
   });
 }
 
-export function createAxiosCacheAdapter(): AxiosAdapter {
+interface Options {
+  filter?: (config: AxiosRequestConfig) => boolean;
+}
+
+export function createAxiosCacheAdapter({
+  filter = () => true,
+}: Options = {}): AxiosAdapter {
   const store = new Map<string, AxiosPromise>();
 
   return (config: AxiosRequestConfig): AxiosPromise => {
+    if (!filter(config)) {
+      return axios.defaults.adapter!(config);
+    }
+
     if (config.method?.toLowerCase() !== "get") {
       return axios.defaults.adapter!(config);
     }

@@ -22,12 +22,17 @@ app.use(Sentry.Handlers.tracingHandler());
 app.post("/auth/logout", handlers.handleLogout);
 
 app.get("/strava/authorize", handlers.handleStravaAuthorize);
+app.get("/strava/activities", handlers.handleGETActivities);
+app.get("/strava/activities/:activityId", handlers.handleGETActivity);
+app.put("/strava/activities/:activityId", handlers.handlePUTActivity);
+app.get("/strava/activities/:activityId/streams", handlers.handleGETActivityStreams);
 app.get("/strava/callback", handlers.handleStravaAuthorizeCallback);
 app.post("/strava/refresh", handlers.handleStravaTokenRefresh);
-app.post("/strava/webhook", handlers.handleWebhook);
-app.get("/strava/webhook", handlers.handleWebhookVerification);
+app.get("/strava/segments/:segmentId", handlers.handleGETSegment);
 app.get("/strava/settings", handlers.handleGETStravaSettings);
 app.put("/strava/settings", handlers.handlePUTStravaSettings);
+app.post("/strava/webhook", handlers.handleWebhook);
+app.get("/strava/webhook", handlers.handleWebhookVerification);
 
 app.post("/share", handlers.handleCreateShare);
 app.get("/share/:shareId", handlers.handleGetShare);

@@ -16,7 +16,7 @@ import {
   LocationStateRoute,
   useLocationState,
 } from "../../../../services/location-state";
-import { fetchSegment } from "../../../../services/strava/api";
+import { getStravaSegmentById } from "../../../../services/zwiftMapApi";
 import { Distance } from "../../../Distance";
 import { Time } from "../../../Time";
 
@@ -100,7 +100,7 @@ function SecondaryText({ segment }: SecondaryTextProps) {
       if (sid === undefined || loggedIn !== true) {
         return null;
       }
-      return await fetchSegment(sid.toString());
+      return await getStravaSegmentById(sid);
     },
     [segment.stravaSegmentId, isLoggedIn]
   );
