@@ -31,7 +31,6 @@ app.get(
   handlers.handleGETActivityStreams
 );
 app.get("/strava/callback", handlers.handleStravaAuthorizeCallback);
-app.post("/strava/refresh", handlers.handleStravaTokenRefresh);
 app.get("/strava/segments/:segmentId", handlers.handleGETSegment);
 app.get("/strava/settings", handlers.handleGETStravaSettings);
 app.put("/strava/settings", handlers.handlePUTStravaSettings);
