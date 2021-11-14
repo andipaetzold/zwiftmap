@@ -2,6 +2,7 @@ import { Button } from "@react-md/button";
 import { TextIconSpacing } from "@react-md/icon";
 import { List, ListSubheader, SimpleListItem } from "@react-md/list";
 import { ListFontIcon } from "@react-md/material-icons";
+import { useState } from "react";
 import { useAsync } from "react-async-hook";
 import { useSettings } from "../../../../hooks/useSettings";
 import { fetchEvents } from "../../../../services/events";
@@ -10,6 +11,7 @@ import {
   useLocationState,
 } from "../../../../services/location-state";
 import { HoverData } from "../../../../types";
+import { DEFAULT_FILTER_STATE, EventFilterButton } from "./FilterButton";
 import { LoadingSpinnerListItem } from "../../../Loading";
 import { EventItem } from "./EventItem";
 
@@ -22,6 +24,8 @@ export function UpcomingEvents({ onHoverRoute }: Props) {
   const [settings] = useSettings();
   const [locationState, setLocationState] =
     useLocationState<LocationStateUpcomingEvents>();
+
+  const [filterState, setFilterState] = useState(DEFAULT_FILTER_STATE);
 
   const backButton = (
     <SimpleListItem>
@@ -67,10 +71,14 @@ export function UpcomingEvents({ onHoverRoute }: Props) {
   return (
     <List>
       {backButton}
+
       <ListSubheader>Upcoming Event</ListSubheader>
+
+      <EventFilterButton state={filterState} onChange={setFilterState} />
 
       {events
         .filter((e) => e.sport.toLowerCase() === settings.sport)
+        .filter((e) => filterState.eventTypes.includes(e.eventType))
         .map((event) => (
           <EventItem key={event.id} event={event} onHoverRoute={onHoverRoute} />
         ))}
