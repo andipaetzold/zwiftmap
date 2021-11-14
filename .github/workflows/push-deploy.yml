@@ -70,7 +70,7 @@ jobs:
         with:
           environment: production
           ignore_empty: true
-          projects: web,worker
+          projects: web worker
 
 
   static-map:
