@@ -1,36 +1,36 @@
 import { useEffect, useState } from "react";
-import { RefreshTokenResponse } from "strava/dist/types";
-import { emitter, STRAVA_TOKEN_UPDATE } from "../services/emitter";
-import { getStravaToken, StravaTokenLoading } from "../services/strava/token";
+import { AuthStatusLoading, getCachedAuthStatus } from "../services/auth";
+import { AUTH_STATUS_UPDATE, emitter } from "../services/emitter";
+import { AuthStatus } from "../types";
 
 export type IsLoggedInStrava = boolean | null;
 
-function stravaTokenToState(
-  stravaToken: RefreshTokenResponse | null | typeof StravaTokenLoading
+function authStatusToState(
+  authStatus: AuthStatus | typeof AuthStatusLoading
 ): IsLoggedInStrava {
-  if (stravaToken === StravaTokenLoading) {
+  if (authStatus === AuthStatusLoading) {
     return null;
   }
 
-  if (stravaToken === null) {
+  if (authStatus === null) {
     return false;
   }
 
-  return true;
+  return authStatus.strava;
 }
 
 export function useIsLoggedInStrava(): IsLoggedInStrava {
   const [state, setState] = useState<IsLoggedInStrava>(null);
 
   useEffect(() => {
-    setState(stravaTokenToState(getStravaToken()));
+    setState(authStatusToState(getCachedAuthStatus()));
 
-    const listener = (newToken: RefreshTokenResponse | null) => {
-      setState(stravaTokenToState(newToken));
+    const listener = (newAuthStatus: AuthStatus) => {
+      setState(authStatusToState(newAuthStatus));
     };
 
-    emitter.on(STRAVA_TOKEN_UPDATE, listener);
-    return () => emitter.off(STRAVA_TOKEN_UPDATE, listener);
+    emitter.on(AUTH_STATUS_UPDATE, listener);
+    return () => emitter.off(AUTH_STATUS_UPDATE, listener);
   }, []);
 
   return state;

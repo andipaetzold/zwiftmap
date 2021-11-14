@@ -1,10 +1,10 @@
 import mitt from "mitt";
-import { RefreshTokenResponse } from "strava/dist/types";
+import { AuthStatus } from "../types";
 
-export const STRAVA_TOKEN_UPDATE = Symbol("STRAVA_TOKEN_UPDATE");
+export const AUTH_STATUS_UPDATE = Symbol("AUTH_STATUS_UPDATE");
 
 type Events = {
-  [STRAVA_TOKEN_UPDATE]: RefreshTokenResponse | null;
+  [AUTH_STATUS_UPDATE]: AuthStatus;
 };
 
 export const emitter = mitt<Events>();

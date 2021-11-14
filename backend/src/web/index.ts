@@ -19,13 +19,17 @@ Sentry.init({
 app.use(Sentry.Handlers.requestHandler());
 app.use(Sentry.Handlers.tracingHandler());
 
+app.get("/auth/status", handlers.handleGETAuthStatus);
 app.post("/auth/logout", handlers.handleLogout);
 
 app.get("/strava/authorize", handlers.handleStravaAuthorize);
 app.get("/strava/activities", handlers.handleGETActivities);
 app.get("/strava/activities/:activityId", handlers.handleGETActivity);
 app.put("/strava/activities/:activityId", handlers.handlePUTActivity);
-app.get("/strava/activities/:activityId/streams", handlers.handleGETActivityStreams);
+app.get(
+  "/strava/activities/:activityId/streams",
+  handlers.handleGETActivityStreams
+);
 app.get("/strava/callback", handlers.handleStravaAuthorizeCallback);
 app.post("/strava/refresh", handlers.handleStravaTokenRefresh);
 app.get("/strava/segments/:segmentId", handlers.handleGETSegment);

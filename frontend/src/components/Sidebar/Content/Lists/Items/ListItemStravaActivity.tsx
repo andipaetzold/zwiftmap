@@ -52,14 +52,14 @@ export function ListItemStravaActivity({ activity, onHoverRoute }: Props) {
   }
 
   return (
-    <SearchResultCardStravaActivityWithToken
+    <SearchResultCardStravaActivityLoggedIn
       activity={activity}
       onHoverRoute={onHoverRoute}
     />
   );
 }
 
-function SearchResultCardStravaActivityWithToken({
+function SearchResultCardStravaActivityLoggedIn({
   activity: { activityId },
   onHoverRoute,
 }: Props) {

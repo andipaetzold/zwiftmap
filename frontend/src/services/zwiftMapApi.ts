@@ -41,9 +41,7 @@ interface GetStravaActivitiesParams {
 export async function getStravaActivities(params?: GetStravaActivitiesParams) {
   const response = await zwiftMapApi.get<SummaryActivity[]>(
     `/strava/activities`,
-    {
-      params,
-    }
+    { params }
   );
   return response.data;
 }

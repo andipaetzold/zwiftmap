@@ -48,3 +48,7 @@ export interface HoverDataLatLng {
   type: "latlng";
   latlng: LatLngTuple[];
 }
+
+export interface AuthStatus {
+  strava: boolean;
+}
