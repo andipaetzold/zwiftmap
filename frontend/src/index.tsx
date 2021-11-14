@@ -4,7 +4,7 @@ import { Integrations } from "@sentry/tracing";
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import { BACKEND_HOST } from "./config";
+import { BACKEND_HOST, GIT_SHA } from "./config";
 import "./index.scss";
 import { fetchAuthStatus } from "./services/auth";
 import {
@@ -15,10 +15,12 @@ import {
   PATTERN_WORLD,
 } from "./services/routing";
 
+console.log(GIT_SHA)
 Sentry.init({
   enabled: (process.env.REACT_APP_SENTRY_DSN ?? "").length > 0,
   dsn: process.env.REACT_APP_SENTRY_DSN,
   environment: 'production',
+  release: GIT_SHA,
   integrations: [
     new Integrations.BrowserTracing({
       tracingOrigins: [BACKEND_HOST],

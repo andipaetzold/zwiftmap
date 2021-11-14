@@ -48,9 +48,9 @@
     "zwift-data": "1.7.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "REACT_APP_GIT_SHA=`git rev-parse --short HEAD` react-scripts start",
     "prebuild": "node scripts/fetch-segments.mjs",
-    "build": "react-scripts build",
+    "build": "REACT_APP_GIT_SHA=`git rev-parse --short HEAD` react-scripts build",
     "test": "react-scripts test",
     "deploy": "netlify deploy"
   },
