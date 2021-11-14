@@ -34,6 +34,17 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      - name: Sentry Release
+        if: github.ref == 'refs/heads/main'
+        uses: getsentry/action-release@v1.1.6
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: frontend
+        with:
+          sourcemaps: frontend/build/static/js
+          environment: production
+          ignore_empty: true
 
   backend:
     runs-on: ubuntu-20.04
@@ -50,6 +61,17 @@ jobs:
       - name: Build
         run: npm run build
         working-directory: backend
+      - name: Sentry Release
+        if: github.ref == 'refs/heads/main'
+        uses: getsentry/action-release@v1.1.6
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+        with:
+          environment: production
+          ignore_empty: true
+          projects: web,worker
+
 
   static-map:
     runs-on: ubuntu-20.04
