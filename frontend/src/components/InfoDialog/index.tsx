@@ -113,7 +113,7 @@ export function InfoDialog({ visible, onClose }: Props) {
           Andi Pätzold
           <br />
           <a
-            href="mainto:info@zwiftmap.com"
+            href="mailto:info@zwiftmap.com"
             rel="noreferrer noopener"
             target="_blank"
           >
