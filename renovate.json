@@ -1,5 +1,10 @@
 {
-  "extends": ["config:js-app", ":semanticCommitsDisabled", ":automergeMinor"],
+  "extends": [
+    "config:js-app",
+    ":semanticCommits",
+    ":semanticCommitScopeDisabled",
+    ":automergeMinor"
+  ],
   "dependencyDashboard": true,
   "lockFileMaintenance": {
     "enabled": true
