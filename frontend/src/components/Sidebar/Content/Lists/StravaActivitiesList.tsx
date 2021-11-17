@@ -1,3 +1,4 @@
+import polyline from "@mapbox/polyline";
 import { Avatar } from "@react-md/avatar";
 import { Button } from "@react-md/button";
 import { TextIconSpacing } from "@react-md/icon";
@@ -12,7 +13,6 @@ import {
 import { ListFontIcon, OpenInNewFontIcon } from "@react-md/material-icons";
 import React from "react";
 import { useAsync } from "react-async-hook";
-import { SummaryActivity } from "strava";
 import stravaLogo from "../../../../assets/strava-40x40.png";
 import { useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";
 import {
@@ -20,19 +20,13 @@ import {
   useLocationState,
 } from "../../../../services/location-state";
 import { useStravaAuthUrl } from "../../../../services/strava/auth";
+import { getStravaActivities } from "../../../../services/zwiftMapApi";
+import { HoverData } from "../../../../types";
 import { getWorld } from "../../../../util/strava";
 import { Distance } from "../../../Distance";
 import { Elevation } from "../../../Elevation";
 import { LoadingSpinnerListItem } from "../../../Loading";
 import { Time } from "../../../Time";
-import polyline from "@mapbox/polyline";
-import { HoverData } from "../../../../types";
-import { getStravaActivities } from "../../../../services/zwiftMapApi";
-
-const PER_PAGE = 30;
-
-const monthInSeconds = 30 * 24 * 60 * 60;
-const now = new Date().getTime() / 1_000;
 
 interface Props {
   onHoverRoute: (data: HoverData) => void;
@@ -101,22 +95,7 @@ export function StravaActivitiesListWithToken({ onHoverRoute }: Props) {
   const [locationState, setLocationState] =
     useLocationState<LocationStateStravaActivities>();
 
-  const { result: activities } = useAsync(async () => {
-    const result: SummaryActivity[] = [];
-
-    let page = 1;
-    let newResults = [];
-    do {
-      newResults = await getStravaActivities({
-        after: now - monthInSeconds,
-        per_page: PER_PAGE,
-        page,
-      });
-      result.push(...newResults);
-      ++page;
-    } while (newResults.length === PER_PAGE);
-    return result;
-  }, []);
+  const { result: activities } = useAsync(getStravaActivities, []);
 
   return (
     <List>

@@ -31,17 +31,9 @@ export async function updateStravaSettings(settings: StravaSettings) {
   await zwiftMapApi.put<StravaSettings>(`/strava/settings`, settings);
 }
 
-interface GetStravaActivitiesParams {
-  before?: number;
-  after?: number;
-  page?: number;
-  per_page?: number;
-}
-
-export async function getStravaActivities(params?: GetStravaActivitiesParams) {
+export async function getStravaActivities() {
   const response = await zwiftMapApi.get<SummaryActivity[]>(
-    `/strava/activities`,
-    { params }
+    `/strava/activities`
   );
   return response.data;
 }

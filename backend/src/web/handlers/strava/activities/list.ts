@@ -1,38 +1,36 @@
+import axios from "axios";
 import { Request, Response } from "express";
+import { SummaryActivity } from "strava";
 import { getActivities } from "../../../../shared/services/strava";
 import { Session } from "../../../types";
-import { Optional, Record, String } from "runtypes";
-import { NumberString } from "../../../services/runtypes";
-import axios from "axios";
 
-const Query = Record({
-  before: Optional(NumberString),
-  after: Optional(NumberString),
-  page: Optional(NumberString),
-  per_page: Optional(NumberString),
-});
+const PER_PAGE = 30;
+
+const MONTH_IN_SECONDS = 30 * 24 * 60 * 60;
+const NOW = new Date().getTime() / 1_000;
 
 export async function handleGETActivities(req: Request, res: Response) {
   try {
-    const query = req.query;
-
-    if (!Query.guard(query)) {
-      res.sendStatus(400);
-      return;
-    }
-
     const session = req.session as Session;
     if (!session.stravaAthleteId) {
       res.sendStatus(403);
       return;
     }
 
-    const activities = await getActivities(session.stravaAthleteId, {
-      before: query.before === undefined ? undefined : +query.before,
-      after: query.after === undefined ? undefined : +query.after,
-      page: query.page === undefined ? undefined : +query.page,
-      per_page: query.per_page === undefined ? undefined : +query.per_page,
-    });
+    let page = 1;
+    const activities: SummaryActivity[] = [];
+    let newActivities: SummaryActivity[];
+
+    do {
+      newActivities = await getActivities(session.stravaAthleteId, {
+        after: NOW - MONTH_IN_SECONDS,
+        page,
+        per_page: PER_PAGE,
+      });
+      activities.push(...newActivities);
+      ++page;
+    } while (newActivities.length === PER_PAGE);
+
     res.status(200).json(activities);
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
