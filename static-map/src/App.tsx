@@ -1,3 +1,9 @@
+import { Map } from "./Map";
+
 export function App() {
-  return <>App</>;
+  return (
+    <>
+      <Map />
+    </>
+  );
 }
