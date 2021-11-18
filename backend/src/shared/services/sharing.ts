@@ -67,6 +67,7 @@ async function createShare(
     ]),
     athlete: pick(activity.athlete, "id"),
     streams: activityStreams,
+    hasImage: false,
   };
 
   const share = await writeShare(shareWithoutId);

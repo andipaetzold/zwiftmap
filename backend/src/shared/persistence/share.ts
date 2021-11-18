@@ -23,6 +23,7 @@ export interface ShareStravaActivity {
   >;
   athlete: { id: number };
   streams: StreamSet;
+  hasImage: boolean;
 }
 
 type ShareLookup = { [hash: string]: string };
@@ -65,7 +66,18 @@ export async function writeShare(share: Omit<Share, "id">): Promise<Share> {
 }
 
 export async function readShare(shareId: string): Promise<Share | undefined> {
-  return await read(createKey(shareId));
+  const share = await read<Share>(createKey(shareId));
+  if (!share) {
+    return share;
+  }
+
+  switch (share.type) {
+    case "strava-activity":
+      return {
+        ...share,
+        hasImage: share.hasImage ?? false,
+      };
+  }
 }
 
 export async function removeShare(shareId: string): Promise<void> {
