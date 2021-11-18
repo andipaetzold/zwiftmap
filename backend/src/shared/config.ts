@@ -1,3 +1,4 @@
+import { Configuration } from "cloudinary-core";
 import "dotenv/config";
 import { randomString } from "./util";
 
@@ -23,3 +24,12 @@ export const REDIS_URL = process.env.REDIS_URL!;
 
 export const AUTH_SECRET = process.env.AUTH_SECRET!;
 export const AUTH_COOKIE_NAME = "sessionID";
+
+export const CLOUDINARY_CONFIG: Pick<
+  Configuration.Options,
+  "cloud_name" | "api_key" | "api_secret"
+> = {
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME!,
+  api_key: process.env.CLOUDINARY_API_KEY!,
+  api_secret: process.env.CLOUDINARY_API_SECRET!,
+};

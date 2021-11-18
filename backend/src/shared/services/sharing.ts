@@ -1,10 +1,11 @@
 import pick from "lodash/pick";
 import { DetailedActivity, StreamSet } from "strava";
-import { FRONTEND_URL } from "../config";
+import { ENVIRONMENT, FRONTEND_URL } from "../config";
 import { ErrorWithStatusCode } from "../ErrorWithStatusCode";
 import { getShareUrl, Share, writeShare } from "../persistence/share";
 import { isZwiftActivity } from "../util";
 import { getActivityById, getActivityStreams, updateActivity } from "./strava";
+import { cloudinary } from "./cloudinary";
 
 export async function shareActivity(
   athleteId: number,
@@ -51,7 +52,7 @@ async function createShare(
   activity: DetailedActivity,
   activityStreams: StreamSet
 ): Promise<Share> {
-  const share: Omit<Share, "id"> = {
+  const shareWithoutId: Omit<Share, "id"> = {
     type: "strava-activity",
     activity: pick(activity, [
       "id",
@@ -66,5 +67,20 @@ async function createShare(
     athlete: pick(activity.athlete, "id"),
     streams: activityStreams,
   };
-  return await writeShare(share);
+
+  const share = await writeShare(shareWithoutId);
+
+  if (ENVIRONMENT === "development") {
+    const upload = await cloudinary.uploader.upload(
+      "https://via.placeholder.com/350x150",
+      {
+        folder: "shared",
+        public_id: share.id,
+        overwrite: true,
+      }
+    );
+    await cloudinary.uploader.add_tag(`env:${ENVIRONMENT}`, [upload.public_id]);
+  }
+
+  return share;
 }
