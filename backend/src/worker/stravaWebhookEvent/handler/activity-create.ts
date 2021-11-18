@@ -1,9 +1,9 @@
 import { DetailedActivity } from "strava";
-import { readStravaSettings } from "../../shared/persistence/stravaSettings";
-import { addLinkToActivity } from "../../shared/services/sharing";
-import { getActivityById } from "../../shared/services/strava";
-import { WebhookEventType } from "../../shared/types";
-import { isZwiftActivity } from "../../shared/util";
+import { readStravaSettings } from "../../../shared/persistence/stravaSettings";
+import { addLinkToActivity } from "../../../shared/services/sharing";
+import { getActivityById } from "../../../shared/services/strava";
+import { WebhookEventType } from "../../../shared/types";
+import { isZwiftActivity } from "../../../shared/util";
 
 export async function handleActivityCreate(webhookEvent: WebhookEventType) {
   const athleteId = webhookEvent.owner_id;

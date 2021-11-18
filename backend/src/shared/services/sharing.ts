@@ -6,6 +6,7 @@ import { getShareUrl, Share, writeShare } from "../persistence/share";
 import { isZwiftActivity } from "../util";
 import { getActivityById, getActivityStreams, updateActivity } from "./strava";
 import { cloudinary } from "./cloudinary";
+import { shareImageQueue } from "../queue";
 
 export async function shareActivity(
   athleteId: number,
@@ -70,17 +71,10 @@ async function createShare(
 
   const share = await writeShare(shareWithoutId);
 
-  if (ENVIRONMENT === "development") {
-    const upload = await cloudinary.uploader.upload(
-      "https://via.placeholder.com/350x150",
-      {
-        folder: "shared",
-        public_id: share.id,
-        overwrite: true,
-      }
-    );
-    await cloudinary.uploader.add_tag(`env:${ENVIRONMENT}`, [upload.public_id]);
-  }
+  await shareImageQueue.add(share, {
+    removeOnComplete: true,
+    removeOnFail: true,
+  });
 
   return share;
 }

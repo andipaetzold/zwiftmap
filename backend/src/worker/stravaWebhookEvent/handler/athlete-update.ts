@@ -1,6 +1,6 @@
-import { removeStravaSettings } from "../../shared/persistence/stravaSettings";
-import { removeStravaToken } from "../../shared/persistence/stravaToken";
-import { WebhookEventType } from "../../shared/types";
+import { removeStravaSettings } from "../../../shared/persistence/stravaSettings";
+import { removeStravaToken } from "../../../shared/persistence/stravaToken";
+import { WebhookEventType } from "../../../shared/types";
 
 export async function handleAthleteUpdate(webhookEvent: WebhookEventType) {
   if (webhookEvent.updates["authorized"] === false) {
