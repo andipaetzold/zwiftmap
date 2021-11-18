@@ -52,7 +52,7 @@ async function fetchSegment({ name, slug, stravaSegmentId }, type) {
 }
 
 function getRoundedAltitude(stravaData) {
-  return stravaData.altitude.map((d) => Math.round(d));
+  return stravaData.altitude.map((d) => Math.round(d * 10) / 10);
 }
 
 function getRoundedDistances(stravaData) {
