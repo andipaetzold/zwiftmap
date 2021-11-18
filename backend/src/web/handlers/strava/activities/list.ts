@@ -2,6 +2,7 @@ import axios from "axios";
 import { Request, Response } from "express";
 import { SummaryActivity } from "strava";
 import { getActivities } from "../../../../shared/services/strava";
+import { getWorld, isZwiftActivity } from "../../../../shared/util";
 import { Session } from "../../../types";
 
 const PER_PAGE = 30;
@@ -31,7 +32,10 @@ export async function handleGETActivities(req: Request, res: Response) {
       ++page;
     } while (newActivities.length === PER_PAGE);
 
-    res.status(200).json(activities);
+    const filteredAndSortedActivities = activities
+      .filter(isZwiftActivity)
+      .sort((a, b) => -a.start_date.localeCompare(b.start_date));
+    res.status(200).json(filteredAndSortedActivities);
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
       res.sendStatus(error.response.status);

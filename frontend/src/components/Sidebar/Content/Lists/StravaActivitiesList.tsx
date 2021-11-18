@@ -119,16 +119,11 @@ export function StravaActivitiesListWithToken({ onHoverRoute }: Props) {
       {activities === undefined && <LoadingSpinnerListItem />}
 
       {activities !== undefined &&
-        [...activities]
-          .sort((a, b) => -a.start_date.localeCompare(b.start_date))
-          .filter((activity) =>
-            ["VirtualRun", "VirtualRide"].includes(activity.type)
-          )
-          .map((activity) => {
-            const world = getWorld(activity.start_latlng as [number, number]);
-            return { world, activity };
-          })
-          .filter(({ world }) => world !== undefined)
+        activities
+          .map((activity) => ({
+            world: getWorld(activity.start_latlng)!,
+            activity,
+          }))
           .map(({ world, activity }) => (
             <ListItem
               key={activity.id}

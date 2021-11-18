@@ -1,4 +1,4 @@
-import { DetailedActivity } from "strava";
+import { DetailedActivity, SummaryActivity } from "strava";
 import { World, worlds } from "zwift-data";
 
 export function randomString(length = 16) {
@@ -13,12 +13,14 @@ export function randomString(length = 16) {
   return result;
 }
 
-export function isZwiftActivity(activity: DetailedActivity): boolean {
+export function isZwiftActivity(
+  activity: DetailedActivity | SummaryActivity
+): boolean {
   if (!["VirtualRun", "VirtualRide"].includes(activity.type)) {
     return false;
   }
 
-  if (activity.device_name !== "Zwift") {
+  if ("device_name" in activity && activity.device_name !== "Zwift") {
     return false;
   }
 
@@ -31,7 +33,9 @@ export function isZwiftActivity(activity: DetailedActivity): boolean {
   return true;
 }
 
-export function getWorld(activity: DetailedActivity): World | undefined {
+export function getWorld(
+  activity: DetailedActivity | SummaryActivity
+): World | undefined {
   return worlds.find((world) => {
     const bb = world.bounds;
     return (
