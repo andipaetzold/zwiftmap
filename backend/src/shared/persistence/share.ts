@@ -1,3 +1,4 @@
+import pick from "lodash/pick";
 import objectHash from "object-hash";
 import short from "short-uuid";
 import { DetailedActivity, StreamSet } from "strava";
@@ -33,10 +34,18 @@ export function getShareUrl(id: string) {
 function createKey(shareId: string): string {
   return `share:${shareId}`;
 }
+
+function createHash(share: Omit<Share, "id">): string {
+  switch (share.type) {
+    case "strava-activity":
+      return objectHash(pick(share, ["type", "activity.id"]));
+  }
+}
+
 const LOOKUP_KEY = createKey("lookup");
 
 export async function writeShare(share: Omit<Share, "id">): Promise<Share> {
-  const hash = objectHash(share);
+  const hash = createHash(share);
   const lookup = (await read<ShareLookup>(LOOKUP_KEY)) ?? {};
 
   if (lookup[hash]) {
