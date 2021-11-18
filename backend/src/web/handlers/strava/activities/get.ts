@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Request, Response } from "express";
 import { getActivityById } from "../../../../shared/services/strava";
+import { isZwiftActivity } from "../../../../shared/util";
 import { Session } from "../../../types";
 
 export async function handleGETActivity(req: Request, res: Response) {
@@ -15,7 +16,12 @@ export async function handleGETActivity(req: Request, res: Response) {
       session.stravaAthleteId,
       +req.params.activityId
     );
-    res.status(200).json(activity);
+
+    if (isZwiftActivity(activity)) {
+      res.status(200).json(activity);
+    } else {
+      res.sendStatus(404);
+    }
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
       res.sendStatus(error.response.status);
