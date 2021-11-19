@@ -1,5 +1,5 @@
 import { Job } from "bull";
-import puppeteer from "puppeteer-core";
+import puppeteer from "puppeteer";
 import { ENVIRONMENT, STATIC_URL } from "../../shared/config";
 import { Share } from "../../shared/persistence/share";
 import { cloudinary } from "../../shared/services/cloudinary";
@@ -10,11 +10,9 @@ export async function handleShareImage(job: Job<Share>, logger: Logger) {
 
   logger.log(`Processing Share Image`, { jobId: job.id, shareId: share.id });
 
-
   logger.log(`puppeteer.launch`);
   const browser = await puppeteer.launch({
     args: PUPPETEER_ARGS,
-    // executablePath: "google-chrome-stable",
   });
 
   logger.log(`browser.newPage`);
