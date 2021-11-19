@@ -10,6 +10,7 @@ export const ENVIRONMENT = process.env.ENVIRONMENT as
 
 export const BACKEND_URL = process.env.BACKEND_URL!;
 export const FRONTEND_URL = process.env.FRONTEND_URL!;
+export const STATIC_URL = process.env.STATIC_URL!;
 
 export const STRAVA_CLIENT_ID = +process.env.STRAVA_CLIENT_ID!;
 export const STRAVA_CLIENT_SECRET = process.env.STRAVA_CLIENT_SECRET!;
