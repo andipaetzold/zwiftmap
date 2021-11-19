@@ -61,8 +61,8 @@ export const worldConfigs: Record<WorldSlug, WorldConfig> = {
   },
   "makuri-islands": {
     initialBounds: [
-      [-10.743702, 165.830083],
-      [-10.775156, 165.859212],
+      [-10.743702, 165.829858],
+      [-10.805634, 165.859212],
     ],
     image: makuriIslandsMap,
     backgroundColor: "#7d9a35",
