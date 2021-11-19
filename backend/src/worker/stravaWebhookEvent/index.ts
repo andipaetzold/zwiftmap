@@ -1,20 +1,21 @@
-import { DoneCallback, Job } from "bull";
+import { Job } from "bull";
 import { WebhookEventType } from "../../shared/types";
+import { Logger } from "../services/logger";
 import { handleActivityCreate } from "./handler/activity-create";
 import { handleAthleteUpdate } from "./handler/athlete-update";
 
 export async function handleStravaWebhookEvent(
   job: Job<WebhookEventType>,
-  jobDone: DoneCallback
+  logger: Logger
 ) {
   const webhookEvent = job.data;
-  console.log(`Processing Strava WebhookEvent`, { jobId: job.id });
+  logger.log(`Processing Strava WebhookEvent`, { jobId: job.id });
 
   switch (webhookEvent.object_type) {
     case "athlete": {
       switch (webhookEvent.aspect_type) {
         case "update":
-          await handleAthleteUpdate(webhookEvent);
+          await handleAthleteUpdate(webhookEvent, logger);
           break;
       }
       break;
@@ -22,13 +23,11 @@ export async function handleStravaWebhookEvent(
     case "activity": {
       switch (webhookEvent.aspect_type) {
         case "create":
-          await handleActivityCreate(webhookEvent);
+          await handleActivityCreate(webhookEvent, logger);
           break;
       }
 
       break;
     }
   }
-
-  jobDone();
 }

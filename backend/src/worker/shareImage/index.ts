@@ -1,15 +1,19 @@
-import { DoneCallback, Job } from "bull";
+import { Job } from "bull";
 import puppeteer from "puppeteer-core";
 import { ENVIRONMENT, STATIC_URL } from "../../shared/config";
 import { Share } from "../../shared/persistence/share";
 import { cloudinary } from "../../shared/services/cloudinary";
+import { Logger } from "../services/logger";
 
-export async function handleShareImage(job: Job<Share>, jobDone: DoneCallback) {
+export async function handleShareImage(job: Job<Share>, logger: Logger) {
   const share = job.data;
 
-  console.log(`Processing Share Image`, { jobId: job.id, shareId: share.id });
+  logger.log(`Processing Share Image`, { jobId: job.id, shareId: share.id });
 
-  const browser = await puppeteer.launch({ args: PUPPETEER_ARGS });
+  const browser = await puppeteer.launch({
+    args: PUPPETEER_ARGS,
+    // executablePath: "google-chrome-stable",
+  });
   const page = await browser.newPage();
   page.setViewport({ width: 1920, height: 1080 });
 
@@ -18,7 +22,7 @@ export async function handleShareImage(job: Job<Share>, jobDone: DoneCallback) {
   const imageBuffer = (await page.screenshot()) as Buffer;
   await browser.close();
 
-  console.log(`Uploading image`);
+  logger.log(`Uploading image`);
   await new Promise((resolve, reject) =>
     cloudinary.uploader
       .upload_stream(
@@ -38,8 +42,6 @@ export async function handleShareImage(job: Job<Share>, jobDone: DoneCallback) {
       )
       .end(imageBuffer)
   );
-
-  jobDone();
 }
 
 const PUPPETEER_ARGS = [

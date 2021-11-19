@@ -4,14 +4,18 @@ import { addLinkToActivity } from "../../../shared/services/sharing";
 import { getActivityById } from "../../../shared/services/strava";
 import { WebhookEventType } from "../../../shared/types";
 import { isZwiftActivity } from "../../../shared/util";
+import { Logger } from "../../services/logger";
 
-export async function handleActivityCreate(webhookEvent: WebhookEventType) {
+export async function handleActivityCreate(
+  webhookEvent: WebhookEventType,
+  logger: Logger
+) {
   const athleteId = webhookEvent.owner_id;
   const activityId = webhookEvent.object_id;
   const settings = await readStravaSettings(athleteId);
 
   if (!settings.addLinkToActivityDescription) {
-    console.log("Setting to add link to activity description is disabled");
+    logger.log("Setting to add link to activity description is disabled");
     return;
   }
 
@@ -19,15 +23,15 @@ export async function handleActivityCreate(webhookEvent: WebhookEventType) {
   try {
     activity = await getActivityById(athleteId, activityId);
   } catch (e) {
-    console.log("Error fetching activity");
+    logger.log("Error fetching activity");
     return;
   }
 
   if (!isZwiftActivity(activity)) {
-    console.log("Not a Zwift activity");
+    logger.log("Not a Zwift activity");
     return;
   }
 
-  console.log("Adding link to activity description");
+  logger.log("Adding link to activity description");
   await addLinkToActivity(athleteId, activityId);
 }
