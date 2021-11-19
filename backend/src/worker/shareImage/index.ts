@@ -10,19 +10,10 @@ export async function handleShareImage(job: Job<Share>, logger: Logger) {
 
   logger.log(`Processing Share Image`, { jobId: job.id, shareId: share.id });
 
-  logger.log(`puppeteer.launch`);
-  const browser = await puppeteer.launch({
-    args: PUPPETEER_ARGS,
-  });
-
-  logger.log(`browser.newPage`);
+  const browser = await puppeteer.launch({ args: PUPPETEER_ARGS });
   const page = await browser.newPage();
   page.setViewport({ width: 1920, height: 1080 });
-
-  logger.log(`page.goto`);
   await page.goto(STATIC_URL, { waitUntil: "networkidle2" });
-
-  logger.log(`page.screenshot`);
   const imageBuffer = (await page.screenshot()) as Buffer;
   await browser.close();
 
