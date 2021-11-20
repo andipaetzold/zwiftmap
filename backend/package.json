@@ -2,6 +2,9 @@
   "name": "zwiftmap-backend",
   "version": "0.0.0",
   "private": true,
+  "engines": {
+    "node": "16.13.0"
+  },
   "scripts": {
     "start:web": "node ./build-web/web",
     "start:worker": "node ./build-worker/worker",
