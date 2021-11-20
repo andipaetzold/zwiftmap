@@ -148,9 +148,9 @@ export function Map({
           <CircleMarker
             center={hoverPoint}
             radius={5}
-            weight={0}
+            weight={2}
             pathOptions={{
-              color: "black",
+              color: "white",
               fillColor: "black",
               fillOpacity: 1,
             }}
