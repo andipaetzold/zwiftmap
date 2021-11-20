@@ -9,6 +9,7 @@ import {
   AUTH_SECRET,
   ENVIRONMENT,
   FRONTEND_URL,
+  STATIC_URL,
 } from "../shared/config";
 import { redisClient } from "../shared/persistence/redis";
 import { logger } from "./middleware/logger";
@@ -23,7 +24,7 @@ app.use(requestLogger);
 app.use(logger);
 
 const corsOptions: cors.CorsOptions = {
-  origin: FRONTEND_URL,
+  origin: [FRONTEND_URL, STATIC_URL],
   credentials: true,
 };
 app.use(cors(corsOptions));
