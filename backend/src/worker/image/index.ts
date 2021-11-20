@@ -8,8 +8,7 @@ import { Logger } from "../services/logger";
 export async function handleImage(job: Job<{ path: string }>, logger: Logger) {
   const { path } = job.data;
 
-  logger.log(`Processing Share Image`, { jobId: job.id, path });
-
+  logger.log(`Render image`, { path });
   const browser = await puppeteer.launch({ args: PUPPETEER_ARGS });
   const page = await browser.newPage();
   page.setViewport({ width: 1920, height: 1080 });
@@ -19,15 +18,17 @@ export async function handleImage(job: Job<{ path: string }>, logger: Logger) {
   const imageBuffer = (await page.screenshot()) as Buffer;
   await browser.close();
 
-  logger.log(`Uploading image`);
   const pathParts = path.split("/");
+  const folder = pathParts.slice(0, -1).join("/");
+  const publicId = pathParts.at(-1);
+  logger.log(`Uploading image`, { folder, publicId });
   await new Promise((resolve, reject) =>
     cloudinary.uploader
       .upload_stream(
         {
           tags: [`env:${ENVIRONMENT}`],
-          folder: pathParts.slice(0, -1).join("/"),
-          public_id: pathParts.at(-1),
+          folder,
+          public_id: publicId,
           overwrite: true,
         },
         (error, result) => {

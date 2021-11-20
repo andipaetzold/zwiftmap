@@ -9,8 +9,6 @@ export async function handleStravaWebhookEvent(
   logger: Logger
 ) {
   const webhookEvent = job.data;
-  logger.log(`Processing Strava WebhookEvent`, { jobId: job.id });
-
   switch (webhookEvent.object_type) {
     case "athlete": {
       switch (webhookEvent.aspect_type) {
