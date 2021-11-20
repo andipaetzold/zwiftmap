@@ -62,6 +62,7 @@ export function Map() {
       dragging={false}
       trackResize={false}
       zoomSnap={0.1}
+      maxZoom={19}
     >
       <ImageOverlay url={worldConfig.image} bounds={world.bounds} />
 
