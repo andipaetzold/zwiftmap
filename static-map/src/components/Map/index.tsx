@@ -13,6 +13,7 @@ import styles from "./index.module.scss";
 import { worldConfigs } from "../../worldConfig";
 import { useShare } from "../../hooks/useShare";
 import { getWorld } from "../../util/getWorld";
+import logo from "./logo.png";
 
 const DEFAULT_WORLD = worlds.find((w) => w.slug === "watopia")!;
 
@@ -47,59 +48,63 @@ export function Map() {
   }, [map, routeLatLngStream, worldConfig]);
 
   return (
-    <MapContainer
-      key={world.slug}
-      whenCreated={(map) => setMap(map)}
-      bounds={world.bounds}
-      style={{ backgroundColor: worldConfig.backgroundColor }}
-      className={styles.MapContainer}
-      zoomControl={false}
-      attributionControl={false}
-      touchZoom={false}
-      scrollWheelZoom={false}
-      doubleClickZoom={false}
-      boxZoom={false}
-      dragging={false}
-      trackResize={false}
-      zoomSnap={0.1}
-      maxZoom={19}
-    >
-      <ImageOverlay url={worldConfig.image} bounds={world.bounds} />
+    <>
+      <img src={logo} alt="" className={styles.Logo} width={128} height={128} />
 
-      {routeLatLngStream && (
-        <>
-          <Pane name="route" style={{ zIndex: 504 }}>
-            <Polyline
-              positions={routeLatLngStream}
-              pathOptions={{ color: "#fc6719", weight: 10 }}
-            />
-          </Pane>
-          <Pane name="route-start" style={{ zIndex: Z_INDEX.routeStart }}>
-            <CircleMarker
-              center={routeLatLngStream[0]}
-              radius={10}
-              weight={4}
-              pathOptions={{
-                color: "white",
-                fillColor: "green",
-                fillOpacity: 1,
-              }}
-            />
-          </Pane>
-          <Pane name="route-end" style={{ zIndex: Z_INDEX.routeEnd }}>
-            <CircleMarker
-              center={routeLatLngStream[routeLatLngStream.length - 1]}
-              radius={10}
-              weight={4}
-              pathOptions={{
-                color: "white",
-                fillColor: "red",
-                fillOpacity: 1,
-              }}
-            />
-          </Pane>
-        </>
-      )}
-    </MapContainer>
+      <MapContainer
+        key={world.slug}
+        whenCreated={(map) => setMap(map)}
+        bounds={world.bounds}
+        style={{ backgroundColor: worldConfig.backgroundColor }}
+        className={styles.MapContainer}
+        zoomControl={false}
+        attributionControl={false}
+        touchZoom={false}
+        scrollWheelZoom={false}
+        doubleClickZoom={false}
+        boxZoom={false}
+        dragging={false}
+        trackResize={false}
+        zoomSnap={0.1}
+        maxZoom={19}
+      >
+        <ImageOverlay url={worldConfig.image} bounds={world.bounds} />
+
+        {routeLatLngStream && (
+          <>
+            <Pane name="route" style={{ zIndex: 504 }}>
+              <Polyline
+                positions={routeLatLngStream}
+                pathOptions={{ color: "#fc6719", weight: 10 }}
+              />
+            </Pane>
+            <Pane name="route-start" style={{ zIndex: Z_INDEX.routeStart }}>
+              <CircleMarker
+                center={routeLatLngStream[0]}
+                radius={10}
+                weight={4}
+                pathOptions={{
+                  color: "white",
+                  fillColor: "green",
+                  fillOpacity: 1,
+                }}
+              />
+            </Pane>
+            <Pane name="route-end" style={{ zIndex: Z_INDEX.routeEnd }}>
+              <CircleMarker
+                center={routeLatLngStream[routeLatLngStream.length - 1]}
+                radius={10}
+                weight={4}
+                pathOptions={{
+                  color: "white",
+                  fillColor: "red",
+                  fillOpacity: 1,
+                }}
+              />
+            </Pane>
+          </>
+        )}
+      </MapContainer>
+    </>
   );
 }
