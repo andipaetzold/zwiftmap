@@ -44,6 +44,7 @@ export function Map() {
 
     map.fitBounds(bounds, {
       animate: false,
+      padding: [15, 15]
     });
   }, [map, routeLatLngStream, worldConfig]);
 
