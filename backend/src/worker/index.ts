@@ -9,6 +9,7 @@ import { Job } from "bull";
 Sentry.init({
   enabled: SENTRY_WORKER_DSN.length > 0,
   dsn: SENTRY_WORKER_DSN,
+  environment: 'production',
   tracesSampleRate: 1.0,
 });
 
@@ -31,7 +32,7 @@ function wrap<T>(
       logger.info("Processing Job", { queue: job.queue.name, jobId: job.id });
 
       await handler(job, logger);
-      logger.info("Job Done");
+      logger.info("Job done");
     } catch (e) {
       const sentryEventId = Sentry.captureException(e);
       logger.error("Job failed", { sentryEventId });
