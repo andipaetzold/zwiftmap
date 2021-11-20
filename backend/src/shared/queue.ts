@@ -1,6 +1,5 @@
 import Queue from "bull";
 import { REDIS_URL } from "./config";
-import { Share } from "./persistence/share";
 import { WebhookEventType } from "./types";
 
 export const stravaWebhookEventQueue = new Queue<WebhookEventType>(
@@ -8,4 +7,4 @@ export const stravaWebhookEventQueue = new Queue<WebhookEventType>(
   REDIS_URL
 );
 
-export const shareImageQueue = new Queue<Share>("share-image", REDIS_URL);
+export const imageQueue = new Queue<{ path: string }>("image", REDIS_URL);
