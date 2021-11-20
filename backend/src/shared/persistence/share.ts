@@ -1,9 +1,30 @@
 import pick from "lodash/pick";
 import objectHash from "object-hash";
 import short from "short-uuid";
-import { Share } from "@zwiftmap/shared";
+import { DetailedActivity, StreamSet } from "strava";
 import { FRONTEND_URL } from "../config";
 import { read, remove, write } from "./redis";
+
+export type Share = ShareStravaActivity;
+
+export interface ShareStravaActivity {
+  id: string;
+  type: "strava-activity";
+  activity: Pick<
+    DetailedActivity,
+    | "id"
+    | "name"
+    | "distance"
+    | "moving_time"
+    | "total_elevation_gain"
+    | "average_watts"
+    | "start_latlng"
+    | "start_date"
+  >;
+  athlete: { id: number };
+  streams: StreamSet;
+  hasImage: boolean;
+}
 
 type ShareLookup = { [hash: string]: string };
 

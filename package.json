@@ -1,8 +1,0 @@
-{
-  "name": "zwiftmap",
-  "workspaces": [
-    "backend",
-    "frontend",
-    "static-map"
-  ]
-}

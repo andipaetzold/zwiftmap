@@ -2,7 +2,7 @@ import * as Sentry from "@sentry/node";
 import { Request, Response } from "express";
 import { Literal, Record, Number } from "runtypes";
 import { ErrorWithStatusCode } from "../../../shared/ErrorWithStatusCode";
-import { Share } from "@zwiftmap/shared";
+import { Share } from "../../../shared/persistence/share";
 import { shareActivity } from "../../../shared/services/sharing";
 import { Session } from "../../types";
 

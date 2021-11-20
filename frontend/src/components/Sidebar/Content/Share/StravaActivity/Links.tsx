@@ -1,7 +1,7 @@
 import { Avatar } from "@react-md/avatar";
 import { ListItemLink, ListItemText, ListSubheader } from "@react-md/list";
 import { OpenInNewFontIcon } from "@react-md/material-icons";
-import { ShareStravaActivity } from "@zwiftmap/shared";
+import { ShareStravaActivity } from "../../../../../types";
 import stravaLogo from "../../../../../assets/strava-40x40.png";
 
 export interface Props {

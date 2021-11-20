@@ -1,4 +1,5 @@
 import { LatLngTuple } from "leaflet";
+import { DetailedActivity, StreamSet } from "strava";
 import { Sport } from "zwift-data";
 
 export interface StravaSegment {
@@ -10,6 +11,26 @@ export interface StravaSegment {
 export interface Settings {
   sport: Sport;
   units: "imperial" | "metric";
+}
+
+export type Share = ShareStravaActivity;
+
+export interface ShareStravaActivity {
+  id: string;
+  type: "strava-activity";
+  activity: Pick<
+    DetailedActivity,
+    | "id"
+    | "name"
+    | "distance"
+    | "moving_time"
+    | "total_elevation_gain"
+    | "average_watts"
+    | "start_latlng"
+    | "start_date"
+  >;
+  athlete: { id: number };
+  streams: StreamSet;
 }
 
 export interface StravaSettings {

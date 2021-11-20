@@ -15,6 +15,7 @@ jobs:
 
       - name: Install
         run: npm install --no-optional
+        working-directory: frontend
       - name: Test
         run: npm test
         working-directory: frontend
@@ -55,7 +56,8 @@ jobs:
         run: nvm install
 
       - name: Install
-        run: npm install --no-optional
+        run: npm ci
+        working-directory: backend
       - name: Build
         run: npm run build
         working-directory: backend
@@ -81,7 +83,7 @@ jobs:
         run: nvm install
 
       - name: Install
-        run: npm install --no-optional
+        run: npm ci
         working-directory: static-map
       - name: Build
         run: npm run build

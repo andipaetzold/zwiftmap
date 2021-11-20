@@ -5,7 +5,7 @@ import {
   SpaceBarFontIcon,
   TimerFontIcon,
 } from "@react-md/material-icons";
-import { ShareStravaActivity } from "@zwiftmap/shared";
+import { ShareStravaActivity } from "../../../../../types";
 import { getWorld } from "../../../../../util/strava";
 import { Distance } from "../../../../Distance";
 import { Elevation } from "../../../../Elevation";

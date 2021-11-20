@@ -1,5 +1,5 @@
 {
-  "name": "@zwiftmap/backend",
+  "name": "zwiftmap-backend",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -31,7 +31,6 @@
   "dependencies": {
     "@sentry/node": "6.15.0",
     "@sentry/tracing": "6.15.0",
-    "@zwiftmap/shared": "../shared",
     "axios": "0.24.0",
     "bull": "4.1.1",
     "cloudinary": "1.27.1",

@@ -1,6 +1,6 @@
 import { SimpleListItem } from "@react-md/list";
 import { Text } from "@react-md/typography";
-import { ShareStravaActivity } from "@zwiftmap/shared";
+import { ShareStravaActivity } from "../../../../../types";
 import { ElevationChart } from "../../../../ElevationChart";
 import { SharedStravaActivityFacts } from "./Facts";
 import { SharedStravaActivityLinks } from "./Links";

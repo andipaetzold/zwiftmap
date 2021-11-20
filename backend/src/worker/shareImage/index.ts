@@ -1,7 +1,7 @@
 import { Job } from "bull";
 import puppeteer from "puppeteer";
 import { ENVIRONMENT, STATIC_URL } from "../../shared/config";
-import { Share } from "@zwiftmap/shared";
+import { Share } from "../../shared/persistence/share";
 import { cloudinary } from "../../shared/services/cloudinary";
 import { Logger } from "../services/logger";
 

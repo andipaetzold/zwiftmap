@@ -1,12 +1,12 @@
-import { Share } from "@zwiftmap/shared";
 import pick from "lodash/pick";
 import { DetailedActivity, StreamSet } from "strava";
-import { FRONTEND_URL } from "../config";
+import { ENVIRONMENT, FRONTEND_URL } from "../config";
 import { ErrorWithStatusCode } from "../ErrorWithStatusCode";
-import { getShareUrl, writeShare } from "../persistence/share";
-import { shareImageQueue } from "../queue";
+import { getShareUrl, Share, writeShare } from "../persistence/share";
 import { isZwiftActivity } from "../util";
 import { getActivityById, getActivityStreams, updateActivity } from "./strava";
+import { cloudinary } from "./cloudinary";
+import { shareImageQueue } from "../queue";
 
 export async function shareActivity(
   athleteId: number,
