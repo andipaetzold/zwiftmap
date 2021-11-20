@@ -77,6 +77,7 @@ export function Map({
       whenCreated={(map) => setMap(map)}
       bounds={world.bounds}
       style={{ backgroundColor: worldConfig.backgroundColor }}
+      zoomSnap={0.5}
       maxZoom={19}
       className={styles.MapContainer}
     >
