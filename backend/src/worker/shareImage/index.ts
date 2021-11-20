@@ -13,7 +13,7 @@ export async function handleShareImage(job: Job<Share>, logger: Logger) {
   const browser = await puppeteer.launch({ args: PUPPETEER_ARGS });
   const page = await browser.newPage();
   page.setViewport({ width: 1920, height: 1080 });
-  await page.goto(STATIC_URL, { waitUntil: "networkidle2" });
+  await page.goto(`${STATIC_URL}/s/${share.id}`, { waitUntil: "networkidle0" });
   const imageBuffer = (await page.screenshot()) as Buffer;
   await browser.close();
 
