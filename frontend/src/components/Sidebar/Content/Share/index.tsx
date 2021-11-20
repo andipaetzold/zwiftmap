@@ -4,7 +4,7 @@ import { List, SimpleListItem } from "@react-md/list";
 import { ListFontIcon } from "@react-md/material-icons";
 import { useAsync } from "react-async-hook";
 import { getShare } from "../../../../services/zwiftMapApi";
-import { Share as ShareType } from "../../../../types";
+import { Share as ShareType } from "@zwiftmap/shared";
 import { LoadingSpinnerListItem } from "../../../Loading";
 import { SharedStravaActivity } from "./StravaActivity";
 

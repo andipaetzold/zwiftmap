@@ -1,6 +1,6 @@
 import Queue from "bull";
 import { REDIS_URL } from "./config";
-import { Share } from "./persistence/share";
+import { Share } from "@zwiftmap/shared";
 import { WebhookEventType } from "./types";
 
 export const stravaWebhookEventQueue = new Queue<WebhookEventType>(

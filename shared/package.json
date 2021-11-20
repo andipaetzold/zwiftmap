@@ -1,0 +1,6 @@
+{
+  "name": "@zwiftmap/shared",
+  "dependencies": {
+    "strava": "2.0.1"
+  }
+}

@@ -6,7 +6,8 @@ import {
   SummaryActivity,
 } from "strava";
 import { BACKEND_HOST } from "../config";
-import { Share, StravaSettings } from "../types";
+import { StravaSettings } from "../types";
+import { Share } from "@zwiftmap/shared";
 import { createAxiosCacheAdapter } from "./axios-cache-adapter";
 
 export const zwiftMapApi = axios.create({
