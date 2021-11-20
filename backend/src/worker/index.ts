@@ -34,7 +34,7 @@ function wrap<T>(
       logger.info("Job done");
     } catch (e) {
       const sentryEventId = Sentry.captureException(e, {
-        contexts: { job: { id: job.id, name: job.queue.name } },
+        contexts: { job: { id: job.id, queue: job.queue.name } },
       });
       logger.error("Job failed", { sentryEventId });
       throw e;
