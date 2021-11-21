@@ -1,3 +1,5 @@
+import fromPairs from "lodash/fromPairs";
+
 export function flipLatLng(p: [number, number]): [number, number] {
   return [p[1], p[0]];
 }
@@ -17,4 +19,9 @@ export async function shareImage(url: string): Promise<void> {
   ];
 
   await navigator.share({ files });
+}
+
+export function urlSearchParamsToObject(searchParams: URLSearchParams): any {
+  // @ts-ignore
+  return fromPairs([...searchParams]);
 }

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { BACKEND_HOST } from "../../config";
+import { urlSearchParamsToObject } from "../../util";
 
 function getStravaAuthUrl() {
   const params = new URLSearchParams();
@@ -7,8 +8,8 @@ function getStravaAuthUrl() {
     "state",
     JSON.stringify({
       path: window.location.pathname,
-      search: Object.fromEntries(
-        new URLSearchParams(window.location.search).entries()
+      search: urlSearchParamsToObject(
+        new URLSearchParams(window.location.search)
       ),
     })
   );

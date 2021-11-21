@@ -1,4 +1,5 @@
 import axios from "axios";
+import fromPairs from "lodash/fromPairs";
 import { StravaSegment } from "../types";
 import { createAxiosCacheAdapter } from "./axios-cache-adapter";
 
@@ -31,7 +32,5 @@ export async function getStravaSegmentStreams<
   );
 
   // @ts-ignore
-  return Object.fromEntries(
-    streams.map((stream, i) => [stream, streamData[i]])
-  );
+  return fromPairs(streams.map((stream, i) => [stream, streamData[i]]));
 }
