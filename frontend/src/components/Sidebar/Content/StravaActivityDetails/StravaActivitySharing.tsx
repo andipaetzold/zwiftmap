@@ -3,13 +3,13 @@ import { ListItem, ListSubheader, SimpleListItem } from "@react-md/list";
 import {
   ImageFontIcon,
   InsertLinkFontIcon,
-  ShareFontIcon
+  ShareFontIcon,
 } from "@react-md/material-icons";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createUrl } from "../../../../services/location-state/createUrl";
 import {
   appendStravaDescription,
-  StravaActivity
+  StravaActivity,
 } from "../../../../services/StravaActivityRepository";
 import { shareStravaActivity } from "../../../../services/zwiftMapApi";
 import { shareImage } from "../../../../util";
@@ -35,11 +35,14 @@ export function StravaActivitySharing({ activity }: Props) {
 }
 
 function ShareActivity({ activity }: Props) {
+  const [loading, setLoading] = useState<boolean>(false);
+
   const addMessage = useAddMessage();
 
   const handleClick = async () => {
     try {
-      addMessage({ children: "Sharing…", messagePriority: "replace" });
+      setLoading(true);
+
       const { id: shareId } = await shareStravaActivity(activity.id);
 
       const path = createUrl({
@@ -58,16 +61,12 @@ function ShareActivity({ activity }: Props) {
         });
       } else {
         await navigator.clipboard.writeText(url);
-        addMessage({
-          children: "URL copied to the clipboard",
-          messagePriority: "replace",
-        });
+        addMessage({ children: "URL copied to the clipboard" });
       }
     } catch {
-      addMessage({
-        children: "Error sharing the acitivty",
-        messagePriority: "replace",
-      });
+      addMessage({ children: "Error sharing the acitivty" });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -76,13 +75,15 @@ function ShareActivity({ activity }: Props) {
       rightAddon={<ShareFontIcon />}
       rightAddonType="icon"
       onClick={handleClick}
+      disabled={loading}
     >
-      Share activity
+      {loading ? "Sharing…" : "Share activity"}
     </ListItem>
   );
 }
 
 function ShareActivityAsImage({ activity }: Props) {
+  const [loading, setLoading] = useState<boolean>(false);
   const addMessage = useAddMessage();
   const pollInterval = useRef<any>();
   const pollCounter = useRef(0);
@@ -99,9 +100,8 @@ function ShareActivityAsImage({ activity }: Props) {
 
   const handleClick = async () => {
     try {
-      reset();
+      setLoading(true);
 
-      addMessage({ children: "Generating image…", messagePriority: "replace" });
       const { id: shareId } = await shareStravaActivity(activity.id);
 
       const cloudinaryURL = `https://res.cloudinary.com/zwiftmap/image/upload/s/${shareId}.png`;
@@ -133,10 +133,10 @@ function ShareActivityAsImage({ activity }: Props) {
         window.open(cloudinaryURL, "__blank");
       }
     } catch {
-      addMessage({
-        children: "Error sharing the acitivty",
-        messagePriority: "replace",
-      });
+      addMessage({ children: "Error sharing the acitivty" });
+    } finally {
+      reset();
+      setLoading(false);
     }
   };
 
@@ -145,21 +145,21 @@ function ShareActivityAsImage({ activity }: Props) {
       onClick={handleClick}
       rightAddon={<ImageFontIcon />}
       rightAddonType="icon"
+      disabled={loading}
     >
-      Share activity as image
+      {loading ? "Generating image…" : "Share activity as image"}
     </ListItem>
   );
 }
 
 function AddLinkToActivityDescription({ activity }: Props) {
+  const [loading, setLoading] = useState<boolean>(false);
+
   const addMessage = useAddMessage();
 
   const handleAddLink = async () => {
     try {
-      addMessage({
-        children: "Posting link to activity description…",
-        messagePriority: "replace",
-      });
+      setLoading(true);
 
       const { id: shareId } = await shareStravaActivity(activity.id);
 
@@ -173,15 +173,11 @@ function AddLinkToActivityDescription({ activity }: Props) {
       const url = new URL(path, window.location.origin).toString();
       await appendStravaDescription(activity.id, `View on ZwiftMap:\n${url}`);
 
-      addMessage({
-        children: "Link posted to activity description",
-        messagePriority: "replace",
-      });
+      addMessage({ children: "Link posted to activity description" });
     } catch {
-      addMessage({
-        children: "Error posting link to activity description",
-        messagePriority: "replace",
-      });
+      addMessage({ children: "Error posting link to activity description" });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -190,8 +186,11 @@ function AddLinkToActivityDescription({ activity }: Props) {
       rightAddon={<InsertLinkFontIcon />}
       rightAddonType="icon"
       onClick={handleAddLink}
+      disabled={loading}
     >
-      Add link to activity description
+      {loading
+        ? "Posting link to activity description…"
+        : "Add link to activity description"}
     </ListItem>
   );
 }
