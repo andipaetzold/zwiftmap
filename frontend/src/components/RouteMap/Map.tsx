@@ -1,5 +1,5 @@
 import { LatLngBounds, LatLngTuple, Map as MapType } from "leaflet";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   CircleMarker,
   ImageOverlay,
@@ -34,8 +34,6 @@ export function Map({
   routeLatLngStream,
   segmentLatLngStreams,
 }: Props) {
-  const worldConfig = worldConfigs[world.slug];
-
   const [map, setMap] = useState<MapType | undefined>();
   useEffect(() => {
     map?.zoomControl.setPosition("topright");
@@ -51,26 +49,40 @@ export function Map({
 
     const minZoom = map.getBoundsZoom(world.bounds, false);
     map.setMinZoom(minZoom);
-  }, [map, worldConfig, world, routeLatLngStream]);
+  }, [map, world, routeLatLngStream]);
 
+  const doHardZoom = useRef<boolean>(true);
   useEffect(() => {
+    const worldConfig = worldConfigs[world.slug];
     if (!map) {
       return;
     }
 
     map.invalidateSize();
-    if (!routeLatLngStream) {
-      map.fitBounds(worldConfig.initialBounds);
-      return;
+
+    if (routeLatLngStream) {
+      const bounds = routeLatLngStream.reduce(
+        (bounds, coord) => bounds.extend(coord),
+        new LatLngBounds(routeLatLngStream[0], routeLatLngStream[0])
+      );
+
+      if (doHardZoom.current) {
+        map.fitBounds(bounds, { animate: false });
+      } else {
+        map.flyToBounds(bounds);
+      }
+    } else {
+      if (doHardZoom.current) {
+        map.fitBounds(worldConfig.initialBounds, { animate: false });
+      } else {
+        map.flyToBounds(worldConfig.initialBounds);
+      }
     }
 
-    const bounds = routeLatLngStream.reduce(
-      (bounds, coord) => bounds.extend(coord),
-      new LatLngBounds(routeLatLngStream[0], routeLatLngStream[0])
-    );
+    doHardZoom.current = false;
+  }, [map, routeLatLngStream, world]);
 
-    map.fitBounds(bounds);
-  }, [map, routeLatLngStream, worldConfig]);
+  const worldConfig = worldConfigs[world.slug];
 
   return (
     <MapContainer
