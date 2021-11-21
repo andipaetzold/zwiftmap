@@ -5,6 +5,7 @@ import {
   InsertLinkFontIcon,
   ShareFontIcon,
 } from "@react-md/material-icons";
+import * as Sentry from "@sentry/react";
 import { useEffect, useRef, useState } from "react";
 import { createUrl } from "../../../../services/location-state/createUrl";
 import {
@@ -62,7 +63,8 @@ function ShareActivity({ activity }: Props) {
         await navigator.clipboard.writeText(url);
         addMessage({ children: "URL copied to the clipboard" });
       }
-    } catch {
+    } catch (e) {
+      Sentry.captureException(e);
       addMessage({ children: "Error sharing the acitivty" });
     } finally {
       setLoading(false);
@@ -131,7 +133,8 @@ function ShareActivityAsImage({ activity }: Props) {
       } else {
         window.open(cloudinaryURL, "__blank");
       }
-    } catch {
+    } catch (e) {
+      Sentry.captureException(e);
       addMessage({ children: "Error sharing the acitivty" });
     } finally {
       reset();
@@ -173,7 +176,8 @@ function AddLinkToActivityDescription({ activity }: Props) {
       await appendStravaDescription(activity.id, `View on ZwiftMap:\n${url}`);
 
       addMessage({ children: "Link posted to activity description" });
-    } catch {
+    } catch (e) {
+      Sentry.captureException(e);
       addMessage({ children: "Error posting link to activity description" });
     } finally {
       setLoading(false);
