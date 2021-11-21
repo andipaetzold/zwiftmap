@@ -7,7 +7,7 @@ export interface ZwiftEvent {
   shortDescription: null | string;
   imageUrl: string;
   rulesId: number;
-  mapId: number;
+  mapId: number | null;
   routeId: number;
   routeUrl: null | string;
   jerseyHash: number | null;

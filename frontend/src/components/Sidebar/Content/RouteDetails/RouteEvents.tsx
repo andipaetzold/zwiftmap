@@ -2,7 +2,7 @@ import {
   ListItem,
   ListItemText,
   ListSubheader,
-  SimpleListItem
+  SimpleListItem,
 } from "@react-md/list";
 import { Text } from "@react-md/typography";
 import React, { useMemo } from "react";
@@ -12,7 +12,7 @@ import { useSettings } from "../../../../hooks/useSettings";
 import { fetchEvents } from "../../../../services/events/api";
 import {
   LocationStateRoute,
-  useLocationState
+  useLocationState,
 } from "../../../../services/location-state";
 import { EventInfo } from "../../../EventInfo";
 import { LoadingSpinnerListItem } from "../../../Loading";
@@ -69,7 +69,7 @@ export function RouteEvents({ route }: Props) {
           onClick={() =>
             setLocationState({
               type: "event",
-              world: worlds.find((w) => w.id === event.mapId)!,
+              world: worlds.find((w) => w.slug === route.world) ?? null,
               eventId: event.id.toString(),
               query: locationState.query,
             })
