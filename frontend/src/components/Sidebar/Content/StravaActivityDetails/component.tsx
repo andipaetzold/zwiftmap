@@ -38,9 +38,8 @@ export function StravaActivityDetailsComponent({
 
       <StravaActivityRoutes activity={activity} />
       <StravaActivitySegments activity={activity} />
-
-      <StravaActivityLinks activity={activity} />
       <StravaActivitySharing activity={activity} />
+      <StravaActivityLinks activity={activity} />
     </>
   );
 }
