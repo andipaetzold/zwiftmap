@@ -1,8 +1,9 @@
 import { Avatar } from "@react-md/avatar";
 import { ListItemLink, ListItemText, ListSubheader } from "@react-md/list";
 import { OpenInNewFontIcon } from "@react-md/material-icons";
-import { ShareStravaActivity } from "../../../../../types";
 import stravaLogo from "../../../../../assets/strava-40x40.png";
+import { ShareStravaActivity } from "../../../../../types";
+import { ImageButton } from "./ImageButton";
 
 export interface Props {
   share: ShareStravaActivity;
@@ -12,6 +13,7 @@ export function SharedStravaActivityLinks({ share }: Props) {
   return (
     <>
       <ListSubheader>Links</ListSubheader>
+      <ImageButton share={share} />
       <ListItemLink
         href={`https://www.strava.com/activities/${share.activity.id}`}
         target="_blank"
