@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 import { createUrl } from "./createUrl";
 import {
-  addListener,
+  addStateListener,
   getLocationState,
-  removeListener,
+  removeStateListener,
   setLocationState,
 } from "./state";
 import { LocationState, LocationStateWithKey } from "./types";
@@ -15,8 +15,8 @@ export function useLocationState<
 
   useEffect(() => {
     setState(getLocationState());
-    addListener(setState);
-    return () => removeListener(setState);
+    addStateListener(setState);
+    return () => removeStateListener(setState);
   }, []);
 
   const handleSetState = useCallback((newState: LocationState) => {

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { BACKEND_HOST } from "../../config";
 import { urlSearchParamsToObject } from "../../util";
+import { addStateListener, removeStateListener } from "../location-state";
 
 function getStravaAuthUrl() {
   const params = new URLSearchParams();
@@ -22,8 +23,8 @@ export function useStravaAuthUrl(): string {
 
   useEffect(() => {
     const listener = () => setUrl(getStravaAuthUrl());
-    window.addEventListener("popstate", listener);
-    return () => window.removeEventListener("popstate", listener);
+    addStateListener(listener);
+    return () => removeStateListener(listener);
   }, []);
   return url;
 }

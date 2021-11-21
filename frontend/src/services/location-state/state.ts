@@ -31,11 +31,11 @@ export function getLocationState(): LocationStateWithKey {
   return state;
 }
 
-export function addListener(listener: Listener) {
+export function addStateListener(listener: Listener) {
   listeners.push(listener);
 }
 
-export function removeListener(listener: Listener) {
+export function removeStateListener(listener: Listener) {
   listeners.splice(listeners.indexOf(listener), 1);
 }
 
