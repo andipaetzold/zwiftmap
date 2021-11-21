@@ -18,5 +18,4 @@ export interface ShareStravaActivity {
   >;
   athlete: { id: number };
   streams: StreamSet;
-  hasImage: boolean;
 }
