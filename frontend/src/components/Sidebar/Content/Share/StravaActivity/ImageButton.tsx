@@ -67,6 +67,7 @@ export function ImageButton({ share }: Props) {
     <ListItemLink
       href={url}
       download
+      target="_blank"
       leftAddon={
         <Avatar>
           <img src={zwiftMapLogo} alt="" />
