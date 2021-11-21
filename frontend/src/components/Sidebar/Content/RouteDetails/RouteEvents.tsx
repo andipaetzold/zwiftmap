@@ -42,7 +42,7 @@ export function RouteEvents({ route }: Props) {
 
         return route.id && eventRouteIds.includes(route.id);
       })
-      .sort((a, b) => a.eventStart.localeCompare(b.eventStart));
+      .sort((a, b) => (a.eventStart ?? "").localeCompare(b.eventStart ?? ""));
   }, [events, route, settings.sport]);
 
   if (filteredEvents === undefined) {

@@ -46,7 +46,9 @@ export function EventFacts({ event }: Props) {
         leftAddon={<EventFontIcon />}
         leftAddonType="icon"
       >
-        {FORMAT.format(Date.parse(event.eventStart))}
+        {event.eventStart
+          ? FORMAT.format(Date.parse(event.eventStart))
+          : "Unknown"}
       </SimpleListItem>
       <SimpleListItem
         clickable={false}
