@@ -65,3 +65,11 @@ export async function getStravaActivityStreams(activityId: number) {
   );
   return response.data;
 }
+
+export async function shareStravaActivity(activityId: number) {
+  const response = await zwiftMapApi.post<{ id: string }>("/share", {
+    type: "strava-activity",
+    stravaActivityId: activityId,
+  });
+  return response.data;
+}

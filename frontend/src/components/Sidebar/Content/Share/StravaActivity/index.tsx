@@ -4,6 +4,7 @@ import { ShareStravaActivity } from "../../../../../types";
 import { ElevationChart } from "../../../../ElevationChart";
 import { SharedStravaActivityFacts } from "./Facts";
 import { SharedStravaActivityLinks } from "./Links";
+import { SharedStravaActivitySharing } from "./Sharing";
 
 interface Props {
   share: ShareStravaActivity;
@@ -32,6 +33,7 @@ export function SharedStravaActivity({
         />
       </SimpleListItem>
 
+      <SharedStravaActivitySharing share={share} />
       <SharedStravaActivityLinks share={share} />
     </>
   );
