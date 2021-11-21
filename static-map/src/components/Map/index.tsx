@@ -13,7 +13,7 @@ import styles from "./index.module.scss";
 import { worldConfigs } from "../../worldConfig";
 import { useShare } from "../../hooks/useShare";
 import { getWorld } from "../../util/getWorld";
-import logo from "./logo.png";
+import logo from "./logo.svg";
 
 const DEFAULT_WORLD = worlds.find((w) => w.slug === "watopia")!;
 
