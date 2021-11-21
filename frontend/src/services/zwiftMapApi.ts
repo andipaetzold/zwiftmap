@@ -13,7 +13,8 @@ export const zwiftMapApi = axios.create({
   baseURL: BACKEND_HOST,
   withCredentials: true,
   adapter: createAxiosCacheAdapter({
-    filter: (config) => config.url!.startsWith("/strava"),
+    filter: (config) =>
+      config.url!.startsWith("/strava") || config.url!.startsWith("/share"),
   }),
 });
 
