@@ -55,8 +55,7 @@ function ShareActivity({ activity }: Props) {
 
       if (isSharingSupported) {
         await navigator.share({
-          title: activity.name,
-          text: "View my activity on ZwiftMap",
+          title: `${activity.name} - ZwiftMap`,
           url,
         });
       } else {
