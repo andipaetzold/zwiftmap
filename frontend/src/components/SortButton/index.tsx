@@ -10,21 +10,9 @@ import {
 import { Menu, MenuItem } from "@react-md/menu";
 import { BELOW_INNER_LEFT_ANCHOR, useToggle } from "@react-md/utils";
 import c from "classnames";
+import { useSessionSettings } from "../../hooks/useSessionSettings";
+import { SortKey } from "../../types";
 import styles from "./index.module.scss";
-
-export type SortKey =
-  | "name"
-  | "distance"
-  | "elevation"
-  | "experience"
-  | "leadInDistance"
-  | "leadInElevation";
-export type SortDir = "ASC" | "DESC";
-
-export interface SortState {
-  key: SortKey;
-  dir: SortDir;
-}
 
 const NAME_MAP: Record<SortKey, string> = {
   name: "Name",
@@ -35,19 +23,22 @@ const NAME_MAP: Record<SortKey, string> = {
   leadInElevation: "Lead-In Elevation",
 };
 
-interface Props {
-  state: SortState;
-  onChange: (newState: SortState) => void;
-}
-
-export function SortButton({ state, onChange }: Props) {
+export function SortButton() {
+  const [sessionSettings, setSessionSettings] = useSessionSettings();
+  const { sortState: state } = sessionSettings;
   const [menuVisible, , hideMenu, toggleMenu] = useToggle(false);
 
   const handleItemClick = (key: SortKey) => {
     if (state.key === key) {
-      onChange({ key, dir: state.dir === "ASC" ? "DESC" : "ASC" });
+      setSessionSettings({
+        ...sessionSettings,
+        sortState: { key, dir: state.dir === "ASC" ? "DESC" : "ASC" },
+      });
     } else {
-      onChange({ key, dir: "ASC" });
+      setSessionSettings({
+        ...sessionSettings,
+        sortState: { key, dir: "ASC" },
+      });
     }
   };
 

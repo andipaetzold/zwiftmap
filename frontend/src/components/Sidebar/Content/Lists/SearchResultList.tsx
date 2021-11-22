@@ -1,23 +1,24 @@
 import { List, ListSubheader, SimpleListItem } from "@react-md/list";
-import React, { useState } from "react";
+import React from "react";
 import { Route, World } from "zwift-data";
+import { useSessionSettings } from "../../../../hooks/useSessionSettings";
+import { useSettings } from "../../../../hooks/useSettings";
 import {
   LocationStateDefault,
   useLocationState,
 } from "../../../../services/location-state";
-import { useSettings } from "../../../../hooks/useSettings";
 import {
   search,
   SearchResult,
   SEARCH_RESULTS_ORDER,
   SEARCH_RESULTS_TYPES,
 } from "../../../../services/search";
+import { HoverData, SortState } from "../../../../types";
 import { sortRoute, sortWorld } from "../../../../util/sort";
+import { SortButton } from "../../../SortButton";
 import { ListItemRoute } from "./Items/ListItemRoute";
 import { ListItemStravaActivity } from "./Items/ListItemStravaActivity";
 import { ListItemWorld } from "./Items/ListItemWorld";
-import { SortButton, SortState } from "../../../SortButton";
-import { HoverData } from "../../../../types";
 
 interface Props {
   onHoverRoute: (data: HoverData) => void;
@@ -26,10 +27,8 @@ interface Props {
 export function SearchResultList({ onHoverRoute }: Props) {
   const [locationState] = useLocationState<LocationStateDefault>();
   const [settings] = useSettings();
-  const [sortState, setSortState] = useState<SortState>({
-    key: "name",
-    dir: "ASC",
-  });
+  const [{ sortState }] = useSessionSettings();
+
   const searchResults = search(locationState.query, settings.sport);
 
   if (Object.values(searchResults).flat().length === 0) {
@@ -38,7 +37,7 @@ export function SearchResultList({ onHoverRoute }: Props) {
 
   return (
     <List>
-      <SortButton onChange={setSortState} state={sortState} />
+      <SortButton />
 
       {SEARCH_RESULTS_ORDER.map((type) => (
         <SearchResultsTypeList

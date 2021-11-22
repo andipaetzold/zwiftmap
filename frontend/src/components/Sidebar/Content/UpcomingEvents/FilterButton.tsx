@@ -4,23 +4,14 @@ import { List, SimpleListItem } from "@react-md/list";
 import { FilterListFontIcon } from "@react-md/material-icons";
 import { Menu } from "@react-md/menu";
 import { BELOW_INNER_LEFT_ANCHOR, useToggle } from "@react-md/utils";
+import { useSessionSettings } from "../../../../hooks/useSessionSettings";
 import { ZwiftEventType } from "../../../../services/events";
 import { EVENT_TYPES } from "../../../../services/events/constants";
 
-export const DEFAULT_FILTER_STATE: FilterState = {
-  eventTypes: ["GROUP_WORKOUT", "GROUP_RIDE", "RACE", "TIME_TRIAL"],
-};
+export function EventFilterButton() {
+  const [sessionSettings, setSessionSettings] = useSessionSettings();
+  const { eventFilter: state } = sessionSettings;
 
-export interface FilterState {
-  eventTypes: ZwiftEventType[];
-}
-
-interface Props {
-  state: FilterState;
-  onChange: (newState: FilterState) => void;
-}
-
-export function EventFilterButton({ state, onChange }: Props) {
   const [menuVisible, , hideMenu, toggleMenu] = useToggle(false);
 
   const handleCheckedState = (
@@ -31,12 +22,16 @@ export function EventFilterButton({ state, onChange }: Props) {
     e.stopPropagation();
 
     if (checked) {
-      onChange({
-        eventTypes: [...state.eventTypes, eventType],
+      setSessionSettings({
+        ...sessionSettings,
+        eventFilter: { eventTypes: [...state.eventTypes, eventType] },
       });
     } else {
-      onChange({
-        eventTypes: state.eventTypes.filter((type) => type !== eventType),
+      setSessionSettings({
+        ...sessionSettings,
+        eventFilter: {
+          eventTypes: state.eventTypes.filter((type) => type !== eventType),
+        },
       });
     }
   };

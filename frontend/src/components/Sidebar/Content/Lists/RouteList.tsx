@@ -1,17 +1,17 @@
 import { Divider } from "@react-md/divider";
 import { List, ListItem } from "@react-md/list";
-import { useState } from "react";
 import { routes } from "zwift-data";
 import { useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";
+import { useSessionSettings } from "../../../../hooks/useSessionSettings";
+import { useSettings } from "../../../../hooks/useSettings";
 import {
   LocationStateDefault,
   useLocationState,
 } from "../../../../services/location-state";
-import { useSettings } from "../../../../hooks/useSettings";
-import { sortRoute } from "../../../../util/sort";
-import { SortButton, SortState } from "../../../SortButton";
-import { ListItemRoute } from "./Items/ListItemRoute";
 import { HoverData } from "../../../../types";
+import { sortRoute } from "../../../../util/sort";
+import { SortButton } from "../../../SortButton";
+import { ListItemRoute } from "./Items/ListItemRoute";
 
 interface Props {
   onHoverRoute: (data: HoverData) => void;
@@ -22,10 +22,7 @@ export function RouteList({ onHoverRoute }: Props) {
   const [locationState, setLocationState] =
     useLocationState<LocationStateDefault>();
   const isLoggedIn = useIsLoggedInStrava();
-  const [sortState, setSortState] = useState<SortState>({
-    key: "name",
-    dir: "ASC",
-  });
+  const [{ sortState }] = useSessionSettings();
 
   const handleStravaClick = () => {
     setLocationState({
@@ -57,7 +54,7 @@ export function RouteList({ onHoverRoute }: Props) {
 
       <Divider />
 
-      <SortButton state={sortState} onChange={setSortState} />
+      <SortButton />
       {routes
         .filter((route) => route.world === locationState.world.slug)
         .filter((route) => route.sports.includes(settings.sport))

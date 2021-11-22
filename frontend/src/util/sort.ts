@@ -1,5 +1,5 @@
 import { Route, World } from "zwift-data";
-import { SortState } from "../components/SortButton";
+import { SortState } from "../types";
 
 export function sortWorld(sortState: SortState, a: World, b: World): number {
   let result = a.name.localeCompare(b.name);
