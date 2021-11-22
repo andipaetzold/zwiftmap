@@ -55,10 +55,16 @@ function ShareActivity({ activity }: Props) {
       const url = new URL(path, window.location.origin).toString();
 
       if (isSharingSupported) {
-        await navigator.share({
-          title: `${activity.name} - ZwiftMap`,
-          url,
-        });
+        try {
+          await navigator.share({ title: `${activity.name} - ZwiftMap`, url });
+        } catch (e) {
+          if (e instanceof DOMException && e.name === "NotAllowedError") {
+            await navigator.clipboard.writeText(url);
+            addMessage({ children: "URL copied to the clipboard" });
+          } else {
+            throw e;
+          }
+        }
       } else {
         await navigator.clipboard.writeText(url);
         addMessage({ children: "URL copied to the clipboard" });
@@ -128,11 +134,7 @@ function ShareActivityAsImage({ activity }: Props) {
 
       await pollPromise;
 
-      if (isSharingSupported) {
-        await shareImage(cloudinaryURL);
-      } else {
-        window.open(cloudinaryURL, "__blank");
-      }
+      await shareImage(cloudinaryURL);
     } catch (e) {
       Sentry.captureException(e);
       addMessage({ children: "Error sharing the acitivty" });
