@@ -58,7 +58,12 @@ function ShareActivity({ activity }: Props) {
         try {
           await navigator.share({ title: `${activity.name} - ZwiftMap`, url });
         } catch (e) {
-          if (e instanceof DOMException && e.name === "NotAllowedError") {
+          if (e instanceof DOMException && e.name === "AbortError") {
+            // ignore
+          } else if (
+            e instanceof DOMException &&
+            e.name === "NotAllowedError"
+          ) {
             await navigator.clipboard.writeText(url);
             addMessage({ children: "URL copied to the clipboard" });
           } else {
