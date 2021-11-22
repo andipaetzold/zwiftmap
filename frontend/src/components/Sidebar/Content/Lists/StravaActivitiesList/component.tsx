@@ -2,7 +2,7 @@ import polyline from "@mapbox/polyline";
 import { ListItem, SimpleListItem } from "@react-md/list";
 import axios from "axios";
 import { useAsync } from "react-async-hook";
-import { setLocationState } from "../../../../../services/location-state/state";
+import { useLocationState } from "../../../../../services/location-state";
 import { getStravaActivities } from "../../../../../services/zwiftMapApi";
 import { HoverData } from "../../../../../types";
 import { getWorld } from "../../../../../util/strava";
@@ -16,6 +16,7 @@ interface Props {
 }
 
 export function StravaActivitiesListComponent({ onHoverRoute }: Props) {
+  const [, setLocationState] = useLocationState();
   const {
     result: activities,
     loading,
