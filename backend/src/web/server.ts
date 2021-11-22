@@ -11,7 +11,7 @@ import {
   FRONTEND_URL,
   STATIC_URL,
 } from "../shared/config";
-import { redisClient } from "../shared/persistence/redis";
+import { redisCallbackClient } from "../shared/persistence/redis";
 import { logger } from "./middleware/logger";
 import { requestId } from "./middleware/requestId";
 import { requestLogger } from "./middleware/requestLogger";
@@ -37,7 +37,7 @@ const RedisStore = connectRedis(session);
 app.use(
   session({
     store: new RedisStore({
-      client: redisClient,
+      client: redisCallbackClient,
       prefix: "session:",
     }),
     secret: AUTH_SECRET,

@@ -1,5 +1,5 @@
 import { Boolean, Record, Static } from "runtypes";
-import { read, remove, write } from "./redis";
+import { redisClient } from "./redis";
 
 export const StravaSettings = Record({
   addLinkToActivityDescription: Boolean,
@@ -16,13 +16,13 @@ export async function writeStravaSettings(
   settings: StravaSettingsType
 ) {
   const key = createKey(athleteId);
-  await write(key, settings);
+  await redisClient.set(key, settings);
 }
 
 export async function readStravaSettings(
   athleteId: number
 ): Promise<StravaSettingsType> {
-  const settings = await read(createKey(athleteId));
+  const settings = await redisClient.get(createKey(athleteId));
   if (!settings) {
     return {
       addLinkToActivityDescription: false,
@@ -32,5 +32,5 @@ export async function readStravaSettings(
 }
 
 export async function removeStravaSettings(athleteId: number): Promise<void> {
-  return await remove(createKey(athleteId));
+  return await redisClient.del(createKey(athleteId));
 }

@@ -1,7 +1,7 @@
 import short from "short-uuid";
 import { DetailedActivity, StreamSet } from "strava";
 import { FRONTEND_URL } from "../config";
-import { hget, hset, read, remove, write } from "./redis";
+import { redisClient } from "./redis";
 
 const STRAVA_ACTIVITIES = createKey("strava-activities");
 
@@ -36,7 +36,7 @@ function createKey(shareId: string): string {
 export async function writeShare(
   shareWithoutId: Omit<Share, "id">
 ): Promise<Share> {
-  const lookupShareId = await hget(
+  const lookupShareId = await redisClient.hget(
     STRAVA_ACTIVITIES,
     shareWithoutId.activity.id.toString()
   );
@@ -46,14 +46,18 @@ export async function writeShare(
 
   const id = short.generate();
   const shareWithId = { ...shareWithoutId, id };
-  await write(createKey(id), shareWithId);
-  await hset(STRAVA_ACTIVITIES, shareWithoutId.activity.id.toString(), id);
+  await redisClient.set(createKey(id), shareWithId);
+  await redisClient.hset(
+    STRAVA_ACTIVITIES,
+    shareWithoutId.activity.id.toString(),
+    id
+  );
 
   return shareWithId;
 }
 
 export async function readShare(shareId: string): Promise<Share | undefined> {
-  const share = await read<Share>(createKey(shareId));
+  const share = await redisClient.get<Share>(createKey(shareId));
   if (!share) {
     return share;
   }
@@ -65,5 +69,5 @@ export async function readShare(shareId: string): Promise<Share | undefined> {
 }
 
 export async function removeShare(shareId: string): Promise<void> {
-  return await remove(createKey(shareId));
+  return await redisClient.del(createKey(shareId));
 }

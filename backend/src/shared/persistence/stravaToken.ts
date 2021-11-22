@@ -1,4 +1,4 @@
-import { read, remove, write } from "./redis";
+import { redisClient } from "./redis";
 
 export interface StravaToken {
   athleteId: number;
@@ -14,15 +14,15 @@ function createKey(athleteId: number): string {
 
 export async function writeStravaToken(stravaToken: StravaToken) {
   const key = createKey(stravaToken.athleteId);
-  await write(key, stravaToken);
+  await redisClient.set(key, stravaToken);
 }
 
 export async function readStravaToken(
   athleteId: number
 ): Promise<StravaToken | undefined> {
-  return await read(createKey(athleteId));
+  return await redisClient.get(createKey(athleteId));
 }
 
 export async function removeStravaToken(athleteId: number): Promise<void> {
-  return await remove(createKey(athleteId));
+  return await redisClient.del(createKey(athleteId));
 }

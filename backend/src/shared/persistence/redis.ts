@@ -1,15 +1,24 @@
 import { createClient } from "redis";
 import { REDIS_URL } from "../config";
 
-export const redisClient = createClient({
+export const redisCallbackClient = createClient({
   url: REDIS_URL,
 });
 
-export async function write<T = any>(key: string, value: T): Promise<void> {
+export const redisClient = {
+  set,
+  get,
+  del,
+  exists,
+  hset,
+  hget,
+};
+
+async function set<T = any>(key: string, value: T): Promise<void> {
   const stringified = JSON.stringify(value);
 
   await new Promise<void>((resolve, reject) => {
-    redisClient.set(key, stringified, (err) => {
+    redisCallbackClient.set(key, stringified, (err) => {
       if (err) {
         reject(err);
       } else {
@@ -19,9 +28,9 @@ export async function write<T = any>(key: string, value: T): Promise<void> {
   });
 }
 
-export async function read<T = any>(key: string): Promise<T | undefined> {
+async function get<T = any>(key: string): Promise<T | undefined> {
   return await new Promise((resolve, reject) => {
-    redisClient.get(key, (err, value) => {
+    redisCallbackClient.get(key, (err, value) => {
       if (err) {
         reject(err);
       } else {
@@ -31,9 +40,9 @@ export async function read<T = any>(key: string): Promise<T | undefined> {
   });
 }
 
-export async function remove(key: string): Promise<void> {
+async function del(key: string): Promise<void> {
   return await new Promise((resolve, reject) => {
-    redisClient.del(key, (err) => {
+    redisCallbackClient.del(key, (err) => {
       if (err) {
         reject(err);
       } else {
@@ -43,9 +52,9 @@ export async function remove(key: string): Promise<void> {
   });
 }
 
-export async function exists(key: string): Promise<boolean> {
+async function exists(key: string): Promise<boolean> {
   return await new Promise((resolve, reject) => {
-    redisClient.exists(key, (err, reply) => {
+    redisCallbackClient.exists(key, (err, reply) => {
       if (err) {
         reject(err);
       } else {
@@ -55,7 +64,7 @@ export async function exists(key: string): Promise<boolean> {
   });
 }
 
-export async function hset<T = any>(
+async function hset<T = any>(
   key: string,
   field: string,
   value: T
@@ -63,7 +72,7 @@ export async function hset<T = any>(
   const stringified = JSON.stringify(value);
 
   await new Promise<void>((resolve, reject) => {
-    redisClient.hset(key, field, stringified, (err) => {
+    redisCallbackClient.hset(key, field, stringified, (err) => {
       if (err) {
         reject(err);
       } else {
@@ -73,12 +82,12 @@ export async function hset<T = any>(
   });
 }
 
-export async function hget<T = any>(
+async function hget<T = any>(
   key: string,
   field: string
 ): Promise<T | undefined> {
   return await new Promise((resolve, reject) => {
-    redisClient.hget(key, field, (err, value) => {
+    redisCallbackClient.hget(key, field, (err, value) => {
       if (err) {
         reject(err);
       } else {
