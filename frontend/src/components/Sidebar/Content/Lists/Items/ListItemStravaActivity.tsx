@@ -3,7 +3,7 @@ import {
   ListItem,
   ListItemLink,
   ListItemText,
-  SimpleListItem
+  SimpleListItem,
 } from "@react-md/list";
 import { OpenInNewFontIcon } from "@react-md/material-icons";
 import React from "react";
@@ -12,7 +12,7 @@ import stravaLogo from "../../../../../assets/strava-40x40.png";
 import { useIsLoggedInStrava } from "../../../../../hooks/useIsLoggedInStrava";
 import {
   LocationStateStravaActivities,
-  useLocationState
+  useLocationState,
 } from "../../../../../services/location-state";
 import { useStravaAuthUrl } from "../../../../../services/strava/auth";
 import { getStravaActivity } from "../../../../../services/StravaActivityRepository";
@@ -75,11 +75,9 @@ function SearchResultCardStravaActivityLoggedIn({
 
   if (!activity) {
     return (
-      <SimpleListItem
-        secondaryText="Make sure you can access the activity and it was recorded in Zwift."
-        threeLines
-      >
-        An error occurred
+      <SimpleListItem threeLines>
+        An error occurred. Make sure you can access the activity and it was
+        recorded in Zwift.
       </SimpleListItem>
     );
   }
