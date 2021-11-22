@@ -10,7 +10,7 @@ Sentry.init({
   enabled: SENTRY_WORKER_DSN.length > 0,
   dsn: SENTRY_WORKER_DSN,
   environment: "production",
-  tracesSampleRate: 1.0,
+  tracesSampleRate: 0.25,
 });
 
 stravaWebhookEventQueue.process(wrap(handleStravaWebhookEvent));

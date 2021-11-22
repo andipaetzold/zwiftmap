@@ -18,7 +18,7 @@ import {
 Sentry.init({
   enabled: (process.env.REACT_APP_SENTRY_DSN ?? "").length > 0,
   dsn: process.env.REACT_APP_SENTRY_DSN,
-  environment: 'production',
+  environment: "production",
   release: GIT_SHA,
   integrations: [
     new Integrations.BrowserTracing({
@@ -68,7 +68,7 @@ Sentry.init({
       },
     }),
   ],
-  tracesSampleRate: 1.0,
+  tracesSampleRate: 0.25,
 });
 
 fetchAuthStatus();

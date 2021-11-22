@@ -13,7 +13,7 @@ Sentry.init({
     new Sentry.Integrations.Http({ tracing: true }),
     new Tracing.Integrations.Express({ app }),
   ],
-  tracesSampleRate: 1.0,
+  tracesSampleRate: 0.25,
 });
 
 app.use(Sentry.Handlers.requestHandler());
