@@ -104,6 +104,7 @@ export function Map({
           <Polyline
             positions={previewRouteLatLngStream}
             pathOptions={{ color: "#D3D3D3", weight: 5 }}
+            interactive={false}
           />
         </Pane>
       )}
@@ -114,6 +115,7 @@ export function Map({
             <Polyline
               positions={routeLatLngStream}
               pathOptions={{ color: "#fc6719", weight: 5 }}
+              interactive={false}
             />
           </Pane>
           <Pane name="route-start" style={{ zIndex: Z_INDEX.routeStart }}>
@@ -126,6 +128,7 @@ export function Map({
                 fillColor: "green",
                 fillOpacity: 1,
               }}
+              interactive={false}
             />
           </Pane>
           <Pane name="route-end" style={{ zIndex: Z_INDEX.routeEnd }}>
@@ -138,6 +141,7 @@ export function Map({
                 fillColor: "red",
                 fillOpacity: 1,
               }}
+              interactive={false}
             />
           </Pane>
         </>
@@ -150,6 +154,7 @@ export function Map({
               key={segmentIndex}
               positions={s}
               pathOptions={{ color: "#64ac39", weight: 8 }}
+              interactive={false}
             />
           ))}
         </Pane>
@@ -166,6 +171,7 @@ export function Map({
               fillColor: "black",
               fillOpacity: 1,
             }}
+            interactive={false}
           />
         </Pane>
       )}
