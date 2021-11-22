@@ -3,9 +3,10 @@ import {
   List,
   ListItemLink,
   ListItemText,
-  SimpleListItem
+  SimpleListItem,
 } from "@react-md/list";
 import { OpenInNewFontIcon } from "@react-md/material-icons";
+import axios from "axios";
 import React from "react";
 import { useAsync } from "react-async-hook";
 import stravaLogo from "../../../../assets/strava-40x40.png";
@@ -36,9 +37,11 @@ function StravaActivityDetailsContent({
 }: Props) {
   const isLoggedInStrava = useIsLoggedInStrava();
   const stravaAuthUrl = useStravaAuthUrl();
-  const { result: activity, loading } = useAsync(getStravaActivity, [
-    activityId,
-  ]);
+  const {
+    result: activity,
+    loading,
+    error,
+  } = useAsync(getStravaActivity, [activityId]);
 
   if (isLoggedInStrava === null) {
     return <LoadingSpinnerListItem />;
@@ -64,19 +67,41 @@ function StravaActivityDetailsContent({
     );
   }
 
-  if (loading) {
-    return <LoadingSpinnerListItem />;
+  if (error) {
+    if (axios.isAxiosError(error)) {
+      switch (error.response?.status) {
+        case 403:
+          return (
+            <SimpleListItem threeLines>
+              You do not have permission to access this activity. You can only
+              access your own activities.
+            </SimpleListItem>
+          );
+
+        case 404:
+          return (
+            <SimpleListItem threeLines>
+              Could not find the requested Strava activity.
+            </SimpleListItem>
+          );
+
+        case 429:
+          return (
+            <SimpleListItem threeLines>
+              ZwiftMap received too many requests and got rate limited by
+              Strava.
+              <br />
+              Please try again in a few minutes.
+            </SimpleListItem>
+          );
+      }
+    }
+
+    return <SimpleListItem threeLines>An error occurred.</SimpleListItem>;
   }
 
-  if (!activity) {
-    return (
-      <SimpleListItem
-        secondaryText="Make sure you can access the activity and it was recorded in Zwift."
-        threeLines
-      >
-        An error occurred
-      </SimpleListItem>
-    );
+  if (loading || activity === undefined) {
+    return <LoadingSpinnerListItem />;
   }
 
   return (
