@@ -1,8 +1,10 @@
+import * as Sentry from "@sentry/react";
 import { LatLngTuple } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import React, { useMemo } from "react";
 import { useAsync } from "react-async-hook";
 import { Route, routes } from "zwift-data";
+import { fetchEvent } from "../../services/events";
 import {
   DEFAULT_WORLD,
   LocationState,
@@ -10,19 +12,18 @@ import {
   LocationStateShare,
   LocationStateStravaActivity,
   LocationStateUpcomingEvent,
-  useLocationState,
+  useLocationState
 } from "../../services/location-state";
-import { fetchEvent } from "../../services/events";
 import { getStravaActivity } from "../../services/StravaActivityRepository";
 import {
   getStravaSegmentStream,
-  getStravaSegmentStreams,
+  getStravaSegmentStreams
 } from "../../services/StravaSegmentRepository";
+import { getShare } from "../../services/zwiftMapApi";
+import { HoverData } from "../../types";
 import styles from "./index.module.css";
 import { Map } from "./Map";
 import { WorldSelect } from "./WorldSelect";
-import { getShare } from "../../services/zwiftMapApi";
-import { HoverData } from "../../types";
 
 interface Props {
   mouseHoverDistance: number | undefined;
@@ -43,7 +44,10 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
         )
       );
     },
-    [locationState]
+    [locationState],
+    {
+      onError: (e) => Sentry.captureException(e),
+    }
   );
 
   const { result: routeStreamSet } = useAsync<
@@ -110,7 +114,10 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
       (locationState as LocationStateStravaActivity).stravaActivityId,
       (locationState as LocationStateUpcomingEvent).eventId,
       (locationState as LocationStateShare).shareId,
-    ]
+    ],
+    {
+      onError: (e) => Sentry.captureException(e),
+    }
   );
 
   const { result: previewLatLng } = useAsync<LatLngTuple[] | undefined>(
@@ -127,7 +134,10 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
           return r.latlng;
       }
     },
-    [previewRoute]
+    [previewRoute],
+    {
+      onError: (e) => Sentry.captureException(e),
+    }
   );
 
   const pointCoordinates = useMemo<LatLngTuple | undefined>(() => {

@@ -1,5 +1,6 @@
 import polyline from "@mapbox/polyline";
 import { ListItem, SimpleListItem } from "@react-md/list";
+import * as Sentry from "@sentry/react";
 import axios from "axios";
 import { useAsync } from "react-async-hook";
 import { useLocationState } from "../../../../../services/location-state";
@@ -21,7 +22,9 @@ export function StravaActivitiesListComponent({ onHoverRoute }: Props) {
     result: activities,
     loading,
     error,
-  } = useAsync(getStravaActivities, []);
+  } = useAsync(getStravaActivities, [], {
+    onError: (e) => Sentry.captureException(e),
+  });
 
   if (error) {
     if (axios.isAxiosError(error) && error.response?.status === 429) {

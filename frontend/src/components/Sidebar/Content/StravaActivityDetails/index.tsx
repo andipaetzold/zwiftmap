@@ -6,6 +6,7 @@ import {
   SimpleListItem,
 } from "@react-md/list";
 import { OpenInNewFontIcon } from "@react-md/material-icons";
+import * as Sentry from "@sentry/react";
 import axios from "axios";
 import React from "react";
 import { useAsync } from "react-async-hook";
@@ -41,7 +42,9 @@ function StravaActivityDetailsContent({
     result: activity,
     loading,
     error,
-  } = useAsync(getStravaActivity, [activityId]);
+  } = useAsync(getStravaActivity, [activityId], {
+    onError: (e) => Sentry.captureException(e),
+  });
 
   if (isLoggedInStrava === null) {
     return <LoadingSpinnerListItem />;
