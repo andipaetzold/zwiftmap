@@ -7,7 +7,7 @@ import {
 } from "@react-md/material-icons";
 import * as Sentry from "@sentry/react";
 import { useEffect, useRef, useState } from "react";
-import { createUrl } from "../../../../services/location-state/createUrl";
+import { createUrl } from "../../../../services/location-state";
 import {
   appendStravaDescription,
   StravaActivity,

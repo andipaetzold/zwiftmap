@@ -3,3 +3,4 @@ export * from "./getKeyFromLocationState";
 export { addStateListener, removeStateListener } from "./state";
 export * from "./types";
 export { useLocationState } from "./useLocationState";
+export { createUrl } from "./createUrl";
