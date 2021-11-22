@@ -1,4 +1,9 @@
-import axios, { AxiosAdapter, AxiosPromise, AxiosRequestConfig } from "axios";
+import axios, {
+  AxiosAdapter,
+  AxiosPromise,
+  AxiosRequestConfig,
+  AxiosResponse,
+} from "axios";
 
 function getCacheKey(config: AxiosRequestConfig): string {
   return JSON.stringify({
@@ -17,7 +22,7 @@ export function createAxiosCacheAdapter({
 }: Options = {}): AxiosAdapter {
   const store = new Map<string, AxiosPromise>();
 
-  return (config: AxiosRequestConfig): AxiosPromise => {
+  return async (config: AxiosRequestConfig): Promise<AxiosResponse<any>> => {
     if (!filter(config)) {
       return axios.defaults.adapter!(config);
     }
@@ -32,6 +37,11 @@ export function createAxiosCacheAdapter({
       store.set(cacheKey, axios.defaults.adapter!(config));
     }
 
-    return store.get(cacheKey)!;
+    try {
+      return await store.get(cacheKey)!;
+    } catch (e) {
+      store.delete(cacheKey);
+      throw e;
+    }
   };
 }
