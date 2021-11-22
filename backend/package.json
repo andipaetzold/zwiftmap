@@ -26,7 +26,6 @@
     "@types/morgan": "1.9.3",
     "@types/node": "16.11.9",
     "@types/node-fetch": "2.5.3",
-    "@types/object-hash": "2.2.1",
     "@types/redis": "2.8.32",
     "tsc-watch": "4.5.0",
     "typescript": "4.5.2"
@@ -46,7 +45,6 @@
     "lodash": "4.17.21",
     "morgan": "1.10.0",
     "nocache": "3.0.1",
-    "object-hash": "2.2.0",
     "puppeteer": "11.0.0",
     "redis": "3.1.2",
     "runtypes": "6.5.0",
