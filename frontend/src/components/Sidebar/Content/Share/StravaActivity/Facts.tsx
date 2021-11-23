@@ -32,7 +32,7 @@ export function SharedStravaActivityFacts({ share }: Props) {
         leftAddon={<SpaceBarFontIcon />}
         leftAddonType="icon"
       >
-        <Distance distance={share.activity.distance} />
+        <Distance distance={share.activity.distance / 1_000} />
       </SimpleListItem>
       <SimpleListItem
         clickable={false}
