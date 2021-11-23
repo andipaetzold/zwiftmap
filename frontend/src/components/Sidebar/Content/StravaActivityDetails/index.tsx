@@ -1,19 +1,11 @@
-import { Avatar } from "@react-md/avatar";
-import {
-  List,
-  ListItemLink,
-  ListItemText,
-  SimpleListItem,
-} from "@react-md/list";
-import { OpenInNewFontIcon } from "@react-md/material-icons";
+import { List, SimpleListItem } from "@react-md/list";
 import * as Sentry from "@sentry/react";
 import axios from "axios";
 import React from "react";
 import { useAsync } from "react-async-hook";
-import stravaLogo from "../../../../assets/strava-40x40.png";
 import { useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";
-import { useStravaAuthUrl } from "../../../../services/strava/auth";
 import { getStravaActivity } from "../../../../services/StravaActivityRepository";
+import { ConnectToStravaListItem } from "../../../ConnectToStravaListItem";
 import { LoadingSpinnerListItem } from "../../../Loading";
 import { BackButton } from "./BackButton";
 import { StravaActivityDetailsComponent } from "./component";
@@ -37,7 +29,6 @@ function StravaActivityDetailsContent({
   onMouseHoverDistanceChange,
 }: Props) {
   const isLoggedInStrava = useIsLoggedInStrava();
-  const stravaAuthUrl = useStravaAuthUrl();
   const {
     result: activity,
     loading,
@@ -51,23 +42,7 @@ function StravaActivityDetailsContent({
   }
 
   if (!isLoggedInStrava) {
-    return (
-      <ListItemLink
-        leftAddon={
-          <Avatar color="#ff6b00">
-            <img src={stravaLogo} alt="" />
-          </Avatar>
-        }
-        leftAddonType="avatar"
-        rightAddon={<OpenInNewFontIcon />}
-        rightAddonType="icon"
-        href={stravaAuthUrl}
-      >
-        <ListItemText secondaryText="…to view Strava activity">
-          Authorize Strava App…
-        </ListItemText>
-      </ListItemLink>
-    );
+    return <ConnectToStravaListItem />;
   }
 
   if (error) {

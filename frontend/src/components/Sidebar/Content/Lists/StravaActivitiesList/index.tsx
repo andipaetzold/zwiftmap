@@ -1,22 +1,14 @@
-import { Avatar } from "@react-md/avatar";
 import { Button } from "@react-md/button";
 import { TextIconSpacing } from "@react-md/icon";
-import {
-  List,
-  ListItemLink,
-  ListItemText,
-  ListSubheader,
-  SimpleListItem,
-} from "@react-md/list";
-import { ListFontIcon, OpenInNewFontIcon } from "@react-md/material-icons";
-import stravaLogo from "../../../../../assets/strava-40x40.png";
+import { List, ListSubheader, SimpleListItem } from "@react-md/list";
+import { ListFontIcon } from "@react-md/material-icons";
 import { useIsLoggedInStrava } from "../../../../../hooks/useIsLoggedInStrava";
 import {
   LocationStateStravaActivities,
   useLocationState,
 } from "../../../../../services/location-state";
-import { useStravaAuthUrl } from "../../../../../services/strava/auth";
 import { HoverData } from "../../../../../types";
+import { ConnectToStravaListItem } from "../../../../ConnectToStravaListItem";
 import { LoadingSpinnerListItem } from "../../../../Loading";
 import { StravaActivitiesListComponent } from "./component";
 
@@ -26,7 +18,6 @@ interface Props {
 
 export function StravaActivitiesList({ onHoverRoute }: Props) {
   const isLoggedInStrava = useIsLoggedInStrava();
-  const stravaAuthUrl = useStravaAuthUrl();
 
   const [locationState, setLocationState] =
     useLocationState<LocationStateStravaActivities>();
@@ -61,21 +52,7 @@ export function StravaActivitiesList({ onHoverRoute }: Props) {
     return (
       <List>
         {backButton}
-        <ListItemLink
-          leftAddon={
-            <Avatar color="#ff6b00">
-              <img src={stravaLogo} alt="" />
-            </Avatar>
-          }
-          leftAddonType="avatar"
-          rightAddon={<OpenInNewFontIcon />}
-          rightAddonType="icon"
-          href={stravaAuthUrl}
-        >
-          <ListItemText secondaryText="…to view Strava activities">
-            Authorize Strava App…
-          </ListItemText>
-        </ListItemLink>
+        <ConnectToStravaListItem />
       </List>
     );
   }

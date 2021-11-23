@@ -1,22 +1,16 @@
-import { Avatar } from "@react-md/avatar";
 import {
-  ListItem,
-  ListItemLink,
-  ListItemText,
-  SimpleListItem,
+  ListItem, SimpleListItem
 } from "@react-md/list";
-import { OpenInNewFontIcon } from "@react-md/material-icons";
 import React from "react";
 import { useAsync } from "react-async-hook";
-import stravaLogo from "../../../../../assets/strava-40x40.png";
 import { useIsLoggedInStrava } from "../../../../../hooks/useIsLoggedInStrava";
 import {
   LocationStateStravaActivities,
-  useLocationState,
+  useLocationState
 } from "../../../../../services/location-state";
-import { useStravaAuthUrl } from "../../../../../services/strava/auth";
 import { getStravaActivity } from "../../../../../services/StravaActivityRepository";
 import { HoverData } from "../../../../../types";
+import { ConnectToStravaListItem } from "../../../../ConnectToStravaListItem";
 import { Distance } from "../../../../Distance";
 import { Elevation } from "../../../../Elevation";
 import { LoadingSpinnerListItem } from "../../../../Loading";
@@ -29,26 +23,9 @@ export interface Props {
 
 export function ListItemStravaActivity({ activity, onHoverRoute }: Props) {
   const isLoggedInStrava = useIsLoggedInStrava();
-  const stravaAuthUrl = useStravaAuthUrl();
 
   if (!isLoggedInStrava) {
-    return (
-      <ListItemLink
-        leftAddon={
-          <Avatar color="#ff6b00">
-            <img src={stravaLogo} alt="" />
-          </Avatar>
-        }
-        leftAddonType="avatar"
-        rightAddon={<OpenInNewFontIcon />}
-        rightAddonType="icon"
-        href={stravaAuthUrl}
-      >
-        <ListItemText secondaryText="…to view Strava activity">
-          Authorize Strava App…
-        </ListItemText>
-      </ListItemLink>
-    );
+    return <ConnectToStravaListItem />;
   }
 
   return (
