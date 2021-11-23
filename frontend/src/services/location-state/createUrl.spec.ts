@@ -13,13 +13,6 @@ it("default", () => {
       world: worldLondon,
     })
   ).toBe("/london");
-
-  expect(
-    createUrl({
-      type: "default",
-      world: worldLondon,
-    })
-  ).toBe("/london?q=query");
 });
 
 describe("route", () => {
@@ -32,15 +25,6 @@ describe("route", () => {
         segments: [],
       })
     ).toBe("/london/london-loop");
-
-    expect(
-      createUrl({
-        type: "route",
-        world: worldLondon,
-        route: routeLondonLoop,
-        segments: [],
-      })
-    ).toBe("/london/london-loop?q=query");
   });
 
   it("with segments", () => {
@@ -85,17 +69,9 @@ it("strava-activity", () => {
     createUrl({
       type: "strava-activity",
       world: worldLondon,
-      stravaActivityId: "42",
+      stravaActivityId: 42,
     })
   ).toBe("/strava-activities/42");
-
-  expect(
-    createUrl({
-      type: "strava-activity",
-      world: worldLondon,
-      stravaActivityId: "42",
-    })
-  ).toBe("/strava-activities/42?q=query");
 });
 
 it("events", () => {
@@ -105,13 +81,6 @@ it("events", () => {
       world: worldLondon,
     })
   ).toBe("/london?list=events");
-
-  expect(
-    createUrl({
-      type: "events",
-      world: worldLondon,
-    })
-  ).toBe("/london?list=events&q=query");
 });
 
 it("event", () => {
@@ -122,12 +91,4 @@ it("event", () => {
       eventId: "42",
     })
   ).toBe("/events/42");
-
-  expect(
-    createUrl({
-      type: "event",
-      world: worldLondon,
-      eventId: "42",
-    })
-  ).toBe("/events/42?q=query");
 });
