@@ -1,4 +1,5 @@
 import React, { useCallback } from "react";
+import { useStore } from "../../../hooks/useStore";
 import {
   DEFAULT_WORLD,
   useLocationState,
@@ -20,13 +21,12 @@ interface Props {
 
 export function Content({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
   const [locationState, setLocationState] = useLocationState();
+  const query = useStore((state) => state.query);
 
-  const backButtonText =
-    locationState.query === "" ? "Route List" : "Search Results";
+  const backButtonText = query === "" ? "Route List" : "Search Results";
   const onBackButtonClick = useCallback(() => {
     setLocationState({
       world: locationState.world ?? DEFAULT_WORLD,
-      query: locationState.query,
       type: "default",
     });
   }, [setLocationState, locationState]);
@@ -70,10 +70,10 @@ export function Content({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
         />
       );
     case "default":
-      if (locationState.query === "") {
+      if (query === "") {
         return <RouteList onHoverRoute={onHoverRoute} />;
       } else {
-        return <SearchResultList onHoverRoute={onHoverRoute} />;
+        return <SearchResultList onHoverRoute={onHoverRoute} query={query} />;
       }
   }
 }

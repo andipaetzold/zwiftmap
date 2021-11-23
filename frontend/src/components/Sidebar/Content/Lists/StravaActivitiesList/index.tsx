@@ -3,6 +3,7 @@ import { TextIconSpacing } from "@react-md/icon";
 import { List, ListSubheader, SimpleListItem } from "@react-md/list";
 import { ListFontIcon } from "@react-md/material-icons";
 import { useIsLoggedInStrava } from "../../../../../hooks/useIsLoggedInStrava";
+import { useStore } from "../../../../../hooks/useStore";
 import {
   LocationStateStravaActivities,
   useLocationState,
@@ -18,6 +19,7 @@ interface Props {
 
 export function StravaActivitiesList({ onHoverRoute }: Props) {
   const isLoggedInStrava = useIsLoggedInStrava();
+  const setQuery = useStore((state) => state.setQuery);
 
   const [locationState, setLocationState] =
     useLocationState<LocationStateStravaActivities>();
@@ -27,9 +29,9 @@ export function StravaActivitiesList({ onHoverRoute }: Props) {
       <Button
         themeType="outline"
         onClick={() => {
+          setQuery("");
           setLocationState({
             world: locationState.world,
-            query: "",
             type: "default",
           });
         }}
@@ -63,6 +65,7 @@ export function StravaActivitiesList({ onHoverRoute }: Props) {
 function StravaActivitiesListWithToken({ onHoverRoute }: Props) {
   const [locationState, setLocationState] =
     useLocationState<LocationStateStravaActivities>();
+  const setQuery = useStore((state) => state.setQuery);
 
   return (
     <List>
@@ -70,9 +73,9 @@ function StravaActivitiesListWithToken({ onHoverRoute }: Props) {
         <Button
           themeType="outline"
           onClick={() => {
+            setQuery("");
             setLocationState({
               world: locationState.world,
-              query: "",
               type: "default",
             });
           }}

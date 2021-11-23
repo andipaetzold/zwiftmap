@@ -5,6 +5,7 @@ import {
   useLocationState,
 } from "../../../../../services/location-state";
 import { useSettings } from "../../../../../hooks/useSettings";
+import { useStore } from "../../../../../hooks/useStore";
 
 export interface Props {
   world: World;
@@ -12,6 +13,7 @@ export interface Props {
 
 export function ListItemWorld({ world }: Props) {
   const [, setLocationState] = useLocationState<LocationStateDefault>();
+  const setQuery = useStore((state) => state.setQuery);
 
   const [settings] = useSettings();
   const secondaryText = `${
@@ -21,9 +23,9 @@ export function ListItemWorld({ world }: Props) {
   } routes | ${segments.filter((s) => s.world === world.slug).length} segments`;
 
   const handleClick = () => {
+    setQuery("");
     setLocationState({
       world,
-      query: "",
       type: "default",
     });
   };

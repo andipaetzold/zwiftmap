@@ -34,7 +34,6 @@ export function EventItem({ event, onHoverRoute }: Props) {
             type: "event",
             world: worlds.find((w) => w.slug === route.world)!,
             eventId: event.id.toString(),
-            query: locationState.query,
           });
           onHoverRoute(undefined);
         } else {

@@ -31,8 +31,7 @@ interface Props {
 }
 
 export function EventFacts({ event }: Props) {
-  const [locationState, setLocationState] =
-    useLocationState<LocationStateUpcomingEvent>();
+  const [, setLocationState] = useLocationState<LocationStateUpcomingEvent>();
   const route = routes.find((r) => r.id === event.routeId);
   const world = worlds.find((w) => w.id === event.mapId);
 
@@ -95,7 +94,6 @@ export function EventFacts({ event }: Props) {
               route: route,
               segments: [],
               world: world!,
-              query: locationState.query,
             })
           }
           clickable={false}

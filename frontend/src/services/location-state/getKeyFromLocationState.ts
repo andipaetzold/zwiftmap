@@ -8,53 +8,37 @@ export function getKeyFromLocationState(locationState: LocationState): string {
         locationState.type,
         locationState.route.slug,
         getKeyFromWorld(locationState.world),
-        locationState.query,
       ].join();
 
     case "strava-activities":
-      return [
-        locationState.type,
-        getKeyFromWorld(locationState.world),
-        locationState.query,
-      ].join();
+      return [locationState.type, getKeyFromWorld(locationState.world)].join();
 
     case "strava-activity":
       return [
         locationState.type,
         locationState.stravaActivityId,
         getKeyFromWorld(locationState.world),
-        locationState.query,
       ].join();
 
     case "events":
-      return [
-        locationState.type,
-        getKeyFromWorld(locationState.world),
-        locationState.query,
-      ].join();
+      return [locationState.type, getKeyFromWorld(locationState.world)].join();
 
     case "event":
       return [
         locationState.type,
         getKeyFromWorld(locationState.world),
         locationState.eventId,
-        locationState.query,
       ].join();
 
-      case 'share':
-        return [
-          locationState.type,
-          getKeyFromWorld(locationState.world),
-          locationState.shareId,
-          locationState.query
-        ].join()
-
-    case "default":
+    case "share":
       return [
         locationState.type,
         getKeyFromWorld(locationState.world),
-        locationState.query,
+        locationState.shareId,
       ].join();
+
+    case "default":
+      return [locationState.type, getKeyFromWorld(locationState.world)].join();
   }
 }
 

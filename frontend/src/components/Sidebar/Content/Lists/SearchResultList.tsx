@@ -4,10 +4,6 @@ import { Route, World } from "zwift-data";
 import { useSessionSettings } from "../../../../hooks/useSessionSettings";
 import { useSettings } from "../../../../hooks/useSettings";
 import {
-  LocationStateDefault,
-  useLocationState,
-} from "../../../../services/location-state";
-import {
   search,
   SearchResult,
   SEARCH_RESULTS_ORDER,
@@ -22,14 +18,14 @@ import { ListItemWorld } from "./Items/ListItemWorld";
 
 interface Props {
   onHoverRoute: (data: HoverData) => void;
+  query: string;
 }
 
-export function SearchResultList({ onHoverRoute }: Props) {
-  const [locationState] = useLocationState<LocationStateDefault>();
+export function SearchResultList({ onHoverRoute, query }: Props) {
   const [settings] = useSettings();
   const [{ sortState }] = useSessionSettings();
 
-  const searchResults = search(locationState.query, settings.sport);
+  const searchResults = search(query, settings.sport);
 
   if (Object.values(searchResults).flat().length === 0) {
     return <SimpleListItem>No worlds or routes found</SimpleListItem>;

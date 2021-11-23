@@ -5,6 +5,7 @@ import { ListFontIcon } from "@react-md/material-icons";
 import { useAsync } from "react-async-hook";
 import { useSessionSettings } from "../../../../hooks/useSessionSettings";
 import { useSettings } from "../../../../hooks/useSettings";
+import { useStore } from "../../../../hooks/useStore";
 import { fetchEvents } from "../../../../services/events";
 import {
   LocationStateUpcomingEvents,
@@ -25,15 +26,16 @@ export function UpcomingEvents({ onHoverRoute }: Props) {
   const [settings] = useSettings();
   const [locationState, setLocationState] =
     useLocationState<LocationStateUpcomingEvents>();
+  const setQuery = useStore((state) => state.setQuery);
 
   const backButton = (
     <SimpleListItem>
       <Button
         themeType="outline"
         onClick={() => {
+          setQuery("");
           setLocationState({
             world: locationState.world,
-            query: "",
             type: "default",
           });
         }}

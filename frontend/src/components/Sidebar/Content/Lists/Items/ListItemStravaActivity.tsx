@@ -1,12 +1,11 @@
-import {
-  ListItem, SimpleListItem
-} from "@react-md/list";
+import { ListItem, SimpleListItem } from "@react-md/list";
 import React from "react";
 import { useAsync } from "react-async-hook";
 import { useIsLoggedInStrava } from "../../../../../hooks/useIsLoggedInStrava";
+import { useStore } from "../../../../../hooks/useStore";
 import {
   LocationStateStravaActivities,
-  useLocationState
+  useLocationState,
 } from "../../../../../services/location-state";
 import { getStravaActivity } from "../../../../../services/StravaActivityRepository";
 import { HoverData } from "../../../../../types";
@@ -45,6 +44,7 @@ function SearchResultCardStravaActivityLoggedIn({
   ]);
   const [, setLocationState] =
     useLocationState<LocationStateStravaActivities>();
+  const setQuery = useStore((state) => state.setQuery);
 
   if (loading) {
     return <LoadingSpinnerListItem />;
@@ -60,10 +60,10 @@ function SearchResultCardStravaActivityLoggedIn({
   }
 
   const handleClick = () => {
+    setQuery("");
     setLocationState({
       world: activity.world,
       stravaActivityId: activity.id,
-      query: "",
       type: "strava-activity",
     });
   };

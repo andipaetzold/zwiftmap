@@ -2,7 +2,7 @@ import { Divider } from "@react-md/divider";
 import { List, SimpleListItem } from "@react-md/list";
 import {
   KeyboardArrowDownFontIcon,
-  KeyboardArrowUpFontIcon,
+  KeyboardArrowUpFontIcon
 } from "@react-md/material-icons";
 import c from "classnames";
 import React, { useRef, useState } from "react";
@@ -37,6 +37,7 @@ export function Sidebar({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
         >
           <KeyboardArrowDownFontIcon />
         </button>
+
         <List className={styles.SearchBox}>
           <SimpleListItem>
             <SearchInput />

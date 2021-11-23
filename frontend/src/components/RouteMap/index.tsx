@@ -4,6 +4,7 @@ import "leaflet/dist/leaflet.css";
 import React, { useMemo } from "react";
 import { useAsync } from "react-async-hook";
 import { Route, routes } from "zwift-data";
+import { useStore } from "../../hooks/useStore";
 import { fetchEvent } from "../../services/events";
 import {
   DEFAULT_WORLD,
@@ -12,12 +13,12 @@ import {
   LocationStateShare,
   LocationStateStravaActivity,
   LocationStateUpcomingEvent,
-  useLocationState
+  useLocationState,
 } from "../../services/location-state";
 import { getStravaActivity } from "../../services/StravaActivityRepository";
 import {
   getStravaSegmentStream,
-  getStravaSegmentStreams
+  getStravaSegmentStreams,
 } from "../../services/StravaSegmentRepository";
 import { getShare } from "../../services/zwiftMapApi";
 import { HoverData } from "../../types";
@@ -32,6 +33,7 @@ interface Props {
 
 export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
   const [locationState, setLocationState] = useLocationState();
+  const setQuery = useStore((state) => state.setQuery);
 
   const { result: segmentsLatLngStreams } = useAsync(
     async (state: LocationState) => {
@@ -161,9 +163,9 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
       <WorldSelect
         world={selectedWorld}
         onWorldChange={(newWorld) => {
+          setQuery("");
           setLocationState({
             world: newWorld,
-            query: "",
             type: "default",
           });
         }}

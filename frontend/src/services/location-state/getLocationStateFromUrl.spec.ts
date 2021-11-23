@@ -22,45 +22,30 @@ describe("default", () => {
       const r1 = getLocationStateFromUrl("/", "");
       expect(r1.type).toBe("default");
       expect(r1.world).toBe(WATOPIA);
-      expect(r1.query).toBe("");
 
-      const r2 = getLocationStateFromUrl("/", "q=query");
+      const r2 = getLocationStateFromUrl("/london", "");
       expect(r2.type).toBe("default");
-      expect(r2.world).toBe(WATOPIA);
-      expect(r2.query).toBe("query");
-
-      const r3 = getLocationStateFromUrl("/london", "q=query");
-      expect(r3.type).toBe("default");
-      expect(r3.world).toBe(LONDON);
-      expect(r3.query).toBe("query");
+      expect(r2.world).toBe(LONDON);
     });
 
     it("invalid world", () => {
-      const r1 = getLocationStateFromUrl("/test", "q=query");
-      expect(r1.type).toBe("default");
-      expect(r1.world).toBe(WATOPIA);
-      expect(r1.query).toBe("query");
+      const r = getLocationStateFromUrl("/test", "");
+      expect(r.type).toBe("default");
+      expect(r.world).toBe(WATOPIA);
     });
   });
 
   describe("legacy", () => {
     it("valid world", () => {
-      const r1 = getLocationStateFromUrl("/", "world=london");
-      expect(r1.type).toBe("default");
-      expect(r1.world).toBe(LONDON);
-      expect(r1.query).toBe("");
-
-      const r2 = getLocationStateFromUrl("/", "world=london&q=query");
-      expect(r2.type).toBe("default");
-      expect(r2.world).toBe(LONDON);
-      expect(r2.query).toBe("query");
+      const r = getLocationStateFromUrl("/", "world=london");
+      expect(r.type).toBe("default");
+      expect(r.world).toBe(LONDON);
     });
 
     it("invalid world", () => {
-      const r1 = getLocationStateFromUrl("/", "world=test&q=query");
-      expect(r1.type).toBe("default");
-      expect(r1.world).toBe(WATOPIA);
-      expect(r1.query).toBe("query");
+      const r = getLocationStateFromUrl("/", "world=test");
+      expect(r.type).toBe("default");
+      expect(r.world).toBe(WATOPIA);
     });
   });
 });
@@ -76,7 +61,6 @@ describe("route", () => {
       expect(r1.world).toBe(LONDON);
       expect(r1.route).toBe(LONDON_CLASSIQUE);
       expect(r1.segments).toStrictEqual([]);
-      expect(r1.query).toBe("");
 
       const r2 = getLocationStateFromUrl(
         "/watopia/london-classique",
@@ -86,61 +70,46 @@ describe("route", () => {
       expect(r2.world).toBe(LONDON);
       expect(r2.route).toBe(LONDON_CLASSIQUE);
       expect(r2.segments).toStrictEqual([]);
-      expect(r2.query).toBe("");
-
-      const r3 = getLocationStateFromUrl(
-        "/watopia/london-classique",
-        "q=query"
-      ) as LocationStateRoute;
-      expect(r3.type).toBe("route");
-      expect(r3.world).toBe(LONDON);
-      expect(r3.route).toBe(LONDON_CLASSIQUE);
-      expect(r3.segments).toStrictEqual([]);
-      expect(r3.query).toBe("query");
     });
 
     it("wrong world", () => {
-      const r1 = getLocationStateFromUrl(
+      const r = getLocationStateFromUrl(
         "/watopia/london-classique",
-        "segments=london-sprint&q=query"
+        "segments=london-sprint"
       ) as LocationStateRoute;
-      expect(r1.type).toBe("route");
-      expect(r1.world).toBe(LONDON);
-      expect(r1.route).toBe(LONDON_CLASSIQUE);
-      expect(r1.segments).toStrictEqual([LONDON_SPRINT]);
-      expect(r1.query).toBe("query");
+      expect(r.type).toBe("route");
+      expect(r.world).toBe(LONDON);
+      expect(r.route).toBe(LONDON_CLASSIQUE);
+      expect(r.segments).toStrictEqual([LONDON_SPRINT]);
     });
 
     it("invalid world", () => {
-      const r1 = getLocationStateFromUrl(
+      const r = getLocationStateFromUrl(
         "/test/london-classique",
-        "segments=london-sprint&q=query"
+        "segments=london-sprint"
       ) as LocationStateRoute;
-      expect(r1.type).toBe("route");
-      expect(r1.world).toBe(LONDON);
-      expect(r1.route).toBe(LONDON_CLASSIQUE);
-      expect(r1.segments).toStrictEqual([LONDON_SPRINT]);
-      expect(r1.query).toBe("query");
+      expect(r.type).toBe("route");
+      expect(r.world).toBe(LONDON);
+      expect(r.route).toBe(LONDON_CLASSIQUE);
+      expect(r.segments).toStrictEqual([LONDON_SPRINT]);
     });
 
     it("invalid route", () => {
-      const r1 = getLocationStateFromUrl(
+      const r = getLocationStateFromUrl(
         "/london/test",
-        "segments=london-sprint&q=query"
+        "segments=london-sprint"
       ) as LocationStateRoute;
-      expect(r1.type).toBe("default");
-      expect(r1.world).toBe(LONDON);
-      expect(r1.query).toBe("query");
+      expect(r.type).toBe("default");
+      expect(r.world).toBe(LONDON);
     });
 
     it("invalid route & world", () => {
-      const r1 = getLocationStateFromUrl(
+      const r = getLocationStateFromUrl(
         "/test/test",
-        "segments=london-sprint&q=query"
+        "segments=london-sprint"
       ) as LocationStateRoute;
-      expect(r1.type).toBe("default");
-      expect(r1.world).toBe(WATOPIA);
-      expect(r1.query).toBe("query");
+      expect(r.type).toBe("default");
+      expect(r.world).toBe(WATOPIA);
     });
   });
 
@@ -154,7 +123,6 @@ describe("route", () => {
       expect(r1.world).toBe(LONDON);
       expect(r1.route).toBe(LONDON_CLASSIQUE);
       expect(r1.segments).toStrictEqual([]);
-      expect(r1.query).toBe("");
 
       const r2 = getLocationStateFromUrl(
         "/",
@@ -164,74 +132,59 @@ describe("route", () => {
       expect(r2.world).toBe(LONDON);
       expect(r2.route).toBe(LONDON_CLASSIQUE);
       expect(r2.segments).toStrictEqual([]);
-      expect(r2.query).toBe("");
     });
 
     it("wrong world", () => {
-      const r1 = getLocationStateFromUrl(
+      const r = getLocationStateFromUrl(
         "/watopia",
         "route=london-classique"
       ) as LocationStateRoute;
-      expect(r1.type).toBe("route");
-      expect(r1.world).toBe(LONDON);
-      expect(r1.route).toBe(LONDON_CLASSIQUE);
-      expect(r1.segments).toStrictEqual([]);
-      expect(r1.query).toBe("");
+      expect(r.type).toBe("route");
+      expect(r.world).toBe(LONDON);
+      expect(r.route).toBe(LONDON_CLASSIQUE);
+      expect(r.segments).toStrictEqual([]);
     });
 
     it("invalid world", () => {
-      const r1 = getLocationStateFromUrl(
+      const r = getLocationStateFromUrl(
         "/test",
         "route=london-classique"
       ) as LocationStateRoute;
-      expect(r1.type).toBe("route");
-      expect(r1.world).toBe(LONDON);
-      expect(r1.route).toBe(LONDON_CLASSIQUE);
-      expect(r1.segments).toStrictEqual([]);
-      expect(r1.query).toBe("");
+      expect(r.type).toBe("route");
+      expect(r.world).toBe(LONDON);
+      expect(r.route).toBe(LONDON_CLASSIQUE);
+      expect(r.segments).toStrictEqual([]);
     });
 
     it("invalid route", () => {
-      const r1 = getLocationStateFromUrl(
+      const r = getLocationStateFromUrl(
         "/london",
-        "segments=test&q=query"
+        "segments=test"
       ) as LocationStateRoute;
-      expect(r1.type).toBe("default");
-      expect(r1.world).toBe(LONDON);
-      expect(r1.query).toBe("query");
+      expect(r.type).toBe("default");
+      expect(r.world).toBe(LONDON);
     });
 
     it("invalid route & world", () => {
-      const r1 = getLocationStateFromUrl(
+      const r = getLocationStateFromUrl(
         "/test",
         "route=test"
       ) as LocationStateRoute;
-      expect(r1.type).toBe("default");
-      expect(r1.world).toBe(WATOPIA);
-      expect(r1.query).toBe("");
+      expect(r.type).toBe("default");
+      expect(r.world).toBe(WATOPIA);
     });
   });
 });
 
 describe("event", () => {
   it("current", () => {
-    const r1 = getLocationStateFromUrl(
+    const r = getLocationStateFromUrl(
       "/events/42",
       ""
     ) as LocationStateUpcomingEvent;
-    expect(r1.type).toBe("event");
-    expect(r1.world).toBeNull();
-    expect(r1.eventId).toBe("42");
-    expect(r1.query).toBe("");
-
-    const r2 = getLocationStateFromUrl(
-      "/events/42",
-      "q=query"
-    ) as LocationStateUpcomingEvent;
-    expect(r2.type).toBe("event");
-    expect(r2.world).toBeNull();
-    expect(r2.eventId).toBe("42");
-    expect(r2.query).toBe("query");
+    expect(r.type).toBe("event");
+    expect(r.world).toBeNull();
+    expect(r.eventId).toBe("42");
   });
 
   it("legacy", () => {
@@ -242,7 +195,6 @@ describe("event", () => {
     expect(r1.type).toBe("event");
     expect(r1.world).toBeNull();
     expect(r1.eventId).toBe("42");
-    expect(r1.query).toBe("");
 
     const r2 = getLocationStateFromUrl(
       "/london",
@@ -251,16 +203,6 @@ describe("event", () => {
     expect(r2.type).toBe("event");
     expect(r2.world).toBeNull();
     expect(r2.eventId).toBe("42");
-    expect(r2.query).toBe("");
-
-    const r3 = getLocationStateFromUrl(
-      "/london",
-      "event=42&q=query"
-    ) as LocationStateUpcomingEvent;
-    expect(r3.type).toBe("event");
-    expect(r3.world).toBeNull();
-    expect(r3.eventId).toBe("42");
-    expect(r3.query).toBe("query");
   });
 });
 
@@ -272,23 +214,13 @@ describe("events", () => {
     ) as LocationStateUpcomingEvents;
     expect(r1.type).toBe("events");
     expect(r1.world).toBe(WATOPIA);
-    expect(r1.query).toBe("");
 
     const r2 = getLocationStateFromUrl(
-      "/",
-      "list=events&q=query"
+      "/london",
+      "list=events"
     ) as LocationStateUpcomingEvents;
     expect(r2.type).toBe("events");
-    expect(r2.world).toBe(WATOPIA);
-    expect(r2.query).toBe("query");
-
-    const r3 = getLocationStateFromUrl(
-      "/london",
-      "list=events&q=query"
-    ) as LocationStateUpcomingEvents;
-    expect(r3.type).toBe("events");
-    expect(r3.world).toBe(LONDON);
-    expect(r3.query).toBe("query");
+    expect(r2.world).toBe(LONDON);
   });
 
   describe("legacy", () => {
@@ -299,56 +231,35 @@ describe("events", () => {
       ) as LocationStateUpcomingEvents;
       expect(r1.type).toBe("events");
       expect(r1.world).toBe(WATOPIA);
-      expect(r1.query).toBe("");
 
       const r2 = getLocationStateFromUrl(
         "/",
-        "events=&q=query"
+        "world=london&events="
       ) as LocationStateUpcomingEvents;
       expect(r2.type).toBe("events");
-      expect(r2.world).toBe(WATOPIA);
-      expect(r2.query).toBe("query");
-
-      const r3 = getLocationStateFromUrl(
-        "/",
-        "world=london&events=&q=query"
-      ) as LocationStateUpcomingEvents;
-      expect(r3.type).toBe("events");
-      expect(r3.world).toBe(LONDON);
-      expect(r3.query).toBe("query");
+      expect(r2.world).toBe(LONDON);
     });
 
     it("invalid world", () => {
-      const r1 = getLocationStateFromUrl(
+      const r = getLocationStateFromUrl(
         "/",
-        "world=test&events=&q=query"
+        "world=test&events="
       ) as LocationStateUpcomingEvents;
-      expect(r1.type).toBe("events");
-      expect(r1.world).toBe(WATOPIA);
-      expect(r1.query).toBe("query");
+      expect(r.type).toBe("events");
+      expect(r.world).toBe(WATOPIA);
     });
   });
 });
 
 describe("strava-activity", () => {
   it("current", () => {
-    const r1 = getLocationStateFromUrl(
+    const r = getLocationStateFromUrl(
       "/strava-activities/42",
       ""
     ) as LocationStateStravaActivity;
-    expect(r1.type).toBe("strava-activity");
-    expect(r1.world).toBeNull();
-    expect(r1.stravaActivityId).toBe(42);
-    expect(r1.query).toBe("");
-
-    const r2 = getLocationStateFromUrl(
-      "/strava-activities/42",
-      "q=query"
-    ) as LocationStateStravaActivity;
-    expect(r2.type).toBe("strava-activity");
-    expect(r2.world).toBeNull();
-    expect(r2.stravaActivityId).toBe(42);
-    expect(r2.query).toBe("query");
+    expect(r.type).toBe("strava-activity");
+    expect(r.world).toBeNull();
+    expect(r.stravaActivityId).toBe(42);
   });
 
   it("legacy", () => {
@@ -359,7 +270,6 @@ describe("strava-activity", () => {
     expect(r1.type).toBe("strava-activity");
     expect(r1.world).toBeNull();
     expect(r1.stravaActivityId).toBe(42);
-    expect(r1.query).toBe("");
 
     const r2 = getLocationStateFromUrl(
       "/london",
@@ -368,16 +278,6 @@ describe("strava-activity", () => {
     expect(r2.type).toBe("strava-activity");
     expect(r2.world).toBeNull();
     expect(r2.stravaActivityId).toBe(42);
-    expect(r2.query).toBe("");
-
-    const r3 = getLocationStateFromUrl(
-      "/london",
-      "strava-activity=42&q=query"
-    ) as LocationStateStravaActivity;
-    expect(r3.type).toBe("strava-activity");
-    expect(r3.world).toBeNull();
-    expect(r3.stravaActivityId).toBe(42);
-    expect(r3.query).toBe("query");
   });
 });
 
@@ -390,33 +290,22 @@ describe("strava-activities", () => {
       ) as LocationStateStravaActivities;
       expect(r1.type).toBe("strava-activities");
       expect(r1.world).toBe(WATOPIA);
-      expect(r1.query).toBe("");
 
       const r2 = getLocationStateFromUrl(
-        "/",
-        "list=strava-activities&q=query"
+        "/london",
+        "list=strava-activities"
       ) as LocationStateStravaActivities;
       expect(r2.type).toBe("strava-activities");
-      expect(r2.world).toBe(WATOPIA);
-      expect(r2.query).toBe("query");
-
-      const r3 = getLocationStateFromUrl(
-        "/london",
-        "list=strava-activities&q=query"
-      ) as LocationStateStravaActivities;
-      expect(r3.type).toBe("strava-activities");
-      expect(r3.world).toBe(LONDON);
-      expect(r3.query).toBe("query");
+      expect(r2.world).toBe(LONDON);
     });
 
     it("invalid world", () => {
-      const r1 = getLocationStateFromUrl(
+      const r = getLocationStateFromUrl(
         "/test",
-        "list=strava-activities&q=query"
+        "list=strava-activities"
       ) as LocationStateStravaActivities;
-      expect(r1.type).toBe("strava-activities");
-      expect(r1.world).toBe(WATOPIA);
-      expect(r1.query).toBe("query");
+      expect(r.type).toBe("strava-activities");
+      expect(r.world).toBe(WATOPIA);
     });
   });
 
@@ -428,50 +317,29 @@ describe("strava-activities", () => {
       ) as LocationStateStravaActivities;
       expect(r1.type).toBe("strava-activities");
       expect(r1.world).toBe(WATOPIA);
-      expect(r1.query).toBe("");
 
       const r2 = getLocationStateFromUrl(
         "/",
-        "strava-activities=&q=query"
+        "world=london&strava-activities="
       ) as LocationStateStravaActivities;
       expect(r2.type).toBe("strava-activities");
-      expect(r2.world).toBe(WATOPIA);
-      expect(r2.query).toBe("query");
-
-      const r3 = getLocationStateFromUrl(
-        "/",
-        "world=london&strava-activities=&q=query"
-      ) as LocationStateStravaActivities;
-      expect(r3.type).toBe("strava-activities");
-      expect(r3.world).toBe(LONDON);
-      expect(r3.query).toBe("query");
+      expect(r2.world).toBe(LONDON);
     });
 
     it("invalid world", () => {
-      const r1 = getLocationStateFromUrl(
+      const r = getLocationStateFromUrl(
         "/",
-        "world=test&strava-activities=&q=query"
+        "world=test&strava-activities="
       ) as LocationStateStravaActivities;
-      expect(r1.type).toBe("strava-activities");
-      expect(r1.world).toBe(WATOPIA);
-      expect(r1.query).toBe("query");
+      expect(r.type).toBe("strava-activities");
+      expect(r.world).toBe(WATOPIA);
     });
   });
 });
 
 it("strava-activity", () => {
-  const r1 = getLocationStateFromUrl("/s/42", "") as LocationStateShare;
-  expect(r1.type).toBe("share");
-  expect(r1.world).toBeNull();
-  expect(r1.shareId).toBe("42");
-  expect(r1.query).toBe("");
-
-  const r2 = getLocationStateFromUrl(
-    "/s/42",
-    "q=query"
-  ) as LocationStateShare;
-  expect(r2.type).toBe("share");
-  expect(r2.world).toBeNull();
-  expect(r2.shareId).toBe("42");
-  expect(r2.query).toBe("query");
+  const r = getLocationStateFromUrl("/s/42", "") as LocationStateShare;
+  expect(r.type).toBe("share");
+  expect(r.world).toBeNull();
+  expect(r.shareId).toBe("42");
 });

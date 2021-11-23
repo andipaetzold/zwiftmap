@@ -41,10 +41,6 @@ export function createUrl(state: LocationState): string {
       break;
   }
 
-  if (state.query.length > 0) {
-    searchParams.set("q", state.query);
-  }
-
   const searchParamsString = searchParams.toString();
 
   if (searchParamsString === "") {

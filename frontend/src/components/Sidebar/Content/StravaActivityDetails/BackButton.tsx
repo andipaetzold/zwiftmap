@@ -19,7 +19,6 @@ export function BackButton() {
         onClick={() => {
           setLocationState({
             world: locationState.world ?? DEFAULT_WORLD,
-            query: locationState.query,
             type: "strava-activities",
           });
         }}

@@ -18,14 +18,13 @@ export interface Props {
 }
 
 export function ListItemRoute({ route, onHoverRoute, showWorldName }: Props) {
-  const [locationState, setLocationState] =
+  const [, setLocationState] =
     useLocationState<LocationStateDefault>();
   const handleClick = () => {
     setLocationState({
       world: worlds.find((w) => w.slug === route.world)!,
       route,
       segments: [],
-      query: locationState.query,
       type: "route",
     });
     onHoverRoute(undefined);

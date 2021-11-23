@@ -4,6 +4,7 @@ import { routes } from "zwift-data";
 import { useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";
 import { useSessionSettings } from "../../../../hooks/useSessionSettings";
 import { useSettings } from "../../../../hooks/useSettings";
+import { useStore } from "../../../../hooks/useStore";
 import {
   LocationStateDefault,
   useLocationState,
@@ -21,21 +22,22 @@ export function RouteList({ onHoverRoute }: Props) {
   const [settings] = useSettings();
   const [locationState, setLocationState] =
     useLocationState<LocationStateDefault>();
+  const setQuery = useStore((state) => state.setQuery);
   const isLoggedIn = useIsLoggedInStrava();
   const [{ sortState }] = useSessionSettings();
 
   const handleStravaClick = () => {
+    setQuery("");
     setLocationState({
       world: locationState.world,
-      query: "",
       type: "strava-activities",
     });
   };
 
   const handleUpcomingEvents = () => {
+    setQuery("");
     setLocationState({
       world: locationState.world,
-      query: "",
       type: "events",
     });
   };

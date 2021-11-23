@@ -11,7 +11,6 @@ it("default", () => {
     createUrl({
       type: "default",
       world: worldLondon,
-      query: "",
     })
   ).toBe("/london");
 
@@ -19,7 +18,6 @@ it("default", () => {
     createUrl({
       type: "default",
       world: worldLondon,
-      query: "query",
     })
   ).toBe("/london?q=query");
 });
@@ -32,7 +30,6 @@ describe("route", () => {
         world: worldLondon,
         route: routeLondonLoop,
         segments: [],
-        query: "",
       })
     ).toBe("/london/london-loop");
 
@@ -42,7 +39,6 @@ describe("route", () => {
         world: worldLondon,
         route: routeLondonLoop,
         segments: [],
-        query: "query",
       })
     ).toBe("/london/london-loop?q=query");
   });
@@ -54,7 +50,6 @@ describe("route", () => {
         world: worldLondon,
         route: routeLondonLoop,
         segments: [segmentBoxHill],
-        query: "",
       })
     ).toBe("/london/london-loop?segments=box-hill");
 
@@ -64,7 +59,6 @@ describe("route", () => {
         world: worldLondon,
         route: routeLondonLoop,
         segments: [segmentBoxHill, segmentLondonLoop],
-        query: "",
       })
     ).toBe("/london/london-loop?segments=box-hill%2Clondon-loop");
   });
@@ -75,7 +69,6 @@ it("strava-activities", () => {
     createUrl({
       type: "strava-activities",
       world: worldLondon,
-      query: "",
     })
   ).toBe("/london?list=strava-activities");
 
@@ -83,9 +76,8 @@ it("strava-activities", () => {
     createUrl({
       type: "strava-activities",
       world: worldLondon,
-      query: "query",
     })
-  ).toBe("/london?list=strava-activities&q=query");
+  ).toBe("/london?list=strava-activities");
 });
 
 it("strava-activity", () => {
@@ -94,7 +86,6 @@ it("strava-activity", () => {
       type: "strava-activity",
       world: worldLondon,
       stravaActivityId: "42",
-      query: "",
     })
   ).toBe("/strava-activities/42");
 
@@ -103,7 +94,6 @@ it("strava-activity", () => {
       type: "strava-activity",
       world: worldLondon,
       stravaActivityId: "42",
-      query: "query",
     })
   ).toBe("/strava-activities/42?q=query");
 });
@@ -113,7 +103,6 @@ it("events", () => {
     createUrl({
       type: "events",
       world: worldLondon,
-      query: "",
     })
   ).toBe("/london?list=events");
 
@@ -121,7 +110,6 @@ it("events", () => {
     createUrl({
       type: "events",
       world: worldLondon,
-      query: "query",
     })
   ).toBe("/london?list=events&q=query");
 });
@@ -132,7 +120,6 @@ it("event", () => {
       type: "event",
       world: worldLondon,
       eventId: "42",
-      query: "",
     })
   ).toBe("/events/42");
 
@@ -141,7 +128,6 @@ it("event", () => {
       type: "event",
       world: worldLondon,
       eventId: "42",
-      query: "query",
     })
   ).toBe("/events/42?q=query");
 });

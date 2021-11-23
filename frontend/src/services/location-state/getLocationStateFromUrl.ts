@@ -15,48 +15,44 @@ const PATTERNS: {
   toState: (
     result: RegExpExecArray,
     searchParams: URLSearchParams,
-    query: string
   ) => [state: LocationState, updateUrl: boolean];
 }[] = [
   {
     pattern: PATTERN_EVENT,
-    toState: (result, _searchParams, query) => [
+    toState: (result) => [
       {
         type: "event",
         world: null,
         eventId: result.groups!.eventId,
-        query,
       },
       false,
     ],
   },
   {
     pattern: PATTERN_SHARED_ITEM,
-    toState: (result, _searchParams, query) => [
+    toState: (result) => [
       {
         type: "share",
         world: null,
         shareId: result.groups!.shareId,
-        query,
       },
       false,
     ],
   },
   {
     pattern: PATTERN_STRAVA_ACTIVITY,
-    toState: (result, _searchParams, query) => [
+    toState: (result) => [
       {
         type: "strava-activity",
         world: null,
         stravaActivityId: +result.groups!.stravaActivityId,
-        query,
       },
       false,
     ],
   },
   {
     pattern: PATTERN_ROUTE,
-    toState: (result, searchParams, query) => {
+    toState: (result, searchParams) => {
       const worldSlug = result.groups!.worldSlug;
       const route = routes.find((r) => r.slug === result.groups!.routeSlug);
       if (!route) {
@@ -64,7 +60,6 @@ const PATTERNS: {
           {
             type: "default",
             world: worlds.find((w) => w.slug === worldSlug) ?? DEFAULT_WORLD,
-            query,
           },
           true,
         ];
@@ -78,30 +73,29 @@ const PATTERNS: {
         .filter((segment): segment is Segment => !!segment);
 
       return [
-        { type: "route", world, route, segments: selectedSegments, query },
+        { type: "route", world, route, segments: selectedSegments },
         world.slug !== worldSlug,
       ];
     },
   },
   {
     pattern: PATTERN_WORLD,
-    toState: (result, searchParams, query) => {
+    toState: (result, searchParams) => {
       const worldSlug = result.groups!.worldSlug;
       const world = worlds.find((w) => w.slug === worldSlug) ?? DEFAULT_WORLD;
 
       const fallbackState: LocationState = {
         type: "default",
         world,
-        query,
       };
 
       if (searchParams.has("list")) {
         switch (searchParams.get("list")) {
           case "events":
-            return [{ type: "events", world, query }, world.slug !== worldSlug];
+            return [{ type: "events", world }, world.slug !== worldSlug];
           case "strava-activities":
             return [
-              { type: "strava-activities", world, query },
+              { type: "strava-activities", world },
               world.slug !== worldSlug,
             ];
           default:
@@ -109,43 +103,41 @@ const PATTERNS: {
         }
       }
 
-      return [getLegacyStateWithWorld(searchParams, world, query), true];
+      return [getLegacyStateWithWorld(searchParams, world), true];
     },
   },
   {
     pattern: /^(.*)$/,
-    toState: (_result, searchParams, query) => {
+    toState: (_result, searchParams) => {
       if (searchParams.has("list")) {
         switch (searchParams.get("list")) {
           case "events":
-            return [{ type: "events", world: DEFAULT_WORLD, query }, true];
+            return [{ type: "events", world: DEFAULT_WORLD }, true];
           case "strava-activities":
             return [
-              { type: "strava-activities", world: DEFAULT_WORLD, query },
+              { type: "strava-activities", world: DEFAULT_WORLD },
               true,
             ];
         }
       }
 
-      return [getLegacyStateWithoutWorld(searchParams, query), true];
+      return [getLegacyStateWithoutWorld(searchParams), true];
     },
   },
 ];
 
 function getLegacyStateWithoutWorld(
-  searchParams: URLSearchParams,
-  query: string
+  searchParams: URLSearchParams
 ): LocationState {
   const worldSlug = searchParams.get("world");
   const world = worlds.find((w) => w.slug === worldSlug) ?? DEFAULT_WORLD;
 
-  return getLegacyStateWithWorld(searchParams, world, query);
+  return getLegacyStateWithWorld(searchParams, world);
 }
 
 function getLegacyStateWithWorld(
   searchParams: URLSearchParams,
-  world: World,
-  query: string
+  world: World
 ): LocationState {
   if (searchParams.has("route")) {
     const route = routes.find((r) => r.slug === searchParams.get("route"));
@@ -155,11 +147,10 @@ function getLegacyStateWithWorld(
       .filter((segment): segment is Segment => !!segment);
 
     if (!route) {
-      return { world, query, type: "default" };
+      return { world, type: "default" };
     } else {
       return {
         world: worlds.find((w) => w.slug === route.world)!,
-        query,
         type: "route",
         route,
         segments: selectedSegments,
@@ -168,32 +159,30 @@ function getLegacyStateWithWorld(
   }
 
   if (searchParams.has("strava-activities")) {
-    return { world, query, type: "strava-activities" };
+    return { world, type: "strava-activities" };
   }
 
   if (searchParams.has("strava-activity")) {
     return {
       world: null,
-      query,
       type: "strava-activity",
       stravaActivityId: +searchParams.get("strava-activity")!,
     };
   }
 
   if (searchParams.has("events")) {
-    return { world, query, type: "events" };
+    return { world, type: "events" };
   }
 
   if (searchParams.has("event")) {
     return {
       world: null,
-      query,
       type: "event",
       eventId: searchParams.get("event")!,
     };
   }
 
-  return { type: "default", world, query };
+  return { type: "default", world };
 }
 
 export function getLocationStateFromUrl(
@@ -209,8 +198,7 @@ export function getLocationStateFromUrl(
     if (result === null) {
       continue;
     }
-    const query = searchParams.get("q") ?? "";
-    const toStateResult = toState(result, searchParams, query);
+    const toStateResult = toState(result, searchParams);
 
     state = toStateResult[0];
     updateUrl = updateUrl || toStateResult[1];
@@ -219,7 +207,7 @@ export function getLocationStateFromUrl(
   }
 
   if (state === undefined) {
-    state = { type: "default", world: DEFAULT_WORLD, query: "" };
+    state = { type: "default", world: DEFAULT_WORLD };
     updateUrl = true;
   }
 

@@ -17,7 +17,7 @@ interface Props {
 }
 
 export function StravaActivityRoutes({ activity }: Props) {
-  const [locationStste, setLocationState] = useLocationState();
+  const [, setLocationState] = useLocationState();
 
   const routesInActivity = activity.segmentEfforts
     .map((segmentEffort) => ({
@@ -49,7 +49,6 @@ export function StravaActivityRoutes({ activity }: Props) {
               world: worlds.find((w) => w.slug === route.world)!,
               route: route,
               segments: [],
-              query: locationStste.query,
             })
           }
           threeLines

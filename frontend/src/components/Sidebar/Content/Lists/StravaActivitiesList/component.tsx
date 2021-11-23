@@ -3,6 +3,7 @@ import { ListItem, SimpleListItem } from "@react-md/list";
 import * as Sentry from "@sentry/react";
 import axios from "axios";
 import { useAsync } from "react-async-hook";
+import { useStore } from "../../../../../hooks/useStore";
 import { useLocationState } from "../../../../../services/location-state";
 import { getStravaActivities } from "../../../../../services/zwiftMapApi";
 import { HoverData } from "../../../../../types";
@@ -18,6 +19,7 @@ interface Props {
 
 export function StravaActivitiesListComponent({ onHoverRoute }: Props) {
   const [, setLocationState] = useLocationState();
+  const setQuery = useStore((state) => state.setQuery);
   const {
     result: activities,
     loading,
@@ -56,9 +58,9 @@ export function StravaActivitiesListComponent({ onHoverRoute }: Props) {
             key={activity.id}
             onClick={() => {
               onHoverRoute(undefined);
+              setQuery("");
               setLocationState({
                 world: world!,
-                query: "",
                 type: "strava-activity",
                 stravaActivityId: activity.id,
               });

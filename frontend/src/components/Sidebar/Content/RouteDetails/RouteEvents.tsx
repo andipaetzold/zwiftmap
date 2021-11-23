@@ -2,7 +2,7 @@ import {
   ListItem,
   ListItemText,
   ListSubheader,
-  SimpleListItem,
+  SimpleListItem
 } from "@react-md/list";
 import { Text } from "@react-md/typography";
 import React, { useMemo } from "react";
@@ -12,7 +12,7 @@ import { useSettings } from "../../../../hooks/useSettings";
 import { fetchEvents } from "../../../../services/events/api";
 import {
   LocationStateRoute,
-  useLocationState,
+  useLocationState
 } from "../../../../services/location-state";
 import { EventInfo } from "../../../EventInfo";
 import { LoadingSpinnerListItem } from "../../../Loading";
@@ -24,8 +24,7 @@ interface Props {
 export function RouteEvents({ route }: Props) {
   const { result: events } = useAsync(fetchEvents, []);
   const [settings] = useSettings();
-  const [locationState, setLocationState] =
-    useLocationState<LocationStateRoute>();
+  const [, setLocationState] = useLocationState<LocationStateRoute>();
 
   const filteredEvents = useMemo(() => {
     if (!events) {
@@ -71,7 +70,6 @@ export function RouteEvents({ route }: Props) {
               type: "event",
               world: worlds.find((w) => w.slug === route.world) ?? null,
               eventId: event.id.toString(),
-              query: locationState.query,
             })
           }
           secondaryText={<EventInfo event={event} />}

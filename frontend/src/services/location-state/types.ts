@@ -1,44 +1,40 @@
 import { Route, Segment, World } from "zwift-data";
 
-interface LocationStateBase {
-  query: string;
-}
-
-export interface LocationStateDefault extends LocationStateBase {
+export interface LocationStateDefault {
   type: "default";
   world: World;
 }
 
-export interface LocationStateRoute extends LocationStateBase {
+export interface LocationStateRoute {
   type: "route";
   world: World;
   route: Route;
   segments: Segment[];
 }
 
-export interface LocationStateStravaActivity extends LocationStateBase {
+export interface LocationStateStravaActivity {
   type: "strava-activity";
   world: World | null;
   stravaActivityId: number;
 }
 
-export interface LocationStateStravaActivities extends LocationStateBase {
+export interface LocationStateStravaActivities {
   type: "strava-activities";
   world: World;
 }
 
-export interface LocationStateUpcomingEvents extends LocationStateBase {
+export interface LocationStateUpcomingEvents {
   type: "events";
   world: World;
 }
 
-export interface LocationStateUpcomingEvent extends LocationStateBase {
+export interface LocationStateUpcomingEvent {
   type: "event";
   world: World | null;
   eventId: string;
 }
 
-export interface LocationStateShare extends LocationStateBase {
+export interface LocationStateShare {
   type: "share";
   world: World | null;
   shareId: string;

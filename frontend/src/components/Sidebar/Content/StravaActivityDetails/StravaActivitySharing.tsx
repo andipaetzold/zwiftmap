@@ -50,7 +50,6 @@ function ShareActivity({ activity }: Props) {
         type: "share",
         shareId,
         world: null,
-        query: "",
       });
       const url = new URL(path, window.location.origin).toString();
 
@@ -176,7 +175,6 @@ function AddLinkToActivityDescription({ activity }: Props) {
         type: "share",
         shareId,
         world: null,
-        query: "",
       });
 
       const url = new URL(path, window.location.origin).toString();
