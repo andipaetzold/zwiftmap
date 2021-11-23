@@ -1,5 +1,5 @@
 import { Avatar } from "@react-md/avatar";
-import { ListItemLink, ListSubheader } from "@react-md/list";
+import { ListItemLink, ListItemText, ListSubheader } from "@react-md/list";
 import { OpenInNewFontIcon } from "@react-md/material-icons";
 import { routes } from "zwift-data";
 import stravaLogo from "../../../../assets/strava-40x40.png";
@@ -32,7 +32,7 @@ export function EventLinks({ event }: Props) {
         rightAddon={<OpenInNewFontIcon />}
         rightAddonType="icon"
       >
-        Event on Zwift
+        <ListItemText>Event on Zwift</ListItemText>
       </ListItemLink>
 
       <ListItemLink
@@ -47,7 +47,7 @@ export function EventLinks({ event }: Props) {
         rightAddon={<OpenInNewFontIcon />}
         rightAddonType="icon"
       >
-        Event on ZwiftPower
+        <ListItemText>Event on ZwiftPower</ListItemText>
       </ListItemLink>
 
       {route && (
@@ -65,7 +65,7 @@ export function EventLinks({ event }: Props) {
               rightAddon={<OpenInNewFontIcon />}
               rightAddonType="icon"
             >
-              Route on ZwiftInsider
+              <ListItemText>Route on ZwiftInsider</ListItemText>
             </ListItemLink>
           )}
           {route.stravaSegmentUrl && (
@@ -81,7 +81,7 @@ export function EventLinks({ event }: Props) {
               rightAddon={<OpenInNewFontIcon />}
               rightAddonType="icon"
             >
-              Route on Strava Segment
+              <ListItemText>Route Segment on Strava</ListItemText>
             </ListItemLink>
           )}
           {route.whatsOnZwiftUrl && (
@@ -97,7 +97,7 @@ export function EventLinks({ event }: Props) {
               rightAddon={<OpenInNewFontIcon />}
               rightAddonType="icon"
             >
-              Route on What's on Zwift
+              <ListItemText>Route on What's on Zwift</ListItemText>
             </ListItemLink>
           )}
         </>

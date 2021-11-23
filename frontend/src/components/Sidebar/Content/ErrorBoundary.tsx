@@ -1,4 +1,9 @@
-import { List, ListItemLink, SimpleListItem } from "@react-md/list";
+import {
+  List,
+  ListItemLink,
+  ListItemText,
+  SimpleListItem,
+} from "@react-md/list";
 import { EmailFontIcon, RefreshFontIcon } from "@react-md/material-icons";
 
 interface Props {
@@ -19,14 +24,14 @@ export function ErrorBoundary({ eventId }: Props) {
         leftAddonType="icon"
         href={window.location.origin}
       >
-        Reload the page
+        <ListItemText>Reload the page</ListItemText>
       </ListItemLink>
       <ListItemLink
         leftAddonType="icon"
         leftAddon={<EmailFontIcon />}
         href={mailtoHref}
       >
-        Get in touch
+        <ListItemText>Get in touch</ListItemText>
       </ListItemLink>
     </List>
   );
