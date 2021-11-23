@@ -15,7 +15,7 @@ export async function handleActivityCreate(
   const settings = await readStravaSettings(athleteId);
 
   if (!settings.addLinkToActivityDescription) {
-    logger.log("Setting to add link to activity description is disabled");
+    logger.info("Setting to add link to activity description is disabled");
     return;
   }
 
@@ -23,15 +23,15 @@ export async function handleActivityCreate(
   try {
     activity = await getActivityById(athleteId, activityId);
   } catch (e) {
-    logger.log("Error fetching activity");
+    logger.info("Error fetching activity");
     return;
   }
 
   if (!isZwiftActivity(activity)) {
-    logger.log("Not a Zwift activity");
+    logger.info("Not a Zwift activity");
     return;
   }
 
-  logger.log("Adding link to activity description");
+  logger.info("Adding link to activity description");
   await addLinkToActivity(athleteId, activityId);
 }

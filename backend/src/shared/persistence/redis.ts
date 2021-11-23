@@ -6,12 +6,14 @@ export const redisCallbackClient = createClient({
 });
 
 export const redisClient = {
-  set,
-  get,
   del,
   exists,
-  hset,
+  get,
   hget,
+  hset,
+  keys,
+  set,
+  setex,
 };
 
 async function set<T = any>(key: string, value: T): Promise<void> {
@@ -19,6 +21,24 @@ async function set<T = any>(key: string, value: T): Promise<void> {
 
   await new Promise<void>((resolve, reject) => {
     redisCallbackClient.set(key, stringified, (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
+  });
+}
+
+async function setex<T = any>(
+  key: string,
+  value: T,
+  expirationTime: number
+): Promise<void> {
+  const stringified = JSON.stringify(value);
+
+  await new Promise<void>((resolve, reject) => {
+    redisCallbackClient.setex(key, expirationTime, stringified, (err) => {
       if (err) {
         reject(err);
       } else {
@@ -47,6 +67,18 @@ async function del(key: string): Promise<void> {
         reject(err);
       } else {
         resolve();
+      }
+    });
+  });
+}
+
+async function keys(pattern: string): Promise<string[]> {
+  return await new Promise((resolve, reject) => {
+    redisCallbackClient.keys(pattern, (err, reply) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(reply);
       }
     });
   });

@@ -4,15 +4,28 @@ import {
   StreamSet,
   SummaryActivity,
 } from "strava";
+import {
+  getActivityByIdFromCache,
+  getActivityStreamsFromCache,
+  writeActivityStreamsToCache,
+  writeActivityToCache,
+} from "./cache";
 import { getStravaUserAPI } from "./userApi";
 export { stravaAppAPI } from "./appApi";
+export { evictCacheForActivity, evictCacheForAthlete } from "./cache";
 
 export async function getActivityById(
   athleteId: number,
   activityId: number
 ): Promise<DetailedActivity> {
+  const cachedActivity = await getActivityByIdFromCache(athleteId, activityId);
+  if (cachedActivity) {
+    return cachedActivity;
+  }
+
   const api = await getStravaUserAPI(athleteId);
   const response = await api.get<DetailedActivity>(`/activities/${activityId}`);
+  await writeActivityToCache(response.data);
   return response.data;
 }
 
@@ -53,6 +66,14 @@ export async function getActivityStreams(
   athleteId: number,
   activityId: number
 ): Promise<StreamSet> {
+  const cachedStreams = await getActivityStreamsFromCache(
+    athleteId,
+    activityId
+  );
+  if (cachedStreams) {
+    return cachedStreams;
+  }
+
   const api = await getStravaUserAPI(athleteId);
   const response = await api.get<StreamSet>(
     `/activities/${activityId}/streams`,
@@ -73,5 +94,6 @@ export async function getActivityStreams(
       },
     }
   );
+  await writeActivityStreamsToCache(athleteId, activityId, response.data);
   return response.data;
 }
