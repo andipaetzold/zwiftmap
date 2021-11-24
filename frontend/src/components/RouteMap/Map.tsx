@@ -8,6 +8,7 @@ import {
   Polyline,
 } from "react-leaflet";
 import { World } from "zwift-data";
+import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 import { worldConfigs } from "../../worldConfig";
 import styles from "./index.module.css";
 
@@ -34,6 +35,7 @@ export function Map({
   routeLatLngStream,
   segmentLatLngStreams,
 }: Props) {
+  const prefersReducedMotion = usePrefersReducedMotion();
   const [map, setMap] = useState<MapType | undefined>();
   useEffect(() => {
     map?.zoomControl.setPosition("topright");
@@ -66,13 +68,13 @@ export function Map({
         new LatLngBounds(routeLatLngStream[0], routeLatLngStream[0])
       );
 
-      if (doHardZoom.current) {
+      if (doHardZoom.current || prefersReducedMotion) {
         map.fitBounds(bounds, { animate: false });
       } else {
         map.flyToBounds(bounds);
       }
     } else {
-      if (doHardZoom.current) {
+      if (doHardZoom.current || prefersReducedMotion) {
         map.fitBounds(worldConfig.initialBounds, { animate: false });
       } else {
         map.flyToBounds(worldConfig.initialBounds);
@@ -80,7 +82,7 @@ export function Map({
     }
 
     doHardZoom.current = false;
-  }, [map, routeLatLngStream, world]);
+  }, [map, routeLatLngStream, world, prefersReducedMotion]);
 
   const worldConfig = worldConfigs[world.slug];
 
