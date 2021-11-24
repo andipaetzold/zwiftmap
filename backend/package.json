@@ -8,7 +8,7 @@
   "scripts": {
     "start:web": "node ./build-web/web",
     "start:worker": "node ./build-worker/worker",
-    "dev:web": "tsc-watch -P web.tsconfig.json --preserveWatchOutput --onSuccess \"node ./build-web/web\"",
+    "dev:web": "node ./scripts/start-web.mjs",
     "dev:worker": "tsc-watch -P worker.tsconfig.json --preserveWatchOutput --onSuccess \"node ./build-worker/worker\"",
     "build": "npm run build:web && npm run build:worker",
     "build:web": "tsc -P web.tsconfig.json",
@@ -27,6 +27,8 @@
     "@types/node": "16.11.10",
     "@types/node-fetch": "2.5.3",
     "@types/redis": "2.8.32",
+    "@types/tsc-watch": "4.2.0",
+    "ngrok": "4.2.2",
     "tsc-watch": "4.5.0",
     "typescript": "4.5.2"
   },
