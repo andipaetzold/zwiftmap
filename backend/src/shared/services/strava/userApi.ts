@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from "axios";
+import { RefreshTokenResponse } from "strava";
 import {
   readStravaToken,
   removeStravaToken,
@@ -8,7 +9,9 @@ import {
 import { stravaAppAPI } from "./appApi";
 import { TokenNotFoundError } from "./types";
 
-export async function getStravaUserAPI(athleteId: number): Promise<AxiosInstance> {
+export async function getStravaUserAPI(
+  athleteId: number
+): Promise<AxiosInstance> {
   const token = await getToken(athleteId);
 
   return axios.create({
@@ -39,20 +42,25 @@ async function refreshToken(
   stravaToken: StravaToken
 ): Promise<StravaToken | undefined> {
   try {
-    const response = await stravaAppAPI.post("/oauth/token", {
-      grant_type: "refresh_token",
-      refresh_token: stravaToken.refreshToken,
-    });
+    const response = await stravaAppAPI.post<RefreshTokenResponse>(
+      "/oauth/token",
+      {
+        grant_type: "refresh_token",
+        refresh_token: stravaToken.refreshToken,
+      }
+    );
 
-    await writeStravaToken({
+    const refreshedStravaToken: StravaToken = {
       athleteId: stravaToken.athleteId,
       expiresAt: response.data.expires_at,
       refreshToken: response.data.refresh_token,
       token: response.data.access_token,
       scope: stravaToken.scope,
-    });
+    };
 
-    return response.data;
+    await writeStravaToken(refreshedStravaToken);
+
+    return refreshedStravaToken;
   } catch {
     await removeStravaToken(stravaToken.athleteId);
     return undefined;
