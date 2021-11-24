@@ -7,8 +7,10 @@ import {
 import {
   getActivityByIdFromCache,
   getActivityStreamsFromCache,
+  getSegmentFromCache,
   writeActivityStreamsToCache,
   writeActivityToCache,
+  writeSegmentToCache,
 } from "./cache";
 import { getStravaUserAPI } from "./userApi";
 export { stravaAppAPI } from "./appApi";
@@ -57,8 +59,14 @@ export async function updateActivity(
 }
 
 export async function getSegmentById(athleteId: number, segmentId: number) {
+  const cachedSegment = await getSegmentFromCache(athleteId, segmentId);
+  if (cachedSegment) {
+    return cachedSegment;
+  }
+
   const api = await getStravaUserAPI(athleteId);
   const response = await api.get<DetailedSegment>(`/segments/${segmentId}`);
+  await writeSegmentToCache(athleteId, response.data);
   return response.data;
 }
 
