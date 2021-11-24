@@ -18,7 +18,7 @@ interface Props {
 }
 
 export function StravaActivitiesListComponent({ onHoverRoute }: Props) {
-  const [, setLocationState] = useLocationState();
+  const [locationState, setLocationState] = useLocationState();
   const setQuery = useStore((state) => state.setQuery);
   const {
     result: activities,
@@ -65,12 +65,17 @@ export function StravaActivitiesListComponent({ onHoverRoute }: Props) {
                 stravaActivityId: activity.id,
               });
             }}
-            onMouseEnter={() =>
+            onMouseEnter={() => {
+              if (world !== locationState.world) {
+                onHoverRoute(undefined);
+                return;
+              }
+
               onHoverRoute({
                 type: "latlng",
                 latlng: polyline.decode(activity.map.summary_polyline),
-              })
-            }
+              });
+            }}
             onMouseLeave={() => onHoverRoute(undefined)}
             secondaryText={
               <>

@@ -42,7 +42,17 @@ export function EventItem({ event, onHoverRoute }: Props) {
       }}
       rightAddon={route ? undefined : <OpenInNewFontIcon />}
       rightAddonType={route ? undefined : "icon"}
-      onMouseEnter={() => onHoverRoute({ type: "route", route: route!.slug })}
+      onMouseEnter={() => {
+        if (!route) {
+          return;
+        }
+        if (route.world !== locationState.world.slug) {
+          onHoverRoute(undefined);
+          return;
+        }
+
+        onHoverRoute({ type: "route", route: route.slug });
+      }}
       onMouseLeave={() => onHoverRoute(undefined)}
     >
       {event.name}
