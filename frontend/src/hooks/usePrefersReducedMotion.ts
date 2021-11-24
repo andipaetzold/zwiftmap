@@ -3,11 +3,6 @@ import { useEffect, useState } from "react";
 const reducedMotionQuery = window.matchMedia(
   "(prefers-reduced-motion: reduce)"
 );
-const addListener =
-  reducedMotionQuery.addEventListener ?? reducedMotionQuery.addListener;
-const removeListener =
-  reducedMotionQuery.removeEventListener ??
-  reducedMotionQuery.removeEventListener;
 
 export function usePrefersReducedMotion(): boolean {
   const [state, setState] = useState(reducedMotionQuery.matches);
@@ -16,8 +11,14 @@ export function usePrefersReducedMotion(): boolean {
     const listener = () => {
       setState(reducedMotionQuery.matches);
     };
-    addListener("change", listener);
-    return () => removeListener("change", listener);
+
+    if ("addEventListener" in reducedMotionQuery) {
+      reducedMotionQuery.addEventListener("change", listener);
+      return () => reducedMotionQuery.removeEventListener("change", listener);
+    } else if ("addListener" in reducedMotionQuery) {
+      reducedMotionQuery.addListener(listener);
+      return () => reducedMotionQuery.removeListener(listener);
+    }
   }, []);
 
   return state;
