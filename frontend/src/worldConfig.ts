@@ -16,6 +16,10 @@ export type WorldConfig = {
   initialBounds: [LatLngTuple, LatLngTuple];
   image: string;
   backgroundColor: string;
+  tiles: {
+    latitude: number;
+    longitude: number;
+  };
 };
 
 export const worldConfigs: Record<WorldSlug, WorldConfig> = {
@@ -26,6 +30,10 @@ export const worldConfigs: Record<WorldSlug, WorldConfig> = {
     ],
     image: bolognaMap,
     backgroundColor: "#b9b9b8",
+    tiles: {
+      latitude: 16,
+      longitude: 16,
+    },
   },
   "crit-city": {
     initialBounds: [
@@ -34,6 +42,10 @@ export const worldConfigs: Record<WorldSlug, WorldConfig> = {
     ],
     image: critCityMap,
     backgroundColor: "#7c9938",
+    tiles: {
+      latitude: 8,
+      longitude: 8,
+    },
   },
   france: {
     initialBounds: [
@@ -42,6 +54,10 @@ export const worldConfigs: Record<WorldSlug, WorldConfig> = {
     ],
     image: franceMap,
     backgroundColor: "#6f992d",
+    tiles: {
+      latitude: 24,
+      longitude: 24,
+    },
   },
   innsbruck: {
     initialBounds: [
@@ -50,6 +66,10 @@ export const worldConfigs: Record<WorldSlug, WorldConfig> = {
     ],
     image: innsbruckMap,
     backgroundColor: "#7c9938",
+    tiles: {
+      latitude: 16,
+      longitude: 16,
+    },
   },
   london: {
     initialBounds: [
@@ -58,6 +78,10 @@ export const worldConfigs: Record<WorldSlug, WorldConfig> = {
     ],
     image: londonMap,
     backgroundColor: "#6f992d",
+    tiles: {
+      latitude: 16,
+      longitude: 16,
+    },
   },
   "makuri-islands": {
     initialBounds: [
@@ -66,6 +90,10 @@ export const worldConfigs: Record<WorldSlug, WorldConfig> = {
     ],
     image: makuriIslandsMap,
     backgroundColor: "#7d9a35",
+    tiles: {
+      latitude: 16,
+      longitude: 16,
+    },
   },
   "new-york": {
     initialBounds: [
@@ -74,6 +102,10 @@ export const worldConfigs: Record<WorldSlug, WorldConfig> = {
     ],
     image: newYorkMap,
     backgroundColor: "#bbbbb7",
+    tiles: {
+      latitude: 16,
+      longitude: 16,
+    },
   },
   paris: {
     initialBounds: [
@@ -82,6 +114,10 @@ export const worldConfigs: Record<WorldSlug, WorldConfig> = {
     ],
     image: parisMap,
     backgroundColor: "#b9b9b9",
+    tiles: {
+      latitude: 16,
+      longitude: 16,
+    },
   },
   richmond: {
     initialBounds: [
@@ -90,6 +126,10 @@ export const worldConfigs: Record<WorldSlug, WorldConfig> = {
     ],
     image: richmondMap,
     backgroundColor: "#7c9938",
+    tiles: {
+      latitude: 16,
+      longitude: 16,
+    },
   },
   watopia: {
     initialBounds: [
@@ -98,6 +138,10 @@ export const worldConfigs: Record<WorldSlug, WorldConfig> = {
     ],
     image: watopiaMap,
     backgroundColor: "#0884e2",
+    tiles: {
+      latitude: 32,
+      longitude: 16,
+    },
   },
   yorkshire: {
     initialBounds: [
@@ -106,5 +150,9 @@ export const worldConfigs: Record<WorldSlug, WorldConfig> = {
     ],
     image: yorkshireMap,
     backgroundColor: "#7c9938",
+    tiles: {
+      latitude: 16,
+      longitude: 16,
+    },
   },
 };
