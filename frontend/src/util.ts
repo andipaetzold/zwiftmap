@@ -1,3 +1,4 @@
+import * as Sentry from "@sentry/react";
 import fromPairs from "lodash/fromPairs";
 
 const isNavigatorShareSupported = "share" in navigator;
@@ -32,7 +33,8 @@ export async function shareImage(url: string): Promise<void> {
     } else if (e instanceof DOMException && e.name === "NotAllowedError") {
       window.open(url, "__blank");
     } else {
-      throw e;
+      window.open(url, "__blank");
+      Sentry.captureException(e);
     }
   }
 }
