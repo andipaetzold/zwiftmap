@@ -113,12 +113,7 @@ export function ElevationChart({
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart
           data={data}
-          margin={{
-            top: 25,
-            right: 15,
-            left: 15,
-            bottom: 15,
-          }}
+          margin={{ top: 25, bottom: 15 }}
           // @ts-ignore
           baseValue="dataMin"
           onMouseMove={handleMouseMove}
