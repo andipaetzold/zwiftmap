@@ -78,6 +78,6 @@
     "@types/mapbox__polyline": "1.0.2",
     "netlify-cli": "8.0.1",
     "prettier": "2.4.1",
-    "sass": "1.43.4"
+    "sass": "1.43.5"
   }
 }
