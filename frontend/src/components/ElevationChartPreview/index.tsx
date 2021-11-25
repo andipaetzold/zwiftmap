@@ -1,4 +1,3 @@
-import uniqWith from "lodash/uniqWith";
 import React, { useMemo } from "react";
 import { useAsync } from "react-async-hook";
 import { Area, AreaChart, XAxis, YAxis } from "recharts";
@@ -14,31 +13,41 @@ interface Props {
 
 const REQUIRED_STREAMS = ["altitude", "distance"];
 
+// max width the chart will be rendered
+const TARGET_RESOLUTION = 100;
+
 export function ElevationChartPreview({ route }: Props) {
   const { result: segment, error } = useAsync<
     Pick<StravaSegment, "altitude" | "distance">
   >(getStravaSegmentStreams, [route.slug, "routes", REQUIRED_STREAMS]);
 
-  const data: any[] | undefined = useMemo(() => {
-    if (segment === undefined) {
-      return;
-    }
+  const data: { distance: number; elevation: number }[] | undefined =
+    useMemo(() => {
+      if (segment === undefined) {
+        return;
+      }
 
-    const filteredData = uniqWith(
-      segment.distance.map((distance, index) => ({
-        distance: Math.round(distance / 100) / 10,
-        elevation: segment.altitude[index],
-      })),
-      (a, b) => a.distance === b.distance
-    );
-
-    // remove negative elevation
-    const lowestElevation = Math.min(...filteredData.map((d) => d.elevation));
-    return filteredData.map((d) => ({
-      ...d,
-      elevation: d.elevation - lowestElevation,
-    }));
-  }, [segment]);
+      const filteredData = segment.distance
+        .map((distance, index) => ({
+          distance: distance / 1_000,
+          elevation: segment.altitude[index],
+        }))
+        .filter(
+          (_d, index) =>
+            index %
+              Math.max(
+                1,
+                Math.floor(segment.distance.length / TARGET_RESOLUTION)
+              ) ===
+            0
+        );
+      // remove negative elevation
+      const lowestElevation = Math.min(...filteredData.map((d) => d.elevation));
+      return filteredData.map((d) => ({
+        ...d,
+        elevation: d.elevation - lowestElevation,
+      }));
+    }, [segment]);
 
   if (error) {
     return null;

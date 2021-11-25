@@ -1,6 +1,5 @@
 import { SimpleListItem } from "@react-md/list";
 import { Text } from "@react-md/typography";
-import uniqWith from "lodash/uniqWith";
 import React, { useCallback, useMemo, useState } from "react";
 import { useAsync } from "react-async-hook";
 import {
@@ -60,6 +59,9 @@ interface Props {
   onMouseHoverDistanceChange: (distance: number | undefined) => void;
 }
 
+// max width the chart will be rendered
+const TARGET_RESOLUTION = 750;
+
 export function ElevationChart({
   distanceStream,
   altitudeStream,
@@ -84,15 +86,23 @@ export function ElevationChart({
     [onMouseHoverDistanceChange]
   );
 
-  const data: any[] | undefined = useMemo(() => {
-    return uniqWith(
-      distanceStream.map((distance, index) => ({
-        distance: Math.round(distance / 10) / 100,
-        elevation: altitudeStream[index],
-      })),
-      (a, b) => a.distance === b.distance
-    );
-  }, [distanceStream, altitudeStream]);
+  const data: { distance: number; elevation: number }[] | undefined =
+    useMemo(() => {
+      return distanceStream
+        .map((distance, index) => ({
+          distance: distance / 1_000,
+          elevation: altitudeStream[index],
+        }))
+        .filter(
+          (_d, index) =>
+            index %
+              Math.max(
+                1,
+                Math.floor(distanceStream.length / TARGET_RESOLUTION)
+              ) ===
+            0
+        );
+    }, [distanceStream, altitudeStream]);
 
   if (data === undefined) {
     return null;
