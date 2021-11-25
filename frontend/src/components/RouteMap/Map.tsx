@@ -1,5 +1,6 @@
 import { LatLngBounds, LatLngTuple, Map as MapType } from "leaflet";
-import { useEffect, useRef, useState } from "react";
+import range from "lodash/range";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   CircleMarker,
   ImageOverlay,
@@ -86,6 +87,21 @@ export function Map({
 
   const worldConfig = worldConfigs[world.slug];
 
+  const tileSize = {
+    latitude:
+      (world.bounds[1][0] - world.bounds[0][0]) / worldConfig.tiles.latitude,
+    longitude:
+      (world.bounds[1][1] - world.bounds[0][1]) / worldConfig.tiles.longitude,
+  };
+
+  const tiles = useMemo(
+    () =>
+      range(0, worldConfig.tiles.latitude).flatMap((lat) =>
+        range(0, worldConfig.tiles.longitude).map((lng) => [lat, lng])
+      ),
+    [worldConfig]
+  );
+
   return (
     <MapContainer
       whenCreated={(map) => setMap(map)}
@@ -95,11 +111,23 @@ export function Map({
       maxZoom={19}
       className={styles.MapContainer}
     >
-      <ImageOverlay
-        url={worldConfig.image}
-        bounds={world.bounds}
-        attribution='&amp;copy <a href="https://zwift.com" rel="noreferrer noopener">Zwift</a>'
-      />
+      {tiles.map(([latIndex, lngIndex]) => (
+        <ImageOverlay
+          key={`${latIndex}-${lngIndex}`}
+          bounds={[
+            [
+              world.bounds[0][0] + latIndex * tileSize.latitude,
+              world.bounds[0][1] + lngIndex * tileSize.longitude,
+            ],
+            [
+              world.bounds[0][0] + (latIndex + 1) * tileSize.latitude,
+              world.bounds[0][1] + (lngIndex + 1) * tileSize.longitude,
+            ],
+          ]}
+          url={`/tiles/${world.slug}/1x/${lngIndex}-${latIndex}.jpg`}
+          attribution='&amp;copy <a href="https://zwift.com" rel="noreferrer noopener">Zwift</a>'
+        />
+      ))}
 
       {previewRouteLatLngStream && (
         <Pane name="preview-route" style={{ zIndex: Z_INDEX.previewRoute }}>

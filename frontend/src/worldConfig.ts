@@ -139,8 +139,8 @@ export const worldConfigs: Record<WorldSlug, WorldConfig> = {
     image: watopiaMap,
     backgroundColor: "#0884e2",
     tiles: {
-      latitude: 32,
-      longitude: 16,
+      latitude: 16,
+      longitude: 32,
     },
   },
   yorkshire: {
