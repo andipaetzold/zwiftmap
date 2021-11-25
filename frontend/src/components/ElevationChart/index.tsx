@@ -99,7 +99,14 @@ export function ElevationChart({
   );
 
   const handleMouseMove = useCallback(
-    (data: OnMouseMoveProps) => {
+    (
+      data: OnMouseMoveProps,
+      event: React.MouseEvent<SVGElement> | React.Touch
+    ) => {
+      if ("stopPropagation" in event) {
+        event.stopPropagation();
+      }
+
       if (!data.isTooltipActive) {
         onMouseHoverDistanceChange(undefined);
         setCurrentDistance(undefined);
