@@ -1,6 +1,5 @@
 import { SimpleListItem } from "@react-md/list";
 import { Typography } from "@react-md/typography";
-import uniqWith from "lodash/uniqWith";
 import React, { useCallback, useMemo, useState } from "react";
 import { useAsync } from "react-async-hook";
 import {
@@ -60,6 +59,33 @@ interface Props {
   onMouseHoverDistanceChange: (distance: number | undefined) => void;
 }
 
+interface OnMouseMoveProps {
+  isTooltipActive: boolean;
+  activeCoordinate?: { x: number; y: number };
+  activeLabel?: number;
+  activePayload?: {
+    chartType: unknown;
+    color: string;
+    dataKey: string;
+    fill: string;
+    fillOpacity: number;
+    formatter: unknown;
+    name: string;
+    payload: { distance: number; elevation: number };
+    points: unknown[];
+    stroke: string;
+    type: unknown;
+    unit: string;
+    value: number;
+  }[];
+  activeTooltipIndex?: number;
+  chartX?: number;
+  chartY?: number;
+}
+
+// max width the chart will be rendered
+const TARGET_RESOLUTION = 750;
+
 export function ElevationChart({
   distanceStream,
   altitudeStream,
@@ -73,7 +99,21 @@ export function ElevationChart({
   );
 
   const handleMouseMove = useCallback(
-    (data: any) => {
+    (
+      data: OnMouseMoveProps,
+      event: React.MouseEvent<SVGElement> | React.Touch
+    ) => {
+      if ("stopPropagation" in event) {
+        event.stopPropagation();
+      }
+
+      if (!data.isTooltipActive) {
+        onMouseHoverDistanceChange(undefined);
+        setCurrentDistance(undefined);
+        setCurrentAltitude(undefined);
+        return;
+      }
+
       const distance = data.activePayload?.[0]?.payload.distance;
       const elevation = data.activePayload?.[0]?.payload.elevation;
 
@@ -84,15 +124,29 @@ export function ElevationChart({
     [onMouseHoverDistanceChange]
   );
 
-  const data: any[] | undefined = useMemo(() => {
-    return uniqWith(
-      distanceStream.map((distance, index) => ({
-        distance: Math.round(distance / 10) / 100,
-        elevation: altitudeStream[index],
-      })),
-      (a, b) => a.distance === b.distance
-    );
-  }, [distanceStream, altitudeStream]);
+  const handleMouseLeave = useCallback(() => {
+    onMouseHoverDistanceChange(undefined);
+    setCurrentDistance(undefined);
+    setCurrentAltitude(undefined);
+  }, [onMouseHoverDistanceChange]);
+
+  const data: { distance: number; elevation: number }[] | undefined =
+    useMemo(() => {
+      return distanceStream
+        .map((distance, index) => ({
+          distance: distance / 1_000,
+          elevation: altitudeStream[index],
+        }))
+        .filter(
+          (_d, index) =>
+            index %
+              Math.max(
+                1,
+                Math.floor(distanceStream.length / TARGET_RESOLUTION)
+              ) ===
+            0
+        );
+    }, [distanceStream, altitudeStream]);
 
   if (data === undefined) {
     return null;
@@ -103,15 +157,11 @@ export function ElevationChart({
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart
           data={data}
-          margin={{
-            top: 25,
-            right: 15,
-            left: 15,
-            bottom: 15,
-          }}
+          margin={{ top: 25, bottom: 15 }}
           // @ts-ignore
           baseValue="dataMin"
           onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
         >
           <defs>
             <ElevationGradient />

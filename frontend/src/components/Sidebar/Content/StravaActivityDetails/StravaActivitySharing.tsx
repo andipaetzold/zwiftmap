@@ -119,9 +119,9 @@ function ShareActivityAsImage({ activity }: Props) {
 
       const pollPromise = new Promise<void>((resolve, reject) => {
         pollInterval.current = setInterval(async () => {
-          if (pollCounter.current > 5) {
+          if (pollCounter.current >= 10) {
             reset();
-            reject();
+            reject(new Error(`Image wasn't created in time`));
           } else {
             try {
               const r = await fetch(cloudinaryURL, { method: "HEAD" });
