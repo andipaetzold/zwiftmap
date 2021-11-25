@@ -1,5 +1,5 @@
 import { SimpleListItem } from "@react-md/list";
-import { Text } from "@react-md/typography";
+import { Typography } from "@react-md/typography";
 import { ZwiftEvent } from "../../../../services/events";
 import { EventFacts } from "./EventFacts";
 import { EventImage } from "./EventImage";
@@ -13,21 +13,19 @@ interface Props {
 }
 
 export function EventComponent({ event }: Props) {
-  return (
-    <>
-      <EventImage event={event} />
+  return <>
+    <EventImage event={event} />
 
-      <SimpleListItem>
-        <Text type="headline-6" style={{ margin: 0 }}>
-          {event.name}
-        </Text>
-      </SimpleListItem>
+    <SimpleListItem>
+      <Typography type="headline-6" style={{ margin: 0 }}>
+        {event.name}
+      </Typography>
+    </SimpleListItem>
 
-      <EventFacts event={event} />
-      <EventTimeTrial event={event} />
-      <EventRules event={event} />
-      <EventKit event={event} />
-      <EventLinks event={event} />
-    </>
-  );
+    <EventFacts event={event} />
+    <EventTimeTrial event={event} />
+    <EventRules event={event} />
+    <EventKit event={event} />
+    <EventLinks event={event} />
+  </>;
 }

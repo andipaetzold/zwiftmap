@@ -3,7 +3,7 @@ import {
   VisibilityFontIcon,
   VisibilityOffFontIcon,
 } from "@react-md/material-icons";
-import { Text } from "@react-md/typography";
+import { Typography } from "@react-md/typography";
 import React from "react";
 import { useAsync } from "react-async-hook";
 import { Route, Segment, segments, SegmentType } from "zwift-data";
@@ -35,7 +35,7 @@ export function RouteSegments({ route }: Props) {
   if (segmentsOnRoute.length === 0) {
     return (
       <SimpleListItem>
-        <Text type="body-2">No segments on this route.</Text>
+        <Typography type="body-2">No segments on this route.</Typography>
       </SimpleListItem>
     );
   }

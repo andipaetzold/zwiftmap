@@ -2,7 +2,7 @@ import { Button } from "@react-md/button";
 import { TextIconSpacing } from "@react-md/icon";
 import { List, SimpleListItem } from "@react-md/list";
 import { ListFontIcon } from "@react-md/material-icons";
-import { Text } from "@react-md/typography";
+import { Typography } from "@react-md/typography";
 import { Route } from "zwift-data";
 import { RouteElevationChart } from "../../../ElevationChart";
 import { RouteEvents } from "./RouteEvents";
@@ -35,9 +35,9 @@ export function RouteDetails({
       </SimpleListItem>
 
       <SimpleListItem>
-        <Text type="headline-6" style={{ margin: 0 }}>
+        <Typography type="headline-6" style={{ margin: 0 }}>
           {route.name}
-        </Text>
+        </Typography>
       </SimpleListItem>
 
       <RouteFacts route={route} />
