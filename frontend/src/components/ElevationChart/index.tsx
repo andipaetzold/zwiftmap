@@ -1,5 +1,5 @@
 import { SimpleListItem } from "@react-md/list";
-import { Text } from "@react-md/typography";
+import { Typography } from "@react-md/typography";
 import React, { useCallback, useMemo, useState } from "react";
 import { useAsync } from "react-async-hook";
 import {
@@ -9,7 +9,7 @@ import {
   ResponsiveContainer,
   Tooltip,
   XAxis,
-  YAxis
+  YAxis,
 } from "recharts";
 import { Route } from "zwift-data";
 import { getStravaSegmentStreams } from "../../services/StravaSegmentRepository";
@@ -205,14 +205,14 @@ export function ElevationChart({
         </AreaChart>
       </ResponsiveContainer>
       <div style={{ display: "flex", gap: "1em" }}>
-        <Text type="body-2" style={{ whiteSpace: "nowrap" }}>
+        <Typography type="body-2" style={{ whiteSpace: "nowrap" }}>
           Distance:{" "}
           {currentDistance ? <Distance distance={currentDistance} /> : "- km"}
-        </Text>
-        <Text type="body-2" style={{ whiteSpace: "nowrap" }}>
+        </Typography>
+        <Typography type="body-2" style={{ whiteSpace: "nowrap" }}>
           Altitude:{" "}
           {currentAltitude ? <Elevation elevation={currentAltitude} /> : "- m"}
-        </Text>
+        </Typography>
       </div>
     </div>
   );

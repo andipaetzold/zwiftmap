@@ -4,7 +4,7 @@ import {
   ListSubheader,
   SimpleListItem
 } from "@react-md/list";
-import { Text } from "@react-md/typography";
+import { Typography } from "@react-md/typography";
 import React, { useMemo } from "react";
 import { useAsync } from "react-async-hook";
 import { Route, worlds } from "zwift-data";
@@ -49,43 +49,39 @@ export function RouteEvents({ route }: Props) {
   }
 
   if (filteredEvents.length === 0) {
-    return (
-      <>
-        <ListSubheader>Upcoming Events</ListSubheader>
-        <SimpleListItem>
-          <Text type="body-2">No events on this route today.</Text>
-        </SimpleListItem>
-      </>
-    );
+    return <>
+      <ListSubheader>Upcoming Events</ListSubheader>
+      <SimpleListItem>
+        <Typography type="body-2">No events on this route today.</Typography>
+      </SimpleListItem>
+    </>;
   }
 
-  return (
-    <>
-      <ListSubheader>Upcoming Events</ListSubheader>
-      {filteredEvents.slice(0, 3).map((event) => (
-        <ListItem
-          key={event.id}
-          onClick={() =>
-            setLocationState({
-              type: "event",
-              world: worlds.find((w) => w.slug === route.world) ?? null,
-              eventId: event.id.toString(),
-            })
-          }
-          secondaryText={<EventInfo event={event} />}
-          threeLines
-        >
-          <ListItemText>{event.name}</ListItemText>
-        </ListItem>
-      ))}
-      {filteredEvents.length > 3 && (
-        <SimpleListItem>
-          <Text type="body-2">
-            {filteredEvents.length - 3} more{" "}
-            {filteredEvents.length === 4 ? "event" : "events"} happening today
-          </Text>
-        </SimpleListItem>
-      )}
-    </>
-  );
+  return <>
+    <ListSubheader>Upcoming Events</ListSubheader>
+    {filteredEvents.slice(0, 3).map((event) => (
+      <ListItem
+        key={event.id}
+        onClick={() =>
+          setLocationState({
+            type: "event",
+            world: worlds.find((w) => w.slug === route.world) ?? null,
+            eventId: event.id.toString(),
+          })
+        }
+        secondaryText={<EventInfo event={event} />}
+        threeLines
+      >
+        <ListItemText>{event.name}</ListItemText>
+      </ListItem>
+    ))}
+    {filteredEvents.length > 3 && (
+      <SimpleListItem>
+        <Typography type="body-2">
+          {filteredEvents.length - 3} more{" "}
+          {filteredEvents.length === 4 ? "event" : "events"} happening today
+        </Typography>
+      </SimpleListItem>
+    )}
+  </>;
 }

@@ -1,5 +1,5 @@
 import { SimpleListItem } from "@react-md/list";
-import { Text } from "@react-md/typography";
+import { Typography } from "@react-md/typography";
 import { ShareStravaActivity } from "../../../../../types";
 import { ElevationChart } from "../../../../ElevationChart";
 import { SharedStravaActivityFacts } from "./Facts";
@@ -15,26 +15,24 @@ export function SharedStravaActivity({
   share,
   onMouseHoverDistanceChange,
 }: Props) {
-  return (
-    <>
-      <SimpleListItem>
-        <Text type="headline-6" style={{ margin: 0 }}>
-          {share.activity.name}
-        </Text>
-      </SimpleListItem>
+  return <>
+    <SimpleListItem>
+      <Typography type="headline-6" style={{ margin: 0 }}>
+        {share.activity.name}
+      </Typography>
+    </SimpleListItem>
 
-      <SharedStravaActivityFacts share={share} />
+    <SharedStravaActivityFacts share={share} />
 
-      <SimpleListItem>
-        <ElevationChart
-          distanceStream={share.streams.distance.data}
-          altitudeStream={share.streams.altitude.data}
-          onMouseHoverDistanceChange={onMouseHoverDistanceChange}
-        />
-      </SimpleListItem>
+    <SimpleListItem>
+      <ElevationChart
+        distanceStream={share.streams.distance.data}
+        altitudeStream={share.streams.altitude.data}
+        onMouseHoverDistanceChange={onMouseHoverDistanceChange}
+      />
+    </SimpleListItem>
 
-      <SharedStravaActivitySharing share={share} />
-      <SharedStravaActivityLinks share={share} />
-    </>
-  );
+    <SharedStravaActivitySharing share={share} />
+    <SharedStravaActivityLinks share={share} />
+  </>;
 }

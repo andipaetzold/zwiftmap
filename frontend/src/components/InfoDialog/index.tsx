@@ -6,7 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@react-md/dialog";
-import { Text } from "@react-md/typography";
+import { Typography } from "@react-md/typography";
 import React from "react";
 import styles from "./index.module.scss";
 
@@ -28,9 +28,9 @@ export function InfoDialog({ visible, onClose }: Props) {
         <DialogTitle id="info-dialog-title">ZwiftMap</DialogTitle>
       </DialogHeader>
       <DialogContent>
-        <Text>ZwiftMap is a fan project created by Andi Pätzold.</Text>
+        <Typography>ZwiftMap is a fan project created by Andi Pätzold.</Typography>
 
-        <Text>
+        <Typography>
           All code is open source and available on{" "}
           <a
             href="https://github.com/andipaetzold/zwiftmap"
@@ -40,11 +40,11 @@ export function InfoDialog({ visible, onClose }: Props) {
             GitHub
           </a>
           .
-        </Text>
+        </Typography>
 
-        <Text>
+        <Typography>
           Route and Segment Information is collected and combined from:{" "}
-        </Text>
+        </Typography>
         <ul>
           <li>
             <a
@@ -93,23 +93,23 @@ export function InfoDialog({ visible, onClose }: Props) {
           </li>
         </ul>
 
-        <Text>
+        <Typography>
           World maps were created by{" "}
           <a href="https://zwift.com" rel="noreferrer noopener" target="_blank">
             Zwift
           </a>
           .
-        </Text>
+        </Typography>
 
-        <Text>
+        <Typography>
           ZwiftMap does not collect, analyze or store any sensitive information.
           The app only uses data required for the operation and monitoring.
-        </Text>
+        </Typography>
 
-        <Text type="headline-6" style={{ margin: 0 }}>
+        <Typography type="headline-6" style={{ margin: 0 }}>
           Contact
-        </Text>
-        <Text>
+        </Typography>
+        <Typography>
           Andi Pätzold
           <br />
           <a
@@ -128,7 +128,7 @@ export function InfoDialog({ visible, onClose }: Props) {
           >
             PayPal
           </a>
-        </Text>
+        </Typography>
       </DialogContent>
       <DialogFooter>
         <Button id="dialog-close" onClick={onClose}>
