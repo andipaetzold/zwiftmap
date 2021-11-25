@@ -9,7 +9,7 @@ import {
   ResponsiveContainer,
   Tooltip,
   XAxis,
-  YAxis,
+  YAxis
 } from "recharts";
 import { Route } from "zwift-data";
 import { getStravaSegmentStreams } from "../../services/StravaSegmentRepository";
@@ -59,6 +59,30 @@ interface Props {
   onMouseHoverDistanceChange: (distance: number | undefined) => void;
 }
 
+interface OnMouseMoveProps {
+  isTooltipActive: boolean;
+  activeCoordinate?: { x: number; y: number };
+  activeLabel?: number;
+  activePayload?: {
+    chartType: unknown;
+    color: string;
+    dataKey: string;
+    fill: string;
+    fillOpacity: number;
+    formatter: unknown;
+    name: string;
+    payload: { distance: number; elevation: number };
+    points: unknown[];
+    stroke: string;
+    type: unknown;
+    unit: string;
+    value: number;
+  }[];
+  activeTooltipIndex?: number;
+  chartX?: number;
+  chartY?: number;
+}
+
 // max width the chart will be rendered
 const TARGET_RESOLUTION = 750;
 
@@ -75,7 +99,14 @@ export function ElevationChart({
   );
 
   const handleMouseMove = useCallback(
-    (data: any) => {
+    (data: OnMouseMoveProps) => {
+      if (!data.isTooltipActive) {
+        onMouseHoverDistanceChange(undefined);
+        setCurrentDistance(undefined);
+        setCurrentAltitude(undefined);
+        return;
+      }
+
       const distance = data.activePayload?.[0]?.payload.distance;
       const elevation = data.activePayload?.[0]?.payload.elevation;
 
@@ -85,6 +116,12 @@ export function ElevationChart({
     },
     [onMouseHoverDistanceChange]
   );
+
+  const handleMouseLeave = useCallback(() => {
+    onMouseHoverDistanceChange(undefined);
+    setCurrentDistance(undefined);
+    setCurrentAltitude(undefined);
+  }, [onMouseHoverDistanceChange]);
 
   const data: { distance: number; elevation: number }[] | undefined =
     useMemo(() => {
@@ -117,6 +154,7 @@ export function ElevationChart({
           // @ts-ignore
           baseValue="dataMin"
           onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
         >
           <defs>
             <ElevationGradient />
