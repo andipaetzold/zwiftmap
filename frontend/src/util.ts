@@ -10,6 +10,7 @@ export function flipLatLng(p: [number, number]): [number, number] {
 export async function shareImage(url: string): Promise<void> {
   if (!isNavigatorShareSupported) {
     window.open(url, "__blank");
+    return;
   }
 
   try {
