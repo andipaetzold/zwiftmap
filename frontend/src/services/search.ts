@@ -1,4 +1,12 @@
-import { Route, routes, Segment, Sport, World, worlds } from "zwift-data";
+import {
+  Route,
+  routes,
+  Segment,
+  segments,
+  Sport,
+  World,
+  worlds,
+} from "zwift-data";
 
 const REGEX_STRAVA_ACTIVITY = /strava\.com\/activities\/(\d{10})/;
 
@@ -50,16 +58,16 @@ const searchResultsRoute = [...routes]
     ),
     data: route,
   }));
-// const searchResultsSegment = [...segments]
-//   .filter((route) => route.stravaSegmentId !== undefined)
-//   .map((segment) => ({
-//     type: "segment" as const,
-//     terms: [
-//       worlds.find((w) => w.slug === segment.slug)!.name,
-//       segment.name,
-//     ].map((t) => t.toLocaleLowerCase()),
-//     data: segment,
-//   }));
+const searchResultsSegment = [...segments]
+  .filter((segment) => segment.stravaSegmentId !== undefined)
+  .map((segment) => ({
+    type: "segment" as const,
+    terms: [
+      worlds.find((w) => w.slug === segment.world)!.name,
+      segment.name,
+    ].map((t) => t.toLocaleLowerCase()),
+    data: segment,
+  }));
 
 export function search(
   term: string,
@@ -93,11 +101,13 @@ export function search(
       terms.every((t) => world.terms.some((worldTerm) => worldTerm.includes(t)))
     ),
     route: searchResultsRoute.filter((route) =>
+      terms.every((t) => route.terms.some((routeTerm) => routeTerm.includes(t)))
+    ),
+    segment: searchResultsSegment.filter((segment) =>
       terms.every((t) =>
-        route.terms.some((routerTerm) => routerTerm.includes(t))
+        segment.terms.some((segmentTerm) => segmentTerm.includes(t))
       )
     ),
-    segment: [],
     "strava-activity": [],
   };
 }

@@ -1,6 +1,6 @@
 import { List, ListSubheader, SimpleListItem } from "@react-md/list";
 import React from "react";
-import { Route, World } from "zwift-data";
+import { Route, Segment, World } from "zwift-data";
 import { useSessionSettings } from "../../../../hooks/useSessionSettings";
 import { useSettings } from "../../../../hooks/useSettings";
 import {
@@ -10,9 +10,10 @@ import {
   SEARCH_RESULTS_TYPES,
 } from "../../../../services/search";
 import { HoverData, SortState } from "../../../../types";
-import { sortRoute, sortWorld } from "../../../../util/sort";
+import { sortRoute, sortSegment, sortWorld } from "../../../../util/sort";
 import { SortButton } from "../../../SortButton";
 import { ListItemRoute } from "./Items/ListItemRoute";
+import { ListItemSegment } from "./Items/ListItemSegment";
 import { ListItemStravaActivity } from "./Items/ListItemStravaActivity";
 import { ListItemWorld } from "./Items/ListItemWorld";
 
@@ -74,6 +75,12 @@ function SearchResultsTypeList({
               return sortWorld(sortState, a.data as World, b.data as World);
             case "route":
               return sortRoute(sortState, a.data as Route, b.data as Route);
+            case "segment":
+              return sortSegment(
+                sortState,
+                a.data as Segment,
+                b.data as Segment
+              );
             default:
               return 0;
           }
@@ -105,6 +112,14 @@ function SearchResultCard({
       return (
         <ListItemRoute
           route={searchResult.data}
+          onHoverRoute={onHoverRoute}
+          showWorldName={true}
+        />
+      );
+    case "segment":
+      return (
+        <ListItemSegment
+          segment={searchResult.data}
           onHoverRoute={onHoverRoute}
           showWorldName={true}
         />

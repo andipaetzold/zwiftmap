@@ -1,54 +1,48 @@
 import React, { useMemo } from "react";
 import { useAsync } from "react-async-hook";
 import { Area, AreaChart, XAxis, YAxis } from "recharts";
-import { Route } from "zwift-data";
+import { Route, Segment } from "zwift-data";
 import { COLORS } from "../../constants";
 import { getStravaSegmentStreams } from "../../services/StravaSegmentRepository";
 import { StravaSegment } from "../../types";
 import { ElevationGradient } from "../ElevationGradient";
 import { LoadingSpinner } from "../Loading";
 
-interface Props {
+interface RouteProps {
   route: Route;
 }
 
-const REQUIRED_STREAMS = ["altitude", "distance"];
-
-// max width the chart will be rendered
-const TARGET_RESOLUTION = 100;
-
-export function ElevationChartPreview({ route }: Props) {
-  const { result: segment, error } = useAsync<
+export function RouteElevationChartPreview({ route }: RouteProps) {
+  const { result: streams, error } = useAsync<
     Pick<StravaSegment, "altitude" | "distance">
   >(getStravaSegmentStreams, [route.slug, "routes", REQUIRED_STREAMS]);
 
-  const data: { distance: number; elevation: number }[] | undefined =
-    useMemo(() => {
-      if (segment === undefined) {
-        return;
-      }
+  const data: Data[] | undefined = useMemo(() => {
+    if (streams === undefined) {
+      return;
+    }
 
-      const filteredData = segment.distance
-        .map((distance, index) => ({
-          distance: distance / 1_000,
-          elevation: segment.altitude[index],
-        }))
-        .filter(
-          (_d, index) =>
-            index %
-              Math.max(
-                1,
-                Math.floor(segment.distance.length / TARGET_RESOLUTION)
-              ) ===
-            0
-        );
-      // remove negative elevation
-      const lowestElevation = Math.min(...filteredData.map((d) => d.elevation));
-      return filteredData.map((d) => ({
-        ...d,
-        elevation: d.elevation - lowestElevation,
-      }));
-    }, [segment]);
+    const filteredData = streams.distance
+      .map((distance, index) => ({
+        distance: distance / 1_000,
+        elevation: streams.altitude[index],
+      }))
+      .filter(
+        (_d, index) =>
+          index %
+            Math.max(
+              1,
+              Math.floor(streams.distance.length / TARGET_RESOLUTION)
+            ) ===
+          0
+      );
+    // remove negative elevation
+    const lowestElevation = Math.min(...filteredData.map((d) => d.elevation));
+    return filteredData.map((d) => ({
+      ...d,
+      elevation: d.elevation - lowestElevation,
+    }));
+  }, [streams]);
 
   if (error) {
     return null;
@@ -58,6 +52,71 @@ export function ElevationChartPreview({ route }: Props) {
     return <LoadingSpinner small />;
   }
 
+  return <ElevationChartPreview data={data} />;
+}
+
+interface SegmentProps {
+  segment: Segment;
+}
+
+export function SegmentElevationChartPreview({ segment }: SegmentProps) {
+  const { result: streams, error } = useAsync<
+    Pick<StravaSegment, "altitude" | "distance">
+  >(getStravaSegmentStreams, [segment.slug, "segments", REQUIRED_STREAMS]);
+
+  const data: Data[] | undefined = useMemo(() => {
+    if (streams === undefined) {
+      return;
+    }
+
+    const filteredData = streams.distance
+      .map((distance, index) => ({
+        distance: distance / 1_000,
+        elevation: streams.altitude[index],
+      }))
+      .filter(
+        (_d, index) =>
+          index %
+            Math.max(
+              1,
+              Math.floor(streams.distance.length / TARGET_RESOLUTION)
+            ) ===
+          0
+      );
+    // remove negative elevation
+    const lowestElevation = Math.min(...filteredData.map((d) => d.elevation));
+    return filteredData.map((d) => ({
+      ...d,
+      elevation: d.elevation - lowestElevation,
+    }));
+  }, [streams]);
+
+  if (error) {
+    return null;
+  }
+
+  if (!data) {
+    return <LoadingSpinner small />;
+  }
+
+  return <ElevationChartPreview data={data} />;
+}
+
+const REQUIRED_STREAMS = ["altitude", "distance"];
+
+interface Data {
+  distance: number;
+  elevation: number;
+}
+
+// max width the chart will be rendered
+const TARGET_RESOLUTION = 100;
+
+interface Props {
+  data: Data[];
+}
+
+function ElevationChartPreview({ data }: Props) {
   return (
     <AreaChart
       height={50}

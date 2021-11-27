@@ -61,11 +61,20 @@ export interface StravaSettings {
   addLinkToActivityDescription: boolean;
 }
 
-export type HoverData = undefined | HoverDataRoute | HoverDataLatLng;
+export type HoverData =
+  | undefined
+  | HoverDataRoute
+  | HoverDataSegment
+  | HoverDataLatLng;
 
 export interface HoverDataRoute {
   type: "route";
   route: string;
+}
+
+export interface HoverDataSegment {
+  type: "segment";
+  segment: string;
 }
 
 export interface HoverDataLatLng {

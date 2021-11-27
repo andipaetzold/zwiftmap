@@ -1,4 +1,4 @@
-import { Route, World } from "zwift-data";
+import { Route, Segment, World } from "zwift-data";
 import { SortState } from "../types";
 
 export function sortWorld(sortState: SortState, a: World, b: World): number {
@@ -27,6 +27,28 @@ export function sortRoute(sortState: SortState, a: Route, b: Route): number {
       break;
     case "leadInElevation":
       result = (a.leadInElevation ?? 0) - (b.leadInElevation ?? 0);
+      break;
+  }
+
+  return sortState.dir === "ASC" ? result : -result;
+}
+
+export function sortSegment(
+  sortState: SortState,
+  a: Segment,
+  b: Segment
+): number {
+  let result = 0;
+
+  switch (sortState.key) {
+    case "name":
+      result = a.name.localeCompare(b.name);
+      break;
+    case "distance":
+      result = a.distance - b.distance;
+      break;
+    case "elevation":
+      result = (a.elevation ?? Infinity) - (b.elevation ?? Infinity);
       break;
   }
 

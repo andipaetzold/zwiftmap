@@ -9,7 +9,7 @@ import {
 import { HoverData } from "../../../../../types";
 import { Distance } from "../../../../Distance";
 import { Elevation } from "../../../../Elevation";
-import { ElevationChartPreview } from "../../../../ElevationChartPreview";
+import { RouteElevationChartPreview } from "../../../../ElevationChartPreview";
 
 export interface Props {
   route: Route;
@@ -76,7 +76,7 @@ function ChartContainer({ route }: ChartProps) {
 
   return (
     <div ref={ref} style={{ width: "100%", pointerEvents: "none" }}>
-      {onScreen ? <ElevationChartPreview route={route} /> : null}
+      {onScreen ? <RouteElevationChartPreview route={route} /> : null}
     </div>
   );
 }
