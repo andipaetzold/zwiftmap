@@ -10,6 +10,7 @@ import { RouteList } from "./Lists/RouteList";
 import { SearchResultList } from "./Lists/SearchResultList";
 import { StravaActivitiesList } from "./Lists/StravaActivitiesList";
 import { RouteDetails } from "./RouteDetails";
+import { SegmentDetails } from "./SegmentDetails";
 import { Share } from "./Share";
 import { StravaActivityDetails } from "./StravaActivityDetails";
 import { UpcomingEvents } from "./UpcomingEvents";
@@ -43,7 +44,15 @@ export function Content({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
         />
       );
     case "segment":
-      return null;
+      return (
+        <SegmentDetails
+          key={locationState.segment.slug}
+          backButtonText={backButtonText}
+          onBackButtonClick={onBackButtonClick}
+          onMouseHoverDistanceChange={onMouseHoverDistanceChange}
+          segment={locationState.segment}
+        />
+      );
     case "strava-activity":
       return (
         <StravaActivityDetails
