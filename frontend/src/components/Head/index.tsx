@@ -1,21 +1,25 @@
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 import {
   createUrl,
   LocationState,
   useLocationState,
 } from "../../services/location-state";
 
+const helmetContext = {};
+
 export function Head() {
   const [locationState] = useLocationState();
 
   return (
-    <Helmet>
-      <title>{getTitle(locationState)} - ZwiftMap</title>
-      <link
-        rel="canonical"
-        href={`${window.origin}${createUrl(locationState)}`}
-      />
-    </Helmet>
+    <HelmetProvider context={helmetContext}>
+      <Helmet>
+        <title>{getTitle(locationState)} - ZwiftMap</title>
+        <link
+          rel="canonical"
+          href={`${window.origin}${createUrl(locationState)}`}
+        />
+      </Helmet>
+    </HelmetProvider>
   );
 }
 
