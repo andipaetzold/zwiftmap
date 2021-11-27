@@ -42,6 +42,8 @@ export function Content({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
           route={locationState.route}
         />
       );
+    case "segment":
+      return null;
     case "strava-activity":
       return (
         <StravaActivityDetails

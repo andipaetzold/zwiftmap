@@ -10,6 +10,13 @@ export function getKeyFromLocationState(locationState: LocationState): string {
         getKeyFromWorld(locationState.world),
       ].join();
 
+    case "segment":
+      return [
+        locationState.type,
+        locationState.segment.slug,
+        getKeyFromWorld(locationState.world),
+      ].join();
+
     case "strava-activities":
       return [locationState.type, getKeyFromWorld(locationState.world)].join();
 

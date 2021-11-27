@@ -1,7 +1,7 @@
 import { routes, Segment, segments, World, worlds } from "zwift-data";
 import {
   PATTERN_EVENT,
-  PATTERN_ROUTE,
+  PATTERN_ROUTE_OR_SEGMENT,
   PATTERN_SHARED_ITEM,
   PATTERN_STRAVA_ACTIVITY,
   PATTERN_WORLD,
@@ -14,7 +14,7 @@ const PATTERNS: {
   pattern: RegExp;
   toState: (
     result: RegExpExecArray,
-    searchParams: URLSearchParams,
+    searchParams: URLSearchParams
   ) => [state: LocationState, updateUrl: boolean];
 }[] = [
   {
@@ -51,30 +51,41 @@ const PATTERNS: {
     ],
   },
   {
-    pattern: PATTERN_ROUTE,
+    pattern: PATTERN_ROUTE_OR_SEGMENT,
     toState: (result, searchParams) => {
       const worldSlug = result.groups!.worldSlug;
-      const route = routes.find((r) => r.slug === result.groups!.routeSlug);
-      if (!route) {
+      const route = routes.find(
+        (r) => r.slug === result.groups!.routeOrSegmentSlug
+      );
+      const segment = segments.find(
+        (s) => s.slug === result.groups!.routeOrSegmentSlug
+      );
+
+      if (segment) {
+        const world = worlds.find((w) => w.slug === segment.world)!;
+        return [{ type: "segment", world, segment }, world.slug !== worldSlug];
+      }
+
+      if (route) {
+        const world = worlds.find((w) => w.slug === route.world)!;
+
+        const selectedSegments = (searchParams.get("segments") ?? "")
+          .split(",")
+          .map((slug) => segments.find((s) => s.slug === slug))
+          .filter((segment): segment is Segment => !!segment);
+
         return [
-          {
-            type: "default",
-            world: worlds.find((w) => w.slug === worldSlug) ?? DEFAULT_WORLD,
-          },
-          true,
+          { type: "route", world, route, segments: selectedSegments },
+          world.slug !== worldSlug,
         ];
       }
 
-      const world = worlds.find((w) => w.slug === route.world)!;
-
-      const selectedSegments = (searchParams.get("segments") ?? "")
-        .split(",")
-        .map((slug) => segments.find((s) => s.slug === slug))
-        .filter((segment): segment is Segment => !!segment);
-
       return [
-        { type: "route", world, route, segments: selectedSegments },
-        world.slug !== worldSlug,
+        {
+          type: "default",
+          world: worlds.find((w) => w.slug === worldSlug) ?? DEFAULT_WORLD,
+        },
+        true,
       ];
     },
   },
@@ -114,10 +125,7 @@ const PATTERNS: {
           case "events":
             return [{ type: "events", world: DEFAULT_WORLD }, true];
           case "strava-activities":
-            return [
-              { type: "strava-activities", world: DEFAULT_WORLD },
-              true,
-            ];
+            return [{ type: "strava-activities", world: DEFAULT_WORLD }, true];
         }
       }
 

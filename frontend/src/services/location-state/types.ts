@@ -12,6 +12,12 @@ export interface LocationStateRoute {
   segments: Segment[];
 }
 
+export interface LocationStateSegment {
+  type: "segment";
+  world: World;
+  segment: Segment;
+}
+
 export interface LocationStateStravaActivity {
   type: "strava-activity";
   world: World | null;
@@ -44,6 +50,7 @@ export type LocationStateWithKey = LocationState & { key: string };
 export type LocationState =
   | LocationStateDefault
   | LocationStateRoute
+  | LocationStateSegment
   | LocationStateStravaActivity
   | LocationStateStravaActivities
   | LocationStateUpcomingEvents

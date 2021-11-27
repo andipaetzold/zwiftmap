@@ -9,7 +9,7 @@ import "./index.scss";
 import { fetchAuthStatus } from "./services/auth";
 import {
   PATTERN_EVENT,
-  PATTERN_ROUTE,
+  PATTERN_ROUTE_OR_SEGMENT,
   PATTERN_SHARED_ITEM,
   PATTERN_STRAVA_ACTIVITY,
   PATTERN_WORLD,
@@ -48,7 +48,7 @@ Sentry.init({
           };
         }
 
-        const resultRoute = PATTERN_ROUTE.exec(context.name);
+        const resultRoute = PATTERN_ROUTE_OR_SEGMENT.exec(context.name);
         if (resultRoute) {
           return {
             ...context,
