@@ -1,15 +1,15 @@
 import { ListItem } from "@react-md/list";
 import React, { useRef } from "react";
 import { Route, worlds } from "zwift-data";
-import { useOnScreen } from "../../../../../hooks/useOnScreen";
 import {
   LocationStateDefault,
-  useLocationState,
-} from "../../../../../services/location-state";
-import { HoverData } from "../../../../../types";
-import { Distance } from "../../../../Distance";
-import { Elevation } from "../../../../Elevation";
-import { RouteElevationChartPreview } from "../../../../ElevationChartPreview";
+  useLocationState
+} from "../../services/location-state";
+import { HoverData } from "../../types";
+import { useOnScreen } from "..//../hooks/useOnScreen";
+import { Distance } from "../Distance";
+import { Elevation } from "../Elevation";
+import { RouteElevationChartPreview } from "../ElevationChartPreview";
 
 export interface Props {
   route: Route;

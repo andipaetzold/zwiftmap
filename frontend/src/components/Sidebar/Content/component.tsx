@@ -51,6 +51,7 @@ export function Content({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
           onBackButtonClick={onBackButtonClick}
           onMouseHoverDistanceChange={onMouseHoverDistanceChange}
           segment={locationState.segment}
+          onHoverRoute={onHoverRoute}
         />
       );
     case "strava-activity":

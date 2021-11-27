@@ -4,9 +4,11 @@ import { List, SimpleListItem } from "@react-md/list";
 import { ListFontIcon } from "@react-md/material-icons";
 import { Typography } from "@react-md/typography";
 import { Segment } from "zwift-data";
+import { HoverData } from "../../../../types";
 import { SegmentElevationChart } from "./SegmentElevationChart";
 import { SegmentFacts } from "./SegmentFacts";
 import { SegmentLinks } from "./SegmentLinks";
+import { SegmentRoutes } from "./SegmentRoutes";
 import { SegmentStravaPB } from "./SegmentStravaPB";
 
 interface Props {
@@ -14,6 +16,7 @@ interface Props {
   onMouseHoverDistanceChange: (distance: number | undefined) => void;
   backButtonText: string;
   onBackButtonClick: () => void;
+  onHoverRoute: (data: HoverData) => void;
 }
 
 export function SegmentDetails({
@@ -21,6 +24,7 @@ export function SegmentDetails({
   onBackButtonClick,
   backButtonText,
   onMouseHoverDistanceChange,
+  onHoverRoute
 }: Props) {
   return (
     <List>
@@ -44,6 +48,7 @@ export function SegmentDetails({
         segment={segment}
         onMouseHoverDistanceChange={onMouseHoverDistanceChange}
       />
+      <SegmentRoutes segment={segment} onHoverRoute={onHoverRoute} />
       <SegmentLinks segment={segment} />
     </List>
   );

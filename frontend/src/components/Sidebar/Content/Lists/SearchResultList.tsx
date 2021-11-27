@@ -7,12 +7,12 @@ import {
   search,
   SearchResult,
   SEARCH_RESULTS_ORDER,
-  SEARCH_RESULTS_TYPES,
+  SEARCH_RESULTS_TYPES
 } from "../../../../services/search";
 import { HoverData, SortState } from "../../../../types";
 import { sortRoute, sortSegment, sortWorld } from "../../../../util/sort";
+import { ListItemRoute } from "../../../ListItemRoute";
 import { SortButton } from "../../../SortButton";
-import { ListItemRoute } from "./Items/ListItemRoute";
 import { ListItemSegment } from "./Items/ListItemSegment";
 import { ListItemStravaActivity } from "./Items/ListItemStravaActivity";
 import { ListItemWorld } from "./Items/ListItemWorld";

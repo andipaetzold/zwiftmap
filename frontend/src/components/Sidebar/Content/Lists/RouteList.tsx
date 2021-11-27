@@ -11,8 +11,8 @@ import {
 } from "../../../../services/location-state";
 import { HoverData } from "../../../../types";
 import { sortRoute } from "../../../../util/sort";
+import { ListItemRoute } from "../../../ListItemRoute";
 import { SortButton } from "../../../SortButton";
-import { ListItemRoute } from "./Items/ListItemRoute";
 
 interface Props {
   onHoverRoute: (data: HoverData) => void;
