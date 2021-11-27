@@ -8,6 +8,7 @@ export function createUrl(state: LocationState): string {
     case "default":
       path = `/${state.world.slug}`;
       break;
+
     case "route":
       path = `/${state.world.slug}/${state.route.slug}`;
       if (state.segments.length > 0) {
@@ -16,6 +17,10 @@ export function createUrl(state: LocationState): string {
           state.segments.map((s) => s.slug).join(",")
         );
       }
+      break;
+
+    case "segment":
+      path = `/${state.world.slug}/${state.segment.slug}`;
       break;
 
     case "strava-activities":
