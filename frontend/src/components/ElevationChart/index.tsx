@@ -214,11 +214,15 @@ function ElevationChartComponent({
         <div style={{ display: "flex", gap: "1em" }}>
           <Typography type="body-2" style={{ whiteSpace: "nowrap" }}>
             Distance:{" "}
-            {currentDistance ? <Distance distance={currentDistance} /> : "- km"}
+            {currentDistance !== undefined ? (
+              <Distance distance={currentDistance} />
+            ) : (
+              "- km"
+            )}
           </Typography>
           <Typography type="body-2" style={{ whiteSpace: "nowrap" }}>
             Altitude:{" "}
-            {currentAltitude ? (
+            {currentAltitude !== undefined ? (
               <Elevation elevation={currentAltitude} />
             ) : (
               "- m"
