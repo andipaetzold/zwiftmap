@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { useAsync } from "react-async-hook";
 import { Area, AreaChart, XAxis, YAxis } from "recharts";
 import { Route } from "zwift-data";
+import { COLORS } from "../../constants";
 import { getStravaSegmentStreams } from "../../services/StravaSegmentRepository";
 import { StravaSegment } from "../../types";
 import { ElevationGradient } from "../ElevationGradient";
@@ -90,7 +91,7 @@ export function ElevationChartPreview({ route }: Props) {
         type="monotone"
         dataKey="elevation"
         name="Elevation"
-        stroke="black"
+        stroke={COLORS.regular}
         fillOpacity={1}
         fill="url(#colorElevation)"
         unit="m"

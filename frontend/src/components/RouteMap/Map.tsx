@@ -8,6 +8,7 @@ import {
   Polyline,
 } from "react-leaflet";
 import { World } from "zwift-data";
+import { COLORS } from "../../constants";
 import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 import { worldConfigs } from "../../worldConfig";
 import styles from "./index.module.css";
@@ -105,7 +106,7 @@ export function Map({
         <Pane name="preview-route" style={{ zIndex: Z_INDEX.previewRoute }}>
           <Polyline
             positions={previewRouteLatLngStream}
-            pathOptions={{ color: "#D3D3D3", weight: 5 }}
+            pathOptions={{ color: COLORS.previewRoute, weight: 5 }}
             interactive={false}
           />
         </Pane>
@@ -116,7 +117,7 @@ export function Map({
           <Pane name="route" style={{ zIndex: 504 }}>
             <Polyline
               positions={routeLatLngStream}
-              pathOptions={{ color: "#fc6719", weight: 5 }}
+              pathOptions={{ color: COLORS.route, weight: 5 }}
               interactive={false}
             />
           </Pane>
@@ -155,7 +156,7 @@ export function Map({
             <Polyline
               key={segmentIndex}
               positions={s}
-              pathOptions={{ color: "#64ac39", weight: 8 }}
+              pathOptions={{ color: COLORS.sprintSegment, weight: 8 }}
               interactive={false}
             />
           ))}

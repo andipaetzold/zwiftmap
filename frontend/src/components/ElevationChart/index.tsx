@@ -12,6 +12,7 @@ import {
   YAxis,
 } from "recharts";
 import { Route } from "zwift-data";
+import { COLORS } from "../../constants";
 import { getStravaSegmentStreams } from "../../services/StravaSegmentRepository";
 import { StravaSegment } from "../../types";
 import { Distance } from "../Distance";
@@ -96,7 +97,7 @@ function thinStream<T>(stream: T[]): T[] {
 interface Data {
   distance: number;
   elevationRegular: number | undefined;
-  elevationSegment: number | undefined;
+  elevationSprintSegment: number | undefined;
 }
 
 export function ElevationChart({
@@ -165,7 +166,7 @@ export function ElevationChart({
           !isSegment || (isSegment && prevType === "regular")
             ? thinnedAltitudeStream[i]
             : undefined,
-        elevationSegment:
+        elevationSprintSegment:
           isSegment || (!isSegment && prevType === "segment")
             ? thinnedAltitudeStream[i]
             : undefined,
@@ -224,7 +225,7 @@ export function ElevationChart({
           <Area
             type="monotone"
             dataKey="elevationRegular"
-            stroke="black"
+            stroke={COLORS.regular}
             fillOpacity={1}
             fill="url(#colorElevation)"
             unit="m"
@@ -232,10 +233,10 @@ export function ElevationChart({
           />
           <Area
             type="monotone"
-            dataKey="elevationSegment"
-            stroke="#64ac39"
+            dataKey="elevationSprintSegment"
+            stroke={COLORS.sprintSegment}
             fillOpacity={1}
-            fill="url(#colorSegment)"
+            fill="url(#colorSprintSegment)"
             unit="m"
             isAnimationActive={false}
           />
