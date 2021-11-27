@@ -3,6 +3,7 @@ import { TextIconSpacing } from "@react-md/icon";
 import { List, SimpleListItem } from "@react-md/list";
 import { ListFontIcon } from "@react-md/material-icons";
 import { Typography } from "@react-md/typography";
+import { Helmet } from "react-helmet-async";
 import { Route } from "zwift-data";
 import { RouteElevationChart } from "./RouteElevationChart";
 import { RouteEvents } from "./RouteEvents";
@@ -26,6 +27,10 @@ export function RouteDetails({
 }: Props) {
   return (
     <List>
+      <Helmet>
+        <title>{route.name}</title>
+      </Helmet>
+
       <SimpleListItem>
         <Button themeType="outline" onClick={onBackButtonClick}>
           <TextIconSpacing icon={<ListFontIcon />}>

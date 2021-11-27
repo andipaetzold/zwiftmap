@@ -1,5 +1,6 @@
 import { List, ListSubheader, SimpleListItem } from "@react-md/list";
 import React from "react";
+import { Helmet } from "react-helmet-async";
 import { Route, Segment, World } from "zwift-data";
 import { useSessionSettings } from "../../../../hooks/useSessionSettings";
 import { useSettings } from "../../../../hooks/useSettings";
@@ -7,7 +8,7 @@ import {
   search,
   SearchResult,
   SEARCH_RESULTS_ORDER,
-  SEARCH_RESULTS_TYPES
+  SEARCH_RESULTS_TYPES,
 } from "../../../../services/search";
 import { HoverData, SortState } from "../../../../types";
 import { sortRoute, sortSegment, sortWorld } from "../../../../util/sort";
@@ -34,6 +35,10 @@ export function SearchResultList({ onHoverRoute, query }: Props) {
 
   return (
     <List>
+      <Helmet>
+        <title>Search Results</title>
+      </Helmet>
+
       <SortButton />
 
       {SEARCH_RESULTS_ORDER.map((type) => (

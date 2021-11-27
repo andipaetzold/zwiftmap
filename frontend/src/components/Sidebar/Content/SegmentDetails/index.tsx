@@ -3,6 +3,7 @@ import { TextIconSpacing } from "@react-md/icon";
 import { List, SimpleListItem } from "@react-md/list";
 import { ListFontIcon } from "@react-md/material-icons";
 import { Typography } from "@react-md/typography";
+import { Helmet } from "react-helmet-async";
 import { Segment } from "zwift-data";
 import { HoverData } from "../../../../types";
 import { SegmentElevationChart } from "./SegmentElevationChart";
@@ -24,10 +25,14 @@ export function SegmentDetails({
   onBackButtonClick,
   backButtonText,
   onMouseHoverDistanceChange,
-  onHoverRoute
+  onHoverRoute,
 }: Props) {
   return (
     <List>
+      <Helmet>
+        <title>{segment.name}</title>
+      </Helmet>
+
       <SimpleListItem>
         <Button themeType="outline" onClick={onBackButtonClick}>
           <TextIconSpacing icon={<ListFontIcon />}>

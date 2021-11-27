@@ -1,5 +1,6 @@
 import { Divider } from "@react-md/divider";
 import { List, ListItem } from "@react-md/list";
+import { Helmet } from "react-helmet-async";
 import { routes } from "zwift-data";
 import { useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";
 import { useSessionSettings } from "../../../../hooks/useSessionSettings";
@@ -44,6 +45,10 @@ export function RouteList({ onHoverRoute }: Props) {
 
   return (
     <List>
+      <Helmet>
+        <title>{locationState.world.name}</title>
+      </Helmet>
+
       {isLoggedIn && (
         <ListItem secondaryText="Last 30 days" onClick={handleStravaClick}>
           Recent Strava Activities

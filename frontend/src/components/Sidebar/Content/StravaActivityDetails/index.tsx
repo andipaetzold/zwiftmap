@@ -3,6 +3,7 @@ import * as Sentry from "@sentry/react";
 import axios from "axios";
 import React from "react";
 import { useAsync } from "react-async-hook";
+import { Helmet } from "react-helmet-async";
 import { useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";
 import { getStravaActivity } from "../../../../services/StravaActivityRepository";
 import { ConnectToStravaListItem } from "../../../ConnectToStravaListItem";
@@ -37,12 +38,28 @@ function StravaActivityDetailsContent({
     onError: (e) => Sentry.captureException(e),
   });
 
+  const genericHelmet = (
+    <Helmet>
+      <title>Strava Activity</title>
+    </Helmet>
+  );
+
   if (isLoggedInStrava === null) {
-    return <LoadingSpinnerListItem />;
+    return (
+      <>
+        {genericHelmet}
+        <LoadingSpinnerListItem />
+      </>
+    );
   }
 
   if (!isLoggedInStrava) {
-    return <ConnectToStravaListItem />;
+    return (
+      <>
+        {genericHelmet}
+        <ConnectToStravaListItem />
+      </>
+    );
   }
 
   if (error) {
@@ -50,36 +67,55 @@ function StravaActivityDetailsContent({
       switch (error.response?.status) {
         case 403:
           return (
-            <SimpleListItem threeLines>
-              You do not have permission to access this activity. You can only
-              access your own activities.
-            </SimpleListItem>
+            <>
+              {genericHelmet}
+              <SimpleListItem threeLines>
+                You do not have permission to access this activity. You can only
+                access your own activities.
+              </SimpleListItem>
+            </>
           );
 
         case 404:
           return (
-            <SimpleListItem threeLines>
-              Could not find the requested Strava activity.
-            </SimpleListItem>
+            <>
+              {genericHelmet}
+              <SimpleListItem threeLines>
+                Could not find the requested Strava activity.
+              </SimpleListItem>
+            </>
           );
 
         case 429:
           return (
-            <SimpleListItem threeLines>
-              ZwiftMap received too many requests and got rate limited by
-              Strava.
-              <br />
-              Please try again in a few minutes.
-            </SimpleListItem>
+            <>
+              {genericHelmet}
+              <SimpleListItem threeLines>
+                ZwiftMap received too many requests and got rate limited by
+                Strava.
+                <br />
+                Please try again in a few minutes.
+              </SimpleListItem>
+            </>
           );
       }
     }
 
-    return <SimpleListItem threeLines>An error occurred.</SimpleListItem>;
+    return (
+      <>
+        {genericHelmet}
+        <SimpleListItem threeLines>An error occurred.</SimpleListItem>
+      </>
+    );
   }
 
   if (loading || activity === undefined) {
-    return <LoadingSpinnerListItem />;
+    return (
+      <>
+        {genericHelmet}
+        <LoadingSpinnerListItem />
+      </>
+    );
   }
 
   return (

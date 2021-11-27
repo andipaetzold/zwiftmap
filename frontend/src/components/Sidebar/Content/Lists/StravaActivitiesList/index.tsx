@@ -2,11 +2,12 @@ import { Button } from "@react-md/button";
 import { TextIconSpacing } from "@react-md/icon";
 import { List, ListSubheader, SimpleListItem } from "@react-md/list";
 import { ListFontIcon } from "@react-md/material-icons";
+import { Helmet } from "react-helmet-async";
 import { useIsLoggedInStrava } from "../../../../../hooks/useIsLoggedInStrava";
 import { useStore } from "../../../../../hooks/useStore";
 import {
   LocationStateStravaActivities,
-  useLocationState,
+  useLocationState
 } from "../../../../../services/location-state";
 import { HoverData } from "../../../../../types";
 import { ConnectToStravaListItem } from "../../../../ConnectToStravaListItem";
@@ -19,32 +20,11 @@ interface Props {
 
 export function StravaActivitiesList({ onHoverRoute }: Props) {
   const isLoggedInStrava = useIsLoggedInStrava();
-  const setQuery = useStore((state) => state.setQuery);
-
-  const [locationState, setLocationState] =
-    useLocationState<LocationStateStravaActivities>();
-
-  const backButton = (
-    <SimpleListItem>
-      <Button
-        themeType="outline"
-        onClick={() => {
-          setQuery("");
-          setLocationState({
-            world: locationState.world,
-            type: "default",
-          });
-        }}
-      >
-        <TextIconSpacing icon={<ListFontIcon />}>Route List</TextIconSpacing>
-      </Button>
-    </SimpleListItem>
-  );
 
   if (isLoggedInStrava === null) {
     return (
       <List>
-        {backButton}
+        <Header />
         <LoadingSpinnerListItem />
       </List>
     );
@@ -53,7 +33,7 @@ export function StravaActivitiesList({ onHoverRoute }: Props) {
   if (!isLoggedInStrava) {
     return (
       <List>
-        {backButton}
+        <Header />
         <ConnectToStravaListItem />
       </List>
     );
@@ -63,12 +43,26 @@ export function StravaActivitiesList({ onHoverRoute }: Props) {
 }
 
 function StravaActivitiesListWithToken({ onHoverRoute }: Props) {
-  const [locationState, setLocationState] =
-    useLocationState<LocationStateStravaActivities>();
-  const setQuery = useStore((state) => state.setQuery);
-
   return (
     <List>
+      <Header />
+
+      <ListSubheader>Recent Strava Activities</ListSubheader>
+      <StravaActivitiesListComponent onHoverRoute={onHoverRoute} />
+    </List>
+  );
+}
+
+function Header() {
+  const setQuery = useStore((state) => state.setQuery);
+
+  const [locationState, setLocationState] =
+    useLocationState<LocationStateStravaActivities>();
+  return (
+    <>
+      <Helmet>
+        <title>Strava Activities</title>
+      </Helmet>
       <SimpleListItem>
         <Button
           themeType="outline"
@@ -83,9 +77,6 @@ function StravaActivitiesListWithToken({ onHoverRoute }: Props) {
           <TextIconSpacing icon={<ListFontIcon />}>Route List</TextIconSpacing>
         </Button>
       </SimpleListItem>
-
-      <ListSubheader>Recent Strava Activities</ListSubheader>
-      <StravaActivitiesListComponent onHoverRoute={onHoverRoute} />
-    </List>
+    </>
   );
 }

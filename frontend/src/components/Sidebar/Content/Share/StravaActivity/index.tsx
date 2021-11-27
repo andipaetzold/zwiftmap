@@ -1,5 +1,6 @@
 import { SimpleListItem } from "@react-md/list";
 import { Typography } from "@react-md/typography";
+import { Helmet } from "react-helmet-async";
 import { ShareStravaActivity } from "../../../../../types";
 import { SharedStravaActivityElevationChart } from "./ElevationChart";
 import { SharedStravaActivityFacts } from "./Facts";
@@ -17,6 +18,10 @@ export function SharedStravaActivity({
 }: Props) {
   return (
     <>
+      <Helmet>
+        <title>{share.activity.name}</title>
+      </Helmet>
+
       <SimpleListItem>
         <Typography type="headline-6" style={{ margin: 0 }}>
           {share.activity.name}

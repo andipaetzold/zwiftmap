@@ -1,5 +1,6 @@
 import { List, SimpleListItem } from "@react-md/list";
 import { useAsync } from "react-async-hook";
+import { Helmet } from "react-helmet-async";
 import { fetchEvent } from "../../../../services/events";
 import { LoadingSpinnerListItem } from "../../../Loading";
 import { BackButton } from "./BackButton";
@@ -23,14 +24,26 @@ function EventContent({ eventId }: Props) {
   const { result: event, loading } = useAsync(fetchEvent, [eventId]);
 
   if (loading) {
-    return <LoadingSpinnerListItem />;
+    return (
+      <>
+        <Helmet>
+          <title>Event</title>
+        </Helmet>{" "}
+        <LoadingSpinnerListItem />
+      </>
+    );
   }
 
   if (!event) {
     return (
-      <SimpleListItem secondaryText="Error loading event">
-        An error occurred
-      </SimpleListItem>
+      <>
+        <Helmet>
+          <title>Event</title>
+        </Helmet>
+        <SimpleListItem secondaryText="Error loading event">
+          An error occurred
+        </SimpleListItem>
+      </>
     );
   }
 

@@ -3,6 +3,7 @@ import * as Sentry from "@sentry/react";
 import { Integrations } from "@sentry/tracing";
 import React from "react";
 import ReactDOM from "react-dom";
+import { HelmetProvider } from "react-helmet-async";
 import App from "./App";
 import { Head } from "./components/Head";
 import { BACKEND_HOST, GIT_SHA } from "./config";
@@ -74,12 +75,16 @@ Sentry.init({
 
 fetchAuthStatus();
 
+const helmetContext = {};
+
 ReactDOM.render(
   <React.StrictMode>
-    <Head />
-    <MessageQueue id="message-queue" timeout={3_000}>
-      <App />
-    </MessageQueue>
+    <HelmetProvider context={helmetContext}>
+      <Head />
+      <MessageQueue id="message-queue" timeout={3_000}>
+        <App />
+      </MessageQueue>
+    </HelmetProvider>
   </React.StrictMode>,
   document.getElementById("app")
 );

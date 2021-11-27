@@ -1,6 +1,7 @@
 import { SimpleListItem } from "@react-md/list";
 import { Typography } from "@react-md/typography";
 import React from "react";
+import { Helmet } from "react-helmet-async";
 import { StravaActivity } from "../../../../services/StravaActivityRepository";
 import { StravaActivityElevationChart } from "./StravaActivityElevationChart";
 import { StravaActivityFacts } from "./StravaActivityFacts";
@@ -20,6 +21,10 @@ export function StravaActivityDetailsComponent({
 }: Props) {
   return (
     <>
+      <Helmet>
+        <title>{activity.name}</title>
+      </Helmet>
+
       <SimpleListItem>
         <Typography type="headline-6" style={{ margin: 0 }}>
           {activity.name}

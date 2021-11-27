@@ -3,6 +3,7 @@ import { TextIconSpacing } from "@react-md/icon";
 import { List, SimpleListItem } from "@react-md/list";
 import { ListFontIcon } from "@react-md/material-icons";
 import { useAsync } from "react-async-hook";
+import { Helmet } from "react-helmet-async";
 import { getShare } from "../../../../services/zwiftMapApi";
 import { Share as ShareType } from "../../../../types";
 import { LoadingSpinnerListItem } from "../../../Loading";
@@ -16,10 +17,7 @@ interface Props {
 }
 
 export function Share(props: Props) {
-  const {
-    onBackButtonClick,
-    backButtonText,
-  } = props;
+  const { onBackButtonClick, backButtonText } = props;
 
   return (
     <List>
@@ -41,9 +39,23 @@ function ShareContent({ shareId, onMouseHoverDistanceChange }: Props) {
 
   if (!share) {
     if (loading) {
-      return <LoadingSpinnerListItem />;
+      return (
+        <>
+          <Helmet>
+            <title>Shared Activity</title>
+          </Helmet>
+          <LoadingSpinnerListItem />
+        </>
+      );
     } else {
-      return <SimpleListItem>An error occurred</SimpleListItem>;
+      return (
+        <>
+          <Helmet>
+            <title>Shared Activity</title>
+          </Helmet>
+          <SimpleListItem>An error occurred</SimpleListItem>
+        </>
+      );
     }
   }
 
