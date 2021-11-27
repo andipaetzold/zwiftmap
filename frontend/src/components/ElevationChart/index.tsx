@@ -30,7 +30,7 @@ export function RouteElevationChart({
   route,
   onMouseHoverDistanceChange,
 }: RouteElevationChartProps) {
-  const { result: segment, error } = useAsync<
+  const { result: routeSegment, error } = useAsync<
     Pick<StravaSegment, "altitude" | "distance">
   >(getStravaSegmentStreams, [route.slug, "routes", REQUIRED_STREAMS]);
 
@@ -38,16 +38,17 @@ export function RouteElevationChart({
     return null;
   }
 
-  if (!segment) {
+  if (!routeSegment) {
     return <LoadingSpinnerListItem />;
   }
 
   return (
     <SimpleListItem>
       <ElevationChart
-        altitudeStream={segment.altitude}
-        distanceStream={segment.distance}
+        altitudeStream={routeSegment.altitude}
+        distanceStream={routeSegment.distance}
         onMouseHoverDistanceChange={onMouseHoverDistanceChange}
+        segments={route.segmentsOnRoute.map((sor) => [sor.from, sor.to])}
       />
     </SimpleListItem>
   );
@@ -57,6 +58,7 @@ interface Props {
   distanceStream: number[];
   altitudeStream: number[];
   onMouseHoverDistanceChange: (distance: number | undefined) => void;
+  segments?: [from: number, to: number][];
 }
 
 interface OnMouseMoveProps {
@@ -86,10 +88,22 @@ interface OnMouseMoveProps {
 // max width the chart will be rendered
 const TARGET_RESOLUTION = 750;
 
+function thinStream<T>(stream: T[]): T[] {
+  const n = Math.max(1, Math.floor(stream.length / TARGET_RESOLUTION));
+  return stream.filter((_v, i) => i % n === 0);
+}
+
+interface Data {
+  distance: number;
+  elevationRegular: number | undefined;
+  elevationSegment: number | undefined;
+}
+
 export function ElevationChart({
   distanceStream,
   altitudeStream,
   onMouseHoverDistanceChange,
+  segments = [],
 }: Props) {
   const [currentDistance, setCurrentDistance] = useState<number | undefined>(
     undefined
@@ -130,23 +144,38 @@ export function ElevationChart({
     setCurrentAltitude(undefined);
   }, [onMouseHoverDistanceChange]);
 
-  const data: { distance: number; elevation: number }[] | undefined =
-    useMemo(() => {
-      return distanceStream
-        .map((distance, index) => ({
-          distance: distance / 1_000,
-          elevation: altitudeStream[index],
-        }))
-        .filter(
-          (_d, index) =>
-            index %
-              Math.max(
-                1,
-                Math.floor(distanceStream.length / TARGET_RESOLUTION)
-              ) ===
-            0
-        );
-    }, [distanceStream, altitudeStream]);
+  const data: Data[] | undefined = useMemo(() => {
+    const thinnedDistanceStream = thinStream(distanceStream);
+    const thinnedAltitudeStream = thinStream(altitudeStream);
+
+    let prevType: undefined | "regular" | "segment" = undefined;
+
+    const result: Data[] = [];
+
+    for (let i = 0; i < thinnedDistanceStream.length - 1; ++i) {
+      const distanceInKM = thinnedDistanceStream[i] / 1_000;
+
+      const isSegment = segments.some(
+        ([from, to]) => from <= distanceInKM && distanceInKM <= to
+      );
+
+      result.push({
+        distance: distanceInKM,
+        elevationRegular:
+          !isSegment || (isSegment && prevType === "regular")
+            ? thinnedAltitudeStream[i]
+            : undefined,
+        elevationSegment:
+          isSegment || (!isSegment && prevType === "segment")
+            ? thinnedAltitudeStream[i]
+            : undefined,
+      });
+
+      prevType = isSegment ? "segment" : "regular";
+    }
+
+    return result;
+  }, [distanceStream, altitudeStream, segments]);
 
   if (data === undefined) {
     return null;
@@ -194,11 +223,19 @@ export function ElevationChart({
           />
           <Area
             type="monotone"
-            dataKey="elevation"
-            name="Elevation"
+            dataKey="elevationRegular"
             stroke="black"
             fillOpacity={1}
             fill="url(#colorElevation)"
+            unit="m"
+            isAnimationActive={false}
+          />
+          <Area
+            type="monotone"
+            dataKey="elevationSegment"
+            stroke="#64ac39"
+            fillOpacity={1}
+            fill="url(#colorSegment)"
             unit="m"
             isAnimationActive={false}
           />
