@@ -3,13 +3,14 @@ import { LatLngTuple } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import React, { useMemo } from "react";
 import { useAsync } from "react-async-hook";
-import { Route, routes } from "zwift-data";
+import { Route, routes, Segment } from "zwift-data";
 import { useStore } from "../../hooks/useStore";
 import { fetchEvent } from "../../services/events";
 import {
   DEFAULT_WORLD,
   LocationState,
   LocationStateRoute,
+  LocationStateSegment,
   LocationStateShare,
   LocationStateStravaActivity,
   LocationStateUpcomingEvent,
@@ -62,19 +63,30 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
     async (
       type: LocationState["type"],
       route: Route | undefined,
+      segment: Segment | undefined,
       stravaActivityId: number | undefined,
       eventId: string | undefined,
       shareId: string | undefined
     ) => {
       switch (type) {
         case "route": {
-          const segment = await getStravaSegmentStreams(route!.slug, "routes", [
+          const streams = await getStravaSegmentStreams(route!.slug, "routes", [
             "distance",
             "latlng",
           ]);
           return {
-            distance: segment.distance,
-            latlng: segment.latlng,
+            distance: streams.distance,
+            latlng: streams.latlng,
+          };
+        }
+        case "segment": {
+          const streams = await getStravaSegmentStreams(segment!.slug, "segments", [
+            "distance",
+            "latlng",
+          ]);
+          return {
+            distance: streams.distance,
+            latlng: streams.latlng,
           };
         }
         case "strava-activity": {
@@ -113,6 +125,7 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
     [
       locationState.type,
       (locationState as LocationStateRoute).route,
+      (locationState as LocationStateSegment).segment,
       (locationState as LocationStateStravaActivity).stravaActivityId,
       (locationState as LocationStateUpcomingEvent).eventId,
       (locationState as LocationStateShare).shareId,
