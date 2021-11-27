@@ -1,7 +1,7 @@
 import { writeFileSync } from "fs";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
-import { routes, worlds } from "zwift-data";
+import { routes, segments, worlds } from "zwift-data";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -17,6 +17,10 @@ for (const world of worlds) {
 
 for (const route of routes) {
   urls.push(`${DOMAIN}/${route.world}/${route.slug}`);
+}
+
+for (const segment of segments) {
+  urls.push(`${DOMAIN}/${segment.world}/${segment.slug}`);
 }
 
 const content = urls.join("\n");
