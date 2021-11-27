@@ -1,5 +1,6 @@
 /public/routes/*
 /public/segments/*
+/public/sitemap.txt
 
 # dependencies
 /node_modules
