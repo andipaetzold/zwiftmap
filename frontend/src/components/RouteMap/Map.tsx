@@ -114,7 +114,7 @@ export function Map({
 
       {routeLatLngStream && (
         <>
-          <Pane name="route" style={{ zIndex: 504 }}>
+          <Pane name="route" style={{ zIndex: Z_INDEX.route  }}>
             <Polyline
               positions={routeLatLngStream}
               pathOptions={{ color: COLORS.route, weight: 5 }}
