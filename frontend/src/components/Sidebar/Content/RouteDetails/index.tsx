@@ -4,7 +4,7 @@ import { List, SimpleListItem } from "@react-md/list";
 import { ListFontIcon } from "@react-md/material-icons";
 import { Typography } from "@react-md/typography";
 import { Route } from "zwift-data";
-import { RouteElevationChart } from "../../../ElevationChart";
+import { RouteElevationChart } from "./RouteElevationChart";
 import { RouteEvents } from "./RouteEvents";
 import { RouteFacts } from "./RouteFacts";
 import { RouteLinks } from "./RouteLinks";

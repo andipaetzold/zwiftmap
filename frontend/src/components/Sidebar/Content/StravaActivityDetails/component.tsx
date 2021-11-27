@@ -2,7 +2,7 @@ import { SimpleListItem } from "@react-md/list";
 import { Typography } from "@react-md/typography";
 import React from "react";
 import { StravaActivity } from "../../../../services/StravaActivityRepository";
-import { ElevationChart } from "../../../ElevationChart";
+import { StravaActivityElevationChart } from "./StravaActivityElevationChart";
 import { StravaActivityFacts } from "./StravaActivityFacts";
 import { StravaActivityLinks } from "./StravaActivityLinks";
 import { StravaActivityRoutes } from "./StravaActivityRoutes";
@@ -18,26 +18,25 @@ export function StravaActivityDetailsComponent({
   activity,
   onMouseHoverDistanceChange,
 }: Props) {
-  return <>
-    <SimpleListItem>
-      <Typography type="headline-6" style={{ margin: 0 }}>
-        {activity.name}
-      </Typography>
-    </SimpleListItem>
+  return (
+    <>
+      <SimpleListItem>
+        <Typography type="headline-6" style={{ margin: 0 }}>
+          {activity.name}
+        </Typography>
+      </SimpleListItem>
 
-    <StravaActivityFacts activity={activity} />
+      <StravaActivityFacts activity={activity} />
 
-    <SimpleListItem>
-      <ElevationChart
-        distanceStream={activity.streams.distance}
-        altitudeStream={activity.streams.altitude}
+      <StravaActivityElevationChart
+        activity={activity}
         onMouseHoverDistanceChange={onMouseHoverDistanceChange}
       />
-    </SimpleListItem>
 
-    <StravaActivityRoutes activity={activity} />
-    <StravaActivitySegments activity={activity} />
-    <StravaActivitySharing activity={activity} />
-    <StravaActivityLinks activity={activity} />
-  </>;
+      <StravaActivityRoutes activity={activity} />
+      <StravaActivitySegments activity={activity} />
+      <StravaActivitySharing activity={activity} />
+      <StravaActivityLinks activity={activity} />
+    </>
+  );
 }
