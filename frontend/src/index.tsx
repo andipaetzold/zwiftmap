@@ -4,6 +4,7 @@ import { Integrations } from "@sentry/tracing";
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
+import { Head } from "./components/Head";
 import { BACKEND_HOST, GIT_SHA } from "./config";
 import "./index.scss";
 import { fetchAuthStatus } from "./services/auth";
@@ -75,6 +76,7 @@ fetchAuthStatus();
 
 ReactDOM.render(
   <React.StrictMode>
+    <Head />
     <MessageQueue id="message-queue" timeout={3_000}>
       <App />
     </MessageQueue>
