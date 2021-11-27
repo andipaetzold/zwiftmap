@@ -35,7 +35,7 @@ interface OnMouseMoveProps {
     fillOpacity: number;
     formatter: unknown;
     name: string;
-    payload: { distance: number; elevation: number };
+    payload: Data;
     points: unknown[];
     stroke: string;
     type: unknown;
@@ -96,7 +96,9 @@ function ElevationChartComponent({
       }
 
       const distance = data.activePayload?.[0]?.payload.distance;
-      const elevation = data.activePayload?.[0]?.payload.elevation;
+      const elevation =
+        data.activePayload?.[0]?.payload.elevationRegular ??
+        data.activePayload?.[0]?.payload.elevationSprintSegment;
 
       onMouseHoverDistanceChange(distance);
       setCurrentDistance(distance);
