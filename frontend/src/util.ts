@@ -3,10 +3,6 @@ import fromPairs from "lodash/fromPairs";
 
 const isNavigatorShareSupported = "share" in navigator;
 
-export function flipLatLng(p: [number, number]): [number, number] {
-  return [p[1], p[0]];
-}
-
 export async function shareImage(url: string): Promise<void> {
   if (!isNavigatorShareSupported) {
     window.open(url, "__blank");
