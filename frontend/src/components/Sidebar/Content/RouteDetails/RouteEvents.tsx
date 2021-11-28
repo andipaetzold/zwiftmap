@@ -1,20 +1,12 @@
-import {
-  ListItem,
-  ListItemText,
-  ListSubheader,
-  SimpleListItem
-} from "@react-md/list";
+import { ListItemText, ListSubheader, SimpleListItem } from "@react-md/list";
 import { Typography } from "@react-md/typography";
 import React, { useMemo } from "react";
 import { useAsync } from "react-async-hook";
 import { Route, worlds } from "zwift-data";
 import { useSettings } from "../../../../hooks/useSettings";
 import { fetchEvents } from "../../../../services/events/api";
-import {
-  LocationStateRoute,
-  useLocationState
-} from "../../../../services/location-state";
 import { EventInfo } from "../../../EventInfo";
+import { ListItemState } from "../../../ListItemState";
 import { LoadingSpinnerListItem } from "../../../Loading";
 
 interface Props {
@@ -24,7 +16,6 @@ interface Props {
 export function RouteEvents({ route }: Props) {
   const { result: events } = useAsync(fetchEvents, []);
   const [settings] = useSettings();
-  const [, setLocationState] = useLocationState<LocationStateRoute>();
 
   const filteredEvents = useMemo(() => {
     if (!events) {
@@ -49,39 +40,41 @@ export function RouteEvents({ route }: Props) {
   }
 
   if (filteredEvents.length === 0) {
-    return <>
-      <ListSubheader>Upcoming Events</ListSubheader>
-      <SimpleListItem>
-        <Typography type="body-2">No events on this route today.</Typography>
-      </SimpleListItem>
-    </>;
+    return (
+      <>
+        <ListSubheader>Upcoming Events</ListSubheader>
+        <SimpleListItem>
+          <Typography type="body-2">No events on this route today.</Typography>
+        </SimpleListItem>
+      </>
+    );
   }
 
-  return <>
-    <ListSubheader>Upcoming Events</ListSubheader>
-    {filteredEvents.slice(0, 3).map((event) => (
-      <ListItem
-        key={event.id}
-        onClick={() =>
-          setLocationState({
+  return (
+    <>
+      <ListSubheader>Upcoming Events</ListSubheader>
+      {filteredEvents.slice(0, 3).map((event) => (
+        <ListItemState
+          key={event.id}
+          state={{
             type: "event",
             world: worlds.find((w) => w.slug === route.world) ?? null,
             eventId: event.id.toString(),
-          })
-        }
-        secondaryText={<EventInfo event={event} />}
-        threeLines
-      >
-        <ListItemText>{event.name}</ListItemText>
-      </ListItem>
-    ))}
-    {filteredEvents.length > 3 && (
-      <SimpleListItem>
-        <Typography type="body-2">
-          {filteredEvents.length - 3} more{" "}
-          {filteredEvents.length === 4 ? "event" : "events"} happening today
-        </Typography>
-      </SimpleListItem>
-    )}
-  </>;
+          }}
+          secondaryText={<EventInfo event={event} />}
+          threeLines
+        >
+          <ListItemText>{event.name}</ListItemText>
+        </ListItemState>
+      ))}
+      {filteredEvents.length > 3 && (
+        <SimpleListItem>
+          <Typography type="body-2">
+            {filteredEvents.length - 3} more{" "}
+            {filteredEvents.length === 4 ? "event" : "events"} happening today
+          </Typography>
+        </SimpleListItem>
+      )}
+    </>
+  );
 }

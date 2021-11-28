@@ -1,4 +1,4 @@
-import { ListItem, SimpleListItem } from "@react-md/list";
+import { SimpleListItem } from "@react-md/list";
 import {
   AssessmentFontIcon,
   EventFontIcon,
@@ -11,14 +11,11 @@ import {
 } from "@react-md/material-icons";
 import round from "lodash/round";
 import { routes, worlds } from "zwift-data";
-import {
-  LocationStateUpcomingEvent,
-  useLocationState,
-} from "../../../../services/location-state";
 import { ZwiftEvent } from "../../../../services/events";
 import { EVENT_TYPES } from "../../../../services/events/constants";
 import { Distance } from "../../../Distance";
 import { Elevation } from "../../../Elevation";
+import { ListItemState } from "../../../ListItemState";
 
 const FORMAT = new Intl.DateTimeFormat("en-US", {
   hour: "2-digit",
@@ -31,7 +28,6 @@ interface Props {
 }
 
 export function EventFacts({ event }: Props) {
-  const [, setLocationState] = useLocationState<LocationStateUpcomingEvent>();
   const route = routes.find((r) => r.id === event.routeId);
   const world = worlds.find((w) => w.id === event.mapId);
 
@@ -87,21 +83,18 @@ export function EventFacts({ event }: Props) {
         </SimpleListItem>
       )}
       {route && (
-        <ListItem
-          onClick={() =>
-            setLocationState({
-              type: "route",
-              route: route,
-              segments: [],
-              world: world!,
-            })
-          }
-          clickable={false}
+        <ListItemState
+          state={{
+            type: "route",
+            route: route,
+            segments: [],
+            world: world!,
+          }}
           leftAddon={<PlaceFontIcon />}
           leftAddonType="icon"
         >
           {route.name}
-        </ListItem>
+        </ListItemState>
       )}
       {world && (
         <SimpleListItem

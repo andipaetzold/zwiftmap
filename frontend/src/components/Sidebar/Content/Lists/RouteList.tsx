@@ -1,11 +1,10 @@
 import { Divider } from "@react-md/divider";
-import { List, ListItem } from "@react-md/list";
+import { List } from "@react-md/list";
 import { Helmet } from "react-helmet-async";
 import { routes } from "zwift-data";
 import { useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";
 import { useSessionSettings } from "../../../../hooks/useSessionSettings";
 import { useSettings } from "../../../../hooks/useSettings";
-import { useStore } from "../../../../hooks/useStore";
 import {
   LocationStateDefault,
   useLocationState,
@@ -13,6 +12,7 @@ import {
 import { HoverData } from "../../../../types";
 import { sortRoute } from "../../../../util/sort";
 import { ListItemRoute } from "../../../ListItemRoute";
+import { ListItemState } from "../../../ListItemState";
 import { SortButton } from "../../../SortButton";
 
 interface Props {
@@ -21,27 +21,9 @@ interface Props {
 
 export function RouteList({ onHoverRoute }: Props) {
   const [settings] = useSettings();
-  const [locationState, setLocationState] =
-    useLocationState<LocationStateDefault>();
-  const setQuery = useStore((state) => state.setQuery);
+  const [locationState] = useLocationState<LocationStateDefault>();
   const isLoggedIn = useIsLoggedInStrava();
   const [{ sortState }] = useSessionSettings();
-
-  const handleStravaClick = () => {
-    setQuery("");
-    setLocationState({
-      world: locationState.world,
-      type: "strava-activities",
-    });
-  };
-
-  const handleUpcomingEvents = () => {
-    setQuery("");
-    setLocationState({
-      world: locationState.world,
-      type: "events",
-    });
-  };
 
   return (
     <List>
@@ -50,14 +32,28 @@ export function RouteList({ onHoverRoute }: Props) {
       </Helmet>
 
       {isLoggedIn && (
-        <ListItem secondaryText="Last 30 days" onClick={handleStravaClick}>
+        <ListItemState
+          secondaryText="Last 30 days"
+          state={{
+            world: locationState.world,
+            type: "strava-activities",
+          }}
+          query=""
+        >
           Recent Strava Activities
-        </ListItem>
+        </ListItemState>
       )}
 
-      <ListItem secondaryText="Next 200 events" onClick={handleUpcomingEvents}>
+      <ListItemState
+        secondaryText="Next 200 events"
+        state={{
+          world: locationState.world,
+          type: "events",
+        }}
+        query=""
+      >
         Upcoming Events
-      </ListItem>
+      </ListItemState>
 
       <Divider />
 

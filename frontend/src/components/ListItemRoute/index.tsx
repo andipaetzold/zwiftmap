@@ -1,15 +1,11 @@
-import { ListItem } from "@react-md/list";
 import React, { useRef } from "react";
 import { Route, worlds } from "zwift-data";
-import {
-  LocationStateDefault,
-  useLocationState
-} from "../../services/location-state";
 import { HoverData } from "../../types";
 import { useOnScreen } from "..//../hooks/useOnScreen";
 import { Distance } from "../Distance";
 import { Elevation } from "../Elevation";
 import { RouteElevationChartPreview } from "../ElevationChartPreview";
+import { ListItemState } from "../ListItemState";
 
 export interface Props {
   route: Route;
@@ -18,30 +14,24 @@ export interface Props {
 }
 
 export function ListItemRoute({ route, onHoverRoute, showWorldName }: Props) {
-  const [, setLocationState] =
-    useLocationState<LocationStateDefault>();
-  const handleClick = () => {
-    setLocationState({
-      world: worlds.find((w) => w.slug === route.world)!,
-      route,
-      segments: [],
-      type: "route",
-    });
-    onHoverRoute(undefined);
-  };
-
   return (
-    <ListItem
+    <ListItemState
       secondaryText={<RouteInfo route={route} showWorldName={showWorldName} />}
       threeLines={showWorldName}
-      onClick={handleClick}
+      state={{
+        world: worlds.find((w) => w.slug === route.world)!,
+        route,
+        segments: [],
+        type: "route",
+      }}
+      onClick={() => onHoverRoute(undefined)}
       rightAddonType="large-media"
       rightAddon={<ChartContainer route={route} />}
       onMouseEnter={() => onHoverRoute({ type: "route", route: route.slug })}
       onMouseLeave={() => onHoverRoute(undefined)}
     >
       {route.name}
-    </ListItem>
+    </ListItemState>
   );
 }
 

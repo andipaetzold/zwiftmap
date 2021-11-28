@@ -1,13 +1,14 @@
-import { ListItem } from "@react-md/list";
+import { ListItemLink } from "@react-md/list";
 import { OpenInNewFontIcon } from "@react-md/material-icons";
 import { routes, worlds } from "zwift-data";
+import { ZwiftEvent } from "../../../../services/events";
 import {
   LocationStateUpcomingEvents,
   useLocationState,
 } from "../../../../services/location-state";
-import { ZwiftEvent } from "../../../../services/events";
-import { EventInfo } from "../../../EventInfo";
 import { HoverData } from "../../../../types";
+import { EventInfo } from "../../../EventInfo";
+import { ListItemState } from "../../../ListItemState";
 
 interface Props {
   event: ZwiftEvent;
@@ -16,11 +17,21 @@ interface Props {
 
 export function EventItem({ event, onHoverRoute }: Props) {
   const route = routes.find((r) => r.id === event.routeId);
-  const [locationState, setLocationState] =
-    useLocationState<LocationStateUpcomingEvents>();
+  const [locationState] = useLocationState<LocationStateUpcomingEvents>();
+
+  if (!route) {
+    return (
+      <ListItemLink
+        href={`https://zwift.com/events/view/${event.id}`}
+        target="_blank"
+      >
+        {event.name}
+      </ListItemLink>
+    );
+  }
 
   return (
-    <ListItem
+    <ListItemState
       secondaryText={
         <EventInfo
           event={event}
@@ -28,34 +39,24 @@ export function EventItem({ event, onHoverRoute }: Props) {
         />
       }
       threeLines
-      onClick={() => {
-        if (route) {
-          setLocationState({
-            type: "event",
-            world: worlds.find((w) => w.slug === route.world)!,
-            eventId: event.id.toString(),
-          });
-          onHoverRoute(undefined);
-        } else {
-          window.open(`https://zwift.com/events/view/${event.id}`, "_blank");
-        }
+      state={{
+        type: "event",
+        world: worlds.find((w) => w.slug === route.world)!,
+        eventId: event.id.toString(),
       }}
-      rightAddon={route ? undefined : <OpenInNewFontIcon />}
-      rightAddonType={route ? undefined : "icon"}
+      onClick={() => onHoverRoute(undefined)}
       onMouseEnter={() => {
-        if (!route) {
-          return;
-        }
-        if (route.world !== locationState.world.slug) {
+        if (route.world === locationState.world.slug) {
+          onHoverRoute({ type: "route", route: route.slug });
+        } else {
           onHoverRoute(undefined);
-          return;
         }
-
-        onHoverRoute({ type: "route", route: route.slug });
       }}
       onMouseLeave={() => onHoverRoute(undefined)}
+      rightAddon={route ? undefined : <OpenInNewFontIcon />}
+      rightAddonType={route ? undefined : "icon"}
     >
       {event.name}
-    </ListItem>
+    </ListItemState>
   );
 }

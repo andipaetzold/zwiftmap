@@ -5,7 +5,7 @@ import { ListFontIcon } from "@react-md/material-icons";
 import {
   DEFAULT_WORLD,
   LocationStateUpcomingEvent,
-  useLocationState,
+  useLocationState
 } from "../../../../services/location-state";
 
 export function BackButton() {

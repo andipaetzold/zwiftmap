@@ -1,17 +1,13 @@
-import { ListItem, SimpleListItem } from "@react-md/list";
+import { SimpleListItem } from "@react-md/list";
 import React from "react";
 import { useAsync } from "react-async-hook";
 import { useIsLoggedInStrava } from "../../../../../hooks/useIsLoggedInStrava";
-import { useStore } from "../../../../../hooks/useStore";
-import {
-  LocationStateStravaActivities,
-  useLocationState,
-} from "../../../../../services/location-state";
 import { getStravaActivity } from "../../../../../services/StravaActivityRepository";
 import { HoverData } from "../../../../../types";
 import { ConnectToStravaListItem } from "../../../../ConnectToStravaListItem";
 import { Distance } from "../../../../Distance";
 import { Elevation } from "../../../../Elevation";
+import { ListItemState } from "../../../../ListItemState";
 import { LoadingSpinnerListItem } from "../../../../Loading";
 import { Time } from "../../../../Time";
 
@@ -42,9 +38,6 @@ function SearchResultCardStravaActivityLoggedIn({
   const { result: activity, loading } = useAsync(getStravaActivity, [
     activityId,
   ]);
-  const [, setLocationState] =
-    useLocationState<LocationStateStravaActivities>();
-  const setQuery = useStore((state) => state.setQuery);
 
   if (loading) {
     return <LoadingSpinnerListItem />;
@@ -59,18 +52,14 @@ function SearchResultCardStravaActivityLoggedIn({
     );
   }
 
-  const handleClick = () => {
-    setQuery("");
-    setLocationState({
-      world: activity.world,
-      stravaActivityId: activity.id,
-      type: "strava-activity",
-    });
-  };
-
   return (
-    <ListItem
-      onClick={handleClick}
+    <ListItemState
+      query=""
+      state={{
+        world: activity.world,
+        stravaActivityId: activity.id,
+        type: "strava-activity",
+      }}
       secondaryText={
         <>
           <Distance distance={activity.distance} /> |{" "}
@@ -89,6 +78,6 @@ function SearchResultCardStravaActivityLoggedIn({
       }
     >
       {activity.name}
-    </ListItem>
+    </ListItemState>
   );
 }

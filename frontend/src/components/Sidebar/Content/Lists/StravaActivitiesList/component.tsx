@@ -1,15 +1,15 @@
 import polyline from "@mapbox/polyline";
-import { ListItem, SimpleListItem } from "@react-md/list";
+import { SimpleListItem } from "@react-md/list";
 import * as Sentry from "@sentry/react";
 import axios from "axios";
 import { useAsync } from "react-async-hook";
-import { useStore } from "../../../../../hooks/useStore";
 import { useLocationState } from "../../../../../services/location-state";
 import { getStravaActivities } from "../../../../../services/zwiftMapApi";
 import { HoverData } from "../../../../../types";
 import { getWorld } from "../../../../../util/strava";
 import { Distance } from "../../../../Distance";
 import { Elevation } from "../../../../Elevation";
+import { ListItemState } from "../../../../ListItemState";
 import { LoadingSpinnerListItem } from "../../../../Loading";
 import { Time } from "../../../../Time";
 
@@ -18,8 +18,7 @@ interface Props {
 }
 
 export function StravaActivitiesListComponent({ onHoverRoute }: Props) {
-  const [locationState, setLocationState] = useLocationState();
-  const setQuery = useStore((state) => state.setQuery);
+  const [locationState] = useLocationState();
   const {
     result: activities,
     loading,
@@ -54,17 +53,15 @@ export function StravaActivitiesListComponent({ onHoverRoute }: Props) {
           activity,
         }))
         .map(({ world, activity }) => (
-          <ListItem
+          <ListItemState
             key={activity.id}
-            onClick={() => {
-              onHoverRoute(undefined);
-              setQuery("");
-              setLocationState({
-                world: world!,
-                type: "strava-activity",
-                stravaActivityId: activity.id,
-              });
+            state={{
+              world: world!,
+              type: "strava-activity",
+              stravaActivityId: activity.id,
             }}
+            query=""
+            onClick={() => onHoverRoute(undefined)}
             onMouseEnter={() => {
               if (world !== locationState.world) {
                 onHoverRoute(undefined);
@@ -91,7 +88,7 @@ export function StravaActivitiesListComponent({ onHoverRoute }: Props) {
             threeLines
           >
             {activity.name}
-          </ListItem>
+          </ListItemState>
         ))}
     </>
   );

@@ -1,15 +1,11 @@
-import { ListItem } from "@react-md/list";
 import React, { useRef } from "react";
 import { Segment, worlds } from "zwift-data";
 import { useOnScreen } from "../../../../../hooks/useOnScreen";
-import {
-  LocationStateDefault,
-  useLocationState,
-} from "../../../../../services/location-state";
 import { HoverData } from "../../../../../types";
 import { Distance } from "../../../../Distance";
 import { Elevation } from "../../../../Elevation";
 import { SegmentElevationChartPreview } from "../../../../ElevationChartPreview";
+import { ListItemState } from "../../../../ListItemState";
 
 export interface Props {
   segment: Segment;
@@ -22,23 +18,18 @@ export function ListItemSegment({
   onHoverRoute,
   showWorldName,
 }: Props) {
-  const [, setLocationState] = useLocationState<LocationStateDefault>();
-  const handleClick = () => {
-    setLocationState({
-      world: worlds.find((w) => w.slug === segment.world)!,
-      segment,
-      type: "segment",
-    });
-    onHoverRoute(undefined);
-  };
-
   return (
-    <ListItem
+    <ListItemState
+      state={{
+        world: worlds.find((w) => w.slug === segment.world)!,
+        segment,
+        type: "segment",
+      }}
+      onClick={() => onHoverRoute(undefined)}
       secondaryText={
         <SegmentInfo segment={segment} showWorldName={showWorldName} />
       }
       threeLines={showWorldName}
-      onClick={handleClick}
       rightAddonType="large-media"
       rightAddon={<ChartContainer segment={segment} />}
       onMouseEnter={() =>
@@ -47,7 +38,7 @@ export function ListItemSegment({
       onMouseLeave={() => onHoverRoute(undefined)}
     >
       {segment.name}
-    </ListItem>
+    </ListItemState>
   );
 }
 

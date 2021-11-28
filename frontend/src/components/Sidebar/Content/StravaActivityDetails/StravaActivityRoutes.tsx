@@ -1,10 +1,10 @@
-import { ListItem, ListSubheader } from "@react-md/list";
+import { ListSubheader } from "@react-md/list";
 import { DetailedSegment, DetailedSegmentEffort } from "strava";
 import { Route, routes, worlds } from "zwift-data";
-import { useLocationState } from "../../../../services/location-state";
 import { StravaActivity } from "../../../../services/StravaActivityRepository";
 import { Distance } from "../../../Distance";
 import { Elevation } from "../../../Elevation";
+import { ListItemState } from "../../../ListItemState";
 import { Time } from "../../../Time";
 
 type SegmentEffort = DetailedSegmentEffort & {
@@ -17,8 +17,6 @@ interface Props {
 }
 
 export function StravaActivityRoutes({ activity }: Props) {
-  const [, setLocationState] = useLocationState();
-
   const routesInActivity = activity.segmentEfforts
     .map((segmentEffort) => ({
       route: routes.find(
@@ -41,23 +39,21 @@ export function StravaActivityRoutes({ activity }: Props) {
       <ListSubheader>Routes</ListSubheader>
 
       {routesInActivity.map(({ route, segmentEffort }) => (
-        <ListItem
+        <ListItemState
           key={segmentEffort.id}
-          onClick={() =>
-            setLocationState({
-              type: "route",
-              world: worlds.find((w) => w.slug === route.world)!,
-              route: route,
-              segments: [],
-            })
-          }
+          state={{
+            type: "route",
+            world: worlds.find((w) => w.slug === route.world)!,
+            route: route,
+            segments: [],
+          }}
           threeLines
           secondaryText={
             <SecondaryText route={route} segmentEffort={segmentEffort} />
           }
         >
           {route.name}
-        </ListItem>
+        </ListItemState>
       ))}
     </>
   );
