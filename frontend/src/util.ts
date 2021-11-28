@@ -29,7 +29,7 @@ export async function shareImage(url: string): Promise<void> {
 
     await navigator.share({ files });
   } catch (e) {
-    if (e instanceof DOMException && e.name === "NotAllowedError") {
+    if (e instanceof DOMException && e.name === "AbortError") {
       // ignore
     } else if (e instanceof DOMException && e.name === "NotAllowedError") {
       window.open(url, "__blank");
