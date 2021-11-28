@@ -31,6 +31,7 @@ app.get(
   handlers.handleGETActivityStreams
 );
 app.get("/strava/callback", handlers.handleStravaAuthorizeCallback);
+app.get("/events/:eventId/workout", handlers.handleGetEventWorkout);
 app.get("/strava/segments/:segmentId", handlers.handleGETSegment);
 app.get("/strava/settings", handlers.handleGETStravaSettings);
 app.put("/strava/settings", handlers.handlePUTStravaSettings);
