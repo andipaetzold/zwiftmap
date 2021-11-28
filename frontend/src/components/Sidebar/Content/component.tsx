@@ -1,7 +1,8 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { useStore } from "../../../hooks/useStore";
 import {
   DEFAULT_WORLD,
+  LocationState,
   useLocationState,
 } from "../../../services/location-state";
 import { HoverData } from "../../../types";
@@ -21,16 +22,14 @@ interface Props {
 }
 
 export function Content({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
-  const [locationState, setLocationState] = useLocationState();
+  const [locationState] = useLocationState();
   const query = useStore((state) => state.query);
 
   const backButtonText = query === "" ? "Route List" : "Search Results";
-  const onBackButtonClick = useCallback(() => {
-    setLocationState({
-      world: locationState.world ?? DEFAULT_WORLD,
-      type: "default",
-    });
-  }, [setLocationState, locationState]);
+  const backButtonState: LocationState = {
+    world: locationState.world ?? DEFAULT_WORLD,
+    type: "default",
+  };
 
   switch (locationState.type) {
     case "route":
@@ -38,7 +37,7 @@ export function Content({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
         <RouteDetails
           key={locationState.route.slug}
           backButtonText={backButtonText}
-          onBackButtonClick={onBackButtonClick}
+          backButtonState={backButtonState}
           onMouseHoverDistanceChange={onMouseHoverDistanceChange}
           route={locationState.route}
         />
@@ -48,7 +47,7 @@ export function Content({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
         <SegmentDetails
           key={locationState.segment.slug}
           backButtonText={backButtonText}
-          onBackButtonClick={onBackButtonClick}
+          backButtonState={backButtonState}
           onMouseHoverDistanceChange={onMouseHoverDistanceChange}
           segment={locationState.segment}
           onHoverRoute={onHoverRoute}
@@ -77,7 +76,7 @@ export function Content({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
         <Share
           shareId={locationState.shareId}
           backButtonText={backButtonText}
-          onBackButtonClick={onBackButtonClick}
+          backButtonState={backButtonState}
           onMouseHoverDistanceChange={onMouseHoverDistanceChange}
         />
       );

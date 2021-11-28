@@ -1,4 +1,3 @@
-import { Button } from "@react-md/button";
 import { TextIconSpacing } from "@react-md/icon";
 import { SimpleListItem } from "@react-md/list";
 import { ListFontIcon } from "@react-md/material-icons";
@@ -7,26 +6,25 @@ import {
   LocationStateUpcomingEvent,
   useLocationState
 } from "../../../../services/location-state";
+import { ButtonState } from "../../../ButtonState";
 
 export function BackButton() {
-  const [locationState, setLocationState] =
+  const [locationState] =
     useLocationState<LocationStateUpcomingEvent>();
 
   return (
     <SimpleListItem>
-      <Button
+      <ButtonState
         themeType="outline"
-        onClick={() =>
-          setLocationState({
-            type: "events",
-            world: locationState.world ?? DEFAULT_WORLD,
-          })
-        }
+       state={{
+        type: "events",
+        world: locationState.world ?? DEFAULT_WORLD,
+      }}
       >
         <TextIconSpacing icon={<ListFontIcon />}>
           Upcoming Events
         </TextIconSpacing>
-      </Button>
+      </ButtonState>
     </SimpleListItem>
   );
 }

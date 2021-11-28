@@ -1,32 +1,29 @@
-import { Button } from "@react-md/button";
 import { TextIconSpacing } from "@react-md/icon";
 import { SimpleListItem } from "@react-md/list";
 import { ListFontIcon } from "@react-md/material-icons";
 import {
-    DEFAULT_WORLD,
-    LocationStateStravaActivity,
-    useLocationState
+  DEFAULT_WORLD,
+  LocationStateStravaActivity,
+  useLocationState
 } from "../../../../services/location-state";
+import { ButtonState } from "../../../ButtonState";
 
 export function BackButton() {
-  const [locationState, setLocationState] =
-    useLocationState<LocationStateStravaActivity>();
+  const [locationState] = useLocationState<LocationStateStravaActivity>();
 
   return (
     <SimpleListItem>
-      <Button
+      <ButtonState
         themeType="outline"
-        onClick={() => {
-          setLocationState({
-            world: locationState.world ?? DEFAULT_WORLD,
-            type: "strava-activities",
-          });
+        state={{
+          world: locationState.world ?? DEFAULT_WORLD,
+          type: "strava-activities",
         }}
       >
         <TextIconSpacing icon={<ListFontIcon />}>
           Strava activities
         </TextIconSpacing>
-      </Button>
+      </ButtonState>
     </SimpleListItem>
   );
 }

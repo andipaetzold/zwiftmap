@@ -1,11 +1,12 @@
-import { Button } from "@react-md/button";
 import { TextIconSpacing } from "@react-md/icon";
 import { List, SimpleListItem } from "@react-md/list";
 import { ListFontIcon } from "@react-md/material-icons";
 import { Typography } from "@react-md/typography";
 import { Helmet } from "react-helmet-async";
 import { Segment } from "zwift-data";
+import { LocationState } from "../../../../services/location-state";
 import { HoverData } from "../../../../types";
+import { ButtonState } from "../../../ButtonState";
 import { SegmentElevationChart } from "./SegmentElevationChart";
 import { SegmentFacts } from "./SegmentFacts";
 import { SegmentLinks } from "./SegmentLinks";
@@ -16,13 +17,13 @@ interface Props {
   segment: Segment;
   onMouseHoverDistanceChange: (distance: number | undefined) => void;
   backButtonText: string;
-  onBackButtonClick: () => void;
+  backButtonState: LocationState;
   onHoverRoute: (data: HoverData) => void;
 }
 
 export function SegmentDetails({
   segment,
-  onBackButtonClick,
+  backButtonState,
   backButtonText,
   onMouseHoverDistanceChange,
   onHoverRoute,
@@ -34,11 +35,11 @@ export function SegmentDetails({
       </Helmet>
 
       <SimpleListItem>
-        <Button themeType="outline" onClick={onBackButtonClick}>
+        <ButtonState themeType="outline" state={backButtonState}>
           <TextIconSpacing icon={<ListFontIcon />}>
             {backButtonText}
           </TextIconSpacing>
-        </Button>
+        </ButtonState>
       </SimpleListItem>
 
       <SimpleListItem>

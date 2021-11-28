@@ -1,4 +1,3 @@
-import { Button } from "@react-md/button";
 import { TextIconSpacing } from "@react-md/icon";
 import { List, ListSubheader, SimpleListItem } from "@react-md/list";
 import { ListFontIcon } from "@react-md/material-icons";
@@ -6,13 +5,13 @@ import { useAsync } from "react-async-hook";
 import { Helmet } from "react-helmet-async";
 import { useSessionSettings } from "../../../../hooks/useSessionSettings";
 import { useSettings } from "../../../../hooks/useSettings";
-import { useStore } from "../../../../hooks/useStore";
 import { fetchEvents } from "../../../../services/events";
 import {
   LocationStateUpcomingEvents,
   useLocationState,
 } from "../../../../services/location-state";
 import { HoverData } from "../../../../types";
+import { ButtonState } from "../../../ButtonState";
 import { LoadingSpinnerListItem } from "../../../Loading";
 import { EventItem } from "./EventItem";
 import { EventFilterButton } from "./FilterButton";
@@ -66,9 +65,7 @@ export function UpcomingEvents({ onHoverRoute }: Props) {
 }
 
 function Header() {
-  const [locationState, setLocationState] =
-    useLocationState<LocationStateUpcomingEvents>();
-  const setQuery = useStore((state) => state.setQuery);
+  const [locationState] = useLocationState<LocationStateUpcomingEvents>();
 
   return (
     <>
@@ -76,18 +73,16 @@ function Header() {
         <title>Upcoming Events</title>
       </Helmet>
       <SimpleListItem>
-        <Button
+        <ButtonState
           themeType="outline"
-          onClick={() => {
-            setQuery("");
-            setLocationState({
-              world: locationState.world,
-              type: "default",
-            });
+          query=""
+          state={{
+            world: locationState.world,
+            type: "default",
           }}
         >
           <TextIconSpacing icon={<ListFontIcon />}>Route List</TextIconSpacing>
-        </Button>
+        </ButtonState>
       </SimpleListItem>
       <ListSubheader>Upcoming Event</ListSubheader>
     </>

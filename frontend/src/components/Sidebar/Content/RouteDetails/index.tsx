@@ -1,10 +1,11 @@
-import { Button } from "@react-md/button";
 import { TextIconSpacing } from "@react-md/icon";
 import { List, SimpleListItem } from "@react-md/list";
 import { ListFontIcon } from "@react-md/material-icons";
 import { Typography } from "@react-md/typography";
 import { Helmet } from "react-helmet-async";
 import { Route } from "zwift-data";
+import { LocationState } from "../../../../services/location-state";
+import { ButtonState } from "../../../ButtonState";
 import { RouteElevationChart } from "./RouteElevationChart";
 import { RouteEvents } from "./RouteEvents";
 import { RouteFacts } from "./RouteFacts";
@@ -16,14 +17,14 @@ interface Props {
   route: Route;
   onMouseHoverDistanceChange: (distance: number | undefined) => void;
   backButtonText: string;
-  onBackButtonClick: () => void;
+  backButtonState: LocationState;
 }
 
 export function RouteDetails({
   route,
   onMouseHoverDistanceChange,
   backButtonText,
-  onBackButtonClick,
+  backButtonState,
 }: Props) {
   return (
     <List>
@@ -32,11 +33,11 @@ export function RouteDetails({
       </Helmet>
 
       <SimpleListItem>
-        <Button themeType="outline" onClick={onBackButtonClick}>
+        <ButtonState themeType="outline" state={backButtonState}>
           <TextIconSpacing icon={<ListFontIcon />}>
             {backButtonText}
           </TextIconSpacing>
-        </Button>
+        </ButtonState>
       </SimpleListItem>
 
       <SimpleListItem>

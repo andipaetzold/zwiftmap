@@ -1,15 +1,14 @@
-import { Button } from "@react-md/button";
 import { TextIconSpacing } from "@react-md/icon";
 import { List, ListSubheader, SimpleListItem } from "@react-md/list";
 import { ListFontIcon } from "@react-md/material-icons";
 import { Helmet } from "react-helmet-async";
 import { useIsLoggedInStrava } from "../../../../../hooks/useIsLoggedInStrava";
-import { useStore } from "../../../../../hooks/useStore";
 import {
   LocationStateStravaActivities,
-  useLocationState
+  useLocationState,
 } from "../../../../../services/location-state";
 import { HoverData } from "../../../../../types";
+import { ButtonState } from "../../../../ButtonState";
 import { ConnectToStravaListItem } from "../../../../ConnectToStravaListItem";
 import { LoadingSpinnerListItem } from "../../../../Loading";
 import { StravaActivitiesListComponent } from "./component";
@@ -54,28 +53,24 @@ function StravaActivitiesListWithToken({ onHoverRoute }: Props) {
 }
 
 function Header() {
-  const setQuery = useStore((state) => state.setQuery);
+  const [locationState] = useLocationState<LocationStateStravaActivities>();
 
-  const [locationState, setLocationState] =
-    useLocationState<LocationStateStravaActivities>();
   return (
     <>
       <Helmet>
         <title>Strava Activities</title>
       </Helmet>
       <SimpleListItem>
-        <Button
+        <ButtonState
           themeType="outline"
-          onClick={() => {
-            setQuery("");
-            setLocationState({
-              world: locationState.world,
-              type: "default",
-            });
+          query=""
+          state={{
+            world: locationState.world,
+            type: "default",
           }}
         >
           <TextIconSpacing icon={<ListFontIcon />}>Route List</TextIconSpacing>
-        </Button>
+        </ButtonState>
       </SimpleListItem>
     </>
   );

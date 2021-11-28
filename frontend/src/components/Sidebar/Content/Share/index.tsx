@@ -1,32 +1,33 @@
-import { Button } from "@react-md/button";
 import { TextIconSpacing } from "@react-md/icon";
 import { List, SimpleListItem } from "@react-md/list";
 import { ListFontIcon } from "@react-md/material-icons";
 import { useAsync } from "react-async-hook";
 import { Helmet } from "react-helmet-async";
+import { LocationState } from "../../../../services/location-state";
 import { getShare } from "../../../../services/zwiftMapApi";
 import { Share as ShareType } from "../../../../types";
+import { ButtonState } from "../../../ButtonState";
 import { LoadingSpinnerListItem } from "../../../Loading";
 import { SharedStravaActivity } from "./StravaActivity";
 
 interface Props {
   shareId: string;
+  backButtonState: LocationState;
   backButtonText: string;
-  onBackButtonClick: () => void;
   onMouseHoverDistanceChange: (distance: number | undefined) => void;
 }
 
 export function Share(props: Props) {
-  const { onBackButtonClick, backButtonText } = props;
+  const { backButtonState, backButtonText } = props;
 
   return (
     <List>
       <SimpleListItem>
-        <Button themeType="outline" onClick={onBackButtonClick}>
+        <ButtonState themeType="outline" state={backButtonState}>
           <TextIconSpacing icon={<ListFontIcon />}>
             {backButtonText}
           </TextIconSpacing>
-        </Button>
+        </ButtonState>
       </SimpleListItem>
 
       <ShareContent {...props} />
