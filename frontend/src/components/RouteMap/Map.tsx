@@ -15,10 +15,10 @@ import styles from "./index.module.css";
 
 const Z_INDEX = {
   previewRoute: 505,
-  segments: 506,
-  route: 507,
+  route: 506,
+  segments: 507,
   routeEnd: 508,
-  routeStart: 509,
+  routeStart: 508,
 };
 
 interface Props {
@@ -114,7 +114,7 @@ export function Map({
 
       {routeLatLngStream && (
         <>
-          <Pane name="route" style={{ zIndex: Z_INDEX.route  }}>
+          <Pane name="route" style={{ zIndex: Z_INDEX.route }}>
             <Polyline
               positions={routeLatLngStream}
               pathOptions={{ color: COLORS.route, weight: 5 }}
