@@ -28,7 +28,7 @@ function EventContent({ eventId }: Props) {
       <>
         <Helmet>
           <title>Event</title>
-        </Helmet>{" "}
+        </Helmet>
         <LoadingSpinnerListItem />
       </>
     );

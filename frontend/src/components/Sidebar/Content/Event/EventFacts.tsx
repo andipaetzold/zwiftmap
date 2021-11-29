@@ -10,8 +10,12 @@ import {
   TimerFontIcon,
 } from "@react-md/material-icons";
 import round from "lodash/round";
-import { routes, worlds } from "zwift-data";
-import { ZwiftEvent } from "../../../../services/events";
+import { routes } from "zwift-data";
+import {
+  getRouteFromEvent,
+  getWorldFromEvent,
+  ZwiftEvent,
+} from "../../../../services/events";
 import { EVENT_TYPES } from "../../../../services/events/constants";
 import { Distance } from "../../../Distance";
 import { Elevation } from "../../../Elevation";
@@ -28,8 +32,8 @@ interface Props {
 }
 
 export function EventFacts({ event }: Props) {
-  const route = routes.find((r) => r.id === event.routeId);
-  const world = worlds.find((w) => w.id === event.mapId);
+  const route = getRouteFromEvent(event);
+  const world = getWorldFromEvent(event);
 
   const distance = getDistance(event);
   const elevation = getElevation(event);
@@ -82,13 +86,13 @@ export function EventFacts({ event }: Props) {
           {event.laps === 1 ? "1 Lap" : `${event.laps} Laps`}
         </SimpleListItem>
       )}
-      {route && (
+      {route && world && (
         <ListItemState
           state={{
             type: "route",
             route: route,
             segments: [],
-            world: world!,
+            world: world,
           }}
           leftAddon={<PlaceFontIcon />}
           leftAddonType="icon"
