@@ -8,6 +8,7 @@ import { EventKit } from "./EventKit";
 import { EventLinks } from "./EventLinks";
 import { EventRules } from "./EventRules";
 import { EventTimeTrial } from "./EventTimeTrial";
+import { EventWorkoutChart } from "./EventWorkoutChart";
 
 interface Props {
   event: ZwiftEvent;
@@ -29,6 +30,7 @@ export function EventComponent({ event }: Props) {
       </SimpleListItem>
 
       <EventFacts event={event} />
+      <EventWorkoutChart event={event} />
       <EventTimeTrial event={event} />
       <EventRules event={event} />
       <EventKit event={event} />
