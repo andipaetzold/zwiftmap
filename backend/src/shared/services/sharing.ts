@@ -75,7 +75,6 @@ async function createShare(
     { path: `/s/${share.id}` },
     {
       removeOnComplete: true,
-      removeOnFail: true,
     }
   );
 
