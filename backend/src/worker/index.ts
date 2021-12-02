@@ -1,10 +1,7 @@
 import * as Sentry from "@sentry/node";
-import { SENTRY_WORKER_DSN } from "../shared/config";
-import { imageQueue, stravaWebhookEventQueue } from "../shared/queue";
-import { createLogger, Logger } from "./services/logger";
-import { handleImage } from "./image";
-import { handleStravaWebhookEvent } from "./stravaWebhookEvent";
 import { Job } from "bull";
+import { SENTRY_WORKER_DSN } from "../shared/config";
+import { createLogger, Logger } from "./services/logger";
 
 Sentry.init({
   enabled: SENTRY_WORKER_DSN.length > 0,
@@ -13,8 +10,8 @@ Sentry.init({
   tracesSampleRate: 0.25,
 });
 
-stravaWebhookEventQueue.process(wrap(handleStravaWebhookEvent));
-imageQueue.process(wrap(handleImage));
+// stravaWebhookEventQueue.process(wrap(handleStravaWebhookEvent));
+// imageQueue.process(wrap(handleImage));
 
 function wrap<T>(
   handler: (job: Job<T>, logger: Logger) => Promise<void>
