@@ -33,8 +33,8 @@ export async function handleCreateShare(req: Request, res: Response) {
 
     res.status(201).json({ id: share.id });
   } catch (e) {
+    Sentry.captureException(e);
     if (e instanceof ErrorWithStatusCode) {
-      Sentry.captureException(e);
       res.sendStatus(e.statusCode);
     } else {
       res.sendStatus(500);
