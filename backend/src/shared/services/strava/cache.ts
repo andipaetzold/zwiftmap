@@ -20,27 +20,37 @@ export async function getActivityByIdFromCache(
   athleteId: number,
   activityId: number
 ): Promise<DetailedActivity | undefined> {
-  const key = [KEY, athleteId, TYPE_ACTIVITY, activityId].join(":");
-  return await redisClient.get(key);
+  try {
+    const key = [KEY, athleteId, TYPE_ACTIVITY, activityId].join(":");
+    return await redisClient.get(key);
+  } catch {
+    return undefined;
+  }
 }
 
 export async function writeActivityToCache(
   activity: DetailedActivity
 ): Promise<void> {
-  const key = [KEY, activity.athlete.id, TYPE_ACTIVITY, activity.id].join(
-    ":"
-  );
-  await redisClient.setex(key, activity, TTL);
+  try {
+    const key = [KEY, activity.athlete.id, TYPE_ACTIVITY, activity.id].join(
+      ":"
+    );
+    await redisClient.setex(key, activity, TTL);
+  } catch {}
 }
 
 export async function getActivityStreamsFromCache(
   athleteId: number,
   activityId: number
 ): Promise<StreamSet | undefined> {
-  const key = [KEY, athleteId, TYPE_ACTIVITY, activityId, KEY_STREAMS].join(
-    ":"
-  );
-  return await redisClient.get(key);
+  try {
+    const key = [KEY, athleteId, TYPE_ACTIVITY, activityId, KEY_STREAMS].join(
+      ":"
+    );
+    return await redisClient.get(key);
+  } catch {
+    return undefined;
+  }
 }
 
 export async function writeActivityStreamsToCache(
@@ -48,50 +58,62 @@ export async function writeActivityStreamsToCache(
   activityId: number,
   streams: StreamSet
 ): Promise<void> {
-  const key = [KEY, athleteId, TYPE_ACTIVITY, activityId, KEY_STREAMS].join(
-    ":"
-  );
-  await redisClient.setex(key, streams, TTL);
+  try {
+    const key = [KEY, athleteId, TYPE_ACTIVITY, activityId, KEY_STREAMS].join(
+      ":"
+    );
+    await redisClient.setex(key, streams, TTL);
+  } catch {}
 }
 
 export async function getSegmentFromCache(
   athleteId: number,
   segmentId: number
 ): Promise<DetailedSegment | undefined> {
-  const key = [KEY, athleteId, TYPE_SEGMENT, segmentId].join(":");
-  return await redisClient.get(key);
+  try {
+    const key = [KEY, athleteId, TYPE_SEGMENT, segmentId].join(":");
+    return await redisClient.get(key);
+  } catch {
+    return undefined;
+  }
 }
 
 export async function writeSegmentToCache(
   athleteId: number,
   segment: DetailedSegment
 ): Promise<void> {
-  const key = [KEY, athleteId, TYPE_SEGMENT, segment.id].join(":");
-  await redisClient.setex(key, segment, TTL);
+  try {
+    const key = [KEY, athleteId, TYPE_SEGMENT, segment.id].join(":");
+    await redisClient.setex(key, segment, TTL);
+  } catch {}
 }
 
 export async function evictCacheForAthlete(athleteId: number) {
-  const pattern = [KEY, athleteId, "*"].join(":");
-  const keys = await redisClient.keys(pattern);
+  try {
+    const pattern = [KEY, athleteId, "*"].join(":");
+    const keys = await redisClient.keys(pattern);
 
-  for (const key of keys) {
-    await redisClient.del(key);
-  }
+    for (const key of keys) {
+      await redisClient.del(key);
+    }
+  } catch {}
 }
 
 export async function evictCacheForActivity(
   athleteId: number,
   activityId: number
 ) {
-  const key = [KEY, athleteId, TYPE_ACTIVITY, activityId].join(":");
-  await redisClient.del(key);
+  try {
+    const key = [KEY, athleteId, TYPE_ACTIVITY, activityId].join(":");
+    await redisClient.del(key);
 
-  const keyStreams = [
-    KEY,
-    athleteId,
-    TYPE_ACTIVITY,
-    activityId,
-    "streams",
-  ].join(":");
-  await redisClient.del(keyStreams);
+    const keyStreams = [
+      KEY,
+      athleteId,
+      TYPE_ACTIVITY,
+      activityId,
+      "streams",
+    ].join(":");
+    await redisClient.del(keyStreams);
+  } catch {}
 }
