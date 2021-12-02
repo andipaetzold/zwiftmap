@@ -1,8 +1,9 @@
 import * as Sentry from "@sentry/node";
 import * as Tracing from "@sentry/tracing";
+import runner from "node-pg-migrate";
 import "source-map-support/register";
 import { PORT, SENTRY_WEB_DSN } from "../shared/config";
-import { syncModels } from "../shared/persistence/models";
+import { pool } from "../shared/persistence/pg";
 import * as handlers from "./handlers";
 import { app } from "./server";
 import { setupWebhook } from "./services/webhook";
@@ -17,36 +18,55 @@ Sentry.init({
   tracesSampleRate: 0.25,
 });
 
-app.use(Sentry.Handlers.requestHandler());
-app.use(Sentry.Handlers.tracingHandler());
+async function pgMigrate() {
+  const client = await pool.connect();
+  await runner({
+    dbClient: client,
+    migrationsTable: "pgmigrations",
+    dir: "migrations",
+    direction: "up",
+    count: Infinity,
+  });
+  client.release();
+}
 
-app.get("/auth/status", handlers.handleGETAuthStatus);
-app.post("/auth/logout", handlers.handleLogout);
+function startServer() {
+  app.use(Sentry.Handlers.requestHandler());
+  app.use(Sentry.Handlers.tracingHandler());
 
-app.get("/strava/authorize", handlers.handleStravaAuthorize);
-app.get("/strava/activities", handlers.handleGETActivities);
-app.get("/strava/activities/:activityId", handlers.handleGETActivity);
-app.put("/strava/activities/:activityId", handlers.handlePUTActivity);
-app.get(
-  "/strava/activities/:activityId/streams",
-  handlers.handleGETActivityStreams
-);
-app.get("/strava/callback", handlers.handleStravaAuthorizeCallback);
-app.get("/events/:eventId/workout", handlers.handleGetEventWorkout);
-app.get("/strava/segments/:segmentId", handlers.handleGETSegment);
-app.get("/strava/settings", handlers.handleGETStravaSettings);
-app.put("/strava/settings", handlers.handlePUTStravaSettings);
-app.post("/strava/webhook", handlers.handleWebhook);
-app.get("/strava/webhook", handlers.handleWebhookVerification);
+  app.get("/auth/status", handlers.handleGETAuthStatus);
+  app.post("/auth/logout", handlers.handleLogout);
 
-app.post("/share", handlers.handleCreateShare);
-app.get("/share/:shareId", handlers.handleGetShare);
+  app.get("/strava/authorize", handlers.handleStravaAuthorize);
+  app.get("/strava/activities", handlers.handleGETActivities);
+  app.get("/strava/activities/:activityId", handlers.handleGETActivity);
+  app.put("/strava/activities/:activityId", handlers.handlePUTActivity);
+  app.get(
+    "/strava/activities/:activityId/streams",
+    handlers.handleGETActivityStreams
+  );
+  app.get("/strava/callback", handlers.handleStravaAuthorizeCallback);
+  app.get("/events/:eventId/workout", handlers.handleGetEventWorkout);
+  app.get("/strava/segments/:segmentId", handlers.handleGETSegment);
+  app.get("/strava/settings", handlers.handleGETStravaSettings);
+  app.put("/strava/settings", handlers.handlePUTStravaSettings);
+  app.post("/strava/webhook", handlers.handleWebhook);
+  app.get("/strava/webhook", handlers.handleWebhookVerification);
 
-app.use(Sentry.Handlers.errorHandler());
+  app.post("/share", handlers.handleCreateShare);
+  app.get("/share/:shareId", handlers.handleGetShare);
 
-app.listen(PORT, async () => {
-  console.log(`Listening at port ${PORT}`);
+  app.use(Sentry.Handlers.errorHandler());
 
-  await syncModels();
-  await setupWebhook();
-});
+  app.listen(PORT, async () => {
+    console.log(`Listening at port ${PORT}`);
+
+    await setupWebhook();
+  });
+}
+
+async function main() {
+  await pgMigrate();
+  startServer();
+}
+main();

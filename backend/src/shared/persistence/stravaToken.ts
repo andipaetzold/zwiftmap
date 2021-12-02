@@ -1,4 +1,4 @@
-import { StravaTokenModel } from "./models";
+import { pool } from "./pg";
 import { redisClient } from "./redis";
 import { StravaToken } from "./types";
 
@@ -7,9 +7,23 @@ function createKey(athleteId: number): string {
 }
 
 export async function writeStravaToken(stravaToken: StravaToken) {
-  await StravaTokenModel.bulkCreate([stravaToken], {
-    updateOnDuplicate: ["token", "refreshToken", "expiresAt", "scope"],
-  });
+  await pool.query<
+    any,
+    [number, string, string, number, undefined | null | string[]]
+  >(
+    `INSERT INTO
+     "StravaToken"("athleteId", "token", "refreshToken", "expiresAt", "scope")
+     VALUES($1, $2, $3, $4, $5)
+     ON CONFLICT ("athleteId") DO UPDATE
+     SET "token" = $2, "refreshToken" = $3, "expiresAt" = $4, "scope" = $5`,
+    [
+      stravaToken.athleteId,
+      stravaToken.token,
+      stravaToken.refreshToken,
+      stravaToken.expiresAt,
+      stravaToken.scope,
+    ]
+  );
 
   // TODO: remove after migration
   const key = createKey(stravaToken.athleteId);
@@ -19,14 +33,12 @@ export async function writeStravaToken(stravaToken: StravaToken) {
 export async function readStravaToken(
   athleteId: number
 ): Promise<StravaToken | undefined> {
-  let result: any;
-  try {
-    result = await StravaTokenModel.findByPk(athleteId);
-  } catch (e) {
-    console.error(e);
-  }
+  const result = await pool.query<StravaToken, [number]>(
+    'SELECT * FROM "StravaToken" WHERE "athleteId" = $1 LIMIT 1',
+    [athleteId]
+  );
 
-  if (result === null) {
+  if (result.rowCount === 0) {
     const token = await redisClient.get<StravaToken>(createKey(athleteId));
     if (token) {
       await writeStravaToken(token);
@@ -34,11 +46,14 @@ export async function readStravaToken(
     return token;
   }
 
-  return result.get({ plain: true });
+  const row = result.rows[0];
+  return row;
 }
 
 export async function removeStravaToken(athleteId: number): Promise<void> {
-  await StravaTokenModel.destroy({ where: { athleteId } });
+  await pool.query('DELETE FROM "StravaToken" WHERE "athleteId" = $1', [
+    athleteId,
+  ]);
 
   // TODO: remove after migration
   await redisClient.del(createKey(athleteId));

@@ -1,6 +1,6 @@
-import { StravaSettingsModel } from "./models";
+import { pool } from "./pg";
 import { redisClient } from "./redis";
-import { StravaSettingsType } from "./types";
+import { StravaSettingsDBRow, StravaSettingsType } from "./types";
 
 function createKey(athleteId: number): string {
   return `strava-settings:${athleteId}`;
@@ -10,16 +10,13 @@ export async function writeStravaSettings(
   athleteId: number,
   settings: StravaSettingsType
 ) {
-  await StravaSettingsModel.bulkCreate(
-    [
-      {
-        athleteId,
-        addLinkToActivityDescription: settings.addLinkToActivityDescription,
-      },
-    ],
-    {
-      updateOnDuplicate: ["addLinkToActivityDescription"],
-    }
+  await pool.query<any, [number, boolean]>(
+    `INSERT INTO
+     "StravaSettings"("athleteId", "addLinkToActivityDescription")
+     VALUES($1, $2)
+     ON CONFLICT ("athleteId") DO UPDATE
+     SET "addLinkToActivityDescription" = $2`,
+    [athleteId, settings.addLinkToActivityDescription]
   );
 
   // TODO: remove after migration
@@ -30,9 +27,12 @@ export async function writeStravaSettings(
 export async function readStravaSettings(
   athleteId: number
 ): Promise<StravaSettingsType> {
-  const result = await StravaSettingsModel.findByPk(athleteId);
+  const result = await pool.query<StravaSettingsDBRow, [number]>(
+    'SELECT * FROM "StravaSettings" WHERE "athleteId" = $1 LIMIT 1',
+    [athleteId]
+  );
 
-  if (result === null) {
+  if (result.rowCount === 0) {
     // TODO: remove after migration
     const settings = await redisClient.get(createKey(athleteId));
     if (!settings) {
@@ -44,17 +44,16 @@ export async function readStravaSettings(
     return settings;
   }
 
+  const row = result.rows[0];
   return {
-    addLinkToActivityDescription: result.getDataValue(
-      "addLinkToActivityDescription"
-    ),
+    addLinkToActivityDescription: row.addLinkToActivityDescription,
   };
 }
 
 export async function removeStravaSettings(athleteId: number): Promise<void> {
-  await StravaSettingsModel.destroy({
-    where: { athleteId },
-  });
+  await pool.query('DELETE FROM "StravaSettings" WHERE "athleteId" = $1', [
+    athleteId,
+  ]);
 
   // TODO: remove after migration
   await redisClient.del(createKey(athleteId));
