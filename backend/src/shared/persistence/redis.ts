@@ -9,6 +9,7 @@ export const redisClient = {
   del,
   exists,
   get,
+  hdel,
   hget,
   hset,
   keys,
@@ -124,6 +125,17 @@ async function hget<T = any>(
         reject(err);
       } else {
         resolve(value ? JSON.parse(value) : undefined);
+      }
+    });
+  });
+}
+async function hdel<T = any>(key: string, field: string): Promise<void> {
+  return await new Promise((resolve, reject) => {
+    redisCallbackClient.hdel(key, field, (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
       }
     });
   });

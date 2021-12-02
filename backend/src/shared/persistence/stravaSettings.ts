@@ -40,6 +40,7 @@ export async function readStravaSettings(
         addLinkToActivityDescription: false,
       };
     }
+    console.log(`Migrating StravaSettings ${athleteId}`);
     await writeStravaSettings(athleteId, settings);
     return settings;
   }

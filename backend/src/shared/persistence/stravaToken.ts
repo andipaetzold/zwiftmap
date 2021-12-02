@@ -41,6 +41,7 @@ export async function readStravaToken(
   if (result.rowCount === 0) {
     const token = await redisClient.get<StravaToken>(createKey(athleteId));
     if (token) {
+      console.log(`Migrating StravaToken ${athleteId}`);
       await writeStravaToken(token);
     }
     return token;
