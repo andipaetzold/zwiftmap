@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import {
   readStravaSettings,
-  StravaSettings,
   writeStravaSettings,
 } from "../../../shared/persistence/stravaSettings";
+import { StravaSettings } from "../../../shared/persistence/types";
 import { Session } from "../../types";
 
 export async function handleGETStravaSettings(req: Request, res: Response) {

@@ -12,8 +12,7 @@
     "dev:worker": "tsc-watch -P worker.tsconfig.json --preserveWatchOutput --onSuccess \"node ./build-worker/worker\"",
     "build": "npm run build:web && npm run build:worker",
     "build:web": "tsc -P web.tsconfig.json",
-    "build:worker": "tsc -P worker.tsconfig.json",
-    "pg-migrate": "ts-node node_modules/.bin/node-pg-migrate -j ts"
+    "build:worker": "tsc -P worker.tsconfig.json"
   },
   "devDependencies": {
     "@tsconfig/node16": "1.0.2",
@@ -30,6 +29,7 @@
     "@types/pg": "8.6.1",
     "@types/redis": "2.8.32",
     "@types/tsc-watch": "4.2.0",
+    "@types/validator": "13.7.0",
     "ngrok": "4.2.2",
     "tsc-watch": "4.5.0",
     "typescript": "4.5.2"
@@ -49,16 +49,16 @@
     "fast-xml-parser": "4.0.0-beta.3",
     "lodash": "4.17.21",
     "morgan": "1.10.0",
-    "node-pg-migrate": "6.0.0",
     "nocache": "3.0.1",
     "pg": "8.7.1",
+    "pg-hstore": "2.3.4",
     "puppeteer": "12.0.1",
     "redis": "3.1.2",
     "runtypes": "6.5.0",
+    "sequelize": "6.12.0-alpha.1",
     "short-uuid": "4.2.0",
     "source-map-support": "0.5.21",
     "strava": "2.0.1",
-    "ts-node": "10.4.0",
     "xmlbuilder2": "3.0.2",
     "zwift-data": "1.10.1"
   }

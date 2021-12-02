@@ -1,7 +1,8 @@
-import "source-map-support/register";
 import * as Sentry from "@sentry/node";
 import * as Tracing from "@sentry/tracing";
+import "source-map-support/register";
 import { PORT, SENTRY_WEB_DSN } from "../shared/config";
+import { syncModels } from "../shared/persistence/models";
 import * as handlers from "./handlers";
 import { app } from "./server";
 import { setupWebhook } from "./services/webhook";
@@ -46,5 +47,6 @@ app.use(Sentry.Handlers.errorHandler());
 app.listen(PORT, async () => {
   console.log(`Listening at port ${PORT}`);
 
+  await syncModels();
   await setupWebhook();
 });
