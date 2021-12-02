@@ -25,8 +25,6 @@ export const StravaSettingsModel: ModelDefined<
   athleteId: {
     type: DataTypes.INTEGER,
     primaryKey: true,
-    allowNull: false,
-    unique: true,
   },
   addLinkToActivityDescription: {
     type: DataTypes.BOOLEAN,
@@ -39,8 +37,6 @@ export const StravaTokenModel: ModelDefined<StravaToken, StravaToken> =
     athleteId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      allowNull: false,
-      unique: true,
     },
     token: {
       type: DataTypes.STRING,
