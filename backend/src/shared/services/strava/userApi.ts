@@ -3,9 +3,9 @@ import { RefreshTokenResponse } from "strava";
 import {
   readStravaToken,
   removeStravaToken,
-  StravaToken,
   writeStravaToken,
 } from "../../persistence/stravaToken";
+import { StravaToken } from "../../persistence/types";
 import { stravaAppAPI } from "./appApi";
 import { TokenNotFoundError } from "./types";
 

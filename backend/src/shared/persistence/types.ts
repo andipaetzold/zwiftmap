@@ -6,3 +6,11 @@ export const StravaSettings = Record({
 
 export type StravaSettingsType = Static<typeof StravaSettings>;
 export type StravaSettingsDBRow = { athleteId: number } & StravaSettingsType;
+
+export interface StravaToken {
+  athleteId: number;
+  token: string;
+  refreshToken: string;
+  expiresAt: number;
+  scope?: string[] | null;
+}
