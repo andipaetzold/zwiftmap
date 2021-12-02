@@ -28,7 +28,7 @@ export const StravaSettingsModel: ModelDefined<
   },
   addLinkToActivityDescription: {
     type: DataTypes.BOOLEAN,
-    unique: true,
+    allowNull: false,
   },
 });
 
