@@ -31,8 +31,6 @@
     "@types/redis": "2.8.32",
     "@types/tsc-watch": "4.2.0",
     "ngrok": "4.2.2",
-    "node-pg-migrate": "6.0.0",
-    "ts-node": "10.4.0",
     "tsc-watch": "4.5.0",
     "typescript": "4.5.2"
   },
@@ -51,6 +49,7 @@
     "fast-xml-parser": "4.0.0-beta.3",
     "lodash": "4.17.21",
     "morgan": "1.10.0",
+    "node-pg-migrate": "6.0.0",
     "nocache": "3.0.1",
     "pg": "8.7.1",
     "puppeteer": "12.0.1",
@@ -59,6 +58,7 @@
     "short-uuid": "4.2.0",
     "source-map-support": "0.5.21",
     "strava": "2.0.1",
+    "ts-node": "10.4.0",
     "xmlbuilder2": "3.0.2",
     "zwift-data": "1.10.1"
   }
