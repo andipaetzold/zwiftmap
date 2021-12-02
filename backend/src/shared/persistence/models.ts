@@ -4,10 +4,13 @@ import { StravaSettingsDBRow, StravaToken } from "./types";
 
 const sequelize = new Sequelize(DATABASE_URL, {
   dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    },
+    ssl:
+      ENVIRONMENT === "production"
+        ? {
+            require: true,
+            rejectUnauthorized: false,
+          }
+        : undefined,
   },
   define: {
     freezeTableName: true,
