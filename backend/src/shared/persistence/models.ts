@@ -57,6 +57,6 @@ export const StravaTokenModel: ModelDefined<StravaToken, StravaToken> =
   });
 
 export async function syncModels() {
-  await StravaSettingsModel.sync({ alter: true });
-  await StravaTokenModel.sync({ alter: true });
+  await StravaSettingsModel.sync();
+  await StravaTokenModel.sync();
 }
