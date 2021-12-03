@@ -29,8 +29,3 @@ export function wrap<T>(
     }
   };
 }
-
-export async function retryAllFailed(queue: Queue) {
-  const jobs = await queue.getFailed();
-  jobs.forEach((job) => job.retry());
-}
