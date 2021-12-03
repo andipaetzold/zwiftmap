@@ -9,9 +9,6 @@ export const redisClient = {
   del,
   exists,
   get,
-  hdel,
-  hget,
-  hset,
   keys,
   set,
   setex,
@@ -92,50 +89,6 @@ async function exists(key: string): Promise<boolean> {
         reject(err);
       } else {
         resolve(reply === 1);
-      }
-    });
-  });
-}
-
-async function hset<T = any>(
-  key: string,
-  field: string,
-  value: T
-): Promise<void> {
-  const stringified = JSON.stringify(value);
-
-  await new Promise<void>((resolve, reject) => {
-    redisCallbackClient.hset(key, field, stringified, (err) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve();
-      }
-    });
-  });
-}
-
-async function hget<T = any>(
-  key: string,
-  field: string
-): Promise<T | undefined> {
-  return await new Promise((resolve, reject) => {
-    redisCallbackClient.hget(key, field, (err, value) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(value ? JSON.parse(value) : undefined);
-      }
-    });
-  });
-}
-async function hdel<T = any>(key: string, field: string): Promise<void> {
-  return await new Promise((resolve, reject) => {
-    redisCallbackClient.hdel(key, field, (err) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve();
       }
     });
   });
