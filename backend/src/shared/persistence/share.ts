@@ -30,6 +30,8 @@ export async function writeShare(
       'INSERT INTO "ShareStravaActivity"("id", "athlete", "activity", "streams") VALUES($1, $2, $3, $4)',
       [share.id, share.athlete, share.activity, share.streams as any]
     );
+
+    return share;
   }
 
   const row = result.rows[0];
