@@ -13,7 +13,7 @@ export async function writeShare(
   const result = await pool.query<ShareStravaActivityDBRow, [number, number]>(
     `SELECT * FROM "ShareStravaActivity"
           WHERE
-            ("athlete" ->> 'id')::integer = $1 AND
+            ("athlete" ->> 'id')::bigint = $1 AND
             ("activity" ->> 'id')::bigint = $2
           LIMIT 1`,
     [shareWithoutId.athlete.id, shareWithoutId.activity.id]
