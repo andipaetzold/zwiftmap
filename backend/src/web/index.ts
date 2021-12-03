@@ -5,6 +5,7 @@ import "source-map-support/register";
 import { PORT, SENTRY_WEB_DSN } from "../shared/config";
 import { pool } from "../shared/persistence/pg";
 import * as handlers from "./handlers";
+import { errorHandler } from "./middleware/errorHandler";
 import { app } from "./server";
 import { setupWebhook } from "./services/webhook";
 
@@ -57,6 +58,7 @@ function startServer() {
   app.get("/share/:shareId", handlers.handleGetShare);
 
   app.use(Sentry.Handlers.errorHandler());
+  app.use(errorHandler);
 
   app.listen(PORT, async () => {
     console.log(`Listening at port ${PORT}`);

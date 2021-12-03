@@ -5,28 +5,20 @@ import { isZwiftActivity } from "../../../../shared/util";
 import { Session } from "../../../types";
 
 export async function handleGETActivity(req: Request, res: Response) {
-  try {
-    const session = req.session as Session;
-    if (!session.stravaAthleteId) {
-      res.sendStatus(403);
-      return;
-    }
+  const session = req.session as Session;
+  if (!session.stravaAthleteId) {
+    res.sendStatus(403);
+    return;
+  }
 
-    const activity = await getActivityById(
-      session.stravaAthleteId,
-      +req.params.activityId
-    );
+  const activity = await getActivityById(
+    session.stravaAthleteId,
+    +req.params.activityId
+  );
 
-    if (isZwiftActivity(activity)) {
-      res.status(200).json(activity);
-    } else {
-      res.sendStatus(404);
-    }
-  } catch (error) {
-    if (axios.isAxiosError(error) && error.response) {
-      res.sendStatus(error.response.status);
-    } else {
-      res.sendStatus(500);
-    }
+  if (isZwiftActivity(activity)) {
+    res.status(200).json(activity);
+  } else {
+    res.sendStatus(404);
   }
 }

@@ -14,7 +14,6 @@ import { COLORS, ZONES } from "./workout/constants";
 
 const HEIGHT = 250;
 const WIDTH = 1_000;
-const GAP = 1;
 
 const parserOptions: X2jOptionsOptional = {
   preserveOrder: true,
@@ -49,22 +48,13 @@ export async function handleGetEventWorkout(req: Request, res: Response) {
     return;
   }
 
-  try {
-    const response = await axios.get(workoutUrl);
-    const xmlData = response.data;
+  const response = await axios.get(workoutUrl);
+  const xmlData = response.data;
 
-    const workout = parser.parse(xmlData);
+  const workout = parser.parse(xmlData);
+  const image = createImage(workout);
 
-    const image = createImage(workout);
-
-    res.status(200).contentType("svg").send(image);
-  } catch (error) {
-    if (axios.isAxiosError(error) && error.response) {
-      res.sendStatus(error.response.status);
-    } else {
-      res.sendStatus(500);
-    }
-  }
+  res.status(200).contentType("svg").send(image);
 }
 
 function createImage(parsedXML: any) {

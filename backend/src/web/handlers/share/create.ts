@@ -1,6 +1,5 @@
-import * as Sentry from "@sentry/node";
 import { Request, Response } from "express";
-import { Literal, Record, Number } from "runtypes";
+import { Literal, Number, Record } from "runtypes";
 import { ErrorWithStatusCode } from "../../../shared/ErrorWithStatusCode";
 import { Share } from "../../../shared/persistence/types";
 import { shareActivity } from "../../../shared/services/sharing";
@@ -19,27 +18,15 @@ export async function handleCreateShare(req: Request, res: Response) {
     return;
   }
 
-  try {
-    let share: Share;
-    switch (req.body.type) {
-      case "strava-activity": {
-        share = await handleStravaActivity(
-          session,
-          req.body.stravaActivityId
-        );
-        break;
-      }
-    }
-
-    res.status(201).json({ id: share.id });
-  } catch (e) {
-    Sentry.captureException(e);
-    if (e instanceof ErrorWithStatusCode) {
-      res.sendStatus(e.statusCode);
-    } else {
-      res.sendStatus(500);
+  let share: Share;
+  switch (req.body.type) {
+    case "strava-activity": {
+      share = await handleStravaActivity(session, req.body.stravaActivityId);
+      break;
     }
   }
+
+  res.status(201).json({ id: share.id });
 }
 
 async function handleStravaActivity(
