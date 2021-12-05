@@ -67,47 +67,47 @@ function createImage(parsedXML: any) {
       return [
         {
           type: "ramp",
-          duration: node.attributes.Duration,
-          from: node.attributes.PowerLow,
-          to: node.attributes.PowerHigh,
+          duration: node[":@"].Duration,
+          from: node[":@"].PowerLow,
+          to: node[":@"].PowerHigh,
         },
       ];
     } else if ("Cooldown" in node) {
       return [
         {
           type: "ramp",
-          duration: node.attributes.Duration,
-          from: node.attributes.PowerLow,
-          to: node.attributes.PowerHigh,
+          duration: node[":@"].Duration,
+          from: node[":@"].PowerLow,
+          to: node[":@"].PowerHigh,
         },
       ];
     } else if ("SteadyState" in node) {
       return [
         {
           type: "bar",
-          duration: node.attributes.Duration,
-          power: node.attributes.Power,
+          duration: node[":@"].Duration,
+          power: node[":@"].Power,
         },
       ];
     } else if ("FreeRide" in node) {
       return [
         {
           type: "free-ride",
-          duration: node.attributes.Duration,
+          duration: node[":@"].Duration,
         },
       ];
     } else if ("IntervalsT" in node) {
       const result: Interval[] = [];
-      for (let i = 0; i < node.attributes.Repeat; ++i) {
+      for (let i = 0; i < node[":@"].Repeat; ++i) {
         result.push({
           type: "bar",
-          duration: node.attributes.OnDuration,
-          power: node.attributes.OnPower,
+          duration: node[":@"].OnDuration,
+          power: node[":@"].OnPower,
         });
         result.push({
           type: "bar",
-          duration: node.attributes.OffDuration,
-          power: node.attributes.OffPower,
+          duration: node[":@"].OffDuration,
+          power: node[":@"].OffPower,
         });
       }
       return result;
