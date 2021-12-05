@@ -1,5 +1,6 @@
 import axios from "axios";
 import { NextFunction, Request, Response } from "express";
+import { ENVIRONMENT } from "../../shared/config";
 import { ErrorWithStatusCode } from "../../shared/ErrorWithStatusCode";
 
 export function errorHandler(
@@ -8,6 +9,10 @@ export function errorHandler(
   res: Response,
   next: NextFunction
 ) {
+  if (ENVIRONMENT === "development") {
+    req.logger.error(err);
+  }
+
   if (err instanceof ErrorWithStatusCode) {
     res.statusCode = err.statusCode;
   } else if (axios.isAxiosError(err)) {
