@@ -58,63 +58,81 @@ export async function handleGetEventWorkout(req: Request, res: Response) {
 }
 
 function createImage(parsedXML: any) {
-  const workout = parsedXML
+  const workout: any[] = parsedXML
     .find((node: any) => "workout_file" in node)!
     .workout_file.find((node: any) => "workout" in node).workout;
 
-  const intervals: Interval[] = workout.flatMap((node: any): Interval[] => {
-    if ("Warmup" in node) {
-      return [
-        {
-          type: "ramp",
-          duration: node[":@"].Duration,
-          from: node[":@"].PowerLow,
-          to: node[":@"].PowerHigh,
-        },
-      ];
-    } else if ("Cooldown" in node) {
-      return [
-        {
-          type: "ramp",
-          duration: node[":@"].Duration,
-          from: node[":@"].PowerLow,
-          to: node[":@"].PowerHigh,
-        },
-      ];
-    } else if ("SteadyState" in node) {
-      return [
-        {
-          type: "bar",
-          duration: node[":@"].Duration,
-          power: node[":@"].Power,
-        },
-      ];
-    } else if ("FreeRide" in node) {
-      return [
-        {
-          type: "free-ride",
-          duration: node[":@"].Duration,
-        },
-      ];
-    } else if ("IntervalsT" in node) {
-      const result: Interval[] = [];
-      for (let i = 0; i < node[":@"].Repeat; ++i) {
-        result.push({
-          type: "bar",
-          duration: node[":@"].OnDuration,
-          power: node[":@"].OnPower,
-        });
-        result.push({
-          type: "bar",
-          duration: node[":@"].OffDuration,
-          power: node[":@"].OffPower,
-        });
+  const intervals: Interval[] = workout
+    .flatMap((node): Interval[] => {
+      if ("Warmup" in node) {
+        return [
+          {
+            type: "ramp",
+            duration: node[":@"].Duration,
+            from: node[":@"].PowerLow,
+            to: node[":@"].PowerHigh,
+          },
+        ];
+      } else if ("Cooldown" in node) {
+        return [
+          {
+            type: "ramp",
+            duration: node[":@"].Duration,
+            from: node[":@"].PowerLow,
+            to: node[":@"].PowerHigh,
+          },
+        ];
+      } else if ("SteadyState" in node) {
+        return [
+          {
+            type: "bar",
+            duration: node[":@"].Duration,
+            power: node[":@"].Power,
+          },
+        ];
+      } else if ("FreeRide" in node) {
+        return [
+          {
+            type: "free-ride",
+            duration: node[":@"].Duration,
+          },
+        ];
+      } else if ("IntervalsT" in node) {
+        const result: Interval[] = [];
+        for (let i = 0; i < node[":@"].Repeat; ++i) {
+          result.push({
+            type: "bar",
+            duration: node[":@"].OnDuration,
+            power: node[":@"].OnPower,
+          });
+          result.push({
+            type: "bar",
+            duration: node[":@"].OffDuration,
+            power: node[":@"].OffPower,
+          });
+        }
+        return result;
+      } else {
+        return [];
       }
-      return result;
-    } else {
-      return [];
-    }
-  });
+    })
+    .reduce<Interval[]>((prev, cur) => {
+      // dedupe intervals where only cadence changes
+      const prevInterval = prev.at(-1);
+      if (
+        prevInterval &&
+        cur.type === "bar" &&
+        prevInterval.type === "bar" &&
+        prevInterval.power === cur.power
+      ) {
+        return [
+          ...prev.slice(0, -1),
+          { ...prevInterval, duration: prevInterval.duration + cur.duration },
+        ];
+      } else {
+        return [...prev, cur];
+      }
+    }, []);
 
   const totalDuration = intervals
     .map((i) => i.duration)
