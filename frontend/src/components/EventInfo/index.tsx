@@ -28,7 +28,7 @@ export function EventInfo({ event, showWorld = false }: Props) {
       Sentry.captureException(e, {
         extra: {
           eventId: event.id,
-          eventStart: event.eventSecret,
+          eventStart: event.eventStart,
         },
       });
     }
