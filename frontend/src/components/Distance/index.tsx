@@ -14,25 +14,31 @@ const formatNoDigits = new Intl.NumberFormat("en-US", {
 
 interface Props {
   distance: number;
+  label?: string;
 }
 
-export function Distance({ distance }: Props) {
+export function Distance({ distance, label = "Distance" }: Props) {
   const [settings] = useSettings();
+  let text: string;
   switch (settings.units) {
     case "imperial": {
       const value = distance / 1.609;
       if (value < 0.3) {
-        return <>{formatNoDigits.format(value * 5280)}ft</>;
+        text = `${formatNoDigits.format(value * 5280)}ft`;
       } else {
-        return <>{formatDigits.format(value)}mi</>;
+        text = `${formatDigits.format(value)}mi`;
       }
+      break;
     }
     case "metric": {
       if (distance < 1) {
-        return <>{formatNoDigits.format(distance * 1000)}m</>;
+        text = `${formatNoDigits.format(distance * 1000)}m`;
       } else {
-        return <>{formatDigits.format(distance)}km</>;
+        text = `${formatDigits.format(distance)}km`;
       }
+      break;
     }
   }
+
+  return <span aria-label={`${label}: ${text}`}>{text}</span>;
 }

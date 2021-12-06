@@ -172,7 +172,7 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
   const selectedWorld = locationState.world ?? DEFAULT_WORLD;
 
   return (
-    <div className={styles.Container}>
+    <div className={styles.Container} aria-hidden="true">
       <WorldSelect
         world={selectedWorld}
         onWorldChange={(newWorld) => {

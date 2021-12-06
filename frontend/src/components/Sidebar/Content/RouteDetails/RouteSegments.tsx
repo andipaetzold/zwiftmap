@@ -1,4 +1,4 @@
-import { ListItem, ListSubheader, SimpleListItem } from "@react-md/list";
+import { List, ListItem, ListSubheader, SimpleListItem } from "@react-md/list";
 import {
   VisibilityFontIcon,
   VisibilityOffFontIcon,
@@ -34,17 +34,32 @@ export function RouteSegments({ route }: Props) {
 
   if (segmentsOnRoute.length === 0) {
     return (
-      <SimpleListItem>
-        <Typography type="body-2">No segments on this route.</Typography>
-      </SimpleListItem>
+      <List
+        role="list"
+        aria-labelledby="route-segments-header"
+        style={{ marginTop: 0, marginBottom: 0 }}
+      >
+        <ListSubheader role="presentation" id="route-segments-header">
+          Segments
+        </ListSubheader>
+        <SimpleListItem>
+          <Typography type="body-2">No segments on this route.</Typography>
+        </SimpleListItem>
+      </List>
     );
   }
 
   const selectedSegments = (locationState as LocationStateRoute).segments;
 
   return (
-    <>
-      <ListSubheader>Segments</ListSubheader>
+    <List
+      role="list"
+      aria-labelledby="route-segments-header"
+      style={{ marginTop: 0, marginBottom: 0 }}
+    >
+      <ListSubheader role="presentation" id="route-segments-header">
+        Segments
+      </ListSubheader>
       {segmentsOnRoute.map((segment) => (
         <ListItem
           key={segment.slug}
@@ -85,7 +100,7 @@ export function RouteSegments({ route }: Props) {
           {segment.name}
         </ListItem>
       ))}
-    </>
+    </List>
   );
 }
 

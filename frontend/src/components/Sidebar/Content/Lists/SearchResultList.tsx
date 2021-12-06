@@ -70,8 +70,14 @@ function SearchResultsTypeList({
     return null;
   }
   return (
-    <>
-      <ListSubheader>{SEARCH_RESULTS_TYPES[type].title}</ListSubheader>
+    <List
+      style={{ marginTop: 0, marginBottom: 0 }}
+      role="list"
+      aria-labelledby={`${type}-header`}
+    >
+      <ListSubheader id={`${type}-header`} role="none">
+        {SEARCH_RESULTS_TYPES[type].title}
+      </ListSubheader>
 
       {[...results]
         .sort((a, b) => {
@@ -97,7 +103,7 @@ function SearchResultsTypeList({
             onHoverRoute={onHoverRoute}
           />
         ))}
-    </>
+    </List>
   );
 }
 

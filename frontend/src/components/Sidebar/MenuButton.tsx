@@ -19,7 +19,7 @@ interface Props {
 }
 
 export function MenuButton({ onBottomSheetClose }: Props) {
-  const [menuVisible, setMenuVisible] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [settingsDialogVisible, showSettingsDialog, hideSettingsDialog] =
     useToggle(false);
   const [infoDialogVisible, showInfoDialog, hideInfoDialog] = useToggle(false);
@@ -31,21 +31,24 @@ export function MenuButton({ onBottomSheetClose }: Props) {
       <ListItem
         onClick={(e) => {
           e.stopPropagation();
-          setMenuVisible(!menuVisible);
+          setMenuOpen(!menuOpen);
         }}
         rightAddon={isMobile ? <MenuFontIcon /> : <ChevronRightFontIcon />}
         rightAddonType="icon"
-        id="sidebar-menu"
+        id="sidebar-menu-button"
+        aria-haspopup="true"
+        aria-expanded={menuOpen}
+        aria-controls="sidebar-menu"
       >
         Menu
       </ListItem>
 
       <Menu
         id="sidebar-menu"
-        controlId="sidebar-menu"
-        visible={menuVisible}
-        onRequestClose={() => setMenuVisible(false)}
-        aria-labelledby="sidebar-menu"
+        controlId="sidebar-menu-button"
+        aria-labelledby="sidebar-menu-button"
+        visible={menuOpen}
+        onRequestClose={() => setMenuOpen(false)}
         anchor={BOTTOM_RIGHT_ANCHOR}
         portal
       >

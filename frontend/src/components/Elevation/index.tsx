@@ -8,14 +8,19 @@ const formatNoDigits = new Intl.NumberFormat("en-US", {
 
 interface Props {
   elevation: number;
+  label?: string;
 }
 
-export function Elevation({ elevation }: Props) {
+export function Elevation({ elevation, label = "Elevation" }: Props) {
   const [settings] = useSettings();
+  let text: string;
   switch (settings.units) {
     case "imperial":
-      return <>{formatNoDigits.format(elevation * 3.28084)}ft</>;
+      text = `${formatNoDigits.format(elevation * 3.28084)}ft`;
+      break;
     case "metric":
-      return <>{formatNoDigits.format(elevation)}m</>;
+      text = `${formatNoDigits.format(elevation)}m`;
+      break;
   }
+  return <span aria-label={`${label}: ${text}`}>{text}</span>;
 }

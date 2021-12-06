@@ -16,6 +16,7 @@ export interface Props {
 export function ListItemRoute({ route, onHoverRoute, showWorldName }: Props) {
   return (
     <ListItemState
+      role="listitem"
       secondaryText={<RouteInfo route={route} showWorldName={showWorldName} />}
       threeLines={showWorldName}
       state={{
@@ -49,7 +50,7 @@ function RouteInfo({ route, showWorldName }: RouteInfoProps) {
           <br />
         </>
       )}
-      <Distance distance={route.distance} /> |{" "}
+      <Distance distance={route.distance} /> <span aria-hidden="true">|</span>{" "}
       <Elevation elevation={route.elevation} />
     </>
   );

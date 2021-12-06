@@ -30,6 +30,7 @@ export function Sidebar({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
           [styles.BottomSheetOpen]: bottomSheetOpen,
         })}
         ref={containerRef}
+        role="main"
       >
         <button
           className={styles.DragHandle}

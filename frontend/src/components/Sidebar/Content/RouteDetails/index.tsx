@@ -27,36 +27,38 @@ export function RouteDetails({
   backButtonState,
 }: Props) {
   return (
-    <List>
-      <Helmet>
-        <title>{route.name}</title>
-      </Helmet>
+    <>
+      <List>
+        <Helmet>
+          <title>{route.name}</title>
+        </Helmet>
 
-      <SimpleListItem>
-        <ButtonState themeType="outline" state={backButtonState}>
-          <TextIconSpacing icon={<ListFontIcon />}>
-            {backButtonText}
-          </TextIconSpacing>
-        </ButtonState>
-      </SimpleListItem>
+        <SimpleListItem>
+          <ButtonState themeType="outline" state={backButtonState}>
+            <TextIconSpacing icon={<ListFontIcon />}>
+              {backButtonText}
+            </TextIconSpacing>
+          </ButtonState>
+        </SimpleListItem>
 
-      <SimpleListItem>
-        <Typography type="headline-6" style={{ margin: 0 }}>
-          {route.name}
-        </Typography>
-      </SimpleListItem>
+        <SimpleListItem>
+          <Typography type="headline-6" style={{ margin: 0 }}>
+            {route.name}
+          </Typography>
+        </SimpleListItem>
 
-      <RouteFacts route={route} />
-      <RouteStravaPB route={route} />
+        <RouteFacts route={route} />
+        <RouteStravaPB route={route} />
 
-      <RouteElevationChart
-        route={route}
-        onMouseHoverDistanceChange={onMouseHoverDistanceChange}
-      />
+        <RouteElevationChart
+          route={route}
+          onMouseHoverDistanceChange={onMouseHoverDistanceChange}
+        />
+      </List>
 
       <RouteEvents route={route} />
       <RouteSegments route={route} />
       <RouteLinks route={route} />
-    </List>
+    </>
   );
 }

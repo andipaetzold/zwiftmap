@@ -12,7 +12,7 @@ export default function App() {
   const [previewRoute, setPreviewRoute] = useState<HoverData>();
 
   return (
-    <div className={styles.Wrapper}>
+    <div className={styles.Wrapper} role="presentation">
       <Sidebar
         onMouseHoverDistanceChange={setMouseHoverDistance}
         onHoverRoute={setPreviewRoute}

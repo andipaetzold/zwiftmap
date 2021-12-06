@@ -1,4 +1,9 @@
-import { ListItemText, ListSubheader, SimpleListItem } from "@react-md/list";
+import {
+  List,
+  ListItemText,
+  ListSubheader,
+  SimpleListItem,
+} from "@react-md/list";
 import { Typography } from "@react-md/typography";
 import React, { useMemo } from "react";
 import { useAsync } from "react-async-hook";
@@ -41,18 +46,30 @@ export function RouteEvents({ route }: Props) {
 
   if (filteredEvents.length === 0) {
     return (
-      <>
-        <ListSubheader>Upcoming Events</ListSubheader>
+      <List
+        role="list"
+        aria-labelledby="route-events-header"
+        style={{ marginTop: 0, marginBottom: 0 }}
+      >
+        <ListSubheader id="route-events-header" role="none">
+          Upcoming Events
+        </ListSubheader>
         <SimpleListItem>
           <Typography type="body-2">No events on this route today.</Typography>
         </SimpleListItem>
-      </>
+      </List>
     );
   }
 
   return (
-    <>
-      <ListSubheader>Upcoming Events</ListSubheader>
+    <List
+      role="list"
+      aria-labelledby="route-events-header"
+      style={{ marginTop: 0, marginBottom: 0 }}
+    >
+      <ListSubheader id="route-events-header" role="none">
+        Upcoming Events
+      </ListSubheader>
       {filteredEvents.slice(0, 3).map((event) => (
         <ListItemState
           key={event.id}
@@ -75,6 +92,6 @@ export function RouteEvents({ route }: Props) {
           </Typography>
         </SimpleListItem>
       )}
-    </>
+    </List>
   );
 }

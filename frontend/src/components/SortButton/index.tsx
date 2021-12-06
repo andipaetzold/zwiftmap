@@ -1,13 +1,13 @@
 import { Chip } from "@react-md/chip";
-import { List, SimpleListItem } from "@react-md/list";
+import { ListItem, SimpleListItem } from "@react-md/list";
 import {
   LabelFontIcon,
   LandscapeFontIcon,
   SortFontIcon,
   SpaceBarFontIcon,
-  StarFontIcon,
+  StarFontIcon
 } from "@react-md/material-icons";
-import { Menu, MenuItem } from "@react-md/menu";
+import { Menu } from "@react-md/menu";
 import { BELOW_INNER_LEFT_ANCHOR, useToggle } from "@react-md/utils";
 import c from "classnames";
 import { useSessionSettings } from "../../hooks/useSessionSettings";
@@ -44,9 +44,12 @@ export function SortButton() {
 
   return (
     <>
-      <SimpleListItem>
+      <SimpleListItem role="presentation">
         <Chip
-          id="sort-chip"
+          id="sort-menu-button"
+          aria-controls="sort-menu"
+          aria-label="Sort List"
+          role="listbox"
           onClick={(e) => {
             e.stopPropagation();
             toggleMenu();
@@ -64,51 +67,51 @@ export function SortButton() {
 
         <Menu
           id="sort-menu"
-          controlId="sort-chip"
-          aria-labelledby="sort-chip"
+          controlId="sort-menu-button"
+          aria-labelledby="sort-menu-button"
           visible={menuVisible}
           onRequestClose={hideMenu}
           anchor={BELOW_INNER_LEFT_ANCHOR}
           portal
+          // @ts-ignore
+          role="list"
         >
-          <List>
-            <MenuItem
-              onClick={() => handleItemClick("name")}
-              leftAddon={<LabelFontIcon />}
-            >
-              {NAME_MAP["name"]}
-            </MenuItem>
-            <MenuItem
-              onClick={() => handleItemClick("distance")}
-              leftAddon={<SpaceBarFontIcon />}
-            >
-              {NAME_MAP["distance"]}
-            </MenuItem>
-            <MenuItem
-              onClick={() => handleItemClick("elevation")}
-              leftAddon={<LandscapeFontIcon />}
-            >
-              {NAME_MAP["elevation"]}
-            </MenuItem>
-            <MenuItem
-              onClick={() => handleItemClick("experience")}
-              leftAddon={<StarFontIcon />}
-            >
-              {NAME_MAP["experience"]}
-            </MenuItem>
-            <MenuItem
-              onClick={() => handleItemClick("leadInDistance")}
-              leftAddon={<SpaceBarFontIcon />}
-            >
-              {NAME_MAP["leadInDistance"]}
-            </MenuItem>
-            <MenuItem
-              onClick={() => handleItemClick("leadInElevation")}
-              leftAddon={<LandscapeFontIcon />}
-            >
-              {NAME_MAP["leadInElevation"]}
-            </MenuItem>
-          </List>
+          <ListItem
+            onClick={() => handleItemClick("name")}
+            leftAddon={<LabelFontIcon />}
+          >
+            {NAME_MAP["name"]}
+          </ListItem>
+          <ListItem
+            onClick={() => handleItemClick("distance")}
+            leftAddon={<SpaceBarFontIcon />}
+          >
+            {NAME_MAP["distance"]}
+          </ListItem>
+          <ListItem
+            onClick={() => handleItemClick("elevation")}
+            leftAddon={<LandscapeFontIcon />}
+          >
+            {NAME_MAP["elevation"]}
+          </ListItem>
+          <ListItem
+            onClick={() => handleItemClick("experience")}
+            leftAddon={<StarFontIcon />}
+          >
+            {NAME_MAP["experience"]}
+          </ListItem>
+          <ListItem
+            onClick={() => handleItemClick("leadInDistance")}
+            leftAddon={<SpaceBarFontIcon />}
+          >
+            {NAME_MAP["leadInDistance"]}
+          </ListItem>
+          <ListItem
+            onClick={() => handleItemClick("leadInElevation")}
+            leftAddon={<LandscapeFontIcon />}
+          >
+            {NAME_MAP["leadInElevation"]}
+          </ListItem>
         </Menu>
       </SimpleListItem>
     </>

@@ -1,10 +1,10 @@
 import { SimpleListItem } from "@react-md/list";
 import {
-    EventFontIcon,
-    LandscapeFontIcon,
-    MapFontIcon,
-    SpaceBarFontIcon,
-    StarFontIcon
+  EventFontIcon,
+  LandscapeFontIcon,
+  MapFontIcon,
+  SpaceBarFontIcon,
+  StarFontIcon,
 } from "@react-md/material-icons";
 import { Route, worlds } from "zwift-data";
 import { Distance } from "../../../Distance";
@@ -29,8 +29,12 @@ export function RouteFacts({ route }: Props) {
           <>
             &nbsp;
             <small>
-              (+
-              <Distance distance={route.leadInDistance} />)
+              (<span role="presentation">+</span>
+              <Distance
+                distance={route.leadInDistance}
+                label="Lead-in distance"
+              />
+              )
             </small>
           </>
         )}
@@ -46,8 +50,12 @@ export function RouteFacts({ route }: Props) {
           <>
             &nbsp;
             <small>
-              (+
-              <Elevation elevation={route.leadInElevation} />)
+              (<span role="presentation">+</span>
+              <Elevation
+                elevation={route.leadInElevation}
+                label="Lead-in elevation"
+              />
+              )
             </small>
           </>
         )}
@@ -58,6 +66,7 @@ export function RouteFacts({ route }: Props) {
           clickable={false}
           leftAddon={<StarFontIcon />}
           leftAddonType="icon"
+          aria-label={`Experience: ${route.experience}`}
         >
           {route.experience}XP
         </SimpleListItem>
@@ -73,7 +82,11 @@ export function RouteFacts({ route }: Props) {
         </SimpleListItem>
       )}
 
-      <SimpleListItem clickable={false} leftAddon={<MapFontIcon />}>
+      <SimpleListItem
+        clickable={false}
+        leftAddon={<MapFontIcon />}
+        aria-label={`World: ${world.name}`}
+      >
         {world.name}
       </SimpleListItem>
     </>

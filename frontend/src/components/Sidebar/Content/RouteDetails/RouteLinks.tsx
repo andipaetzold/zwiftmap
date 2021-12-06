@@ -1,5 +1,10 @@
 import { Avatar } from "@react-md/avatar";
-import { ListItemLink, ListItemText, ListSubheader } from "@react-md/list";
+import {
+  List,
+  ListItemLink,
+  ListItemText,
+  ListSubheader,
+} from "@react-md/list";
 import { OpenInNewFontIcon } from "@react-md/material-icons";
 import { Route } from "zwift-data";
 import stravaLogo from "../../../../assets/strava-40x40.png";
@@ -12,8 +17,14 @@ interface Props {
 
 export function RouteLinks({ route }: Props) {
   return (
-    <>
-      <ListSubheader>Links</ListSubheader>
+    <List
+      style={{ marginTop: 0, marginBottom: 0 }}
+      aria-labelledby="route-links-header"
+      role="list"
+    >
+      <ListSubheader id="route-links-header" role="presentation">
+        Links
+      </ListSubheader>
       {route.zwiftInsiderUrl && (
         <ListItemLink
           href={route.zwiftInsiderUrl}
@@ -62,6 +73,6 @@ export function RouteLinks({ route }: Props) {
           <ListItemText>What's on Zwift</ListItemText>
         </ListItemLink>
       )}
-    </>
+    </List>
   );
 }

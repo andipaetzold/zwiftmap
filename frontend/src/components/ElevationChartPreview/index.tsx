@@ -124,6 +124,7 @@ function ElevationChartPreview({ data }: Props) {
       data={data}
       // @ts-ignore
       baseValue="dataMin"
+      aria-hidden="true"
     >
       <defs>
         <ElevationGradient />

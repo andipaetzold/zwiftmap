@@ -15,6 +15,7 @@ export function SearchInput() {
       style={{ width: "100%" }}
       placeholder="Search for worlds and routes…"
       value={query}
+      role="searchbox"
       onChange={(e) => {
         setLocationState({
           world: locationState.world ?? DEFAULT_WORLD,

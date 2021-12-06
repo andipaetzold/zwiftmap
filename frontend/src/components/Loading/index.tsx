@@ -17,7 +17,12 @@ export function LoadingSpinner({ small }: Props) {
 
 export function LoadingSpinnerListItem({ small }: Props) {
   return (
-    <SimpleListItem>
+    <SimpleListItem
+      role="progressbar"
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-valuenow={0}
+    >
       <LoadingSpinner small={small} />
     </SimpleListItem>
   );
