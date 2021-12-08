@@ -40,7 +40,7 @@ export function EventInfo({ event, showWorld = false }: Props) {
 
   return (
     <>
-      {date}
+      <time dateTime={event.eventStart!}>{date}</time>
       {showWorld && world && (
         <>
           {" | "}
