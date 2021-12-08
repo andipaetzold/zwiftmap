@@ -7,6 +7,7 @@ import { EventImage } from "./EventImage";
 import { EventKit } from "./EventKit";
 import { EventLinks } from "./EventLinks";
 import { EventRules } from "./EventRules";
+import { EventSchema } from "./EventSchema";
 import { EventTimeTrial } from "./EventTimeTrial";
 import { EventWorkoutChart } from "./EventWorkoutChart";
 
@@ -20,6 +21,7 @@ export function EventComponent({ event }: Props) {
       <Helmet>
         <title>{event.name}</title>
       </Helmet>
+      <EventSchema event={event} />
 
       <EventImage event={event} />
 

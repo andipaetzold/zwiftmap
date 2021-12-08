@@ -32,6 +32,7 @@
     "@types/react-responsive": "8.0.4",
     "axios": "0.24.0",
     "classnames": "2.3.1",
+    "date-fns": "2.27.0",
     "leaflet": "1.7.1",
     "lodash": "4.17.21",
     "mitt": "3.0.0",
@@ -42,6 +43,7 @@
     "react-helmet-async": "1.2.2",
     "react-leaflet": "3.1.0",
     "react-responsive": "8.2.0",
+    "react-schemaorg": "2.0.0",
     "react-scripts": "4.0.3",
     "recharts": "2.1.6",
     "strava": "2.0.1",
@@ -81,6 +83,7 @@
     "@types/mapbox__polyline": "1.0.2",
     "netlify-cli": "8.0.16",
     "prettier": "2.5.1",
-    "sass": "1.44.0"
+    "sass": "1.44.0",
+    "schema-dts": "1.0.0"
   }
 }
