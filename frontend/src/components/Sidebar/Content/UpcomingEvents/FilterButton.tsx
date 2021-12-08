@@ -1,7 +1,7 @@
 import { Chip } from "@react-md/chip";
 import { MenuItemInputToggle } from "@react-md/form";
 import { List, SimpleListItem } from "@react-md/list";
-import { FilterListFontIcon } from "@react-md/material-icons";
+import { FilterListSVGIcon } from "@react-md/material-icons";
 import { Menu } from "@react-md/menu";
 import { BELOW_INNER_LEFT_ANCHOR, useToggle } from "@react-md/utils";
 import { useSessionSettings } from "../../../../hooks/useSessionSettings";
@@ -45,7 +45,7 @@ export function EventFilterButton() {
             e.stopPropagation();
             toggleMenu();
           }}
-          rightIcon={<FilterListFontIcon />}
+          rightIcon={<FilterListSVGIcon />}
         >
           Filter
         </Chip>

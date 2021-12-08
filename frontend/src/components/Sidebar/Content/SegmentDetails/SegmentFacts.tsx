@@ -1,8 +1,8 @@
 import { SimpleListItem } from "@react-md/list";
 import {
-  LandscapeFontIcon,
-  MapFontIcon,
-  SpaceBarFontIcon,
+  LandscapeSVGIcon,
+  MapSVGIcon,
+  SpaceBarSVGIcon,
 } from "@react-md/material-icons";
 import { Segment, worlds } from "zwift-data";
 import { Distance } from "../../../Distance";
@@ -19,7 +19,7 @@ export function SegmentFacts({ segment }: Props) {
     <>
       <SimpleListItem
         clickable={false}
-        leftAddon={<SpaceBarFontIcon />}
+        leftAddon={<SpaceBarSVGIcon />}
         leftAddonType="icon"
       >
         <Distance distance={segment.distance} />
@@ -28,14 +28,14 @@ export function SegmentFacts({ segment }: Props) {
       {segment.elevation && (
         <SimpleListItem
           clickable={false}
-          leftAddon={<LandscapeFontIcon />}
+          leftAddon={<LandscapeSVGIcon />}
           leftAddonType="icon"
         >
           <Elevation elevation={segment.elevation} />
         </SimpleListItem>
       )}
 
-      <SimpleListItem clickable={false} leftAddon={<MapFontIcon />}>
+      <SimpleListItem clickable={false} leftAddon={<MapSVGIcon />}>
         {world.name}
       </SimpleListItem>
     </>

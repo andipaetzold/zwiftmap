@@ -1,8 +1,8 @@
 import { Divider } from "@react-md/divider";
 import { List, SimpleListItem } from "@react-md/list";
 import {
-  KeyboardArrowDownFontIcon,
-  KeyboardArrowUpFontIcon
+  KeyboardArrowDownSVGIcon,
+  KeyboardArrowUpSVGIcon
 } from "@react-md/material-icons";
 import c from "classnames";
 import React, { useRef, useState } from "react";
@@ -36,7 +36,7 @@ export function Sidebar({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
           className={styles.DragHandle}
           onClick={() => setBottomSheetOpen(false)}
         >
-          <KeyboardArrowDownFontIcon />
+          <KeyboardArrowDownSVGIcon />
         </button>
 
         <List className={styles.SearchBox}>
@@ -65,7 +65,7 @@ export function Sidebar({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
         })}
         onClick={() => setBottomSheetOpen(true)}
       >
-        <KeyboardArrowUpFontIcon />
+        <KeyboardArrowUpSVGIcon />
       </button>
     </>
   );

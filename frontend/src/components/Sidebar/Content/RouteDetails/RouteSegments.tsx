@@ -1,7 +1,7 @@
 import { List, ListItem, ListSubheader, SimpleListItem } from "@react-md/list";
 import {
-  VisibilityFontIcon,
-  VisibilityOffFontIcon,
+  VisibilitySVGIcon,
+  VisibilityOffSVGIcon,
 } from "@react-md/material-icons";
 import { Typography } from "@react-md/typography";
 import React from "react";
@@ -68,9 +68,9 @@ export function RouteSegments({ route }: Props) {
           rightAddon={
             segment.stravaSegmentId ===
             undefined ? null : selectedSegments.includes(segment) ? (
-              <VisibilityFontIcon />
+              <VisibilitySVGIcon />
             ) : (
-              <VisibilityOffFontIcon />
+              <VisibilityOffSVGIcon />
             )
           }
           secondaryText={<SecondaryText segment={segment} />}

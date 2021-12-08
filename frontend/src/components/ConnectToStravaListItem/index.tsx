@@ -1,5 +1,5 @@
 import { ListItemLink } from "@react-md/list";
-import { OpenInNewFontIcon } from "@react-md/material-icons";
+import { OpenInNewSVGIcon } from "@react-md/material-icons";
 import ConnectToStrava from "../../assets/ConnectToStravaLight.svg";
 import { useStravaAuthUrl } from "../../services/strava/auth";
 
@@ -9,7 +9,7 @@ export function ConnectToStravaListItem() {
   return (
     <ListItemLink
       href={stravaAuthUrl}
-      rightAddon={<OpenInNewFontIcon />}
+      rightAddon={<OpenInNewSVGIcon />}
       rightAddonType="icon"
     >
       <img

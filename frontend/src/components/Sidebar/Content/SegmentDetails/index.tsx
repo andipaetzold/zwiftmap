@@ -1,6 +1,6 @@
 import { TextIconSpacing } from "@react-md/icon";
 import { List, SimpleListItem } from "@react-md/list";
-import { ListFontIcon } from "@react-md/material-icons";
+import { ListSVGIcon } from "@react-md/material-icons";
 import { Typography } from "@react-md/typography";
 import { Helmet } from "react-helmet-async";
 import { Segment } from "zwift-data";
@@ -36,7 +36,7 @@ export function SegmentDetails({
 
       <SimpleListItem>
         <ButtonState themeType="outline" state={backButtonState}>
-          <TextIconSpacing icon={<ListFontIcon />}>
+          <TextIconSpacing icon={<ListSVGIcon />}>
             {backButtonText}
           </TextIconSpacing>
         </ButtonState>

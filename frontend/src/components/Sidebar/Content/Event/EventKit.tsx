@@ -1,7 +1,7 @@
 import { ListSubheader, SimpleListItem } from "@react-md/list";
 import {
-  AccessibilityFontIcon,
-  DirectionsBikeFontIcon,
+  AccessibilitySVGIcon,
+  DirectionsBikeSVGIcon,
 } from "@react-md/material-icons";
 import { bikeFrames, jerseys } from "zwift-data";
 import { ZwiftEvent } from "../../../../services/events";
@@ -25,7 +25,7 @@ export function EventKit({ event }: Props) {
       {jersey && (
         <SimpleListItem
           clickable={false}
-          leftAddon={<AccessibilityFontIcon />}
+          leftAddon={<AccessibilitySVGIcon />}
           leftAddonType="icon"
         >
           {jersey.name}
@@ -34,7 +34,7 @@ export function EventKit({ event }: Props) {
       {bikeFrame && (
         <SimpleListItem
           clickable={false}
-          leftAddon={<DirectionsBikeFontIcon />}
+          leftAddon={<DirectionsBikeSVGIcon />}
           leftAddonType="icon"
         >
           {bikeFrame.name}

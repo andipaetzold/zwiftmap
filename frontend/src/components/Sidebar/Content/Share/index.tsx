@@ -1,6 +1,6 @@
 import { TextIconSpacing } from "@react-md/icon";
 import { List, SimpleListItem } from "@react-md/list";
-import { ListFontIcon } from "@react-md/material-icons";
+import { ListSVGIcon } from "@react-md/material-icons";
 import { useAsync } from "react-async-hook";
 import { Helmet } from "react-helmet-async";
 import { LocationState } from "../../../../services/location-state";
@@ -24,7 +24,7 @@ export function Share(props: Props) {
     <List>
       <SimpleListItem>
         <ButtonState themeType="outline" state={backButtonState}>
-          <TextIconSpacing icon={<ListFontIcon />}>
+          <TextIconSpacing icon={<ListSVGIcon />}>
             {backButtonText}
           </TextIconSpacing>
         </ButtonState>

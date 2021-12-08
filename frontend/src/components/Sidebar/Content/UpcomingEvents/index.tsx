@@ -1,6 +1,6 @@
 import { TextIconSpacing } from "@react-md/icon";
 import { List, ListSubheader, SimpleListItem } from "@react-md/list";
-import { ListFontIcon } from "@react-md/material-icons";
+import { ListSVGIcon } from "@react-md/material-icons";
 import { useAsync } from "react-async-hook";
 import { Helmet } from "react-helmet-async";
 import { useSessionSettings } from "../../../../hooks/useSessionSettings";
@@ -81,7 +81,7 @@ function Header() {
             type: "default",
           }}
         >
-          <TextIconSpacing icon={<ListFontIcon />}>Route List</TextIconSpacing>
+          <TextIconSpacing icon={<ListSVGIcon />}>Route List</TextIconSpacing>
         </ButtonState>
       </SimpleListItem>
       <ListSubheader>Upcoming Event</ListSubheader>

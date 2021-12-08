@@ -1,13 +1,13 @@
 import { SimpleListItem } from "@react-md/list";
 import {
-  AssessmentFontIcon,
-  EventFontIcon,
-  LandscapeFontIcon,
-  MapFontIcon,
-  PlaceFontIcon,
-  RefreshFontIcon,
-  SpaceBarFontIcon,
-  TimerFontIcon,
+  AssessmentSVGIcon,
+  EventSVGIcon,
+  LandscapeSVGIcon,
+  MapSVGIcon,
+  PlaceSVGIcon,
+  RefreshSVGIcon,
+  SpaceBarSVGIcon,
+  TimerSVGIcon,
 } from "@react-md/material-icons";
 import round from "lodash/round";
 import { routes } from "zwift-data";
@@ -42,7 +42,7 @@ export function EventFacts({ event }: Props) {
     <>
       <SimpleListItem
         clickable={false}
-        leftAddon={<EventFontIcon />}
+        leftAddon={<EventSVGIcon />}
         leftAddonType="icon"
       >
         {event.eventStart
@@ -51,18 +51,18 @@ export function EventFacts({ event }: Props) {
       </SimpleListItem>
       <SimpleListItem
         clickable={false}
-        leftAddon={<AssessmentFontIcon />}
+        leftAddon={<AssessmentSVGIcon />}
         leftAddonType="icon"
       >
         {EVENT_TYPES[event.eventType]}
       </SimpleListItem>
       {event.durationInSeconds > 0 && (
-        <SimpleListItem clickable={false} leftAddon={<TimerFontIcon />}>
+        <SimpleListItem clickable={false} leftAddon={<TimerSVGIcon />}>
           {round(event.durationInSeconds) / 60}min
         </SimpleListItem>
       )}
       {distance && (
-        <SimpleListItem clickable={false} leftAddon={<SpaceBarFontIcon />}>
+        <SimpleListItem clickable={false} leftAddon={<SpaceBarSVGIcon />}>
           <Distance distance={distance} />{" "}
           {event.laps > 1 && route ? (
             <>
@@ -72,7 +72,7 @@ export function EventFacts({ event }: Props) {
         </SimpleListItem>
       )}
       {elevation && (
-        <SimpleListItem clickable={false} leftAddon={<LandscapeFontIcon />}>
+        <SimpleListItem clickable={false} leftAddon={<LandscapeSVGIcon />}>
           <Elevation elevation={elevation} />{" "}
           {event.laps > 1 && route ? (
             <>
@@ -82,7 +82,7 @@ export function EventFacts({ event }: Props) {
         </SimpleListItem>
       )}
       {event.laps > 0 && (
-        <SimpleListItem clickable={false} leftAddon={<RefreshFontIcon />}>
+        <SimpleListItem clickable={false} leftAddon={<RefreshSVGIcon />}>
           {event.laps === 1 ? "1 Lap" : `${event.laps} Laps`}
         </SimpleListItem>
       )}
@@ -94,7 +94,7 @@ export function EventFacts({ event }: Props) {
             segments: [],
             world: world,
           }}
-          leftAddon={<PlaceFontIcon />}
+          leftAddon={<PlaceSVGIcon />}
           leftAddonType="icon"
         >
           {route.name}
@@ -103,7 +103,7 @@ export function EventFacts({ event }: Props) {
       {world && (
         <SimpleListItem
           clickable={false}
-          leftAddon={<MapFontIcon />}
+          leftAddon={<MapSVGIcon />}
           leftAddonType="icon"
         >
           {world.name}

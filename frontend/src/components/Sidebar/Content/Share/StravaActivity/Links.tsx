@@ -1,6 +1,6 @@
 import { Avatar } from "@react-md/avatar";
 import { ListItemLink, ListItemText, ListSubheader } from "@react-md/list";
-import { OpenInNewFontIcon } from "@react-md/material-icons";
+import { OpenInNewSVGIcon } from "@react-md/material-icons";
 import stravaLogo from "../../../../../assets/strava-40x40.png";
 import { ShareStravaActivity } from "../../../../../types";
 
@@ -21,7 +21,7 @@ export function SharedStravaActivityLinks({ share }: Props) {
           </Avatar>
         }
         leftAddonType="avatar"
-        rightAddon={<OpenInNewFontIcon />}
+        rightAddon={<OpenInNewSVGIcon />}
         rightAddonType="icon"
       >
         <ListItemText>Activity on Strava</ListItemText>
@@ -35,7 +35,7 @@ export function SharedStravaActivityLinks({ share }: Props) {
           </Avatar>
         }
         leftAddonType="avatar"
-        rightAddon={<OpenInNewFontIcon />}
+        rightAddon={<OpenInNewSVGIcon />}
         rightAddonType="icon"
       >
         <ListItemText>Athlete on Strava</ListItemText>

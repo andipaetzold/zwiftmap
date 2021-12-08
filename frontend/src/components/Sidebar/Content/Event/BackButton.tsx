@@ -1,6 +1,6 @@
 import { TextIconSpacing } from "@react-md/icon";
 import { SimpleListItem } from "@react-md/list";
-import { ListFontIcon } from "@react-md/material-icons";
+import { ListSVGIcon } from "@react-md/material-icons";
 import {
   DEFAULT_WORLD,
   LocationStateUpcomingEvent,
@@ -21,7 +21,7 @@ export function BackButton() {
         world: locationState.world ?? DEFAULT_WORLD,
       }}
       >
-        <TextIconSpacing icon={<ListFontIcon />}>
+        <TextIconSpacing icon={<ListSVGIcon />}>
           Upcoming Events
         </TextIconSpacing>
       </ButtonState>

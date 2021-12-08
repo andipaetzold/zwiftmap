@@ -1,9 +1,9 @@
 import { useAddMessage } from "@react-md/alert";
 import { ListItem, ListSubheader, SimpleListItem } from "@react-md/list";
 import {
-  ImageFontIcon,
-  InsertLinkFontIcon,
-  ShareFontIcon,
+  ImageSVGIcon,
+  InsertLinkSVGIcon,
+  ShareSVGIcon,
 } from "@react-md/material-icons";
 import * as Sentry from "@sentry/react";
 import { useEffect, useRef, useState } from "react";
@@ -83,7 +83,7 @@ function ShareActivity({ activity }: Props) {
 
   return (
     <ListItem
-      rightAddon={<ShareFontIcon />}
+      rightAddon={<ShareSVGIcon />}
       rightAddonType="icon"
       onClick={handleClick}
       disabled={loading}
@@ -151,7 +151,7 @@ function ShareActivityAsImage({ activity }: Props) {
   return (
     <ListItem
       onClick={handleClick}
-      rightAddon={<ImageFontIcon />}
+      rightAddon={<ImageSVGIcon />}
       rightAddonType="icon"
       disabled={loading}
     >
@@ -191,7 +191,7 @@ function AddLinkToActivityDescription({ activity }: Props) {
 
   return (
     <ListItem
-      rightAddon={<InsertLinkFontIcon />}
+      rightAddon={<InsertLinkSVGIcon />}
       rightAddonType="icon"
       onClick={handleAddLink}
       disabled={loading}

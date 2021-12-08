@@ -1,5 +1,5 @@
 import { ListItemLink } from "@react-md/list";
-import { OpenInNewFontIcon } from "@react-md/material-icons";
+import { OpenInNewSVGIcon } from "@react-md/material-icons";
 import { routes, worlds } from "zwift-data";
 import { ZwiftEvent } from "../../../../services/events";
 import {
@@ -53,7 +53,7 @@ export function EventItem({ event, onHoverRoute }: Props) {
         }
       }}
       onMouseLeave={() => onHoverRoute(undefined)}
-      rightAddon={route ? undefined : <OpenInNewFontIcon />}
+      rightAddon={route ? undefined : <OpenInNewSVGIcon />}
       rightAddonType={route ? undefined : "icon"}
     >
       {event.name}

@@ -1,6 +1,6 @@
 import { Button } from "@react-md/button";
 import { TextField } from "@react-md/form";
-import { FontIcon } from "@react-md/icon";
+import { SVGIcon } from "@react-md/icon";
 import React from "react";
 import { useStore } from "../../hooks/useStore";
 import { DEFAULT_WORLD, useLocationState } from "../../services/location-state";
@@ -34,7 +34,7 @@ export function SearchInput() {
             }}
             aria-label="Clear search field"
           >
-            <FontIcon>clear</FontIcon>
+            <SVGIcon>clear</SVGIcon>
           </Button>
         )
       }

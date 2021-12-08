@@ -1,10 +1,10 @@
 import { Divider } from "@react-md/divider";
 import { List, ListItem } from "@react-md/list";
 import {
-  ChevronRightFontIcon,
-  InfoFontIcon,
-  MenuFontIcon,
-  SettingsFontIcon,
+  ChevronRightSVGIcon,
+  InfoSVGIcon,
+  MenuSVGIcon,
+  SettingsSVGIcon,
 } from "@react-md/material-icons";
 import { Menu, MenuItem } from "@react-md/menu";
 import { BOTTOM_RIGHT_ANCHOR, useToggle } from "@react-md/utils";
@@ -33,7 +33,7 @@ export function MenuButton({ onBottomSheetClose }: Props) {
           e.stopPropagation();
           setMenuOpen(!menuOpen);
         }}
-        rightAddon={isMobile ? <MenuFontIcon /> : <ChevronRightFontIcon />}
+        rightAddon={isMobile ? <MenuSVGIcon /> : <ChevronRightSVGIcon />}
         rightAddonType="icon"
         id="sidebar-menu-button"
         aria-haspopup="true"
@@ -58,7 +58,7 @@ export function MenuButton({ onBottomSheetClose }: Props) {
               showInfoDialog();
               onBottomSheetClose();
             }}
-            leftAddon={<InfoFontIcon />}
+            leftAddon={<InfoSVGIcon />}
             leftAddonType="icon"
           >
             Info
@@ -68,7 +68,7 @@ export function MenuButton({ onBottomSheetClose }: Props) {
               showSettingsDialog();
               onBottomSheetClose();
             }}
-            leftAddon={<SettingsFontIcon />}
+            leftAddon={<SettingsSVGIcon />}
             leftAddonType="icon"
           >
             Settings

@@ -1,4 +1,4 @@
-import { ExitToAppFontIcon } from "@react-md/material-icons";
+import { ExitToAppSVGIcon } from "@react-md/material-icons";
 import { MenuItem, MenuItemLink } from "@react-md/menu";
 import React from "react";
 import ConnectToStrava from "../../../assets/ConnectToStravaLight.svg";
@@ -12,7 +12,7 @@ export function StravaButton() {
   const stravaAuthUrl = useStravaAuthUrl();
 
   if (isStravaLoggedIn) {
-    return <MenuItem leftAddon={<ExitToAppFontIcon />} onClick={() => logout()}>Logout</MenuItem>;
+    return <MenuItem leftAddon={<ExitToAppSVGIcon />} onClick={() => logout()}>Logout</MenuItem>;
   }
 
   return (

@@ -4,7 +4,7 @@ import {
   ListItemText,
   ListSubheader,
 } from "@react-md/list";
-import { FileDownloadFontIcon, ShareFontIcon } from "@react-md/material-icons";
+import { FileDownloadSVGIcon, ShareSVGIcon } from "@react-md/material-icons";
 import { useAsync } from "react-async-hook";
 import { Share } from "../../../../../types";
 import { shareImage } from "../../../../../util";
@@ -36,7 +36,7 @@ export function SharedStravaActivitySharing({ share }: Props) {
       <>
         <ListSubheader>Sharing</ListSubheader>
         <ListItem
-          rightAddon={<ShareFontIcon />}
+          rightAddon={<ShareSVGIcon />}
           rightAddonType="icon"
           onClick={() => shareImage(url)}
         >
@@ -53,7 +53,7 @@ export function SharedStravaActivitySharing({ share }: Props) {
         href={url}
         download
         target="_blank"
-        rightAddon={<FileDownloadFontIcon />}
+        rightAddon={<FileDownloadSVGIcon />}
         rightAddonType="icon"
       >
         <ListItemText>Download as image</ListItemText>

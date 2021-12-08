@@ -1,6 +1,6 @@
 import { Avatar } from "@react-md/avatar";
 import { ListItemLink, ListItemText, ListSubheader } from "@react-md/list";
-import { OpenInNewFontIcon } from "@react-md/material-icons";
+import { OpenInNewSVGIcon } from "@react-md/material-icons";
 import { routes } from "zwift-data";
 import stravaLogo from "../../../../assets/strava-40x40.png";
 import whatsOnZwiftLogo from "../../../../assets/WhatsOnZwift-40x40.png";
@@ -29,7 +29,7 @@ export function EventLinks({ event }: Props) {
           </Avatar>
         }
         leftAddonType="avatar"
-        rightAddon={<OpenInNewFontIcon />}
+        rightAddon={<OpenInNewSVGIcon />}
         rightAddonType="icon"
       >
         <ListItemText>Event on Zwift</ListItemText>
@@ -44,7 +44,7 @@ export function EventLinks({ event }: Props) {
           </Avatar>
         }
         leftAddonType="avatar"
-        rightAddon={<OpenInNewFontIcon />}
+        rightAddon={<OpenInNewSVGIcon />}
         rightAddonType="icon"
       >
         <ListItemText>Event on ZwiftPower</ListItemText>
@@ -62,7 +62,7 @@ export function EventLinks({ event }: Props) {
                 </Avatar>
               }
               leftAddonType="avatar"
-              rightAddon={<OpenInNewFontIcon />}
+              rightAddon={<OpenInNewSVGIcon />}
               rightAddonType="icon"
             >
               <ListItemText>Route on ZwiftInsider</ListItemText>
@@ -78,7 +78,7 @@ export function EventLinks({ event }: Props) {
                 </Avatar>
               }
               leftAddonType="avatar"
-              rightAddon={<OpenInNewFontIcon />}
+              rightAddon={<OpenInNewSVGIcon />}
               rightAddonType="icon"
             >
               <ListItemText>Route Segment on Strava</ListItemText>
@@ -94,7 +94,7 @@ export function EventLinks({ event }: Props) {
                 </Avatar>
               }
               leftAddonType="avatar"
-              rightAddon={<OpenInNewFontIcon />}
+              rightAddon={<OpenInNewSVGIcon />}
               rightAddonType="icon"
             >
               <ListItemText>Route on What's on Zwift</ListItemText>

@@ -1,5 +1,5 @@
 import { ListItemLink, ListItemText, SimpleListItem } from "@react-md/list";
-import { OpenInNewFontIcon, TimerFontIcon } from "@react-md/material-icons";
+import { OpenInNewSVGIcon, TimerSVGIcon } from "@react-md/material-icons";
 import React from "react";
 import { useAsync } from "react-async-hook";
 import { Route } from "zwift-data";
@@ -40,9 +40,9 @@ export function RouteStravaPB({ route }: Props) {
   if (loading) {
     return (
       <SimpleListItem
-        leftAddon={<TimerFontIcon />}
+        leftAddon={<TimerSVGIcon />}
         leftAddonType="icon"
-        rightAddon={<OpenInNewFontIcon />}
+        rightAddon={<OpenInNewSVGIcon />}
         rightAddonType="icon"
       >
         <LoadingSpinner small />
@@ -58,9 +58,9 @@ export function RouteStravaPB({ route }: Props) {
     <ListItemLink
       href={`https://www.strava.com/segments/${segment.id}`}
       target="_blank"
-      leftAddon={<TimerFontIcon />}
+      leftAddon={<TimerSVGIcon />}
       leftAddonType="icon"
-      rightAddon={<OpenInNewFontIcon />}
+      rightAddon={<OpenInNewSVGIcon />}
       rightAddonType="icon"
     >
       <ListItemText>

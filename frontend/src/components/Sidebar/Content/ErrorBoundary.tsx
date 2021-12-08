@@ -4,7 +4,7 @@ import {
   ListItemText,
   SimpleListItem,
 } from "@react-md/list";
-import { EmailFontIcon, RefreshFontIcon } from "@react-md/material-icons";
+import { EmailSVGIcon, RefreshSVGIcon } from "@react-md/material-icons";
 
 interface Props {
   eventId: string | null;
@@ -20,7 +20,7 @@ export function ErrorBoundary({ eventId }: Props) {
     <List>
       <SimpleListItem>Something went wrong!</SimpleListItem>
       <ListItemLink
-        leftAddon={<RefreshFontIcon />}
+        leftAddon={<RefreshSVGIcon />}
         leftAddonType="icon"
         href={window.location.origin}
       >
@@ -28,7 +28,7 @@ export function ErrorBoundary({ eventId }: Props) {
       </ListItemLink>
       <ListItemLink
         leftAddonType="icon"
-        leftAddon={<EmailFontIcon />}
+        leftAddon={<EmailSVGIcon />}
         href={mailtoHref}
       >
         <ListItemText>Get in touch</ListItemText>

@@ -1,6 +1,6 @@
 import { TextIconSpacing } from "@react-md/icon";
 import { SimpleListItem } from "@react-md/list";
-import { ListFontIcon } from "@react-md/material-icons";
+import { ListSVGIcon } from "@react-md/material-icons";
 import {
   DEFAULT_WORLD,
   LocationStateStravaActivity,
@@ -20,7 +20,7 @@ export function BackButton() {
           type: "strava-activities",
         }}
       >
-        <TextIconSpacing icon={<ListFontIcon />}>
+        <TextIconSpacing icon={<ListSVGIcon />}>
           Strava activities
         </TextIconSpacing>
       </ButtonState>

@@ -1,11 +1,11 @@
 import { Chip } from "@react-md/chip";
 import { ListItem, SimpleListItem } from "@react-md/list";
 import {
-  LabelFontIcon,
-  LandscapeFontIcon,
-  SortFontIcon,
-  SpaceBarFontIcon,
-  StarFontIcon
+  LabelSVGIcon,
+  LandscapeSVGIcon,
+  SortSVGIcon,
+  SpaceBarSVGIcon,
+  StarSVGIcon
 } from "@react-md/material-icons";
 import { Menu } from "@react-md/menu";
 import { BELOW_INNER_LEFT_ANCHOR, useToggle } from "@react-md/utils";
@@ -55,7 +55,7 @@ export function SortButton() {
             toggleMenu();
           }}
           rightIcon={
-            <SortFontIcon
+            <SortSVGIcon
               className={c({
                 [styles.iconFlip]: state.dir === "ASC",
               })}
@@ -78,37 +78,37 @@ export function SortButton() {
         >
           <ListItem
             onClick={() => handleItemClick("name")}
-            leftAddon={<LabelFontIcon />}
+            leftAddon={<LabelSVGIcon />}
           >
             {NAME_MAP["name"]}
           </ListItem>
           <ListItem
             onClick={() => handleItemClick("distance")}
-            leftAddon={<SpaceBarFontIcon />}
+            leftAddon={<SpaceBarSVGIcon />}
           >
             {NAME_MAP["distance"]}
           </ListItem>
           <ListItem
             onClick={() => handleItemClick("elevation")}
-            leftAddon={<LandscapeFontIcon />}
+            leftAddon={<LandscapeSVGIcon />}
           >
             {NAME_MAP["elevation"]}
           </ListItem>
           <ListItem
             onClick={() => handleItemClick("experience")}
-            leftAddon={<StarFontIcon />}
+            leftAddon={<StarSVGIcon />}
           >
             {NAME_MAP["experience"]}
           </ListItem>
           <ListItem
             onClick={() => handleItemClick("leadInDistance")}
-            leftAddon={<SpaceBarFontIcon />}
+            leftAddon={<SpaceBarSVGIcon />}
           >
             {NAME_MAP["leadInDistance"]}
           </ListItem>
           <ListItem
             onClick={() => handleItemClick("leadInElevation")}
-            leftAddon={<LandscapeFontIcon />}
+            leftAddon={<LandscapeSVGIcon />}
           >
             {NAME_MAP["leadInElevation"]}
           </ListItem>

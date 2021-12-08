@@ -1,6 +1,6 @@
 import { TextIconSpacing } from "@react-md/icon";
 import { List, ListSubheader, SimpleListItem } from "@react-md/list";
-import { ListFontIcon } from "@react-md/material-icons";
+import { ListSVGIcon } from "@react-md/material-icons";
 import { Helmet } from "react-helmet-async";
 import { useIsLoggedInStrava } from "../../../../../hooks/useIsLoggedInStrava";
 import {
@@ -69,7 +69,7 @@ function Header() {
             type: "default",
           }}
         >
-          <TextIconSpacing icon={<ListFontIcon />}>Route List</TextIconSpacing>
+          <TextIconSpacing icon={<ListSVGIcon />}>Route List</TextIconSpacing>
         </ButtonState>
       </SimpleListItem>
     </>

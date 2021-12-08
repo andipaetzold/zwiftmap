@@ -1,10 +1,10 @@
 import { SimpleListItem } from "@react-md/list";
 import {
-  EventFontIcon,
-  LandscapeFontIcon,
-  MapFontIcon,
-  SpaceBarFontIcon,
-  StarFontIcon,
+  EventSVGIcon,
+  LandscapeSVGIcon,
+  MapSVGIcon,
+  SpaceBarSVGIcon,
+  StarSVGIcon,
 } from "@react-md/material-icons";
 import { Route, worlds } from "zwift-data";
 import { Distance } from "../../../Distance";
@@ -21,7 +21,7 @@ export function RouteFacts({ route }: Props) {
     <>
       <SimpleListItem
         clickable={false}
-        leftAddon={<SpaceBarFontIcon />}
+        leftAddon={<SpaceBarSVGIcon />}
         leftAddonType="icon"
       >
         <Distance distance={route.distance} />
@@ -42,7 +42,7 @@ export function RouteFacts({ route }: Props) {
 
       <SimpleListItem
         clickable={false}
-        leftAddon={<LandscapeFontIcon />}
+        leftAddon={<LandscapeSVGIcon />}
         leftAddonType="icon"
       >
         <Elevation elevation={route.elevation} />
@@ -64,7 +64,7 @@ export function RouteFacts({ route }: Props) {
       {route.experience && (
         <SimpleListItem
           clickable={false}
-          leftAddon={<StarFontIcon />}
+          leftAddon={<StarSVGIcon />}
           leftAddonType="icon"
           aria-label={`Experience: ${route.experience}`}
         >
@@ -75,7 +75,7 @@ export function RouteFacts({ route }: Props) {
       {route.eventOnly && (
         <SimpleListItem
           clickable={false}
-          leftAddon={<EventFontIcon />}
+          leftAddon={<EventSVGIcon />}
           leftAddonType="icon"
         >
           Event only route
@@ -84,7 +84,7 @@ export function RouteFacts({ route }: Props) {
 
       <SimpleListItem
         clickable={false}
-        leftAddon={<MapFontIcon />}
+        leftAddon={<MapSVGIcon />}
         aria-label={`World: ${world.name}`}
       >
         {world.name}
