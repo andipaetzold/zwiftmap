@@ -12,7 +12,7 @@
     "react-leaflet": "3.1.0",
     "react-scripts": "4.0.3",
     "strava": "2.0.1",
-    "typescript": "4.5.2",
+    "typescript": "4.5.3",
     "zwift-data": "1.10.3"
   },
   "scripts": {
