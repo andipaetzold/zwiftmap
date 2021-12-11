@@ -49,7 +49,7 @@
     "strava": "2.0.1",
     "typescript": "4.5.3",
     "zustand": "3.6.7",
-    "zwift-data": "1.10.3"
+    "zwift-data": "1.10.4"
   },
   "scripts": {
     "start": "REACT_APP_GIT_SHA=`git rev-parse --short HEAD` react-scripts start",
