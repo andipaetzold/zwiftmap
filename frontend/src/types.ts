@@ -11,8 +11,10 @@ export interface StravaSegment {
 
 export interface Settings {
   sport: Sport;
-  units: "imperial" | "metric";
+  units: Units;
 }
+
+export type Units = "imperial" | "metric";
 
 export interface SessionSettings {
   sortState: SortState;

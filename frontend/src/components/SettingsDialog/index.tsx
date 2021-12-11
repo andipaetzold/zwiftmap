@@ -6,11 +6,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@react-md/dialog";
-import { NativeSelect } from "@react-md/form";
-import React, { ChangeEvent } from "react";
+import { Select } from "@react-md/form";
+import { ArrowDropDownSVGIcon } from "@react-md/material-icons";
+import React from "react";
 import { Sport } from "zwift-data";
 import { useSettings } from "../../hooks/useSettings";
-import { Settings } from "../../types";
+import { Units } from "../../types";
 import { StravaSettings } from "./StravaSettings";
 
 interface Props {
@@ -21,12 +22,12 @@ interface Props {
 export function SettingsDialog({ visible, onClose }: Props) {
   const [settings, setSettings] = useSettings();
 
-  const handleSportChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSettings({ ...settings, sport: e.target.value as Sport });
+  const handleSportChange = (sport: string) => {
+    setSettings({ ...settings, sport: sport as Sport });
   };
 
-  const handleUnitsChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSettings({ ...settings, units: e.target.value as Settings["units"] });
+  const handleUnitsChange = (units: string) => {
+    setSettings({ ...settings, units: units as Units });
   };
 
   return (
@@ -40,27 +41,33 @@ export function SettingsDialog({ visible, onClose }: Props) {
         <DialogTitle id="settings-dialog-title">Settings</DialogTitle>
       </DialogHeader>
       <DialogContent>
-        <NativeSelect
+        <Select
           id="settings-dialog-sport"
           label="Sport"
           value={settings.sport}
           onChange={handleSportChange}
+          listboxStyle={{ zIndex: 3000 }}
           style={{ marginBottom: "1rem" }}
-        >
-          <option value="cycling">Cycling</option>
-          <option value="running">Running</option>
-        </NativeSelect>
+          options={[
+            { label: "Cycling", value: "cycling" },
+            { label: "Running", value: "running" },
+          ]}
+          rightChildren={<ArrowDropDownSVGIcon />}
+        />
 
-        <NativeSelect
-          id="settings-dialog-Units"
+        <Select
+          id="settings-dialog-units"
           label="Units"
           value={settings.units}
           onChange={handleUnitsChange}
+          listboxStyle={{ zIndex: 3000 }}
           style={{ marginBottom: "1rem" }}
-        >
-          <option value="metric">Metric</option>
-          <option value="imperial">Imperial</option>
-        </NativeSelect>
+          options={[
+            { label: "Metric", value: "metric" },
+            { label: "Imperial", value: "imperial" },
+          ]}
+          rightChildren={<ArrowDropDownSVGIcon />}
+        />
 
         <StravaSettings />
       </DialogContent>
