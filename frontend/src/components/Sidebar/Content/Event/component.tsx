@@ -1,8 +1,8 @@
 import { SimpleListItem } from "@react-md/list";
 import { Typography } from "@react-md/typography";
-import { Helmet } from "react-helmet-async";
 import { ZwiftEvent } from "../../../../services/events";
 import { EventFacts } from "./EventFacts";
+import { EventHelmet } from "./EventHelmet";
 import { EventImage } from "./EventImage";
 import { EventKit } from "./EventKit";
 import { EventLinks } from "./EventLinks";
@@ -18,9 +18,7 @@ interface Props {
 export function EventComponent({ event }: Props) {
   return (
     <>
-      <Helmet>
-        <title>{event.name}</title>
-      </Helmet>
+      <EventHelmet event={event} />
       <EventSchema event={event} />
 
       <EventImage event={event} />
