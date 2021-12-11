@@ -1,4 +1,5 @@
 import { Select } from "@react-md/form";
+import { ArrowDropDownSVGIcon } from "@react-md/material-icons";
 import React from "react";
 import { World, worlds } from "zwift-data";
 import styles from "./WorldSelect.module.scss";
@@ -26,6 +27,7 @@ export function WorldSelect({ world, onWorldChange }: Props) {
         onChange={(newWorldSlug) =>
           onWorldChange(worlds.find((w) => w.slug === newWorldSlug)!)
         }
+        rightChildren={<ArrowDropDownSVGIcon />}
       />
     </div>
   );
