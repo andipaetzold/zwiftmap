@@ -1,5 +1,4 @@
 import * as Sentry from "@sentry/react";
-import fromPairs from "lodash/fromPairs";
 
 const isNavigatorShareSupported = "share" in navigator;
 
@@ -34,9 +33,4 @@ export async function shareImage(url: string): Promise<void> {
       Sentry.captureException(e);
     }
   }
-}
-
-export function urlSearchParamsToObject(searchParams: URLSearchParams): any {
-  // @ts-ignore
-  return fromPairs([...searchParams]);
 }

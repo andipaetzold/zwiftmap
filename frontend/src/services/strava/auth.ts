@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BACKEND_HOST } from "../../config";
-import { urlSearchParamsToObject } from "../../util";
+import { urlSearchParamsToObject } from "../../util/urlSearchParamsToObject";
 import { addStateListener, removeStateListener } from "../location-state";
 
 function getStravaAuthUrl() {

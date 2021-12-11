@@ -7,7 +7,7 @@ import {
 import { FileDownloadSVGIcon, ShareSVGIcon } from "@react-md/material-icons";
 import { useAsync } from "react-async-hook";
 import { Share } from "../../../../../types";
-import { shareImage } from "../../../../../util";
+import { shareImage } from "../../../../../util/shareImage";
 
 interface Props {
   share: Share;

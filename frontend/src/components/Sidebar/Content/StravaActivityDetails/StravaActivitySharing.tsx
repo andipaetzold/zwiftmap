@@ -13,7 +13,7 @@ import {
   StravaActivity,
 } from "../../../../services/StravaActivityRepository";
 import { shareStravaActivity } from "../../../../services/zwiftMapApi";
-import { shareImage } from "../../../../util";
+import { shareImage } from "../../../../util/shareImage";
 
 const isSharingSupported = "share" in navigator;
 
