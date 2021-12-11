@@ -41,9 +41,9 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
       if (state.type !== "route") {
         return [];
       }
-      const segmentsOnRoute = state.route.segments.map(
-        (segmentSlug) => segments.find((s) => s.slug === segmentSlug)!
-      );
+      const segmentsOnRoute = state.route.segments
+        .map((segmentSlug) => segments.find((s) => s.slug === segmentSlug)!)
+        .filter((s) => s.stravaSegmentId !== undefined);
 
       const streams = await Promise.all(
         segmentsOnRoute.map((s) =>
