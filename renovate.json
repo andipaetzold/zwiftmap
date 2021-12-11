@@ -19,7 +19,6 @@
   "ignoreDeps": [
     "react-leaflet",
     "@react-leaflet/core",
-    "node-fetch",
     "@types/node-fetch",
     "fast-xml-parser"
   ]
