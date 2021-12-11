@@ -60,46 +60,51 @@ export function RouteSegments({ route }: Props) {
       <ListSubheader role="presentation" id="route-segments-header">
         Segments
       </ListSubheader>
-      {segmentsOnRoute.map((segment) => (
-        <ListItem
-          key={segment.slug}
-          disabled={segment.stravaSegmentId === undefined}
-          rightAddonType="icon"
-          rightAddon={
-            segment.stravaSegmentId ===
-            undefined ? null : selectedSegments.includes(segment) ? (
-              <VisibilitySVGIcon />
-            ) : (
-              <VisibilityOffSVGIcon />
-            )
-          }
-          secondaryText={<SecondaryText segment={segment} />}
-          threeLines
-          onClick={() => {
-            if (segment.stravaSegmentId === undefined) {
-              return;
+      {segmentsOnRoute.map((segment) => {
+        const canClick =
+          segment.stravaSegmentId !== undefined && segment.type !== "segment";
+        return (
+          <ListItem
+            key={segment.slug}
+            disabled={!canClick}
+            rightAddonType="icon"
+            rightAddon={
+              canClick ? (
+                selectedSegments.includes(segment) ? (
+                  <VisibilitySVGIcon />
+                ) : (
+                  <VisibilityOffSVGIcon />
+                )
+              ) : null
             }
+            secondaryText={<SecondaryText segment={segment} />}
+            threeLines
+            onClick={() => {
+              if (!canClick) {
+                return;
+              }
 
-            if (selectedSegments.includes(segment)) {
-              setLocationState({
-                ...locationState,
-                type: "route",
-                route: (locationState as LocationStateRoute).route,
-                segments: selectedSegments.filter((s) => s !== segment),
-              });
-            } else {
-              setLocationState({
-                ...locationState,
-                type: "route",
-                route: (locationState as LocationStateRoute).route,
-                segments: [...selectedSegments, segment],
-              });
-            }
-          }}
-        >
-          {segment.name}
-        </ListItem>
-      ))}
+              if (selectedSegments.includes(segment)) {
+                setLocationState({
+                  ...locationState,
+                  type: "route",
+                  route: (locationState as LocationStateRoute).route,
+                  segments: selectedSegments.filter((s) => s !== segment),
+                });
+              } else {
+                setLocationState({
+                  ...locationState,
+                  type: "route",
+                  route: (locationState as LocationStateRoute).route,
+                  segments: [...selectedSegments, segment],
+                });
+              }
+            }}
+          >
+            {segment.name}
+          </ListItem>
+        );
+      })}
     </List>
   );
 }
