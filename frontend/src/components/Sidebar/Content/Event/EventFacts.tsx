@@ -65,21 +65,25 @@ export function EventFacts({ event }: Props) {
       )}
       {distance && (
         <SimpleListItem clickable={false} leftAddon={<SpaceBarSVGIcon />}>
-          <Distance distance={distance} />{" "}
+          <Distance distance={distance} />
           {event.laps > 1 && route ? (
-            <>
-              (<Distance distance={route.distance} /> per Lap)
-            </>
+            <small>
+              &nbsp;(
+              <Distance distance={route.distance} />
+              &nbsp;per Lap)
+            </small>
           ) : null}
         </SimpleListItem>
       )}
       {elevation && (
         <SimpleListItem clickable={false} leftAddon={<LandscapeSVGIcon />}>
-          <Elevation elevation={elevation} />{" "}
+          <Elevation elevation={elevation} />
           {event.laps > 1 && route ? (
-            <>
-              (<Elevation elevation={route.elevation} /> per Lap)
-            </>
+            <small>
+              &nbsp;(
+              <Elevation elevation={route.elevation} />
+              &nbsp;per Lap)
+            </small>
           ) : null}
         </SimpleListItem>
       )}
