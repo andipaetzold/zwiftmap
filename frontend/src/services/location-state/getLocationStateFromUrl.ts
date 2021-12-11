@@ -149,10 +149,6 @@ function getLegacyStateWithWorld(
 ): LocationState {
   if (searchParams.has("route")) {
     const route = routes.find((r) => r.slug === searchParams.get("route"));
-    const selectedSegments = (searchParams.get("segments") ?? "")
-      .split(",")
-      .map((slug) => segments.find((s) => s.slug === slug))
-      .filter((segment): segment is Segment => !!segment);
 
     if (!route) {
       return { world, type: "default" };
@@ -161,7 +157,6 @@ function getLegacyStateWithWorld(
         world: worlds.find((w) => w.slug === route.world)!,
         type: "route",
         route,
-        segments: selectedSegments,
       };
     }
   }

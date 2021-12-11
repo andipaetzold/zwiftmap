@@ -1,4 +1,4 @@
-import { routes, segments, worlds } from "zwift-data";
+import { routes, worlds } from "zwift-data";
 import {
   LocationStateRoute,
   LocationStateShare,
@@ -13,8 +13,6 @@ const WATOPIA = worlds.find((w) => w.slug === "watopia");
 const LONDON = worlds.find((w) => w.slug === "london");
 
 const LONDON_CLASSIQUE = routes.find((r) => r.slug === "london-classique");
-
-const LONDON_SPRINT = segments.find((s) => s.slug === "london-sprint");
 
 describe("default", () => {
   describe("current", () => {
@@ -60,54 +58,39 @@ describe("route", () => {
       expect(r1.type).toBe("route");
       expect(r1.world).toBe(LONDON);
       expect(r1.route).toBe(LONDON_CLASSIQUE);
-      expect(r1.segments).toStrictEqual([]);
-
-      const r2 = getLocationStateFromUrl(
-        "/watopia/london-classique",
-        ""
-      ) as LocationStateRoute;
-      expect(r2.type).toBe("route");
-      expect(r2.world).toBe(LONDON);
-      expect(r2.route).toBe(LONDON_CLASSIQUE);
-      expect(r2.segments).toStrictEqual([]);
     });
 
     it("wrong world", () => {
       const r = getLocationStateFromUrl(
         "/watopia/london-classique",
-        "segments=london-sprint"
+        ""
       ) as LocationStateRoute;
       expect(r.type).toBe("route");
       expect(r.world).toBe(LONDON);
       expect(r.route).toBe(LONDON_CLASSIQUE);
-      expect(r.segments).toStrictEqual([LONDON_SPRINT]);
     });
 
     it("invalid world", () => {
       const r = getLocationStateFromUrl(
         "/test/london-classique",
-        "segments=london-sprint"
+        ""
       ) as LocationStateRoute;
       expect(r.type).toBe("route");
       expect(r.world).toBe(LONDON);
       expect(r.route).toBe(LONDON_CLASSIQUE);
-      expect(r.segments).toStrictEqual([LONDON_SPRINT]);
     });
 
     it("invalid route", () => {
       const r = getLocationStateFromUrl(
         "/london/test",
-        "segments=london-sprint"
+        ""
       ) as LocationStateRoute;
       expect(r.type).toBe("default");
       expect(r.world).toBe(LONDON);
     });
 
     it("invalid route & world", () => {
-      const r = getLocationStateFromUrl(
-        "/test/test",
-        "segments=london-sprint"
-      ) as LocationStateRoute;
+      const r = getLocationStateFromUrl("/test/test", "") as LocationStateRoute;
       expect(r.type).toBe("default");
       expect(r.world).toBe(WATOPIA);
     });
@@ -122,7 +105,6 @@ describe("route", () => {
       expect(r1.type).toBe("route");
       expect(r1.world).toBe(LONDON);
       expect(r1.route).toBe(LONDON_CLASSIQUE);
-      expect(r1.segments).toStrictEqual([]);
 
       const r2 = getLocationStateFromUrl(
         "/",
@@ -131,7 +113,6 @@ describe("route", () => {
       expect(r2.type).toBe("route");
       expect(r2.world).toBe(LONDON);
       expect(r2.route).toBe(LONDON_CLASSIQUE);
-      expect(r2.segments).toStrictEqual([]);
     });
 
     it("wrong world", () => {
@@ -142,7 +123,6 @@ describe("route", () => {
       expect(r.type).toBe("route");
       expect(r.world).toBe(LONDON);
       expect(r.route).toBe(LONDON_CLASSIQUE);
-      expect(r.segments).toStrictEqual([]);
     });
 
     it("invalid world", () => {
@@ -153,13 +133,12 @@ describe("route", () => {
       expect(r.type).toBe("route");
       expect(r.world).toBe(LONDON);
       expect(r.route).toBe(LONDON_CLASSIQUE);
-      expect(r.segments).toStrictEqual([]);
     });
 
     it("invalid route", () => {
       const r = getLocationStateFromUrl(
         "/london",
-        "segments=test"
+        ""
       ) as LocationStateRoute;
       expect(r.type).toBe("default");
       expect(r.world).toBe(LONDON);

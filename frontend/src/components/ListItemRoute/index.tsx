@@ -22,7 +22,6 @@ export function ListItemRoute({ route, onHoverRoute, showWorldName }: Props) {
       state={{
         world: worlds.find((w) => w.slug === route.world)!,
         route,
-        segments: [],
         type: "route",
       }}
       onClick={() => onHoverRoute(undefined)}

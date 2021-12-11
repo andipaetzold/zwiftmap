@@ -11,12 +11,6 @@ export function createUrl(state: LocationState): string {
 
     case "route":
       path = `/${state.world.slug}/${state.route.slug}`;
-      if (state.segments.length > 0) {
-        searchParams.set(
-          "segments",
-          state.segments.map((s) => s.slug).join(",")
-        );
-      }
       break;
 
     case "segment":

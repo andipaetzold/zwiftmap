@@ -1,8 +1,4 @@
-import { List, ListItem, ListSubheader, SimpleListItem } from "@react-md/list";
-import {
-  VisibilitySVGIcon,
-  VisibilityOffSVGIcon,
-} from "@react-md/material-icons";
+import { List, ListSubheader, SimpleListItem } from "@react-md/list";
 import { Typography } from "@react-md/typography";
 import React from "react";
 import { useAsync } from "react-async-hook";
@@ -12,10 +8,6 @@ import {
   IsLoggedInStrava,
   useIsLoggedInStrava,
 } from "../../../../hooks/useIsLoggedInStrava";
-import {
-  LocationStateRoute,
-  useLocationState,
-} from "../../../../services/location-state";
 import { getStravaSegmentById } from "../../../../services/zwiftMapApi";
 import { Distance } from "../../../Distance";
 import { Time } from "../../../Time";
@@ -25,8 +17,6 @@ interface Props {
 }
 
 export function RouteSegments({ route }: Props) {
-  const [locationState, setLocationState] =
-    useLocationState<LocationStateRoute>();
   const segmentsOnRoute = segments
     .filter((s) => s.world === route.world)
     .filter((s) => route.segments.includes(s.slug))
@@ -49,8 +39,6 @@ export function RouteSegments({ route }: Props) {
     );
   }
 
-  const selectedSegments = (locationState as LocationStateRoute).segments;
-
   return (
     <List
       role="list"
@@ -60,51 +48,15 @@ export function RouteSegments({ route }: Props) {
       <ListSubheader role="presentation" id="route-segments-header">
         Segments
       </ListSubheader>
-      {segmentsOnRoute.map((segment) => {
-        const canClick =
-          segment.stravaSegmentId !== undefined && segment.type !== "segment";
-        return (
-          <ListItem
-            key={segment.slug}
-            disabled={!canClick}
-            rightAddonType="icon"
-            rightAddon={
-              canClick ? (
-                selectedSegments.includes(segment) ? (
-                  <VisibilitySVGIcon />
-                ) : (
-                  <VisibilityOffSVGIcon />
-                )
-              ) : null
-            }
-            secondaryText={<SecondaryText segment={segment} />}
-            threeLines
-            onClick={() => {
-              if (!canClick) {
-                return;
-              }
-
-              if (selectedSegments.includes(segment)) {
-                setLocationState({
-                  ...locationState,
-                  type: "route",
-                  route: (locationState as LocationStateRoute).route,
-                  segments: selectedSegments.filter((s) => s !== segment),
-                });
-              } else {
-                setLocationState({
-                  ...locationState,
-                  type: "route",
-                  route: (locationState as LocationStateRoute).route,
-                  segments: [...selectedSegments, segment],
-                });
-              }
-            }}
-          >
-            {segment.name}
-          </ListItem>
-        );
-      })}
+      {segmentsOnRoute.map((segment) => (
+        <SimpleListItem
+          key={segment.slug}
+          rightAddonType="icon"
+          primaryText={segment.name}
+          secondaryText={<SecondaryText segment={segment} />}
+          threeLines
+        />
+      ))}
     </List>
   );
 }

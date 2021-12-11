@@ -9,7 +9,6 @@ export interface LocationStateRoute {
   type: "route";
   world: World;
   route: Route;
-  segments: Segment[];
 }
 
 export interface LocationStateSegment {

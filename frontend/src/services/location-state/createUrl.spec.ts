@@ -3,8 +3,6 @@ import { createUrl } from "./createUrl";
 
 const worldLondon = worlds.find((w) => w.slug === "london")!;
 const routeLondonLoop = routes.find((r) => r.slug === "london-loop")!;
-const segmentBoxHill = segments.find((s) => s.slug === "box-hill")!;
-const segmentLondonLoop = segments.find((s) => s.slug === "london-loop")!;
 
 it("default", () => {
   expect(
@@ -22,7 +20,6 @@ describe("route", () => {
         type: "route",
         world: worldLondon,
         route: routeLondonLoop,
-        segments: [],
       })
     ).toBe("/london/london-loop");
   });
@@ -33,18 +30,16 @@ describe("route", () => {
         type: "route",
         world: worldLondon,
         route: routeLondonLoop,
-        segments: [segmentBoxHill],
       })
-    ).toBe("/london/london-loop?segments=box-hill");
+    ).toBe("/london/london-loop");
 
     expect(
       createUrl({
         type: "route",
         world: worldLondon,
         route: routeLondonLoop,
-        segments: [segmentBoxHill, segmentLondonLoop],
       })
-    ).toBe("/london/london-loop?segments=box-hill%2Clondon-loop");
+    ).toBe("/london/london-loop");
   });
 });
 

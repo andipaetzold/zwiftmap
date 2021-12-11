@@ -90,12 +90,7 @@ export function EventFacts({ event }: Props) {
       )}
       {route && world && (
         <ListItemState
-          state={{
-            type: "route",
-            route: route,
-            segments: [],
-            world: world,
-          }}
+          state={{ type: "route", route: route, world: world }}
           leftAddon={<PlaceSVGIcon />}
           leftAddonType="icon"
         >

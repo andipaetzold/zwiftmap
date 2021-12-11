@@ -3,7 +3,7 @@ import { LatLngTuple } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import React, { useMemo } from "react";
 import { useAsync } from "react-async-hook";
-import { Route, routes, Segment } from "zwift-data";
+import { Route, routes, Segment, segments } from "zwift-data";
 import { useStore } from "../../hooks/useStore";
 import { fetchEvent } from "../../services/events";
 import {
@@ -36,20 +36,24 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
   const [locationState, setLocationState] = useLocationState();
   const setQuery = useStore((state) => state.setQuery);
 
-  const { result: segments } = useAsync(
+  const { result: segmentsWithLatLng } = useAsync(
     async (state: LocationState) => {
       if (state.type !== "route") {
         return [];
       }
+      const segmentsOnRoute = state.route.segments.map(
+        (segmentSlug) => segments.find((s) => s.slug === segmentSlug)!
+      );
+
       const streams = await Promise.all(
-        state.segments.map((s) =>
+        segmentsOnRoute.map((s) =>
           getStravaSegmentStream(s.slug, "segments", "latlng")
         )
       );
 
       return streams.map((stream, streamIndex) => ({
         latlng: stream,
-        type: state.segments[streamIndex].type,
+        type: segmentsOnRoute[streamIndex].type,
       }));
     },
     [locationState],
@@ -195,7 +199,7 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
         hoverPoint={pointCoordinates}
         previewRouteLatLngStream={previewLatLng}
         routeLatLngStream={routeStreamSet?.latlng}
-        segments={segments}
+        segments={segmentsWithLatLng}
       />
     </div>
   );

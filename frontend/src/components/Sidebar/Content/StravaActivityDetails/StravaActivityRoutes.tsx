@@ -45,7 +45,6 @@ export function StravaActivityRoutes({ activity }: Props) {
             type: "route",
             world: worlds.find((w) => w.slug === route.world)!,
             route: route,
-            segments: [],
           }}
           threeLines
           secondaryText={
