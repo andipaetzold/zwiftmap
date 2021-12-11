@@ -7,7 +7,7 @@ import {
   Pane,
   Polyline,
 } from "react-leaflet";
-import { World } from "zwift-data";
+import { SegmentType, World } from "zwift-data";
 import { COLORS } from "../../constants";
 import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 import { worldConfigs } from "../../worldConfig";
@@ -26,7 +26,7 @@ interface Props {
   hoverPoint?: LatLngTuple;
   routeLatLngStream?: LatLngTuple[];
   previewRouteLatLngStream?: LatLngTuple[];
-  segmentLatLngStreams?: LatLngTuple[][];
+  segments?: { latlng: LatLngTuple[]; type: SegmentType }[];
 }
 
 export function Map({
@@ -34,7 +34,7 @@ export function Map({
   hoverPoint,
   previewRouteLatLngStream,
   routeLatLngStream,
-  segmentLatLngStreams,
+  segments = [],
 }: Props) {
   const prefersReducedMotion = usePrefersReducedMotion();
   const [map, setMap] = useState<MapType | undefined>();
@@ -150,18 +150,24 @@ export function Map({
         </>
       )}
 
-      {segmentLatLngStreams && (
-        <Pane name="segments" style={{ zIndex: Z_INDEX.segments }}>
-          {segmentLatLngStreams.map((s, segmentIndex) => (
+      <Pane name="segments" style={{ zIndex: Z_INDEX.segments }}>
+        {segments
+          .filter((s) => ["sprint", "climb"].includes(s.type))
+          .map((s, segmentIndex) => (
             <Polyline
               key={segmentIndex}
-              positions={s}
-              pathOptions={{ color: COLORS.sprintSegment, weight: 8 }}
+              positions={s.latlng}
+              pathOptions={{
+                color:
+                  s.type === "sprint"
+                    ? COLORS.sprintSegment
+                    : COLORS.komSegment,
+                weight: 8,
+              }}
               interactive={false}
             />
           ))}
-        </Pane>
-      )}
+      </Pane>
 
       {hoverPoint && (
         <Pane name="mouse-position" style={{ zIndex: 508 }}>

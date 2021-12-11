@@ -36,16 +36,21 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
   const [locationState, setLocationState] = useLocationState();
   const setQuery = useStore((state) => state.setQuery);
 
-  const { result: segmentsLatLngStreams } = useAsync(
+  const { result: segments } = useAsync(
     async (state: LocationState) => {
       if (state.type !== "route") {
         return [];
       }
-      return await Promise.all(
+      const streams = await Promise.all(
         state.segments.map((s) =>
           getStravaSegmentStream(s.slug, "segments", "latlng")
         )
       );
+
+      return streams.map((stream, streamIndex) => ({
+        latlng: stream,
+        type: state.segments[streamIndex].type,
+      }));
     },
     [locationState],
     {
@@ -80,10 +85,11 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
           };
         }
         case "segment": {
-          const streams = await getStravaSegmentStreams(segment!.slug, "segments", [
-            "distance",
-            "latlng",
-          ]);
+          const streams = await getStravaSegmentStreams(
+            segment!.slug,
+            "segments",
+            ["distance", "latlng"]
+          );
           return {
             distance: streams.distance,
             latlng: streams.latlng,
@@ -189,7 +195,7 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
         hoverPoint={pointCoordinates}
         previewRouteLatLngStream={previewLatLng}
         routeLatLngStream={routeStreamSet?.latlng}
-        segmentLatLngStreams={segmentsLatLngStreams}
+        segments={segments}
       />
     </div>
   );

@@ -11,6 +11,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { SegmentType } from "zwift-data";
 import { COLORS } from "../../constants";
 import { Distance } from "../Distance";
 import { Elevation } from "../Elevation";
@@ -20,7 +21,10 @@ interface Props {
   distanceStream: number[];
   altitudeStream: number[];
   onMouseHoverDistanceChange: (distance: number | undefined) => void;
-  segments?: [from: number, to: number][];
+  segments?: {
+    range: [from: number, to: number];
+    type: SegmentType;
+  }[];
 }
 
 interface OnMouseMoveProps {
@@ -58,7 +62,8 @@ function thinStream<T>(stream: T[]): T[] {
 interface Data {
   distance: number;
   elevationRegular: number | undefined;
-  elevationSprintSegment: number | undefined;
+  elevationSegmentSprint: number | undefined;
+  elevationSegmentKOM: number | undefined;
 }
 
 export const ElevationChart = Sentry.withErrorBoundary(
@@ -98,7 +103,8 @@ function ElevationChartComponent({
       const distance = data.activePayload?.[0]?.payload.distance;
       const elevation =
         data.activePayload?.[0]?.payload.elevationRegular ??
-        data.activePayload?.[0]?.payload.elevationSprintSegment;
+        data.activePayload?.[0]?.payload.elevationSegmentSprint ??
+        data.activePayload?.[0]?.payload.elevationSegmentKOM;
 
       onMouseHoverDistanceChange(distance);
       setCurrentDistance(distance);
@@ -117,30 +123,36 @@ function ElevationChartComponent({
     const thinnedDistanceStream = thinStream(distanceStream);
     const thinnedAltitudeStream = thinStream(altitudeStream);
 
-    let prevType: undefined | "regular" | "segment" = undefined;
+    let prevType: undefined | "regular" | "sprint" | "climb" = undefined;
 
     const result: Data[] = [];
 
     for (let i = 0; i < thinnedDistanceStream.length - 1; ++i) {
       const distanceInKM = thinnedDistanceStream[i] / 1_000;
 
-      const isSegment = segments.some(
-        ([from, to]) => from <= distanceInKM && distanceInKM <= to
-      );
+      let currentType = (segments
+        .filter((s) => s.type !== "segment")
+        .find(
+          ({ range: [from, to] }) => from <= distanceInKM && distanceInKM <= to
+        )?.type ?? "regular") as "regular" | "sprint" | "climb";
 
       result.push({
         distance: distanceInKM,
         elevationRegular:
-          !isSegment || (isSegment && prevType === "regular")
+          currentType === "regular" || prevType === "regular"
             ? thinnedAltitudeStream[i]
             : undefined,
-        elevationSprintSegment:
-          isSegment || (!isSegment && prevType === "segment")
+        elevationSegmentSprint:
+          currentType === "sprint" || prevType === "sprint"
+            ? thinnedAltitudeStream[i]
+            : undefined,
+        elevationSegmentKOM:
+          currentType === "climb" || prevType === "climb"
             ? thinnedAltitudeStream[i]
             : undefined,
       });
 
-      prevType = isSegment ? "segment" : "regular";
+      prevType = currentType;
     }
 
     return result;
@@ -202,10 +214,19 @@ function ElevationChartComponent({
             />
             <Area
               type="monotone"
-              dataKey="elevationSprintSegment"
+              dataKey="elevationSegmentSprint"
               stroke={COLORS.sprintSegment}
               fillOpacity={1}
-              fill="url(#colorSprintSegment)"
+              fill="url(#colorSegmentSprint)"
+              unit="m"
+              isAnimationActive={false}
+            />
+            <Area
+              type="monotone"
+              dataKey="elevationSegmentKOM"
+              stroke={COLORS.komSegment}
+              fillOpacity={1}
+              fill="url(#colorSegmentKOM)"
               unit="m"
               isAnimationActive={false}
             />

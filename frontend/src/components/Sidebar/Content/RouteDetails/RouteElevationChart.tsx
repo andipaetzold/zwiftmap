@@ -1,5 +1,5 @@
 import { useAsync } from "react-async-hook";
-import { Route } from "zwift-data";
+import { Route, segments } from "zwift-data";
 import { getStravaSegmentStreams } from "../../../../services/StravaSegmentRepository";
 import { StravaSegment } from "../../../../types";
 import { ElevationChart } from "../../../ElevationChart";
@@ -33,7 +33,10 @@ export function RouteElevationChart({
       altitudeStream={routeSegment.altitude}
       distanceStream={routeSegment.distance}
       onMouseHoverDistanceChange={onMouseHoverDistanceChange}
-      segments={route.segmentsOnRoute.map((sor) => [sor.from, sor.to])}
+      segments={route.segmentsOnRoute.map((sor) => ({
+        range: [sor.from, sor.to],
+        type: segments.find((s) => s.slug === sor.segment)!.type,
+      }))}
     />
   );
 }

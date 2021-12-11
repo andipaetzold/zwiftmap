@@ -6,9 +6,9 @@ export const FORMAT_INCLINE = new Intl.NumberFormat("en-US", {
 
 export const COLORS = {
   regular: "black",
-  sprintSegment: "#64ac39",
-  komSegment: "#fb0200",
-  lapSegment: "#ff763f",
+  sprintSegment: "#56A845",
+  komSegment: "#ed2324",
+  lapSegment: "#fc6719",
   previewRoute: "#D3D3D3",
   route: "#fc6719",
 };
