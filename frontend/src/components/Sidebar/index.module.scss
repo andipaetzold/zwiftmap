@@ -17,7 +17,7 @@ $drag-handle-height: 25px;
 
     left: 0;
     right: 0;
-    background-color: white;
+    background-color: var(--rmd-theme-background);
 
     min-height: 100%;
 
@@ -53,7 +53,7 @@ $drag-handle-height: 25px;
   align-items: center;
   justify-content: center;
 
-  background: transparent;
+  background-color: transparent;
   border: 0;
   outline: none;
   height: 30px;
@@ -68,7 +68,7 @@ $drag-handle-height: 25px;
   position: absolute;
   bottom: 0;
   width: 100%;
-  background: white;
+  background-color: var(--rmd-theme-background);
 
   &.BottomSheetOpen {
     display: none;

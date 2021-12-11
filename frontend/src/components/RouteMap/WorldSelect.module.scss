@@ -4,7 +4,7 @@
   left: 10px;
 
   :global(.rmd-select) {
-    background-color: white;
+    background-color: var(--rmd-theme-background);
     cursor: pointer;
     width: 175px;
     z-index: 500;

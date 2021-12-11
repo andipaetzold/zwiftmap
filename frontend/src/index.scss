@@ -30,3 +30,39 @@ body {
   height: 100%;
   width: 100%;
 }
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    @include rmd-theme-dark;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    @include rmd-theme-light;
+  }
+}
+
+.leaflet-control-zoom.leaflet-bar.leaflet-control {
+  border-color: var(--rmd-form-text-border-color);
+  border-radius: 0.25rem;
+  border-style: solid;
+  border-width: 1px;
+  background-color: var(--rmd-theme-background);
+
+  a {
+    background-color: transparent;
+    color: var(--rmd-theme-text-primary-on-background);
+
+    &:first-child {
+      border-bottom-color: var(--rmd-divider-background-color);
+      border-top-left-radius: 0.25rem;
+      border-top-right-radius: 0.25rem;
+    }
+
+    &:last-child {
+      border-bottom-right-radius: 0.25rem;
+      border-bottom-left-radius: 0.25rem;
+    }
+  }
+}

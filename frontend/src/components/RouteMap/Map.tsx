@@ -11,7 +11,7 @@ import { SegmentType, World } from "zwift-data";
 import { COLORS } from "../../constants";
 import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 import { worldConfigs } from "../../worldConfig";
-import styles from "./index.module.css";
+import styles from "./index.module.scss";
 
 const Z_INDEX = {
   previewRoute: 505,

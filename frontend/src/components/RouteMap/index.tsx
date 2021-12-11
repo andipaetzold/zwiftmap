@@ -23,7 +23,7 @@ import {
 } from "../../services/StravaSegmentRepository";
 import { getShare } from "../../services/zwiftMapApi";
 import { HoverData } from "../../types";
-import styles from "./index.module.css";
+import styles from "./index.module.scss";
 import { Map } from "./Map";
 import { WorldSelect } from "./WorldSelect";
 

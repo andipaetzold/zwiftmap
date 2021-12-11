@@ -177,7 +177,10 @@ function ElevationChartComponent({
             <defs>
               <ElevationGradient />
             </defs>
-            <CartesianGrid vertical={false} />
+            <CartesianGrid
+              vertical={false}
+              stroke="var(--rmd-form-text-border-color)"
+            />
             <XAxis
               name="Distance"
               dataKey="distance"
@@ -201,7 +204,6 @@ function ElevationChartComponent({
               content={TooltipContent}
               isAnimationActive={false}
               position={{ y: 10 }}
-              cursor={{ stroke: "black" }}
             />
             <Area
               type="monotone"

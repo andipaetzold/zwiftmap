@@ -5,7 +5,7 @@ export const FORMAT_INCLINE = new Intl.NumberFormat("en-US", {
 });
 
 export const COLORS = {
-  regular: "black",
+  regular: "var(--rmd-theme-text-primary-on-background)",
   sprintSegment: "#56A845",
   komSegment: "#ed2324",
   lapSegment: "#fc6719",
