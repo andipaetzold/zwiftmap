@@ -3,11 +3,15 @@ import { useEffect, useRef, useState } from "react";
 import {
   CircleMarker,
   ImageOverlay,
+  LayerGroup,
+  LayersControl,
   MapContainer,
   Pane,
+  Polygon,
   Polyline,
 } from "react-leaflet";
 import { SegmentType, World } from "zwift-data";
+import { ENVIRONMENT } from "../../config";
 import { COLORS } from "../../constants";
 import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 import { worldConfigs } from "../../worldConfig";
@@ -183,6 +187,20 @@ export function Map({
             interactive={false}
           />
         </Pane>
+      )}
+
+      {ENVIRONMENT === "development" && (
+        <LayersControl position="topright">
+          <LayersControl.Overlay name="Surfaces">
+            <LayerGroup>
+              <Polygon
+                interactive={false}
+                pathOptions={{ color: "purple" }}
+                positions={worldConfig.surfaces.map((s) => s.polygon)}
+              />
+            </LayerGroup>
+          </LayersControl.Overlay>
+        </LayersControl>
       )}
     </MapContainer>
   );

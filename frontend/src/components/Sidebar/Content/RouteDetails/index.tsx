@@ -12,6 +12,7 @@ import { RouteHelmet } from "./RouteHelmet";
 import { RouteLinks } from "./RouteLinks";
 import { RouteSegments } from "./RouteSegments";
 import { RouteStravaPB } from "./RouteStravaPB";
+import { RouteSurface } from "./RouteSurface";
 
 interface Props {
   route: Route;
@@ -53,6 +54,7 @@ export function RouteDetails({
         />
       </List>
 
+      <RouteSurface route={route} />
       <RouteEvents route={route} />
       <RouteSegments route={route} />
       <RouteLinks route={route} />
