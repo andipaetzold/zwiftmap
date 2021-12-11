@@ -20,7 +20,7 @@ export function EventHelmet({ event }: Props) {
       <title>{event.name}</title>
       <meta
         name="description"
-        content={`Event details for "${event.name} starting ${
+        content={`Event details for "${event.name}" starting ${
           event.eventStart
             ? FORMAT.format(Date.parse(event.eventStart))
             : "soon"

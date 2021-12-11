@@ -2,13 +2,13 @@ import { TextIconSpacing } from "@react-md/icon";
 import { List, SimpleListItem } from "@react-md/list";
 import { ListSVGIcon } from "@react-md/material-icons";
 import { Typography } from "@react-md/typography";
-import { Helmet } from "react-helmet-async";
 import { Route } from "zwift-data";
 import { LocationState } from "../../../../services/location-state";
 import { ButtonState } from "../../../ButtonState";
 import { RouteElevationChart } from "./RouteElevationChart";
 import { RouteEvents } from "./RouteEvents";
 import { RouteFacts } from "./RouteFacts";
+import { RouteHelmet } from "./RouteHelmet";
 import { RouteLinks } from "./RouteLinks";
 import { RouteSegments } from "./RouteSegments";
 import { RouteStravaPB } from "./RouteStravaPB";
@@ -29,10 +29,7 @@ export function RouteDetails({
   return (
     <>
       <List>
-        <Helmet>
-          <title>{route.name}</title>
-        </Helmet>
-
+        <RouteHelmet route={route} />
         <SimpleListItem>
           <ButtonState themeType="outline" state={backButtonState}>
             <TextIconSpacing icon={<ListSVGIcon />}>
