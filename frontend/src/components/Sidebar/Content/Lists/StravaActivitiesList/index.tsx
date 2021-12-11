@@ -59,6 +59,10 @@ function Header() {
     <>
       <Helmet>
         <title>Strava Activities</title>
+        <meta
+          name="description"
+          content="List of your Strava activities from the last 30 days"
+        />
       </Helmet>
       <SimpleListItem>
         <ButtonState

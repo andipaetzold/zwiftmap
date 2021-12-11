@@ -71,6 +71,7 @@ function Header() {
     <>
       <Helmet>
         <title>Upcoming Events</title>
+        <meta name="description" content="Upcoming events on Zwift" />
       </Helmet>
       <SimpleListItem>
         <ButtonState

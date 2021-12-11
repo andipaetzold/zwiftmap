@@ -29,6 +29,10 @@ export function RouteList({ onHoverRoute }: Props) {
     <>
       <Helmet>
         <title>{locationState.world.name}</title>
+        <meta
+          name="description"
+          content={`List routes in ${locationState.world.name} on Zwift`}
+        />
       </Helmet>
 
       <List style={{ paddingBottom: 0 }} role="menu">

@@ -20,6 +20,10 @@ export function SharedStravaActivity({
     <>
       <Helmet>
         <title>{share.activity.name}</title>
+        <meta
+          name="description"
+          content={`Shared Zwift activity "${share.activity.name}"`}
+        />
       </Helmet>
 
       <SimpleListItem>
