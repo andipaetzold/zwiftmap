@@ -54,7 +54,7 @@ export function SettingsDialog({ visible, onClose }: Props) {
         <NativeSelect
           id="settings-dialog-Units"
           label="Units"
-          value={settings.sport}
+          value={settings.units}
           onChange={handleUnitsChange}
           style={{ marginBottom: "1rem" }}
         >
