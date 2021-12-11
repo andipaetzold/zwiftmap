@@ -17,6 +17,11 @@ export async function getStravaSegmentStream<
   const response = await api.get<StravaSegment[Stream]>(
     `/${type}/${segmentSlug}/${stream}.json`
   );
+
+  if (typeof response.data === "string") {
+    throw new Error(`Error fetching ${stream} for ${type} "${segmentSlug}"`);
+  }
+
   return response.data;
 }
 
