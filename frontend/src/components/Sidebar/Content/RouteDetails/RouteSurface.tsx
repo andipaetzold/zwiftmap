@@ -1,16 +1,7 @@
-import { List, ListSubheader, SimpleListItem } from "@react-md/list";
+import { List, SimpleListItem } from "@react-md/list";
 import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
 import { point as turfPoint, polygon as turfPolygon } from "@turf/helpers";
 import { useAsync } from "react-async-hook";
-import {
-  Bar,
-  BarChart,
-  Pie,
-  PieChart,
-  ResponsiveContainer,
-  XAxis,
-  YAxis,
-} from "recharts";
 import { Route } from "zwift-data";
 import { ENVIRONMENT } from "../../../../config";
 import { SURFACE_CONSTANTS } from "../../../../constants";
