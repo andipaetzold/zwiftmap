@@ -44,6 +44,10 @@ export function Map({
   const [map, setMap] = useState<MapType | undefined>();
   useEffect(() => {
     map?.zoomControl.setPosition("topright");
+    map?.addEventListener("click", (x) =>
+      // @ts-ignore
+      console.log([x.latlng.lat, x.latlng.lng])
+    );
   }, [map]);
 
   useEffect(() => {
