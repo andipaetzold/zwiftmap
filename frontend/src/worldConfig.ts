@@ -11,7 +11,7 @@ import parisMap from "./maps/paris.png";
 import richmondMap from "./maps/richmond.png";
 import watopiaMap from "./maps/watopia.png";
 import yorkshireMap from "./maps/yorkshire.png";
-import { Surface, SURFACE_BRICK } from "./types/Surface";
+import { Surface, SURFACE_BRICK, SURFACE_COBBLES } from "./types/Surface";
 
 export type WorldConfig = {
   initialBounds: [LatLngTuple, LatLngTuple];
@@ -111,7 +111,18 @@ const WORLD_CONFIG_PARIS: WorldConfig = {
   ],
   image: parisMap,
   backgroundColor: "#b9b9b9",
-  surfaces: [],
+  surfaces: [
+    {
+      surface: SURFACE_COBBLES,
+      polygon: [
+        [48.9058, 2.2561],
+        [48.9058, 2.3722],
+        [48.82945, 2.3722],
+        [48.82945, 2.2561],
+        [48.9058, 2.2561],
+      ],
+    },
+  ],
 };
 
 const WORLD_CONFIG_RICHMOND: WorldConfig = {
