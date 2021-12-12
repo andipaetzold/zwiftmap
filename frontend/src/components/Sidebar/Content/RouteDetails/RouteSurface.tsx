@@ -2,7 +2,15 @@ import { List, ListSubheader, SimpleListItem } from "@react-md/list";
 import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
 import { point as turfPoint, polygon as turfPolygon } from "@turf/helpers";
 import { useAsync } from "react-async-hook";
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
+import {
+  Bar,
+  BarChart,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+} from "recharts";
 import { Route } from "zwift-data";
 import { ENVIRONMENT } from "../../../../config";
 import { SURFACE_CONSTANTS } from "../../../../constants";
@@ -86,50 +94,9 @@ export function RouteSurface({ route }: Props) {
   }
 
   return (
-    <List
-      aria-labelledby="route-surface-header"
-      style={{ marginTop: 0, marginBottom: 0 }}
-    >
-      <ListSubheader id="route-surface-header" role="none">
-        Surfaces
-      </ListSubheader>
-
-      <Chart data={surfaceTypesWithDistance} />
+    <List style={{ marginTop: 0, marginBottom: 0 }}>
       <Legend data={surfaceTypesWithDistance} distance={route.distance} />
     </List>
-  );
-}
-
-interface ChartProps {
-  data: Record<SurfaceType, number>;
-}
-
-function Chart({ data }: ChartProps) {
-  return (
-    <SimpleListItem aria-hidden="true">
-      <div style={{ width: "100%", height: 100 }}>
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={[data]} layout="vertical">
-            <XAxis
-              type="number"
-              allowDecimals={false}
-              tickCount={4}
-              domain={[0, "auto"]}
-              unit="km"
-            />
-            <YAxis type="category" dataKey="surface" tick={false} width={15} />
-            {SURFACE_TYPES.filter((type) => data[type] > 0).map((type) => (
-              <Bar
-                key={type}
-                dataKey={type}
-                fill={SURFACE_CONSTANTS[type].color}
-                label={SURFACE_CONSTANTS[type].label}
-              />
-            ))}
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
-    </SimpleListItem>
   );
 }
 
