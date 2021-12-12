@@ -1,14 +1,14 @@
 // https://zwiftinsider.com/crr
 
-export const SURFACE_TARMAC = "tarmac";
-export const SURFACE_BRICK = "brick";
-export const SURFACE_WOOD = "wood";
-export const SURFACE_COBBLES = "cobbles";
-export const SURFACE_SNOW = "snow";
-export const SURFACE_DIRT = "dirt";
-export const SURFACE_GRASS = "grass";
+export const SURFACE_TYPE_TARMAC = "tarmac";
+export const SURFACE_TYPE_BRICK = "brick";
+export const SURFACE_TYPE_WOOD = "wood";
+export const SURFACE_TYPE_COBBLES = "cobbles";
+export const SURFACE_TYPE_SNOW = "snow";
+export const SURFACE_TYPE_DIRT = "dirt";
+export const SURFACE_TYPE_GRASS = "grass";
 
-export const SURFACES: Surface[] = [
+export const SURFACE_TYPES: SurfaceType[] = [
   "tarmac",
   "brick",
   "wood",
@@ -18,14 +18,14 @@ export const SURFACES: Surface[] = [
   "grass",
 ];
 
-export type Surface =
-  | typeof SURFACE_TARMAC
-  | typeof SURFACE_BRICK
-  | typeof SURFACE_WOOD
-  | typeof SURFACE_COBBLES
-  | typeof SURFACE_SNOW
-  | typeof SURFACE_DIRT
-  | typeof SURFACE_GRASS;
+export type SurfaceType =
+  | typeof SURFACE_TYPE_TARMAC
+  | typeof SURFACE_TYPE_BRICK
+  | typeof SURFACE_TYPE_WOOD
+  | typeof SURFACE_TYPE_COBBLES
+  | typeof SURFACE_TYPE_SNOW
+  | typeof SURFACE_TYPE_DIRT
+  | typeof SURFACE_TYPE_GRASS;
 
 export const BIKE_ROAD = Symbol("Road");
 export const BIKE_MTB = Symbol("MTB");

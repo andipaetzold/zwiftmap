@@ -3,14 +3,14 @@ import {
   BIKE_GRAVEL,
   BIKE_MTB,
   BIKE_ROAD,
-  Surface,
-  SURFACE_BRICK,
-  SURFACE_COBBLES,
-  SURFACE_DIRT,
-  SURFACE_GRASS,
-  SURFACE_SNOW,
-  SURFACE_TARMAC,
-  SURFACE_WOOD,
+  SurfaceType,
+  SURFACE_TYPE_BRICK,
+  SURFACE_TYPE_COBBLES,
+  SURFACE_TYPE_DIRT,
+  SURFACE_TYPE_GRASS,
+  SURFACE_TYPE_SNOW,
+  SURFACE_TYPE_TARMAC,
+  SURFACE_TYPE_WOOD,
 } from "./types";
 
 export const FORMAT_INCLINE = new Intl.NumberFormat("en-US", {
@@ -29,53 +29,53 @@ export const COLORS = {
 };
 
 export const SURFACE_CONSTANTS: Record<
-  Surface,
+  SurfaceType,
   {
     label: string;
     color: string;
   }
 > = {
-  [SURFACE_TARMAC]: { label: "Tarmac", color: "#170809" },
-  [SURFACE_BRICK]: { label: "Brick", color: "#DC5539" },
-  [SURFACE_WOOD]: { label: "Wood", color: "#855E42" },
-  [SURFACE_COBBLES]: { label: "Cobbles", color: "#918E7D" },
-  [SURFACE_SNOW]: { label: "Snow", color: "#FFFAFA" },
-  [SURFACE_DIRT]: { label: "Dirt", color: "#9B7653" },
-  [SURFACE_GRASS]: { label: "Grass", color: "#567D46" },
+  [SURFACE_TYPE_TARMAC]: { label: "Tarmac", color: "#170809" },
+  [SURFACE_TYPE_BRICK]: { label: "Brick", color: "#DC5539" },
+  [SURFACE_TYPE_WOOD]: { label: "Wood", color: "#855E42" },
+  [SURFACE_TYPE_COBBLES]: { label: "Cobbles", color: "#918E7D" },
+  [SURFACE_TYPE_SNOW]: { label: "Snow", color: "#FFFAFA" },
+  [SURFACE_TYPE_DIRT]: { label: "Dirt", color: "#9B7653" },
+  [SURFACE_TYPE_GRASS]: { label: "Grass", color: "#567D46" },
 };
 
-export const CRR: Record<Surface, Record<Bike, number | null>> = {
-  [SURFACE_TARMAC]: {
+export const CRR: Record<SurfaceType, Record<Bike, number | null>> = {
+  [SURFACE_TYPE_TARMAC]: {
     [BIKE_ROAD]: 0.004,
     [BIKE_MTB]: 0.01,
     [BIKE_GRAVEL]: 0.008,
   },
-  [SURFACE_BRICK]: {
+  [SURFACE_TYPE_BRICK]: {
     [BIKE_ROAD]: 0.0055,
     [BIKE_MTB]: 0.01,
     [BIKE_GRAVEL]: 0.008,
   },
-  [SURFACE_WOOD]: {
+  [SURFACE_TYPE_WOOD]: {
     [BIKE_ROAD]: 0.0065,
     [BIKE_MTB]: 0.01,
     [BIKE_GRAVEL]: 0.008,
   },
-  [SURFACE_COBBLES]: {
+  [SURFACE_TYPE_COBBLES]: {
     [BIKE_ROAD]: 0.0065,
     [BIKE_MTB]: 0.01,
     [BIKE_GRAVEL]: 0.008,
   },
-  [SURFACE_SNOW]: {
+  [SURFACE_TYPE_SNOW]: {
     [BIKE_ROAD]: 0.0075,
     [BIKE_MTB]: 0.014,
     [BIKE_GRAVEL]: 0.018,
   },
-  [SURFACE_DIRT]: {
+  [SURFACE_TYPE_DIRT]: {
     [BIKE_ROAD]: 0.025,
     [BIKE_MTB]: 0.014,
     [BIKE_GRAVEL]: 0.018,
   },
-  [SURFACE_GRASS]: {
+  [SURFACE_TYPE_GRASS]: {
     [BIKE_ROAD]: null,
     [BIKE_MTB]: 0.042,
     [BIKE_GRAVEL]: null,

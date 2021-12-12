@@ -11,14 +11,18 @@ import parisMap from "./maps/paris.png";
 import richmondMap from "./maps/richmond.png";
 import watopiaMap from "./maps/watopia.png";
 import yorkshireMap from "./maps/yorkshire.png";
-import { Surface, SURFACE_BRICK, SURFACE_COBBLES } from "./types/Surface";
+import {
+  SurfaceType,
+  SURFACE_TYPE_BRICK,
+  SURFACE_TYPE_COBBLES,
+} from "./types/Surface";
 
 export type WorldConfig = {
   initialBounds: [LatLngTuple, LatLngTuple];
   image: string;
   backgroundColor: string;
   surfaces: {
-    surface: Surface;
+    type: SurfaceType;
     polygon: LatLngTuple[];
   }[];
 };
@@ -30,7 +34,18 @@ const WORLD_CONFIG_BOLOGNA: WorldConfig = {
   ],
   image: bolognaMap,
   backgroundColor: "#b9b9b8",
-  surfaces: [],
+  surfaces: [
+    {
+      type: SURFACE_TYPE_BRICK,
+      polygon: [
+        [44.497632, 11.331145],
+        [44.498027, 11.331479],
+        [44.499294, 11.327853],
+        [44.498899, 11.327512],
+        [44.497632, 11.331145],
+      ],
+    },
+  ],
 };
 
 const WORLD_CONFIG_CRIT_CITY: WorldConfig = {
@@ -42,7 +57,7 @@ const WORLD_CONFIG_CRIT_CITY: WorldConfig = {
   backgroundColor: "#7c9938",
   surfaces: [
     {
-      surface: SURFACE_BRICK,
+      type: SURFACE_TYPE_BRICK,
       polygon: [
         [-10.385806, 165.799698],
         [-10.385804, 165.80094],
@@ -64,7 +79,7 @@ const WORLD_CONFIG_FRANCE: WorldConfig = {
   surfaces: [
     {
       // bridge near start
-      surface: SURFACE_COBBLES,
+      type: SURFACE_TYPE_COBBLES,
       polygon: [
         [-21.73782, 166.178963],
         [-21.737471, 166.17981],
@@ -75,7 +90,7 @@ const WORLD_CONFIG_FRANCE: WorldConfig = {
     },
     {
       // pave sprint
-      surface: SURFACE_COBBLES,
+      type: SURFACE_TYPE_COBBLES,
       polygon: [
         [-21.699664, 166.174865],
         [-21.699065, 166.175366],
@@ -87,7 +102,7 @@ const WORLD_CONFIG_FRANCE: WorldConfig = {
     },
     {
       // bridge to bottom-left island, from top
-      surface: SURFACE_COBBLES,
+      type: SURFACE_TYPE_COBBLES,
       polygon: [
         [-21.73742, 166.15294],
         [-21.734989, 166.153593],
@@ -98,7 +113,7 @@ const WORLD_CONFIG_FRANCE: WorldConfig = {
     },
     {
       // bridge to bottom-left island, from right
-      surface: SURFACE_COBBLES,
+      type: SURFACE_TYPE_COBBLES,
       polygon: [
         [-21.743226, 166.157136],
         [-21.742007, 166.158805],
@@ -119,7 +134,7 @@ const WORLD_CONFIG_INNSBRUCK: WorldConfig = {
   backgroundColor: "#7c9938",
   surfaces: [
     {
-      surface: SURFACE_BRICK,
+      type: SURFACE_TYPE_BRICK,
       polygon: [
         [47.268528, 11.391566],
         [47.266103, 11.393669],
@@ -129,7 +144,7 @@ const WORLD_CONFIG_INNSBRUCK: WorldConfig = {
       ],
     },
     {
-      surface: SURFACE_COBBLES,
+      type: SURFACE_TYPE_COBBLES,
       polygon: [
         [47.266103, 11.393669],
         [47.264146, 11.394469],
@@ -181,7 +196,7 @@ const WORLD_CONFIG_PARIS: WorldConfig = {
   surfaces: [
     {
       // whole world
-      surface: SURFACE_COBBLES,
+      type: SURFACE_TYPE_COBBLES,
       polygon: [
         [48.9058, 2.2561],
         [48.9058, 2.3722],
@@ -203,7 +218,7 @@ const WORLD_CONFIG_RICHMOND: WorldConfig = {
   surfaces: [
     {
       // top left
-      surface: SURFACE_COBBLES,
+      type: SURFACE_TYPE_COBBLES,
       polygon: [
         [37.552037, -77.457716],
         [37.552969, -77.456601],
@@ -215,7 +230,7 @@ const WORLD_CONFIG_RICHMOND: WorldConfig = {
     },
     {
       // KOM
-      surface: SURFACE_COBBLES,
+      type: SURFACE_TYPE_COBBLES,
       polygon: [
         [37.527933, -77.419275],
         [37.527265, -77.418585],
@@ -230,7 +245,7 @@ const WORLD_CONFIG_RICHMOND: WorldConfig = {
     },
     {
       // 23rd street
-      surface: SURFACE_COBBLES,
+      type: SURFACE_TYPE_COBBLES,
       polygon: [
         [37.531275, -77.422526],
         [37.530939, -77.421834],
