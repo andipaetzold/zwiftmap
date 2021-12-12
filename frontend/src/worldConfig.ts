@@ -117,7 +117,28 @@ const WORLD_CONFIG_INNSBRUCK: WorldConfig = {
   ],
   image: innsbruckMap,
   backgroundColor: "#7c9938",
-  surfaces: [],
+  surfaces: [
+    {
+      surface: SURFACE_BRICK,
+      polygon: [
+        [47.268528, 11.391566],
+        [47.266103, 11.393669],
+        [47.266198, 11.394292],
+        [47.268761, 11.393283],
+        [47.268528, 11.391566],
+      ],
+    },
+    {
+      surface: SURFACE_COBBLES,
+      polygon: [
+        [47.266103, 11.393669],
+        [47.264146, 11.394469],
+        [47.264116, 11.395296],
+        [47.266198, 11.394292],
+        [47.266103, 11.393669],
+      ],
+    },
+  ],
 };
 
 const WORLD_CONFIG_LONDON: WorldConfig = {
