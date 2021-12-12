@@ -12,7 +12,7 @@ import {
 } from "react-leaflet";
 import { SegmentType, World } from "zwift-data";
 import { ENVIRONMENT } from "../../config";
-import { COLORS } from "../../constants";
+import { COLORS, SURFACE_CONSTANTS } from "../../constants";
 import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 import { worldConfigs } from "../../worldConfig";
 import styles from "./index.module.scss";
@@ -193,11 +193,13 @@ export function Map({
         <LayersControl position="topright">
           <LayersControl.Overlay name="Surfaces">
             <LayerGroup>
-              <Polygon
-                interactive={false}
-                pathOptions={{ color: "purple" }}
-                positions={worldConfig.surfaces.map((s) => s.polygon)}
-              />
+              {worldConfig.surfaces.map((s) => (
+                <Polygon
+                  interactive={false}
+                  pathOptions={{ color: SURFACE_CONSTANTS[s.type].color }}
+                  positions={s.polygon}
+                />
+              ))}
             </LayerGroup>
           </LayersControl.Overlay>
         </LayersControl>
