@@ -12,6 +12,7 @@ import { SegmentFacts } from "./SegmentFacts";
 import { SegmentLinks } from "./SegmentLinks";
 import { SegmentRoutes } from "./SegmentRoutes";
 import { SegmentStravaPB } from "./SegmentStravaPB";
+import { SegmentSurface } from "./SegmentSurface";
 
 interface Props {
   segment: Segment;
@@ -54,6 +55,7 @@ export function SegmentDetails({
         segment={segment}
         onMouseHoverDistanceChange={onMouseHoverDistanceChange}
       />
+      <SegmentSurface segment={segment} />
       <SegmentRoutes segment={segment} onHoverRoute={onHoverRoute} />
       <SegmentLinks segment={segment} />
     </List>

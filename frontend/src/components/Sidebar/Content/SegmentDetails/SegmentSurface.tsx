@@ -1,5 +1,5 @@
 import { useAsync } from "react-async-hook";
-import { Route } from "zwift-data";
+import { Segment } from "zwift-data";
 import { ENVIRONMENT } from "../../../../config";
 import { getStravaSegmentStreams } from "../../../../services/StravaSegmentRepository";
 import { StravaSegment } from "../../../../types";
@@ -7,15 +7,15 @@ import { worldConfigs } from "../../../../worldConfigs";
 import { SurfaceListItem } from "../../../SurfaceListItem";
 
 interface Props {
-  route: Route;
+  segment: Segment;
 }
 
 const REQUIRED_STREAMS = ["latlng", "distance"] as const;
 
-export function RouteSurface({ route }: Props) {
+export function SegmentSurface({ segment }: Props) {
   const { result: routeSegment } = useAsync<
     Pick<StravaSegment, "latlng" | "distance">
-  >(getStravaSegmentStreams, [route.slug, "routes", REQUIRED_STREAMS]);
+  >(getStravaSegmentStreams, [segment.slug, "segments", REQUIRED_STREAMS]);
 
   if (ENVIRONMENT === "production") {
     return null;
@@ -29,8 +29,8 @@ export function RouteSurface({ route }: Props) {
     <SurfaceListItem
       distancStream={routeSegment.distance}
       latLngStream={routeSegment.latlng}
-      distance={route.distance}
-      surfaces={worldConfigs[route.world].surfaces}
+      distance={segment.distance}
+      surfaces={worldConfigs[segment.world].surfaces}
     />
   );
 }
