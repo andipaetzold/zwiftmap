@@ -5,10 +5,10 @@ export interface WorldConfig {
   initialBounds: [LatLngTuple, LatLngTuple];
   image: string;
   backgroundColor: string;
-  surfaces: WorldConfigSuraface[];
+  surfaces: WorldConfigSurface[];
 }
 
-export interface WorldConfigSuraface {
+export interface WorldConfigSurface {
   type: SurfaceType;
   polygon: LatLngTuple[];
 }

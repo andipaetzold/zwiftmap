@@ -11,7 +11,7 @@ import {
   SURFACE_TYPE_SNOW,
   SURFACE_TYPE_TARMAC,
   SURFACE_TYPE_WOOD,
-  WorldConfigSuraface,
+  WorldConfigSurface,
 } from "../../types";
 import { Distance } from "../Distance";
 import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
@@ -27,7 +27,7 @@ interface Props {
   latLngStream: LatLngTuple[];
   distancStream: number[];
   distance: number;
-  surfaces: WorldConfigSuraface[];
+  surfaces: WorldConfigSurface[];
 }
 
 export function SurfaceListItem({
