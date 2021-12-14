@@ -7,6 +7,7 @@ import { SharedStravaActivityFacts } from "./Facts";
 import { SharedStravaActivityHelmet } from "./Helmet";
 import { SharedStravaActivityLinks } from "./Links";
 import { SharedStravaActivitySharing } from "./Sharing";
+import { SharedStravaActivitySurface } from "./Surface";
 
 interface Props {
   share: ShareStravaActivity;
@@ -49,6 +50,7 @@ export function SharedStravaActivity({
         share={share}
         onMouseHoverDistanceChange={onMouseHoverDistanceChange}
       />
+      <SharedStravaActivitySurface share={share} />
 
       <SharedStravaActivitySharing url={imageExists ? imageUrl : null} />
       <SharedStravaActivityLinks share={share} />
