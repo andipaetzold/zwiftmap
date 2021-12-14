@@ -1,4 +1,4 @@
-import { worldConfigs } from "./worldConfig";
+import { worldConfigs } from ".";
 
 describe("ensure bounds are topleft and bottomright", () => {
   describe("initial bounds", () => {

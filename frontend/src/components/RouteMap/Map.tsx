@@ -14,7 +14,7 @@ import { SegmentType, World } from "zwift-data";
 import { ENVIRONMENT } from "../../config";
 import { COLORS, SURFACE_CONSTANTS } from "../../constants";
 import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
-import { worldConfigs } from "../../worldConfig";
+import { worldConfigs } from "../../worldConfigs";
 import styles from "./index.module.scss";
 
 const Z_INDEX = {

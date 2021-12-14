@@ -18,7 +18,7 @@ import {
   SURFACE_TYPE_TARMAC,
   SURFACE_TYPE_WOOD,
 } from "../../../../types/Surface";
-import { worldConfigs } from "../../../../worldConfig";
+import { worldConfigs } from "../../../../worldConfigs";
 import { Distance } from "../../../Distance";
 
 interface Props {

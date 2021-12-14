@@ -4,5 +4,5 @@ export * from "./Settings";
 export * from "./Share";
 export * from "./StravaSegment";
 export * from "./StravaSettings";
-export * from './Surface';
-
+export * from "./Surface";
+export * from "./WorldConfig";
