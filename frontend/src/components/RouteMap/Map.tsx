@@ -193,8 +193,9 @@ export function Map({
         <LayersControl position="topright">
           <LayersControl.Overlay name="Surfaces">
             <LayerGroup>
-              {worldConfig.surfaces.map((s) => (
+              {worldConfig.surfaces.map((s, surfaceIndex) => (
                 <Polygon
+                  key={surfaceIndex}
                   interactive={false}
                   pathOptions={{ color: SURFACE_CONSTANTS[s.type].color }}
                   positions={s.polygon}
