@@ -1,7 +1,6 @@
 import { SimpleListItem } from "@react-md/list";
 import { Typography } from "@react-md/typography";
 import { useAsync } from "react-async-hook";
-import { Helmet } from "react-helmet-async";
 import { ShareStravaActivity } from "../../../../../types";
 import { SharedStravaActivityElevationChart } from "./ElevationChart";
 import { SharedStravaActivityFacts } from "./Facts";
@@ -33,7 +32,10 @@ export function SharedStravaActivity({
 
   return (
     <>
-      <SharedStravaActivityHelmet share={share} imageUrl={imageExists ? imageUrl : null} />
+      <SharedStravaActivityHelmet
+        share={share}
+        imageUrl={imageExists ? imageUrl : null}
+      />
 
       <SimpleListItem>
         <Typography type="headline-6" style={{ margin: 0 }}>
