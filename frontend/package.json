@@ -49,7 +49,7 @@
     "react-scripts": "4.0.3",
     "recharts": "2.1.7",
     "strava": "2.0.1",
-    "typescript": "4.5.3",
+    "typescript": "4.5.4",
     "zustand": "3.6.7",
     "zwift-data": "1.10.5"
   },
