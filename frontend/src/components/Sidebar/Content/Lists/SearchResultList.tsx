@@ -37,6 +37,7 @@ export function SearchResultList({ onHoverRoute, query }: Props) {
     <List>
       <Helmet>
         <title>Search Results</title>
+        <meta property="og:title" content={`Search Results - ZwiftMap`} />
       </Helmet>
 
       <SortButton />

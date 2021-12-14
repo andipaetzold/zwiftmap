@@ -44,6 +44,7 @@ function ShareContent({ shareId, onMouseHoverDistanceChange }: Props) {
         <>
           <Helmet>
             <title>Shared Activity</title>
+            <meta property="og:title" content="Shared Activity - ZwiftMap" />
           </Helmet>
           <LoadingSpinnerListItem />
         </>
@@ -53,6 +54,7 @@ function ShareContent({ shareId, onMouseHoverDistanceChange }: Props) {
         <>
           <Helmet>
             <title>Shared Activity</title>
+            <meta property="og:title" content="Shared Activity - ZwiftMap" />
           </Helmet>
           <SimpleListItem>An error occurred</SimpleListItem>
         </>

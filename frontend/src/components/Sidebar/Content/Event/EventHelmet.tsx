@@ -15,17 +15,16 @@ interface Props {
 }
 
 export function EventHelmet({ event }: Props) {
+  const description = `Event details for "${event.name}" starting ${
+    event.eventStart ? FORMAT.format(Date.parse(event.eventStart)) : "soon"
+  } on Zwift`;
   return (
     <Helmet>
       <title>{event.name}</title>
-      <meta
-        name="description"
-        content={`Event details for "${event.name}" starting ${
-          event.eventStart
-            ? FORMAT.format(Date.parse(event.eventStart))
-            : "soon"
-        } on Zwift`}
-      />
+      <meta name="description" content={description} />
+
+      <meta property="og:title" content={`${event.name} - ZwiftMap`} />
+      <meta property="og:description" content={description} />
     </Helmet>
   );
 }

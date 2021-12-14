@@ -63,6 +63,12 @@ function Header() {
           name="description"
           content="List of your Strava activities from the last 30 days"
         />
+
+        <meta property="og:title" content={`Strava Activities - ZwiftMap`} />
+        <meta
+          property="og:description"
+          content="List of your Strava activities from the last 30 days"
+        />
       </Helmet>
       <SimpleListItem>
         <ButtonState

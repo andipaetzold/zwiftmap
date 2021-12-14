@@ -5,29 +5,14 @@ import {
   ListSubheader,
 } from "@react-md/list";
 import { FileDownloadSVGIcon, ShareSVGIcon } from "@react-md/material-icons";
-import { useAsync } from "react-async-hook";
-import { Share } from "../../../../../types";
 import { shareImage } from "../../../../../util/shareImage";
 
 interface Props {
-  share: Share;
+  url: string | null;
 }
 
-export function SharedStravaActivitySharing({ share }: Props) {
-  const url = `https://res.cloudinary.com/zwiftmap/image/upload/s/${share.id}.png`;
-  const { result: imageExists } = useAsync<boolean>(
-    async (u: string) => {
-      try {
-        const response = await fetch(u, { method: "HEAD" });
-        return response.ok;
-      } catch {
-        return false;
-      }
-    },
-    [url]
-  );
-
-  if (!imageExists) {
+export function SharedStravaActivitySharing({ url }: Props) {
+  if (url === null) {
     return null;
   }
 

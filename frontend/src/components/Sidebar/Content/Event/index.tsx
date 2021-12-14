@@ -28,6 +28,7 @@ function EventContent({ eventId }: Props) {
       <>
         <Helmet>
           <title>Event</title>
+          <meta property="og:title" content="Event - ZwiftMap" />
         </Helmet>
         <LoadingSpinnerListItem />
       </>
@@ -39,6 +40,7 @@ function EventContent({ eventId }: Props) {
       <>
         <Helmet>
           <title>Event</title>
+          <meta property="og:title" content="Event - ZwiftMap" />
         </Helmet>
         <SimpleListItem secondaryText="Error loading event">
           An error occurred

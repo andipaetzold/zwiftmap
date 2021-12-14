@@ -33,6 +33,15 @@ export function RouteList({ onHoverRoute }: Props) {
           name="description"
           content={`List routes in ${locationState.world.name} on Zwift`}
         />
+
+        <meta
+          property="og:title"
+          content={`${locationState.world.name} - ZwiftMap`}
+        />
+        <meta
+          property="og:description"
+          content={`List routes in ${locationState.world.name} on Zwift`}
+        />
       </Helmet>
 
       <List style={{ paddingBottom: 0 }} role="menu">

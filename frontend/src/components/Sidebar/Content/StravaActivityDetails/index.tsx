@@ -41,6 +41,7 @@ function StravaActivityDetailsContent({
   const genericHelmet = (
     <Helmet>
       <title>Strava Activity</title>
+      <meta property="og:title" content={`Strava Activity - ZwiftMap`} />
     </Helmet>
   );
 

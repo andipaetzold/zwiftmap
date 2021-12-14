@@ -33,6 +33,7 @@ export function SegmentDetails({
     <List>
       <Helmet>
         <title>{segment.name}</title>
+        <meta property="og:title" content={`${segment.name} - ZwiftMap`} />
       </Helmet>
 
       <SimpleListItem>

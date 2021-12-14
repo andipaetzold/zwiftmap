@@ -24,6 +24,7 @@ export function StravaActivityDetailsComponent({
     <>
       <Helmet>
         <title>{activity.name}</title>
+        <meta property="og:title" content={`${activity.name} - ZwiftMap`} />
       </Helmet>
 
       <SimpleListItem>

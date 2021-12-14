@@ -19,6 +19,11 @@ interface Props {
 
 export function RouteHelmet({ route }: Props) {
   const world = worlds.find((w) => w.slug === route.world)!;
+  const description = `Route details for "${route.name}" in ${
+    world.name
+  } on Zwift. Distance: ${DISTANCE_FORMAT.format(
+    route.distance
+  )}km. Elevation: ${ELEVATION_FORMAT.format(route.elevation)}m.`;
 
   return (
     <Helmet>
@@ -31,6 +36,9 @@ export function RouteHelmet({ route }: Props) {
           route.distance
         )}km. Elevation: ${ELEVATION_FORMAT.format(route.elevation)}m.`}
       />
+
+      <meta property="og:title" content={`${route.name} - ZwiftMap`} />
+      <meta property="og:description" content={description} />
     </Helmet>
   );
 }
