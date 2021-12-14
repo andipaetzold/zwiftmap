@@ -1,6 +1,5 @@
 import { useAsync } from "react-async-hook";
 import { Segment } from "zwift-data";
-import { ENVIRONMENT } from "../../../../config";
 import { getStravaSegmentStreams } from "../../../../services/StravaSegmentRepository";
 import { StravaSegment } from "../../../../types";
 import { worldConfigs } from "../../../../worldConfigs";
@@ -16,10 +15,6 @@ export function SegmentSurface({ segment }: Props) {
   const { result: routeSegment } = useAsync<
     Pick<StravaSegment, "latlng" | "distance">
   >(getStravaSegmentStreams, [segment.slug, "segments", REQUIRED_STREAMS]);
-
-  if (ENVIRONMENT === "production") {
-    return null;
-  }
 
   if (!routeSegment) {
     return null;
