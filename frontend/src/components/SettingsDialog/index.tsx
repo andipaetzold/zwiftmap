@@ -11,7 +11,7 @@ import { ArrowDropDownSVGIcon } from "@react-md/material-icons";
 import React from "react";
 import { Sport } from "zwift-data";
 import { useSettings } from "../../hooks/useSettings";
-import { Units } from "../../types";
+import { Settings, Units } from "../../types";
 import { StravaSettings } from "./StravaSettings";
 
 interface Props {
@@ -28,6 +28,10 @@ export function SettingsDialog({ visible, onClose }: Props) {
 
   const handleUnitsChange = (units: string) => {
     setSettings({ ...settings, units: units as Units });
+  };
+
+  const handleThemeChange = (theme: string) => {
+    setSettings({ ...settings, theme: theme as Settings["theme"] });
   };
 
   return (
@@ -65,6 +69,21 @@ export function SettingsDialog({ visible, onClose }: Props) {
           options={[
             { label: "Metric", value: "metric" },
             { label: "Imperial", value: "imperial" },
+          ]}
+          rightChildren={<ArrowDropDownSVGIcon />}
+        />
+
+        <Select
+          id="settings-dialog-theme"
+          label="Theme"
+          value={settings.theme}
+          onChange={handleThemeChange}
+          listboxStyle={{ zIndex: 3000 }}
+          style={{ marginBottom: "1rem" }}
+          options={[
+            { label: "System", value: "system" },
+            { label: "Light", value: "light" },
+            { label: "Dark", value: "dark" },
           ]}
           rightChildren={<ArrowDropDownSVGIcon />}
         />

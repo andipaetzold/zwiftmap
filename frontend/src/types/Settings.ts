@@ -4,7 +4,10 @@ import { ZwiftEventType } from "../services/events";
 export interface Settings {
   sport: Sport;
   units: Units;
+  theme: Theme | "system";
 }
+
+export type Theme = "light" | "dark";
 
 export type Units = "imperial" | "metric";
 

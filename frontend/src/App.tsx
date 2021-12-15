@@ -1,7 +1,9 @@
+import c from "classnames";
 import React, { useState } from "react";
 import styles from "./App.module.scss";
 import RouteMap from "./components/RouteMap";
 import { Sidebar } from "./components/Sidebar";
+import { useTheme } from "./hooks/useTheme";
 import { HoverData } from "./types";
 
 export default function App() {
@@ -10,9 +12,13 @@ export default function App() {
   >(undefined);
 
   const [previewRoute, setPreviewRoute] = useState<HoverData>();
+  useTheme();
 
   return (
-    <div className={styles.Wrapper} role="presentation">
+    <div
+      className={c(styles.Wrapper)}
+      role="presentation"
+    >
       <Sidebar
         onMouseHoverDistanceChange={setMouseHoverDistance}
         onHoverRoute={setPreviewRoute}

@@ -31,16 +31,22 @@ body {
   width: 100%;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
+.theme-system {
+  @media (prefers-color-scheme: dark) {
     @include rmd-theme-dark;
+  }
+
+  @media (prefers-color-scheme: light) {
+    @include rmd-theme-light;
   }
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    @include rmd-theme-light;
-  }
+.theme-dark {
+  @include rmd-theme-dark;
+}
+
+.theme-light {
+  @include rmd-theme-light;
 }
 
 .leaflet-control-zoom.leaflet-bar.leaflet-control {
