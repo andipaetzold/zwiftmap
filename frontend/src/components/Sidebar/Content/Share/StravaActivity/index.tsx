@@ -2,6 +2,7 @@ import { SimpleListItem } from "@react-md/list";
 import { Typography } from "@react-md/typography";
 import { useAsync } from "react-async-hook";
 import { ShareStravaActivity } from "../../../../../types";
+import { getShareImageUrl } from "../../../../../util/cloudinary";
 import { SharedStravaActivityElevationChart } from "./ElevationChart";
 import { SharedStravaActivityFacts } from "./Facts";
 import { SharedStravaActivityHelmet } from "./Helmet";
@@ -18,7 +19,7 @@ export function SharedStravaActivity({
   share,
   onMouseHoverDistanceChange,
 }: Props) {
-  const imageUrl = `https://res.cloudinary.com/zwiftmap/image/upload/s/${share.id}.png`;
+  const imageUrl = getShareImageUrl(share.id);
   const { result: imageExists } = useAsync<boolean>(
     async (u: string) => {
       try {
@@ -28,7 +29,7 @@ export function SharedStravaActivity({
         return false;
       }
     },
-    [imageUrl]
+    [share.id]
   );
 
   return (

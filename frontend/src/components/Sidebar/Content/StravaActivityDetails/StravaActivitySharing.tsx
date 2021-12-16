@@ -3,16 +3,17 @@ import { ListItem, ListSubheader, SimpleListItem } from "@react-md/list";
 import {
   ImageSVGIcon,
   InsertLinkSVGIcon,
-  ShareSVGIcon,
+  ShareSVGIcon
 } from "@react-md/material-icons";
 import * as Sentry from "@sentry/react";
 import { useEffect, useRef, useState } from "react";
 import { createUrl } from "../../../../services/location-state";
 import {
   appendStravaDescription,
-  StravaActivity,
+  StravaActivity
 } from "../../../../services/StravaActivityRepository";
 import { shareStravaActivity } from "../../../../services/zwiftMapApi";
+import { getShareImageUrl } from "../../../../util/cloudinary";
 import { shareImage } from "../../../../util/shareImage";
 
 const isSharingSupported = "share" in navigator;
@@ -115,7 +116,7 @@ function ShareActivityAsImage({ activity }: Props) {
 
       const { id: shareId } = await shareStravaActivity(activity.id);
 
-      const cloudinaryURL = `https://res.cloudinary.com/zwiftmap/image/upload/s/${shareId}.png`;
+      const cloudinaryURL = getShareImageUrl(shareId);
 
       const pollPromise = new Promise<void>((resolve, reject) => {
         pollInterval.current = setInterval(async () => {
