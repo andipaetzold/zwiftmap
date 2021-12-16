@@ -1,16 +1,9 @@
-import * as Sentry from "@sentry/react";
 import round from "lodash/round";
-import { useMemo } from "react";
 import { worlds } from "zwift-data";
 import { ZwiftEvent } from "../../services/events";
 import { EVENT_TYPES } from "../../services/events/constants";
+import { formatEventStart } from "../../util/formats";
 import { Distance } from "../Distance";
-
-const FORMAT = new Intl.DateTimeFormat("en-US", {
-  hour: "2-digit",
-  minute: "2-digit",
-  weekday: "short",
-});
 
 interface Props {
   event: ZwiftEvent;
@@ -18,21 +11,6 @@ interface Props {
 }
 
 export function EventInfo({ event, showWorld = false }: Props) {
-  const date = useMemo(() => {
-    try {
-      return event.eventStart
-        ? FORMAT.format(Date.parse(event.eventStart))
-        : "Unknown start time";
-    } catch (e) {
-      // TODO: remove once bug was identified
-      Sentry.captureException(e, {
-        extra: {
-          eventId: event.id,
-          eventStart: event.eventStart,
-        },
-      });
-    }
-  }, [event]);
   const world = worlds.find((w) => w.id === event.mapId)?.name;
 
   const type = EVENT_TYPES[event.eventType] ?? event.eventType;
@@ -40,7 +18,7 @@ export function EventInfo({ event, showWorld = false }: Props) {
 
   return (
     <>
-      <time dateTime={event.eventStart!}>{date}</time>
+      <time dateTime={event.eventStart!}>{formatEventStart(event)}</time>
       {showWorld && world && (
         <>
           {" | "}

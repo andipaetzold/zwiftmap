@@ -17,15 +17,10 @@ import {
   ZwiftEvent,
 } from "../../../../services/events";
 import { EVENT_TYPES } from "../../../../services/events/constants";
+import { formatEventStart } from "../../../../util/formats";
 import { Distance } from "../../../Distance";
 import { Elevation } from "../../../Elevation";
 import { ListItemState } from "../../../ListItemState";
-
-const FORMAT = new Intl.DateTimeFormat("en-US", {
-  hour: "2-digit",
-  minute: "2-digit",
-  weekday: "short",
-});
 
 interface Props {
   event: ZwiftEvent;
@@ -45,11 +40,7 @@ export function EventFacts({ event }: Props) {
         leftAddon={<EventSVGIcon />}
         leftAddonType="icon"
       >
-        <time dateTime={event.eventStart ?? ""}>
-          {event.eventStart
-            ? FORMAT.format(Date.parse(event.eventStart))
-            : "Unknown"}
-        </time>
+        <time dateTime={event.eventStart ?? ""}>{formatEventStart(event)}</time>
       </SimpleListItem>
       <SimpleListItem
         clickable={false}
