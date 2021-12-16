@@ -79,26 +79,35 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
     ) => {
       switch (type) {
         case "route": {
-          const streams = await getStravaSegmentStreams(route!.slug, "routes", [
-            "distance",
-            "latlng",
-          ]);
-          return {
-            distance: streams.distance,
-            latlng: streams.latlng,
-          };
+          if (route && route.stravaSegmentId) {
+            const streams = await getStravaSegmentStreams(
+              route!.slug,
+              "routes",
+              ["distance", "latlng"]
+            );
+            return {
+              distance: streams.distance,
+              latlng: streams.latlng,
+            };
+          }
+          break;
         }
+
         case "segment": {
-          const streams = await getStravaSegmentStreams(
-            segment!.slug,
-            "segments",
-            ["distance", "latlng"]
-          );
-          return {
-            distance: streams.distance,
-            latlng: streams.latlng,
-          };
+          if (segment && segment.stravaSegmentId) {
+            const streams = await getStravaSegmentStreams(
+              segment!.slug,
+              "segments",
+              ["distance", "latlng"]
+            );
+            return {
+              distance: streams.distance,
+              latlng: streams.latlng,
+            };
+          }
+          break;
         }
+
         case "strava-activity": {
           const activity = await getStravaActivity(stravaActivityId!);
           return {
@@ -106,10 +115,12 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
             latlng: activity.streams.latlng,
           };
         }
+
         case "event": {
           const event = await fetchEvent(eventId!);
           const route = routes.find((r) => r.id === event.routeId);
-          if (route) {
+
+          if (route && route.stravaSegmentId) {
             const segment = await getStravaSegmentStreams(
               route!.slug,
               "routes",
