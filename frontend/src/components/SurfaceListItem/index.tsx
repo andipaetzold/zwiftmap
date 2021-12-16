@@ -36,12 +36,6 @@ export function SurfaceListItem({
   distance,
   surfaces,
 }: Props) {
-  /**
-   * Distance in zwift-data and on Strava are not identical. This factor is used to adjust the strava distance.
-   */
-  const distanceFactor =
-    distance / (distancStream[distancStream.length - 1] / 1_000);
-
   const worldSurfaces = surfaces.map((worldSurface) => ({
     ...worldSurface,
     polygon: turfPolygon([worldSurface.polygon]),
@@ -67,7 +61,7 @@ export function SurfaceListItem({
 
   for (let i = 1; i < routeSurfaces.length; ++i) {
     surfaceTypesWithDistance[routeSurfaces[i]] +=
-      ((distancStream[i] - distancStream[i - 1]) / 1_000) * distanceFactor;
+      (distancStream[i] - distancStream[i - 1]) / 1_000;
   }
 
   return (
