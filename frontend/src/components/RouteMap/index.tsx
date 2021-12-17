@@ -1,11 +1,8 @@
-import { LatLngTuple } from "leaflet";
 import "leaflet/dist/leaflet.css";
-import React, { useMemo } from "react";
+import React from "react";
 import { useAsync } from "react-async-hook";
 import { useStore } from "../../hooks/useStore";
-import {
-  DEFAULT_WORLD, useLocationState
-} from "../../services/location-state";
+import { DEFAULT_WORLD, useLocationState } from "../../services/location-state";
 import { HoverData } from "../../types";
 import styles from "./index.module.scss";
 import { loadPreviewRoute } from "./loaders/previewRoute";
@@ -26,33 +23,8 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
   const { result: segmentsWithLatLng } = useAsync(loadSegments, [
     locationState,
   ]);
-
-  const { result: routeStreamSet } = useAsync<
-    | {
-        latlng: LatLngTuple[];
-        distance: number[];
-      }
-    | undefined
-  >(loadRoute, [locationState]);
-
-  const { result: previewLatLng } = useAsync<LatLngTuple[] | undefined>(
-    loadPreviewRoute,
-    [previewRoute]
-  );
-
-  const pointCoordinates = useMemo<LatLngTuple | undefined>(() => {
-    if (!routeStreamSet || !mouseHoverDistance) {
-      return;
-    }
-
-    const pointIndex = routeStreamSet.distance.findIndex(
-      (d) => d > mouseHoverDistance * 1_000
-    );
-    if (!pointIndex) {
-      return;
-    }
-    return routeStreamSet.latlng[pointIndex];
-  }, [routeStreamSet, mouseHoverDistance]);
+  const { result: routeStreams } = useAsync(loadRoute, [locationState]);
+  const { result: previewLatLng } = useAsync(loadPreviewRoute, [previewRoute]);
 
   const selectedWorld = locationState.world ?? DEFAULT_WORLD;
 
@@ -71,9 +43,9 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
       <Map
         key={selectedWorld.slug}
         world={selectedWorld}
-        hoverPoint={pointCoordinates}
+        mouseHoverDistance={mouseHoverDistance}
         previewRouteLatLngStream={previewLatLng}
-        routeLatLngStream={routeStreamSet?.latlng}
+        routeStreams={routeStreams}
         segments={segmentsWithLatLng}
       />
     </div>

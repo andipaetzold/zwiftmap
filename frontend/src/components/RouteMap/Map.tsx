@@ -1,4 +1,4 @@
-import { LatLngBounds, LatLngTuple, Map as MapType } from "leaflet";
+import { LatLngTuple, Map as MapType } from "leaflet";
 import { useEffect, useRef, useState } from "react";
 import {
   CircleMarker,
@@ -15,25 +15,30 @@ import { COLORS, SURFACE_CONSTANTS } from "../../constants";
 import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 import { useSettings } from "../../hooks/useSettings";
 import { Overlay } from "../../types";
+import { getBounds } from "../../util/bounds";
 import { worldConfigs } from "../../worldConfigs";
 import { Z_INDEX } from "./constants";
 import styles from "./index.module.scss";
 import { PreviewRoute } from "./PreviewRoute";
+import { RoutePosition } from "./RoutePosition";
 import { WorldImage } from "./WorldImage";
 
 interface Props {
   world: World;
-  hoverPoint?: LatLngTuple;
-  routeLatLngStream?: LatLngTuple[];
+  routeStreams?: {
+    latlng: LatLngTuple[];
+    distance: number[];
+  };
   previewRouteLatLngStream?: LatLngTuple[];
   segments?: { latlng: LatLngTuple[]; type: SegmentType }[];
+  mouseHoverDistance?: number;
 }
 
 export function Map({
   world,
-  hoverPoint,
   previewRouteLatLngStream,
-  routeLatLngStream,
+  routeStreams,
+  mouseHoverDistance,
   segments = [],
 }: Props) {
   const [settings, setSettings] = useSettings();
@@ -58,7 +63,7 @@ export function Map({
 
     const minZoom = map.getBoundsZoom(world.bounds, false);
     map.setMinZoom(minZoom);
-  }, [map, world, routeLatLngStream]);
+  }, [map, world, routeStreams]);
 
   const doHardZoom = useRef<boolean>(true);
   useEffect(() => {
@@ -70,11 +75,8 @@ export function Map({
 
     map.invalidateSize();
 
-    if (routeLatLngStream) {
-      const bounds = routeLatLngStream.reduce(
-        (bounds, coord) => bounds.extend(coord),
-        new LatLngBounds(routeLatLngStream[0], routeLatLngStream[0])
-      );
+    if (routeStreams) {
+      const bounds = getBounds(routeStreams.latlng);
 
       if (doHardZoom.current || prefersReducedMotion) {
         map.fitBounds(bounds, { animate: false });
@@ -90,7 +92,7 @@ export function Map({
     }
 
     doHardZoom.current = false;
-  }, [map, routeLatLngStream, world, prefersReducedMotion]);
+  }, [map, routeStreams, world, prefersReducedMotion]);
 
   const worldConfig = worldConfigs[world.slug];
 
@@ -160,18 +162,18 @@ export function Map({
         )}
       </LayersControl>
 
-      {routeLatLngStream && (
+      {routeStreams && (
         <>
           <Pane name="route" style={{ zIndex: Z_INDEX.route }}>
             <Polyline
-              positions={routeLatLngStream}
+              positions={routeStreams.latlng}
               pathOptions={{ color: COLORS.route, weight: 5 }}
               interactive={false}
             />
           </Pane>
           <Pane name="route-start" style={{ zIndex: Z_INDEX.routeStart }}>
             <CircleMarker
-              center={routeLatLngStream[0]}
+              center={routeStreams.latlng[0]}
               radius={5}
               weight={2}
               pathOptions={{
@@ -184,7 +186,7 @@ export function Map({
           </Pane>
           <Pane name="route-end" style={{ zIndex: Z_INDEX.routeEnd }}>
             <CircleMarker
-              center={routeLatLngStream[routeLatLngStream.length - 1]}
+              center={routeStreams.latlng[routeStreams.latlng.length - 1]}
               radius={5}
               weight={2}
               pathOptions={{
@@ -198,21 +200,10 @@ export function Map({
         </>
       )}
 
-      {hoverPoint && (
-        <Pane name="mouse-position" style={{ zIndex: 508 }}>
-          <CircleMarker
-            center={hoverPoint}
-            radius={5}
-            weight={2}
-            pathOptions={{
-              color: "white",
-              fillColor: "black",
-              fillOpacity: 1,
-            }}
-            interactive={false}
-          />
-        </Pane>
-      )}
+      <RoutePosition
+        hoverDistance={mouseHoverDistance}
+        streams={routeStreams}
+      />
     </MapContainer>
   );
 }
