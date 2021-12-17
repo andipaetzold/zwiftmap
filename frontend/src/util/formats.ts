@@ -30,10 +30,11 @@ export function formatEventStart(event: ZwiftEvent): string {
       return "Unknown start time";
     }
 
-    if (isAfter(parseISO(event.eventStart), subDays(new Date(), 1))) {
-      return FORMAT_SHORT.format(Date.parse(event.eventStart));
+    const startDate = parseISO(event.eventStart);
+    if (isAfter(startDate, subDays(new Date(), 1))) {
+      return FORMAT_SHORT.format(startDate);
     } else {
-      return FORMAT_LONG.format(Date.parse(event.eventStart));
+      return FORMAT_LONG.format(startDate);
     }
   } catch (e) {
     // TODO: remove once bug was identified
