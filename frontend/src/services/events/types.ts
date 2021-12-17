@@ -14,7 +14,7 @@ export interface ZwiftEvent {
   bikeHash: number | null;
   visible: boolean;
   overrideMapPreferences: boolean;
-  eventStart: string | null;
+  eventStart: string;
   durationInSeconds: number;
   distanceInMeters: number;
   laps: number;

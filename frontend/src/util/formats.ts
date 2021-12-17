@@ -20,16 +20,6 @@ export const FORMAT_LONG = new Intl.DateTimeFormat("en-US", {
 
 export function formatEventStart(event: ZwiftEvent): string {
   try {
-    if (!event.eventStart) {
-      Sentry.captureException("Unknown start time", {
-        extra: {
-          eventId: event.id,
-          eventStart: event.eventStart,
-        },
-      });
-      return "Unknown start time";
-    }
-
     const startDate = parseISO(event.eventStart);
     if (isAfter(startDate, subDays(new Date(), 1))) {
       return FORMAT_SHORT.format(startDate);

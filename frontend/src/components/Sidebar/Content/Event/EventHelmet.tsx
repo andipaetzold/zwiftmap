@@ -7,9 +7,9 @@ interface Props {
 }
 
 export function EventHelmet({ event }: Props) {
-  const description = `Event details for "${event.name}" starting ${
-    event.eventStart ? FORMAT_LONG.format(Date.parse(event.eventStart)) : "soon"
-  } on Zwift`;
+  const description = `Event details for "${
+    event.name
+  }" starting ${FORMAT_LONG.format(Date.parse(event.eventStart))} on Zwift`;
   return (
     <Helmet>
       <title>{event.name}</title>

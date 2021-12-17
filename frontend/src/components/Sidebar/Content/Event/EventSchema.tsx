@@ -13,7 +13,7 @@ interface Props {
 export function EventSchema({ event }: Props) {
   const world = getWorldFromEvent(event);
 
-  if (!world || !event.eventStart) {
+  if (!world) {
     return null;
   }
 
