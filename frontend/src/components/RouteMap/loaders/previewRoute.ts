@@ -1,11 +1,16 @@
+import * as Sentry from "@sentry/react";
 import { LatLngTuple } from "leaflet";
 import { getStravaSegmentStreams } from "../../../services/StravaSegmentRepository";
 import { HoverData } from "../../../types";
-import * as Sentry from "@sentry/react";
+import { isSaveDataMode } from "../../../util/saveData";
 
 export async function loadPreviewRoute(
   data: HoverData | undefined
 ): Promise<LatLngTuple[] | undefined> {
+  if (isSaveDataMode()) {
+    return
+  }
+
   try {
     if (data === undefined) {
       return;
