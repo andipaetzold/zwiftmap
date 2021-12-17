@@ -5,6 +5,7 @@ export interface Settings {
   sport: Sport;
   units: Units;
   theme: Theme | "system";
+  overlay: Overlay;
 }
 
 export type Theme = "light" | "dark";
@@ -33,3 +34,5 @@ export interface SortState {
 export interface EventFilterState {
   eventTypes: ZwiftEventType[];
 }
+
+export type Overlay = 'none' | 'segments'

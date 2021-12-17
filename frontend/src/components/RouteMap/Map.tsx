@@ -14,6 +14,7 @@ import { SegmentType, World } from "zwift-data";
 import { ENVIRONMENT } from "../../config";
 import { COLORS, SURFACE_CONSTANTS } from "../../constants";
 import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
+import { useSettings } from "../../hooks/useSettings";
 import { worldConfigs } from "../../worldConfigs";
 import styles from "./index.module.scss";
 
@@ -40,6 +41,7 @@ export function Map({
   routeLatLngStream,
   segments = [],
 }: Props) {
+  const [settings, setSettings] = useSettings();
   const prefersReducedMotion = usePrefersReducedMotion();
   const [map, setMap] = useState<MapType | undefined>();
   useEffect(() => {
@@ -116,6 +118,63 @@ export function Map({
         </Pane>
       )}
 
+      <LayersControl position="topright">
+        <LayersControl.BaseLayer
+          name="None"
+          checked={settings.overlay === "none"}
+        >
+          <LayerGroup
+            eventHandlers={{
+              add: () => setSettings({ ...settings, overlay: "none" }),
+            }}
+          />
+        </LayersControl.BaseLayer>
+        <LayersControl.BaseLayer
+          name="Segments"
+          checked={settings.overlay === "segments"}
+        >
+          <LayerGroup
+            eventHandlers={{
+              add: () => setSettings({ ...settings, overlay: "segments" }),
+            }}
+          >
+            <Pane name="segments" style={{ zIndex: Z_INDEX.segments }}>
+              {segments
+                .filter((s) => ["sprint", "climb"].includes(s.type))
+                .map((s, segmentIndex) => (
+                  <Polyline
+                    key={segmentIndex}
+                    positions={s.latlng}
+                    pathOptions={{
+                      color:
+                        s.type === "sprint"
+                          ? COLORS.sprintSegment
+                          : COLORS.komSegment,
+                      weight: 8,
+                    }}
+                    interactive={false}
+                  />
+                ))}
+            </Pane>
+          </LayerGroup>
+        </LayersControl.BaseLayer>
+
+        {ENVIRONMENT === "development" && (
+          <LayersControl.Overlay name="Surfaces">
+            <LayerGroup>
+              {worldConfig.surfaces.map((s, surfaceIndex) => (
+                <Polygon
+                  key={surfaceIndex}
+                  interactive={false}
+                  pathOptions={{ color: SURFACE_CONSTANTS[s.type].color }}
+                  positions={s.polygon}
+                />
+              ))}
+            </LayerGroup>
+          </LayersControl.Overlay>
+        )}
+      </LayersControl>
+
       {routeLatLngStream && (
         <>
           <Pane name="route" style={{ zIndex: Z_INDEX.route }}>
@@ -154,25 +213,6 @@ export function Map({
         </>
       )}
 
-      <Pane name="segments" style={{ zIndex: Z_INDEX.segments }}>
-        {segments
-          .filter((s) => ["sprint", "climb"].includes(s.type))
-          .map((s, segmentIndex) => (
-            <Polyline
-              key={segmentIndex}
-              positions={s.latlng}
-              pathOptions={{
-                color:
-                  s.type === "sprint"
-                    ? COLORS.sprintSegment
-                    : COLORS.komSegment,
-                weight: 8,
-              }}
-              interactive={false}
-            />
-          ))}
-      </Pane>
-
       {hoverPoint && (
         <Pane name="mouse-position" style={{ zIndex: 508 }}>
           <CircleMarker
@@ -187,23 +227,6 @@ export function Map({
             interactive={false}
           />
         </Pane>
-      )}
-
-      {ENVIRONMENT === "development" && (
-        <LayersControl position="topright">
-          <LayersControl.Overlay name="Surfaces">
-            <LayerGroup>
-              {worldConfig.surfaces.map((s, surfaceIndex) => (
-                <Polygon
-                  key={surfaceIndex}
-                  interactive={false}
-                  pathOptions={{ color: SURFACE_CONSTANTS[s.type].color }}
-                  positions={s.polygon}
-                />
-              ))}
-            </LayerGroup>
-          </LayersControl.Overlay>
-        </LayersControl>
       )}
     </MapContainer>
   );

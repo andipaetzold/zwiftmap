@@ -15,12 +15,14 @@ function loadSettings(): Settings {
       sport: settings.sport ?? "cycling",
       units: settings.units ?? "metric",
       theme: settings.theme ?? "system",
+      overlay: settings.overlay ?? "segments",
     };
   } catch {
     return {
       sport: "cycling",
       units: "metric",
       theme: "system",
+      overlay: "segments",
     };
   }
 }
