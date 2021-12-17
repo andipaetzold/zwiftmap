@@ -2,7 +2,6 @@ import { LatLngBounds, LatLngTuple, Map as MapType } from "leaflet";
 import { useEffect, useRef, useState } from "react";
 import {
   CircleMarker,
-  ImageOverlay,
   LayerGroup,
   LayersControl,
   MapContainer,
@@ -15,16 +14,12 @@ import { ENVIRONMENT } from "../../config";
 import { COLORS, SURFACE_CONSTANTS } from "../../constants";
 import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 import { useSettings } from "../../hooks/useSettings";
+import { Overlay } from "../../types";
 import { worldConfigs } from "../../worldConfigs";
+import { Z_INDEX } from "./constants";
 import styles from "./index.module.scss";
-
-const Z_INDEX = {
-  previewRoute: 505,
-  route: 506,
-  segments: 507,
-  routeEnd: 508,
-  routeStart: 508,
-};
+import { PreviewRoute } from "./PreviewRoute";
+import { WorldImage } from "./WorldImage";
 
 interface Props {
   world: World;
@@ -44,9 +39,14 @@ export function Map({
   const [settings, setSettings] = useSettings();
   const prefersReducedMotion = usePrefersReducedMotion();
   const [map, setMap] = useState<MapType | undefined>();
+
   useEffect(() => {
     map?.zoomControl.setPosition("topright");
   }, [map]);
+
+  const handleOverlayChange = (overlay: Overlay) => {
+    setSettings({ ...settings, overlay });
+  };
 
   useEffect(() => {
     if (!map) {
@@ -62,10 +62,11 @@ export function Map({
 
   const doHardZoom = useRef<boolean>(true);
   useEffect(() => {
-    const worldConfig = worldConfigs[world.slug];
     if (!map) {
       return;
     }
+
+    const worldConfig = worldConfigs[world.slug];
 
     map.invalidateSize();
 
@@ -102,21 +103,9 @@ export function Map({
       maxZoom={19}
       className={styles.MapContainer}
     >
-      <ImageOverlay
-        url={worldConfig.image}
-        bounds={world.bounds}
-        attribution='&amp;copy <a href="https://zwift.com" rel="noreferrer noopener">Zwift</a>'
-      />
+      <WorldImage world={world} />
 
-      {previewRouteLatLngStream && (
-        <Pane name="preview-route" style={{ zIndex: Z_INDEX.previewRoute }}>
-          <Polyline
-            positions={previewRouteLatLngStream}
-            pathOptions={{ color: COLORS.previewRoute, weight: 5 }}
-            interactive={false}
-          />
-        </Pane>
-      )}
+      <PreviewRoute latLngStream={previewRouteLatLngStream} />
 
       <LayersControl position="topright">
         <LayersControl.BaseLayer
@@ -124,9 +113,7 @@ export function Map({
           checked={settings.overlay === "none"}
         >
           <LayerGroup
-            eventHandlers={{
-              add: () => setSettings({ ...settings, overlay: "none" }),
-            }}
+            eventHandlers={{ add: () => handleOverlayChange("none") }}
           />
         </LayersControl.BaseLayer>
         <LayersControl.BaseLayer
@@ -134,9 +121,7 @@ export function Map({
           checked={settings.overlay === "segments"}
         >
           <LayerGroup
-            eventHandlers={{
-              add: () => setSettings({ ...settings, overlay: "segments" }),
-            }}
+            eventHandlers={{ add: () => handleOverlayChange("segments") }}
           >
             <Pane name="segments" style={{ zIndex: Z_INDEX.segments }}>
               {segments
