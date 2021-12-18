@@ -1,7 +1,6 @@
 import { LatLngTuple, Map as MapType } from "leaflet";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
-  CircleMarker,
   LayerGroup,
   LayersControl,
   MapContainer,
@@ -21,7 +20,9 @@ import { worldConfigs } from "../../worldConfigs";
 import { Z_INDEX } from "./constants";
 import styles from "./index.module.scss";
 import { PreviewRoute } from "./PreviewRoute";
+import { RouteEnd } from "./RouteEnd";
 import { RoutePosition } from "./RoutePosition";
+import { RouteStart } from "./RouteStart";
 import { WorldImage } from "./WorldImage";
 
 interface Props {
@@ -164,32 +165,10 @@ export function Map({
               interactive={false}
             />
           </Pane>
-          <Pane name="route-start" style={{ zIndex: Z_INDEX.routeStart }}>
-            <CircleMarker
-              center={routeStreams.latlng[0]}
-              radius={5}
-              weight={2}
-              pathOptions={{
-                color: "white",
-                fillColor: "green",
-                fillOpacity: 1,
-              }}
-              interactive={false}
-            />
-          </Pane>
-          <Pane name="route-end" style={{ zIndex: Z_INDEX.routeEnd }}>
-            <CircleMarker
-              center={routeStreams.latlng[routeStreams.latlng.length - 1]}
-              radius={5}
-              weight={2}
-              pathOptions={{
-                color: "white",
-                fillColor: "red",
-                fillOpacity: 1,
-              }}
-              interactive={false}
-            />
-          </Pane>
+          <RouteStart latlng={routeStreams.latlng[0]} />
+          <RouteEnd
+            latlng={routeStreams.latlng[routeStreams.latlng.length - 1]}
+          />
         </>
       )}
 
