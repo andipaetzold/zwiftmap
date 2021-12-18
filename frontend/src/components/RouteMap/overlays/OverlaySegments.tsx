@@ -42,7 +42,6 @@ function RouteSegmentsOverlay() {
   }, [state.route]);
 
   const { result: streams } = useAsync(loadRoute, [state]);
-  const { result: segmentsData } = useAsync(loadSegments, [unmatchedSegments]);
 
   if (!streams) {
     return null;
@@ -77,23 +76,7 @@ function RouteSegmentsOverlay() {
         latlng={streams.latlng[streams.latlng.length - 1]}
       />
 
-      {segmentsData && (
-        <Pane name="segments" style={{ zIndex: Z_INDEX.segments }}>
-          {segmentsData
-            .filter((s) => SEGMENTS_TO_DISPLAY.includes(s.type))
-            .map((s, segmentIndex) => (
-              <Polyline
-                key={segmentIndex}
-                positions={s.latlng}
-                pathOptions={{
-                  color: getSegmentColor(s.type),
-                  weight: 8,
-                }}
-                interactive={false}
-              />
-            ))}
-        </Pane>
-      )}
+      <SegmentsPane segmentSlugs={unmatchedSegments} />
     </>
   );
 }
@@ -153,6 +136,36 @@ function getRouteSections(
   }
 
   return sections;
+}
+
+interface SegmentsPaneProps {
+  segmentSlugs: string[];
+}
+
+function SegmentsPane({ segmentSlugs }: SegmentsPaneProps) {
+  const { result: segmentsData } = useAsync(loadSegments, [segmentSlugs]);
+
+  if (!segmentsData) {
+    return null;
+  }
+
+  return (
+    <Pane name="segments" style={{ zIndex: Z_INDEX.segments }}>
+      {segmentsData
+        .filter((s) => SEGMENTS_TO_DISPLAY.includes(s.type))
+        .map((s, segmentIndex) => (
+          <Polyline
+            key={segmentIndex}
+            positions={s.latlng}
+            pathOptions={{
+              color: getSegmentColor(s.type),
+              weight: 8,
+            }}
+            interactive={false}
+          />
+        ))}
+    </Pane>
+  );
 }
 
 async function loadSegments(segmentsToLoad: readonly string[]) {
