@@ -1,5 +1,5 @@
 import { LatLngTuple, Map as MapType } from "leaflet";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   CircleMarker,
   LayerGroup,
@@ -50,17 +50,10 @@ export function Map({
     setSettings({ ...settings, overlay });
   };
 
-  useEffect(() => {
-    if (!map) {
-      return;
-    }
-
-    map.invalidateSize();
-    map.setMaxBounds(world.bounds);
-
-    const minZoom = map.getBoundsZoom(world.bounds, false);
-    map.setMinZoom(minZoom);
-  }, [map, world, routeStreams]);
+  const minZoom = useMemo(
+    () => map?.getBoundsZoom(world.bounds, false),
+    [map, world.bounds]
+  );
 
   const doHardZoom = useRef<boolean>(true);
   useEffect(() => {
@@ -95,10 +88,12 @@ export function Map({
 
   return (
     <MapContainer
-      whenCreated={(map) => setMap(map)}
+      whenCreated={setMap}
       bounds={world.bounds}
+      maxBounds={world.bounds}
       style={{ backgroundColor: worldConfig.backgroundColor }}
       zoomSnap={0.5}
+      minZoom={minZoom}
       maxZoom={19}
       className={styles.MapContainer}
       zoomControl={false}
