@@ -8,6 +8,7 @@ import {
   Pane,
   Polygon,
   Polyline,
+  ZoomControl,
 } from "react-leaflet";
 import { SegmentType, World } from "zwift-data";
 import { ENVIRONMENT } from "../../config";
@@ -44,10 +45,6 @@ export function Map({
   const [settings, setSettings] = useSettings();
   const prefersReducedMotion = usePrefersReducedMotion();
   const [map, setMap] = useState<MapType | undefined>();
-
-  useEffect(() => {
-    map?.zoomControl.setPosition("topright");
-  }, [map]);
 
   const handleOverlayChange = (overlay: Overlay) => {
     setSettings({ ...settings, overlay });
@@ -104,9 +101,10 @@ export function Map({
       zoomSnap={0.5}
       maxZoom={19}
       className={styles.MapContainer}
+      zoomControl={false}
     >
+      <ZoomControl position="topright" />
       <WorldImage world={world} />
-
       <PreviewRoute latLngStream={previewRouteLatLngStream} />
 
       <LayersControl position="topright">
