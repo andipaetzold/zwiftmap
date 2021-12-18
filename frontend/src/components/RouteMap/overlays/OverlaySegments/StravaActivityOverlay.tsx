@@ -69,7 +69,7 @@ async function loadData(
       index === 0
         ? 0
         : segmentEffortsWithSegment[index - 1].segmentEffort.end_index,
-      segmentEffort.start_index,
+      segmentEffort.start_index + 1,
     ]),
     [
       segmentEffortsWithSegment[segmentEffortsWithSegment.length - 1]
@@ -85,7 +85,7 @@ async function loadData(
     ({ segmentEffort, segment }) => ({
       latlng: latLngStream.slice(
         segmentEffort.start_index,
-        segmentEffort.end_index
+        segmentEffort.end_index + 1
       ),
       type: segment!.type as "sprint" | "climb",
     })
