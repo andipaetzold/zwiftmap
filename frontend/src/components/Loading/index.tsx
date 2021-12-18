@@ -9,7 +9,7 @@ export function LoadingSpinner({ small }: Props) {
   return (
     <CircularProgress
       id={Date.now().toString()}
-      circleStyle={{ stroke: "black" }}
+      circleStyle={{ stroke: "var(--rmd-theme-text-primary-on-background)" }}
       small={small}
     />
   );
