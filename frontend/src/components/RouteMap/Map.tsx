@@ -123,7 +123,7 @@ export function Map({
         </LayersControl.BaseLayer>
 
         {ENVIRONMENT === "development" && (
-          <LayersControl.Overlay name="Surfaces">
+          <LayersControl.Overlay name="Surface Polygons">
             <LayerGroup>
               {worldConfig.surfaces.map((s, surfaceIndex) => (
                 <Polygon
