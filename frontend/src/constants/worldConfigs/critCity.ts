@@ -1,5 +1,5 @@
-import { SURFACE_TYPE_BRICK, WorldConfig } from "../types";
-import critCityMap from "../maps/crit-city.png";
+import { SURFACE_TYPE_BRICK, WorldConfig } from "../../types";
+import critCityMap from "../../maps/crit-city.png";
 
 export const WORLD_CONFIG_CRIT_CITY: WorldConfig = {
   initialBounds: [

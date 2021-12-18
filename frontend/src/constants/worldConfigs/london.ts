@@ -1,5 +1,5 @@
-import { SURFACE_TYPE_COBBLES, SURFACE_TYPE_WOOD, WorldConfig } from "../types";
-import londonMap from "../maps/london.png";
+import { SURFACE_TYPE_COBBLES, SURFACE_TYPE_WOOD, WorldConfig } from "../../types";
+import londonMap from "../../maps/london.png";
 
 export const WORLD_CONFIG_LONDON: WorldConfig = {
   initialBounds: [

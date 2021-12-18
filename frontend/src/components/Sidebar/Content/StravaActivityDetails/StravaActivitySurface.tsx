@@ -1,5 +1,5 @@
 import { StravaActivity } from "../../../../services/StravaActivityRepository";
-import { worldConfigs } from "../../../../worldConfigs";
+import { worldConfigs } from "../../../../constants/worldConfigs";
 import { SurfaceListItem } from "../../../SurfaceListItem";
 
 interface Props {

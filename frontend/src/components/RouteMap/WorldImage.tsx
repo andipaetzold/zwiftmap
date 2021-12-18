@@ -1,6 +1,6 @@
 import { ImageOverlay } from "react-leaflet";
 import { World } from "zwift-data";
-import { worldConfigs } from "../../worldConfigs";
+import { worldConfigs } from "../../constants/worldConfigs";
 
 interface Props {
   world: World;

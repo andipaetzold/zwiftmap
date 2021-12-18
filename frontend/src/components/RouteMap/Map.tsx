@@ -14,7 +14,7 @@ import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 import { useSettings } from "../../hooks/useSettings";
 import { Overlay } from "../../types";
 import { getBounds } from "../../util/bounds";
-import { worldConfigs } from "../../worldConfigs";
+import { worldConfigs } from "../../constants/worldConfigs";
 import styles from "./index.module.scss";
 import { OverlayNone } from "./overlays/OverlayNone";
 import { OverlaySegments } from "./overlays/OverlaySegments";

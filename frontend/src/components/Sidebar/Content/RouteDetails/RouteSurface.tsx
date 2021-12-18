@@ -2,7 +2,7 @@ import { useAsync } from "react-async-hook";
 import { Route } from "zwift-data";
 import { getStravaSegmentStreams } from "../../../../services/StravaSegmentRepository";
 import { StravaSegment } from "../../../../types";
-import { worldConfigs } from "../../../../worldConfigs";
+import { worldConfigs } from "../../../../constants/worldConfigs";
 import { SurfaceListItem } from "../../../SurfaceListItem";
 
 interface Props {

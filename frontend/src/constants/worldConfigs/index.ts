@@ -1,5 +1,5 @@
 import { WorldSlug } from "zwift-data";
-import { WorldConfig } from "../types";
+import { WorldConfig } from "../../types";
 import { WORLD_CONFIG_BOLOGNA } from "./bologna";
 import { WORLD_CONFIG_CRIT_CITY } from "./critCity";
 import { WORLD_CONFIG_FRANCE } from "./france";

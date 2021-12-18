@@ -1,5 +1,5 @@
-import { SURFACE_TYPE_BRICK, WorldConfig } from "../types";
-import bolognaMap from "../maps/bologna.png";
+import { SURFACE_TYPE_BRICK, WorldConfig } from "../../types";
+import bolognaMap from "../../maps/bologna.png";
 
 export const WORLD_CONFIG_BOLOGNA: WorldConfig = {
   initialBounds: [

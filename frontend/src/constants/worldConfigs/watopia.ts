@@ -1,5 +1,5 @@
-import { WorldConfig } from "../types";
-import watopiaMap from "../maps/watopia.png";
+import { WorldConfig } from "../../types";
+import watopiaMap from "../../maps/watopia.png";
 
 export const WORLD_CONFIG_WATOPIA: WorldConfig = {
   initialBounds: [

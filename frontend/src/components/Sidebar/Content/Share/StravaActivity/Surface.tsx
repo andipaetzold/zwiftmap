@@ -1,6 +1,6 @@
 import { ShareStravaActivity } from "../../../../../types";
 import { getWorld } from "../../../../../util/strava";
-import { worldConfigs } from "../../../../../worldConfigs";
+import { worldConfigs } from "../../../../../constants/worldConfigs";
 import { SurfaceListItem } from "../../../../SurfaceListItem";
 
 export interface Props {

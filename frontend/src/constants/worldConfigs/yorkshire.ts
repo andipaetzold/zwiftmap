@@ -1,5 +1,5 @@
-import { WorldConfig } from "../types";
-import yorkshireMap from "../maps/yorkshire.png";
+import { WorldConfig } from "../../types";
+import yorkshireMap from "../../maps/yorkshire.png";
 
 export const WORLD_CONFIG_YORKSHIRE: WorldConfig = {
   initialBounds: [

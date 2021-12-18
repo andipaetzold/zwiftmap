@@ -1,5 +1,5 @@
-import { SURFACE_TYPE_COBBLES, WorldConfig } from "../types";
-import franceMap from "../maps/france.png";
+import { SURFACE_TYPE_COBBLES, WorldConfig } from "../../types";
+import franceMap from "../../maps/france.png";
 
 export const WORLD_CONFIG_FRANCE: WorldConfig = {
   initialBounds: [

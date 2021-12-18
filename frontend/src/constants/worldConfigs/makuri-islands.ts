@@ -1,5 +1,5 @@
-import { WorldConfig } from "../types";
-import makuriIslandsMap from "../maps/makuri-islands.png";
+import { WorldConfig } from "../../types";
+import makuriIslandsMap from "../../maps/makuri-islands.png";
 
 export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
   initialBounds: [

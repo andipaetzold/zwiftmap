@@ -1,5 +1,5 @@
-import { SURFACE_TYPE_COBBLES, WorldConfig } from "../types";
-import richmondMap from "../maps/richmond.png";
+import { SURFACE_TYPE_COBBLES, WorldConfig } from "../../types";
+import richmondMap from "../../maps/richmond.png";
 
 export const WORLD_CONFIG_RICHMOND: WorldConfig = {
   initialBounds: [

@@ -2,8 +2,8 @@ import {
   SURFACE_TYPE_BRICK,
   SURFACE_TYPE_COBBLES,
   WorldConfig,
-} from "../types";
-import innsbruckMap from "../maps/innsbruck.png";
+} from "../../types";
+import innsbruckMap from "../../maps/innsbruck.png";
 
 export const WORLD_CONFIG_INNSBRUCK: WorldConfig = {
   initialBounds: [

@@ -1,5 +1,5 @@
-import { WorldConfig } from "../types";
-import newYorkMap from "../maps/new-york.png";
+import { WorldConfig } from "../../types";
+import newYorkMap from "../../maps/new-york.png";
 
 export const WORLD_CONFIG_NEW_YORK: WorldConfig = {
   initialBounds: [
