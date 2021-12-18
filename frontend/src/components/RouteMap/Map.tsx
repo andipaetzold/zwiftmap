@@ -1,11 +1,11 @@
 import { LatLngTuple, Map as MapType } from "leaflet";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   LayerGroup,
   LayersControl,
   MapContainer,
   Polygon,
-  ZoomControl,
+  ZoomControl
 } from "react-leaflet";
 import { SegmentType, World } from "zwift-data";
 import { ENVIRONMENT } from "../../config";
@@ -48,10 +48,13 @@ export function Map({
     setSettings({ ...settings, overlay });
   };
 
-  const minZoom = useMemo(
-    () => map?.getBoundsZoom(world.bounds, false),
-    [map, world.bounds]
-  );
+  useEffect(() => {
+    if (map === undefined) {
+      return;
+    }
+    const minZoom = map.getBoundsZoom(world.bounds, false);
+    map.setMinZoom(minZoom);
+  }, [map, world.bounds]);
 
   const doHardZoom = useRef<boolean>(true);
   useEffect(() => {
@@ -91,7 +94,6 @@ export function Map({
       maxBounds={world.bounds}
       style={{ backgroundColor: worldConfig.backgroundColor }}
       zoomSnap={0.5}
-      minZoom={minZoom}
       maxZoom={19}
       className={styles.MapContainer}
       zoomControl={false}
