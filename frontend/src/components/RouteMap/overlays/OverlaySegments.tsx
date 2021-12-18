@@ -14,7 +14,6 @@ import { Z_INDEX } from "../constants";
 import { loadRoute } from "../loaders/route";
 import { RouteEnd } from "../RouteEnd";
 import { RouteStart } from "../RouteStart";
-import { OverlayNone } from "./OverlayNone";
 
 const SEGMENTS_TO_DISPLAY: SegmentType[] = ["sprint", "climb"];
 
@@ -22,10 +21,34 @@ export function OverlaySegments() {
   const [state] = useLocationState();
 
   if (state.type !== "route") {
-    return <OverlayNone />;
+    return <NonRouteOverlay />;
   }
 
   return <RouteSegmentsOverlay />;
+}
+
+function NonRouteOverlay() {
+  const [state] = useLocationState();
+
+  const { result: streams } = useAsync(loadRoute, [state]);
+
+  if (!streams) {
+    return null;
+  }
+
+  return (
+    <>
+      <Pane name="route-segments" style={{ zIndex: Z_INDEX.route }}>
+        <Polyline
+          positions={streams.latlng}
+          pathOptions={{ color: COLORS.route, weight: 5 }}
+          interactive={false}
+        />
+      </Pane>
+      <RouteStart id="segments" latlng={streams.latlng[0]} />
+      <RouteEnd id="segments" latlng={streams.latlng[streams.latlng.length - 1]} />
+    </>
+  );
 }
 
 function RouteSegmentsOverlay() {
