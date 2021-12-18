@@ -4,54 +4,21 @@ import { useMemo } from "react";
 import { useAsync } from "react-async-hook";
 import { Pane, Polyline } from "react-leaflet";
 import { segments, SegmentType } from "zwift-data";
-import { COLORS, getSegmentColor } from "../../../constants";
+import { COLORS, getSegmentColor } from "../../../../constants";
 import {
   LocationStateRoute,
   useLocationState,
-} from "../../../services/location-state";
-import { getStravaSegmentStream } from "../../../services/StravaSegmentRepository";
-import { Z_INDEX } from "../constants";
-import { loadRoute } from "../loaders/route";
-import { RouteEnd } from "../RouteEnd";
-import { RouteStart } from "../RouteStart";
+} from "../../../../services/location-state";
+import { getStravaSegmentStream } from "../../../../services/StravaSegmentRepository";
+import { Z_INDEX } from "../../constants";
+import { loadRoute } from "../../loaders/route";
+import { RouteEnd } from "../../RouteEnd";
+import { RouteStart } from "../../RouteStart";
 
+const ID = "OverlaySegments-RouteOverlay";
 const SEGMENTS_TO_DISPLAY: SegmentType[] = ["sprint", "climb"];
 
-export function OverlaySegments() {
-  const [state] = useLocationState();
-
-  if (state.type !== "route") {
-    return <NonRouteOverlay />;
-  }
-
-  return <RouteSegmentsOverlay />;
-}
-
-function NonRouteOverlay() {
-  const [state] = useLocationState();
-
-  const { result: streams } = useAsync(loadRoute, [state]);
-
-  if (!streams) {
-    return null;
-  }
-
-  return (
-    <>
-      <Pane name="route-segments" style={{ zIndex: Z_INDEX.route }}>
-        <Polyline
-          positions={streams.latlng}
-          pathOptions={{ color: COLORS.route, weight: 5 }}
-          interactive={false}
-        />
-      </Pane>
-      <RouteStart id="segments" latlng={streams.latlng[0]} />
-      <RouteEnd id="segments" latlng={streams.latlng[streams.latlng.length - 1]} />
-    </>
-  );
-}
-
-function RouteSegmentsOverlay() {
+export function RouteOverlay() {
   const [state] = useLocationState<LocationStateRoute>();
 
   const unmatchedSegments = useMemo(() => {
@@ -77,7 +44,7 @@ function RouteSegmentsOverlay() {
       {sections.map((section, sectionIndex) => (
         <Pane
           key={sectionIndex}
-          name={`route-segments-${sectionIndex}`}
+          name={`${ID}-route-${sectionIndex}`}
           style={{ zIndex: Z_INDEX.route }}
         >
           <Polyline
@@ -93,11 +60,8 @@ function RouteSegmentsOverlay() {
           />
         </Pane>
       ))}
-      <RouteStart id="segments" latlng={streams.latlng[0]} />
-      <RouteEnd
-        id="segments"
-        latlng={streams.latlng[streams.latlng.length - 1]}
-      />
+      <RouteStart id={ID} latlng={streams.latlng[0]} />
+      <RouteEnd id={ID} latlng={streams.latlng[streams.latlng.length - 1]} />
 
       <SegmentsPane segmentSlugs={unmatchedSegments} />
     </>

@@ -1,15 +1,15 @@
 import { useAsync } from "react-async-hook";
 import { Pane, Polyline } from "react-leaflet";
-import { COLORS } from "../../../constants";
-import { useLocationState } from "../../../services/location-state";
-import { Z_INDEX } from "../constants";
-import { loadRoute } from "../loaders/route";
-import { RouteEnd } from "../RouteEnd";
-import { RouteStart } from "../RouteStart";
+import { COLORS } from "../../../../constants";
+import { useLocationState } from "../../../../services/location-state";
+import { Z_INDEX } from "../../constants";
+import { loadRoute } from "../../loaders/route";
+import { RouteEnd } from "../../RouteEnd";
+import { RouteStart } from "../../RouteStart";
 
-const ID = "OverlayNone";
+const ID = "OverlaySegments-NonRouteOverlay";
 
-export function OverlayNone() {
+export function NonRouteOverlay() {
   const [state] = useLocationState();
 
   const { result: streams } = useAsync(loadRoute, [state]);
