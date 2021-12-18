@@ -4,22 +4,20 @@ import {
   LayerGroup,
   LayersControl,
   MapContainer,
-  Polygon,
-  ZoomControl
+  ZoomControl,
 } from "react-leaflet";
 import { SegmentType, World } from "zwift-data";
-import { ENVIRONMENT } from "../../config";
-import { SURFACE_CONSTANTS } from "../../constants";
+import { worldConfigs } from "../../constants/worldConfigs";
 import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 import { useSettings } from "../../hooks/useSettings";
 import { Overlay } from "../../types";
 import { getBounds } from "../../util/bounds";
-import { worldConfigs } from "../../constants/worldConfigs";
 import styles from "./index.module.scss";
 import { OverlayNone } from "./overlays/OverlayNone";
 import { OverlaySegments } from "./overlays/OverlaySegments";
 import { PreviewRoute } from "./PreviewRoute";
 import { RoutePosition } from "./RoutePosition";
+import { SurfaceDebugLayer } from "./SurfaceDebugLayer";
 import { WorldImage } from "./WorldImage";
 
 interface Props {
@@ -124,20 +122,7 @@ export function Map({
           </LayerGroup>
         </LayersControl.BaseLayer>
 
-        {ENVIRONMENT === "development" && (
-          <LayersControl.Overlay name="Surface Polygons">
-            <LayerGroup>
-              {worldConfig.surfaces.map((s, surfaceIndex) => (
-                <Polygon
-                  key={surfaceIndex}
-                  interactive={false}
-                  pathOptions={{ color: SURFACE_CONSTANTS[s.type].color }}
-                  positions={s.polygon}
-                />
-              ))}
-            </LayerGroup>
-          </LayersControl.Overlay>
-        )}
+        <SurfaceDebugLayer world={world} />
       </LayersControl>
 
       <RoutePosition
