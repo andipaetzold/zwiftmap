@@ -2,7 +2,7 @@ import { List, ListSubheader, SimpleListItem } from "@react-md/list";
 import { Typography } from "@react-md/typography";
 import React from "react";
 import { useAsync } from "react-async-hook";
-import { Route, Segment, segments, SegmentType } from "zwift-data";
+import { Route, Segment, segments, SegmentType, worlds } from "zwift-data";
 import { FORMAT_INCLINE } from "../../../../constants";
 import {
   IsLoggedInStrava,
@@ -10,6 +10,7 @@ import {
 } from "../../../../hooks/useIsLoggedInStrava";
 import { getStravaSegmentById } from "../../../../services/zwiftMapApi";
 import { Distance } from "../../../Distance";
+import { ListItemState } from "../../../ListItemState";
 import { Time } from "../../../Time";
 
 interface Props {
@@ -49,13 +50,19 @@ export function RouteSegments({ route }: Props) {
         Segments
       </ListSubheader>
       {segmentsOnRoute.map((segment) => (
-        <SimpleListItem
+        <ListItemState
           key={segment.slug}
           rightAddonType="icon"
-          primaryText={segment.name}
           secondaryText={<SecondaryText segment={segment} />}
           threeLines
-        />
+          state={{
+            type: "segment",
+            segment: segment,
+            world: worlds.find((w) => w.slug === segment.world)!,
+          }}
+        >
+          {segment.name}
+        </ListItemState>
       ))}
     </List>
   );
