@@ -1,13 +1,17 @@
 import { useLocationState } from "../../../../services/location-state";
-import { NonRouteOverlay } from "./NonRouteOverlay";
+import { EventOverlay } from "./EventOverlay";
+import { OtherOverlay } from "./OtherOverlay";
 import { RouteOverlay } from "./RouteOverlay";
 
 export function OverlaySegments() {
   const [state] = useLocationState();
 
-  if (state.type === "route") {
-    return <RouteOverlay />;
+  switch (state.type) {
+    case "route":
+      return <RouteOverlay />;
+    case "event":
+      return <EventOverlay />;
+    default:
+      return <OtherOverlay />;
   }
-
-  return <NonRouteOverlay />;
 }

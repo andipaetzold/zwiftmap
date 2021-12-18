@@ -7,9 +7,9 @@ import { loadRoute } from "../../loaders/route";
 import { RouteEnd } from "../../RouteEnd";
 import { RouteStart } from "../../RouteStart";
 
-const ID = "OverlaySegments-NonRouteOverlay";
+const ID = "OverlaySegments-OtherOverlay";
 
-export function NonRouteOverlay() {
+export function OtherOverlay() {
   const [state] = useLocationState();
 
   const { result: streams } = useAsync(loadRoute, [state]);
