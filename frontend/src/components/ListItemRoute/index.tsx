@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { Route, worlds } from "zwift-data";
 import { HoverData } from "../../types";
+import { isSaveDataMode } from "../../util/saveData";
 import { useOnScreen } from "..//../hooks/useOnScreen";
 import { Distance } from "../Distance";
 import { Elevation } from "../Elevation";
@@ -14,6 +15,8 @@ export interface Props {
 }
 
 export function ListItemRoute({ route, onHoverRoute, showWorldName }: Props) {
+  const showPreviewChart = !isSaveDataMode();
+
   return (
     <ListItemState
       role="listitem"
@@ -25,8 +28,8 @@ export function ListItemRoute({ route, onHoverRoute, showWorldName }: Props) {
         type: "route",
       }}
       onClick={() => onHoverRoute(undefined)}
-      rightAddonType="large-media"
-      rightAddon={<ChartContainer route={route} />}
+      rightAddonType={showPreviewChart ? "large-media" : undefined}
+      rightAddon={showPreviewChart ? <ChartContainer route={route} /> : null}
       onMouseEnter={() => onHoverRoute({ type: "route", route: route.slug })}
       onMouseLeave={() => onHoverRoute(undefined)}
     >
@@ -61,7 +64,6 @@ interface ChartProps {
 
 function ChartContainer({ route }: ChartProps) {
   const ref = useRef<HTMLDivElement | null>(null);
-
   const onScreen = useOnScreen(ref);
 
   return (
