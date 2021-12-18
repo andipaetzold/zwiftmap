@@ -1,6 +1,6 @@
 import { useAsync } from "react-async-hook";
 import { Pane, Polyline } from "react-leaflet";
-import { COLORS } from "../../../constants";
+import { COLORS, getSegmentColor } from "../../../constants";
 import { useLocationState } from "../../../services/location-state";
 import { Z_INDEX } from "../constants";
 import { loadRoute } from "../loaders/route";
@@ -42,10 +42,7 @@ export function OverlaySegments() {
                 key={segmentIndex}
                 positions={s.latlng}
                 pathOptions={{
-                  color:
-                    s.type === "sprint"
-                      ? COLORS.sprintSegment
-                      : COLORS.komSegment,
+                  color: getSegmentColor(s.type),
                   weight: 8,
                 }}
                 interactive={false}

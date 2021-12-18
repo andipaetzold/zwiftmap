@@ -1,3 +1,4 @@
+import { SegmentType } from "zwift-data";
 import {
   Bike,
   BIKE_GRAVEL,
@@ -27,6 +28,17 @@ export const COLORS = {
   previewRoute: "#D3D3D3",
   route: "#fc6719",
 };
+
+export function getSegmentColor(type: SegmentType) {
+  switch (type) {
+    case "climb":
+      return COLORS.komSegment;
+    case "sprint":
+      return COLORS.sprintSegment;
+    case "segment":
+      return COLORS.lapSegment;
+  }
+}
 
 export const SURFACE_CONSTANTS: Record<
   SurfaceType,
