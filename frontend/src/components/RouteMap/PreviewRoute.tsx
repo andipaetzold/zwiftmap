@@ -1,10 +1,10 @@
-import { LatLngTuple } from "leaflet";
 import { Pane, Polyline } from "react-leaflet";
 import { COLORS } from "../../constants";
+import { LatLngStream } from "../../types";
 import { Z_INDEX } from "./constants";
 
 interface Props {
-  latLngStream?: LatLngTuple[];
+  latLngStream?: LatLngStream;
 }
 
 export function PreviewRoute({ latLngStream }: Props) {

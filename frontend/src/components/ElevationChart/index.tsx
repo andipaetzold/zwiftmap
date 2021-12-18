@@ -13,13 +13,14 @@ import {
 } from "recharts";
 import { SegmentType } from "zwift-data";
 import { COLORS } from "../../constants";
+import { DistanceStream, ElevationStream } from "../../types";
 import { Distance } from "../Distance";
 import { Elevation } from "../Elevation";
 import { ElevationGradient } from "../ElevationGradient";
 
 interface Props {
-  distanceStream: number[];
-  altitudeStream: number[];
+  distanceStream: DistanceStream;
+  altitudeStream: ElevationStream;
   onMouseHoverDistanceChange: (distance: number | undefined) => void;
   segments?: {
     range: [from: number, to: number];

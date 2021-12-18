@@ -1,4 +1,4 @@
-import { LatLngTuple, Map as MapType } from "leaflet";
+import { Map as MapType } from "leaflet";
 import { useEffect, useRef, useState } from "react";
 import {
   LayerGroup,
@@ -10,7 +10,7 @@ import { World } from "zwift-data";
 import { worldConfigs } from "../../constants/worldConfigs";
 import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 import { useSettings } from "../../hooks/useSettings";
-import { Overlay } from "../../types";
+import { DistanceStream, LatLngStream, Overlay } from "../../types";
 import { getBounds } from "../../util/bounds";
 import styles from "./index.module.scss";
 import { OverlayNone } from "./overlays/OverlayNone";
@@ -23,10 +23,10 @@ import { WorldImage } from "./WorldImage";
 interface Props {
   world: World;
   routeStreams?: {
-    latlng: LatLngTuple[];
-    distance: number[];
+    latlng: LatLngStream;
+    distance: DistanceStream;
   };
-  previewRouteLatLngStream?: LatLngTuple[];
+  previewRouteLatLngStream?: LatLngStream;
   mouseHoverDistance?: number;
 }
 

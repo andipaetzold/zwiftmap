@@ -1,11 +1,11 @@
-import { LatLngTuple } from "leaflet";
 import { segments } from "zwift-data";
+import { DistanceStream, LatLngStream } from "../../../../types";
 import { Section } from "./types";
 
 export function getRouteSections(
   streams: {
-    latlng: LatLngTuple[];
-    distance: number[];
+    latlng: LatLngStream;
+    distance: DistanceStream;
   },
   segmentsOnRoute: ReadonlyArray<{
     from: number;
@@ -18,7 +18,7 @@ export function getRouteSections(
   const indexCount = streams.latlng.length;
 
   let prevType: "regular" | "sprint" | "climb" | undefined = undefined;
-  let curLatLng: LatLngTuple[] = [];
+  let curLatLng: LatLngStream = [];
   for (let i = 0; i < indexCount; ++i) {
     const distance = streams.distance[i];
     const latlng = streams.latlng[i];

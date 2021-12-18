@@ -1,5 +1,7 @@
+import { DistanceStream, ElevationStream } from "./Stream";
+
 export interface StravaSegment {
   latlng: Array<[number, number]>;
-  distance: number[];
-  altitude: number[];
+  distance: DistanceStream;
+  altitude: ElevationStream;
 }

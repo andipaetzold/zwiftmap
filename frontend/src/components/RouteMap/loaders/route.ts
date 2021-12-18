@@ -1,16 +1,16 @@
 import * as Sentry from "@sentry/react";
-import { LatLngTuple } from "leaflet";
 import { routes } from "zwift-data";
 import { fetchEvent } from "../../../services/events";
 import { LocationState } from "../../../services/location-state";
 import { getStravaActivity } from "../../../services/StravaActivityRepository";
 import { getStravaSegmentStreams } from "../../../services/StravaSegmentRepository";
 import { getShare } from "../../../services/zwiftMapApi";
+import { DistanceStream, LatLngStream } from "../../../types";
 
 export async function loadRoute(state: LocationState): Promise<
   | {
-      latlng: LatLngTuple[];
-      distance: number[];
+      latlng: LatLngStream;
+      distance: DistanceStream;
     }
   | undefined
 > {

@@ -1,6 +1,6 @@
-import { LatLngTuple } from "leaflet";
+import { LatLngStream } from "../../../../types";
 
 export interface Section {
-  latlng: LatLngTuple[];
+  latlng: LatLngStream;
   type: "regular" | "sprint" | "climb";
 }

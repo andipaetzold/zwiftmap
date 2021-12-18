@@ -1,12 +1,12 @@
-import { LatLngTuple } from "leaflet";
 import { useMemo } from "react";
 import { CircleMarker, Pane } from "react-leaflet";
+import { DistanceStream, LatLngStream } from "../../types";
 
 interface Props {
   hoverDistance?: number;
   streams?: {
-    latlng: LatLngTuple[];
-    distance: number[];
+    latlng: LatLngStream;
+    distance: DistanceStream;
   };
 }
 

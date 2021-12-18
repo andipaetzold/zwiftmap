@@ -1,7 +1,12 @@
 import { List, SimpleListItem } from "@react-md/list";
-import { LatLngTuple } from "leaflet";
 import { SURFACE_CONSTANTS } from "../../constants";
-import { SurfaceType, SURFACE_TYPES, WorldConfigSurface } from "../../types";
+import {
+  DistanceStream,
+  LatLngStream,
+  SurfaceType,
+  SURFACE_TYPES,
+  WorldConfigSurface
+} from "../../types";
 import { getSurfaceStats, getSurfaceStream } from "../../util/surface";
 import { Distance } from "../Distance";
 
@@ -12,8 +17,8 @@ const FORMAT_PERCENT = new Intl.NumberFormat("en-US", {
 });
 
 interface Props {
-  latLngStream: LatLngTuple[];
-  distancStream: number[];
+  latLngStream: LatLngStream;
+  distancStream: DistanceStream;
   distance: number;
   surfaces: WorldConfigSurface[];
 }

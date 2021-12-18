@@ -1,13 +1,13 @@
-import { LatLngTuple } from "leaflet";
 import { useMemo } from "react";
 import { useAsync } from "react-async-hook";
 import { Route, routes } from "zwift-data";
 import { fetchEvent, ZwiftEvent } from "../../../../services/events";
 import {
   LocationStateUpcomingEvent,
-  useLocationState,
+  useLocationState
 } from "../../../../services/location-state";
 import { getStravaSegmentStreams } from "../../../../services/StravaSegmentRepository";
+import { DistanceStream, LatLngStream } from "../../../../types";
 import { RouteEnd } from "../../RouteEnd";
 import { RouteStart } from "../../RouteStart";
 import { SectionsPane } from "./components/SectionsPane";
@@ -59,8 +59,8 @@ async function loadData(eventId: string): Promise<
   | {
       event: ZwiftEvent;
       route: Route;
-      distance: number[];
-      latlng: LatLngTuple[];
+      distance: DistanceStream;
+      latlng: LatLngStream;
     }
   | undefined
 > {

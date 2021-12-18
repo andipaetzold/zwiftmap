@@ -1,8 +1,10 @@
 import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
 import { point as turfPoint, polygon as turfPolygon } from "@turf/helpers";
-import { LatLngTuple } from "leaflet";
 import {
+  DistanceStream,
+  LatLngStream,
   SurfaceType,
+  SurfaceTypeStream,
   SURFACE_TYPE_BRICK,
   SURFACE_TYPE_COBBLES,
   SURFACE_TYPE_DIRT,
@@ -14,9 +16,9 @@ import {
 } from "../types";
 
 export function getSurfaceStream(
-  latLngStream: LatLngTuple[],
+  latLngStream: LatLngStream,
   surfaces: WorldConfigSurface[]
-): SurfaceType[] {
+): SurfaceTypeStream {
   const turfedWorldSurfaces = surfaces.map((worldSurface) => ({
     ...worldSurface,
     polygon: turfPolygon([worldSurface.polygon]),
@@ -33,8 +35,8 @@ export function getSurfaceStream(
 }
 
 export function getSurfaceStats(
-  distanceStream: number[],
-  surfaceStream: SurfaceType[]
+  distanceStream: DistanceStream,
+  surfaceStream: SurfaceTypeStream
 ): Record<SurfaceType, number> {
   const result: Record<SurfaceType, number> = {
     [SURFACE_TYPE_TARMAC]: 0,

@@ -1,4 +1,4 @@
-import { LatLngTuple } from "leaflet";
+import { LatLngStream } from "./Stream";
 
 export type HoverData =
   | undefined
@@ -18,5 +18,5 @@ export interface HoverDataSegment {
 
 export interface HoverDataLatLng {
   type: "latlng";
-  latlng: LatLngTuple[];
+  latlng: LatLngStream;
 }

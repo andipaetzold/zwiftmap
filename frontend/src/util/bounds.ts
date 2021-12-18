@@ -1,8 +1,9 @@
-import { LatLngBounds, LatLngTuple } from "leaflet";
+import { LatLngBounds } from "leaflet";
+import { LatLngStream } from "../types";
 
-export function getBounds(coordinates: LatLngTuple[]) {
-  return coordinates.reduce(
+export function getBounds(latLngStream: LatLngStream) {
+  return latLngStream.reduce(
     (bounds, coord) => bounds.extend(coord),
-    new LatLngBounds(coordinates[0], coordinates[0])
+    new LatLngBounds(latLngStream[0], latLngStream[0])
   );
 }
