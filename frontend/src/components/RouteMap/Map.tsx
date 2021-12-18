@@ -6,7 +6,7 @@ import {
   MapContainer,
   ZoomControl,
 } from "react-leaflet";
-import { SegmentType, World } from "zwift-data";
+import { World } from "zwift-data";
 import { worldConfigs } from "../../constants/worldConfigs";
 import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 import { useSettings } from "../../hooks/useSettings";
@@ -27,7 +27,6 @@ interface Props {
     distance: number[];
   };
   previewRouteLatLngStream?: LatLngTuple[];
-  segments?: { latlng: LatLngTuple[]; type: SegmentType }[];
   mouseHoverDistance?: number;
 }
 
@@ -36,7 +35,6 @@ export function Map({
   previewRouteLatLngStream,
   routeStreams,
   mouseHoverDistance,
-  segments = [],
 }: Props) {
   const [settings, setSettings] = useSettings();
   const prefersReducedMotion = usePrefersReducedMotion();
