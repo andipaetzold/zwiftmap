@@ -4,23 +4,21 @@ import {
   LayerGroup,
   LayersControl,
   MapContainer,
-  Pane,
   Polygon,
-  Polyline,
-  ZoomControl
+  ZoomControl,
 } from "react-leaflet";
 import { SegmentType, World } from "zwift-data";
 import { ENVIRONMENT } from "../../config";
-import { COLORS, SURFACE_CONSTANTS } from "../../constants";
+import { SURFACE_CONSTANTS } from "../../constants";
 import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 import { useSettings } from "../../hooks/useSettings";
 import { Overlay } from "../../types";
 import { getBounds } from "../../util/bounds";
 import { worldConfigs } from "../../worldConfigs";
-import { Z_INDEX } from "./constants";
 import styles from "./index.module.scss";
+import { OverlayNone } from "./overlays/OverlayNone";
+import { OverlaySegments } from "./overlays/OverlaySegments";
 import { PreviewRoute } from "./PreviewRoute";
-import { Route } from "./Route";
 import { RoutePosition } from "./RoutePosition";
 import { WorldImage } from "./WorldImage";
 
@@ -109,7 +107,9 @@ export function Map({
         >
           <LayerGroup
             eventHandlers={{ add: () => handleOverlayChange("none") }}
-          />
+          >
+            <OverlayNone />
+          </LayerGroup>
         </LayersControl.BaseLayer>
         <LayersControl.BaseLayer
           name="Segments"
@@ -118,24 +118,7 @@ export function Map({
           <LayerGroup
             eventHandlers={{ add: () => handleOverlayChange("segments") }}
           >
-            <Pane name="segments" style={{ zIndex: Z_INDEX.segments }}>
-              {segments
-                .filter((s) => ["sprint", "climb"].includes(s.type))
-                .map((s, segmentIndex) => (
-                  <Polyline
-                    key={segmentIndex}
-                    positions={s.latlng}
-                    pathOptions={{
-                      color:
-                        s.type === "sprint"
-                          ? COLORS.sprintSegment
-                          : COLORS.komSegment,
-                      weight: 8,
-                    }}
-                    interactive={false}
-                  />
-                ))}
-            </Pane>
+            <OverlaySegments />
           </LayerGroup>
         </LayersControl.BaseLayer>
 
@@ -154,8 +137,6 @@ export function Map({
           </LayersControl.Overlay>
         )}
       </LayersControl>
-
-      {routeStreams && <Route latlng={routeStreams.latlng} />}
 
       <RoutePosition
         hoverDistance={mouseHoverDistance}

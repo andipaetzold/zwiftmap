@@ -7,7 +7,6 @@ import { HoverData } from "../../types";
 import styles from "./index.module.scss";
 import { loadPreviewRoute } from "./loaders/previewRoute";
 import { loadRoute } from "./loaders/route";
-import { loadSegments } from "./loaders/segments";
 import { Map } from "./Map";
 import { WorldSelect } from "./WorldSelect";
 
@@ -20,9 +19,6 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
   const [locationState, setLocationState] = useLocationState();
   const setQuery = useStore((state) => state.setQuery);
 
-  const { result: segmentsWithLatLng } = useAsync(loadSegments, [
-    locationState,
-  ]);
   const { result: routeStreams } = useAsync(loadRoute, [locationState]);
   const { result: previewLatLng } = useAsync(loadPreviewRoute, [previewRoute]);
 
@@ -46,7 +42,6 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
         mouseHoverDistance={mouseHoverDistance}
         previewRouteLatLngStream={previewLatLng}
         routeStreams={routeStreams}
-        segments={segmentsWithLatLng}
       />
     </div>
   );
