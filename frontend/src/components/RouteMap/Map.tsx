@@ -7,7 +7,7 @@ import {
   Pane,
   Polygon,
   Polyline,
-  ZoomControl,
+  ZoomControl
 } from "react-leaflet";
 import { SegmentType, World } from "zwift-data";
 import { ENVIRONMENT } from "../../config";
@@ -20,9 +20,8 @@ import { worldConfigs } from "../../worldConfigs";
 import { Z_INDEX } from "./constants";
 import styles from "./index.module.scss";
 import { PreviewRoute } from "./PreviewRoute";
-import { RouteEnd } from "./RouteEnd";
+import { Route } from "./Route";
 import { RoutePosition } from "./RoutePosition";
-import { RouteStart } from "./RouteStart";
 import { WorldImage } from "./WorldImage";
 
 interface Props {
@@ -156,21 +155,7 @@ export function Map({
         )}
       </LayersControl>
 
-      {routeStreams && (
-        <>
-          <Pane name="route" style={{ zIndex: Z_INDEX.route }}>
-            <Polyline
-              positions={routeStreams.latlng}
-              pathOptions={{ color: COLORS.route, weight: 5 }}
-              interactive={false}
-            />
-          </Pane>
-          <RouteStart latlng={routeStreams.latlng[0]} />
-          <RouteEnd
-            latlng={routeStreams.latlng[routeStreams.latlng.length - 1]}
-          />
-        </>
-      )}
+      {routeStreams && <Route latlng={routeStreams.latlng} />}
 
       <RoutePosition
         hoverDistance={mouseHoverDistance}
