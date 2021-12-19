@@ -5,3 +5,5 @@ export const Z_INDEX = {
   routeEnd: 508,
   routeStart: 508,
 };
+
+export const POLYLINE_WIDTH = 5;

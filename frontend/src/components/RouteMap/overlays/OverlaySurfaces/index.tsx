@@ -5,7 +5,7 @@ import { SURFACE_CONSTANTS, worldConfigs } from "../../../../constants";
 import { useLocationState } from "../../../../services/location-state";
 import { streamToSections } from "../../../../util/sections";
 import { getSurfaceStream } from "../../../../util/surface";
-import { Z_INDEX } from "../../constants";
+import { POLYLINE_WIDTH, Z_INDEX } from "../../constants";
 import { loadRoute } from "../../loaders/route";
 import { RouteEnd } from "../../RouteEnd";
 import { RouteStart } from "../../RouteStart";
@@ -49,7 +49,7 @@ export function OverlaySurfaces() {
             positions={section.stream.map((item) => item.latLng)}
             pathOptions={{
               color: SURFACE_CONSTANTS[section.ref].color,
-              weight: 5,
+              weight: POLYLINE_WIDTH,
               lineCap: "square",
             }}
             interactive={false}

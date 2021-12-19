@@ -2,7 +2,7 @@ import { useAsync } from "react-async-hook";
 import { Pane, Polyline } from "react-leaflet";
 import { COLORS } from "../../../constants";
 import { useLocationState } from "../../../services/location-state";
-import { Z_INDEX } from "../constants";
+import { POLYLINE_WIDTH, Z_INDEX } from "../constants";
 import { loadRoute } from "../loaders/route";
 import { RouteEnd } from "../RouteEnd";
 import { RouteStart } from "../RouteStart";
@@ -25,7 +25,7 @@ export function OverlayNone() {
           positions={streams.latlng}
           pathOptions={{
             color: COLORS.route,
-            weight: 5,
+            weight: POLYLINE_WIDTH,
             lineCap: "square",
           }}
           interactive={false}
