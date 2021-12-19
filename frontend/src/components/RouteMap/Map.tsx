@@ -7,6 +7,7 @@ import {
   ZoomControl,
 } from "react-leaflet";
 import { World } from "zwift-data";
+import { ENVIRONMENT } from "../../config";
 import { worldConfigs } from "../../constants/worldConfigs";
 import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 import { useSettings } from "../../hooks/useSettings";
@@ -15,6 +16,7 @@ import { getBounds } from "../../util/bounds";
 import styles from "./index.module.scss";
 import { OverlayNone } from "./overlays/OverlayNone";
 import { OverlaySegments } from "./overlays/OverlaySegments";
+import { OverlaySurfaces } from "./overlays/OverlaySurfaces";
 import { PreviewRoute } from "./PreviewRoute";
 import { RoutePosition } from "./RoutePosition";
 import { SurfaceDebugLayer } from "./SurfaceDebugLayer";
@@ -119,6 +121,18 @@ export function Map({
             <OverlaySegments />
           </LayerGroup>
         </LayersControl.BaseLayer>
+        {ENVIRONMENT === "development" && (
+          <LayersControl.BaseLayer
+            name="Surfaces"
+            checked={settings.overlay === "surfaces"}
+          >
+            <LayerGroup
+              eventHandlers={{ add: () => handleOverlayChange("surfaces") }}
+            >
+              <OverlaySurfaces />
+            </LayerGroup>
+          </LayersControl.BaseLayer>
+        )}
 
         <SurfaceDebugLayer world={world} />
       </LayersControl>

@@ -35,4 +35,4 @@ export interface EventFilterState {
   eventTypes: ZwiftEventType[];
 }
 
-export type Overlay = 'none' | 'segments'
+export type Overlay = "none" | "segments" | "surfaces";

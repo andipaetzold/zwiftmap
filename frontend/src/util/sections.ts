@@ -28,7 +28,7 @@ export function getSectionsFromIntervals<T, Interval>(
       const [start] = getRangeFromInterval(interval);
 
       if (start === 0) {
-          return undefined;
+        return undefined;
       }
 
       if (intervalIndex === 0) {
@@ -90,4 +90,45 @@ export function getSectionsFromIntervals<T, Interval>(
   return [...nonIntervalSections, ...intervalSections].sort(
     (a, b) => a.start - b.start
   );
+}
+
+export function streamToSections<T, Ref>(
+  stream: T[],
+  isEqual: (a: T, b: T) => boolean,
+  getRef: (a: T) => Ref
+): Section<T, Ref>[] {
+  const sections: Section<T, Ref>[] = [];
+
+  let curSection: Section<T, Ref> | undefined = undefined;
+  for (let i = 0; i < stream.length; ++i) {
+    const item = stream[i];
+    const prevItem = i === 0 ? undefined : stream[i - 1];
+
+    if (curSection === undefined || prevItem === undefined) {
+      curSection = {
+        start: i,
+        end: i,
+        interval: getRef(item),
+        stream: [item],
+      };
+    } else {
+      curSection.stream.push(item);
+      curSection.end = i;
+
+      if (!isEqual(item, prevItem)) {
+        sections.push(curSection);
+        curSection = {
+          start: i,
+          end: i,
+          interval: getRef(item),
+          stream: [item],
+        };
+      }
+    }
+  }
+  if (curSection !== undefined) {
+    sections.push(curSection);
+  }
+
+  return sections;
 }
