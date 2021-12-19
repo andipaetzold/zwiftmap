@@ -1,5 +1,7 @@
+import { LatLngTuple } from "leaflet";
 import { useAsync } from "react-async-hook";
-import { segments, SegmentType } from "zwift-data";
+import { DetailedSegmentEffort } from "strava";
+import { Segment, segments, SegmentType } from "zwift-data";
 import {
   LocationStateStravaActivity,
   useLocationState,
@@ -8,6 +10,7 @@ import {
   getStravaActivity,
   StravaActivity,
 } from "../../../../services/StravaActivityRepository";
+import { getSectionsFromIntervals } from "../../../../util/sections";
 import { RouteEnd } from "../../RouteEnd";
 import { RouteStart } from "../../RouteStart";
 import { SectionsPane } from "./components/SectionsPane";
@@ -44,8 +47,6 @@ async function loadData(
 ): Promise<{ activity: StravaActivity; sections: Section[] }> {
   const activity = await getStravaActivity(stravaActivityId);
 
-  const latLngStream = activity.streams.latlng;
-
   const segmentEffortsWithSegment = activity.segmentEfforts
     .map((segmentEffort) => ({
       segmentEffort,
@@ -55,41 +56,26 @@ async function loadData(
     }))
     .filter(
       ({ segment }) => segment && SEGMENTS_TO_DISPLAY.includes(segment.type)
-    );
+    ) as {
+    segmentEffort: DetailedSegmentEffort;
+    segment: Segment;
+  }[];
 
-  if (segmentEffortsWithSegment.length === 0) {
-    return {
-      activity,
-      sections: [{ latlng: latLngStream, type: "regular" }],
-    };
-  }
+  const sections = getSectionsFromIntervals<
+    LatLngTuple,
+    { segmentEffort: DetailedSegmentEffort; segment: Segment }
+  >(activity.streams.latlng, segmentEffortsWithSegment, ({ segmentEffort }) => [
+    segmentEffort.start_index,
+    segmentEffort.end_index,
+  ]);
 
-  const regularSections: Section[] = [
-    ...segmentEffortsWithSegment.map(({ segmentEffort }, index) => [
-      index === 0
-        ? 0
-        : segmentEffortsWithSegment[index - 1].segmentEffort.end_index,
-      segmentEffort.start_index + 1,
-    ]),
-    [
-      segmentEffortsWithSegment[segmentEffortsWithSegment.length - 1]
-        .segmentEffort.end_index,
-      latLngStream.length - 1,
-    ],
-  ].map(([start, end]) => ({
-    latlng: latLngStream.slice(start, end),
-    type: "regular",
-  }));
-
-  const segmentSections: Section[] = segmentEffortsWithSegment.map(
-    ({ segmentEffort, segment }) => ({
-      latlng: latLngStream.slice(
-        segmentEffort.start_index,
-        segmentEffort.end_index + 1
-      ),
-      type: segment!.type as "sprint" | "climb",
-    })
-  );
-
-  return { activity, sections: [...regularSections, ...segmentSections] };
+  return {
+    activity,
+    sections: sections.map((section) => ({
+      latlng: section.stream,
+      type:
+        (section.interval?.segment.type as "sprint" | "climb" | undefined) ??
+        "regular",
+    })),
+  };
 }
