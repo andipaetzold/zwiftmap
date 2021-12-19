@@ -7,7 +7,6 @@ import { BackButton } from "./BackButton";
 import { EventComponent } from "./component";
 
 interface Props {
-  onMouseHoverDistanceChange: (distance: number | undefined) => void;
   eventId: string;
 }
 

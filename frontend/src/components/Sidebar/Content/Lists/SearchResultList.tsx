@@ -10,7 +10,7 @@ import {
   SEARCH_RESULTS_ORDER,
   SEARCH_RESULTS_TYPES,
 } from "../../../../services/search";
-import { HoverData, SortState } from "../../../../types";
+import { SortState } from "../../../../types";
 import { sortRoute, sortSegment, sortWorld } from "../../../../util/sort";
 import { ListItemRoute } from "../../../ListItemRoute";
 import { SortButton } from "../../../SortButton";
@@ -19,11 +19,10 @@ import { ListItemStravaActivity } from "./Items/ListItemStravaActivity";
 import { ListItemWorld } from "./Items/ListItemWorld";
 
 interface Props {
-  onHoverRoute: (data: HoverData) => void;
   query: string;
 }
 
-export function SearchResultList({ onHoverRoute, query }: Props) {
+export function SearchResultList({ query }: Props) {
   const [settings] = useSettings();
   const [{ sortState }] = useSessionSettings();
 
@@ -47,7 +46,6 @@ export function SearchResultList({ onHoverRoute, query }: Props) {
           key={type}
           results={searchResults[type]}
           type={type}
-          onHoverRoute={onHoverRoute}
           sortState={sortState}
         />
       ))}
@@ -58,18 +56,17 @@ export function SearchResultList({ onHoverRoute, query }: Props) {
 interface SearchResultsTypeListProps {
   results: ReadonlyArray<SearchResult>;
   type: SearchResult["type"];
-  onHoverRoute: (data: HoverData) => void;
   sortState: SortState;
 }
 function SearchResultsTypeList({
   results,
   type,
-  onHoverRoute,
   sortState,
 }: SearchResultsTypeListProps) {
   if (results.length === 0) {
     return null;
   }
+
   return (
     <List
       style={{ marginTop: 0, marginBottom: 0 }}
@@ -98,11 +95,7 @@ function SearchResultsTypeList({
           }
         })
         .map((result, resultIndex) => (
-          <SearchResultCard
-            key={resultIndex}
-            searchResult={result}
-            onHoverRoute={onHoverRoute}
-          />
+          <SearchResultCard key={resultIndex} searchResult={result} />
         ))}
     </List>
   );
@@ -110,39 +103,20 @@ function SearchResultsTypeList({
 
 interface SearchResultCardProps {
   searchResult: SearchResult;
-  onHoverRoute: (data: HoverData) => void;
 }
 
-function SearchResultCard({
-  searchResult,
-  onHoverRoute,
-}: SearchResultCardProps) {
+function SearchResultCard({ searchResult }: SearchResultCardProps) {
   switch (searchResult.type) {
     case "world":
       return <ListItemWorld world={searchResult.data} />;
     case "route":
-      return (
-        <ListItemRoute
-          route={searchResult.data}
-          onHoverRoute={onHoverRoute}
-          showWorldName={true}
-        />
-      );
+      return <ListItemRoute route={searchResult.data} showWorldName={true} />;
     case "segment":
       return (
-        <ListItemSegment
-          segment={searchResult.data}
-          onHoverRoute={onHoverRoute}
-          showWorldName={true}
-        />
+        <ListItemSegment segment={searchResult.data} showWorldName={true} />
       );
     case "strava-activity":
-      return (
-        <ListItemStravaActivity
-          activity={searchResult.data}
-          onHoverRoute={onHoverRoute}
-        />
-      );
+      return <ListItemStravaActivity activity={searchResult.data} />;
     default:
       return null;
   }

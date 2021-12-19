@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { Segment, worlds } from "zwift-data";
 import { useOnScreen } from "../../../../../hooks/useOnScreen";
-import { HoverData } from "../../../../../types";
+import { useStore } from "../../../../../hooks/useStore";
 import { Distance } from "../../../../Distance";
 import { Elevation } from "../../../../Elevation";
 import { SegmentElevationChartPreview } from "../../../../ElevationChartPreview";
@@ -9,15 +9,12 @@ import { ListItemState } from "../../../../ListItemState";
 
 export interface Props {
   segment: Segment;
-  onHoverRoute: (data: HoverData) => void;
   showWorldName: boolean;
 }
 
-export function ListItemSegment({
-  segment,
-  onHoverRoute,
-  showWorldName,
-}: Props) {
+export function ListItemSegment({ segment, showWorldName }: Props) {
+  const setHoverState = useStore((store) => store.setHoverState);
+
   return (
     <ListItemState
       state={{
@@ -25,7 +22,7 @@ export function ListItemSegment({
         segment,
         type: "segment",
       }}
-      onClick={() => onHoverRoute(undefined)}
+      onClick={() => setHoverState(undefined)}
       secondaryText={
         <SegmentInfo segment={segment} showWorldName={showWorldName} />
       }
@@ -33,9 +30,9 @@ export function ListItemSegment({
       rightAddonType="large-media"
       rightAddon={<ChartContainer segment={segment} />}
       onMouseEnter={() =>
-        onHoverRoute({ type: "segment", segment: segment.slug })
+        setHoverState({ type: "segment", segment: segment.slug })
       }
-      onMouseLeave={() => onHoverRoute(undefined)}
+      onMouseLeave={() => setHoverState(undefined)}
     >
       {segment.name}
     </ListItemState>

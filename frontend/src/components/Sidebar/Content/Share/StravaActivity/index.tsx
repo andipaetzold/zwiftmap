@@ -12,13 +12,9 @@ import { SharedStravaActivitySurface } from "./Surface";
 
 interface Props {
   share: ShareStravaActivity;
-  onMouseHoverDistanceChange: (distance: number | undefined) => void;
 }
 
-export function SharedStravaActivity({
-  share,
-  onMouseHoverDistanceChange,
-}: Props) {
+export function SharedStravaActivity({ share }: Props) {
   const imageUrl = getShareImageUrl(share.id);
   const { result: imageExists } = useAsync<boolean>(
     async (u: string) => {
@@ -47,10 +43,7 @@ export function SharedStravaActivity({
 
       <SharedStravaActivityFacts share={share} />
 
-      <SharedStravaActivityElevationChart
-        share={share}
-        onMouseHoverDistanceChange={onMouseHoverDistanceChange}
-      />
+      <SharedStravaActivityElevationChart share={share} />
       <SharedStravaActivitySurface share={share} />
 
       <SharedStravaActivitySharing url={imageExists ? imageUrl : null} />

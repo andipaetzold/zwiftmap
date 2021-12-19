@@ -27,16 +27,9 @@ interface Props {
     latlng: LatLngStream;
     distance: DistanceStream;
   };
-  previewRouteLatLngStream?: LatLngStream;
-  mouseHoverDistance?: number;
 }
 
-export function Map({
-  world,
-  previewRouteLatLngStream,
-  routeStreams,
-  mouseHoverDistance,
-}: Props) {
+export function Map({ world, routeStreams }: Props) {
   const [settings, setSettings] = useSettings();
   const prefersReducedMotion = usePrefersReducedMotion();
   const [map, setMap] = useState<MapType | undefined>();
@@ -97,7 +90,7 @@ export function Map({
     >
       <ZoomControl position="topright" />
       <WorldImage world={world} />
-      <PreviewRoute latLngStream={previewRouteLatLngStream} />
+      <PreviewRoute />
 
       <LayersControl position="topright">
         <LayersControl.BaseLayer
@@ -134,10 +127,7 @@ export function Map({
         <SurfaceDebugLayer world={world} />
       </LayersControl>
 
-      <RoutePosition
-        hoverDistance={mouseHoverDistance}
-        streams={routeStreams}
-      />
+      <RoutePosition streams={routeStreams} />
     </MapContainer>
   );
 }

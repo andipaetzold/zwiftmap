@@ -3,7 +3,6 @@ import React from "react";
 import { useAsync } from "react-async-hook";
 import { useIsLoggedInStrava } from "../../../../../hooks/useIsLoggedInStrava";
 import { getStravaActivity } from "../../../../../services/StravaActivityRepository";
-import { HoverData } from "../../../../../types";
 import { ConnectToStravaListItem } from "../../../../ConnectToStravaListItem";
 import { Distance } from "../../../../Distance";
 import { Elevation } from "../../../../Elevation";
@@ -13,27 +12,20 @@ import { Time } from "../../../../Time";
 
 export interface Props {
   activity: { activityId: number; slug: string };
-  onHoverRoute: (data: HoverData) => void;
 }
 
-export function ListItemStravaActivity({ activity, onHoverRoute }: Props) {
+export function ListItemStravaActivity({ activity }: Props) {
   const isLoggedInStrava = useIsLoggedInStrava();
 
   if (!isLoggedInStrava) {
     return <ConnectToStravaListItem />;
   }
 
-  return (
-    <SearchResultCardStravaActivityLoggedIn
-      activity={activity}
-      onHoverRoute={onHoverRoute}
-    />
-  );
+  return <SearchResultCardStravaActivityLoggedIn activity={activity} />;
 }
 
 function SearchResultCardStravaActivityLoggedIn({
   activity: { activityId },
-  onHoverRoute,
 }: Props) {
   const { result: activity, loading } = useAsync(getStravaActivity, [
     activityId,

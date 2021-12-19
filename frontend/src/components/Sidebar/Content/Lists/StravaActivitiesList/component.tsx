@@ -3,11 +3,9 @@ import { SimpleListItem } from "@react-md/list";
 import * as Sentry from "@sentry/react";
 import axios from "axios";
 import { useAsync } from "react-async-hook";
-import {
-  LocationStateStravaActivities
-} from "../../../../../services/location-state";
+import { useStore } from "../../../../../hooks/useStore";
+import { LocationStateStravaActivities } from "../../../../../services/location-state";
 import { getStravaActivities } from "../../../../../services/zwiftMapApi";
-import { HoverData } from "../../../../../types";
 import { getWorld } from "../../../../../util/strava";
 import { Distance } from "../../../../Distance";
 import { Elevation } from "../../../../Elevation";
@@ -17,10 +15,10 @@ import { Time } from "../../../../Time";
 
 interface Props {
   state: LocationStateStravaActivities;
-  onHoverRoute: (data: HoverData) => void;
 }
 
-export function StravaActivitiesListComponent({ state, onHoverRoute }: Props) {
+export function StravaActivitiesListComponent({ state }: Props) {
+  const setHoverState = useStore((store) => store.setHoverState);
   const {
     result: activities,
     loading,
@@ -63,19 +61,19 @@ export function StravaActivitiesListComponent({ state, onHoverRoute }: Props) {
               stravaActivityId: activity.id,
             }}
             query=""
-            onClick={() => onHoverRoute(undefined)}
+            onClick={() => setHoverState(undefined)}
             onMouseEnter={() => {
               if (world !== state.world) {
-                onHoverRoute(undefined);
+                setHoverState(undefined);
                 return;
               }
 
-              onHoverRoute({
-                type: "latlng",
-                latlng: polyline.decode(activity.map.summary_polyline),
+              setHoverState({
+                type: "latLngStream",
+                latLngStream: polyline.decode(activity.map.summary_polyline),
               });
             }}
-            onMouseLeave={() => onHoverRoute(undefined)}
+            onMouseLeave={() => setHoverState(undefined)}
             secondaryText={
               <>
                 <Distance distance={activity.distance / 1_000} /> |{" "}

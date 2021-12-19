@@ -9,10 +9,11 @@ import {
   ResponsiveContainer,
   Tooltip,
   XAxis,
-  YAxis,
+  YAxis
 } from "recharts";
 import { SegmentType } from "zwift-data";
 import { COLORS } from "../../constants";
+import { useStore } from "../../hooks/useStore";
 import { DistanceStream, ElevationStream } from "../../types";
 import { Distance } from "../Distance";
 import { Elevation } from "../Elevation";
@@ -21,7 +22,6 @@ import { ElevationGradient } from "../ElevationGradient";
 interface Props {
   distanceStream: DistanceStream;
   altitudeStream: ElevationStream;
-  onMouseHoverDistanceChange: (distance: number | undefined) => void;
   segments?: {
     range: [from: number, to: number];
     type: SegmentType;
@@ -75,9 +75,9 @@ export const ElevationChart = Sentry.withErrorBoundary(
 function ElevationChartComponent({
   distanceStream,
   altitudeStream,
-  onMouseHoverDistanceChange,
   segments = [],
 }: Props) {
+  const setHoverState = useStore((store) => store.setHoverState);
   const [currentDistance, setCurrentDistance] = useState<number | undefined>(
     undefined
   );
@@ -95,7 +95,7 @@ function ElevationChartComponent({
       }
 
       if (!data.isTooltipActive) {
-        onMouseHoverDistanceChange(undefined);
+        setHoverState(undefined);
         setCurrentDistance(undefined);
         setCurrentAltitude(undefined);
         return;
@@ -107,18 +107,18 @@ function ElevationChartComponent({
         data.activePayload?.[0]?.payload.elevationSegmentSprint ??
         data.activePayload?.[0]?.payload.elevationSegmentKOM;
 
-      onMouseHoverDistanceChange(distance);
+      setHoverState(distance ? { type: "distance", distance } : undefined);
       setCurrentDistance(distance);
       setCurrentAltitude(elevation);
     },
-    [onMouseHoverDistanceChange]
+    [setHoverState]
   );
 
   const handleMouseLeave = useCallback(() => {
-    onMouseHoverDistanceChange(undefined);
+    setHoverState(undefined);
     setCurrentDistance(undefined);
     setCurrentAltitude(undefined);
-  }, [onMouseHoverDistanceChange]);
+  }, [setHoverState]);
 
   const data: Data[] | undefined = useMemo(() => {
     const thinnedDistanceStream = thinStream(distanceStream);

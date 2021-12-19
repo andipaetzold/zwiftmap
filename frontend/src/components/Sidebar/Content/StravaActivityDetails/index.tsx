@@ -14,7 +14,6 @@ import { StravaActivityDetailsComponent } from "./component";
 
 interface Props {
   state: LocationStateStravaActivity;
-  onMouseHoverDistanceChange: (distance: number | undefined) => void;
 }
 
 export function StravaActivityDetails(props: Props) {
@@ -26,10 +25,7 @@ export function StravaActivityDetails(props: Props) {
   );
 }
 
-function StravaActivityDetailsContent({
-  state,
-  onMouseHoverDistanceChange,
-}: Props) {
+function StravaActivityDetailsContent({ state }: Props) {
   const isLoggedInStrava = useIsLoggedInStrava();
   const {
     result: activity,
@@ -120,10 +116,5 @@ function StravaActivityDetailsContent({
     );
   }
 
-  return (
-    <StravaActivityDetailsComponent
-      activity={activity}
-      onMouseHoverDistanceChange={onMouseHoverDistanceChange}
-    />
-  );
+  return <StravaActivityDetailsComponent activity={activity} />;
 }

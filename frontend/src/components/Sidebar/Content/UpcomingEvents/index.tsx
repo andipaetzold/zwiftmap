@@ -7,7 +7,6 @@ import { useSessionSettings } from "../../../../hooks/useSessionSettings";
 import { useSettings } from "../../../../hooks/useSettings";
 import { fetchEvents } from "../../../../services/events";
 import { LocationStateUpcomingEvents } from "../../../../services/location-state";
-import { HoverData } from "../../../../types";
 import { ButtonState } from "../../../ButtonState";
 import { LoadingSpinnerListItem } from "../../../Loading";
 import { EventItem } from "./EventItem";
@@ -15,10 +14,9 @@ import { EventFilterButton } from "./FilterButton";
 
 interface Props {
   state: LocationStateUpcomingEvents;
-  onHoverRoute: (data: HoverData) => void;
 }
 
-export function UpcomingEvents({ state, onHoverRoute }: Props) {
+export function UpcomingEvents({ state }: Props) {
   const [{ eventFilter: filterState }] = useSessionSettings();
   const { result: events, loading } = useAsync(fetchEvents, []);
   const [settings] = useSettings();
@@ -56,12 +54,7 @@ export function UpcomingEvents({ state, onHoverRoute }: Props) {
         .filter((e) => e.sport.toLowerCase() === settings.sport)
         .filter((e) => filterState.eventTypes.includes(e.eventType))
         .map((event) => (
-          <EventItem
-            key={event.id}
-            state={state}
-            event={event}
-            onHoverRoute={onHoverRoute}
-          />
+          <EventItem key={event.id} state={state} event={event} />
         ))}
     </List>
   );

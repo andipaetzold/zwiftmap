@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { Route, worlds } from "zwift-data";
-import { HoverData } from "../../types";
+import { useStore } from "../../hooks/useStore";
 import { isSaveDataMode } from "../../util/saveData";
 import { useOnScreen } from "..//../hooks/useOnScreen";
 import { Distance } from "../Distance";
@@ -10,11 +10,11 @@ import { ListItemState } from "../ListItemState";
 
 export interface Props {
   route: Route;
-  onHoverRoute: (data: HoverData) => void;
   showWorldName: boolean;
 }
 
-export function ListItemRoute({ route, onHoverRoute, showWorldName }: Props) {
+export function ListItemRoute({ route, showWorldName }: Props) {
+  const setHoverState = useStore((store) => store.setHoverState);
   const showPreviewChart = !isSaveDataMode();
 
   return (
@@ -27,11 +27,11 @@ export function ListItemRoute({ route, onHoverRoute, showWorldName }: Props) {
         route,
         type: "route",
       }}
-      onClick={() => onHoverRoute(undefined)}
+      onClick={() => setHoverState(undefined)}
       rightAddonType={showPreviewChart ? "large-media" : undefined}
       rightAddon={showPreviewChart ? <ChartContainer route={route} /> : null}
-      onMouseEnter={() => onHoverRoute({ type: "route", route: route.slug })}
-      onMouseLeave={() => onHoverRoute(undefined)}
+      onMouseEnter={() => setHoverState({ type: "route", route: route.slug })}
+      onMouseLeave={() => setHoverState(undefined)}
     >
       {route.name}
     </ListItemState>

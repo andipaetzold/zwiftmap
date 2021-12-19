@@ -7,7 +7,6 @@ import {
   DEFAULT_WORLD,
   LocationStateStravaActivities,
 } from "../../../../../services/location-state";
-import { HoverData } from "../../../../../types";
 import { ButtonState } from "../../../../ButtonState";
 import { ConnectToStravaListItem } from "../../../../ConnectToStravaListItem";
 import { LoadingSpinnerListItem } from "../../../../Loading";
@@ -15,10 +14,9 @@ import { StravaActivitiesListComponent } from "./component";
 
 interface Props {
   state: LocationStateStravaActivities;
-  onHoverRoute: (data: HoverData) => void;
 }
 
-export function StravaActivitiesList({ state, onHoverRoute }: Props) {
+export function StravaActivitiesList({ state }: Props) {
   const isLoggedInStrava = useIsLoggedInStrava();
 
   if (isLoggedInStrava === null) {
@@ -39,21 +37,16 @@ export function StravaActivitiesList({ state, onHoverRoute }: Props) {
     );
   }
 
-  return (
-    <StravaActivitiesListWithToken state={state} onHoverRoute={onHoverRoute} />
-  );
+  return <StravaActivitiesListWithToken state={state} />;
 }
 
-function StravaActivitiesListWithToken({ state, onHoverRoute }: Props) {
+function StravaActivitiesListWithToken({ state }: Props) {
   return (
     <List>
       <Header state={state} />
 
       <ListSubheader>Recent Strava Activities</ListSubheader>
-      <StravaActivitiesListComponent
-        state={state}
-        onHoverRoute={onHoverRoute}
-      />
+      <StravaActivitiesListComponent state={state} />
     </List>
   );
 }

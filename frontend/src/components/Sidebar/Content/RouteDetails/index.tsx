@@ -16,14 +16,12 @@ import { RouteSurface } from "./RouteSurface";
 
 interface Props {
   route: Route;
-  onMouseHoverDistanceChange: (distance: number | undefined) => void;
   backButtonText: string;
   backButtonState: LocationState;
 }
 
 export function RouteDetails({
   route,
-  onMouseHoverDistanceChange,
   backButtonText,
   backButtonState,
 }: Props) {
@@ -48,10 +46,7 @@ export function RouteDetails({
         <RouteFacts route={route} />
         <RouteStravaPB route={route} />
 
-        <RouteElevationChart
-          route={route}
-          onMouseHoverDistanceChange={onMouseHoverDistanceChange}
-        />
+        <RouteElevationChart route={route} />
       </List>
 
       <RouteSurface route={route} />

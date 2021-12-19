@@ -6,7 +6,6 @@ import { useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";
 import { useSessionSettings } from "../../../../hooks/useSessionSettings";
 import { useSettings } from "../../../../hooks/useSettings";
 import { LocationStateDefault } from "../../../../services/location-state";
-import { HoverData } from "../../../../types";
 import { sortRoute } from "../../../../util/sort";
 import { ListItemRoute } from "../../../ListItemRoute";
 import { ListItemState } from "../../../ListItemState";
@@ -14,10 +13,9 @@ import { SortButton } from "../../../SortButton";
 
 interface Props {
   state: LocationStateDefault;
-  onHoverRoute: (data: HoverData) => void;
 }
 
-export function RouteList({ state, onHoverRoute }: Props) {
+export function RouteList({ state }: Props) {
   const [settings] = useSettings();
   const isLoggedIn = useIsLoggedInStrava();
   const [{ sortState }] = useSessionSettings();
@@ -83,7 +81,6 @@ export function RouteList({ state, onHoverRoute }: Props) {
             <ListItemRoute
               route={route}
               key={route.slug}
-              onHoverRoute={onHoverRoute}
               showWorldName={false}
             />
           ))}

@@ -7,24 +7,16 @@ import {
   navigate,
   useLocationState,
 } from "../../services/location-state";
-import { HoverData } from "../../types";
 import styles from "./index.module.scss";
-import { loadPreviewRoute } from "./loaders/previewRoute";
 import { loadRoute } from "./loaders/route";
 import { Map } from "./Map";
 import { WorldSelect } from "./WorldSelect";
 
-interface Props {
-  mouseHoverDistance: number | undefined;
-  previewRoute: HoverData;
-}
-
-export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
+export default function RouteMap() {
   const state = useLocationState();
   const setQuery = useStore((state) => state.setQuery);
 
   const { result: routeStreams } = useAsync(loadRoute, [state]);
-  const { result: previewLatLng } = useAsync(loadPreviewRoute, [previewRoute]);
 
   const selectedWorld = state.world ?? DEFAULT_WORLD;
 
@@ -43,8 +35,6 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
       <Map
         key={selectedWorld.slug}
         world={selectedWorld}
-        mouseHoverDistance={mouseHoverDistance}
-        previewRouteLatLngStream={previewLatLng}
         routeStreams={routeStreams}
       />
     </div>

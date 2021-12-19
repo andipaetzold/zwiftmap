@@ -1,10 +1,10 @@
 import * as Sentry from "@sentry/react";
 import { getStravaSegmentStreams } from "../../../services/StravaSegmentRepository";
-import { HoverData, LatLngStream } from "../../../types";
+import { HoverState, LatLngStream } from "../../../types";
 import { isSaveDataMode } from "../../../util/saveData";
 
 export async function loadPreviewRoute(
-  data: HoverData | undefined
+  data: HoverState | undefined
 ): Promise<LatLngStream | undefined> {
   if (isSaveDataMode()) {
     return;
@@ -21,8 +21,8 @@ export async function loadPreviewRoute(
           "latlng",
         ]);
         return streams.latlng;
-      case "latlng":
-        return data.latlng;
+      case "latLngStream":
+        return data.latLngStream;
     }
   } catch (e) {
     Sentry.captureException(e);

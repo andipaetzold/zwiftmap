@@ -7,15 +7,11 @@ import { LoadingSpinnerListItem } from "../../../Loading";
 
 interface Props {
   route: Route;
-  onMouseHoverDistanceChange: (distance: number | undefined) => void;
 }
 
 const REQUIRED_STREAMS = ["altitude", "distance"] as const;
 
-export function RouteElevationChart({
-  route,
-  onMouseHoverDistanceChange,
-}: Props) {
+export function RouteElevationChart({ route }: Props) {
   const { result: routeSegment, error } = useAsync<
     Pick<StravaSegment, "altitude" | "distance">
   >(getStravaSegmentStreams, [route.slug, "routes", REQUIRED_STREAMS]);
@@ -32,7 +28,6 @@ export function RouteElevationChart({
     <ElevationChart
       altitudeStream={routeSegment.altitude}
       distanceStream={routeSegment.distance}
-      onMouseHoverDistanceChange={onMouseHoverDistanceChange}
       segments={route.segmentsOnRoute.map((sor) => ({
         range: [sor.from, sor.to],
         type: segments.find((s) => s.slug === sor.segment)!.type,

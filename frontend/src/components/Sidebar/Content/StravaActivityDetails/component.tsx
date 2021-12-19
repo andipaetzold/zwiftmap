@@ -13,13 +13,9 @@ import { StravaActivitySurface } from "./StravaActivitySurface";
 
 interface Props {
   activity: StravaActivity;
-  onMouseHoverDistanceChange: (distance: number | undefined) => void;
 }
 
-export function StravaActivityDetailsComponent({
-  activity,
-  onMouseHoverDistanceChange,
-}: Props) {
+export function StravaActivityDetailsComponent({ activity }: Props) {
   return (
     <>
       <Helmet>
@@ -35,10 +31,7 @@ export function StravaActivityDetailsComponent({
 
       <StravaActivityFacts activity={activity} />
 
-      <StravaActivityElevationChart
-        activity={activity}
-        onMouseHoverDistanceChange={onMouseHoverDistanceChange}
-      />
+      <StravaActivityElevationChart activity={activity} />
       <StravaActivitySurface activity={activity} />
       <StravaActivityRoutes activity={activity} />
       <StravaActivitySegments activity={activity} />

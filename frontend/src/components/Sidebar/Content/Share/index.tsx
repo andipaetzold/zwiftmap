@@ -14,7 +14,6 @@ interface Props {
   shareId: string;
   backButtonState: LocationState;
   backButtonText: string;
-  onMouseHoverDistanceChange: (distance: number | undefined) => void;
 }
 
 export function Share(props: Props) {
@@ -35,7 +34,7 @@ export function Share(props: Props) {
   );
 }
 
-function ShareContent({ shareId, onMouseHoverDistanceChange }: Props) {
+function ShareContent({ shareId }: Props) {
   const { result: share, loading } = useAsync<ShareType>(getShare, [shareId]);
 
   if (!share) {
@@ -64,12 +63,7 @@ function ShareContent({ shareId, onMouseHoverDistanceChange }: Props) {
 
   switch (share.type) {
     case "strava-activity": {
-      return (
-        <SharedStravaActivity
-          share={share}
-          onMouseHoverDistanceChange={onMouseHoverDistanceChange}
-        />
-      );
+      return <SharedStravaActivity share={share} />;
     }
   }
 }

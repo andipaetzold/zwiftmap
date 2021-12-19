@@ -1,13 +1,14 @@
+import { useAsync } from "react-async-hook";
 import { Pane, Polyline } from "react-leaflet";
 import { COLORS } from "../../constants";
-import { LatLngStream } from "../../types";
+import { useStore } from "../../hooks/useStore";
 import { Z_INDEX } from "./constants";
+import { loadPreviewRoute } from "./loaders/previewRoute";
 
-interface Props {
-  latLngStream?: LatLngStream;
-}
+export function PreviewRoute() {
+  const hoverState = useStore((store) => store.hoverState);
+  const { result: latLngStream } = useAsync(loadPreviewRoute, [hoverState]);
 
-export function PreviewRoute({ latLngStream }: Props) {
   if (!latLngStream) {
     return null;
   }

@@ -3,18 +3,13 @@ import { ElevationChart } from "../../../ElevationChart";
 
 interface Props {
   activity: StravaActivity;
-  onMouseHoverDistanceChange: (distance: number | undefined) => void;
 }
 
-export function StravaActivityElevationChart({
-  activity,
-  onMouseHoverDistanceChange,
-}: Props) {
+export function StravaActivityElevationChart({ activity }: Props) {
   return (
     <ElevationChart
       distanceStream={activity.streams.distance}
       altitudeStream={activity.streams.altitude}
-      onMouseHoverDistanceChange={onMouseHoverDistanceChange}
     />
   );
 }
