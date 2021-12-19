@@ -69,7 +69,7 @@ export function StravaActivitiesListComponent({ state }: Props) {
               }
 
               setHoverState({
-                type: "latLngStream",
+                type: "preview-latLngStream",
                 latLngStream: polyline.decode(activity.map.summary_polyline),
               });
             }}
