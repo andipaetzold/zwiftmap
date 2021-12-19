@@ -1,3 +1,4 @@
+import parseISO from "date-fns/parseISO";
 import { Helmet } from "react-helmet-async";
 import { ZwiftEvent } from "../../../../services/events";
 import { FORMAT_LONG } from "../../../../util/formats";
@@ -9,7 +10,7 @@ interface Props {
 export function EventHelmet({ event }: Props) {
   const description = `Event details for "${
     event.name
-  }" starting ${FORMAT_LONG.format(Date.parse(event.eventStart))} on Zwift`;
+  }" starting ${FORMAT_LONG.format(parseISO(event.eventStart))} on Zwift`;
   return (
     <Helmet>
       <title>{event.name}</title>
