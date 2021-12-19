@@ -5,7 +5,7 @@ import {
   LatLngStream,
   SurfaceType,
   SURFACE_TYPES,
-  WorldConfigSurface
+  WorldConfigSurface,
 } from "../../types";
 import { getSurfaceStats, getSurfaceStream } from "../../util/surface";
 import { Distance } from "../Distance";
@@ -19,14 +19,12 @@ const FORMAT_PERCENT = new Intl.NumberFormat("en-US", {
 interface Props {
   latLngStream: LatLngStream;
   distancStream: DistanceStream;
-  distance: number;
   surfaces: WorldConfigSurface[];
 }
 
 export function SurfaceListItem({
   latLngStream,
   distancStream,
-  distance,
   surfaces,
 }: Props) {
   const surfaceStream = getSurfaceStream(latLngStream, surfaces);
@@ -37,17 +35,18 @@ export function SurfaceListItem({
 
   return (
     <List style={{ marginTop: 0, marginBottom: 0 }}>
-      <Legend data={surfaceTypesWithDistance} distance={distance} />
+      <Legend data={surfaceTypesWithDistance} />
     </List>
   );
 }
 
 interface LegendProps {
   data: Record<SurfaceType, number>;
-  distance: number;
 }
 
-function Legend({ data, distance }: LegendProps) {
+function Legend({ data }: LegendProps) {
+  const distance = Object.values(data).reduce((prev, cur) => prev + cur, 0);
+
   return (
     <SimpleListItem>
       <ul style={{ padding: 0, margin: 0 }}>

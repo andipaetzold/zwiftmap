@@ -11,7 +11,6 @@ export function StravaActivitySurface({ activity }: Props) {
     <SurfaceListItem
       distancStream={activity.streams.distance}
       latLngStream={activity.streams.latlng}
-      distance={activity.distance}
       surfaces={worldConfigs[activity.world.slug].surfaces}
     />
   );

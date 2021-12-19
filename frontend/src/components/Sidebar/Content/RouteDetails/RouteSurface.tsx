@@ -24,7 +24,6 @@ export function RouteSurface({ route }: Props) {
     <SurfaceListItem
       distancStream={routeSegment.distance}
       latLngStream={routeSegment.latlng}
-      distance={route.distance}
       surfaces={worldConfigs[route.world].surfaces}
     />
   );

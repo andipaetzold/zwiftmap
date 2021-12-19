@@ -13,7 +13,6 @@ export function SharedStravaActivitySurface({ share }: Props) {
     <SurfaceListItem
       distancStream={share.streams.distance.data}
       latLngStream={share.streams.latlng.data}
-      distance={share.activity.distance}
       surfaces={worldConfigs[world.slug].surfaces}
     />
   );

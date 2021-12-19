@@ -24,7 +24,6 @@ export function SegmentSurface({ segment }: Props) {
     <SurfaceListItem
       distancStream={routeSegment.distance}
       latLngStream={routeSegment.latlng}
-      distance={segment.distance}
       surfaces={worldConfigs[segment.world].surfaces}
     />
   );
