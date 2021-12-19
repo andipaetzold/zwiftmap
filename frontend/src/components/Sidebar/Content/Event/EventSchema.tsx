@@ -22,6 +22,7 @@ export function EventSchema({ event }: Props) {
     "@context": "https://schema.org",
     "@type": "SportsEvent",
     organizer: "Zwift",
+    eventStatus: "EventScheduled",
     sport: event.sport === "RUNNING" ? "Virtual Cycling" : "Virtual Running",
     disambiguatingDescription: event.shortDescription
       ? event.shortDescription
