@@ -74,7 +74,7 @@ async function loadData(
     sections: sections.map((section) => ({
       latlng: section.stream,
       type:
-        (section.interval?.segment.type as "sprint" | "climb" | undefined) ??
+        (section.ref?.segment.type as "sprint" | "climb" | undefined) ??
         "regular",
     })),
   };

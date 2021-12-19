@@ -48,7 +48,7 @@ export function OverlaySurfaces() {
             key={sectionIndex}
             positions={section.stream.map((item) => item.latLng)}
             pathOptions={{
-              color: SURFACE_CONSTANTS[section.interval ?? "tarmac"].color,
+              color: SURFACE_CONSTANTS[section.ref].color,
               weight: 5,
             }}
             interactive={false}

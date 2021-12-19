@@ -1,8 +1,8 @@
-interface Section<T, Interval> {
+interface Section<T, Ref> {
   stream: T[];
   start: number;
   end: number;
-  interval: Interval | undefined;
+  ref: Ref;
 }
 
 /**
@@ -13,9 +13,9 @@ export function getSectionsFromIntervals<T, Interval>(
   stream: T[],
   intervals: Interval[],
   getRangeFromInterval: (i: Interval) => [number, number]
-): Section<T, Interval>[] {
+): Section<T, Interval | undefined>[] {
   if (intervals.length === 0) {
-    return [{ stream, start: 0, end: stream.length - 1, interval: undefined }];
+    return [{ stream, start: 0, end: stream.length - 1, ref: undefined }];
   }
 
   const sortedIntervals = [...intervals].sort(
@@ -23,39 +23,46 @@ export function getSectionsFromIntervals<T, Interval>(
   );
 
   // sections not covered by intervals
-  const nonIntervalSections: Section<T, Interval>[] = sortedIntervals
-    .map((interval, intervalIndex): Section<T, Interval> | undefined => {
-      const [start] = getRangeFromInterval(interval);
+  const nonIntervalSections: Section<T, Interval | undefined>[] =
+    sortedIntervals
+      .map(
+        (
+          interval,
+          intervalIndex
+        ): Section<T, Interval | undefined> | undefined => {
+          const [start] = getRangeFromInterval(interval);
 
-      if (start === 0) {
-        return undefined;
-      }
+          if (start === 0) {
+            return undefined;
+          }
 
-      if (intervalIndex === 0) {
-        return {
-          stream: stream.slice(0, start + 1),
-          start: 0,
-          end: start,
-          interval: undefined,
-        };
-      }
+          if (intervalIndex === 0) {
+            return {
+              stream: stream.slice(0, start + 1),
+              start: 0,
+              end: start,
+              ref: undefined,
+            };
+          }
 
-      const prevInterval = sortedIntervals[intervalIndex - 1];
-      const [, prevEnd] = getRangeFromInterval(prevInterval);
-      if (start <= prevEnd) {
-        return undefined;
-      }
+          const prevInterval = sortedIntervals[intervalIndex - 1];
+          const [, prevEnd] = getRangeFromInterval(prevInterval);
+          if (start <= prevEnd) {
+            return undefined;
+          }
 
-      return {
-        stream: stream.slice(prevEnd, start + 1),
-        start: prevEnd,
-        end: start,
-        interval: undefined,
-      };
-    })
-    .filter(
-      (section): section is Section<T, Interval> => section !== undefined
-    );
+          return {
+            stream: stream.slice(prevEnd, start + 1),
+            start: prevEnd,
+            end: start,
+            ref: undefined,
+          };
+        }
+      )
+      .filter(
+        (section): section is Section<T, Interval | undefined> =>
+          section !== undefined
+      );
 
   // last section
   {
@@ -68,24 +75,23 @@ export function getSectionsFromIntervals<T, Interval>(
         stream: stream.slice(lastIntervalEnd),
         start: lastIntervalEnd,
         end: stream.length - 1,
-        interval: undefined,
+        ref: undefined,
       });
     }
   }
 
   // sections coverd by intervals
-  const intervalSections: Section<T, Interval>[] = sortedIntervals.map(
-    (interval) => {
+  const intervalSections: Section<T, Interval | undefined>[] =
+    sortedIntervals.map((interval) => {
       const [start, end] = getRangeFromInterval(interval);
 
       return {
         stream: stream.slice(start, end + 1),
         start,
         end: end,
-        interval,
+        ref: interval,
       };
-    }
-  );
+    });
 
   return [...nonIntervalSections, ...intervalSections].sort(
     (a, b) => a.start - b.start
@@ -108,7 +114,7 @@ export function streamToSections<T, Ref>(
       curSection = {
         start: i,
         end: i,
-        interval: getRef(item),
+        ref: getRef(item),
         stream: [item],
       };
     } else {
@@ -120,7 +126,7 @@ export function streamToSections<T, Ref>(
         curSection = {
           start: i,
           end: i,
-          interval: getRef(item),
+          ref: getRef(item),
           stream: [item],
         };
       }
