@@ -41,7 +41,7 @@ export function EventItem({ state, event }: Props) {
       onClick={() => setHoverState(undefined)}
       onMouseEnter={() => {
         if (route.world === state.world.slug) {
-          setHoverState({ type: "route", route: route.slug });
+          setHoverState({ type: "preview-route", route: route.slug });
         } else {
           setHoverState(undefined);
         }

@@ -30,7 +30,7 @@ export function ListItemRoute({ route, showWorldName }: Props) {
       onClick={() => setHoverState(undefined)}
       rightAddonType={showPreviewChart ? "large-media" : undefined}
       rightAddon={showPreviewChart ? <ChartContainer route={route} /> : null}
-      onMouseEnter={() => setHoverState({ type: "route", route: route.slug })}
+      onMouseEnter={() => setHoverState({ type: "preview-route", route: route.slug })}
       onMouseLeave={() => setHoverState(undefined)}
     >
       {route.name}

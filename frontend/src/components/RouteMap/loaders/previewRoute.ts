@@ -16,13 +16,23 @@ export async function loadPreviewRoute(
     }
 
     switch (data.type) {
-      case "route":
+      case "preview-route": {
         const streams = await getStravaSegmentStreams(data.route, "routes", [
           "latlng",
         ]);
         return streams.latlng;
-      case "latLngStream":
+      }
+      case "preview-segment": {
+        const streams = await getStravaSegmentStreams(
+          data.segment,
+          "segments",
+          ["latlng"]
+        );
+        return streams.latlng;
+      }
+      case "preview-latLngStream": {
         return data.latLngStream;
+      }
     }
   } catch (e) {
     Sentry.captureException(e);

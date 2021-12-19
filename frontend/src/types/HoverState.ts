@@ -3,24 +3,24 @@ import { SurfaceType } from "./Surface";
 
 export type HoverState =
   | undefined
-  | HoverStateRoute
-  | HoverStateSegment
-  | HoverStateLatLngStream
+  | HoverStatePreviewRoute
+  | HoverStatePreviewSegment
+  | HoverStatePreviewLatLngStream
   | HoverStateSurface
   | HoverStateRouteDistance;
 
-export interface HoverStateRoute {
-  type: "route";
+export interface HoverStatePreviewRoute {
+  type: "preview-route";
   route: string;
 }
 
-export interface HoverStateSegment {
-  type: "segment";
+export interface HoverStatePreviewSegment {
+  type: "preview-segment";
   segment: string;
 }
 
-export interface HoverStateLatLngStream {
-  type: "latLngStream";
+export interface HoverStatePreviewLatLngStream {
+  type: "preview-latLngStream";
   latLngStream: LatLngStream;
 }
 

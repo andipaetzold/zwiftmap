@@ -30,7 +30,7 @@ export function ListItemSegment({ segment, showWorldName }: Props) {
       rightAddonType="large-media"
       rightAddon={<ChartContainer segment={segment} />}
       onMouseEnter={() =>
-        setHoverState({ type: "segment", segment: segment.slug })
+        setHoverState({ type: "preview-segment", segment: segment.slug })
       }
       onMouseLeave={() => setHoverState(undefined)}
     >
