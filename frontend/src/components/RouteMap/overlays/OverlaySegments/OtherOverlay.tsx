@@ -1,7 +1,13 @@
 import { useAsync } from "react-async-hook";
 import { Pane, Polyline } from "react-leaflet";
 import { COLORS } from "../../../../constants";
-import { useLocationState } from "../../../../services/location-state";
+import {
+  LocationStateDefault,
+  LocationStateSegment,
+  LocationStateShare,
+  LocationStateStravaActivities,
+  LocationStateUpcomingEvents,
+} from "../../../../services/location-state";
 import { Z_INDEX } from "../../constants";
 import { loadRoute } from "../../loaders/route";
 import { RouteEnd } from "../../RouteEnd";
@@ -9,9 +15,16 @@ import { RouteStart } from "../../RouteStart";
 
 const ID = "OverlaySegments-OtherOverlay";
 
-export function OtherOverlay() {
-  const [state] = useLocationState();
+interface Props {
+  state:
+    | LocationStateDefault
+    | LocationStateSegment
+    | LocationStateStravaActivities
+    | LocationStateUpcomingEvents
+    | LocationStateShare;
+}
 
+export function OtherOverlay({ state }: Props) {
   const { result: streams } = useAsync(loadRoute, [state]);
 
   if (!streams) {

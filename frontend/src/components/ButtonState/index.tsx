@@ -6,7 +6,7 @@ import { useStore } from "../../hooks/useStore";
 import {
   createUrl,
   LocationState,
-  useLocationState,
+  navigate,
 } from "../../services/location-state";
 import styles from "./index.module.scss";
 
@@ -23,7 +23,6 @@ export function ButtonState({
   query,
   ...props
 }: Props) {
-  const [, setLocationState] = useLocationState();
   const setQuery = useStore((state) => state.setQuery);
   const handleClick = useCallback(
     (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -36,10 +35,10 @@ export function ButtonState({
         if (query !== undefined) {
           setQuery(query);
         }
-        setLocationState(state);
+        navigate(state);
       }
     },
-    [query, setLocationState, setQuery, state]
+    [query, setQuery, state]
   );
 
   return (

@@ -3,7 +3,9 @@ import { SimpleListItem } from "@react-md/list";
 import * as Sentry from "@sentry/react";
 import axios from "axios";
 import { useAsync } from "react-async-hook";
-import { useLocationState } from "../../../../../services/location-state";
+import {
+  LocationStateStravaActivities
+} from "../../../../../services/location-state";
 import { getStravaActivities } from "../../../../../services/zwiftMapApi";
 import { HoverData } from "../../../../../types";
 import { getWorld } from "../../../../../util/strava";
@@ -14,11 +16,11 @@ import { LoadingSpinnerListItem } from "../../../../Loading";
 import { Time } from "../../../../Time";
 
 interface Props {
+  state: LocationStateStravaActivities;
   onHoverRoute: (data: HoverData) => void;
 }
 
-export function StravaActivitiesListComponent({ onHoverRoute }: Props) {
-  const [locationState] = useLocationState();
+export function StravaActivitiesListComponent({ state, onHoverRoute }: Props) {
   const {
     result: activities,
     loading,
@@ -63,7 +65,7 @@ export function StravaActivitiesListComponent({ onHoverRoute }: Props) {
             query=""
             onClick={() => onHoverRoute(undefined)}
             onMouseEnter={() => {
-              if (world !== locationState.world) {
+              if (world !== state.world) {
                 onHoverRoute(undefined);
                 return;
               }

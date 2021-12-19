@@ -22,59 +22,59 @@ interface Props {
 }
 
 export function Content({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
-  const [locationState] = useLocationState();
+  const state = useLocationState();
   const query = useStore((state) => state.query);
 
   const backButtonText = query === "" ? "Route List" : "Search Results";
   const backButtonState: LocationState = {
-    world: locationState.world ?? DEFAULT_WORLD,
+    world: state.world ?? DEFAULT_WORLD,
     type: "default",
   };
 
-  switch (locationState.type) {
+  switch (state.type) {
     case "route":
       return (
         <RouteDetails
-          key={locationState.route.slug}
+          key={state.route.slug}
           backButtonText={backButtonText}
           backButtonState={backButtonState}
           onMouseHoverDistanceChange={onMouseHoverDistanceChange}
-          route={locationState.route}
+          route={state.route}
         />
       );
     case "segment":
       return (
         <SegmentDetails
-          key={locationState.segment.slug}
+          key={state.segment.slug}
           backButtonText={backButtonText}
           backButtonState={backButtonState}
           onMouseHoverDistanceChange={onMouseHoverDistanceChange}
-          segment={locationState.segment}
+          segment={state.segment}
           onHoverRoute={onHoverRoute}
         />
       );
     case "strava-activity":
       return (
         <StravaActivityDetails
-          activityId={locationState.stravaActivityId}
+          state={state}
           onMouseHoverDistanceChange={onMouseHoverDistanceChange}
         />
       );
     case "strava-activities":
-      return <StravaActivitiesList onHoverRoute={onHoverRoute} />;
+      return <StravaActivitiesList state={state} onHoverRoute={onHoverRoute} />;
     case "events":
-      return <UpcomingEvents onHoverRoute={onHoverRoute} />;
+      return <UpcomingEvents state={state} onHoverRoute={onHoverRoute} />;
     case "event":
       return (
         <Event
           onMouseHoverDistanceChange={onMouseHoverDistanceChange}
-          eventId={locationState.eventId}
+          eventId={state.eventId}
         />
       );
     case "share":
       return (
         <Share
-          shareId={locationState.shareId}
+          shareId={state.shareId}
           backButtonText={backButtonText}
           backButtonState={backButtonState}
           onMouseHoverDistanceChange={onMouseHoverDistanceChange}
@@ -82,7 +82,7 @@ export function Content({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
       );
     case "default":
       if (query === "") {
-        return <RouteList onHoverRoute={onHoverRoute} />;
+        return <RouteList state={state} onHoverRoute={onHoverRoute} />;
       } else {
         return <SearchResultList onHoverRoute={onHoverRoute} query={query} />;
       }

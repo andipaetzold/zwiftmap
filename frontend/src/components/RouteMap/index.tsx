@@ -2,7 +2,11 @@ import "leaflet/dist/leaflet.css";
 import React from "react";
 import { useAsync } from "react-async-hook";
 import { useStore } from "../../hooks/useStore";
-import { DEFAULT_WORLD, useLocationState } from "../../services/location-state";
+import {
+  DEFAULT_WORLD,
+  navigate,
+  useLocationState,
+} from "../../services/location-state";
 import { HoverData } from "../../types";
 import styles from "./index.module.scss";
 import { loadPreviewRoute } from "./loaders/previewRoute";
@@ -16,13 +20,13 @@ interface Props {
 }
 
 export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
-  const [locationState, setLocationState] = useLocationState();
+  const state = useLocationState();
   const setQuery = useStore((state) => state.setQuery);
 
-  const { result: routeStreams } = useAsync(loadRoute, [locationState]);
+  const { result: routeStreams } = useAsync(loadRoute, [state]);
   const { result: previewLatLng } = useAsync(loadPreviewRoute, [previewRoute]);
 
-  const selectedWorld = locationState.world ?? DEFAULT_WORLD;
+  const selectedWorld = state.world ?? DEFAULT_WORLD;
 
   return (
     <div className={styles.Container} aria-hidden="true">
@@ -30,7 +34,7 @@ export default function RouteMap({ mouseHoverDistance, previewRoute }: Props) {
         world={selectedWorld}
         onWorldChange={(newWorld) => {
           setQuery("");
-          setLocationState({
+          navigate({
             world: newWorld,
             type: "default",
           });

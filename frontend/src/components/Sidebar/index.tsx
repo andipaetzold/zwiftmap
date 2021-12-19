@@ -2,7 +2,7 @@ import { Divider } from "@react-md/divider";
 import { List, SimpleListItem } from "@react-md/list";
 import {
   KeyboardArrowDownSVGIcon,
-  KeyboardArrowUpSVGIcon
+  KeyboardArrowUpSVGIcon,
 } from "@react-md/material-icons";
 import c from "classnames";
 import React, { useRef, useState } from "react";
@@ -21,7 +21,7 @@ interface Props {
 export function Sidebar({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const [locationState] = useLocationState();
+  const state = useLocationState();
 
   return (
     <>
@@ -46,7 +46,7 @@ export function Sidebar({ onMouseHoverDistanceChange, onHoverRoute }: Props) {
           <Divider className={styles.NoGapDivider} />
         </List>
 
-        <div className={styles.Content} key={locationState.key}>
+        <div className={styles.Content} key={state.key}>
           <Content
             onHoverRoute={onHoverRoute}
             onMouseHoverDistanceChange={onMouseHoverDistanceChange}

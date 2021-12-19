@@ -1,9 +1,6 @@
 import { useMemo } from "react";
 import { useAsync } from "react-async-hook";
-import {
-  LocationStateRoute,
-  useLocationState,
-} from "../../../../services/location-state";
+import { LocationStateRoute } from "../../../../services/location-state";
 import { loadRoute } from "../../loaders/route";
 import { RouteEnd } from "../../RouteEnd";
 import { RouteStart } from "../../RouteStart";
@@ -13,9 +10,11 @@ import { getRouteSections } from "./util";
 
 const ID = "OverlaySegments-RouteOverlay";
 
-export function RouteOverlay() {
-  const [state] = useLocationState<LocationStateRoute>();
+interface Props {
+  state: LocationStateRoute;
+}
 
+export function RouteOverlay({ state }: Props) {
   const unmatchedSegments = useMemo(() => {
     const matchedSegmentSlugs = state.route.segmentsOnRoute.map(
       (sor) => sor.segment

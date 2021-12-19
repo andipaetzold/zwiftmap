@@ -3,12 +3,11 @@ import { useAsync } from "react-async-hook";
 import { DetailedSegmentEffort } from "strava";
 import { Segment, segments, SegmentType } from "zwift-data";
 import {
-  LocationStateStravaActivity,
-  useLocationState,
+  LocationStateStravaActivity
 } from "../../../../services/location-state";
 import {
   getStravaActivity,
-  StravaActivity,
+  StravaActivity
 } from "../../../../services/StravaActivityRepository";
 import { getSectionsFromIntervals } from "../../../../util/sections";
 import { RouteEnd } from "../../RouteEnd";
@@ -19,9 +18,11 @@ import { Section } from "./types";
 const ID = "OverlaySegments-StravaActivityOverlay";
 const SEGMENTS_TO_DISPLAY: SegmentType[] = ["sprint", "climb"];
 
-export function StravaActivityOverlay() {
-  const [state] = useLocationState<LocationStateStravaActivity>();
+interface Props {
+  state: LocationStateStravaActivity;
+}
 
+export function StravaActivityOverlay({ state }: Props) {
   const { result: data } = useAsync(loadData, [state.stravaActivityId]);
 
   if (!data) {

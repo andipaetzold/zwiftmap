@@ -5,6 +5,7 @@ import React from "react";
 import { useAsync } from "react-async-hook";
 import { Helmet } from "react-helmet-async";
 import { useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";
+import { LocationStateStravaActivity } from "../../../../services/location-state";
 import { getStravaActivity } from "../../../../services/StravaActivityRepository";
 import { ConnectToStravaListItem } from "../../../ConnectToStravaListItem";
 import { LoadingSpinnerListItem } from "../../../Loading";
@@ -12,21 +13,21 @@ import { BackButton } from "./BackButton";
 import { StravaActivityDetailsComponent } from "./component";
 
 interface Props {
-  activityId: number;
+  state: LocationStateStravaActivity;
   onMouseHoverDistanceChange: (distance: number | undefined) => void;
 }
 
 export function StravaActivityDetails(props: Props) {
   return (
     <List>
-      <BackButton />
+      <BackButton state={props.state} />
       <StravaActivityDetailsContent {...props} />
     </List>
   );
 }
 
 function StravaActivityDetailsContent({
-  activityId,
+  state,
   onMouseHoverDistanceChange,
 }: Props) {
   const isLoggedInStrava = useIsLoggedInStrava();
@@ -34,7 +35,7 @@ function StravaActivityDetailsContent({
     result: activity,
     loading,
     error,
-  } = useAsync(getStravaActivity, [activityId], {
+  } = useAsync(getStravaActivity, [state.stravaActivityId], {
     onError: (e) => Sentry.captureException(e),
   });
 

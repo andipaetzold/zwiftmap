@@ -4,19 +4,20 @@ import { ListSVGIcon } from "@react-md/material-icons";
 import {
   DEFAULT_WORLD,
   LocationStateStravaActivity,
-  useLocationState
 } from "../../../../services/location-state";
 import { ButtonState } from "../../../ButtonState";
 
-export function BackButton() {
-  const [locationState] = useLocationState<LocationStateStravaActivity>();
+interface Props {
+  state: LocationStateStravaActivity;
+}
 
+export function BackButton({ state }: Props) {
   return (
     <SimpleListItem>
       <ButtonState
         themeType="outline"
         state={{
-          world: locationState.world ?? DEFAULT_WORLD,
+          world: state.world ?? DEFAULT_WORLD,
           type: "strava-activities",
         }}
       >

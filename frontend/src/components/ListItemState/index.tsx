@@ -4,7 +4,7 @@ import { useStore } from "../../hooks/useStore";
 import {
   createUrl,
   LocationState,
-  useLocationState,
+  navigate,
 } from "../../services/location-state";
 
 type Props = Omit<ListItemLinkProps, "href" | "target"> & {
@@ -19,7 +19,6 @@ export function ListItemState({
   onClick,
   ...props
 }: Props) {
-  const [, setLocationState] = useLocationState();
   const setQuery = useStore((state) => state.setQuery);
   const handleClick = useCallback(
     (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -32,11 +31,11 @@ export function ListItemState({
         if (query !== undefined) {
           setQuery(query);
         }
-        setLocationState(state);
+        navigate(state);
         onClick?.(event);
       }
     },
-    [query, setLocationState, setQuery, state, onClick]
+    [query, setQuery, state, onClick]
   );
   return (
     <ListItemLink

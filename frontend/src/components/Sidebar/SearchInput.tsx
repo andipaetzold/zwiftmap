@@ -3,12 +3,17 @@ import { TextField } from "@react-md/form";
 import { ClearSVGIcon } from "@react-md/material-icons";
 import React from "react";
 import { useStore } from "../../hooks/useStore";
-import { DEFAULT_WORLD, useLocationState } from "../../services/location-state";
+import {
+  DEFAULT_WORLD,
+  navigate,
+  useLocationState,
+} from "../../services/location-state";
 
 export function SearchInput() {
   const query = useStore((state) => state.query);
   const setQuery = useStore((state) => state.setQuery);
-  const [locationState, setLocationState] = useLocationState();
+  const state = useLocationState();
+
   return (
     <TextField
       id="search-input"
@@ -17,8 +22,8 @@ export function SearchInput() {
       value={query}
       role="searchbox"
       onChange={(e) => {
-        setLocationState({
-          world: locationState.world ?? DEFAULT_WORLD,
+        navigate({
+          world: state.world ?? DEFAULT_WORLD,
           type: "default",
         });
         setQuery(e.target.value);

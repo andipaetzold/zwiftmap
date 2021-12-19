@@ -4,8 +4,8 @@ import { ListSVGIcon } from "@react-md/material-icons";
 import { Helmet } from "react-helmet-async";
 import { useIsLoggedInStrava } from "../../../../../hooks/useIsLoggedInStrava";
 import {
+  DEFAULT_WORLD,
   LocationStateStravaActivities,
-  useLocationState,
 } from "../../../../../services/location-state";
 import { HoverData } from "../../../../../types";
 import { ButtonState } from "../../../../ButtonState";
@@ -14,16 +14,17 @@ import { LoadingSpinnerListItem } from "../../../../Loading";
 import { StravaActivitiesListComponent } from "./component";
 
 interface Props {
+  state: LocationStateStravaActivities;
   onHoverRoute: (data: HoverData) => void;
 }
 
-export function StravaActivitiesList({ onHoverRoute }: Props) {
+export function StravaActivitiesList({ state, onHoverRoute }: Props) {
   const isLoggedInStrava = useIsLoggedInStrava();
 
   if (isLoggedInStrava === null) {
     return (
       <List>
-        <Header />
+        <Header state={state} />
         <LoadingSpinnerListItem />
       </List>
     );
@@ -32,29 +33,36 @@ export function StravaActivitiesList({ onHoverRoute }: Props) {
   if (!isLoggedInStrava) {
     return (
       <List>
-        <Header />
+        <Header state={state} />
         <ConnectToStravaListItem />
       </List>
     );
   }
 
-  return <StravaActivitiesListWithToken onHoverRoute={onHoverRoute} />;
+  return (
+    <StravaActivitiesListWithToken state={state} onHoverRoute={onHoverRoute} />
+  );
 }
 
-function StravaActivitiesListWithToken({ onHoverRoute }: Props) {
+function StravaActivitiesListWithToken({ state, onHoverRoute }: Props) {
   return (
     <List>
-      <Header />
+      <Header state={state} />
 
       <ListSubheader>Recent Strava Activities</ListSubheader>
-      <StravaActivitiesListComponent onHoverRoute={onHoverRoute} />
+      <StravaActivitiesListComponent
+        state={state}
+        onHoverRoute={onHoverRoute}
+      />
     </List>
   );
 }
 
-function Header() {
-  const [locationState] = useLocationState<LocationStateStravaActivities>();
+interface HeaderProps {
+  state: LocationStateStravaActivities;
+}
 
+function Header({ state }: HeaderProps) {
   return (
     <>
       <Helmet>
@@ -75,7 +83,7 @@ function Header() {
           themeType="outline"
           query=""
           state={{
-            world: locationState.world,
+            world: state.world ?? DEFAULT_WORLD,
             type: "default",
           }}
         >

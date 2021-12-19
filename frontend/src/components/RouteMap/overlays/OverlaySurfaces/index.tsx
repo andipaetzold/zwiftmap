@@ -13,7 +13,7 @@ import { RouteStart } from "../../RouteStart";
 const ID = "OverlaySurfaces";
 
 export function OverlaySurfaces() {
-  const [state] = useLocationState();
+  const state = useLocationState();
 
   const { result: streams } = useAsync(loadRoute, [state]);
 

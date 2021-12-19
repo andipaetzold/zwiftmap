@@ -10,7 +10,7 @@ import { RouteStart } from "../RouteStart";
 const ID = "OverlayNone";
 
 export function OverlayNone() {
-  const [state] = useLocationState();
+  const state = useLocationState();
 
   const { result: streams } = useAsync(loadRoute, [state]);
 

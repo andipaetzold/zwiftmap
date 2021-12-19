@@ -6,10 +6,7 @@ import { Helmet } from "react-helmet-async";
 import { useSessionSettings } from "../../../../hooks/useSessionSettings";
 import { useSettings } from "../../../../hooks/useSettings";
 import { fetchEvents } from "../../../../services/events";
-import {
-  LocationStateUpcomingEvents,
-  useLocationState,
-} from "../../../../services/location-state";
+import { LocationStateUpcomingEvents } from "../../../../services/location-state";
 import { HoverData } from "../../../../types";
 import { ButtonState } from "../../../ButtonState";
 import { LoadingSpinnerListItem } from "../../../Loading";
@@ -17,10 +14,11 @@ import { EventItem } from "./EventItem";
 import { EventFilterButton } from "./FilterButton";
 
 interface Props {
+  state: LocationStateUpcomingEvents;
   onHoverRoute: (data: HoverData) => void;
 }
 
-export function UpcomingEvents({ onHoverRoute }: Props) {
+export function UpcomingEvents({ state, onHoverRoute }: Props) {
   const [{ eventFilter: filterState }] = useSessionSettings();
   const { result: events, loading } = useAsync(fetchEvents, []);
   const [settings] = useSettings();
@@ -29,14 +27,14 @@ export function UpcomingEvents({ onHoverRoute }: Props) {
     if (loading) {
       return (
         <List>
-          <Header />
+          <Header state={state} />
           <LoadingSpinnerListItem />
         </List>
       );
     } else {
       return (
         <List>
-          <Header />
+          <Header state={state} />
           <SimpleListItem
             secondaryText="Make sure you can access the activity and it was recorded in Zwift."
             threeLines
@@ -50,7 +48,7 @@ export function UpcomingEvents({ onHoverRoute }: Props) {
 
   return (
     <List>
-      <Header />
+      <Header state={state} />
 
       <EventFilterButton />
 
@@ -58,15 +56,22 @@ export function UpcomingEvents({ onHoverRoute }: Props) {
         .filter((e) => e.sport.toLowerCase() === settings.sport)
         .filter((e) => filterState.eventTypes.includes(e.eventType))
         .map((event) => (
-          <EventItem key={event.id} event={event} onHoverRoute={onHoverRoute} />
+          <EventItem
+            key={event.id}
+            state={state}
+            event={event}
+            onHoverRoute={onHoverRoute}
+          />
         ))}
     </List>
   );
 }
 
-function Header() {
-  const [locationState] = useLocationState<LocationStateUpcomingEvents>();
+interface HeaderProps {
+  state: LocationStateUpcomingEvents;
+}
 
+function Header({ state }: HeaderProps) {
   return (
     <>
       <Helmet>
@@ -81,7 +86,7 @@ function Header() {
           themeType="outline"
           query=""
           state={{
-            world: locationState.world,
+            world: state.world,
             type: "default",
           }}
         >

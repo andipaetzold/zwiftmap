@@ -3,8 +3,7 @@ import { useAsync } from "react-async-hook";
 import { Route, routes } from "zwift-data";
 import { fetchEvent, ZwiftEvent } from "../../../../services/events";
 import {
-  LocationStateUpcomingEvent,
-  useLocationState
+  LocationStateUpcomingEvent
 } from "../../../../services/location-state";
 import { getStravaSegmentStreams } from "../../../../services/StravaSegmentRepository";
 import { DistanceStream, LatLngStream } from "../../../../types";
@@ -16,9 +15,11 @@ import { getRouteSections } from "./util";
 
 const ID = "OverlaySegments-EventOverlay";
 
-export function EventOverlay() {
-  const [state] = useLocationState<LocationStateUpcomingEvent>();
+interface Props {
+  state: LocationStateUpcomingEvent;
+}
 
+export function EventOverlay({ state }: Props) {
   const { result: data } = useAsync(loadData, [state.eventId]);
 
   const unmatchedSegments = useMemo(() => {

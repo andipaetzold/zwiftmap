@@ -2,22 +2,19 @@ import { ListItemLink } from "@react-md/list";
 import { OpenInNewSVGIcon } from "@react-md/material-icons";
 import { routes, worlds } from "zwift-data";
 import { ZwiftEvent } from "../../../../services/events";
-import {
-  LocationStateUpcomingEvents,
-  useLocationState,
-} from "../../../../services/location-state";
+import { LocationStateUpcomingEvents } from "../../../../services/location-state";
 import { HoverData } from "../../../../types";
 import { EventInfo } from "../../../EventInfo";
 import { ListItemState } from "../../../ListItemState";
 
 interface Props {
+  state: LocationStateUpcomingEvents;
   event: ZwiftEvent;
   onHoverRoute: (data: HoverData) => void;
 }
 
-export function EventItem({ event, onHoverRoute }: Props) {
+export function EventItem({ state, event, onHoverRoute }: Props) {
   const route = routes.find((r) => r.id === event.routeId);
-  const [locationState] = useLocationState<LocationStateUpcomingEvents>();
 
   if (!route) {
     return (
@@ -33,10 +30,7 @@ export function EventItem({ event, onHoverRoute }: Props) {
   return (
     <ListItemState
       secondaryText={
-        <EventInfo
-          event={event}
-          showWorld={locationState.world.slug !== route?.slug}
-        />
+        <EventInfo event={event} showWorld={state.world.slug !== route?.slug} />
       }
       threeLines
       state={{
@@ -46,7 +40,7 @@ export function EventItem({ event, onHoverRoute }: Props) {
       }}
       onClick={() => onHoverRoute(undefined)}
       onMouseEnter={() => {
-        if (route.world === locationState.world.slug) {
+        if (route.world === state.world.slug) {
           onHoverRoute({ type: "route", route: route.slug });
         } else {
           onHoverRoute(undefined);
