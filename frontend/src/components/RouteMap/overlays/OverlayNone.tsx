@@ -26,7 +26,7 @@ export function OverlayNone() {
           pathOptions={{
             color: COLORS.route,
             weight: 5,
-            lineCap: "butt",
+            lineCap: "square",
           }}
           interactive={false}
         />

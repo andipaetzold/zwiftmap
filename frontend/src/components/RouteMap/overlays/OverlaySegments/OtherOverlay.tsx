@@ -39,7 +39,7 @@ export function OtherOverlay({ state }: Props) {
           pathOptions={{
             color: COLORS.route,
             weight: 5,
-            lineCap: "butt",
+            lineCap: "square",
           }}
           interactive={false}
         />
