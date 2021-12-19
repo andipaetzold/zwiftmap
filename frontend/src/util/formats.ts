@@ -1,4 +1,3 @@
-import * as Sentry from "@sentry/react";
 import { isAfter } from "date-fns";
 import parseISO from "date-fns/parseISO";
 import subDays from "date-fns/subDays";
@@ -19,21 +18,10 @@ export const FORMAT_LONG = new Intl.DateTimeFormat("en-US", {
 });
 
 export function formatEventStart(event: ZwiftEvent): string {
-  try {
-    const startDate = parseISO(event.eventStart);
-    if (isAfter(startDate, subDays(new Date(), 1))) {
-      return FORMAT_SHORT.format(startDate);
-    } else {
-      return FORMAT_LONG.format(startDate);
-    }
-  } catch (e) {
-    // TODO: remove once bug was identified
-    Sentry.captureException(e, {
-      extra: {
-        eventId: event.id,
-        eventStart: event.eventStart,
-      },
-    });
-    return "Unknown start time";
+  const startDate = parseISO(event.eventStart);
+  if (isAfter(startDate, subDays(new Date(), 1))) {
+    return FORMAT_SHORT.format(startDate);
+  } else {
+    return FORMAT_LONG.format(startDate);
   }
 }
