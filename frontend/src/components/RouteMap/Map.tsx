@@ -7,7 +7,6 @@ import {
   ZoomControl,
 } from "react-leaflet";
 import { World } from "zwift-data";
-import { ENVIRONMENT } from "../../config";
 import { worldConfigs } from "../../constants/worldConfigs";
 import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 import { useSettings } from "../../hooks/useSettings";
@@ -121,18 +120,16 @@ export function Map({
             <OverlaySegments />
           </LayerGroup>
         </LayersControl.BaseLayer>
-        {ENVIRONMENT === "development" && (
-          <LayersControl.BaseLayer
-            name="Surfaces"
-            checked={settings.overlay === "surfaces"}
+        <LayersControl.BaseLayer
+          name="Surfaces"
+          checked={settings.overlay === "surfaces"}
+        >
+          <LayerGroup
+            eventHandlers={{ add: () => handleOverlayChange("surfaces") }}
           >
-            <LayerGroup
-              eventHandlers={{ add: () => handleOverlayChange("surfaces") }}
-            >
-              <OverlaySurfaces />
-            </LayerGroup>
-          </LayersControl.BaseLayer>
-        )}
+            <OverlaySurfaces />
+          </LayerGroup>
+        </LayersControl.BaseLayer>
 
         <SurfaceDebugLayer world={world} />
       </LayersControl>
