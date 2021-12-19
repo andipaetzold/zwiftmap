@@ -21,6 +21,7 @@ export function SectionsPane({ id, sections }: Props) {
                 ? COLORS.route
                 : getSegmentColor(section.type),
             weight: 5,
+            lineCap: "butt",
           }}
           interactive={false}
         />

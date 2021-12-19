@@ -30,6 +30,7 @@ export function SegmentsPane({ segmentSlugs }: SegmentsPaneProps) {
             pathOptions={{
               color: getSegmentColor(s.type),
               weight: 8,
+              lineCap: "butt",
             }}
             interactive={false}
           />

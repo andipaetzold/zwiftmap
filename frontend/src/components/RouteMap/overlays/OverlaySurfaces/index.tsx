@@ -50,6 +50,7 @@ export function OverlaySurfaces() {
             pathOptions={{
               color: SURFACE_CONSTANTS[section.ref].color,
               weight: 5,
+              lineCap: "butt",
             }}
             interactive={false}
           />

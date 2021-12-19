@@ -23,7 +23,11 @@ export function OverlayNone() {
       <Pane name={`${ID}-route`} style={{ zIndex: Z_INDEX.route }}>
         <Polyline
           positions={streams.latlng}
-          pathOptions={{ color: COLORS.route, weight: 5 }}
+          pathOptions={{
+            color: COLORS.route,
+            weight: 5,
+            lineCap: "butt",
+          }}
           interactive={false}
         />
       </Pane>
