@@ -1,4 +1,4 @@
-import { WorldConfig } from "../../types";
+import { SurfaceType, WorldConfig } from "../../types";
 import watopiaMap from "../../maps/watopia.png";
 
 export const WORLD_CONFIG_WATOPIA: WorldConfig = {
@@ -11,7 +11,7 @@ export const WORLD_CONFIG_WATOPIA: WorldConfig = {
   surfaces: [
     {
       // epic KOM castle
-      type: "cobbles",
+      type: SurfaceType.Cobbles,
       polygon: [
         [-11.678957, 166.972306],
         [-11.681067, 166.972329],
@@ -22,7 +22,7 @@ export const WORLD_CONFIG_WATOPIA: WorldConfig = {
     },
     {
       // radio tower
-      type: "snow",
+      type: SurfaceType.Snow,
       polygon: [
         [-11.673845, 166.948143],
         [-11.679016, 166.951603],
@@ -39,7 +39,7 @@ export const WORLD_CONFIG_WATOPIA: WorldConfig = {
     },
     {
       // jungle loop
-      type: "dirt",
+      type: SurfaceType.Dirt,
       polygon: [
         [-11.683264, 166.93731],
         [-11.683453, 166.937653],
@@ -68,7 +68,7 @@ export const WORLD_CONFIG_WATOPIA: WorldConfig = {
     },
     {
       // jungle middle road
-      type: "brick",
+      type: SurfaceType.Brick,
       polygon: [
         [-11.681431, 166.929264],
         [-11.68193, 166.928297],
@@ -81,7 +81,7 @@ export const WORLD_CONFIG_WATOPIA: WorldConfig = {
     },
     {
       // jungle middle road
-      type: "wood",
+      type: SurfaceType.Wood,
       polygon: [
         [-11.682746, 166.928536],
         [-11.683314, 166.928392],
@@ -93,7 +93,7 @@ export const WORLD_CONFIG_WATOPIA: WorldConfig = {
     },
     {
       // jungle middle road
-      type: "brick",
+      type: SurfaceType.Brick,
       polygon: [
         [-11.682344, 166.9289],
         [-11.682619, 166.92909],
@@ -105,7 +105,7 @@ export const WORLD_CONFIG_WATOPIA: WorldConfig = {
     },
     {
       // jungle middle road
-      type: "brick",
+      type: SurfaceType.Brick,
       polygon: [
         [-11.683622, 166.930247],
         [-11.68363, 166.930952],
@@ -117,7 +117,7 @@ export const WORLD_CONFIG_WATOPIA: WorldConfig = {
     },
     {
       // jungle middle road
-      type: "wood",
+      type: SurfaceType.Wood,
       polygon: [
         [-11.682986, 166.931146],
         [-11.683243, 166.93062],
@@ -128,7 +128,7 @@ export const WORLD_CONFIG_WATOPIA: WorldConfig = {
     },
     {
       // jungle middle road
-      type: "brick",
+      type: SurfaceType.Brick,
       polygon: [
         [-11.683362, 166.9314],
         [-11.683132, 166.932606],
@@ -140,7 +140,7 @@ export const WORLD_CONFIG_WATOPIA: WorldConfig = {
     },
     {
       // jungle middle road
-      type: "dirt",
+      type: SurfaceType.Dirt,
       polygon: [
         [-11.682638, 166.930493],
         [-11.681906, 166.93148],
@@ -157,7 +157,7 @@ export const WORLD_CONFIG_WATOPIA: WorldConfig = {
     },
     {
       // repack ridge
-      type: "grass",
+      type: SurfaceType.Grass,
       polygon: [
         [-11.646436, 166.9744],
         [-11.645166, 166.973232],
@@ -175,7 +175,7 @@ export const WORLD_CONFIG_WATOPIA: WorldConfig = {
     },
     {
       // bridge to start of east epic kom
-      type: "wood",
+      type: SurfaceType.Wood,
       polygon: [
         [-11.659528, 166.967671],
         [-11.659922, 166.9678],
@@ -187,7 +187,7 @@ export const WORLD_CONFIG_WATOPIA: WorldConfig = {
     },
     {
       // bridge to start of east epic kom
-      type: "dirt",
+      type: SurfaceType.Dirt,
       polygon: [
         [-11.659523, 166.967677],
         [-11.659555, 166.967554],
@@ -198,7 +198,7 @@ export const WORLD_CONFIG_WATOPIA: WorldConfig = {
     },
     {
       // bridge east of stadium
-      type: "dirt",
+      type: SurfaceType.Dirt,
       polygon: [
         [-11.636376, 166.959447],
         [-11.636866, 166.958908],
@@ -209,7 +209,7 @@ export const WORLD_CONFIG_WATOPIA: WorldConfig = {
     },
     {
       // bridge east of stadium
-      type: "wood",
+      type: SurfaceType.Wood,
       polygon: [
         [-11.636383, 166.959447],
         [-11.636695, 166.959709],
@@ -222,7 +222,7 @@ export const WORLD_CONFIG_WATOPIA: WorldConfig = {
     },
     {
       // italian village
-      type: "dirt",
+      type: SurfaceType.Dirt,
       polygon: [
         [-11.649193, 166.947544],
         [-11.650203, 166.946755],
@@ -235,7 +235,7 @@ export const WORLD_CONFIG_WATOPIA: WorldConfig = {
     },
     {
       // italian village
-      type: "cobbles",
+      type: SurfaceType.Cobbles,
       polygon: [
         [-11.65107, 166.94895],
         [-11.65107, 166.94895],
@@ -254,7 +254,7 @@ export const WORLD_CONFIG_WATOPIA: WorldConfig = {
     },
     {
       // JB
-      type: "wood",
+      type: SurfaceType.Wood,
       polygon: [
         [-11.64569, 166.947938],
         [-11.64719, 166.948974],
@@ -265,7 +265,7 @@ export const WORLD_CONFIG_WATOPIA: WorldConfig = {
     },
     {
       // pier start
-      type: "wood",
+      type: SurfaceType.Wood,
       polygon: [
         [-11.635387, 166.952164],
         [-11.635291, 166.952604],
@@ -284,7 +284,7 @@ export const WORLD_CONFIG_WATOPIA: WorldConfig = {
     },
     {
       // pier start
-      type: "wood",
+      type: SurfaceType.Wood,
       polygon: [
         [-11.636078, 166.952839],
         [-11.636487, 166.95205],
@@ -300,7 +300,7 @@ export const WORLD_CONFIG_WATOPIA: WorldConfig = {
     },
     {
       // islands before west epic kom start
-      type: "wood",
+      type: SurfaceType.Wood,
       polygon: [
         [-11.650203, 166.957748],
         [-11.651073, 166.955623],
@@ -311,7 +311,7 @@ export const WORLD_CONFIG_WATOPIA: WorldConfig = {
     },
     {
       // islands before west epic kom start
-      type: "wood",
+      type: SurfaceType.Wood,
       polygon: [
         [-11.651994, 166.955168],
         [-11.653109, 166.955225],
@@ -322,7 +322,7 @@ export const WORLD_CONFIG_WATOPIA: WorldConfig = {
     },
     {
       // islands before west epic kom start
-      type: "wood",
+      type: SurfaceType.Wood,
       polygon: [
         [-11.654569, 166.955119],
         [-11.657343, 166.95439],
@@ -333,7 +333,7 @@ export const WORLD_CONFIG_WATOPIA: WorldConfig = {
     },
     {
       // islands before west epic kom start
-      type: "wood",
+      type: SurfaceType.Wood,
       polygon: [
         [-11.653525, 166.955965],
         [-11.653948, 166.955927],
@@ -344,7 +344,7 @@ export const WORLD_CONFIG_WATOPIA: WorldConfig = {
     },
     {
       // islands before west epic kom start
-      type: "wood",
+      type: SurfaceType.Wood,
       polygon: [
         [-11.654517, 166.958987],
         [-11.654811, 166.959926],
@@ -355,7 +355,7 @@ export const WORLD_CONFIG_WATOPIA: WorldConfig = {
     },
     {
       // islands before west epic kom start
-      type: "dirt",
+      type: SurfaceType.Dirt,
       polygon: [
         [-11.653109, 166.955232],
         [-11.654574, 166.955125],
@@ -368,7 +368,7 @@ export const WORLD_CONFIG_WATOPIA: WorldConfig = {
     },
     {
       // islands before west epic kom start
-      type: "dirt",
+      type: SurfaceType.Dirt,
       polygon: [
         [-11.65108, 166.955631],
         [-11.651259, 166.955123],
@@ -380,7 +380,7 @@ export const WORLD_CONFIG_WATOPIA: WorldConfig = {
     },
     {
       // road between epic koms
-      type: "dirt",
+      type: SurfaceType.Dirt,
       polygon: [
         [-11.666475, 166.952824],
         [-11.667032, 166.952574],
@@ -391,7 +391,7 @@ export const WORLD_CONFIG_WATOPIA: WorldConfig = {
     },
     {
       // volcano kom
-      type: "wood",
+      type: SurfaceType.Wood,
       polygon: [
         [-11.642228, 166.937953],
         [-11.643278, 166.937465],
@@ -405,7 +405,7 @@ export const WORLD_CONFIG_WATOPIA: WorldConfig = {
     {
       // volcano kom
       // earlier than actual to avoid overlaps
-      type: "wood",
+      type: SurfaceType.Wood,
       polygon: [
         [-11.641492, 166.939895],
         [-11.64176, 166.939809],

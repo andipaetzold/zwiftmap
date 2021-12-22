@@ -1,8 +1,4 @@
-import {
-  SURFACE_TYPE_BRICK,
-  SURFACE_TYPE_COBBLES,
-  WorldConfig,
-} from "../../types";
+import { SurfaceType, WorldConfig } from "../../types";
 import innsbruckMap from "../../maps/innsbruck.png";
 
 export const WORLD_CONFIG_INNSBRUCK: WorldConfig = {
@@ -14,7 +10,7 @@ export const WORLD_CONFIG_INNSBRUCK: WorldConfig = {
   backgroundColor: "#7c9938",
   surfaces: [
     {
-      type: SURFACE_TYPE_BRICK,
+      type: SurfaceType.Brick,
       polygon: [
         [47.268528, 11.391566],
         [47.266103, 11.393669],
@@ -24,7 +20,7 @@ export const WORLD_CONFIG_INNSBRUCK: WorldConfig = {
       ],
     },
     {
-      type: SURFACE_TYPE_COBBLES,
+      type: SurfaceType.Cobbles,
       polygon: [
         [47.266103, 11.393669],
         [47.264146, 11.394469],

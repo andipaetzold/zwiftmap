@@ -1,4 +1,4 @@
-import { SURFACE_TYPE_COBBLES, SURFACE_TYPE_WOOD, WorldConfig } from "../../types";
+import { SurfaceType, WorldConfig } from "../../types";
 import londonMap from "../../maps/london.png";
 
 export const WORLD_CONFIG_LONDON: WorldConfig = {
@@ -11,7 +11,7 @@ export const WORLD_CONFIG_LONDON: WorldConfig = {
   surfaces: [
     {
       // left entry from city 1
-      type: SURFACE_TYPE_COBBLES,
+      type: SurfaceType.Cobbles,
       polygon: [
         [51.495266, -0.119761],
         [51.494742, -0.119898],
@@ -22,7 +22,7 @@ export const WORLD_CONFIG_LONDON: WorldConfig = {
     },
     {
       // left entry from city 2
-      type: SURFACE_TYPE_WOOD,
+      type: SurfaceType.Wood,
       polygon: [
         [51.49512, -0.118789],
         [51.494619, -0.118964],
@@ -33,7 +33,7 @@ export const WORLD_CONFIG_LONDON: WorldConfig = {
     },
     {
       // left entry from city 3
-      type: SURFACE_TYPE_COBBLES,
+      type: SurfaceType.Cobbles,
       polygon: [
         [51.495004, -0.117694],
         [51.494557, -0.117877],
@@ -45,7 +45,7 @@ export const WORLD_CONFIG_LONDON: WorldConfig = {
     },
     {
       // left entry from city 4
-      type: SURFACE_TYPE_WOOD,
+      type: SurfaceType.Wood,
       polygon: [
         [51.4944, -0.116959],
         [51.49445, -0.117533],
@@ -58,7 +58,7 @@ export const WORLD_CONFIG_LONDON: WorldConfig = {
     },
     {
       // right exit towards city 1
-      type: SURFACE_TYPE_WOOD,
+      type: SurfaceType.Wood,
       polygon: [
         [51.500737, -0.077306],
         [51.501247, -0.077063],
@@ -73,7 +73,7 @@ export const WORLD_CONFIG_LONDON: WorldConfig = {
     },
     {
       // right exit towards city 2
-      type: SURFACE_TYPE_COBBLES,
+      type: SurfaceType.Cobbles,
       polygon: [
         [51.501118, -0.076973],
         [51.500717, -0.077163],
@@ -84,7 +84,7 @@ export const WORLD_CONFIG_LONDON: WorldConfig = {
     },
     {
       // right exit towards city 3
-      type: SURFACE_TYPE_WOOD,
+      type: SurfaceType.Wood,
       polygon: [
         [51.501118, -0.076973],
         [51.501028, -0.076389],
@@ -95,7 +95,7 @@ export const WORLD_CONFIG_LONDON: WorldConfig = {
     },
     {
       // right exit towards city 4
-      type: SURFACE_TYPE_COBBLES,
+      type: SurfaceType.Cobbles,
       polygon: [
         [51.502039, -0.076558],
         [51.501886, -0.075871],

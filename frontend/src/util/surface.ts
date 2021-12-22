@@ -5,13 +5,6 @@ import {
   LatLngStream,
   SurfaceType,
   SurfaceTypeStream,
-  SURFACE_TYPE_BRICK,
-  SURFACE_TYPE_COBBLES,
-  SURFACE_TYPE_DIRT,
-  SURFACE_TYPE_GRASS,
-  SURFACE_TYPE_SNOW,
-  SURFACE_TYPE_TARMAC,
-  SURFACE_TYPE_WOOD,
   WorldConfigSurface,
 } from "../types";
 
@@ -30,7 +23,7 @@ export function getSurfaceStream(
       (point) =>
         turfedWorldSurfaces.find((worldSurface) =>
           booleanPointInPolygon(point, worldSurface.polygon)
-        )?.type ?? SURFACE_TYPE_TARMAC
+        )?.type ?? SurfaceType.Tarmac
     );
 }
 
@@ -39,13 +32,13 @@ export function getSurfaceStats(
   surfaceStream: SurfaceTypeStream
 ): Record<SurfaceType, number> {
   const result: Record<SurfaceType, number> = {
-    [SURFACE_TYPE_TARMAC]: 0,
-    [SURFACE_TYPE_BRICK]: 0,
-    [SURFACE_TYPE_WOOD]: 0,
-    [SURFACE_TYPE_COBBLES]: 0,
-    [SURFACE_TYPE_SNOW]: 0,
-    [SURFACE_TYPE_DIRT]: 0,
-    [SURFACE_TYPE_GRASS]: 0,
+    [SurfaceType.Tarmac]: 0,
+    [SurfaceType.Brick]: 0,
+    [SurfaceType.Wood]: 0,
+    [SurfaceType.Cobbles]: 0,
+    [SurfaceType.Snow]: 0,
+    [SurfaceType.Dirt]: 0,
+    [SurfaceType.Grass]: 0,
   };
 
   for (let i = 1; i < distanceStream.length; ++i) {

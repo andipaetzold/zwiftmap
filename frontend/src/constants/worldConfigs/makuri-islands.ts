@@ -1,4 +1,4 @@
-import { WorldConfig } from "../../types";
+import { SurfaceType, WorldConfig } from "../../types";
 import makuriIslandsMap from "../../maps/makuri-islands.png";
 
 export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
@@ -11,7 +11,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
   surfaces: [
     {
       // bridge in north dirt section
-      type: "wood",
+      type: SurfaceType.Wood,
       polygon: [
         [-10.748951, 165.850969],
         [-10.749146, 165.850806],
@@ -22,7 +22,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // north dirt section, north
-      type: "dirt",
+      type: SurfaceType.Dirt,
       polygon: [
         [-10.746249, 165.846889],
         [-10.749283, 165.846502],
@@ -35,7 +35,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // north dirt section, south
-      type: "dirt",
+      type: SurfaceType.Dirt,
       polygon: [
         [-10.749386, 165.851079],
         [-10.750785, 165.852002],
@@ -49,7 +49,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // bridge from north dirt section to castle
-      type: "wood",
+      type: SurfaceType.Wood,
       polygon: [
         [-10.752914, 165.849929],
         [-10.753236, 165.849687],
@@ -60,7 +60,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // bridge in between lakes
-      type: "wood",
+      type: SurfaceType.Wood,
       polygon: [
         [-10.766464, 165.840568],
         [-10.766598, 165.840884],
@@ -71,7 +71,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // south of bridge between lakes
-      type: "dirt",
+      type: SurfaceType.Dirt,
       polygon: [
         [-10.766598, 165.840884],
         [-10.768977, 165.841404],
@@ -83,7 +83,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // top of bridge between lakes
-      type: "dirt",
+      type: SurfaceType.Dirt,
       polygon: [
         [-10.759389, 165.838407],
         [-10.767096, 165.836116],
@@ -96,7 +96,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // bridge left of entry to temple KOM from fishing village side
-      type: "wood",
+      type: SurfaceType.Wood,
       polygon: [
         [-10.747467, 165.853989],
         [-10.747728, 165.853952],
@@ -107,7 +107,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // bridge between temple KOMs west
-      type: "wood",
+      type: SurfaceType.Wood,
       polygon: [
         [-10.754775, 165.852056],
         [-10.755001, 165.85205],
@@ -118,7 +118,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // road between two bridges between temple KOMs
-      type: "dirt",
+      type: SurfaceType.Dirt,
       polygon: [
         [-10.752938, 165.854083],
         [-10.752756, 165.853246],
@@ -132,7 +132,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // bridge between temple KOMs east
-      type: "wood",
+      type: SurfaceType.Wood,
       polygon: [
         [-10.752938, 165.854083],
         [-10.753188, 165.854172],
@@ -143,7 +143,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // temple KOM from fishing village side
-      type: "dirt",
+      type: SurfaceType.Dirt,
       polygon: [
         [-10.753072, 165.85452],
         [-10.756108, 165.8575],
@@ -159,7 +159,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // temple KOM from fishing village side
-      type: "wood",
+      type: SurfaceType.Wood,
       polygon: [
         [-10.7557, 165.859054],
         [-10.756244, 165.859062],
@@ -170,7 +170,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // temple KOM from fishing village side
-      type: "dirt",
+      type: SurfaceType.Dirt,
       polygon: [
         [-10.756244, 165.859062],
         [-10.756259, 165.858955],
@@ -182,7 +182,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // temple KOM from fishing village side
-      type: "wood",
+      type: SurfaceType.Wood,
       polygon: [
         [-10.756244, 165.858542],
         [-10.756509, 165.858534],
@@ -193,7 +193,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // temple KOM from fishing village side
-      type: "dirt",
+      type: SurfaceType.Dirt,
       polygon: [
         [-10.756244, 165.858542],
         [-10.75615, 165.857892],
@@ -207,7 +207,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // temple KOM from fishing village side
-      type: "wood",
+      type: SurfaceType.Wood,
       polygon: [
         [-10.759453, 165.857233],
         [-10.759993, 165.857025],
@@ -219,7 +219,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // temple KOM from fishing village side
-      type: "dirt",
+      type: SurfaceType.Dirt,
       polygon: [
         [-10.759993, 165.857025],
         [-10.760045, 165.856516],
@@ -230,7 +230,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // temple KOM from fishing village side
-      type: "wood",
+      type: SurfaceType.Wood,
       polygon: [
         [-10.760045, 165.856516],
         [-10.760037, 165.856181],
@@ -243,7 +243,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // temple KOM arc
-      type: "dirt",
+      type: SurfaceType.Dirt,
       polygon: [
         [-10.760714, 165.855698],
         [-10.761431, 165.855242],
@@ -254,7 +254,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // temple KOM from castle side
-      type: "wood",
+      type: SurfaceType.Wood,
       polygon: [
         [-10.761431, 165.855242],
         [-10.761876, 165.854558],
@@ -267,7 +267,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // temple KOM from castle side
-      type: "dirt",
+      type: SurfaceType.Dirt,
       polygon: [
         [-10.761702, 165.854349],
         [-10.761981, 165.854333],
@@ -278,7 +278,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // temple KOM from castle side
-      type: "wood",
+      type: SurfaceType.Wood,
       polygon: [
         [-10.761288, 165.85437],
         [-10.761702, 165.854349],
@@ -290,7 +290,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // temple KOM from castle side
-      type: "dirt",
+      type: SurfaceType.Dirt,
       polygon: [
         [-10.760756, 165.854384],
         [-10.760941, 165.85429],
@@ -302,7 +302,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // temple KOM from castle side
-      type: "wood",
+      type: SurfaceType.Wood,
       polygon: [
         [-10.760756, 165.854384],
         [-10.760941, 165.854577],
@@ -313,7 +313,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // temple KOM from castle side
-      type: "dirt",
+      type: SurfaceType.Dirt,
       polygon: [
         [-10.760342, 165.854829],
         [-10.760443, 165.854716],
@@ -324,7 +324,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // temple KOM from castle side
-      type: "wood",
+      type: SurfaceType.Wood,
       polygon: [
         [-10.760342, 165.854829],
         [-10.76054, 165.855006],
@@ -336,7 +336,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // temple KOM from castle side
-      type: "dirt",
+      type: SurfaceType.Dirt,
       polygon: [
         [-10.759821, 165.855553],
         [-10.759918, 165.855497],
@@ -348,7 +348,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // temple KOM from castle side
-      type: "wood",
+      type: SurfaceType.Wood,
       polygon: [
         [-10.759671, 165.854832],
         [-10.759831, 165.855204],
@@ -361,7 +361,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // temple KOM from castle side
-      type: "dirt",
+      type: SurfaceType.Dirt,
       polygon: [
         [-10.759508, 165.854608],
         [-10.759671, 165.854832],
@@ -372,7 +372,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // temple KOM from castle side
-      type: "wood",
+      type: SurfaceType.Wood,
       polygon: [
         [-10.759251, 165.854077],
         [-10.759523, 165.854309],
@@ -384,7 +384,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // temple KOM from castle side
-      type: "dirt",
+      type: SurfaceType.Dirt,
       polygon: [
         [-10.757884, 165.849226],
         [-10.758063, 165.8494],
@@ -400,7 +400,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // bridge north north east
-      type: "wood",
+      type: SurfaceType.Wood,
       polygon: [
         [-10.743775, 165.854529],
         [-10.744047, 165.854525],
@@ -411,7 +411,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // bridge north east
-      type: "wood",
+      type: SurfaceType.Wood,
       polygon: [
         [-10.744826, 165.856888],
         [-10.746555, 165.856926],
@@ -424,7 +424,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // bridge towards castle
-      type: "wood",
+      type: SurfaceType.Wood,
       polygon: [
         [-10.758761, 165.844682],
         [-10.758962, 165.844666],
@@ -435,7 +435,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // castle
-      type: "cobbles",
+      type: SurfaceType.Cobbles,
       polygon: [
         [-10.761046, 165.845591],
         [-10.76093, 165.845844],
@@ -456,7 +456,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // before tunnel to neokyo
-      type: "dirt",
+      type: SurfaceType.Dirt,
       polygon: [
         [-10.775143, 165.83004],
         [-10.776087, 165.829273],
@@ -468,7 +468,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // castle sprint
-      type: "brick",
+      type: SurfaceType.Brick,
       polygon: [
         [-10.801022, 165.844041],
         [-10.800585, 165.843215],
@@ -485,7 +485,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // alley sprint rev
-      type: "brick",
+      type: SurfaceType.Brick,
       polygon: [
         [-10.800214, 165.848626],
         [-10.801496, 165.846275],
@@ -496,7 +496,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // alley sprint
-      type: "brick",
+      type: SurfaceType.Brick,
       polygon: [
         [-10.801723, 165.846165],
         [-10.803141, 165.845253],
@@ -508,7 +508,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // neokyo
-      type: "brick",
+      type: SurfaceType.Brick,
       polygon: [
         [-10.790821, 165.839401],
         [-10.791358, 165.839465],
@@ -531,7 +531,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // rooftop KOM start
-      type: "tarmac",
+      type: SurfaceType.Tarmac,
       polygon: [
         [-10.789342, 165.847895],
         [-10.789535, 165.84789],
@@ -542,7 +542,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // rooftop KOM section 1
-      type: "brick",
+      type: SurfaceType.Brick,
       polygon: [
         [-10.789271, 165.848205],
         [-10.78809, 165.848801],
@@ -558,7 +558,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // rooftop KOM section 2
-      type: "tarmac",
+      type: SurfaceType.Tarmac,
       polygon: [
         [-10.78806, 165.849233],
         [-10.789055, 165.84915],
@@ -571,7 +571,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // rooftop KOM section 3
-      type: "wood",
+      type: SurfaceType.Wood,
       polygon: [
         [-10.78907, 165.849582],
         [-10.789278, 165.84959],
@@ -585,7 +585,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // rooftop KOM section 4
-      type: "brick",
+      type: SurfaceType.Brick,
       polygon: [
         [-10.789037, 165.849996],
         [-10.789537, 165.850079],
@@ -623,7 +623,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // rooftop KOM section 5
-      type: "tarmac",
+      type: SurfaceType.Tarmac,
       polygon: [
         [-10.787727, 165.844299],
         [-10.78788, 165.844438],
@@ -634,7 +634,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // rooftop KOM section 7
-      type: "tarmac",
+      type: SurfaceType.Tarmac,
       polygon: [
         [-10.786252, 165.845817],
         [-10.786439, 165.845825],
@@ -650,7 +650,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // rooftop KOM section 8
-      type: "brick",
+      type: SurfaceType.Brick,
       polygon: [
         [-10.787116, 165.846635],
         [-10.787127, 165.846825],
@@ -663,7 +663,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // rooftop KOM section 9
-      type: "tarmac",
+      type: SurfaceType.Tarmac,
       polygon: [
         [-10.787127, 165.847147],
         [-10.787356, 165.847182],
@@ -676,7 +676,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // rooftop KOM section 10
-      type: "brick",
+      type: SurfaceType.Brick,
       polygon: [
         [-10.787356, 165.847182],
         [-10.787519, 165.846654],
@@ -689,7 +689,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
       ],
     },
     {
-      type: "brick",
+      type: SurfaceType.Brick,
       polygon: [
         [-10.787341, 165.844241],
         [-10.787192, 165.843513],
@@ -711,7 +711,7 @@ export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
     },
     {
       // arcade + start
-      type: "brick",
+      type: SurfaceType.Brick,
       polygon: [
         [-10.78075, 165.841917],
         [-10.782753, 165.841906],

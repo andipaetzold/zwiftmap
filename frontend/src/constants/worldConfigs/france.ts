@@ -1,4 +1,4 @@
-import { SURFACE_TYPE_COBBLES, WorldConfig } from "../../types";
+import { SurfaceType, WorldConfig } from "../../types";
 import franceMap from "../../maps/france.png";
 
 export const WORLD_CONFIG_FRANCE: WorldConfig = {
@@ -11,7 +11,7 @@ export const WORLD_CONFIG_FRANCE: WorldConfig = {
   surfaces: [
     {
       // bridge near start
-      type: SURFACE_TYPE_COBBLES,
+      type: SurfaceType.Cobbles,
       polygon: [
         [-21.73782, 166.178963],
         [-21.737471, 166.17981],
@@ -22,7 +22,7 @@ export const WORLD_CONFIG_FRANCE: WorldConfig = {
     },
     {
       // pave sprint
-      type: SURFACE_TYPE_COBBLES,
+      type: SurfaceType.Cobbles,
       polygon: [
         [-21.699664, 166.174865],
         [-21.699065, 166.175366],
@@ -34,7 +34,7 @@ export const WORLD_CONFIG_FRANCE: WorldConfig = {
     },
     {
       // bridge to bottom-left island, from top
-      type: SURFACE_TYPE_COBBLES,
+      type: SurfaceType.Cobbles,
       polygon: [
         [-21.73742, 166.15294],
         [-21.734989, 166.153593],
@@ -45,7 +45,7 @@ export const WORLD_CONFIG_FRANCE: WorldConfig = {
     },
     {
       // bridge to bottom-left island, from right
-      type: SURFACE_TYPE_COBBLES,
+      type: SurfaceType.Cobbles,
       polygon: [
         [-21.743226, 166.157136],
         [-21.742007, 166.158805],

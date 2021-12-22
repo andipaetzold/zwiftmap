@@ -1,4 +1,4 @@
-import { SURFACE_TYPE_COBBLES, WorldConfig } from "../../types";
+import { SurfaceType, WorldConfig } from "../../types";
 import richmondMap from "../../maps/richmond.png";
 
 export const WORLD_CONFIG_RICHMOND: WorldConfig = {
@@ -11,7 +11,7 @@ export const WORLD_CONFIG_RICHMOND: WorldConfig = {
   surfaces: [
     {
       // top left
-      type: SURFACE_TYPE_COBBLES,
+      type: SurfaceType.Cobbles,
       polygon: [
         [37.552037, -77.457716],
         [37.552969, -77.456601],
@@ -23,7 +23,7 @@ export const WORLD_CONFIG_RICHMOND: WorldConfig = {
     },
     {
       // KOM
-      type: SURFACE_TYPE_COBBLES,
+      type: SurfaceType.Cobbles,
       polygon: [
         [37.527933, -77.419275],
         [37.527265, -77.418585],
@@ -38,7 +38,7 @@ export const WORLD_CONFIG_RICHMOND: WorldConfig = {
     },
     {
       // 23rd street
-      type: SURFACE_TYPE_COBBLES,
+      type: SurfaceType.Cobbles,
       polygon: [
         [37.531275, -77.422526],
         [37.530939, -77.421834],

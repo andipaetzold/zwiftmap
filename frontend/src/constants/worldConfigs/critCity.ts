@@ -1,4 +1,4 @@
-import { SURFACE_TYPE_BRICK, WorldConfig } from "../../types";
+import { SurfaceType, WorldConfig } from "../../types";
 import critCityMap from "../../maps/crit-city.png";
 
 export const WORLD_CONFIG_CRIT_CITY: WorldConfig = {
@@ -10,7 +10,7 @@ export const WORLD_CONFIG_CRIT_CITY: WorldConfig = {
   backgroundColor: "#7c9938",
   surfaces: [
     {
-      type: SURFACE_TYPE_BRICK,
+      type: SurfaceType.Brick,
       polygon: [
         [-10.385806, 165.799698],
         [-10.385804, 165.80094],

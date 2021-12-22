@@ -1,4 +1,4 @@
-import { SURFACE_TYPE_BRICK, WorldConfig } from "../../types";
+import { SurfaceType, WorldConfig } from "../../types";
 import bolognaMap from "../../maps/bologna.png";
 
 export const WORLD_CONFIG_BOLOGNA: WorldConfig = {
@@ -10,7 +10,7 @@ export const WORLD_CONFIG_BOLOGNA: WorldConfig = {
   backgroundColor: "#b9b9b8",
   surfaces: [
     {
-      type: SURFACE_TYPE_BRICK,
+      type: SurfaceType.Brick,
       polygon: [
         [44.497632, 11.331145],
         [44.498027, 11.331479],

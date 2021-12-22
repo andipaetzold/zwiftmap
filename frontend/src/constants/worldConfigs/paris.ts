@@ -1,4 +1,4 @@
-import { SURFACE_TYPE_COBBLES, WorldConfig } from "../../types";
+import { SurfaceType, WorldConfig } from "../../types";
 import parisMap from "../../maps/paris.png";
 
 export const WORLD_CONFIG_PARIS: WorldConfig = {
@@ -11,7 +11,7 @@ export const WORLD_CONFIG_PARIS: WorldConfig = {
   surfaces: [
     {
       // whole world
-      type: SURFACE_TYPE_COBBLES,
+      type: SurfaceType.Cobbles,
       polygon: [
         [48.9058, 2.2561],
         [48.9058, 2.3722],
