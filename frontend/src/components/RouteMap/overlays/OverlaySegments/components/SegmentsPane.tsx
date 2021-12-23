@@ -3,8 +3,14 @@ import { useAsync } from "react-async-hook";
 import { Pane, Polyline } from "react-leaflet";
 import { segments, SegmentType } from "zwift-data";
 import { getSegmentColor } from "../../../../../constants";
+import { useStore } from "../../../../../hooks/useStore";
 import { getStravaSegmentStream } from "../../../../../services/StravaSegmentRepository";
-import { Z_INDEX } from "../../../constants";
+import { HoverStateType } from "../../../../../types";
+import {
+  POLYLINE_WIDTH,
+  POLYLINE_WIDTH_HIGHLIGHTED,
+  Z_INDEX,
+} from "../../../constants";
 
 const SEGMENTS_TO_DISPLAY: SegmentType[] = ["sprint", "climb"];
 
@@ -13,6 +19,7 @@ interface SegmentsPaneProps {
 }
 
 export function SegmentsPane({ segmentSlugs }: SegmentsPaneProps) {
+  const hoverState = useStore((state) => state.hoverState);
   const { result: segmentsData } = useAsync(loadSegments, [segmentSlugs]);
 
   if (!segmentsData) {
@@ -22,14 +29,18 @@ export function SegmentsPane({ segmentSlugs }: SegmentsPaneProps) {
   return (
     <Pane name="segments" style={{ zIndex: Z_INDEX.segments }}>
       {segmentsData
-        .filter((s) => SEGMENTS_TO_DISPLAY.includes(s.type))
-        .map((s, segmentIndex) => (
+        .filter((segment) => SEGMENTS_TO_DISPLAY.includes(segment.type))
+        .map((segment) => (
           <Polyline
-            key={segmentIndex}
-            positions={s.latlng}
+            key={segment.slug}
+            positions={segment.latlng}
             pathOptions={{
-              color: getSegmentColor(s.type),
-              weight: 8,
+              color: getSegmentColor(segment.type),
+              weight:
+                hoverState?.type === HoverStateType.HighlightSegment &&
+                hoverState.segment === segment.slug
+                  ? POLYLINE_WIDTH_HIGHLIGHTED
+                  : POLYLINE_WIDTH,
               lineCap: "square",
             }}
             interactive={false}
@@ -54,6 +65,7 @@ async function loadSegments(segmentsToLoad: readonly string[]) {
     return streams.map((stream, streamIndex) => ({
       latlng: stream,
       type: segmentsOnRoute[streamIndex].type,
+      slug: segmentsOnRoute[streamIndex].slug,
     }));
   } catch (e) {
     Sentry.captureException(e);
