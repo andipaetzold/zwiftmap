@@ -5,8 +5,9 @@ import {
   segments,
   Sport,
   World,
-  worlds,
+  worlds
 } from "zwift-data";
+import { WORLDS_BY_SLUG } from "../constants";
 
 const REGEX_STRAVA_ACTIVITY = /strava\.com\/activities\/(\d{10})/;
 
@@ -53,8 +54,8 @@ const searchResultsRoute = [...routes]
   .filter((route) => route.stravaSegmentId !== undefined)
   .map((route) => ({
     type: "route" as const,
-    terms: [worlds.find((w) => w.slug === route.world)!.name, route.name].map(
-      (t) => t.toLocaleLowerCase()
+    terms: [WORLDS_BY_SLUG[route.world].name, route.name].map((t) =>
+      t.toLocaleLowerCase()
     ),
     data: route,
   }));
@@ -63,7 +64,7 @@ const searchResultsSegment = [...segments]
   .map((segment) => ({
     type: "segment" as const,
     terms: [
-      worlds.find((w) => w.slug === segment.world)!.name,
+      WORLDS_BY_SLUG[segment.world].name,
       segment.name,
     ].map((t) => t.toLocaleLowerCase()),
     data: segment,

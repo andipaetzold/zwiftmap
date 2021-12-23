@@ -1,7 +1,8 @@
 import { Select } from "@react-md/form";
 import { ArrowDropDownSVGIcon } from "@react-md/material-icons";
 import React from "react";
-import { World, worlds } from "zwift-data";
+import { World, worlds, WorldSlug } from "zwift-data";
+import { WORLDS_BY_SLUG } from "../../constants";
 import styles from "./WorldSelect.module.scss";
 
 const options = [...worlds]
@@ -24,9 +25,7 @@ export function WorldSelect({ world, onWorldChange }: Props) {
         options={options}
         value={world.slug}
         listboxStyle={{ zIndex: 3000 }}
-        onChange={(newWorldSlug) =>
-          onWorldChange(worlds.find((w) => w.slug === newWorldSlug)!)
-        }
+        onChange={(newWorldSlug) => onWorldChange(WORLDS_BY_SLUG[newWorldSlug as WorldSlug])}
         rightChildren={<ArrowDropDownSVGIcon />}
       />
     </div>

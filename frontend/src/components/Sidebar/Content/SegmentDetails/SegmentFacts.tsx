@@ -4,7 +4,8 @@ import {
   MapSVGIcon,
   SpaceBarSVGIcon,
 } from "@react-md/material-icons";
-import { Segment, worlds } from "zwift-data";
+import { Segment } from "zwift-data";
+import { WORLDS_BY_SLUG } from "../../../../constants";
 import { Distance } from "../../../Distance";
 import { Elevation } from "../../../Elevation";
 
@@ -13,7 +14,7 @@ interface Props {
 }
 
 export function SegmentFacts({ segment }: Props) {
-  const world = worlds.find((w) => w.slug === segment.world)!;
+  const world = WORLDS_BY_SLUG[segment.world];
 
   return (
     <>

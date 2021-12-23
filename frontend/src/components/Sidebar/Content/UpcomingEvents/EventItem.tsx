@@ -1,6 +1,7 @@
 import { ListItemLink } from "@react-md/list";
 import { OpenInNewSVGIcon } from "@react-md/material-icons";
-import { routes, worlds } from "zwift-data";
+import { routes } from "zwift-data";
+import { WORLDS_BY_SLUG } from "../../../../constants";
 import { useStore } from "../../../../hooks/useStore";
 import { ZwiftEvent } from "../../../../services/events";
 import { LocationStateUpcomingEvents } from "../../../../services/location-state";
@@ -36,7 +37,7 @@ export function EventItem({ state, event }: Props) {
       threeLines
       state={{
         type: "event",
-        world: worlds.find((w) => w.slug === route.world)!,
+        world: WORLDS_BY_SLUG[route.world],
         eventId: event.id.toString(),
       }}
       onClick={() => setHoverState(undefined)}

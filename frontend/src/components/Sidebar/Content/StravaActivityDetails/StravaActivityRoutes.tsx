@@ -1,6 +1,7 @@
 import { ListSubheader } from "@react-md/list";
 import { DetailedSegment, DetailedSegmentEffort } from "strava";
-import { Route, routes, worlds } from "zwift-data";
+import { Route, routes } from "zwift-data";
+import { WORLDS_BY_SLUG } from "../../../../constants";
 import { StravaActivity } from "../../../../services/StravaActivityRepository";
 import { Distance } from "../../../Distance";
 import { Elevation } from "../../../Elevation";
@@ -43,7 +44,7 @@ export function StravaActivityRoutes({ activity }: Props) {
           key={segmentEffort.id}
           state={{
             type: "route",
-            world: worlds.find((w) => w.slug === route.world)!,
+            world: WORLDS_BY_SLUG[route.world],
             route: route,
           }}
           threeLines

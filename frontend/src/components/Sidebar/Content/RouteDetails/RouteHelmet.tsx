@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async";
-import { Route, worlds } from "zwift-data";
+import { Route } from "zwift-data";
+import { WORLDS_BY_SLUG } from "../../../../constants";
 
 const DISTANCE_FORMAT = new Intl.NumberFormat("en-US", {
   minimumFractionDigits: 1,
@@ -18,7 +19,7 @@ interface Props {
 }
 
 export function RouteHelmet({ route }: Props) {
-  const world = worlds.find((w) => w.slug === route.world)!;
+  const world = WORLDS_BY_SLUG[route.world];
   const description = `Route details for "${route.name}" in ${
     world.name
   } on Zwift. Distance: ${DISTANCE_FORMAT.format(

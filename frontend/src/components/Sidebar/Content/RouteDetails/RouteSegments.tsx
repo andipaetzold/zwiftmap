@@ -2,11 +2,11 @@ import { List, ListSubheader, SimpleListItem } from "@react-md/list";
 import { Typography } from "@react-md/typography";
 import React from "react";
 import { useAsync } from "react-async-hook";
-import { Route, Segment, segments, SegmentType, worlds } from "zwift-data";
-import { FORMAT_INCLINE } from "../../../../constants";
+import { Route, Segment, segments, SegmentType } from "zwift-data";
+import { FORMAT_INCLINE, WORLDS_BY_SLUG } from "../../../../constants";
 import {
   IsLoggedInStrava,
-  useIsLoggedInStrava,
+  useIsLoggedInStrava
 } from "../../../../hooks/useIsLoggedInStrava";
 import { useStore } from "../../../../hooks/useStore";
 import { getStravaSegmentById } from "../../../../services/zwiftMapApi";
@@ -62,7 +62,7 @@ export function RouteSegments({ route }: Props) {
           state={{
             type: "segment",
             segment: segment,
-            world: worlds.find((w) => w.slug === segment.world)!,
+            world: WORLDS_BY_SLUG[segment.world],
           }}
           onMouseEnter={() =>
             setHoverState({

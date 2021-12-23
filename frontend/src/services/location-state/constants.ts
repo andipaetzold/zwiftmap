@@ -1,3 +1,3 @@
-import { worlds } from "zwift-data";
+import { WORLDS_BY_SLUG } from "../../constants";
 
-export const DEFAULT_WORLD = worlds.find((w) => w.slug === "watopia")!;
+export const DEFAULT_WORLD = WORLDS_BY_SLUG["watopia"];

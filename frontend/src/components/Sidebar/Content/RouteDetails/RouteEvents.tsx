@@ -7,7 +7,8 @@ import {
 import { Typography } from "@react-md/typography";
 import React, { useMemo } from "react";
 import { useAsync } from "react-async-hook";
-import { Route, worlds } from "zwift-data";
+import { Route } from "zwift-data";
+import { WORLDS_BY_SLUG } from "../../../../constants";
 import { useSettings } from "../../../../hooks/useSettings";
 import { fetchEvents } from "../../../../services/events/api";
 import { EventInfo } from "../../../EventInfo";
@@ -75,7 +76,7 @@ export function RouteEvents({ route }: Props) {
           key={event.id}
           state={{
             type: "event",
-            world: worlds.find((w) => w.slug === route.world) ?? null,
+            world: WORLDS_BY_SLUG[route.world],
             eventId: event.id.toString(),
           }}
           secondaryText={<EventInfo event={event} />}

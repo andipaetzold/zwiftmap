@@ -1,4 +1,5 @@
 import { routes, Segment, segments, World, worlds } from "zwift-data";
+import { WORLDS_BY_SLUG } from "../../constants";
 import {
   PATTERN_EVENT,
   PATTERN_ROUTE_OR_SEGMENT,
@@ -62,12 +63,12 @@ const PATTERNS: {
       );
 
       if (segment) {
-        const world = worlds.find((w) => w.slug === segment.world)!;
+        const world = WORLDS_BY_SLUG[segment.world];
         return [{ type: "segment", world, segment }, world.slug !== worldSlug];
       }
 
       if (route) {
-        const world = worlds.find((w) => w.slug === route.world)!;
+        const world = WORLDS_BY_SLUG[route.world];
 
         const selectedSegments = (searchParams.get("segments") ?? "")
           .split(",")
@@ -154,7 +155,7 @@ function getLegacyStateWithWorld(
       return { world, type: "default" };
     } else {
       return {
-        world: worlds.find((w) => w.slug === route.world)!,
+        world: WORLDS_BY_SLUG[route.world],
         type: "route",
         route,
       };

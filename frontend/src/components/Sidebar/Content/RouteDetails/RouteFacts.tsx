@@ -6,7 +6,8 @@ import {
   SpaceBarSVGIcon,
   StarSVGIcon,
 } from "@react-md/material-icons";
-import { Route, worlds } from "zwift-data";
+import { Route } from "zwift-data";
+import { WORLDS_BY_SLUG } from "../../../../constants";
 import { Distance } from "../../../Distance";
 import { Elevation } from "../../../Elevation";
 
@@ -15,7 +16,7 @@ interface Props {
 }
 
 export function RouteFacts({ route }: Props) {
-  const world = worlds.find((w) => w.slug === route.world)!;
+  const world = WORLDS_BY_SLUG[route.world];
 
   return (
     <>

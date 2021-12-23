@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
-import { Route, worlds } from "zwift-data";
+import { Route } from "zwift-data";
+import { WORLDS_BY_SLUG } from "../../constants";
 import { useStore } from "../../hooks/useStore";
 import { HoverStateType } from "../../types";
 import { isSaveDataMode } from "../../util/saveData";
@@ -24,14 +25,16 @@ export function ListItemRoute({ route, showWorldName }: Props) {
       secondaryText={<RouteInfo route={route} showWorldName={showWorldName} />}
       threeLines={showWorldName}
       state={{
-        world: worlds.find((w) => w.slug === route.world)!,
+        world: WORLDS_BY_SLUG[route.world],
         route,
         type: "route",
       }}
       onClick={() => setHoverState(undefined)}
       rightAddonType={showPreviewChart ? "large-media" : undefined}
       rightAddon={showPreviewChart ? <ChartContainer route={route} /> : null}
-      onMouseEnter={() => setHoverState({ type: HoverStateType.PreviewRoute, route: route.slug })}
+      onMouseEnter={() =>
+        setHoverState({ type: HoverStateType.PreviewRoute, route: route.slug })
+      }
       onMouseLeave={() => setHoverState(undefined)}
     >
       {route.name}
@@ -49,7 +52,7 @@ function RouteInfo({ route, showWorldName }: RouteInfoProps) {
     <>
       {showWorldName && (
         <>
-          {worlds.find((w) => w.slug === route.world)!.name}
+          {WORLDS_BY_SLUG[route.world].name}
           <br />
         </>
       )}

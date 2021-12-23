@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
-import { Segment, worlds } from "zwift-data";
+import { Segment } from "zwift-data";
+import { WORLDS_BY_SLUG } from "../../../../../constants";
 import { useOnScreen } from "../../../../../hooks/useOnScreen";
 import { useStore } from "../../../../../hooks/useStore";
 import { HoverStateType } from "../../../../../types";
@@ -19,7 +20,7 @@ export function ListItemSegment({ segment, showWorldName }: Props) {
   return (
     <ListItemState
       state={{
-        world: worlds.find((w) => w.slug === segment.world)!,
+        world: WORLDS_BY_SLUG[segment.world],
         segment,
         type: "segment",
       }}
@@ -53,7 +54,7 @@ function SegmentInfo({ segment, showWorldName }: SegmentInfoProps) {
     <>
       {showWorldName && (
         <>
-          {worlds.find((w) => w.slug === segment.world)!.name}
+          {WORLDS_BY_SLUG[segment.world].name}
           <br />
         </>
       )}
