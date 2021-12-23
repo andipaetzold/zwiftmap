@@ -7,3 +7,4 @@ export const Z_INDEX = {
 };
 
 export const POLYLINE_WIDTH = 5;
+export const POLYLINE_WIDTH_HIGHLIGHTED = 8;
