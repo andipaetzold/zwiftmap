@@ -9,12 +9,12 @@ import {
   ResponsiveContainer,
   Tooltip,
   XAxis,
-  YAxis
+  YAxis,
 } from "recharts";
 import { SegmentType } from "zwift-data";
 import { COLORS } from "../../constants";
 import { useStore } from "../../hooks/useStore";
-import { DistanceStream, ElevationStream } from "../../types";
+import { DistanceStream, ElevationStream, HoverStateType } from "../../types";
 import { Distance } from "../Distance";
 import { Elevation } from "../Elevation";
 import { ElevationGradient } from "../ElevationGradient";
@@ -107,7 +107,9 @@ function ElevationChartComponent({
         data.activePayload?.[0]?.payload.elevationSegmentSprint ??
         data.activePayload?.[0]?.payload.elevationSegmentKOM;
 
-      setHoverState(distance ? { type: "distance", distance } : undefined);
+      setHoverState(
+        distance ? { type: HoverStateType.Distance, distance } : undefined
+      );
       setCurrentDistance(distance);
       setCurrentAltitude(elevation);
     },

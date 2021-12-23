@@ -6,6 +6,7 @@ import { useAsync } from "react-async-hook";
 import { useStore } from "../../../../../hooks/useStore";
 import { LocationStateStravaActivities } from "../../../../../services/location-state";
 import { getStravaActivities } from "../../../../../services/zwiftMapApi";
+import { HoverStateType } from "../../../../../types";
 import { getWorld } from "../../../../../util/strava";
 import { Distance } from "../../../../Distance";
 import { Elevation } from "../../../../Elevation";
@@ -69,7 +70,7 @@ export function StravaActivitiesListComponent({ state }: Props) {
               }
 
               setHoverState({
-                type: "preview-latLngStream",
+                type: HoverStateType.PreviewLatLngStream,
                 latLngStream: polyline.decode(activity.map.summary_polyline),
               });
             }}

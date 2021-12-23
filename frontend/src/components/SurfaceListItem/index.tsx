@@ -1,7 +1,9 @@
 import { List, SimpleListItem } from "@react-md/list";
 import { SURFACE_CONSTANTS } from "../../constants";
+import { useStore } from "../../hooks/useStore";
 import {
   DistanceStream,
+  HoverStateType,
   LatLngStream,
   SurfaceType,
   SURFACE_TYPES,
@@ -45,13 +47,24 @@ interface LegendProps {
 }
 
 function Legend({ data }: LegendProps) {
+  const setHoverState = useStore((state) => state.setHoverState);
   const distance = Object.values(data).reduce((prev, cur) => prev + cur, 0);
 
   return (
     <SimpleListItem>
       <ul style={{ padding: 0, margin: 0 }}>
         {SURFACE_TYPES.filter((type) => data[type] > 0).map((type) => (
-          <li key={type} style={{ display: "block" }}>
+          <li
+            key={type}
+            style={{ display: "block" }}
+            onMouseEnter={() =>
+              setHoverState({
+                type: HoverStateType.HighlightSurface,
+                surface: type,
+              })
+            }
+            onMouseLeave={() => setHoverState(undefined)}
+          >
             <svg
               width="16"
               height="16"

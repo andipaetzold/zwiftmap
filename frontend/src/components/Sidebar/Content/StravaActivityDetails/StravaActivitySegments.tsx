@@ -1,7 +1,9 @@
 import { ListSubheader, SimpleListItem } from "@react-md/list";
 import { DetailedSegment, DetailedSegmentEffort } from "strava";
 import { Segment, segments } from "zwift-data";
+import { useStore } from "../../../../hooks/useStore";
 import { StravaActivity } from "../../../../services/StravaActivityRepository";
+import { HoverStateType } from "../../../../types";
 import { Distance } from "../../../Distance";
 import { Time } from "../../../Time";
 
@@ -15,6 +17,7 @@ interface Props {
 }
 
 export function StravaActivitySegments({ activity }: Props) {
+  const setHoverState = useStore((state) => state.setHoverState);
   const routesInActivity = activity.segmentEfforts
     .map((segmentEffort) => ({
       segment: segments.find(
@@ -43,6 +46,13 @@ export function StravaActivitySegments({ activity }: Props) {
           threeLines
           primaryText={segment.name}
           secondaryText={<SecondaryText segmentEffort={segmentEffort} />}
+          onMouseEnter={() =>
+            setHoverState({
+              type: HoverStateType.HighlightSegment,
+              segment: segment.slug,
+            })
+          }
+          onMouseLeave={() => setHoverState(undefined)}
         />
       ))}
     </>

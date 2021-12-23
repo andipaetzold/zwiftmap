@@ -8,7 +8,9 @@ import {
   IsLoggedInStrava,
   useIsLoggedInStrava,
 } from "../../../../hooks/useIsLoggedInStrava";
+import { useStore } from "../../../../hooks/useStore";
 import { getStravaSegmentById } from "../../../../services/zwiftMapApi";
+import { HoverStateType } from "../../../../types";
 import { Distance } from "../../../Distance";
 import { ListItemState } from "../../../ListItemState";
 import { Time } from "../../../Time";
@@ -18,6 +20,8 @@ interface Props {
 }
 
 export function RouteSegments({ route }: Props) {
+  const setHoverState = useStore((state) => state.setHoverState);
+
   const segmentsOnRoute = segments
     .filter((s) => s.world === route.world)
     .filter((s) => route.segments.includes(s.slug))
@@ -60,6 +64,13 @@ export function RouteSegments({ route }: Props) {
             segment: segment,
             world: worlds.find((w) => w.slug === segment.world)!,
           }}
+          onMouseEnter={() =>
+            setHoverState({
+              type: HoverStateType.HighlightSegment,
+              segment: segment.slug,
+            })
+          }
+          onMouseLeave={() => setHoverState(undefined)}
         >
           {segment.name}
         </ListItemState>

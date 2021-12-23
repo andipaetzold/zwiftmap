@@ -4,6 +4,7 @@ import { routes, worlds } from "zwift-data";
 import { useStore } from "../../../../hooks/useStore";
 import { ZwiftEvent } from "../../../../services/events";
 import { LocationStateUpcomingEvents } from "../../../../services/location-state";
+import { HoverStateType } from "../../../../types";
 import { EventInfo } from "../../../EventInfo";
 import { ListItemState } from "../../../ListItemState";
 
@@ -41,7 +42,10 @@ export function EventItem({ state, event }: Props) {
       onClick={() => setHoverState(undefined)}
       onMouseEnter={() => {
         if (route.world === state.world.slug) {
-          setHoverState({ type: "preview-route", route: route.slug });
+          setHoverState({
+            type: HoverStateType.PreviewRoute,
+            route: route.slug,
+          });
         } else {
           setHoverState(undefined);
         }

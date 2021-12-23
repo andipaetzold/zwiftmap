@@ -6,30 +6,45 @@ export type HoverState =
   | HoverStatePreviewRoute
   | HoverStatePreviewSegment
   | HoverStatePreviewLatLngStream
-  | HoverStateSurface
+  | HoverStateHighlightSurface
+  | HoverStateHighlightSegment
   | HoverStateRouteDistance;
 
+export const enum HoverStateType {
+  PreviewRoute,
+  PreviewSegment,
+  PreviewLatLngStream,
+  HighlightSurface,
+  HighlightSegment,
+  Distance,
+}
+
 export interface HoverStatePreviewRoute {
-  type: "preview-route";
+  type: HoverStateType.PreviewRoute;
   route: string;
 }
 
 export interface HoverStatePreviewSegment {
-  type: "preview-segment";
+  type: HoverStateType.PreviewSegment;
   segment: string;
 }
 
 export interface HoverStatePreviewLatLngStream {
-  type: "preview-latLngStream";
+  type: HoverStateType.PreviewLatLngStream;
   latLngStream: LatLngStream;
 }
 
-export interface HoverStateSurface {
-  type: "surface";
+export interface HoverStateHighlightSurface {
+  type: HoverStateType.HighlightSurface;
   surface: SurfaceType;
 }
 
+export interface HoverStateHighlightSegment {
+  type: HoverStateType.HighlightSegment;
+  segment: string;
+}
+
 export interface HoverStateRouteDistance {
-  type: "distance";
+  type: HoverStateType.Distance;
   distance: number;
 }

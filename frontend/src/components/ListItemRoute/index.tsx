@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { Route, worlds } from "zwift-data";
 import { useStore } from "../../hooks/useStore";
+import { HoverStateType } from "../../types";
 import { isSaveDataMode } from "../../util/saveData";
 import { useOnScreen } from "..//../hooks/useOnScreen";
 import { Distance } from "../Distance";
@@ -30,7 +31,7 @@ export function ListItemRoute({ route, showWorldName }: Props) {
       onClick={() => setHoverState(undefined)}
       rightAddonType={showPreviewChart ? "large-media" : undefined}
       rightAddon={showPreviewChart ? <ChartContainer route={route} /> : null}
-      onMouseEnter={() => setHoverState({ type: "preview-route", route: route.slug })}
+      onMouseEnter={() => setHoverState({ type: HoverStateType.PreviewRoute, route: route.slug })}
       onMouseLeave={() => setHoverState(undefined)}
     >
       {route.name}

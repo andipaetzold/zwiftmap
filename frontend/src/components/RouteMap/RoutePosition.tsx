@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { CircleMarker, Pane } from "react-leaflet";
 import { useStore } from "../../hooks/useStore";
-import { DistanceStream, LatLngStream } from "../../types";
+import { DistanceStream, HoverStateType, LatLngStream } from "../../types";
 
 interface Props {
   streams?: {
@@ -14,7 +14,7 @@ export function RoutePosition({ streams }: Props) {
   const hoverState = useStore((store) => store.hoverState);
 
   const coordinates = useMemo(() => {
-    if (!hoverState || hoverState.type !== "distance") {
+    if (!hoverState || hoverState.type !== HoverStateType.Distance) {
       return;
     }
 

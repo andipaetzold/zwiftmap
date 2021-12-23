@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import { Segment, worlds } from "zwift-data";
 import { useOnScreen } from "../../../../../hooks/useOnScreen";
 import { useStore } from "../../../../../hooks/useStore";
+import { HoverStateType } from "../../../../../types";
 import { Distance } from "../../../../Distance";
 import { Elevation } from "../../../../Elevation";
 import { SegmentElevationChartPreview } from "../../../../ElevationChartPreview";
@@ -30,7 +31,10 @@ export function ListItemSegment({ segment, showWorldName }: Props) {
       rightAddonType="large-media"
       rightAddon={<ChartContainer segment={segment} />}
       onMouseEnter={() =>
-        setHoverState({ type: "preview-segment", segment: segment.slug })
+        setHoverState({
+          type: HoverStateType.PreviewSegment,
+          segment: segment.slug,
+        })
       }
       onMouseLeave={() => setHoverState(undefined)}
     >
