@@ -83,7 +83,7 @@
   "devDependencies": {
     "@tsconfig/create-react-app": "1.0.2",
     "@types/mapbox__polyline": "1.0.2",
-    "netlify-cli": "8.4.3",
+    "netlify-cli": "8.5.0",
     "prettier": "2.5.1",
     "pwa-asset-generator": "6.0.5",
     "sass": "1.45.1",
