@@ -70,7 +70,7 @@ Sentry.init({
       },
     }),
   ],
-  tracesSampleRate: 0.25,
+  tracesSampleRate: 0.1,
 });
 
 fetchAuthStatus();
