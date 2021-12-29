@@ -42,14 +42,10 @@ export function EventItem({ state, event }: Props) {
       }}
       onClick={() => setHoverState(undefined)}
       onMouseEnter={() => {
-        if (route.world === state.world.slug) {
-          setHoverState({
-            type: HoverStateType.PreviewRoute,
-            route: route.slug,
-          });
-        } else {
-          setHoverState(undefined);
-        }
+        setHoverState({
+          type: HoverStateType.PreviewEvent,
+          event,
+        });
       }}
       onMouseLeave={() => setHoverState(undefined)}
       rightAddon={route ? undefined : <OpenInNewSVGIcon />}

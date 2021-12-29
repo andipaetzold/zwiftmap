@@ -1,4 +1,5 @@
 import * as Sentry from "@sentry/react";
+import { getEventStreams } from "../../../services/events";
 import { getStravaSegmentStreams } from "../../../services/StravaSegmentRepository";
 import { HoverState, HoverStateType, LatLngStream } from "../../../types";
 import { isSaveDataMode } from "../../../util/saveData";
@@ -21,6 +22,10 @@ export async function loadPreviewRoute(
           "latlng",
         ]);
         return streams.latlng;
+      }
+      case HoverStateType.PreviewEvent: {
+        const streams = await getEventStreams(data.event, ["latlng"]);
+        return streams?.latlng;
       }
       case HoverStateType.PreviewSegment: {
         const streams = await getStravaSegmentStreams(

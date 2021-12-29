@@ -1,9 +1,11 @@
+import { ZwiftEvent } from "../services/events";
 import { LatLngStream } from "./Stream";
 import { SurfaceType } from "./Surface";
 
 export type HoverState =
   | undefined
   | HoverStatePreviewRoute
+  | HoverStatePreviewEvent
   | HoverStatePreviewSegment
   | HoverStatePreviewLatLngStream
   | HoverStateHighlightSurface
@@ -12,6 +14,7 @@ export type HoverState =
 
 export const enum HoverStateType {
   PreviewRoute,
+  PreviewEvent,
   PreviewSegment,
   PreviewLatLngStream,
   HighlightSurface,
@@ -22,6 +25,11 @@ export const enum HoverStateType {
 export interface HoverStatePreviewRoute {
   type: HoverStateType.PreviewRoute;
   route: string;
+}
+
+export interface HoverStatePreviewEvent {
+  type: HoverStateType.PreviewEvent;
+  event: ZwiftEvent;
 }
 
 export interface HoverStatePreviewSegment {
