@@ -109,7 +109,7 @@ function getDistance(event: ZwiftEvent): number | undefined {
   const route = routes.find((r) => r.id === event.routeId);
 
   if (event.distanceInMeters) {
-    return event.distanceInMeters;
+    return event.distanceInMeters / 1_000;
   } else if (route && event.laps > 0) {
     return event.laps * route.distance + (route.leadInDistance ?? 0);
   }
