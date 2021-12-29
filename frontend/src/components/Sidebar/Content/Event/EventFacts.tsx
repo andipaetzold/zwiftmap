@@ -7,14 +7,15 @@ import {
   PlaceSVGIcon,
   RefreshSVGIcon,
   SpaceBarSVGIcon,
-  TimerSVGIcon,
+  TimerSVGIcon
 } from "@react-md/material-icons";
 import round from "lodash/round";
-import { routes } from "zwift-data";
 import {
+  getEventDistance,
+  getEventElevation,
   getRouteFromEvent,
   getWorldFromEvent,
-  ZwiftEvent,
+  ZwiftEvent
 } from "../../../../services/events";
 import { EVENT_TYPES } from "../../../../services/events/constants";
 import { formatEventStart } from "../../../../util/formats";
@@ -30,8 +31,8 @@ export function EventFacts({ event }: Props) {
   const route = getRouteFromEvent(event);
   const world = getWorldFromEvent(event);
 
-  const distance = getDistance(event);
-  const elevation = getElevation(event);
+  const distance = getEventDistance(event);
+  const elevation = getEventElevation(event);
 
   return (
     <>
@@ -103,21 +104,4 @@ export function EventFacts({ event }: Props) {
       )}
     </>
   );
-}
-
-function getDistance(event: ZwiftEvent): number | undefined {
-  const route = routes.find((r) => r.id === event.routeId);
-
-  if (event.distanceInMeters) {
-    return event.distanceInMeters / 1_000;
-  } else if (route && event.laps > 0) {
-    return event.laps * route.distance + (route.leadInDistance ?? 0);
-  }
-}
-
-function getElevation(event: ZwiftEvent): number | undefined {
-  const route = routes.find((r) => r.id === event.routeId);
-  if (route && event.laps > 0) {
-    return event.laps * route.elevation + (route.leadInElevation ?? 0);
-  }
 }

@@ -1,11 +1,13 @@
 import { useMemo } from "react";
 import { useAsync } from "react-async-hook";
-import { Route, routes } from "zwift-data";
-import { fetchEvent, ZwiftEvent } from "../../../../services/events";
+import { Route } from "zwift-data";
 import {
-  LocationStateUpcomingEvent
-} from "../../../../services/location-state";
-import { getStravaSegmentStreams } from "../../../../services/StravaSegmentRepository";
+  fetchEvent,
+  getEventStreams,
+  getRouteFromEvent,
+  ZwiftEvent
+} from "../../../../services/events";
+import { LocationStateUpcomingEvent } from "../../../../services/location-state";
 import { DistanceStream, LatLngStream } from "../../../../types";
 import { RouteEnd } from "../../RouteEnd";
 import { RouteStart } from "../../RouteStart";
@@ -66,18 +68,14 @@ async function loadData(eventId: string): Promise<
   | undefined
 > {
   const event = await fetchEvent(eventId);
-  const route = routes.find((r) => r.id === event.routeId);
+  const route = getRouteFromEvent(event);
+  const streams = await getEventStreams(event, ["distance", "latlng"]);
 
-  if (route && route.stravaSegmentId) {
-    const segment = await getStravaSegmentStreams(route.slug, "routes", [
-      "distance",
-      "latlng",
-    ]);
+  if (route && streams) {
     return {
       event,
       route,
-      distance: segment.distance,
-      latlng: segment.latlng,
+      ...streams,
     };
   }
 }

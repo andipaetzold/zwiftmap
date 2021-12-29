@@ -1,6 +1,8 @@
 import * as Sentry from "@sentry/react";
-import { routes } from "zwift-data";
-import { fetchEvent } from "../../../services/events";
+import {
+  fetchEvent,
+  getEventStreams
+} from "../../../services/events";
 import { LocationState } from "../../../services/location-state";
 import { getStravaActivity } from "../../../services/StravaActivityRepository";
 import { getStravaSegmentStreams } from "../../../services/StravaSegmentRepository";
@@ -56,17 +58,9 @@ export async function loadRoute(state: LocationState): Promise<
 
       case "event": {
         const event = await fetchEvent(state.eventId);
-        const route = routes.find((r) => r.id === event.routeId);
-
-        if (route && route.stravaSegmentId) {
-          const segment = await getStravaSegmentStreams(route.slug, "routes", [
-            "distance",
-            "latlng",
-          ]);
-          return {
-            distance: segment.distance,
-            latlng: segment.latlng,
-          };
+        const streams = await getEventStreams(event, ["latlng", "distance"]);
+        if (streams) {
+          return streams;
         }
         break;
       }
