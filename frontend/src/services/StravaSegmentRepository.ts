@@ -24,9 +24,13 @@ async function getStravaSegmentStream<
 export async function getStravaSegmentStreams<
   Stream extends "altitude" | "distance" | "latlng"
 >(
-  stravaSegmentId: number,
+  stravaSegmentId: number | undefined,
   streams: ReadonlyArray<Stream>
 ): Promise<Pick<StravaSegment, Stream>> {
+  if (!stravaSegmentId) {
+    throw new Error(`Error fetching streams for undefined segment`);
+  }
+
   const streamData = await Promise.all(
     streams.map((stream) => getStravaSegmentStream(stravaSegmentId, stream))
   );

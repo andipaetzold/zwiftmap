@@ -15,7 +15,7 @@ interface RouteProps {
 export function RouteElevationChartPreview({ route }: RouteProps) {
   const { result: streams, error } = useAsync<
     Pick<StravaSegment, "altitude" | "distance">
-  >(getStravaSegmentStreams, [route.slug, "routes", REQUIRED_STREAMS]);
+  >(getStravaSegmentStreams, [route.stravaSegmentId, REQUIRED_STREAMS]);
 
   const data: Data[] | undefined = useMemo(() => {
     if (streams === undefined) {
@@ -62,7 +62,7 @@ interface SegmentProps {
 export function SegmentElevationChartPreview({ segment }: SegmentProps) {
   const { result: streams, error } = useAsync<
     Pick<StravaSegment, "altitude" | "distance">
-  >(getStravaSegmentStreams, [segment.slug, "segments", REQUIRED_STREAMS]);
+  >(getStravaSegmentStreams, [segment.stravaSegmentId, REQUIRED_STREAMS]);
 
   const data: Data[] | undefined = useMemo(() => {
     if (streams === undefined) {

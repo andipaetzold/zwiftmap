@@ -14,7 +14,7 @@ const REQUIRED_STREAMS = ["latlng", "distance"] as const;
 export function RouteSurface({ route }: Props) {
   const { result: routeSegment } = useAsync<
     Pick<StravaSegment, "latlng" | "distance">
-  >(getStravaSegmentStreams, [route.slug, "routes", REQUIRED_STREAMS]);
+  >(getStravaSegmentStreams, [route.stravaSegmentId, REQUIRED_STREAMS]);
 
   if (!routeSegment) {
     return null;

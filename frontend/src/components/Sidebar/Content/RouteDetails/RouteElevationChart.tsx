@@ -14,7 +14,7 @@ const REQUIRED_STREAMS = ["altitude", "distance"] as const;
 export function RouteElevationChart({ route }: Props) {
   const { result: routeSegment, error } = useAsync<
     Pick<StravaSegment, "altitude" | "distance">
-  >(getStravaSegmentStreams, [route.slug, "routes", REQUIRED_STREAMS]);
+  >(getStravaSegmentStreams, [route.stravaSegmentId, REQUIRED_STREAMS]);
 
   if (error) {
     return null;
