@@ -7,19 +7,15 @@ const api = axios.create({
   adapter: createAxiosCacheAdapter(),
 });
 
-export async function getStravaSegmentStream<
+async function getStravaSegmentStream<
   Stream extends "altitude" | "distance" | "latlng"
->(
-  segmentSlug: string,
-  type: "segments" | "routes",
-  stream: Stream
-): Promise<StravaSegment[Stream]> {
+>(stravaSegmentId: number, stream: Stream): Promise<StravaSegment[Stream]> {
   const response = await api.get<StravaSegment[Stream]>(
-    `/${type}/${segmentSlug}/${stream}.json`
+    `/strava-segments/${stravaSegmentId}/${stream}.json`
   );
 
   if (typeof response.data === "string") {
-    throw new Error(`Error fetching ${stream} for ${type} "${segmentSlug}"`);
+    throw new Error(`Error fetching ${stream} for segment ${stravaSegmentId}`);
   }
 
   return response.data;
@@ -28,12 +24,11 @@ export async function getStravaSegmentStream<
 export async function getStravaSegmentStreams<
   Stream extends "altitude" | "distance" | "latlng"
 >(
-  segmentSlug: string,
-  type: "segments" | "routes",
+  stravaSegmentId: number,
   streams: ReadonlyArray<Stream>
 ): Promise<Pick<StravaSegment, Stream>> {
   const streamData = await Promise.all(
-    streams.map((stream) => getStravaSegmentStream(segmentSlug, type, stream))
+    streams.map((stream) => getStravaSegmentStream(stravaSegmentId, stream))
   );
 
   // @ts-ignore

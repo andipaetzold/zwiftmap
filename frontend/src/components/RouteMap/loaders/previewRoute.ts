@@ -1,4 +1,5 @@
 import * as Sentry from "@sentry/react";
+import { routes, segments } from "zwift-data";
 import { getEventStreams } from "../../../services/events";
 import { getStravaSegmentStreams } from "../../../services/StravaSegmentRepository";
 import { HoverState, HoverStateType, LatLngStream } from "../../../types";
@@ -18,7 +19,12 @@ export async function loadPreviewRoute(
 
     switch (data.type) {
       case HoverStateType.PreviewRoute: {
-        const streams = await getStravaSegmentStreams(data.route, "routes", [
+        const route = routes.find((r) => r.slug === data.route);
+        if (!route?.stravaSegmentId) {
+          return;
+        }
+
+        const streams = await getStravaSegmentStreams(route.stravaSegmentId, [
           "latlng",
         ]);
         return streams.latlng;
@@ -28,11 +34,13 @@ export async function loadPreviewRoute(
         return streams?.latlng;
       }
       case HoverStateType.PreviewSegment: {
-        const streams = await getStravaSegmentStreams(
-          data.segment,
-          "segments",
-          ["latlng"]
-        );
+        const segment = segments.find((s) => s.slug === data.segment);
+        if (!segment?.stravaSegmentId) {
+          return;
+        }
+        const streams = await getStravaSegmentStreams(segment.stravaSegmentId, [
+          "latlng",
+        ]);
         return streams.latlng;
       }
       case HoverStateType.PreviewLatLngStream: {

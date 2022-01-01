@@ -1,6 +1,7 @@
 /public/routes/*
 /public/segments/*
 /public/sitemap.txt
+/public/strava-segments/*
 
 # dependencies
 /node_modules

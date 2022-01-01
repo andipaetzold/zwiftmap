@@ -1,8 +1,5 @@
 import * as Sentry from "@sentry/react";
-import {
-  fetchEvent,
-  getEventStreams
-} from "../../../services/events";
+import { fetchEvent, getEventStreams } from "../../../services/events";
 import { LocationState } from "../../../services/location-state";
 import { getStravaActivity } from "../../../services/StravaActivityRepository";
 import { getStravaSegmentStreams } from "../../../services/StravaSegmentRepository";
@@ -19,33 +16,31 @@ export async function loadRoute(state: LocationState): Promise<
   try {
     switch (state.type) {
       case "route": {
-        if (state.route && state.route.stravaSegmentId) {
-          const streams = await getStravaSegmentStreams(
-            state.route.slug,
-            "routes",
-            ["distance", "latlng"]
-          );
-          return {
-            distance: streams.distance,
-            latlng: streams.latlng,
-          };
+        if (!state.route.stravaSegmentId) {
+          return;
         }
-        break;
+        const streams = await getStravaSegmentStreams(
+          state.route.stravaSegmentId,
+          ["distance", "latlng"]
+        );
+        return {
+          distance: streams.distance,
+          latlng: streams.latlng,
+        };
       }
 
       case "segment": {
-        if (state.segment && state.segment.stravaSegmentId) {
-          const streams = await getStravaSegmentStreams(
-            state.segment.slug,
-            "segments",
-            ["distance", "latlng"]
-          );
-          return {
-            distance: streams.distance,
-            latlng: streams.latlng,
-          };
+        if (!state.segment.stravaSegmentId) {
+          return;
         }
-        break;
+        const streams = await getStravaSegmentStreams(
+          state.segment.stravaSegmentId,
+          ["distance", "latlng"]
+        );
+        return {
+          distance: streams.distance,
+          latlng: streams.latlng,
+        };
       }
 
       case "strava-activity": {

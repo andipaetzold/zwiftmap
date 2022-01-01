@@ -20,13 +20,12 @@ export async function getEventStreams<
   streamTypes: ReadonlyArray<StreamType>
 ): Promise<Pick<StravaSegment, StreamType> | undefined> {
   const route = getRouteFromEvent(event);
-  if (!route || !route.stravaSegmentId) {
+  if (!route?.stravaSegmentId) {
     return undefined;
   }
   const streamTypesToFetch = [...streamTypes, "distance" as const];
   const streams = await getStravaSegmentStreams(
-    route.slug,
-    "routes",
+    route.stravaSegmentId,
     streamTypesToFetch
   );
 

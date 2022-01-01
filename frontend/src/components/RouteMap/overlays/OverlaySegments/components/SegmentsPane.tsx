@@ -4,7 +4,7 @@ import { Pane, Polyline } from "react-leaflet";
 import { segments, SegmentType } from "zwift-data";
 import { getSegmentColor } from "../../../../../constants";
 import { useStore } from "../../../../../hooks/useStore";
-import { getStravaSegmentStream } from "../../../../../services/StravaSegmentRepository";
+import { getStravaSegmentStreams } from "../../../../../services/StravaSegmentRepository";
 import { HoverStateType } from "../../../../../types";
 import {
   POLYLINE_WIDTH,
@@ -58,12 +58,12 @@ async function loadSegments(segmentsToLoad: readonly string[]) {
 
     const streams = await Promise.all(
       segmentsOnRoute.map((s) =>
-        getStravaSegmentStream(s.slug, "segments", "latlng")
+        getStravaSegmentStreams(s.stravaSegmentId!, ["latlng"])
       )
     );
 
     return streams.map((stream, streamIndex) => ({
-      latlng: stream,
+      latlng: stream.latlng,
       type: segmentsOnRoute[streamIndex].type,
       slug: segmentsOnRoute[streamIndex].slug,
     }));

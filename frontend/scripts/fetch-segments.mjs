@@ -33,20 +33,26 @@ async function fetchSegment({ name, slug, stravaSegmentId }, type) {
 
   const stravaData = await response.json();
 
-  const segmentDir = `${BASE_DIR}/${type}/${slug}`;
-  if (!existsSync(segmentDir)) {
-    mkdirSync(segmentDir, { recursive: true });
+  for (const segmentDir of [
+    `${BASE_DIR}/${type}/${slug}`,
+    `${BASE_DIR}/strava-segments/${stravaSegmentId}`,
+  ]) {
+    if (!existsSync(segmentDir)) {
+      mkdirSync(segmentDir, { recursive: true });
+    }
+    writeFileSync(
+      `${segmentDir}/altitude.json`,
+      JSON.stringify(getRoundedAltitude(stravaData))
+    );
+    writeFileSync(
+      `${segmentDir}/distance.json`,
+      JSON.stringify(getRoundedDistances(stravaData))
+    );
+    writeFileSync(
+      `${segmentDir}/latlng.json`,
+      JSON.stringify(stravaData.latlng)
+    );
   }
-
-  writeFileSync(
-    `${segmentDir}/altitude.json`,
-    JSON.stringify(getRoundedAltitude(stravaData))
-  );
-  writeFileSync(
-    `${segmentDir}/distance.json`,
-    JSON.stringify(getRoundedDistances(stravaData))
-  );
-  writeFileSync(`${segmentDir}/latlng.json`, JSON.stringify(stravaData.latlng));
 
   console.log(name);
 }
