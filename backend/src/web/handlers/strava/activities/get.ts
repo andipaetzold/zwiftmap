@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Request, Response } from "express";
 import { getActivityById } from "../../../../shared/services/strava";
 import { isZwiftActivity } from "../../../../shared/util";
@@ -17,7 +16,7 @@ export async function handleGETActivity(req: Request, res: Response) {
   );
 
   if (isZwiftActivity(activity)) {
-    res.status(200).json(activity);
+    res.header("Cache-control", "private, max-age=3600").status(200).json(activity);
   } else {
     res.sendStatus(404);
   }

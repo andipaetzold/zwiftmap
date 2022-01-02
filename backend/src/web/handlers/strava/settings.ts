@@ -15,7 +15,7 @@ export async function handleGETStravaSettings(req: Request, res: Response) {
   }
 
   const settings = await readStravaSettings(session.stravaAthleteId);
-  res.json(settings);
+  res.header("Cache-control", "no-store").json(settings);
 }
 
 export async function handlePUTStravaSettings(req: Request, res: Response) {
@@ -32,5 +32,5 @@ export async function handlePUTStravaSettings(req: Request, res: Response) {
   }
 
   await writeStravaSettings(session.stravaAthleteId, req.body);
-  res.json(req.body);
+  res.header("Cache-control", "private, max-age=3600").json(req.body);
 }

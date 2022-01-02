@@ -13,5 +13,5 @@ export async function handleGETActivityStreams(req: Request, res: Response) {
     session.stravaAthleteId,
     +req.params.activityId
   );
-  res.status(200).json(activity);
+  res.header("Cache-control", "private, max-age=3600").status(200).json(activity);
 }

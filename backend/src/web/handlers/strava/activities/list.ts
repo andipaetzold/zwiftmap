@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { SummaryActivity } from "strava";
-import { ErrorWithStatusCode } from "../../../../shared/ErrorWithStatusCode";
 import { getActivities } from "../../../../shared/services/strava";
 import { isZwiftActivity } from "../../../../shared/util";
 import { Session } from "../../../types";
@@ -34,5 +33,9 @@ export async function handleGETActivities(req: Request, res: Response) {
   const filteredAndSortedActivities = activities
     .filter(isZwiftActivity)
     .sort((a, b) => -a.start_date.localeCompare(b.start_date));
-  res.status(200).json(filteredAndSortedActivities);
+
+  res
+    .header("Cache-control", "private, max-age=3600")
+    .status(200)
+    .json(filteredAndSortedActivities);
 }

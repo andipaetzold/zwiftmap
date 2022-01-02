@@ -52,7 +52,6 @@
     "fast-xml-parser": "4.0.0-beta.6",
     "lodash": "4.17.21",
     "morgan": "1.10.0",
-    "nocache": "3.0.1",
     "node-pg-migrate": "6.2.0",
     "pg": "8.7.1",
     "puppeteer": "13.0.1",

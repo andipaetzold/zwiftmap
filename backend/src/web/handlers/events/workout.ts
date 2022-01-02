@@ -54,7 +54,11 @@ export async function handleGetEventWorkout(req: Request, res: Response) {
   const workout = parser.parse(xmlData);
   const image = createImage(workout);
 
-  res.status(200).contentType("svg").send(image);
+  res
+    .header("Cache-control", "private, max-age=3600")
+    .status(200)
+    .contentType("svg")
+    .send(image);
 }
 
 function createImage(parsedXML: any) {
