@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { SummaryActivity } from "strava";
-import { ONE_HOUR } from "../../../../constants";
+import { FIFTEEN_MINUTES } from "../../../../constants";
 import { getActivities } from "../../../../shared/services/strava";
 import { isZwiftActivity } from "../../../../shared/util";
 import { Session } from "../../../types";
@@ -36,7 +36,7 @@ export async function handleGETActivities(req: Request, res: Response) {
     .sort((a, b) => -a.start_date.localeCompare(b.start_date));
 
   res
-    .header("Cache-control", `private, max-age=${ONE_HOUR}`)
+    .header("Cache-control", `private, max-age=${FIFTEEN_MINUTES}`)
     .status(200)
     .json(filteredAndSortedActivities);
 }

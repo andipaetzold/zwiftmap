@@ -1,1 +1,1 @@
-export const ONE_HOUR = 3600;
+export const FIFTEEN_MINUTES = 15 * 60;

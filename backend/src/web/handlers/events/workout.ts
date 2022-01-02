@@ -11,6 +11,7 @@ import {
   RampInterval,
 } from "./workout/types";
 import { COLORS, ZONES } from "./workout/constants";
+import { FIFTEEN_MINUTES } from "../../../constants";
 
 const HEIGHT = 250;
 const WIDTH = 1_000;
@@ -55,7 +56,7 @@ export async function handleGetEventWorkout(req: Request, res: Response) {
   const image = createImage(workout);
 
   res
-    .header("Cache-control", "private, max-age=3600")
+    .header("Cache-control", `private, max-age=${FIFTEEN_MINUTES}`)
     .status(200)
     .contentType("svg")
     .send(image);

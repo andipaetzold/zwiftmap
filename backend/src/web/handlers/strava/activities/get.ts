@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ONE_HOUR } from "../../../../constants";
+import { FIFTEEN_MINUTES } from "../../../../constants";
 import { getActivityById } from "../../../../shared/services/strava";
 import { isZwiftActivity } from "../../../../shared/util";
 import { Session } from "../../../types";
@@ -17,7 +17,7 @@ export async function handleGETActivity(req: Request, res: Response) {
   );
 
   if (isZwiftActivity(activity)) {
-    res.header("Cache-control", `private, max-age=${ONE_HOUR}`).status(200).json(activity);
+    res.header("Cache-control", `private, max-age=${FIFTEEN_MINUTES}`).status(200).json(activity);
   } else {
     res.sendStatus(404);
   }
