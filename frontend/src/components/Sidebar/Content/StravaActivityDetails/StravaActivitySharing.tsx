@@ -3,14 +3,15 @@ import { ListItem, ListSubheader, SimpleListItem } from "@react-md/list";
 import {
   ImageSVGIcon,
   InsertLinkSVGIcon,
-  ShareSVGIcon
+  ShareSVGIcon,
 } from "@react-md/material-icons";
 import * as Sentry from "@sentry/react";
 import { useEffect, useRef, useState } from "react";
 import { createUrl } from "../../../../services/location-state";
+import { request } from "../../../../services/request";
 import {
   appendStravaDescription,
-  StravaActivity
+  StravaActivity,
 } from "../../../../services/StravaActivityRepository";
 import { shareStravaActivity } from "../../../../services/zwiftMapApi";
 import { getShareImageUrl } from "../../../../util/cloudinary";
@@ -125,10 +126,8 @@ function ShareActivityAsImage({ activity }: Props) {
             reject(new Error(`Image wasn't created in time`));
           } else {
             try {
-              const r = await fetch(cloudinaryURL, { method: "HEAD" });
-              if (r.ok) {
-                resolve();
-              }
+              await request(cloudinaryURL, { method: "HEAD" });
+              resolve();
             } catch {
             } finally {
               pollCounter.current++;

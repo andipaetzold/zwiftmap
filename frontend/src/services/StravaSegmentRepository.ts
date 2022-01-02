@@ -1,24 +1,15 @@
-import axios from "axios";
 import fromPairs from "lodash/fromPairs";
 import { StravaSegment } from "../types";
-import { createAxiosCacheAdapter } from "./axios-cache-adapter";
-
-const api = axios.create({
-  adapter: createAxiosCacheAdapter(),
-});
+import { request } from "./request";
 
 async function getStravaSegmentStream<
   Stream extends "altitude" | "distance" | "latlng"
 >(stravaSegmentId: number, stream: Stream): Promise<StravaSegment[Stream]> {
-  const response = await api.get<StravaSegment[Stream]>(
-    `/strava-segments/${stravaSegmentId}/${stream}.json`
-  );
-
-  if (typeof response.data === "string") {
+  try {
+    return await request(`/strava-segments/${stravaSegmentId}/${stream}.json`);
+  } catch {
     throw new Error(`Error fetching ${stream} for segment ${stravaSegmentId}`);
   }
-
-  return response.data;
 }
 
 export async function getStravaSegmentStreams<

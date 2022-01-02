@@ -1,18 +1,13 @@
-import axios from "axios";
-import { createAxiosCacheAdapter } from "../axios-cache-adapter";
+import { createFetchCache } from "../fetch-cache";
 import { ZwiftEvent } from "./types";
 
-const api = axios.create({
-  baseURL: "https://us-or-rly101.zwift.com/api",
-  adapter: createAxiosCacheAdapter(),
-});
+const BASE_URL = "https://us-or-rly101.zwift.com/api";
+const api = createFetchCache(fetch);
 
 export async function fetchEvents(): Promise<ZwiftEvent[]> {
-  const response = await api.get<ZwiftEvent[]>("/public/events/upcoming");
-  return response.data;
+  return await api(`${BASE_URL}/public/events/upcoming`);
 }
 
 export async function fetchEvent(eventId: string): Promise<ZwiftEvent> {
-  const response = await api.get<ZwiftEvent>(`/public/events/${eventId}`);
-  return response.data;
+  return await api(`${BASE_URL}/public/events/${eventId}`);
 }

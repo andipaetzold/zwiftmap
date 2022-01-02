@@ -1,11 +1,11 @@
 import { List, SimpleListItem } from "@react-md/list";
 import * as Sentry from "@sentry/react";
-import axios from "axios";
 import React from "react";
 import { useAsync } from "react-async-hook";
 import { Helmet } from "react-helmet-async";
 import { useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";
 import { LocationStateStravaActivity } from "../../../../services/location-state";
+import { ErrorWithStatus } from "../../../../services/request";
 import { getStravaActivity } from "../../../../services/StravaActivityRepository";
 import { ConnectToStravaListItem } from "../../../ConnectToStravaListItem";
 import { LoadingSpinnerListItem } from "../../../Loading";
@@ -61,8 +61,8 @@ function StravaActivityDetailsContent({ state }: Props) {
   }
 
   if (error) {
-    if (axios.isAxiosError(error)) {
-      switch (error.response?.status) {
+    if (error instanceof ErrorWithStatus) {
+      switch (error.status) {
         case 403:
           return (
             <>

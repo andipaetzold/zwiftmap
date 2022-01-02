@@ -1,10 +1,10 @@
 import polyline from "@mapbox/polyline";
 import { SimpleListItem } from "@react-md/list";
 import * as Sentry from "@sentry/react";
-import axios from "axios";
 import { useAsync } from "react-async-hook";
 import { useStore } from "../../../../../hooks/useStore";
 import { LocationStateStravaActivities } from "../../../../../services/location-state";
+import { ErrorWithStatus } from "../../../../../services/request";
 import { getStravaActivities } from "../../../../../services/zwiftMapApi";
 import { HoverStateType } from "../../../../../types";
 import { getWorld } from "../../../../../util/strava";
@@ -29,7 +29,7 @@ export function StravaActivitiesListComponent({ state }: Props) {
   });
 
   if (error) {
-    if (axios.isAxiosError(error) && error.response?.status === 429) {
+    if (error instanceof ErrorWithStatus && error.status === 429) {
       return (
         <SimpleListItem threeLines>
           ZwiftMap received too many requests and got rate limited by Strava.

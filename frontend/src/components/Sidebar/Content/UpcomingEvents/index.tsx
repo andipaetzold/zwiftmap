@@ -34,7 +34,7 @@ export function UpcomingEvents({ state }: Props) {
         <List>
           <Header state={state} />
           <SimpleListItem
-            secondaryText="Make sure you can access the activity and it was recorded in Zwift."
+            secondaryText="Error fetching upcoming events."
             threeLines
           >
             An error occurred

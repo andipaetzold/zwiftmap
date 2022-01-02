@@ -1,4 +1,3 @@
-import axios from "axios";
 import {
   DetailedActivity,
   DetailedSegment,
@@ -6,71 +5,97 @@ import {
   SummaryActivity,
 } from "strava";
 import { BACKEND_HOST } from "../config";
-import { Share, StravaSettings } from "../types";
-import { createAxiosCacheAdapter } from "./axios-cache-adapter";
+import { AuthStatus, Share, StravaSettings } from "../types";
+import { request } from "./request";
 
-export const zwiftMapApi = axios.create({
-  baseURL: BACKEND_HOST,
-  withCredentials: true,
-  adapter: createAxiosCacheAdapter({
-    filter: (config) =>
-      config.url!.startsWith("/strava") || config.url!.startsWith("/share"),
-  }),
-});
+const DEFAULT_INIT: Partial<RequestInit> = {
+  credentials: "include",
+};
 
-export async function getShare(id: string) {
-  const response = await zwiftMapApi.get<Share>(`/share/${id}`);
-  return response.data;
+export async function getShare(id: string): Promise<Share> {
+  return await request(`${BACKEND_HOST}/share/${id}`, {
+    ...DEFAULT_INIT,
+  });
 }
 
-export async function getStravaSettings() {
-  const response = await zwiftMapApi.get<StravaSettings>(`/strava/settings`);
-  return response.data;
+export async function getStravaSettings(): Promise<StravaSettings> {
+  return await request(`${BACKEND_HOST}/strava/settings`, {
+    ...DEFAULT_INIT,
+  });
 }
 
 export async function updateStravaSettings(settings: StravaSettings) {
-  await zwiftMapApi.put<StravaSettings>(`/strava/settings`, settings);
+  await request(`${BACKEND_HOST}/strava/settings`, {
+    ...DEFAULT_INIT,
+    method: "PUT",
+    body: JSON.stringify(settings),
+  });
 }
 
-export async function getStravaActivities() {
-  const response = await zwiftMapApi.get<SummaryActivity[]>(
-    `/strava/activities`
-  );
-  return response.data;
+export async function getStravaActivities(): Promise<SummaryActivity[]> {
+  return await request(`${BACKEND_HOST}/strava/activities`, {
+    ...DEFAULT_INIT,
+  });
 }
 
-export async function getStravaActivityById(activityId: number) {
-  const response = await zwiftMapApi.get<DetailedActivity>(
-    `/strava/activities/${activityId}`
-  );
-  return response.data;
+export async function getStravaActivityById(
+  activityId: number
+): Promise<DetailedActivity> {
+  return await request(`${BACKEND_HOST}/strava/activities/${activityId}`, {
+    ...DEFAULT_INIT,
+  });
 }
 
 export async function updateStravaActivity(
   activityId: number,
   activity: Pick<DetailedActivity, "description">
 ) {
-  await zwiftMapApi.put(`/strava/activities/${activityId}`, activity);
-}
-
-export async function getStravaSegmentById(segmentId: number) {
-  const response = await zwiftMapApi.get<DetailedSegment>(
-    `/strava/segments/${segmentId}`
-  );
-  return response.data;
-}
-
-export async function getStravaActivityStreams(activityId: number) {
-  const response = await zwiftMapApi.get<StreamSet>(
-    `/strava/activities/${activityId}/streams`
-  );
-  return response.data;
-}
-
-export async function shareStravaActivity(activityId: number) {
-  const response = await zwiftMapApi.post<{ id: string }>("/share", {
-    type: "strava-activity",
-    stravaActivityId: activityId,
+  await request(`${BACKEND_HOST}/strava/activities/${activityId}`, {
+    ...DEFAULT_INIT,
+    method: "PUT",
+    body: JSON.stringify(activity),
   });
-  return response.data;
+}
+
+export async function getStravaSegmentById(
+  segmentId: number
+): Promise<DetailedSegment> {
+  return await request(`${BACKEND_HOST}/strava/segments/${segmentId}`, {
+    ...DEFAULT_INIT,
+  });
+}
+
+export async function getStravaActivityStreams(
+  activityId: number
+): Promise<StreamSet> {
+  return await request(
+    `${BACKEND_HOST}/strava/activities/${activityId}/streams`,
+    { ...DEFAULT_INIT }
+  );
+}
+
+export async function shareStravaActivity(
+  activityId: number
+): Promise<{ id: string }> {
+  return await request(`${BACKEND_HOST}/share`, {
+    ...DEFAULT_INIT,
+    method: "POST",
+    body: JSON.stringify({
+      type: "strava-activity",
+      stravaActivityId: activityId,
+    }),
+  });
+}
+
+export async function authLogout(): Promise<void> {
+  await request(`${BACKEND_HOST}/auth/logout`, {
+    ...DEFAULT_INIT,
+    method: "POST",
+  });
+}
+
+export async function getAuthStatus(): Promise<AuthStatus> {
+  return await request(`${BACKEND_HOST}/auth/status`, {
+    ...DEFAULT_INIT,
+  });
 }

@@ -1,6 +1,6 @@
 import { AuthStatus } from "../types";
 import { AUTH_STATUS_UPDATE, emitter } from "./emitter";
-import { zwiftMapApi } from "./zwiftMapApi";
+import { authLogout, getAuthStatus } from "./zwiftMapApi";
 
 export async function logout(): Promise<void> {
   const authStatus = getCachedAuthStatus();
@@ -11,7 +11,7 @@ export async function logout(): Promise<void> {
   writeAuthStatus({
     strava: false,
   });
-  await zwiftMapApi.post("/auth/logout");
+  await authLogout();
 }
 
 export const AuthStatusLoading = Symbol("Auth Status Loading");
@@ -29,11 +29,11 @@ export function writeAuthStatus(newAuthStatus: AuthStatus): void {
 
 export async function fetchAuthStatus(): Promise<AuthStatus> {
   try {
-    const response = await zwiftMapApi.get<AuthStatus>("/auth/status");
+    const authStatus = await getAuthStatus();
 
-    writeAuthStatus(response.data);
+    writeAuthStatus(authStatus);
 
-    return response.data;
+    return authStatus;
   } catch (e) {
     writeAuthStatus({
       strava: false,

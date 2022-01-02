@@ -1,6 +1,7 @@
 import { SimpleListItem } from "@react-md/list";
 import { Typography } from "@react-md/typography";
 import { useAsync } from "react-async-hook";
+import { request } from "../../../../../services/request";
 import { ShareStravaActivity } from "../../../../../types";
 import { getShareImageUrl } from "../../../../../util/cloudinary";
 import { SharedStravaActivityElevationChart } from "./ElevationChart";
@@ -19,7 +20,7 @@ export function SharedStravaActivity({ share }: Props) {
   const { result: imageExists } = useAsync<boolean>(
     async (u: string) => {
       try {
-        const response = await fetch(u, { method: "HEAD" });
+        const response = await request(u, { method: "HEAD" });
         return response.ok;
       } catch {
         return false;
