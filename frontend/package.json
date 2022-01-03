@@ -26,7 +26,7 @@
     "@turf/helpers": "6.5.0",
     "@turf/points-within-polygon": "6.5.0",
     "@types/jest": "27.4.0",
-    "@types/leaflet": "1.7.7",
+    "@types/leaflet": "1.7.8",
     "@types/lodash": "4.14.178",
     "@types/node": "16.11.18",
     "@types/react": "17.0.38",
