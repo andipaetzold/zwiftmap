@@ -28,6 +28,9 @@ export async function updateStravaSettings(settings: StravaSettings) {
   await request(`${BACKEND_HOST}/strava/settings`, {
     ...DEFAULT_INIT,
     method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify(settings),
   });
 }
@@ -53,6 +56,9 @@ export async function updateStravaActivity(
   await request(`${BACKEND_HOST}/strava/activities/${activityId}`, {
     ...DEFAULT_INIT,
     method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify(activity),
   });
 }
@@ -80,6 +86,9 @@ export async function shareStravaActivity(
   return await request(`${BACKEND_HOST}/share`, {
     ...DEFAULT_INIT,
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({
       type: "strava-activity",
       stravaActivityId: activityId,
