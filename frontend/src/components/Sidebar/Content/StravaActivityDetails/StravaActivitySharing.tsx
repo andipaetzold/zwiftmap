@@ -182,7 +182,6 @@ function AddLinkToActivityDescription({ activity }: Props) {
 
       addMessage({ children: "Link posted to activity description" });
     } catch (e) {
-      console.error(e);
       Sentry.captureException(e);
       addMessage({ children: "Error posting link to activity description" });
     } finally {
