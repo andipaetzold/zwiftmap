@@ -1,6 +1,7 @@
 import { Job, Queue } from "bull";
 import { createLogger, Logger } from "./services/logger";
 import * as Sentry from "@sentry/node";
+import axios from "axios";
 
 export function wrap<T>(
   handler: (job: Job<T>, logger: Logger) => Promise<void>
@@ -19,6 +20,14 @@ export function wrap<T>(
       await handler(job, logger);
       logger.info("Job done");
     } catch (e) {
+      if (axios.isAxiosError(e) && e.response?.status === 429) {
+        const newJob = await job.queue.add(job.data, {
+          delay: 5 * 60 * 1_000,
+        });
+        logger.warn("429 error, delayed job for 5 mins", { jobId: newJob.id });
+        return;
+      }
+
       const sentryEventId = Sentry.captureException(e, {
         contexts: { job: { id: job.id, queue: job.queue.name } },
       });
