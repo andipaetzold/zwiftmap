@@ -71,15 +71,7 @@ async function createShare(
 
   const share = await writeShare(shareWithoutId);
 
-  await imageQueue.add(
-    { path: `/s/${share.id}` },
-    {
-      removeOnComplete: true,
-      removeOnFail: true,
-      attempts: 3,
-      backoff: 5_000,
-    }
-  );
+  await imageQueue.add({ path: `/s/${share.id}` });
 
   return share;
 }

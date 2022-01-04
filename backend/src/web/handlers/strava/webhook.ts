@@ -23,12 +23,7 @@ export async function handleWebhook(req: Request, res: Response) {
     return;
   }
 
-  const job = await stravaWebhookEventQueue.add(webhookEvent, {
-    removeOnComplete: true,
-    removeOnFail: true,
-    attempts: 3,
-    backoff: 3_000,
-  });
+  const job = await stravaWebhookEventQueue.add(webhookEvent);
   req.logger.log(`Enqueued job ${job.id}`);
   res.sendStatus(204);
 }
