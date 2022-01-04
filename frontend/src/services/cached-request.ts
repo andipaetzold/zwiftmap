@@ -7,20 +7,11 @@ function getCacheKey(request: Request): string {
   });
 }
 
-interface Options {
-  filter?: (request: Request) => boolean;
-}
-
-export function createCachedRequest({
-  filter = () => true,
-}: Options = {}): RequestFn {
+export function createCachedRequest(): RequestFn {
   const store = new Map<string, Promise<any>>();
 
   return async <T>(input: RequestInfo, init?: RequestInit): Promise<T> => {
     const requestObj = new Request(input, init);
-    if (!filter(requestObj)) {
-      return await request(requestObj);
-    }
 
     if (requestObj.method.toLowerCase() !== "get") {
       return await request(requestObj);

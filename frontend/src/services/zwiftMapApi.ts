@@ -6,14 +6,17 @@ import {
 } from "strava";
 import { BACKEND_HOST } from "../config";
 import { AuthStatus, Share, StravaSettings } from "../types";
+import { createCachedRequest } from "./cached-request";
 import { request } from "./request";
 
 const DEFAULT_INIT: Partial<RequestInit> = {
   credentials: "include",
 };
 
+const cachedRequest = createCachedRequest();
+
 export async function getShare(id: string): Promise<Share> {
-  return await request(`${BACKEND_HOST}/share/${id}`, {
+  return await cachedRequest(`${BACKEND_HOST}/share/${id}`, {
     ...DEFAULT_INIT,
   });
 }
@@ -36,7 +39,7 @@ export async function updateStravaSettings(settings: StravaSettings) {
 }
 
 export async function getStravaActivities(): Promise<SummaryActivity[]> {
-  return await request(`${BACKEND_HOST}/strava/activities`, {
+  return await cachedRequest(`${BACKEND_HOST}/strava/activities`, {
     ...DEFAULT_INIT,
   });
 }
@@ -44,9 +47,12 @@ export async function getStravaActivities(): Promise<SummaryActivity[]> {
 export async function getStravaActivityById(
   activityId: number
 ): Promise<DetailedActivity> {
-  return await request(`${BACKEND_HOST}/strava/activities/${activityId}`, {
-    ...DEFAULT_INIT,
-  });
+  return await cachedRequest(
+    `${BACKEND_HOST}/strava/activities/${activityId}`,
+    {
+      ...DEFAULT_INIT,
+    }
+  );
 }
 
 export async function updateStravaActivity(
@@ -66,7 +72,7 @@ export async function updateStravaActivity(
 export async function getStravaSegmentById(
   segmentId: number
 ): Promise<DetailedSegment> {
-  return await request(`${BACKEND_HOST}/strava/segments/${segmentId}`, {
+  return await cachedRequest(`${BACKEND_HOST}/strava/segments/${segmentId}`, {
     ...DEFAULT_INIT,
   });
 }
@@ -74,7 +80,7 @@ export async function getStravaSegmentById(
 export async function getStravaActivityStreams(
   activityId: number
 ): Promise<StreamSet> {
-  return await request(
+  return await cachedRequest(
     `${BACKEND_HOST}/strava/activities/${activityId}/streams`,
     { ...DEFAULT_INIT }
   );

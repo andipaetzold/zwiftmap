@@ -3,12 +3,13 @@ import connectRedis from "connect-redis";
 import cors from "cors";
 import express from "express";
 import session from "express-session";
+import nocache from "nocache";
 import {
   AUTH_COOKIE_NAME,
   AUTH_SECRET,
   ENVIRONMENT,
   FRONTEND_URL,
-  STATIC_URL
+  STATIC_URL,
 } from "../shared/config";
 import { redisCallbackClient } from "../shared/persistence/redis";
 import { logger } from "./middleware/logger";
@@ -16,6 +17,7 @@ import { requestId } from "./middleware/requestId";
 import { requestLogger } from "./middleware/requestLogger";
 
 export const app = express();
+app.use(nocache());
 app.use(compression());
 app.use(requestId);
 app.use(requestLogger);

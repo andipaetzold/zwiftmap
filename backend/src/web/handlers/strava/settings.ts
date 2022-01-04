@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { FIFTEEN_MINUTES } from "../../../constants";
 import {
   readStravaSettings,
   writeStravaSettings,
@@ -16,7 +15,7 @@ export async function handleGETStravaSettings(req: Request, res: Response) {
   }
 
   const settings = await readStravaSettings(session.stravaAthleteId);
-  res.header("Cache-control", "no-store").json(settings);
+  res.json(settings);
 }
 
 export async function handlePUTStravaSettings(req: Request, res: Response) {
@@ -33,5 +32,5 @@ export async function handlePUTStravaSettings(req: Request, res: Response) {
   }
 
   await writeStravaSettings(session.stravaAthleteId, req.body);
-  res.header("Cache-control", `private, max-age=${FIFTEEN_MINUTES}`).json(req.body);
+  res.json(req.body);
 }
