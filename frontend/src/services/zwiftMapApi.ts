@@ -6,14 +6,12 @@ import {
 } from "strava";
 import { BACKEND_HOST } from "../config";
 import { AuthStatus, Share, StravaSettings } from "../types";
-import { createCachedRequest } from "./cached-request";
+import { cachedRequest } from "./cached-request";
 import { request } from "./request";
 
 const DEFAULT_INIT: Partial<RequestInit> = {
   credentials: "include",
 };
-
-const cachedRequest = createCachedRequest();
 
 export async function getShare(id: string): Promise<Share> {
   return await cachedRequest(`${BACKEND_HOST}/share/${id}`, {

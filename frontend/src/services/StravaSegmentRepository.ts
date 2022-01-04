@@ -1,8 +1,6 @@
 import fromPairs from "lodash/fromPairs";
 import { StravaSegment } from "../types";
-import { createCachedRequest } from "./cached-request";
-
-const cachedRequest = createCachedRequest();
+import { cachedRequest } from "./cached-request";
 
 async function getStravaSegmentStream<
   Stream extends "altitude" | "distance" | "latlng"

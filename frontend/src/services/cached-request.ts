@@ -1,4 +1,4 @@
-import { request, RequestFn } from "./request";
+import { request } from "./request";
 
 function getCacheKey(request: Request): string {
   return JSON.stringify({
@@ -7,28 +7,28 @@ function getCacheKey(request: Request): string {
   });
 }
 
-export function createCachedRequest(): RequestFn {
-  const store = new Map<string, Promise<any>>();
+const store = new Map<string, Promise<any>>();
+export async function cachedRequest<T>(
+  input: RequestInfo,
+  init?: RequestInit
+): Promise<T> {
+  const requestObj = new Request(input, init);
 
-  return async <T>(input: RequestInfo, init?: RequestInit): Promise<T> => {
-    const requestObj = new Request(input, init);
+  if (requestObj.method.toLowerCase() !== "get") {
+    return await request(requestObj);
+  }
 
-    if (requestObj.method.toLowerCase() !== "get") {
-      return await request(requestObj);
-    }
+  const cacheKey = getCacheKey(requestObj);
 
-    const cacheKey = getCacheKey(requestObj);
+  if (!store.has(cacheKey)) {
+    const data = await request(requestObj);
+    store.set(cacheKey, data);
+  }
 
-    if (!store.has(cacheKey)) {
-      const data = await request(requestObj);
-      store.set(cacheKey, data);
-    }
-
-    try {
-      return store.get(cacheKey);
-    } catch (e) {
-      store.delete(cacheKey);
-      throw e;
-    }
-  };
+  try {
+    return store.get(cacheKey);
+  } catch (e) {
+    store.delete(cacheKey);
+    throw e;
+  }
 }
