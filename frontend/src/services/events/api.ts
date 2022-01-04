@@ -1,8 +1,8 @@
-import { createFetchCache } from "../fetch-cache";
+import { createCachedRequest } from "../cached-request";
 import { ZwiftEvent } from "./types";
 
 const BASE_URL = "https://us-or-rly101.zwift.com/api";
-const api = createFetchCache(fetch);
+const api = createCachedRequest();
 
 export async function fetchEvents(): Promise<ZwiftEvent[]> {
   return await api(`${BASE_URL}/public/events/upcoming`);
