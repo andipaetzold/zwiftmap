@@ -53,9 +53,13 @@ export async function updateActivity(
   athleteId: number,
   activityId: number,
   activity: Partial<Pick<DetailedActivity, "description">>
-): Promise<void> {
+): Promise<DetailedActivity> {
   const api = await getStravaUserAPI(athleteId);
-  await api.put<DetailedActivity>(`/activities/${activityId}`, activity);
+  const response = await api.put<DetailedActivity>(
+    `/activities/${activityId}`,
+    activity
+  );
+  return response.data;
 }
 
 export async function getSegmentById(athleteId: number, segmentId: number) {
