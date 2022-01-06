@@ -17,5 +17,6 @@ export interface ShareStravaActivity {
     | "start_date"
   >;
   athlete: { id: number };
-  streams: StreamSet;
+  streams: Pick<StreamSet, "distance" | "altitude" | "latlng"> &
+    Partial<Omit<StreamSet, "distance" | "altitude" | "latlng">>;
 }

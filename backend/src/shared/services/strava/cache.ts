@@ -42,7 +42,7 @@ export async function writeActivityToCache(
 export async function getActivityStreamsFromCache(
   athleteId: number,
   activityId: number
-): Promise<StreamSet | undefined> {
+): Promise<Partial<StreamSet> | undefined> {
   try {
     const key = [KEY, athleteId, TYPE_ACTIVITY, activityId, KEY_STREAMS].join(
       ":"
@@ -56,7 +56,7 @@ export async function getActivityStreamsFromCache(
 export async function writeActivityStreamsToCache(
   athleteId: number,
   activityId: number,
-  streams: StreamSet
+  streams: Partial<StreamSet>
 ): Promise<void> {
   try {
     const key = [KEY, athleteId, TYPE_ACTIVITY, activityId, KEY_STREAMS].join(

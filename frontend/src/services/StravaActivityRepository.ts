@@ -40,13 +40,13 @@ async function fetchStravaActivityStreams(
   const streams = await getStravaActivityStreams(activityId);
 
   return {
-    altitude: streams.altitude.data,
+    altitude: streams.altitude?.data,
     cadence: streams.cadence?.data,
-    distance: streams.distance.data,
+    distance: streams.distance?.data,
     heartrate: streams.heartrate?.data,
-    latlng: streams.latlng.data as unknown as [number, number][],
-    time: streams.time.data,
-    velocity: streams.velocity_smooth.data,
+    latlng: streams.latlng?.data,
+    time: streams.time?.data,
+    velocity: streams.velocity_smooth?.data,
     watts: streams.watts?.data,
   };
 }
@@ -81,12 +81,12 @@ export interface StravaActivity {
 }
 
 export interface StravaActivityStreams {
-  altitude: number[];
+  altitude?: number[];
   cadence?: number[];
-  distance: number[];
+  distance?: number[];
   heartrate?: number[];
-  latlng: [number, number][];
-  time: number[];
-  velocity: number[];
+  latlng?: [number, number][];
+  time?: number[];
+  velocity?: number[];
   watts?: number[];
 }

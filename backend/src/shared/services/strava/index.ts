@@ -77,7 +77,7 @@ export async function getSegmentById(athleteId: number, segmentId: number) {
 export async function getActivityStreams(
   athleteId: number,
   activityId: number
-): Promise<StreamSet> {
+): Promise<Partial<StreamSet>> {
   const cachedStreams = await getActivityStreamsFromCache(
     athleteId,
     activityId
@@ -87,7 +87,7 @@ export async function getActivityStreams(
   }
 
   const api = await getStravaUserAPI(athleteId);
-  const response = await api.get<StreamSet>(
+  const response = await api.get<Partial<StreamSet>>(
     `/activities/${activityId}/streams`,
     {
       params: {

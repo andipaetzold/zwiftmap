@@ -77,7 +77,7 @@ export async function getStravaSegmentById(
 
 export async function getStravaActivityStreams(
   activityId: number
-): Promise<StreamSet> {
+): Promise<Partial<StreamSet>> {
   return await cachedRequest(
     `${BACKEND_HOST}/strava/activities/${activityId}/streams`,
     { ...DEFAULT_INIT }

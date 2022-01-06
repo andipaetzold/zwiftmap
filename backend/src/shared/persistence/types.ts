@@ -38,7 +38,8 @@ export interface ShareStravaActivity {
     | "start_latlng"
     | "start_date"
   >;
-  streams: StreamSet;
+  streams: Pick<StreamSet, "distance" | "altitude" | "latlng"> &
+    Partial<Omit<StreamSet, "distance" | "altitude" | "latlng">>;
 }
 
 export interface ShareStravaActivityDBRow {

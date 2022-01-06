@@ -7,6 +7,10 @@ interface Props {
 }
 
 export function StravaActivitySurface({ activity }: Props) {
+  if (!activity.streams.distance || !activity.streams.latlng) {
+    return null;
+  }
+
   return (
     <SurfaceListItem
       distancStream={activity.streams.distance}

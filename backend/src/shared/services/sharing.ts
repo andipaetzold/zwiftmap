@@ -3,7 +3,7 @@ import { DetailedActivity, StreamSet } from "strava";
 import { FRONTEND_URL } from "../config";
 import { ErrorWithStatusCode } from "../ErrorWithStatusCode";
 import { getShareUrl, writeShare } from "../persistence/share";
-import { Share } from "../persistence/types";
+import { Share, ShareStravaActivity } from "../persistence/types";
 import { imageQueue } from "../queue";
 import { isZwiftActivity } from "../util";
 import { getActivityById, getActivityStreams, updateActivity } from "./strava";
@@ -51,8 +51,16 @@ export async function addLinkToActivity(
 
 async function createShare(
   activity: DetailedActivity,
-  activityStreams: StreamSet
-): Promise<Share> {
+  activityStreams: Partial<StreamSet>
+) {
+  if (
+    !activityStreams.altitude ||
+    !activityStreams.distance ||
+    !activityStreams.latlng
+  ) {
+    throw new Error("Altitude, Distance, and LatLng streams must exist");
+  }
+
   const shareWithoutId: Omit<Share, "id"> = {
     type: "strava-activity",
     activity: pick(activity, [
@@ -66,7 +74,7 @@ async function createShare(
       "start_date",
     ]),
     athlete: pick(activity.athlete, "id"),
-    streams: activityStreams,
+    streams: activityStreams as ShareStravaActivity["streams"],
   };
 
   const share = await writeShare(shareWithoutId);

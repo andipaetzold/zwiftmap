@@ -45,6 +45,10 @@ export async function loadRoute(state: LocationState): Promise<
 
       case "strava-activity": {
         const activity = await getStravaActivity(state.stravaActivityId);
+        if (!activity.streams.distance || !activity.streams.latlng) {
+          return;
+        }
+
         return {
           distance: activity.streams.distance,
           latlng: activity.streams.latlng,
