@@ -57,7 +57,7 @@ export function StravaActivitiesListComponent({ state }: Props) {
           <ListItemState
             key={activity.id}
             state={{
-              world: world!,
+              world,
               type: "strava-activity",
               stravaActivityId: activity.id,
             }}
