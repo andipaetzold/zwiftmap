@@ -24,13 +24,13 @@ export function OverlaySurfaces() {
 
   const { result: streams } = useAsync(loadRoute, [state]);
 
-  if (!streams) {
+  if (!streams || !state.world) {
     return null;
   }
 
   const surfaceTypeStream = getSurfaceStream(
     streams.latlng,
-    worldConfigs[state.world!.slug].surfaces
+    worldConfigs[state.world.slug].surfaces
   );
   const zippedStream = zipWith(
     streams.latlng,
