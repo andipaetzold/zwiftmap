@@ -19,14 +19,12 @@ export async function cachedRequest<T>(
   }
 
   const cacheKey = getCacheKey(requestObj);
-
   if (!store.has(cacheKey)) {
-    const data = await request(requestObj);
-    store.set(cacheKey, data);
+    store.set(cacheKey, request(requestObj));
   }
 
   try {
-    return store.get(cacheKey);
+    return await store.get(cacheKey);
   } catch (e) {
     store.delete(cacheKey);
     throw e;
