@@ -38,17 +38,19 @@ export async function getEventStreams<
     fromPairs(streamTypes.map((type) => [type, []]));
 
   const distance = event.distanceInMeters / 1_000 - (route.leadInDistance ?? 0);
-  const laps = Math.floor(distance / route.distance);
-  range(0, laps).forEach(() => {
-    for (let streamType of streamTypes) {
-      adjustedStreams[streamType].push(
-        // @ts-ignore
-        ...streams[streamType]
-      );
-    }
-  });
+  if (route.lap) {
+    const laps = Math.floor(distance / route.distance);
+    range(0, laps).forEach(() => {
+      for (let streamType of streamTypes) {
+        adjustedStreams[streamType].push(
+          // @ts-ignore
+          ...streams[streamType]
+        );
+      }
+    });
+  }
 
-  const remainingDistance = distance % route.distance;
+  const remainingDistance = route.lap ? distance % route.distance : distance;
   const finishIndex = streams.distance.findIndex(
     (d) => d / 1_000 > remainingDistance
   );
@@ -59,6 +61,7 @@ export async function getEventStreams<
     );
   }
 
+  console.log(adjustedStreams)
   return adjustedStreams;
 }
 
