@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "engines": {
-    "node": "16.13.1"
+    "node": "16.13.2"
   },
   "scripts": {
     "start:both": "concurrently -n web,worker npm:start:web npm:start:worker",
