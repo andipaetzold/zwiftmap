@@ -12,12 +12,15 @@ export const request: RequestFn = async (
     if (response.status === 204) {
       return undefined;
     } else {
-      switch (response.headers.get("content-type")?.split(";")[0]) {
-        case "application/json":
-          return await response.json();
-        default:
-          return undefined;
+      const contentType = response.headers.get("content-type")?.split(";")[0];
+      if (contentType === "application/json") {
+        return await response.json();
+      } else if (contentType?.startsWith("text/")) {
+        return await response.text();
+      } else if (contentType?.startsWith("image/")) {
+        return await response.blob();
       }
+      return undefined;
     }
   } else {
     throw new ErrorWithStatus(response.statusText, response.status);
