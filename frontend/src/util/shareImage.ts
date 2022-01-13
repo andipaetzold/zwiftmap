@@ -1,5 +1,4 @@
 import * as Sentry from "@sentry/react";
-import { request } from "../services/request";
 
 const isNavigatorShareSupported = "share" in navigator;
 
@@ -10,7 +9,7 @@ export async function shareImage(url: string): Promise<void> {
   }
 
   try {
-    const response = await request(url);
+    const response = await fetch(url);
     const blob = await response.blob();
 
     const lastModified = response.headers.has("last-modified")
