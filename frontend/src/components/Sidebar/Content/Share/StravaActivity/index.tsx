@@ -20,8 +20,8 @@ export function SharedStravaActivity({ share }: Props) {
   const { result: imageExists } = useAsync<boolean>(
     async (u: string) => {
       try {
-        const response = await request(u, { method: "HEAD" });
-        return response.ok;
+        await request(u, { method: "HEAD" });
+        return true;
       } catch {
         return false;
       }
