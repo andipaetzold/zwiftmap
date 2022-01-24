@@ -36,8 +36,8 @@
     "typescript": "4.5.5"
   },
   "dependencies": {
-    "@sentry/node": "6.16.1",
-    "@sentry/tracing": "6.16.1",
+    "@sentry/node": "6.17.0",
+    "@sentry/tracing": "6.17.0",
     "axios": "0.25.0",
     "bull": "4.2.1",
     "cloudinary": "1.28.1",
