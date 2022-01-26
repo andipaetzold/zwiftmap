@@ -6,6 +6,7 @@ import { EventHelmet } from "./EventHelmet";
 import { EventImage } from "./EventImage";
 import { EventKit } from "./EventKit";
 import { EventLinks } from "./EventLinks";
+import { EventPowerUps } from "./EventPowerUps";
 import { EventRules } from "./EventRules";
 import { EventSchema } from "./EventSchema";
 import { EventTimeTrial } from "./EventTimeTrial";
@@ -30,6 +31,7 @@ export function EventComponent({ event }: Props) {
       </SimpleListItem>
 
       <EventFacts event={event} />
+      <EventPowerUps event={event} />
       <EventWorkoutChart event={event} />
       <EventTimeTrial event={event} />
       <EventRules event={event} />
