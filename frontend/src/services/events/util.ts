@@ -61,7 +61,6 @@ export async function getEventStreams<
     );
   }
 
-  console.log(adjustedStreams)
   return adjustedStreams;
 }
 
