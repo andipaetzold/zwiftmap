@@ -44,7 +44,11 @@ interface Props {
 }
 
 export function EventPowerUps({ event }: Props) {
-  if (event.rulesSet.includes("NO_POWERUPS")) {
+  if (
+    event.rulesSet.includes("NO_POWERUPS") ||
+    event.eventType === "TIME_TRIAL" ||
+    event.eventType === "GROUP_WORKOUT"
+  ) {
     return null;
   }
 
