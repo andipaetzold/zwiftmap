@@ -1,7 +1,7 @@
 import { Roads } from "../../../services/Roads";
-import edge1 from "./edges/1";
-import edge2 from "./edges/2";
-import edge3 from "./edges/3";
+import edgeStartToPaddock from "./edges/start-paddock";
+import edgePaddockToStart from "./edges/paddock-start";
+import edgePaddockExit from "./edges/paddock-exit";
 
 const ROADS = new Roads();
 
@@ -15,9 +15,9 @@ const PADDOCK_CENTER = ROADS.createNode([48.864763, 2.313889, 48]);
 const PADDOCK_ROW_FRONT = ROADS.createNode([48.866585, 2.31407, 48]);
 const PADDOCK_ROW_BACK = ROADS.createNode([48.865904, 2.313979, 48]);
 
-ROADS.createEdge(START_FINISH, PADDOCK_EXIT, edge1);
-ROADS.createEdge(PADDOCK_EXIT, START_FINISH, edge2);
-ROADS.createEdge(PADDOCK_ROW_FRONT, PADDOCK_EXIT, edge3);
+ROADS.createEdge(START_FINISH, PADDOCK_EXIT, edgeStartToPaddock);
+ROADS.createEdge(PADDOCK_EXIT, START_FINISH, edgePaddockToStart);
+ROADS.createEdge(PADDOCK_ROW_FRONT, PADDOCK_EXIT, edgePaddockExit);
 ROADS.createEdge(PADDOCK_1, PADDOCK_ROW_FRONT, []);
 ROADS.createEdge(PADDOCK_2, PADDOCK_ROW_FRONT, []);
 ROADS.createEdge(PADDOCK_ROW_BACK, PADDOCK_ROW_FRONT, []);
