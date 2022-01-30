@@ -17,6 +17,7 @@ import { OverlayNone } from "./overlays/OverlayNone";
 import { OverlaySegments } from "./overlays/OverlaySegments";
 import { OverlaySurfaces } from "./overlays/OverlaySurfaces";
 import { PreviewRoute } from "./PreviewRoute";
+import { RoadLayer } from "./RoadLayer";
 import { RoutePosition } from "./RoutePosition";
 import { SurfaceDebugLayer } from "./SurfaceDebugLayer";
 import { WorldImage } from "./WorldImage";
@@ -125,6 +126,7 @@ export function Map({ world, routeStreams }: Props) {
         </LayersControl.BaseLayer>
 
         <SurfaceDebugLayer world={world} />
+        <RoadLayer world={world} />
       </LayersControl>
 
       <RoutePosition streams={routeStreams} />
