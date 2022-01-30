@@ -9,7 +9,7 @@ import {
 import { World, WorldSlug } from "zwift-data";
 import { ENVIRONMENT } from "../../config";
 import { WORLD_ROADS } from "../../constants/roads";
-import { RoadPosition, Roads } from "../../types";
+import { RoadPosition, Roads } from "../../services/Roads";
 
 interface Props {
   world: World;

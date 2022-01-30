@@ -1,12 +1,11 @@
-import { LatLngTuple } from "leaflet";
 import { useMemo } from "react";
 import { useAsync } from "react-async-hook";
 import { CircleMarker, useMapEvent } from "react-leaflet";
 import { World, WorldSlug } from "zwift-data";
 import { WORLD_ROADS } from "../../constants/roads";
 import { useStore } from "../../hooks/useStore";
-import { snapPoint } from "../../services/navigation";
-import { Edge, Roads } from "../../types";
+import { SnappedPoint, snapPoint } from "../../services/navigation";
+import { Roads } from "../../services/Roads";
 import { POLYLINE_WIDTH } from "./constants";
 
 interface Props {
@@ -48,11 +47,4 @@ export function Navigation({ world }: Props) {
       ))}
     </>
   );
-}
-
-interface SnappedPoint {
-  position: LatLngTuple;
-  sourcePosition: LatLngTuple;
-  edge: Edge;
-  edgeStreamIndex: number;
 }

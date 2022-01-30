@@ -1,5 +1,5 @@
 import { WorldSlug } from "zwift-data";
-import { Roads } from "../../types";
+import { Roads } from "../../services/Roads";
 
 export const WORLD_ROADS: Record<WorldSlug, null | (() => Promise<Roads>)> = {
   bologna: null,

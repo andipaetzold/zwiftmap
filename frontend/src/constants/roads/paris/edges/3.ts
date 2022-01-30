@@ -1,4 +1,4 @@
-import { RoadPosition } from "../../../../types";
+import { RoadPosition } from "../../../../services/Roads";
 
 const stream: RoadPosition[] = [
   [48.867348, 2.314105, 48],
