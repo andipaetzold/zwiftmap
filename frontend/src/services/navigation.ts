@@ -145,7 +145,6 @@ function createRoute(
 
   let cur = source;
   while (predecessors.has(cur)) {
-    console.log("while 2");
     const next = predecessors.get(cur)!;
 
     const forwardStream = [...cur.edges].find(
