@@ -4,15 +4,13 @@ export interface Roads {
 }
 
 export interface Node {
-  id: NodeId;
   position: RoadPosition;
+  edges: Set<Edge>;
 }
 
-export type NodeId = number;
-
 export interface Edge {
-  from: NodeId;
-  to: NodeId;
+  from: Node;
+  to: Node;
   stream: RoadPosition[];
 }
 

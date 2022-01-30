@@ -51,14 +51,16 @@ function Lines({ world }: Props) {
           positions={edge.stream.map(dropAltitude)}
         />
       ))}
-      {roads.nodes.map(({ id, position }, nodeIndex) => (
+      {roads.nodes.map(({ position }, nodeIndex) => (
         <CircleMarker
           key={nodeIndex}
           center={[position[0], position[1]]}
           radius={5}
         >
           <Popup>
-            <pre>{JSON.stringify({ id, position }, undefined, 2)}</pre>
+            <pre>
+              {JSON.stringify({ index: nodeIndex, position }, undefined, 2)}
+            </pre>
           </Popup>
         </CircleMarker>
       ))}
