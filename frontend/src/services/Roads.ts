@@ -45,7 +45,8 @@ export class Roads {
 
     const newNodes = new Map<Node, Node>();
     for (const node of this._nodes) {
-      newNodes.set(node, newRoads.createNode(node.position));
+      const newNode = newRoads.createNode(node.position);
+      newNodes.set(node, newNode);
     }
 
     for (const edge of this._edges) {
@@ -65,7 +66,7 @@ export class Roads {
   }: {
     edge: Edge;
     edgeStreamIndex: number;
-  }): void {
+  }): Node {
     this._edges.delete(edge);
     edge.from.edges.delete(edge);
     edge.to.edges.delete(edge);
@@ -84,6 +85,8 @@ export class Roads {
       edge.stream.slice(edgeStreamIndex + 1, -1)
     );
     this._edges.add(toEdge);
+
+    return newNode;
   }
 }
 
