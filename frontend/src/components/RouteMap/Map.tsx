@@ -10,13 +10,16 @@ import { World } from "zwift-data";
 import { worldConfigs } from "../../constants/worldConfigs";
 import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 import { useSettings } from "../../hooks/useSettings";
+import { useLocationState } from "../../services/location-state";
 import { DistanceStream, LatLngStream, Overlay } from "../../types";
 import { getBounds } from "../../util/bounds";
 import styles from "./index.module.scss";
+import { Navigation } from "./Navigation";
 import { OverlayNone } from "./overlays/OverlayNone";
 import { OverlaySegments } from "./overlays/OverlaySegments";
 import { OverlaySurfaces } from "./overlays/OverlaySurfaces";
 import { PreviewRoute } from "./PreviewRoute";
+import { RoadLayer } from "./RoadLayer";
 import { RoutePosition } from "./RoutePosition";
 import { SurfaceDebugLayer } from "./SurfaceDebugLayer";
 import { WorldImage } from "./WorldImage";
@@ -30,6 +33,7 @@ interface Props {
 }
 
 export function Map({ world, routeStreams }: Props) {
+  const state = useLocationState();
   const [settings, setSettings] = useSettings();
   const prefersReducedMotion = usePrefersReducedMotion();
   const [map, setMap] = useState<MapType | undefined>();
@@ -125,9 +129,11 @@ export function Map({ world, routeStreams }: Props) {
         </LayersControl.BaseLayer>
 
         <SurfaceDebugLayer world={world} />
+        <RoadLayer world={world} />
       </LayersControl>
 
       <RoutePosition streams={routeStreams} />
+      {state.type === "navigation" && <Navigation world={world} />}
     </MapContainer>
   );
 }

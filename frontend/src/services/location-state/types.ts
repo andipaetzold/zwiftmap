@@ -45,6 +45,11 @@ export interface LocationStateShare {
   shareId: string;
 }
 
+export interface LocationStateNavigation {
+  type: "navigation";
+  world: World;
+}
+
 export type LocationStateWithKey = LocationState & { key: string };
 export type LocationState =
   | LocationStateDefault
@@ -54,4 +59,5 @@ export type LocationState =
   | LocationStateStravaActivities
   | LocationStateUpcomingEvents
   | LocationStateUpcomingEvent
-  | LocationStateShare;
+  | LocationStateShare
+  | LocationStateNavigation;

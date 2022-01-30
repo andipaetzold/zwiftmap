@@ -5,6 +5,7 @@ export function createUrl(state: LocationState): string {
   const searchParams = new URLSearchParams();
 
   switch (state.type) {
+    case "navigation":
     case "default":
       path = `/${state.world.slug}`;
       break;

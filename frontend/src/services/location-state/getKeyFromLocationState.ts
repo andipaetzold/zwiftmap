@@ -44,6 +44,7 @@ export function getKeyFromLocationState(locationState: LocationState): string {
         locationState.shareId,
       ].join();
 
+    case "navigation":
     case "default":
       return [locationState.type, getKeyFromWorld(locationState.world)].join();
   }
