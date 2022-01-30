@@ -2,6 +2,7 @@ import { Node, Roads } from "../../../types";
 import edge1 from "./edges/1";
 import edge2 from "./edges/2";
 import edge3 from "./edges/3";
+import { createEdge } from "./util";
 
 const START_FINISH: Node = {
   id: 1,
@@ -40,7 +41,7 @@ const PADDOCK_CENTER: Node = {
 
 const PADDOCK_ROW_FRONT: Node = {
   id: 8,
-  position: [48.866585,2.31407,48],
+  position: [48.866585, 2.31407, 48],
 };
 
 const PADDOCK_ROW_BACK: Node = {
@@ -61,51 +62,15 @@ const roads: Roads = {
     PADDOCK_ROW_BACK,
   ],
   edges: [
-    {
-      from: START_FINISH.id,
-      to: PADDOCK_EXIT.id,
-      stream: edge1,
-    },
-    {
-      from: PADDOCK_EXIT.id,
-      to: START_FINISH.id,
-      stream: edge2,
-    },
-    {
-      from: PADDOCK_ROW_FRONT.id,
-      to: PADDOCK_EXIT.id,
-      stream: edge3,
-    },
-    {
-      from: PADDOCK_1.id,
-      to: PADDOCK_ROW_FRONT.id,
-      stream: [],
-    },
-    {
-      from: PADDOCK_2.id,
-      to: PADDOCK_ROW_FRONT.id,
-      stream: [],
-    },
-    {
-      from: PADDOCK_ROW_BACK.id,
-      to: PADDOCK_ROW_FRONT.id,
-      stream: [],
-    },
-    {
-      from: PADDOCK_3.id,
-      to: PADDOCK_ROW_BACK.id,
-      stream: [],
-    },
-    {
-      from: PADDOCK_4.id,
-      to: PADDOCK_ROW_BACK.id,
-      stream: [],
-    },
-    {
-      from: PADDOCK_CENTER.id,
-      to: PADDOCK_ROW_BACK.id,
-      stream: [],
-    },
+    createEdge(START_FINISH, PADDOCK_EXIT, edge1),
+    createEdge(PADDOCK_EXIT, START_FINISH, edge2),
+    createEdge(PADDOCK_ROW_FRONT, PADDOCK_EXIT, edge3),
+    createEdge(PADDOCK_1, PADDOCK_ROW_FRONT, []),
+    createEdge(PADDOCK_2, PADDOCK_ROW_FRONT, []),
+    createEdge(PADDOCK_ROW_BACK, PADDOCK_ROW_FRONT, []),
+    createEdge(PADDOCK_3, PADDOCK_ROW_BACK, []),
+    createEdge(PADDOCK_4, PADDOCK_ROW_BACK, []),
+    createEdge(PADDOCK_CENTER, PADDOCK_ROW_BACK, []),
   ],
 };
 

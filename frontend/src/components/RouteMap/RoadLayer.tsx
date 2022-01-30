@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import { useAsync } from "react-async-hook";
 import {
   CircleMarker,
@@ -45,15 +44,11 @@ function Lines({ world }: Props) {
   }
   return (
     <>
-      {roads.edges.map(({ stream, from, to }, streamIndex) => (
+      {roads.edges.map((edge, edgeIndex) => (
         <Polyline
-          key={streamIndex}
+          key={edgeIndex}
           interactive={false}
-          positions={[
-            dropAltitude(roads.nodes.find((n) => n.id === from)!.position),
-            ...stream.map(dropAltitude),
-            dropAltitude(roads.nodes.find((n) => n.id === to)!.position),
-          ]}
+          positions={edge.stream.map(dropAltitude)}
         />
       ))}
       {roads.nodes.map(({ id, position }, nodeIndex) => (

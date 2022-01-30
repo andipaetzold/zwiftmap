@@ -3,12 +3,13 @@ import { useStore } from "../../../hooks/useStore";
 import {
   DEFAULT_WORLD,
   LocationState,
-  useLocationState
+  useLocationState,
 } from "../../../services/location-state";
 import { Event } from "./Event";
 import { RouteList } from "./Lists/RouteList";
 import { SearchResultList } from "./Lists/SearchResultList";
 import { StravaActivitiesList } from "./Lists/StravaActivitiesList";
+import { Navigation } from "./Navigation";
 import { RouteDetails } from "./RouteDetails";
 import { SegmentDetails } from "./SegmentDetails";
 import { Share } from "./Share";
@@ -16,8 +17,6 @@ import { StravaActivityDetails } from "./StravaActivityDetails";
 import { UpcomingEvents } from "./UpcomingEvents";
 
 export function Content() {
-
-
   const state = useLocationState();
   const query = useStore((state) => state.query);
 
@@ -47,21 +46,13 @@ export function Content() {
         />
       );
     case "strava-activity":
-      return (
-        <StravaActivityDetails
-          state={state}
-        />
-      );
+      return <StravaActivityDetails state={state} />;
     case "strava-activities":
-      return <StravaActivitiesList state={state}  />;
+      return <StravaActivitiesList state={state} />;
     case "events":
-      return <UpcomingEvents state={state}  />;
+      return <UpcomingEvents state={state} />;
     case "event":
-      return (
-        <Event
-          eventId={state.eventId}
-        />
-      );
+      return <Event eventId={state.eventId} />;
     case "share":
       return (
         <Share
@@ -70,9 +61,11 @@ export function Content() {
           backButtonState={backButtonState}
         />
       );
+    case "navigation":
+      return <Navigation />;
     case "default":
       if (query === "") {
-        return <RouteList state={state}  />;
+        return <RouteList state={state} />;
       } else {
         return <SearchResultList query={query} />;
       }
