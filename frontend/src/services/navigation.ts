@@ -50,12 +50,11 @@ export function findRoute(
   const fromNode = roads.splitEdge(snapFrom);
   const toNode = roads.splitEdge(snapTo);
 
-  const estimateDistanceByNode = new Map<Node, number>();
+  const estimateDistanceByNode = getEstimationMap(roads.nodes, toNode);
   const distancesByNode = new Map<Node, number>();
   const predecessors = new Map<Node, Node>();
 
   for (const node of roads.nodes) {
-    estimateDistanceByNode.set(node, distance(node, toNode));
     distancesByNode.set(node, Infinity);
   }
 
@@ -116,6 +115,17 @@ function distance(from: Node, to: Node): number {
 
 function edgeDistance(edge: Edge): number {
   return turfLength(turfLineString(edge.stream.map((p) => [p[0], p[1]])));
+}
+
+function getEstimationMap(
+  nodes: ReadonlyArray<Node>,
+  destination: Node
+): ReadonlyMap<Node, number> {
+  const result = new Map<Node, number>();
+  for (const node of nodes) {
+    result.set(node, distance(node, destination));
+  }
+  return result;
 }
 
 function getSuccessor(node: Node): Set<{ node: Node; edge: Edge }> {
