@@ -22,7 +22,7 @@ export function Navigation({ world }: Props) {
 
   useMapEvent("click", (e) => {
     setNavigationPositions([
-      ...navigationPositions,
+      ...navigationPositions.slice(0, 1),
       [e.latlng.lat, e.latlng.lng],
     ]);
   });
@@ -39,14 +39,6 @@ export function Navigation({ world }: Props) {
 
   return (
     <>
-      {navigationPositions.map((position, positionIndex) => (
-        <CircleMarker
-          key={positionIndex}
-          center={position}
-          radius={POLYLINE_WIDTH}
-        />
-      ))}
-
       {snappedPoints.map((snappedPoint, pointIndex) => (
         <CircleMarker
           key={pointIndex}
