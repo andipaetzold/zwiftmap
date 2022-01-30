@@ -32,7 +32,9 @@ export function Navigation({ world }: Props) {
       return;
     }
 
-    return findRoute(navigationPositions[0], navigationPositions[1], roads);
+    try {
+      return findRoute(navigationPositions[0], navigationPositions[1], roads);
+    } catch {}
   }, [navigationPositions, roads]);
 
   if (!route) {
