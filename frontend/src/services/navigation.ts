@@ -139,6 +139,7 @@ function createRoute(
     const next = predecessors.get(cur)!;
 
     const forwardStream = [...cur.edges].find(
+      // eslint-disable-next-line no-loop-func
       (e) => e.from === cur && e.to === next
     )?.stream;
 
@@ -146,6 +147,7 @@ function createRoute(
       result.push(...forwardStream);
     } else {
       const backwardsStream = [...cur.edges].find(
+        // eslint-disable-next-line no-loop-func
         (e) => e.to === cur && e.from === next
       )!.stream;
       result.push(...backwardsStream.reverse());
