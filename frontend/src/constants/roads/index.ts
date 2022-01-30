@@ -3,7 +3,7 @@ import { Roads } from "../../services/Roads";
 
 export const WORLD_ROADS: Record<WorldSlug, null | (() => Promise<Roads>)> = {
   bologna: null,
-  "crit-city": null,
+  "crit-city": () => import("./crit-city").then((m) => m.default),
   france: null,
   innsbruck: null,
   london: null,
