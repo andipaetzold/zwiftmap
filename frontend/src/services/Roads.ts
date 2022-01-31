@@ -1,3 +1,7 @@
+import { lineString } from "@turf/helpers";
+import turfNearestPointOnLine from "@turf/nearest-point-on-line";
+import { SnappedPoint } from "./navigation";
+
 export class Roads {
   private _nodes = new Set<Node>();
   private _edges = new Set<Edge>();
@@ -60,30 +64,40 @@ export class Roads {
     return newRoads;
   }
 
-  public splitEdge({
-    edge,
-    edgeStreamIndex,
-  }: {
-    edge: Edge;
-    edgeStreamIndex: number;
-  }): Node {
+  public splitEdge({ edge, edgeStreamIndex, position }: SnappedPoint): Node {
     this._edges.delete(edge);
     edge.from.edges.delete(edge);
     edge.to.edges.delete(edge);
 
-    const newNode = this.createNode(edge.stream[edgeStreamIndex]);
-    const fromEdge = this.createEdge(
-      edge.from,
-      newNode,
-      edge.stream.slice(1, edgeStreamIndex)
-    );
-    this._edges.add(fromEdge);
+    const nearestExistingPoint = edge.stream[edgeStreamIndex];
+    const newNode = this.createNode([...position, nearestExistingPoint[2]]);
 
-    const toEdge = this.createEdge(
-      newNode,
-      edge.to,
-      edge.stream.slice(edgeStreamIndex + 1, -1)
-    );
+    const fromStream = edge.stream.slice(0, edgeStreamIndex);
+    const toStream = edge.stream.slice(edgeStreamIndex + 1);
+
+    if (fromStream.length === 0) {
+      fromStream.push(nearestExistingPoint);
+    } else if (toStream.length === 0) {
+      toStream.unshift(nearestExistingPoint);
+    } else if (
+      turfNearestPointOnLine(
+        lineString([fromStream[fromStream.length - 1], nearestExistingPoint]),
+        position
+      ).properties.dist! <
+      turfNearestPointOnLine(
+        lineString([nearestExistingPoint, toStream[0]]),
+        position
+      ).properties.dist!
+    ) {
+      toStream.unshift(nearestExistingPoint);
+    } else {
+      fromStream.push(nearestExistingPoint);
+    }
+
+    const fromEdge = this.createEdge(edge.from, newNode, fromStream.slice(1));
+    const toEdge = this.createEdge(newNode, edge.to, toStream.slice(0, -1));
+
+    this._edges.add(fromEdge);
     this._edges.add(toEdge);
 
     return newNode;
