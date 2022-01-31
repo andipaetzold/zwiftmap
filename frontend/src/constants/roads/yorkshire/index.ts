@@ -5,15 +5,15 @@ import edgeBigLoopNorth from "./edges/big-loop-north";
 
 const ROADS = new Roads();
 
-const PADDOCK_EXIT = ROADS.createNode([53.990383, -1.541467, 0]); // TODO
-const PADDOCK_1 = ROADS.createNode([53.990773, -1.544834, 0]); // TODO
-const PADDOCK_2 = ROADS.createNode([53.989051, -1.54404, 0]); // TODO
-const PADDOCK_3 = ROADS.createNode([53.99059, -1.545918, 0]); // TODO
-const PADDOCK_4 = ROADS.createNode([53.988887, -1.545103, 0]); // TODO
-const PADDOCK_CENTER = ROADS.createNode([53.989625, -1.546251, 0]); // TODO
-const PADDOCK_ROW_FRONT = ROADS.createNode([53.990134, -1.54319, 0]); // TODO
-const PADDOCK_ROW_BACK = ROADS.createNode([53.989928, -1.544358, 0]); // TODO
-const JUNCTION_NORTH = ROADS.createNode([53.993835, -1.546892, 0]); // TODO
+const PADDOCK_EXIT = ROADS.createNode([53.990383, -1.541467, 124.8]);
+const PADDOCK_1 = ROADS.createNode([53.990773, -1.544834, 124.8]);
+const PADDOCK_2 = ROADS.createNode([53.989051, -1.54404, 124.8]);
+const PADDOCK_3 = ROADS.createNode([53.99059, -1.545918, 124.8]);
+const PADDOCK_4 = ROADS.createNode([53.988887, -1.545103, 124.8]);
+const PADDOCK_CENTER = ROADS.createNode([53.989625, -1.546251, 124.8]);
+const PADDOCK_ROW_FRONT = ROADS.createNode([53.990134, -1.54319, 124.8]);
+const PADDOCK_ROW_BACK = ROADS.createNode([53.989928, -1.544358, 124.8]);
+const JUNCTION_NORTH = ROADS.createNode([53.993835, -1.546892, 108.4]);
 const JUNCTION_SOUTH = ROADS.createNode([53.993627, -1.547179, 108.4]);
 
 ROADS.createEdge(JUNCTION_SOUTH, PADDOCK_EXIT, edgeBigLoopSouth);
