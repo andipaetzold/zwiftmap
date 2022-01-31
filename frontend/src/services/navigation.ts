@@ -77,31 +77,30 @@ export function findRoute(
 
     closed.add(currentNode.node);
 
-    for (const successor of getSuccessor(currentNode.node)) {
-      if (closed.has(successor.node)) {
+    for (const successor of getSuccessors(currentNode.node)) {
+      if (closed.has(successor)) {
         continue;
       }
+
+      const successorEdge = findShortestEdge(currentNode.node, successor)!;
 
       const tentativeDistance =
-        distancesByNode.get(currentNode.node)! + edgeDistance(successor.edge);
+        distancesByNode.get(currentNode.node)! + edgeDistance(successorEdge);
 
-      const nodeInOpen = open.find(({ node }) => successor.node === node);
-      if (
-        nodeInOpen &&
-        tentativeDistance >= distancesByNode.get(successor.node)!
-      ) {
+      const nodeInOpen = open.find(({ node }) => successor === node);
+      if (nodeInOpen && tentativeDistance >= distancesByNode.get(successor)!) {
         continue;
       }
 
-      predecessors.set(successor.node, currentNode.node);
-      distancesByNode.set(successor.node, tentativeDistance);
-      const f = tentativeDistance + estimateDistanceByNode.get(successor.node)!;
+      predecessors.set(successor, currentNode.node);
+      distancesByNode.set(successor, tentativeDistance);
+      const f = tentativeDistance + estimateDistanceByNode.get(successor)!;
 
       if (nodeInOpen) {
         nodeInOpen.value = f;
       } else {
         open.push({
-          node: successor.node,
+          node: successor,
           value: f,
         });
       }
@@ -128,13 +127,19 @@ function getEstimationMap(
   return result;
 }
 
-function getSuccessor(node: Node): Set<{ node: Node; edge: Edge }> {
+function getSuccessors(node: Node): Set<Node> {
   return new Set(
-    [...node.edges].flatMap((edge) => [
-      { node: edge.from, edge },
-      { node: edge.to, edge },
-    ])
+    [...node.edges].flatMap((e) => [e.from, e.to]).filter((n) => n !== node)
   );
+}
+
+function findShortestEdge(from: Node, to: Node): Edge | undefined {
+  return [...from.edges]
+    .filter(
+      (e) =>
+        (e.from === from && e.to === to) || (e.from === to && e.to === from)
+    )
+    .sort((a, b) => edgeDistance(a) - edgeDistance(b))[0];
 }
 
 function createRoute(
@@ -147,19 +152,11 @@ function createRoute(
   while (predecessors.has(cur)) {
     const next = predecessors.get(cur)!;
 
-    const forwardStream = [...cur.edges].find(
-      // eslint-disable-next-line no-loop-func
-      (e) => e.from === cur && e.to === next
-    )?.stream;
-
-    if (forwardStream) {
-      result.push(...forwardStream);
+    const edge = findShortestEdge(cur, next)!;
+    if (edge.from === cur) {
+      result.push(...edge.stream);
     } else {
-      const backwardsStream = [...cur.edges].find(
-        // eslint-disable-next-line no-loop-func
-        (e) => e.to === cur && e.from === next
-      )!.stream;
-      result.push(...backwardsStream.reverse());
+      result.push(...[...edge.stream].reverse());
     }
 
     cur = next;
