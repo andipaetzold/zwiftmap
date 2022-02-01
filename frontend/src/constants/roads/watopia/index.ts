@@ -1,6 +1,13 @@
 import { Roads } from "../../../services/Roads";
 import edgeADZ from "./edges/adz";
 import edgeADZTop from "./edges/adz-top";
+import edgeEpic  from "./edges/epic";
+import edgeTitansGrove  from "./edges/titans-grove";
+import edgeFuegoFlats  from "./edges/fuego-flats";
+import edgeFuegoSouthRoundabout1  from "./edges/fuego-south-roundabout-1";
+import edgeFuegoSouthRoundabout2  from "./edges/fuego-south-roundabout-2";
+import edgeFuegoNorthRoundabout1  from "./edges/fuego-north-roundabout-1";
+import edgeFuegoNorthRoundabout2  from "./edges/fuego-north-roundabout-2";
 
 const ROADS = new Roads();
 
@@ -60,11 +67,11 @@ ROADS.createEdge(JUNGLE_PADDOCK_3, JUNGLE_PADDOCK_ROW_BACK, []);
 ROADS.createEdge(JUNGLE_PADDOCK_4, JUNGLE_PADDOCK_ROW_BACK, []);
 ROADS.createEdge(JUNGLE_PADDOCK_CENTER, JUNGLE_PADDOCK_ROW_BACK, []);
 ROADS.createEdge(JUNGLE_PADDOCK_ROW_FRONT, JUNGLE_PADDOCK_EXIT, []);
-ROADS.createEdge(JUNGLE_PADDOCK_EXIT, JUNGLE_JUNCTION_RIGHT_3, []);
+ROADS.createEdge(JUNGLE_PADDOCK_EXIT, JUNGLE_JUNCTION_RIGHT_1, []);
 
 // Radio Tower
 const RADIO_TOWER_TOP = ROADS.createNode([-11.675184, 166.950624, 0]);
-const RADIO_TOWER_BOTTOM = ROADS.createNode([-11.676543, 166.958332, 0]);
+const RADIO_TOWER_BOTTOM = ROADS.createNode([-11.676543, 166.958332, 373.2]);
 ROADS.createEdge(RADIO_TOWER_BOTTOM, RADIO_TOWER_TOP, []);
 ROADS.createEdge(RADIO_TOWER_TOP, RADIO_TOWER_TOP, []);
 
@@ -78,10 +85,10 @@ ROADS.createEdge(EPIC_KOM_WEST_JUNCTION_2, EPIC_KOM_WEST_JUNCTION_3, []);
 ROADS.createEdge(EPIC_KOM_WEST_JUNCTION_2, JUNGLE_PADDOCK_EXIT, []);
 
 const EPIC_KOM_BYPASS_EAST = ROADS.createNode([-11.67363, 166.969279, 0]);
-const EPIC_KOM_BYPASS_WEST = ROADS.createNode([-11.665455, 166.951225, 0]);
+const EPIC_KOM_BYPASS_WEST = ROADS.createNode([-11.665455, 166.951225, 78.4]);
 ROADS.createEdge(EPIC_KOM_WEST_JUNCTION_3, EPIC_KOM_BYPASS_WEST, []);
 ROADS.createEdge(EPIC_KOM_BYPASS_WEST, EPIC_KOM_BYPASS_EAST, []);
-ROADS.createEdge(EPIC_KOM_BYPASS_WEST, RADIO_TOWER_BOTTOM, []);
+ROADS.createEdge(EPIC_KOM_BYPASS_WEST, RADIO_TOWER_BOTTOM, edgeEpic);
 ROADS.createEdge(EPIC_KOM_BYPASS_EAST, RADIO_TOWER_BOTTOM, []);
 
 // Volcano
@@ -107,9 +114,9 @@ ROADS.createEdge(OCEAN_WEST, EPIC_KOM_WEST_JUNCTION_1, []);
 ROADS.createEdge(OCEAN_EAST, EPIC_KOM_BYPASS_EAST, []);
 
 // Titans Grove
-const TITANS_NORTH = ROADS.createNode([-11.636581, 166.969395, 0]);
-const TITANS_SOUTH = ROADS.createNode([-11.659446, 166.976759, 0]);
-ROADS.createEdge(TITANS_NORTH, TITANS_SOUTH, []);
+const TITANS_NORTH = ROADS.createNode([-11.636581, 166.969395, 11.8]);
+const TITANS_SOUTH = ROADS.createNode([-11.659446, 166.976759, 28]);
+ROADS.createEdge(TITANS_SOUTH, TITANS_NORTH, edgeTitansGrove);
 ROADS.createEdge(TITANS_NORTH, OCEAN_NORTH, []);
 ROADS.createEdge(TITANS_SOUTH, OCEAN_EAST, []);
 
@@ -161,10 +168,10 @@ ROADS.createEdge(MAIN_SOUTH_JUNCTION_1, MAIN_KOM_BYPASS_WEST, []);
 ROADS.createEdge(MAIN_SOUTH_JUNCTION_3, OCEAN_WEST, []);
 
 // Fuego Flats
-const FUEGO_SOUTH_1 = ROADS.createNode([-11.662318, 166.983305, 0]);
-const FUEGO_SOUTH_2 = ROADS.createNode([-11.661783, 166.98417, 0]);
-const FUEGO_NORTH_1 = ROADS.createNode([-11.638389, 166.977252, 0]);
-const FUEGO_NORTH_2 = ROADS.createNode([-11.640373, 166.978375, 0]);
+const FUEGO_SOUTH_1 = ROADS.createNode([-11.662318, 166.983305, 12.8]);
+const FUEGO_SOUTH_2 = ROADS.createNode([-11.661783, 166.98417, 12.8]);
+const FUEGO_NORTH_1 = ROADS.createNode([-11.638389, 166.977252, 15.6]);
+const FUEGO_NORTH_2 = ROADS.createNode([-11.640373, 166.978375, 13.2]);
 const FUEGO_PADDOCK_EXIT = ROADS.createNode([-11.635251, 166.973542, 0]);
 const FUEGO_PADDOCK_1 = ROADS.createNode([-11.633471, 166.97375, 0]);
 const FUEGO_PADDOCK_2 = ROADS.createNode([-11.633865, 166.972184, 0]);
@@ -173,12 +180,12 @@ const FUEGO_PADDOCK_4 = ROADS.createNode([-11.633229, 166.972002, 0]);
 const FUEGO_PADDOCK_CENTER = ROADS.createNode([-11.632581, 166.972666, 0]);
 const FUEGO_PADDOCK_ROW_FRONT = ROADS.createNode([-11.634352, 166.97324, 0]);
 const FUEGO_PADDOCK_ROW_BACK = ROADS.createNode([-11.633622, 166.973004, 0]);
-ROADS.createEdge(FUEGO_SOUTH_1, FUEGO_SOUTH_2, []);
-ROADS.createEdge(FUEGO_SOUTH_1, FUEGO_SOUTH_2, []);
+ROADS.createEdge(FUEGO_SOUTH_1, FUEGO_SOUTH_2, edgeFuegoSouthRoundabout1);
+ROADS.createEdge(FUEGO_SOUTH_2, FUEGO_SOUTH_1 , edgeFuegoSouthRoundabout2);
 ROADS.createEdge(FUEGO_SOUTH_1, TITANS_SOUTH, []);
-ROADS.createEdge(FUEGO_SOUTH_2, FUEGO_NORTH_2, []);
-ROADS.createEdge(FUEGO_NORTH_1, FUEGO_NORTH_2, []);
-ROADS.createEdge(FUEGO_NORTH_1, FUEGO_NORTH_2, []);
+ROADS.createEdge(FUEGO_SOUTH_2, FUEGO_NORTH_2, edgeFuegoFlats);
+ROADS.createEdge(FUEGO_NORTH_2, FUEGO_NORTH_1 , edgeFuegoNorthRoundabout1);
+ROADS.createEdge(FUEGO_NORTH_1, FUEGO_NORTH_2, edgeFuegoNorthRoundabout2);
 ROADS.createEdge(FUEGO_PADDOCK_EXIT, FUEGO_NORTH_1, []);
 ROADS.createEdge(FUEGO_PADDOCK_EXIT, TITANS_NORTH, []);
 ROADS.createEdge(FUEGO_PADDOCK_CENTER, FUEGO_PADDOCK_ROW_BACK, []);

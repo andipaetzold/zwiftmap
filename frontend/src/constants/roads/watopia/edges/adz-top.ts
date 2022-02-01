@@ -1,6 +1,6 @@
 import { RoadPosition } from "../../../../services/Roads";
 
-const streams: RoadPosition[] = [
+const stream: RoadPosition[] = [
   [-11.681739, 166.889362, 1046.8],
   [-11.681905, 166.889362, 1046.8],
   [-11.682064, 166.889427, 1046.8],
@@ -51,4 +51,4 @@ const streams: RoadPosition[] = [
   [-11.681629, 166.88933, 1046.8],
 ];
 
-export default streams;
+export default stream;
