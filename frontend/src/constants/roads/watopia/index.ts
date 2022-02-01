@@ -1,13 +1,16 @@
 import { Roads } from "../../../services/Roads";
+import edgeADZ from "./edges/adz";
+import edgeADZTop from "./edges/adz-top";
 
 const ROADS = new Roads();
 
 // Alpe du Zwift
-const ADZ_TOP = ROADS.createNode([-11.681593, 166.88947, 0]);
-const ADZ_BOTTOM_1 = ROADS.createNode([-11.686232, 166.925588, 0]);
-const ADZ_BOTTOM_2 = ROADS.createNode([-11.686631, 166.925781, 0]);
-const ADZ_BOTTOM_3 = ROADS.createNode([-11.686369, 166.926275, 0]);
-ROADS.createEdge(ADZ_TOP, ADZ_BOTTOM_1, []);
+const ADZ_TOP = ROADS.createNode([-11.681593, 166.88947, 1046.8]);
+const ADZ_BOTTOM_1 = ROADS.createNode([-11.686232, 166.925588, 8.2]);
+const ADZ_BOTTOM_2 = ROADS.createNode([-11.686631, 166.925781, 8.2]);
+const ADZ_BOTTOM_3 = ROADS.createNode([-11.686369, 166.926275, 8.2]);
+ROADS.createEdge(ADZ_TOP, ADZ_TOP, edgeADZTop);
+ROADS.createEdge(ADZ_BOTTOM_1, ADZ_TOP, edgeADZ);
 ROADS.createEdge(ADZ_BOTTOM_2, ADZ_BOTTOM_1, []);
 ROADS.createEdge(ADZ_BOTTOM_3, ADZ_BOTTOM_1, []);
 ROADS.createEdge(ADZ_BOTTOM_2, ADZ_BOTTOM_3, []);
