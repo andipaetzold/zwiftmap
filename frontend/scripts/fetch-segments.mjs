@@ -3,6 +3,7 @@ import fetch from "node-fetch";
 import path, { dirname } from "path";
 import { routes, segments } from "zwift-data";
 import { fileURLToPath } from "url";
+import _ from "lodash";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -38,23 +39,35 @@ async function fetchSegment({ name, slug, stravaSegmentId }, type) {
     mkdirSync(segmentDir, { recursive: true });
   }
 
-  writeFileSync(
-    `${segmentDir}/altitude.json`,
-    JSON.stringify(getRoundedAltitude(stravaData))
+  const zipped = _.zip(
+    getRoundedLatLng(stravaData),
+    getRoundedAltitude(stravaData),
+    getRoundedDistances(stravaData)
   );
-  writeFileSync(
-    `${segmentDir}/distance.json`,
-    JSON.stringify(getRoundedDistances(stravaData))
+  const [latlng, altitude, distance] = _.unzip(
+    zipped.filter(([[lat, lng]], index) => {
+      return zipped[index - 1]?.[0][0] !== lat || zipped[index - 1]?.[0][1] !== lng;
+    })
   );
-  writeFileSync(`${segmentDir}/latlng.json`, JSON.stringify(stravaData.latlng));
+
+  writeFileSync(`${segmentDir}/altitude.json`, JSON.stringify(altitude));
+  writeFileSync(`${segmentDir}/distance.json`, JSON.stringify(distance));
+  writeFileSync(`${segmentDir}/latlng.json`, JSON.stringify(latlng));
 
   console.log(name);
 }
 
+function getRoundedLatLng(stravaData) {
+  return stravaData.latlng.map(([lat, lng]) => [
+    _.round(lat, 6),
+    _.round(lng, 6),
+  ]);
+}
+
 function getRoundedAltitude(stravaData) {
-  return stravaData.altitude.map((d) => Math.round(d * 10) / 10);
+  return stravaData.altitude.map((d) => _.round(d, 1));
 }
 
 function getRoundedDistances(stravaData) {
-  return stravaData.distance.map((d) => Math.round(d * 100) / 100);
+  return stravaData.distance.map((d) => _.round(d, 2));
 }
