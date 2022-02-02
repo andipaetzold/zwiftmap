@@ -18,10 +18,20 @@ import edgeMainJunction1 from "./edges/main-south-junction-1";
 import edgeMainJunction2 from "./edges/main-south-junction-2";
 import edgeMainJunction3 from "./edges/main-south-junction-3";
 import edgeMainSouthWest from "./edges/main-south-west";
+import edgeMainSouthWestJunction1 from "./edges/main-south-west-junction-1";
+import edgeMainSouthWestJunction2 from "./edges/main-south-west-junction-2";
+import edgeMainSouthWestJunction3 from "./edges/main-south-west-junction-3";
 import edgeMainWest from "./edges/main-west";
 import edgeMarina from "./edges/marina";
 import edgeOceanBlvd from "./edges/ocean-blvd";
 import edgeTitansGrove from "./edges/titans-grove";
+import edgeVolcano1 from "./edges/volcano-1";
+import edgeVolcano2 from "./edges/volcano-2";
+import edgeVolcano3 from "./edges/volcano-3";
+import edgeVolcanoKOM from "./edges/volcano-kom";
+import edgeVolcanoNorth from "./edges/volcano-north";
+import edgeVolcanoSouth from "./edges/volcano-south";
+import edgeVolcanoTop from "./edges/volcano-top";
 
 const ROADS = new Roads();
 
@@ -106,15 +116,15 @@ ROADS.createEdge(EPIC_KOM_BYPASS_WEST, RADIO_TOWER_BOTTOM, edgeEpic);
 ROADS.createEdge(EPIC_KOM_BYPASS_EAST, RADIO_TOWER_BOTTOM, []);
 
 // Volcano
-const VOLCANO_EAST = ROADS.createNode([-11.64014, 166.94246, 0]);
-const VOLCANO_SOUTH = ROADS.createNode([-11.647332, 166.939304, 0]);
-const VOLCANO_WEST = ROADS.createNode([-11.643755, 166.936158, 0]);
-const VOLCANO_TOP = ROADS.createNode([-11.642471, 166.939379, 0]);
-ROADS.createEdge(VOLCANO_TOP, VOLCANO_TOP, []);
-ROADS.createEdge(VOLCANO_TOP, VOLCANO_WEST, []);
-ROADS.createEdge(VOLCANO_EAST, VOLCANO_WEST, []);
-ROADS.createEdge(VOLCANO_SOUTH, VOLCANO_WEST, []);
-ROADS.createEdge(VOLCANO_SOUTH, VOLCANO_EAST, []);
+const VOLCANO_EAST = ROADS.createNode([-11.640294, 166.942486, 10.4]);
+const VOLCANO_SOUTH = ROADS.createNode([-11.647332, 166.939304, 2.4]);
+const VOLCANO_WEST = ROADS.createNode([-11.643755, 166.936158, 8.4]);
+const VOLCANO_TOP = ROADS.createNode([-11.642471, 166.939379, 129.8]);
+ROADS.createEdge(VOLCANO_TOP, VOLCANO_TOP, edgeVolcanoTop);
+ROADS.createEdge(VOLCANO_TOP, VOLCANO_WEST, edgeVolcanoKOM);
+ROADS.createEdge(VOLCANO_WEST, VOLCANO_EAST, edgeVolcano2);
+ROADS.createEdge(VOLCANO_SOUTH, VOLCANO_WEST, edgeVolcano1);
+ROADS.createEdge(VOLCANO_EAST, VOLCANO_SOUTH, edgeVolcano3);
 
 // Ocean
 const OCEAN_NORTH = ROADS.createNode([-11.636992, 166.959098, 0.6]);
@@ -165,7 +175,15 @@ const MAIN_KOM_BOTTOM = ROADS.createNode([-11.637252, 166.955531, 4.8]);
 const MAIN_KOM_BYPASS_EAST = ROADS.createNode([-11.63934, 166.954774, 36.2]);
 const MAIN_KOM_BYPASS_WEST = ROADS.createNode([-11.639125, 166.952824, 39.2]);
 const MAIN_NORTH_WEST = ROADS.createNode([-11.640648, 166.94608, 13.2]);
-const MAIN_SOUTH_WEST = ROADS.createNode([-11.650877, 166.948745, 10.8]);
+const MAIN_SOUTH_WEST_JUNCTION_1 = ROADS.createNode([
+  -11.65058, 166.948714, 10.8,
+]);
+const MAIN_SOUTH_WEST_JUNCTION_2 = ROADS.createNode([
+  -11.650913, 166.949075, 10.6,
+]);
+const MAIN_SOUTH_WEST_JUNCTION_3 = ROADS.createNode([
+  -11.651271, 166.948654, 10.8,
+]);
 const MAIN_SOUTH_JUNCTION_1 = ROADS.createNode([-11.647514, 166.951939, 13.6]);
 const MAIN_SOUTH_JUNCTION_2 = ROADS.createNode([-11.648126, 166.952376, 15.8]);
 const MAIN_SOUTH_JUNCTION_3 = ROADS.createNode([-11.648089, 166.952698, 15.4]);
@@ -175,11 +193,30 @@ ROADS.createEdge(MAIN_KOM_BOTTOM, MAIN_KOM_BYPASS_EAST, edgeMainKOM1);
 ROADS.createEdge(MAIN_KOM_BYPASS_EAST, MAIN_KOM_BYPASS_WEST, edgeMainKOM2);
 ROADS.createEdge(MAIN_KOM_BYPASS_EAST, MAIN_KOM_BYPASS_WEST, edgeMainKOMBypass);
 ROADS.createEdge(MAIN_KOM_BYPASS_WEST, MAIN_SOUTH_JUNCTION_1, edgeMainKOM3);
-ROADS.createEdge(MAIN_NORTH_WEST, VOLCANO_EAST, []);
-ROADS.createEdge(MAIN_SOUTH_WEST, VOLCANO_SOUTH, []);
+ROADS.createEdge(MAIN_NORTH_WEST, VOLCANO_EAST, edgeVolcanoNorth);
+ROADS.createEdge(VOLCANO_SOUTH, MAIN_SOUTH_WEST_JUNCTION_3, edgeVolcanoSouth);
 ROADS.createEdge(MAIN_NORTH_WEST, MAIN_PADDOCK_EXIT_WEST, []);
-ROADS.createEdge(MAIN_SOUTH_WEST, MAIN_NORTH_WEST, edgeMainWest);
-ROADS.createEdge(MAIN_SOUTH_JUNCTION_2, MAIN_SOUTH_WEST, edgeMainSouthWest);
+ROADS.createEdge(MAIN_SOUTH_WEST_JUNCTION_1, MAIN_NORTH_WEST, edgeMainWest);
+ROADS.createEdge(
+  MAIN_SOUTH_JUNCTION_2,
+  MAIN_SOUTH_WEST_JUNCTION_2,
+  edgeMainSouthWest
+);
+ROADS.createEdge(
+  MAIN_SOUTH_WEST_JUNCTION_1,
+  MAIN_SOUTH_WEST_JUNCTION_2,
+  edgeMainSouthWestJunction1
+);
+ROADS.createEdge(
+  MAIN_SOUTH_WEST_JUNCTION_3,
+  MAIN_SOUTH_WEST_JUNCTION_2,
+  edgeMainSouthWestJunction2
+);
+ROADS.createEdge(
+  MAIN_SOUTH_WEST_JUNCTION_3,
+  MAIN_SOUTH_WEST_JUNCTION_1,
+  edgeMainSouthWestJunction3
+);
 ROADS.createEdge(
   MAIN_SOUTH_JUNCTION_1,
   MAIN_SOUTH_JUNCTION_2,
