@@ -1,7 +1,7 @@
 import { WorldSlug } from "zwift-data";
 import { Roads } from "../../services/Roads";
 
-export const WORLD_ROADS: Record<WorldSlug, null | (() => Promise<Roads>)> = {
+export const WORLD_ROADS: Record<WorldSlug, () => Promise<Roads>> = {
   bologna: () => import("./bologna").then((m) => m.default),
   "crit-city": () => import("./crit-city").then((m) => m.default),
   france: () => import("./france").then((m) => m.default),

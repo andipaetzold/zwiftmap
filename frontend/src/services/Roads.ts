@@ -1,5 +1,6 @@
 import { lineString } from "@turf/helpers";
 import turfNearestPointOnLine from "@turf/nearest-point-on-line";
+import { LatLngAlt } from "../types/LatLngAlt";
 import { SnappedPoint } from "./navigation";
 
 export class Roads {
@@ -14,7 +15,7 @@ export class Roads {
     return [...this._nodes];
   }
 
-  public createNode(position: RoadPosition): Node {
+  public createNode(position: LatLngAlt): Node {
     const newNode: Node = {
       position,
       edges: new Set(),
@@ -23,7 +24,7 @@ export class Roads {
     return newNode;
   }
 
-  public createEdge(from: Node, to: Node, stream: RoadPosition[]): Edge {
+  public createEdge(from: Node, to: Node, stream: LatLngAlt[]): Edge {
     if (!this._nodes.has(from)) {
       throw new Error("`from` must be added to `node` first");
     }
@@ -105,18 +106,12 @@ export class Roads {
 }
 
 export interface Node {
-  position: RoadPosition;
+  position: LatLngAlt;
   edges: Set<Edge>;
 }
 
 export interface Edge {
   from: Node;
   to: Node;
-  stream: RoadPosition[];
+  stream: LatLngAlt[];
 }
-
-export type RoadPosition = [
-  latitude: number,
-  longitude: number,
-  altitude: number
-];

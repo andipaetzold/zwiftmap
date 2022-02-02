@@ -9,7 +9,8 @@ import {
 import { World, WorldSlug } from "zwift-data";
 import { ENVIRONMENT } from "../../config";
 import { WORLD_ROADS } from "../../constants/roads";
-import { RoadPosition, Roads } from "../../services/Roads";
+import { Roads } from "../../services/Roads";
+import { LatLngAlt } from "../../types";
 
 interface Props {
   world: World;
@@ -68,6 +69,6 @@ function Lines({ world }: Props) {
   );
 }
 
-function dropAltitude(p: RoadPosition): [number, number] {
+function dropAltitude(p: LatLngAlt): [number, number] {
   return [p[0], p[1]];
 }

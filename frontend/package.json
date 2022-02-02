@@ -34,6 +34,7 @@
     "@types/react": "17.0.38",
     "@types/react-dom": "17.0.11",
     "classnames": "2.3.1",
+    "comlink": "4.3.1",
     "date-fns": "2.28.0",
     "leaflet": "1.7.1",
     "lodash": "4.17.21",
@@ -88,6 +89,7 @@
     "prettier": "2.5.1",
     "pwa-asset-generator": "6.0.6",
     "sass": "1.49.7",
-    "schema-dts": "1.0.0"
+    "schema-dts": "1.0.0",
+    "worker-loader": "3.0.8"
   }
 }

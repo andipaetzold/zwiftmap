@@ -5,9 +5,10 @@ import {
 import nearestPointOnLine from "@turf/nearest-point-on-line";
 import { LatLngTuple } from "leaflet";
 import minBy from "lodash/minBy";
-import { Edge, Roads, Node, RoadPosition } from "./Roads";
+import { Edge, Roads, Node } from "./Roads";
 import turfDistance from "@turf/distance";
 import turfLength from "@turf/length";
+import { LatLngAlt } from "../types";
 
 export function snapPoint(point: LatLngTuple, roads: Roads): SnappedPoint {
   const nearestPositions = roads.edges.map((edge) =>
@@ -41,7 +42,7 @@ export function findRoute(
   from: LatLngTuple,
   to: LatLngTuple,
   orgRoads: Roads
-): RoadPosition[] | undefined {
+): LatLngAlt[] | null {
   const roads = orgRoads.clone();
 
   const snapFrom = snapPoint(from, roads);
@@ -106,6 +107,8 @@ export function findRoute(
       }
     }
   }
+
+  return null;
 }
 
 function distance(from: Node, to: Node): number {
@@ -145,8 +148,8 @@ function findShortestEdge(from: Node, to: Node): Edge | undefined {
 function createRoute(
   source: Node,
   predecessors: Map<Node, Node>
-): RoadPosition[] {
-  const result: RoadPosition[] = [];
+): LatLngAlt[] {
+  const result: LatLngAlt[] = [];
 
   let cur = source;
   while (predecessors.has(cur)) {

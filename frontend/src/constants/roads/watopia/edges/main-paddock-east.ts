@@ -1,6 +1,6 @@
-import { RoadPosition } from "../../../../services/Roads";
+import { LatLngAlt } from "../../../../types";
 
-const stream: RoadPosition[] = [
+const stream: LatLngAlt[] = [
   [-11.635885, 166.953369, 5],
   [-11.635933, 166.953309, 5],
   [-11.635975, 166.953248, 5],
