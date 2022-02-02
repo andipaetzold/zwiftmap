@@ -2,6 +2,7 @@ import { Roads } from "../../../services/Roads";
 import edgeADZ from "./edges/adz";
 import edgeADZTop from "./edges/adz-top";
 import edgeEpic from "./edges/epic";
+import edgeEpicReverse from "./edges/epic-reverse";
 import edgeFuegoFlats from "./edges/fuego-flats";
 import edgeFuegoNorthRoundabout1 from "./edges/fuego-north-roundabout-1";
 import edgeFuegoNorthRoundabout2 from "./edges/fuego-north-roundabout-2";
@@ -32,6 +33,8 @@ import edgeVolcanoKOM from "./edges/volcano-kom";
 import edgeVolcanoNorth from "./edges/volcano-north";
 import edgeVolcanoSouth from "./edges/volcano-south";
 import edgeVolcanoTop from "./edges/volcano-top";
+import edgeRadioRoundabout from "./edges/radio-roundabout";
+import edgeRadioClimb from "./edges/radio-climb";
 
 const ROADS = new Roads();
 
@@ -94,10 +97,10 @@ ROADS.createEdge(JUNGLE_PADDOCK_ROW_FRONT, JUNGLE_PADDOCK_EXIT, []);
 ROADS.createEdge(JUNGLE_PADDOCK_EXIT, JUNGLE_JUNCTION_RIGHT_1, []);
 
 // Radio Tower
-const RADIO_TOWER_TOP = ROADS.createNode([-11.675184, 166.950624, 0]);
+const RADIO_TOWER_TOP = ROADS.createNode([-11.675184, 166.950624, 502.6]);
 const RADIO_TOWER_BOTTOM = ROADS.createNode([-11.676543, 166.958332, 373.2]);
-ROADS.createEdge(RADIO_TOWER_BOTTOM, RADIO_TOWER_TOP, []);
-ROADS.createEdge(RADIO_TOWER_TOP, RADIO_TOWER_TOP, []);
+ROADS.createEdge(RADIO_TOWER_TOP, RADIO_TOWER_TOP, edgeRadioRoundabout);
+ROADS.createEdge(RADIO_TOWER_BOTTOM, RADIO_TOWER_TOP, edgeRadioClimb);
 
 // Epic KOM
 const EPIC_KOM_WEST_JUNCTION_1 = ROADS.createNode([-11.664837, 166.950806, 0]);
@@ -108,12 +111,12 @@ ROADS.createEdge(EPIC_KOM_WEST_JUNCTION_1, EPIC_KOM_WEST_JUNCTION_3, []);
 ROADS.createEdge(EPIC_KOM_WEST_JUNCTION_2, EPIC_KOM_WEST_JUNCTION_3, []);
 ROADS.createEdge(EPIC_KOM_WEST_JUNCTION_2, JUNGLE_PADDOCK_EXIT, []);
 
-const EPIC_KOM_BYPASS_EAST = ROADS.createNode([-11.67363, 166.969279, 0]);
+const EPIC_KOM_BYPASS_EAST = ROADS.createNode([-11.67363, 166.969279, 99.2]);
 const EPIC_KOM_BYPASS_WEST = ROADS.createNode([-11.665455, 166.951225, 78.4]);
 ROADS.createEdge(EPIC_KOM_WEST_JUNCTION_3, EPIC_KOM_BYPASS_WEST, []);
 ROADS.createEdge(EPIC_KOM_BYPASS_WEST, EPIC_KOM_BYPASS_EAST, []);
 ROADS.createEdge(EPIC_KOM_BYPASS_WEST, RADIO_TOWER_BOTTOM, edgeEpic);
-ROADS.createEdge(EPIC_KOM_BYPASS_EAST, RADIO_TOWER_BOTTOM, []);
+ROADS.createEdge(EPIC_KOM_BYPASS_EAST, RADIO_TOWER_BOTTOM, edgeEpicReverse);
 
 // Volcano
 const VOLCANO_EAST = ROADS.createNode([-11.640294, 166.942486, 10.4]);
