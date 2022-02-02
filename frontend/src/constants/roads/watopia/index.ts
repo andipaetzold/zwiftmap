@@ -2,12 +2,20 @@ import { Roads } from "../../../services/Roads";
 import edgeADZ from "./edges/adz";
 import edgeADZTop from "./edges/adz-top";
 import edgeEpic from "./edges/epic";
+import edgeEpicBypass from "./edges/epic-bypass";
 import edgeEpicReverse from "./edges/epic-reverse";
 import edgeFuegoFlats from "./edges/fuego-flats";
 import edgeFuegoNorthRoundabout1 from "./edges/fuego-north-roundabout-1";
 import edgeFuegoNorthRoundabout2 from "./edges/fuego-north-roundabout-2";
 import edgeFuegoSouthRoundabout1 from "./edges/fuego-south-roundabout-1";
 import edgeFuegoSouthRoundabout2 from "./edges/fuego-south-roundabout-2";
+import edgeJungle1 from "./edges/jungle-1";
+import edgeJungle2 from "./edges/jungle-2";
+import edgeJungle3 from "./edges/jungle-3";
+import edgeJungle4 from "./edges/jungle-4";
+import edgeJungleBridge from "./edges/jungle-bridge";
+import edgeJunglePaddockEast from "./edges/jungle-paddock-east";
+import edgeJunglePaddockWest from "./edges/jungle-paddock-west";
 import edgeMainBetweenEdges from "./edges/main-between-exits";
 import edgeMainEast1 from "./edges/main-east-1";
 import edgeMainEast2 from "./edges/main-east-2";
@@ -25,6 +33,12 @@ import edgeMainSouthWestJunction3 from "./edges/main-south-west-junction-3";
 import edgeMainWest from "./edges/main-west";
 import edgeMarina from "./edges/marina";
 import edgeOceanBlvd from "./edges/ocean-blvd";
+import edgeOceanEast1 from "./edges/ocean-east-1";
+import edgeOceanEast2 from "./edges/ocean-east-2";
+import edgeOceanWest1 from "./edges/ocean-west-1";
+import edgeOceanWest2 from "./edges/ocean-west-2";
+import edgeRadioClimb from "./edges/radio-climb";
+import edgeRadioRoundabout from "./edges/radio-roundabout";
 import edgeTitansGrove from "./edges/titans-grove";
 import edgeVolcano1 from "./edges/volcano-1";
 import edgeVolcano2 from "./edges/volcano-2";
@@ -33,15 +47,6 @@ import edgeVolcanoKOM from "./edges/volcano-kom";
 import edgeVolcanoNorth from "./edges/volcano-north";
 import edgeVolcanoSouth from "./edges/volcano-south";
 import edgeVolcanoTop from "./edges/volcano-top";
-import edgeRadioRoundabout from "./edges/radio-roundabout";
-import edgeRadioClimb from "./edges/radio-climb";
-import edgeJungleBridge from "./edges/jungle-bridge";
-import edgeJungle1 from "./edges/jungle-1";
-import edgeJungle2 from "./edges/jungle-2";
-import edgeJungle3 from "./edges/jungle-3";
-import edgeJungle4 from "./edges/jungle-4";
-import edgeJunglePaddockEast from "./edges/jungle-paddock-east";
-import edgeJunglePaddockWest from "./edges/jungle-paddock-west";
 
 const ROADS = new Roads();
 
@@ -66,9 +71,13 @@ ROADS.createEdge(JUNGLE_JUNCTION_TOP_2, JUNGLE_JUNCTION_TOP_3, []);
 ROADS.createEdge(JUNGLE_JUNCTION_TOP_3, ADZ_BOTTOM_3, edgeJungle1);
 
 // Jungle (Junction Bottom)
-const JUNGLE_JUNCTION_BOTTOM_1 = ROADS.createNode([-11.684023, 166.930626, 26.4]);
+const JUNGLE_JUNCTION_BOTTOM_1 = ROADS.createNode([
+  -11.684023, 166.930626, 26.4,
+]);
 const JUNGLE_JUNCTION_BOTTOM_2 = ROADS.createNode([-11.683957, 166.930311, 26]);
-const JUNGLE_JUNCTION_BOTTOM_3 = ROADS.createNode([-11.684243, 166.930364, 25.6]);
+const JUNGLE_JUNCTION_BOTTOM_3 = ROADS.createNode([
+  -11.684243, 166.930364, 25.6,
+]);
 ROADS.createEdge(JUNGLE_JUNCTION_BOTTOM_1, JUNGLE_JUNCTION_BOTTOM_2, []);
 ROADS.createEdge(JUNGLE_JUNCTION_BOTTOM_1, JUNGLE_JUNCTION_BOTTOM_3, []);
 ROADS.createEdge(JUNGLE_JUNCTION_BOTTOM_2, JUNGLE_JUNCTION_BOTTOM_3, []);
@@ -96,7 +105,9 @@ const JUNGLE_PADDOCK_2 = ROADS.createNode([-11.666148, 166.94218, 98.2]);
 const JUNGLE_PADDOCK_3 = ROADS.createNode([-11.664603, 166.943, 98.2]);
 const JUNGLE_PADDOCK_4 = ROADS.createNode([-11.665623, 166.941698, 98.2]);
 const JUNGLE_PADDOCK_CENTER = ROADS.createNode([-11.664944, 166.942271, 98.2]);
-const JUNGLE_PADDOCK_ROW_FRONT = ROADS.createNode([-11.666222, 166.943264, 98.2]);
+const JUNGLE_PADDOCK_ROW_FRONT = ROADS.createNode([
+  -11.666222, 166.943264, 98.2,
+]);
 const JUNGLE_PADDOCK_ROW_BACK = ROADS.createNode([-11.66566, 166.942835, 98.2]);
 ROADS.createEdge(JUNGLE_PADDOCK_1, JUNGLE_PADDOCK_ROW_FRONT, []);
 ROADS.createEdge(JUNGLE_PADDOCK_2, JUNGLE_PADDOCK_ROW_FRONT, []);
@@ -105,7 +116,11 @@ ROADS.createEdge(JUNGLE_PADDOCK_3, JUNGLE_PADDOCK_ROW_BACK, []);
 ROADS.createEdge(JUNGLE_PADDOCK_4, JUNGLE_PADDOCK_ROW_BACK, []);
 ROADS.createEdge(JUNGLE_PADDOCK_CENTER, JUNGLE_PADDOCK_ROW_BACK, []);
 ROADS.createEdge(JUNGLE_PADDOCK_ROW_FRONT, JUNGLE_PADDOCK_EXIT, []);
-ROADS.createEdge(JUNGLE_PADDOCK_EXIT, JUNGLE_JUNCTION_EAST_1, edgeJunglePaddockWest);
+ROADS.createEdge(
+  JUNGLE_PADDOCK_EXIT,
+  JUNGLE_JUNCTION_EAST_1,
+  edgeJunglePaddockWest
+);
 
 // Radio Tower
 const RADIO_TOWER_TOP = ROADS.createNode([-11.675184, 166.950624, 502.6]);
@@ -114,18 +129,26 @@ ROADS.createEdge(RADIO_TOWER_TOP, RADIO_TOWER_TOP, edgeRadioRoundabout);
 ROADS.createEdge(RADIO_TOWER_BOTTOM, RADIO_TOWER_TOP, edgeRadioClimb);
 
 // Epic KOM
-const EPIC_KOM_WEST_JUNCTION_1 = ROADS.createNode([-11.664837, 166.950806, 0]);
+const EPIC_KOM_WEST_JUNCTION_1 = ROADS.createNode([
+  -11.664837, 166.950806, 77.5,
+]);
 const EPIC_KOM_WEST_JUNCTION_2 = ROADS.createNode([-11.665112, 166.95051, 77]);
-const EPIC_KOM_WEST_JUNCTION_3 = ROADS.createNode([-11.665264, 166.950886, 0]);
+const EPIC_KOM_WEST_JUNCTION_3 = ROADS.createNode([
+  -11.665264, 166.950886, 77.5,
+]);
 ROADS.createEdge(EPIC_KOM_WEST_JUNCTION_1, EPIC_KOM_WEST_JUNCTION_2, []);
 ROADS.createEdge(EPIC_KOM_WEST_JUNCTION_1, EPIC_KOM_WEST_JUNCTION_3, []);
 ROADS.createEdge(EPIC_KOM_WEST_JUNCTION_2, EPIC_KOM_WEST_JUNCTION_3, []);
-ROADS.createEdge(EPIC_KOM_WEST_JUNCTION_2, JUNGLE_PADDOCK_EXIT, edgeJunglePaddockEast);
+ROADS.createEdge(
+  EPIC_KOM_WEST_JUNCTION_2,
+  JUNGLE_PADDOCK_EXIT,
+  edgeJunglePaddockEast
+);
 
 const EPIC_KOM_BYPASS_EAST = ROADS.createNode([-11.67363, 166.969279, 99.2]);
 const EPIC_KOM_BYPASS_WEST = ROADS.createNode([-11.665455, 166.951225, 78.4]);
 ROADS.createEdge(EPIC_KOM_WEST_JUNCTION_3, EPIC_KOM_BYPASS_WEST, []);
-ROADS.createEdge(EPIC_KOM_BYPASS_WEST, EPIC_KOM_BYPASS_EAST, []);
+ROADS.createEdge(EPIC_KOM_BYPASS_WEST, EPIC_KOM_BYPASS_EAST, edgeEpicBypass);
 ROADS.createEdge(EPIC_KOM_BYPASS_WEST, RADIO_TOWER_BOTTOM, edgeEpic);
 ROADS.createEdge(EPIC_KOM_BYPASS_EAST, RADIO_TOWER_BOTTOM, edgeEpicReverse);
 
@@ -146,10 +169,10 @@ const OCEAN_SOUTH = ROADS.createNode([-11.651355, 166.962536, -5.4]);
 const OCEAN_WEST = ROADS.createNode([-11.653714, 166.955555, 1]);
 const OCEAN_EAST = ROADS.createNode([-11.659781, 166.967565, 0]);
 ROADS.createEdge(OCEAN_SOUTH, OCEAN_NORTH, edgeOceanBlvd);
-ROADS.createEdge(OCEAN_SOUTH, OCEAN_WEST, []);
-ROADS.createEdge(OCEAN_SOUTH, OCEAN_EAST, []);
-ROADS.createEdge(OCEAN_WEST, EPIC_KOM_WEST_JUNCTION_1, []);
-ROADS.createEdge(OCEAN_EAST, EPIC_KOM_BYPASS_EAST, []);
+ROADS.createEdge(OCEAN_WEST, OCEAN_SOUTH, edgeOceanWest2);
+ROADS.createEdge(OCEAN_EAST, OCEAN_SOUTH, edgeOceanEast2);
+ROADS.createEdge(OCEAN_WEST, EPIC_KOM_WEST_JUNCTION_1, edgeOceanWest1);
+ROADS.createEdge(EPIC_KOM_BYPASS_EAST, OCEAN_EAST, edgeOceanEast1);
 
 // Titans Grove
 const TITANS_NORTH = ROADS.createNode([-11.636581, 166.969395, 11.8]);
