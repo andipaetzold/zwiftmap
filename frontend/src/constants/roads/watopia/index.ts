@@ -56,6 +56,8 @@ import edgeVolcanoNorth from "./edges/volcano-north";
 import edgeVolcanoSouth from "./edges/volcano-south";
 import edgeVolcanoTop from "./edges/volcano-top";
 import edgeJWBCliff from "./edges/jwb-cliff";
+import edgeMainPaddockEast from "./edges/main-paddock-east";
+import edgeMainPaddockWest from "./edges/main-paddock-west";
 
 const ROADS = new Roads();
 
@@ -191,14 +193,14 @@ ROADS.createEdge(OCEAN_NORTH, TITANS_NORTH, edgeMainTitansNorth);
 ROADS.createEdge(TITANS_SOUTH, OCEAN_EAST, edgeOceanTitansSouth);
 
 // Main Paddock
-const MAIN_PADDOCK_1 = ROADS.createNode([-11.635633, 166.95485, 0]);
-const MAIN_PADDOCK_2 = ROADS.createNode([-11.634525, 166.954023, 0]);
-const MAIN_PADDOCK_3 = ROADS.createNode([-11.63515, 166.955608, 0]);
-const MAIN_PADDOCK_4 = ROADS.createNode([-11.634042, 166.954743, 0]);
-const MAIN_PADDOCK_CENTER = ROADS.createNode([-11.634852, 166.954781, 0]);
-const MAIN_PADDOCK_ROW_BACK = ROADS.createNode([-11.634995, 166.954594, 0]);
-const MAIN_PADDOCK_ROW_FRONT = ROADS.createNode([-11.635481, 166.953907, 0]);
-const MAIN_PADDOCK_SPLIT = ROADS.createNode([-11.635792, 166.953503, 0]);
+const MAIN_PADDOCK_1 = ROADS.createNode([-11.635633, 166.95485, 5]);
+const MAIN_PADDOCK_2 = ROADS.createNode([-11.634525, 166.954023, 5]);
+const MAIN_PADDOCK_3 = ROADS.createNode([-11.63515, 166.955608, 5]);
+const MAIN_PADDOCK_4 = ROADS.createNode([-11.634042, 166.954743, 5]);
+const MAIN_PADDOCK_CENTER = ROADS.createNode([-11.634852, 166.954781, 5]);
+const MAIN_PADDOCK_ROW_BACK = ROADS.createNode([-11.634995, 166.954594, 5]);
+const MAIN_PADDOCK_ROW_FRONT = ROADS.createNode([-11.635481, 166.953907, 5]);
+const MAIN_PADDOCK_SPLIT = ROADS.createNode([-11.635792, 166.953503, 5]);
 const MAIN_PADDOCK_EXIT_WEST = ROADS.createNode([-11.635513, 166.952232, 1.6]);
 const MAIN_PADDOCK_EXIT_EAST = ROADS.createNode([-11.637415, 166.95431, 1.8]);
 ROADS.createEdge(MAIN_PADDOCK_CENTER, MAIN_PADDOCK_ROW_BACK, []);
@@ -208,8 +210,16 @@ ROADS.createEdge(MAIN_PADDOCK_2, MAIN_PADDOCK_ROW_FRONT, []);
 ROADS.createEdge(MAIN_PADDOCK_3, MAIN_PADDOCK_ROW_BACK, []);
 ROADS.createEdge(MAIN_PADDOCK_4, MAIN_PADDOCK_ROW_BACK, []);
 ROADS.createEdge(MAIN_PADDOCK_ROW_FRONT, MAIN_PADDOCK_SPLIT, []);
-ROADS.createEdge(MAIN_PADDOCK_SPLIT, MAIN_PADDOCK_EXIT_WEST, []);
-ROADS.createEdge(MAIN_PADDOCK_SPLIT, MAIN_PADDOCK_EXIT_EAST, []);
+ROADS.createEdge(
+  MAIN_PADDOCK_SPLIT,
+  MAIN_PADDOCK_EXIT_WEST,
+  edgeMainPaddockWest
+);
+ROADS.createEdge(
+  MAIN_PADDOCK_SPLIT,
+  MAIN_PADDOCK_EXIT_EAST,
+  edgeMainPaddockEast
+);
 ROADS.createEdge(
   MAIN_PADDOCK_EXIT_WEST,
   MAIN_PADDOCK_EXIT_EAST,
