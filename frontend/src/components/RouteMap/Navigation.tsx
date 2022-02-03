@@ -26,8 +26,8 @@ export function Navigation({ world }: Props) {
   });
 
   useEffect(() => {
-    worker.fetchRoads(world.slug)
-  }, [world.slug])
+    worker.fetchRoads(world.slug);
+  }, [world.slug]);
 
   const { result: route } = useAsync(async () => {
     if (from === null || to === null) {
@@ -47,7 +47,9 @@ export function Navigation({ world }: Props) {
     <>
       {route && (
         <>
-          {route[0] && <Marker position={dropAltitude(route[0])} />}
+          {route[0] && (
+            <Marker interactive={false} position={dropAltitude(route[0])} />
+          )}
           {route[route.length - 1] && (
             <Marker
               interactive={false}
