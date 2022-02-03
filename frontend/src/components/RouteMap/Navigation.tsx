@@ -29,15 +29,17 @@ export function Navigation({ world }: Props) {
     worker.fetchRoads(world.slug);
   }, [world.slug]);
 
-  const { result: route } = useAsync(async () => {
-    if (from === null || to === null) {
-      return;
-    }
+  const { result: route } = useAsync(
+    async () => {
+      if (from === null || to === null) {
+        return;
+      }
 
-    try {
       return await worker.navigate(from, to, world.slug);
-    } catch (e) {}
-  }, [from, to, world.slug]);
+    },
+    [from, to, world.slug],
+    { setLoading: (state) => ({ ...state, loading: true }) }
+  );
 
   if (!route) {
     return null;

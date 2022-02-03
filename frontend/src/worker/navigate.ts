@@ -150,5 +150,5 @@ function createRoute(source: Node, predecessors: Map<Node, Node>): LatLngAlt[] {
     cur = next;
   }
 
-  return result;
+  return result.reverse();
 }

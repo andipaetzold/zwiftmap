@@ -62,7 +62,7 @@ export function Content() {
         />
       );
     case "navigation":
-      return <Navigation />;
+      return <Navigation state={state} />;
     case "default":
       if (query === "") {
         return <RouteList state={state} />;
