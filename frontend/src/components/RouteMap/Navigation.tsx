@@ -1,13 +1,19 @@
 import { LatLngTuple } from "leaflet";
+import { useEffect } from "react";
 import { useAsync } from "react-async-hook";
 import { Marker, Polyline, useMapEvent } from "react-leaflet";
+import { World } from "zwift-data";
 import { COLORS } from "../../constants";
 import { useNavigationStore } from "../../hooks/useNavigationStore";
 import { worker } from "../../services/worker-client";
 import { dropAltitude } from "../../util/drop-altitude";
 import { POLYLINE_WIDTH } from "./constants";
 
-export function Navigation() {
+interface Props {
+  world: World;
+}
+
+export function Navigation({ world }: Props) {
   const { from, setFrom, to, setTo } = useNavigationStore();
 
   useMapEvent("click", (e) => {
@@ -19,15 +25,19 @@ export function Navigation() {
     }
   });
 
+  useEffect(() => {
+    worker.fetchRoads(world.slug)
+  }, [world.slug])
+
   const { result: route } = useAsync(async () => {
     if (from === null || to === null) {
       return;
     }
 
     try {
-      return await worker.navigate(from, to);
-    } catch {}
-  }, [from, to]);
+      return await worker.navigate(from, to, world.slug);
+    } catch (e) {}
+  }, [from, to, world.slug]);
 
   if (!route) {
     return null;

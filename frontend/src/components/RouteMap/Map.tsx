@@ -141,7 +141,7 @@ export function Map({ world, routeStreams }: Props) {
       </LayersControl>
 
       <RoutePosition streams={routeStreams} />
-      {state.type === "navigation" && <Navigation />}
+      {state.type === "navigation" && <Navigation world={world} />}
     </MapContainer>
   );
 }
