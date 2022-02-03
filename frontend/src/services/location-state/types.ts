@@ -1,3 +1,4 @@
+import { LatLngTuple } from "leaflet";
 import { Route, Segment, World } from "zwift-data";
 
 export interface LocationStateDefault {
@@ -48,6 +49,7 @@ export interface LocationStateShare {
 export interface LocationStateNavigation {
   type: "navigation";
   world: World;
+  points: LatLngTuple[]
 }
 
 export type LocationStateWithKey = LocationState & { key: string };

@@ -12,7 +12,7 @@ describe("splitEdge", () => {
       edge,
       edgeStreamIndex: 0,
       sourcePosition: [2, 0],
-      position: [2, 0],
+      position: [2, 0, 0],
     });
 
     const leftMatcher = expect.objectContaining({ position: [0, 0, 0] });
@@ -59,7 +59,7 @@ describe("splitEdge", () => {
       edge,
       edgeStreamIndex: 2,
       sourcePosition: [4, 0],
-      position: [4, 0],
+      position: [4, 0, 0],
     });
 
     const leftMatcher = expect.objectContaining({ position: [0, 0, 0] });
@@ -106,7 +106,7 @@ describe("splitEdge", () => {
       edge,
       edgeStreamIndex: 1,
       sourcePosition: [2, 0],
-      position: [2, 0],
+      position: [2, 0, 0],
     });
 
     const leftMatcher = expect.objectContaining({ position: [0, 0, 0] });
@@ -153,7 +153,7 @@ describe("splitEdge", () => {
       edge,
       edgeStreamIndex: 1,
       sourcePosition: [4, 0],
-      position: [4, 0],
+      position: [4, 0, 0],
     });
 
     const leftMatcher = expect.objectContaining({ position: [0, 0, 0] });

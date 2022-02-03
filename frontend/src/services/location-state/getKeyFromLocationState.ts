@@ -45,6 +45,12 @@ export function getKeyFromLocationState(locationState: LocationState): string {
       ].join();
 
     case "navigation":
+      return [
+        locationState.type,
+        getKeyFromWorld(locationState.world),
+        locationState.points.join(),
+      ].join();
+
     case "default":
       return [locationState.type, getKeyFromWorld(locationState.world)].join();
   }

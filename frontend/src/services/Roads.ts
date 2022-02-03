@@ -4,6 +4,7 @@ import { LatLngTuple } from "leaflet";
 import minBy from "lodash/minBy";
 import { SnappedPoint } from "../types";
 import { LatLngAlt } from "../types/LatLngAlt";
+import { dropAltitude } from "../util/drop-altitude";
 
 export class Roads {
   private _nodes = new Set<Node>();
@@ -73,7 +74,11 @@ export class Roads {
     edge.to.edges.delete(edge);
 
     const nearestExistingPoint = edge.stream[edgeStreamIndex];
-    const newNode = this.createNode([...position, nearestExistingPoint[2]]);
+    const newNode = this.createNode([
+      position[0],
+      position[1],
+      nearestExistingPoint[2],
+    ]);
 
     const fromStream = edge.stream.slice(0, edgeStreamIndex);
     const toStream = edge.stream.slice(edgeStreamIndex + 1);
@@ -116,7 +121,7 @@ export class Roads {
     );
 
     return {
-      position: nearestPosition!.geometry.coordinates as LatLngTuple,
+      position: nearestPosition!.geometry.coordinates as LatLngAlt,
       sourcePosition: point,
       edge: this.edges[
         nearestPositions.findIndex((np) => np === nearestPosition)

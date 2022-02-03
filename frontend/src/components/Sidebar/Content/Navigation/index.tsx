@@ -1,7 +1,6 @@
 import { List, SimpleListItem } from "@react-md/list";
 import { Typography } from "@react-md/typography";
 import { useAsync } from "react-async-hook";
-import { useNavigationStore } from "../../../../hooks/useNavigationStore";
 import { LocationStateNavigation } from "../../../../services/location-state";
 import { worker } from "../../../../services/worker-client";
 import { NavigationElevationChart } from "./NavigationElevationChart";
@@ -12,17 +11,19 @@ interface Props {
 }
 
 export function Navigation({ state }: Props) {
-  const { from, to } = useNavigationStore();
-
   const { result: stream } = useAsync(
     async () => {
-      if (from === null || to === null) {
+      if (state.points.length < 2) {
         return;
       }
 
-      return await worker.navigate(from, to, state.world.slug);
+      return await worker.navigate(
+        state.points[0],
+        state.points[1],
+        state.world.slug
+      );
     },
-    [from, to, state.world.slug],
+    [state, state.world.slug],
     { setLoading: (state) => ({ ...state, loading: true }) }
   );
 

@@ -1,3 +1,4 @@
+import { LatLngTuple } from "leaflet";
 import { routes, Segment, segments, World, worlds } from "zwift-data";
 import { WORLDS_BY_SLUG } from "../../constants";
 import {
@@ -21,13 +22,22 @@ const PATTERNS: {
 }[] = [
   {
     pattern: PATTERN_NAVIGATION,
-    toState: (result) => {
+    toState: (result, searchParams) => {
       const worldSlug = result.groups!.worldSlug;
       const world = worlds.find((w) => w.slug === worldSlug) ?? DEFAULT_WORLD;
+
+      const points = (searchParams.get("points") ?? "")
+        .split("!")
+        .map((pointString) => pointString.split(","))
+        .map((point) => point.map((x) => parseFloat(x)))
+        .filter((point): point is LatLngTuple => point.length === 2)
+        .filter((point) => point.every((x) => !isNaN(x)));
+
       return [
         {
           type: "navigation",
           world,
+          points,
         },
         false,
       ];

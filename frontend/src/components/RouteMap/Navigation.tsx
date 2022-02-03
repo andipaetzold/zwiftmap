@@ -2,78 +2,95 @@ import { LatLngTuple, Marker as LeafletMarker } from "leaflet";
 import { useCallback, useEffect } from "react";
 import { useAsync } from "react-async-hook";
 import { Marker, Polyline, useMapEvent } from "react-leaflet";
-import { World } from "zwift-data";
 import { COLORS } from "../../constants";
-import { useNavigationStore } from "../../hooks/useNavigationStore";
+import {
+  LocationStateNavigation,
+  navigate,
+} from "../../services/location-state";
 import { worker } from "../../services/worker-client";
+import { dropAltitude } from "../../util/drop-altitude";
 import { POLYLINE_WIDTH } from "./constants";
 
 interface Props {
-  world: World;
+  state: LocationStateNavigation;
 }
 
-export function Navigation({ world }: Props) {
-  const { from, setFrom, to, setTo } = useNavigationStore();
-
+export function Navigation({ state }: Props) {
   useMapEvent("click", async (e) => {
-    if (from && to) {
+    if (state.points.length >= 2) {
       return;
     }
 
     const latlng = [e.latlng.lat, e.latlng.lng] as LatLngTuple;
-    const snapped = await worker.snapPoint(latlng, world.slug);
-    if (!from) {
-      setFrom(snapped.position);
+    const snapped = await worker.snapPoint(latlng, state.world.slug);
+    if (!state.points[0]) {
+      navigate({
+        ...state,
+        points: [dropAltitude(snapped.position)],
+      });
     } else {
-      setTo(snapped.position);
+      navigate({
+        ...state,
+        points: [...state.points, dropAltitude(snapped.position)],
+      });
     }
   });
 
   const updateMarker = useCallback(
-    async (marker: LeafletMarker, setter: (latlng: LatLngTuple) => void) => {
+    async (marker: LeafletMarker, pointIndex) => {
       const latlng = marker.getLatLng();
       const snapped = await worker.snapPoint(
         [latlng.lat, latlng.lng],
-        world.slug
+        state.world.slug
       );
-      setter(snapped.position);
+
+      navigate({
+        ...state,
+        points: state.points.map((point, index) =>
+          index === pointIndex ? dropAltitude(snapped.position) : point
+        ),
+      });
     },
-    [world.slug]
+    [state]
   );
 
   useEffect(() => {
-    worker.fetchRoads(world.slug);
-  }, [world.slug]);
+    worker.fetchRoads(state.world.slug);
+  }, [state.world.slug]);
 
   const { result: route } = useAsync(
     async () => {
-      if (from === null || to === null) {
+      if (state.points[0] === null || state.points[1] === null) {
         return;
       }
 
-      return await worker.navigate(from, to, world.slug);
+      return await worker.navigate(
+        state.points[0],
+        state.points[1],
+        state.world.slug
+      );
     },
-    [from, to, world.slug],
+    [state.points, state.world.slug],
     { setLoading: (state) => ({ ...state, loading: true }) }
   );
 
   return (
     <>
-      {from && (
+      {state.points[0] && (
         <Marker
           draggable
-          position={from}
+          position={state.points[0]}
           eventHandlers={{
-            dragend: (e) => updateMarker(e.target, setFrom),
+            dragend: (e) => updateMarker(e.target, 0),
           }}
         />
       )}
-      {to && (
+      {state.points[1] && (
         <Marker
           draggable
-          position={to}
+          position={state.points[1]}
           eventHandlers={{
-            dragend: (e) => updateMarker(e.target, setTo),
+            dragend: (e) => updateMarker(e.target, 1),
           }}
         />
       )}

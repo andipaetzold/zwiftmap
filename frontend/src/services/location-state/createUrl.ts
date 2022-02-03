@@ -5,7 +5,6 @@ export function createUrl(state: LocationState): string {
   const searchParams = new URLSearchParams();
 
   switch (state.type) {
-    case "navigation":
     case "default":
       path = `/${state.world.slug}`;
       break;
@@ -38,6 +37,18 @@ export function createUrl(state: LocationState): string {
 
     case "share":
       path = `/s/${state.shareId}`;
+      break;
+
+    case "navigation":
+      path = `/${state.world.slug}/navigation`;
+      if (state.points.length > 0) {
+        searchParams.set(
+          "points",
+          state.points
+            .map((point) => point.map((x) => x.toString()).join(","))
+            .join("!")
+        );
+      }
       break;
   }
 
