@@ -1,4 +1,4 @@
-import { Map as MapType } from "leaflet";
+import { Map as MapType, Icon } from "leaflet";
 import { useEffect, useRef, useState } from "react";
 import {
   LayerGroup,
@@ -23,6 +23,14 @@ import { RoadLayer } from "./RoadLayer";
 import { RoutePosition } from "./RoutePosition";
 import { SurfaceDebugLayer } from "./SurfaceDebugLayer";
 import { WorldImage } from "./WorldImage";
+
+// @ts-expect-error
+delete Icon.Default.prototype._getIconUrl;
+Icon.Default.mergeOptions({
+  iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
+  iconUrl: require("leaflet/dist/images/marker-icon.png"),
+  shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
+});
 
 interface Props {
   world: World;

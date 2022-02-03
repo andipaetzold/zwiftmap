@@ -1,9 +1,10 @@
 import { LatLngTuple } from "leaflet";
 import { useAsync } from "react-async-hook";
-import { Polyline, useMapEvent } from "react-leaflet";
+import { Marker, Polyline, useMapEvent } from "react-leaflet";
 import { COLORS } from "../../constants";
 import { useNavigationStore } from "../../hooks/useNavigationStore";
 import { worker } from "../../services/worker-client";
+import { dropAltitude } from "../../util/drop-altitude";
 import { POLYLINE_WIDTH } from "./constants";
 
 export function Navigation() {
@@ -33,13 +34,26 @@ export function Navigation() {
   }
 
   return (
-    <Polyline
-      positions={route.map((p) => [p[0], p[1]])}
-      interactive={false}
-      pathOptions={{
-        color: COLORS.route,
-        weight: POLYLINE_WIDTH,
-      }}
-    />
+    <>
+      {route && (
+        <>
+          {route[0] && <Marker position={dropAltitude(route[0])} />}
+          {route[route.length - 1] && (
+            <Marker
+              interactive={false}
+              position={dropAltitude(route[route.length - 1])}
+            />
+          )}
+        </>
+      )}
+      <Polyline
+        positions={route.map((p) => [p[0], p[1]])}
+        interactive={false}
+        pathOptions={{
+          color: COLORS.route,
+          weight: POLYLINE_WIDTH,
+        }}
+      />
+    </>
   );
 }

@@ -11,6 +11,7 @@ import { ENVIRONMENT } from "../../config";
 import { WORLD_ROADS } from "../../constants/roads";
 import { Roads } from "../../services/Roads";
 import { LatLngAlt } from "../../types";
+import { dropAltitude } from "../../util/drop-altitude";
 
 interface Props {
   world: World;
@@ -69,6 +70,3 @@ function Lines({ world }: Props) {
   );
 }
 
-function dropAltitude(p: LatLngAlt): [number, number] {
-  return [p[0], p[1]];
-}
