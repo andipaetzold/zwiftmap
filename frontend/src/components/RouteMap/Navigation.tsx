@@ -1,4 +1,4 @@
-import { LatLngTuple } from "leaflet";
+import { LatLngTuple, Marker as LeafletMarker } from "leaflet";
 import { useEffect } from "react";
 import { useAsync } from "react-async-hook";
 import { Marker, Polyline, useMapEvent } from "react-leaflet";
@@ -20,7 +20,7 @@ export function Navigation({ world }: Props) {
     const latlng = [e.latlng.lat, e.latlng.lng] as LatLngTuple;
     if (!from) {
       setFrom(latlng);
-    } else {
+    } else if (!to) {
       setTo(latlng);
     }
   });
@@ -50,12 +50,29 @@ export function Navigation({ world }: Props) {
       {route && (
         <>
           {route[0] && (
-            <Marker interactive={false} position={dropAltitude(route[0])} />
+            <Marker
+              draggable
+              autoPan
+              position={dropAltitude(route[0])}
+              eventHandlers={{
+                dragend: (e) => {
+                  const latlng = (e.target as LeafletMarker).getLatLng();
+                  setFrom([latlng.lat, latlng.lng]);
+                },
+              }}
+            />
           )}
           {route[route.length - 1] && (
             <Marker
-              interactive={false}
+              draggable
+              autoPan
               position={dropAltitude(route[route.length - 1])}
+              eventHandlers={{
+                dragend: (e) => {
+                  const latlng = (e.target as LeafletMarker).getLatLng();
+                  setTo([latlng.lat, latlng.lng]);
+                },
+              }}
             />
           )}
         </>
