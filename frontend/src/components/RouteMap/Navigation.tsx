@@ -62,7 +62,6 @@ export function Navigation({ world }: Props) {
       {from && (
         <Marker
           draggable
-          autoPan
           position={from}
           eventHandlers={{
             dragend: (e) => updateMarker(e.target, setFrom),
@@ -72,7 +71,6 @@ export function Navigation({ world }: Props) {
       {to && (
         <Marker
           draggable
-          autoPan
           position={to}
           eventHandlers={{
             dragend: (e) => updateMarker(e.target, setTo),
