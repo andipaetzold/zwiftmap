@@ -1,12 +1,11 @@
 import { LatLngTuple, Marker as LeafletMarker } from "leaflet";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useAsync } from "react-async-hook";
 import { Marker, Polyline, useMapEvent } from "react-leaflet";
 import { World } from "zwift-data";
 import { COLORS } from "../../constants";
 import { useNavigationStore } from "../../hooks/useNavigationStore";
 import { worker } from "../../services/worker-client";
-import { dropAltitude } from "../../util/drop-altitude";
 import { POLYLINE_WIDTH } from "./constants";
 
 interface Props {
@@ -16,14 +15,31 @@ interface Props {
 export function Navigation({ world }: Props) {
   const { from, setFrom, to, setTo } = useNavigationStore();
 
-  useMapEvent("click", (e) => {
+  useMapEvent("click", async (e) => {
+    if (from && to) {
+      return;
+    }
+
     const latlng = [e.latlng.lat, e.latlng.lng] as LatLngTuple;
+    const snapped = await worker.snapPoint(latlng, world.slug);
     if (!from) {
-      setFrom(latlng);
-    } else if (!to) {
-      setTo(latlng);
+      setFrom(snapped.position);
+    } else {
+      setTo(snapped.position);
     }
   });
+
+  const updateMarker = useCallback(
+    async (marker: LeafletMarker, setter: (latlng: LatLngTuple) => void) => {
+      const latlng = marker.getLatLng();
+      const snapped = await worker.snapPoint(
+        [latlng.lat, latlng.lng],
+        world.slug
+      );
+      setter(snapped.position);
+    },
+    [world.slug]
+  );
 
   useEffect(() => {
     worker.fetchRoads(world.slug);
@@ -41,50 +57,38 @@ export function Navigation({ world }: Props) {
     { setLoading: (state) => ({ ...state, loading: true }) }
   );
 
-  if (!route) {
-    return null;
-  }
-
   return (
     <>
-      {route && (
-        <>
-          {route[0] && (
-            <Marker
-              draggable
-              autoPan
-              position={dropAltitude(route[0])}
-              eventHandlers={{
-                dragend: (e) => {
-                  const latlng = (e.target as LeafletMarker).getLatLng();
-                  setFrom([latlng.lat, latlng.lng]);
-                },
-              }}
-            />
-          )}
-          {route[route.length - 1] && (
-            <Marker
-              draggable
-              autoPan
-              position={dropAltitude(route[route.length - 1])}
-              eventHandlers={{
-                dragend: (e) => {
-                  const latlng = (e.target as LeafletMarker).getLatLng();
-                  setTo([latlng.lat, latlng.lng]);
-                },
-              }}
-            />
-          )}
-        </>
+      {from && (
+        <Marker
+          draggable
+          autoPan
+          position={from}
+          eventHandlers={{
+            dragend: (e) => updateMarker(e.target, setFrom),
+          }}
+        />
       )}
-      <Polyline
-        positions={route.map((p) => [p[0], p[1]])}
-        interactive={false}
-        pathOptions={{
-          color: COLORS.route,
-          weight: POLYLINE_WIDTH,
-        }}
-      />
+      {to && (
+        <Marker
+          draggable
+          autoPan
+          position={to}
+          eventHandlers={{
+            dragend: (e) => updateMarker(e.target, setTo),
+          }}
+        />
+      )}
+      {route && (
+        <Polyline
+          positions={route.map((p) => [p[0], p[1]])}
+          interactive={false}
+          pathOptions={{
+            color: COLORS.route,
+            weight: POLYLINE_WIDTH,
+          }}
+        />
+      )}
     </>
   );
 }
