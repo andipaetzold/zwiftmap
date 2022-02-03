@@ -1,32 +1,32 @@
+import { LatLngTuple } from "leaflet";
 import { useAsync } from "react-async-hook";
 import { Polyline, useMapEvent } from "react-leaflet";
 import { COLORS } from "../../constants";
-import { useStore } from "../../hooks/useStore";
+import { useNavigationStore } from "../../hooks/useNavigationStore";
 import { worker } from "../../services/worker-client";
 import { POLYLINE_WIDTH } from "./constants";
 
 export function Navigation() {
-  const { navigationPositions, setNavigationPositions } = useStore();
+  const { from, setFrom, to, setTo } = useNavigationStore();
 
   useMapEvent("click", (e) => {
-    setNavigationPositions([
-      ...navigationPositions.slice(0, 1),
-      [e.latlng.lat, e.latlng.lng],
-    ]);
+    const latlng = [e.latlng.lat, e.latlng.lng] as LatLngTuple;
+    if (!from) {
+      setFrom(latlng);
+    } else {
+      setTo(latlng);
+    }
   });
 
   const { result: route } = useAsync(async () => {
-    if (navigationPositions.length !== 2) {
+    if (from === null || to === null) {
       return;
     }
 
     try {
-      return await worker.navigate(
-        navigationPositions[0],
-        navigationPositions[1]
-      );
+      return await worker.navigate(from, to);
     } catch {}
-  }, [navigationPositions]);
+  }, [from, to]);
 
   if (!route) {
     return null;
