@@ -10,7 +10,6 @@ import { World, WorldSlug } from "zwift-data";
 import { ENVIRONMENT } from "../../config";
 import { WORLD_ROADS } from "../../constants/roads";
 import { Roads } from "../../services/Roads";
-import { LatLngAlt } from "../../types";
 import { dropAltitude } from "../../util/drop-altitude";
 
 interface Props {
@@ -69,4 +68,3 @@ function Lines({ world }: Props) {
     </>
   );
 }
-
