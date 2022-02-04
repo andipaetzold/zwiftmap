@@ -2,6 +2,7 @@ import { lineString, lineString as turfLineString } from "@turf/helpers";
 import turfNearestPointOnLine from "@turf/nearest-point-on-line";
 import { LatLngTuple } from "leaflet";
 import minBy from "lodash/minBy";
+import round from "lodash/round";
 import { SnappedPoint } from "../types";
 import { LatLngAlt } from "../types/LatLngAlt";
 
@@ -119,8 +120,15 @@ export class Roads {
       (pos) => pos.properties.dist
     );
 
+    const coordinates = nearestPosition!.geometry.coordinates;
+    const position = [
+      round(coordinates[0], 6),
+      round(coordinates[1], 6),
+      coordinates[2],
+    ] as LatLngAlt;
+
     return {
-      position: nearestPosition!.geometry.coordinates as LatLngAlt,
+      position,
       sourcePosition: point,
       edge: this.edges[
         nearestPositions.findIndex((np) => np === nearestPosition)
