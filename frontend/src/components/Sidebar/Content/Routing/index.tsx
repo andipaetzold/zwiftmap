@@ -12,6 +12,7 @@ import { LatLngAlt } from "../../../../types";
 import { ButtonState } from "../../../ButtonState";
 import { RoutingElevationChart } from "./RoutingElevationChart";
 import { RoutingFacts } from "./RoutingFacts";
+import { RoutingHelmet } from "./RoutingHelmet";
 import { RoutingWaypoints } from "./RoutingWaypoints";
 
 interface Props {
@@ -47,6 +48,7 @@ export function Routing({ state }: Props) {
 
   return (
     <List>
+      <RoutingHelmet world={state.world} />
       <SimpleListItem>
         <ButtonState
           themeType="outline"
