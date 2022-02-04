@@ -7,10 +7,10 @@ export interface Props {
 }
 
 export function ListItemWorld({ world }: Props) {
-  const [settings] = useSettings();
+  const sport = useSettings((state) => state.sport);
   const secondaryText = `${
     routes
-      .filter((r) => r.sports.includes(settings.sport))
+      .filter((r) => r.sports.includes(sport))
       .filter((r) => r.world === world.slug).length
   } routes | ${segments.filter((s) => s.world === world.slug).length} segments`;
 

@@ -19,7 +19,7 @@ interface Props {
 export function UpcomingEvents({ state }: Props) {
   const [{ eventFilter: filterState }] = useSessionSettings();
   const { result: events, loading } = useAsync(fetchEvents, []);
-  const [settings] = useSettings();
+  const sport = useSettings((state) => state.sport);
 
   if (!events) {
     if (loading) {
@@ -51,7 +51,7 @@ export function UpcomingEvents({ state }: Props) {
       <EventFilterButton />
 
       {events
-        .filter((e) => e.sport.toLowerCase() === settings.sport)
+        .filter((e) => e.sport.toLowerCase() === sport)
         .filter((e) => filterState.eventTypes.includes(e.eventType))
         .map((event) => (
           <EventItem key={event.id} state={state} event={event} />

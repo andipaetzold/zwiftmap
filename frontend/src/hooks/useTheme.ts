@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useSettings } from "./useSettings";
 
 export function useTheme(): void {
-  const [{ theme }] = useSettings();
+  const theme = useSettings((state) => state.theme);
   const prevClassName = useRef<string>("theme-system");
 
   useEffect(() => {
