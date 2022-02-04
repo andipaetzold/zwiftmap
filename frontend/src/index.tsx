@@ -12,6 +12,7 @@ import { fetchAuthStatus } from "./services/auth";
 import {
   PATTERN_EVENT,
   PATTERN_ROUTE_OR_SEGMENT,
+  PATTERN_ROUTING,
   PATTERN_SHARED_ITEM,
   PATTERN_STRAVA_ACTIVITY,
   PATTERN_WORLD,
@@ -47,6 +48,13 @@ Sentry.init({
           return {
             ...context,
             name: "/strava-activities/:stravaActivityId",
+          };
+        }
+        const resultRouting = PATTERN_ROUTING.exec(context.name);
+        if (resultRouting) {
+          return {
+            ...context,
+            name: "/:worldSlug/routing",
           };
         }
 
