@@ -45,11 +45,7 @@ export function getKeyFromLocationState(locationState: LocationState): string {
       ].join();
 
     case "routing":
-      return [
-        locationState.type,
-        getKeyFromWorld(locationState.world),
-        locationState.points.join(),
-      ].join();
+      return [locationState.type, getKeyFromWorld(locationState.world)].join();
 
     case "default":
       return [locationState.type, getKeyFromWorld(locationState.world)].join();
