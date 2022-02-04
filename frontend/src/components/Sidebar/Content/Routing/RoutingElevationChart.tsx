@@ -8,7 +8,7 @@ interface Props {
   stream: LatLngAlt[];
 }
 
-export function NavigationElevationChart({ stream }: Props) {
+export function RoutingElevationChart({ stream }: Props) {
   const altitudeStream = useMemo(
     () => stream.map(([, , alt]) => alt),
     [stream]

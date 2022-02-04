@@ -39,8 +39,8 @@ export function createUrl(state: LocationState): string {
       path = `/s/${state.shareId}`;
       break;
 
-    case "navigation":
-      path = `/${state.world.slug}/navigation`;
+    case "routing":
+      path = `/${state.world.slug}/routing`;
       if (state.points.length > 0) {
         searchParams.set(
           "points",

@@ -5,4 +5,4 @@ export const PATTERN_SHARED_ITEM = /^\/s\/(?<shareId>.+)$/;
 export const PATTERN_ROUTE_OR_SEGMENT =
   /^\/(?<worldSlug>.+)\/(?<routeOrSegmentSlug>.+)$/;
 export const PATTERN_WORLD = /^\/(?<worldSlug>.+)$/;
-export const PATTERN_NAVIGATION = /^\/(?<worldSlug>.+)\/navigation$/;
+export const PATTERN_ROUTING = /^\/(?<worldSlug>.+)\/routing$/;

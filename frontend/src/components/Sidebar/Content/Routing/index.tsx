@@ -1,16 +1,16 @@
 import { List, SimpleListItem } from "@react-md/list";
 import { Typography } from "@react-md/typography";
 import { useAsync } from "react-async-hook";
-import { LocationStateNavigation } from "../../../../services/location-state";
+import { LocationStateRouting } from "../../../../services/location-state";
 import { worker } from "../../../../services/worker-client";
-import { NavigationElevationChart } from "./NavigationElevationChart";
-import { NavigationFacts } from "./NavigationFacts";
+import { RoutingElevationChart } from "./RoutingElevationChart";
+import { RoutingFacts } from "./RoutingFacts";
 
 interface Props {
-  state: LocationStateNavigation;
+  state: LocationStateRouting;
 }
 
-export function Navigation({ state }: Props) {
+export function Routing({ state }: Props) {
   const { result: stream } = useAsync(
     async () => {
       if (state.points.length < 2) {
@@ -31,14 +31,14 @@ export function Navigation({ state }: Props) {
     <List>
       <SimpleListItem>
         <Typography type="headline-6" style={{ margin: 0 }}>
-          Navigation
+          Routing
         </Typography>
       </SimpleListItem>
 
       {stream && (
         <>
-          <NavigationFacts stream={stream} />
-          <NavigationElevationChart stream={stream} />
+          <RoutingFacts stream={stream} />
+          <RoutingElevationChart stream={stream} />
         </>
       )}
     </List>

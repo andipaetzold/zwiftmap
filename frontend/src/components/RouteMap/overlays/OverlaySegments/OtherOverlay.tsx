@@ -3,7 +3,7 @@ import { Pane, Polyline } from "react-leaflet";
 import { COLORS } from "../../../../constants";
 import {
   LocationStateDefault,
-  LocationStateNavigation,
+  LocationStateRouting,
   LocationStateSegment,
   LocationStateShare,
   LocationStateStravaActivities,
@@ -23,7 +23,7 @@ interface Props {
     | LocationStateStravaActivities
     | LocationStateUpcomingEvents
     | LocationStateShare
-    | LocationStateNavigation;
+    | LocationStateRouting;
 }
 
 export function OtherOverlay({ state }: Props) {

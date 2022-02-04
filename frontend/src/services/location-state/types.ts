@@ -46,8 +46,8 @@ export interface LocationStateShare {
   shareId: string;
 }
 
-export interface LocationStateNavigation {
-  type: "navigation";
+export interface LocationStateRouting {
+  type: "routing";
   world: World;
   points: LatLngTuple[]
 }
@@ -62,4 +62,4 @@ export type LocationState =
   | LocationStateUpcomingEvents
   | LocationStateUpcomingEvent
   | LocationStateShare
-  | LocationStateNavigation;
+  | LocationStateRouting;

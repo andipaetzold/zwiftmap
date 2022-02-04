@@ -9,7 +9,7 @@ import { Event } from "./Event";
 import { RouteList } from "./Lists/RouteList";
 import { SearchResultList } from "./Lists/SearchResultList";
 import { StravaActivitiesList } from "./Lists/StravaActivitiesList";
-import { Navigation } from "./Navigation";
+import { Routing } from "./Routing";
 import { RouteDetails } from "./RouteDetails";
 import { SegmentDetails } from "./SegmentDetails";
 import { Share } from "./Share";
@@ -61,8 +61,8 @@ export function Content() {
           backButtonState={backButtonState}
         />
       );
-    case "navigation":
-      return <Navigation state={state} />;
+    case "routing":
+      return <Routing state={state} />;
     case "default":
       if (query === "") {
         return <RouteList state={state} />;

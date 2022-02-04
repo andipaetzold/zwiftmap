@@ -3,19 +3,16 @@ import { useCallback, useEffect } from "react";
 import { useAsync } from "react-async-hook";
 import { Marker, Polyline, useMapEvent } from "react-leaflet";
 import { COLORS } from "../../constants";
-import {
-  LocationStateNavigation,
-  navigate,
-} from "../../services/location-state";
+import { LocationStateRouting, navigate } from "../../services/location-state";
 import { worker } from "../../services/worker-client";
 import { dropAltitude } from "../../util/drop-altitude";
 import { POLYLINE_WIDTH } from "./constants";
 
 interface Props {
-  state: LocationStateNavigation;
+  state: LocationStateRouting;
 }
 
-export function Navigation({ state }: Props) {
+export function Routing({ state }: Props) {
   useMapEvent("click", async (e) => {
     if (state.points.length >= 2) {
       return;

@@ -11,7 +11,7 @@ interface Props {
   stream: LatLngAlt[];
 }
 
-export function NavigationFacts({ stream }: Props) {
+export function RoutingFacts({ stream }: Props) {
   const distance = useMemo(() => turfLength(lineString(stream)), [stream]);
   const elevation = useMemo(
     () =>

@@ -1,4 +1,4 @@
-import { Map as MapType, Icon } from "leaflet";
+import { Icon, Map as MapType } from "leaflet";
 import { useEffect, useRef, useState } from "react";
 import {
   LayerGroup,
@@ -14,13 +14,13 @@ import { useLocationState } from "../../services/location-state";
 import { DistanceStream, LatLngStream, Overlay } from "../../types";
 import { getBounds } from "../../util/bounds";
 import styles from "./index.module.scss";
-import { Navigation } from "./Navigation";
 import { OverlayNone } from "./overlays/OverlayNone";
 import { OverlaySegments } from "./overlays/OverlaySegments";
 import { OverlaySurfaces } from "./overlays/OverlaySurfaces";
 import { PreviewRoute } from "./PreviewRoute";
 import { RoadLayer } from "./RoadLayer";
 import { RoutePosition } from "./RoutePosition";
+import { Routing } from "./Routing";
 import { SurfaceDebugLayer } from "./SurfaceDebugLayer";
 import { WorldImage } from "./WorldImage";
 
@@ -141,7 +141,7 @@ export function Map({ world, routeStreams }: Props) {
       </LayersControl>
 
       <RoutePosition streams={routeStreams} />
-      {state.type === "navigation" && <Navigation state={state} />}
+      {state.type === "routing" && <Routing state={state} />}
     </MapContainer>
   );
 }
