@@ -4,7 +4,6 @@ import { LatLngTuple } from "leaflet";
 import minBy from "lodash/minBy";
 import { SnappedPoint } from "../types";
 import { LatLngAlt } from "../types/LatLngAlt";
-import { dropAltitude } from "../util/drop-altitude";
 
 export class Roads {
   private _nodes = new Set<Node>();
