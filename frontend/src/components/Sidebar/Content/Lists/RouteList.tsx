@@ -2,6 +2,7 @@ import { Divider } from "@react-md/divider";
 import { List } from "@react-md/list";
 import { Helmet } from "react-helmet-async";
 import { routes } from "zwift-data";
+import { ENVIRONMENT } from "../../../../config";
 import { useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";
 import { useSessionSettings } from "../../../../hooks/useSessionSettings";
 import { useSettings } from "../../../../hooks/useSettings";
@@ -62,6 +63,21 @@ export function RouteList({ state }: Props) {
         >
           Upcoming Events
         </ListItemState>
+
+        {ENVIRONMENT === "development" && (
+          <ListItemState
+            role="menuitem"
+            secondaryText="Custom route"
+            state={{
+              points: [],
+              world: state.world,
+              type: "routing",
+            }}
+            query=""
+          >
+            Routing
+          </ListItemState>
+        )}
 
         <Divider />
       </List>
