@@ -1,3 +1,4 @@
+import { Divider } from "@react-md/divider";
 import { TextIconSpacing } from "@react-md/icon";
 import { List, SimpleListItem } from "@react-md/list";
 import { ListSVGIcon } from "@react-md/material-icons";
@@ -8,6 +9,7 @@ import { worker } from "../../../../services/worker-client";
 import { ButtonState } from "../../../ButtonState";
 import { RoutingElevationChart } from "./RoutingElevationChart";
 import { RoutingFacts } from "./RoutingFacts";
+import { RoutingWaypoints } from "./RoutingWaypoints";
 
 interface Props {
   state: LocationStateRouting;
@@ -51,8 +53,11 @@ export function Routing({ state }: Props) {
         </Typography>
       </SimpleListItem>
 
+      <RoutingWaypoints state={state} />
+
       {stream && (
         <>
+          <Divider />
           <RoutingFacts stream={stream} />
           <RoutingElevationChart stream={stream} />
         </>
