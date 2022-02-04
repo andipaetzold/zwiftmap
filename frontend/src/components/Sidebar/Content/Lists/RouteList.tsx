@@ -16,7 +16,7 @@ interface Props {
 }
 
 export function RouteList({ state }: Props) {
-  const [settings] = useSettings();
+  const sport = useSettings((state) => state.sport);
   const isLoggedIn = useIsLoggedInStrava();
   const [{ sortState }] = useSessionSettings();
 
@@ -91,7 +91,7 @@ export function RouteList({ state }: Props) {
         <SortButton />
         {routes
           .filter((route) => route.world === state.world.slug)
-          .filter((route) => route.sports.includes(settings.sport))
+          .filter((route) => route.sports.includes(sport))
           .filter((route) => route.stravaSegmentId !== undefined)
           .sort((a, b) => sortRoute(sortState, a, b))
           .map((route) => (

@@ -18,9 +18,9 @@ interface Props {
 }
 
 export function Distance({ distance, label = "Distance" }: Props) {
-  const [settings] = useSettings();
+  const units = useSettings((state) => state.units);
   let text: string;
-  switch (settings.units) {
+  switch (units) {
     case "imperial": {
       const value = distance / 1.609;
       if (value < 0.3) {

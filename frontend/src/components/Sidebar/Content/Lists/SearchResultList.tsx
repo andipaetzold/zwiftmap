@@ -23,10 +23,10 @@ interface Props {
 }
 
 export function SearchResultList({ query }: Props) {
-  const [settings] = useSettings();
+  const sport = useSettings((state) => state.sport);
   const [{ sortState }] = useSessionSettings();
 
-  const searchResults = search(query, settings.sport);
+  const searchResults = search(query, sport);
 
   if (Object.values(searchResults).flat().length === 0) {
     return <SimpleListItem>No worlds or routes found</SimpleListItem>;

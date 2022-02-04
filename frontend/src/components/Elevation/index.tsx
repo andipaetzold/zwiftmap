@@ -12,9 +12,9 @@ interface Props {
 }
 
 export function Elevation({ elevation, label = "Elevation" }: Props) {
-  const [settings] = useSettings();
+  const units = useSettings((state) => state.units);
   let text: string;
-  switch (settings.units) {
+  switch (units) {
     case "imperial":
       text = `${formatNoDigits.format(elevation * 3.28084)}ft`;
       break;

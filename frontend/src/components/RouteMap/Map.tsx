@@ -11,7 +11,7 @@ import { worldConfigs } from "../../constants/worldConfigs";
 import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 import { useSettings } from "../../hooks/useSettings";
 import { useLocationState } from "../../services/location-state";
-import { DistanceStream, LatLngStream, Overlay } from "../../types";
+import { DistanceStream, LatLngStream } from "../../types";
 import { getBounds } from "../../util/bounds";
 import styles from "./index.module.scss";
 import { OverlayNone } from "./overlays/OverlayNone";
@@ -42,13 +42,12 @@ interface Props {
 
 export function Map({ world, routeStreams }: Props) {
   const state = useLocationState();
-  const [settings, setSettings] = useSettings();
+  const [overlay, setOverlay] = useSettings((state) => [
+    state.overlay,
+    state.setOverlay,
+  ]);
   const prefersReducedMotion = usePrefersReducedMotion();
   const [map, setMap] = useState<MapType | undefined>();
-
-  const handleOverlayChange = (overlay: Overlay) => {
-    setSettings({ ...settings, overlay });
-  };
 
   useEffect(() => {
     if (map === undefined) {
@@ -105,33 +104,24 @@ export function Map({ world, routeStreams }: Props) {
       <PreviewRoute />
 
       <LayersControl position="topright">
-        <LayersControl.BaseLayer
-          name="None"
-          checked={settings.overlay === "none"}
-        >
-          <LayerGroup
-            eventHandlers={{ add: () => handleOverlayChange("none") }}
-          >
+        <LayersControl.BaseLayer name="None" checked={overlay === "none"}>
+          <LayerGroup eventHandlers={{ add: () => setOverlay("none") }}>
             <OverlayNone />
           </LayerGroup>
         </LayersControl.BaseLayer>
         <LayersControl.BaseLayer
           name="Segments"
-          checked={settings.overlay === "segments"}
+          checked={overlay === "segments"}
         >
-          <LayerGroup
-            eventHandlers={{ add: () => handleOverlayChange("segments") }}
-          >
+          <LayerGroup eventHandlers={{ add: () => setOverlay("segments") }}>
             <OverlaySegments />
           </LayerGroup>
         </LayersControl.BaseLayer>
         <LayersControl.BaseLayer
           name="Surfaces"
-          checked={settings.overlay === "surfaces"}
+          checked={overlay === "surfaces"}
         >
-          <LayerGroup
-            eventHandlers={{ add: () => handleOverlayChange("surfaces") }}
-          >
+          <LayerGroup eventHandlers={{ add: () => setOverlay("surfaces") }}>
             <OverlaySurfaces />
           </LayerGroup>
         </LayersControl.BaseLayer>

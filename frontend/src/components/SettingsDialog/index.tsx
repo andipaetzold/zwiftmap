@@ -9,9 +9,7 @@ import {
 import { Select } from "@react-md/form";
 import { ArrowDropDownSVGIcon } from "@react-md/material-icons";
 import React from "react";
-import { Sport } from "zwift-data";
 import { useSettings } from "../../hooks/useSettings";
-import { Settings, Units } from "../../types";
 import { StravaSettings } from "./StravaSettings";
 
 interface Props {
@@ -20,19 +18,7 @@ interface Props {
 }
 
 export function SettingsDialog({ visible, onClose }: Props) {
-  const [settings, setSettings] = useSettings();
-
-  const handleSportChange = (sport: string) => {
-    setSettings({ ...settings, sport: sport as Sport });
-  };
-
-  const handleUnitsChange = (units: string) => {
-    setSettings({ ...settings, units: units as Units });
-  };
-
-  const handleThemeChange = (theme: string) => {
-    setSettings({ ...settings, theme: theme as Settings["theme"] });
-  };
+  const store = useSettings();
 
   return (
     <Dialog
@@ -48,8 +34,8 @@ export function SettingsDialog({ visible, onClose }: Props) {
         <Select
           id="settings-dialog-sport"
           label="Sport"
-          value={settings.sport}
-          onChange={handleSportChange}
+          value={store.sport}
+          onChange={store.setSport as (sport: string) => void}
           listboxStyle={{ zIndex: 3000 }}
           style={{ marginBottom: "1rem" }}
           options={[
@@ -62,8 +48,8 @@ export function SettingsDialog({ visible, onClose }: Props) {
         <Select
           id="settings-dialog-units"
           label="Units"
-          value={settings.units}
-          onChange={handleUnitsChange}
+          value={store.units}
+          onChange={store.setUnits as (units: string) => void}
           listboxStyle={{ zIndex: 3000 }}
           style={{ marginBottom: "1rem" }}
           options={[
@@ -76,8 +62,8 @@ export function SettingsDialog({ visible, onClose }: Props) {
         <Select
           id="settings-dialog-theme"
           label="Theme"
-          value={settings.theme}
-          onChange={handleThemeChange}
+          value={store.theme}
+          onChange={store.setTheme as (theme: string) => void}
           listboxStyle={{ zIndex: 3000 }}
           style={{ marginBottom: "1rem" }}
           options={[

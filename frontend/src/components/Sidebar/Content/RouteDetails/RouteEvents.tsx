@@ -21,7 +21,7 @@ interface Props {
 
 export function RouteEvents({ route }: Props) {
   const { result: events } = useAsync(fetchEvents, []);
-  const [settings] = useSettings();
+  const sport = useSettings((state) => state.sport);
 
   const filteredEvents = useMemo(() => {
     if (!events) {
@@ -29,7 +29,7 @@ export function RouteEvents({ route }: Props) {
     }
 
     return events
-      .filter((e) => e.sport.toLowerCase() === settings.sport)
+      .filter((e) => e.sport.toLowerCase() === sport)
       .filter((event) => {
         const eventRouteIds = [
           event.routeId,
@@ -39,7 +39,7 @@ export function RouteEvents({ route }: Props) {
         return route.id && eventRouteIds.includes(route.id);
       })
       .sort((a, b) => a.eventStart.localeCompare(b.eventStart));
-  }, [events, route, settings.sport]);
+  }, [events, route, sport]);
 
   if (filteredEvents === undefined) {
     return <LoadingSpinnerListItem small />;
