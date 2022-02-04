@@ -1,8 +1,11 @@
+import { TextIconSpacing } from "@react-md/icon";
 import { List, SimpleListItem } from "@react-md/list";
+import { ListSVGIcon } from "@react-md/material-icons";
 import { Typography } from "@react-md/typography";
 import { useAsync } from "react-async-hook";
 import { LocationStateRouting } from "../../../../services/location-state";
 import { worker } from "../../../../services/worker-client";
+import { ButtonState } from "../../../ButtonState";
 import { RoutingElevationChart } from "./RoutingElevationChart";
 import { RoutingFacts } from "./RoutingFacts";
 
@@ -29,6 +32,19 @@ export function Routing({ state }: Props) {
 
   return (
     <List>
+      <SimpleListItem>
+        <ButtonState
+          themeType="outline"
+          query=""
+          state={{
+            world: state.world,
+            type: "default",
+          }}
+        >
+          <TextIconSpacing icon={<ListSVGIcon />}>Route List</TextIconSpacing>
+        </ButtonState>
+      </SimpleListItem>
+
       <SimpleListItem>
         <Typography type="headline-6" style={{ margin: 0 }}>
           Routing
