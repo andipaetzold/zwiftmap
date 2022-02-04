@@ -26,12 +26,16 @@ const PATTERNS: {
       const worldSlug = result.groups!.worldSlug;
       const world = worlds.find((w) => w.slug === worldSlug) ?? DEFAULT_WORLD;
 
-      const points = (searchParams.get("points") ?? "")
+      const points: (LatLngTuple | null)[] = (searchParams.get("points") ?? "")
         .split("!")
         .map((pointString) => pointString.split(","))
         .map((point) => point.map((x) => parseFloat(x)))
         .filter((point): point is LatLngTuple => point.length === 2)
         .filter((point) => point.every((x) => !isNaN(x)));
+
+      while (points.length < 2) {
+        points.push(null);
+      }
 
       return [
         {

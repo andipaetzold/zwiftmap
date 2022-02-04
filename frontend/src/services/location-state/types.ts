@@ -49,7 +49,7 @@ export interface LocationStateShare {
 export interface LocationStateRouting {
   type: "routing";
   world: World;
-  points: LatLngTuple[]
+  points: (LatLngTuple | null)[];
 }
 
 export type LocationStateWithKey = LocationState & { key: string };

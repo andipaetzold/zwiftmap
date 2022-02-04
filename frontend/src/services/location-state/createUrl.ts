@@ -1,3 +1,4 @@
+import { LatLngTuple } from "leaflet";
 import { LocationState } from "./types";
 
 export function createUrl(state: LocationState): string {
@@ -41,10 +42,13 @@ export function createUrl(state: LocationState): string {
 
     case "routing":
       path = `/${state.world.slug}/routing`;
-      if (state.points.length > 0) {
+      const nonNullPoints = state.points.filter(
+        (p): p is LatLngTuple => p !== null
+      );
+      if (nonNullPoints.length > 0) {
         searchParams.set(
           "points",
-          state.points
+          nonNullPoints
             .map((point) => point.map((x) => x.toString()).join(","))
             .join("!")
         );

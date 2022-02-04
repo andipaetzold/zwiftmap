@@ -3,9 +3,12 @@ import { TextIconSpacing } from "@react-md/icon";
 import { List, SimpleListItem } from "@react-md/list";
 import { ListSVGIcon } from "@react-md/material-icons";
 import { Typography } from "@react-md/typography";
+import { LatLngTuple } from "leaflet";
+import { range } from "lodash";
 import { useAsync } from "react-async-hook";
 import { LocationStateRouting } from "../../../../services/location-state";
 import { worker } from "../../../../services/worker-client";
+import { LatLngAlt } from "../../../../types";
 import { ButtonState } from "../../../ButtonState";
 import { RoutingElevationChart } from "./RoutingElevationChart";
 import { RoutingFacts } from "./RoutingFacts";
@@ -18,15 +21,25 @@ interface Props {
 export function Routing({ state }: Props) {
   const { result: stream } = useAsync(
     async () => {
-      if (state.points.length < 2) {
+      const noNullPoints = state.points.filter(
+        (p): p is LatLngTuple => p !== null
+      );
+
+      if (noNullPoints.length < 2) {
         return;
       }
 
-      return await worker.navigate(
-        state.points[0],
-        state.points[1],
-        state.world.slug
+      const routes = await Promise.all(
+        range(0, noNullPoints.length - 1).map((index) =>
+          worker.navigate(
+            noNullPoints[index],
+            noNullPoints[index + 1],
+            state.world.slug
+          )
+        )
       );
+
+      return ([] as LatLngAlt[]).concat.apply([], routes);
     },
     [state, state.world.slug],
     { setLoading: (state) => ({ ...state, loading: true }) }

@@ -69,7 +69,7 @@ export function RouteList({ state }: Props) {
             role="menuitem"
             secondaryText="Custom route"
             state={{
-              points: [],
+              points: [null, null],
               world: state.world,
               type: "routing",
             }}
