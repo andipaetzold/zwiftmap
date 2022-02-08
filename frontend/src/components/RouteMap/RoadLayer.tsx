@@ -22,7 +22,7 @@ export function RoadLayer({ world }: Props) {
   }
 
   return (
-    <LayersControl.Overlay name="Roads">
+    <LayersControl.Overlay name="Roads" checked>
       <LayerGroup>
         <Lines world={world} />
       </LayerGroup>
