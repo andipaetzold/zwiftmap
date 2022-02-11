@@ -29,9 +29,9 @@ interface Props {
 }
 
 interface OnMouseMoveProps {
-  isTooltipActive: boolean;
+  isTooltipActive?: boolean;
   activeCoordinate?: { x: number; y: number };
-  activeLabel?: number;
+  activeLabel?: string;
   activePayload?: {
     chartType: unknown;
     color: string;

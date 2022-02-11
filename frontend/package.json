@@ -48,7 +48,7 @@
     "react-responsive": "9.0.0-beta.6",
     "react-schemaorg": "2.0.0",
     "react-scripts": "5.0.0",
-    "recharts": "2.1.8",
+    "recharts": "2.1.9",
     "strava": "2.0.1",
     "typescript": "4.5.5",
     "zustand": "3.7.0",
