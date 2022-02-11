@@ -5,12 +5,10 @@ import {
   fetchEvent,
   getEventStreams,
   getRouteFromEvent,
-  ZwiftEvent
+  ZwiftEvent,
 } from "../../../../services/events";
 import { LocationStateUpcomingEvent } from "../../../../services/location-state";
 import { DistanceStream, LatLngStream } from "../../../../types";
-import { RouteEnd } from "../../RouteEnd";
-import { RouteStart } from "../../RouteStart";
 import { SectionsPane } from "./components/SectionsPane";
 import { SegmentsPane } from "./components/SegmentsPane";
 import { getRouteSections } from "./util";
@@ -50,9 +48,6 @@ export function EventOverlay({ state }: Props) {
   return (
     <>
       <SectionsPane id={`${ID}-route`} sections={sections} />
-      <RouteStart id={ID} latlng={data.latlng[0]} />
-      <RouteEnd id={ID} latlng={data.latlng[data.latlng.length - 1]} />
-
       <SegmentsPane segmentSlugs={unmatchedSegments} />
     </>
   );

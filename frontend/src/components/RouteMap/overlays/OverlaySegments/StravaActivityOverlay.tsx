@@ -8,8 +8,6 @@ import {
   StravaActivity,
 } from "../../../../services/StravaActivityRepository";
 import { getSectionsFromIntervals } from "../../../../util/sections";
-import { RouteEnd } from "../../RouteEnd";
-import { RouteStart } from "../../RouteStart";
 import { SectionsPane } from "./components/SectionsPane";
 import { Section } from "./types";
 
@@ -34,13 +32,6 @@ export function StravaActivityOverlay({ state }: Props) {
   return (
     <>
       <SectionsPane id={`${ID}-route`} sections={data.sections} />
-      <RouteStart id={ID} latlng={data.activity.streams.latlng[0]} />
-      <RouteEnd
-        id={ID}
-        latlng={
-          data.activity.streams.latlng[data.activity.streams.latlng.length - 1]
-        }
-      />
     </>
   );
 }

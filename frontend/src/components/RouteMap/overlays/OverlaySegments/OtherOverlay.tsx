@@ -11,8 +11,6 @@ import {
 } from "../../../../services/location-state";
 import { POLYLINE_WIDTH, Z_INDEX } from "../../constants";
 import { loadRoute } from "../../loaders/route";
-import { RouteEnd } from "../../RouteEnd";
-import { RouteStart } from "../../RouteStart";
 
 const ID = "OverlaySegments-OtherOverlay";
 
@@ -46,8 +44,6 @@ export function OtherOverlay({ state }: Props) {
           interactive={false}
         />
       </Pane>
-      <RouteStart id={ID} latlng={streams.latlng[0]} />
-      <RouteEnd id={ID} latlng={streams.latlng[streams.latlng.length - 1]} />
     </>
   );
 }

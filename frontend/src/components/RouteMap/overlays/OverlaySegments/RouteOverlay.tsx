@@ -2,8 +2,6 @@ import { useMemo } from "react";
 import { useAsync } from "react-async-hook";
 import { LocationStateRoute } from "../../../../services/location-state";
 import { loadRoute } from "../../loaders/route";
-import { RouteEnd } from "../../RouteEnd";
-import { RouteStart } from "../../RouteStart";
 import { SectionsPane } from "./components/SectionsPane";
 import { SegmentsPane } from "./components/SegmentsPane";
 import { getRouteSections } from "./util";
@@ -36,8 +34,6 @@ export function RouteOverlay({ state }: Props) {
   return (
     <>
       <SectionsPane id={`${ID}-route`} sections={sections} />
-      <RouteStart id={ID} latlng={streams.latlng[0]} />
-      <RouteEnd id={ID} latlng={streams.latlng[streams.latlng.length - 1]} />
       <SegmentsPane segmentSlugs={unmatchedSegments} />
     </>
   );

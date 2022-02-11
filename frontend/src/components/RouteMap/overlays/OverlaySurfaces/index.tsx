@@ -13,9 +13,6 @@ import {
   Z_INDEX,
 } from "../../constants";
 import { loadRoute } from "../../loaders/route";
-import { RouteEnd } from "../../RouteEnd";
-import { RouteStart } from "../../RouteStart";
-import { RoutingMarkers } from "../../routing/RoutingMarkers";
 
 const ID = "OverlaySurfaces";
 
@@ -68,17 +65,6 @@ export function OverlaySurfaces() {
           />
         ))}
       </Pane>
-      {state.type === "routing" ? (
-        <RoutingMarkers state={state} />
-      ) : (
-        <>
-          <RouteStart id={ID} latlng={streams.latlng[0]} />
-          <RouteEnd
-            id={ID}
-            latlng={streams.latlng[streams.latlng.length - 1]}
-          />
-        </>
-      )}
     </>
   );
 }
