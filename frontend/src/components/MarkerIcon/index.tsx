@@ -15,7 +15,7 @@ export function MarkerIcon({ number }: Props) {
         x="15"
         y="26"
         style={{ fontSize: "24px", fontFamily: "Roboto", fill: "white" }}
-        text-anchor="middle"
+        textAnchor="middle"
       >
         {number}
       </text>
