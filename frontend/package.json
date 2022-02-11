@@ -51,7 +51,7 @@
     "recharts": "2.1.8",
     "strava": "2.0.1",
     "typescript": "4.5.5",
-    "zustand": "3.6.9",
+    "zustand": "3.7.0",
     "zwift-data": "1.12.3"
   },
   "scripts": {
