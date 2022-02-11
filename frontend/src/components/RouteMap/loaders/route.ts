@@ -1,5 +1,4 @@
 import * as Sentry from "@sentry/react";
-import { zipWith } from "lodash";
 import { fetchEvent, getEventStreams } from "../../../services/events";
 import { LocationState } from "../../../services/location-state";
 import { getStravaActivity } from "../../../services/StravaActivityRepository";
@@ -23,12 +22,6 @@ export async function loadRoute(state: LocationState): Promise<
         const streams = await getStravaSegmentStreams(
           state.route.stravaSegmentId,
           ["distance", "latlng", "altitude"]
-        );
-
-        console.log(
-          JSON.stringify(
-            zipWith(streams.latlng, streams.altitude, (a, b) => [...a, b])
-          )
         );
         return {
           distance: streams.distance,

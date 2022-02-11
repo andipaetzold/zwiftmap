@@ -1,5 +1,5 @@
 import { Icon, LatLngTuple, Marker as LeafletMarker } from "leaflet";
-import { range, round } from "lodash";
+import { range } from "lodash";
 import { useCallback, useEffect } from "react";
 import { useAsync } from "react-async-hook";
 import { Marker, Polyline, useMapEvent } from "react-leaflet";
@@ -15,7 +15,6 @@ interface Props {
 
 export function Routing({ state }: Props) {
   useMapEvent("click", async (e) => {
-    console.log([round(e.latlng.lat, 6), round(e.latlng.lng, 6)] );
     if (
       state.points.filter((p) => p !== null).length >= 2 &&
       state.points[state.points.length - 1]
