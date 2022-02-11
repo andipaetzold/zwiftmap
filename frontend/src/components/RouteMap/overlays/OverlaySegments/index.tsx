@@ -2,6 +2,7 @@ import { useLocationState } from "../../../../services/location-state";
 import { EventOverlay } from "./EventOverlay";
 import { OtherOverlay } from "./OtherOverlay";
 import { RouteOverlay } from "./RouteOverlay";
+import { RoutingOverlay } from "./RoutingOverlay";
 import { StravaActivityOverlay } from "./StravaActivityOverlay";
 
 export function OverlaySegments() {
@@ -14,6 +15,8 @@ export function OverlaySegments() {
       return <EventOverlay state={state} />;
     case "strava-activity":
       return <StravaActivityOverlay state={state} />;
+    case "routing":
+      return <RoutingOverlay state={state} />;
     default:
       return <OtherOverlay state={state} />;
   }

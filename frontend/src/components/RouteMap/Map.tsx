@@ -10,7 +10,6 @@ import { World } from "zwift-data";
 import { worldConfigs } from "../../constants/worldConfigs";
 import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 import { useSettings } from "../../hooks/useSettings";
-import { useLocationState } from "../../services/location-state";
 import { DistanceStream, LatLngStream } from "../../types";
 import { getBounds } from "../../util/bounds";
 import styles from "./index.module.scss";
@@ -20,7 +19,7 @@ import { OverlaySurfaces } from "./overlays/OverlaySurfaces";
 import { PreviewRoute } from "./PreviewRoute";
 import { RoadLayer } from "./RoadLayer";
 import { RoutePosition } from "./RoutePosition";
-import { Routing } from "./Routing";
+import { usePrefetchRoads } from "./routing/usePrefetchRoads";
 import { SurfaceDebugLayer } from "./SurfaceDebugLayer";
 import { WorldImage } from "./WorldImage";
 
@@ -33,12 +32,12 @@ interface Props {
 }
 
 export function Map({ world, routeStreams }: Props) {
-  const state = useLocationState();
   const [overlay, setOverlay] = useSettings((state) => [
     state.overlay,
     state.setOverlay,
   ]);
   const prefersReducedMotion = usePrefersReducedMotion();
+  usePrefetchRoads();
   const [map, setMap] = useState<MapType | undefined>();
 
   useEffect(() => {
@@ -49,7 +48,7 @@ export function Map({ world, routeStreams }: Props) {
     map.setMinZoom(minZoom);
   }, [map, world.bounds]);
 
-  const doHardZoom = useRef<boolean>(true);
+  const firstLoad = useRef<boolean>(true);
   useEffect(() => {
     if (!map) {
       return;
@@ -62,20 +61,20 @@ export function Map({ world, routeStreams }: Props) {
     if (routeStreams) {
       const bounds = getBounds(routeStreams.latlng);
 
-      if (doHardZoom.current || prefersReducedMotion) {
+      if (firstLoad.current || prefersReducedMotion) {
         map.fitBounds(bounds, { animate: false });
       } else {
         map.flyToBounds(bounds);
       }
     } else {
-      if (doHardZoom.current || prefersReducedMotion) {
+      if (firstLoad.current || prefersReducedMotion) {
         map.fitBounds(worldConfig.initialBounds, { animate: false });
       } else {
         map.flyToBounds(worldConfig.initialBounds);
       }
     }
 
-    doHardZoom.current = false;
+    firstLoad.current = false;
   }, [map, routeStreams, world, prefersReducedMotion]);
 
   const worldConfig = worldConfigs[world.slug];
@@ -123,7 +122,6 @@ export function Map({ world, routeStreams }: Props) {
       </LayersControl>
 
       <RoutePosition streams={routeStreams} />
-      {state.type === "routing" && <Routing state={state} />}
     </MapContainer>
   );
 }
