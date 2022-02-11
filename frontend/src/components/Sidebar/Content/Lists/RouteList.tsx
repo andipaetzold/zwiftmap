@@ -63,9 +63,14 @@ export function RouteList({ state }: Props) {
           Upcoming Events
         </ListItemState>
 
-        {["bologna", "crit-city", "paris", "yorkshire", "watopia"].includes(
-          state.world.slug
-        ) && (
+        {[
+          "bologna",
+          "crit-city",
+          "paris",
+          "yorkshire",
+          "watopia",
+          "london",
+        ].includes(state.world.slug) && (
           <ListItemState
             role="menuitem"
             secondaryText="Custom route"
