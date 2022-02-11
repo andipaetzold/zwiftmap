@@ -21,7 +21,7 @@ export async function loadRoute(state: LocationState): Promise<
         }
         const streams = await getStravaSegmentStreams(
           state.route.stravaSegmentId,
-          ["distance", "latlng"]
+          ["distance", "latlng", "altitude"]
         );
         return {
           distance: streams.distance,
