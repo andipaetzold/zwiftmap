@@ -2,16 +2,13 @@ import { Button } from "@react-md/button";
 import { TextField } from "@react-md/form";
 import { TextIconSpacing } from "@react-md/icon";
 import { SimpleListItem } from "@react-md/list";
-import {
-  AddSVGIcon,
-  ClearSVGIcon,
-  LocationOnSVGIcon,
-} from "@react-md/material-icons";
+import { AddSVGIcon, ClearSVGIcon } from "@react-md/material-icons";
 import { LatLngTuple } from "leaflet";
 import {
   LocationStateRouting,
   navigate,
 } from "../../../../services/location-state";
+import { MarkerIcon } from "../../../MarkerIcon";
 import styles from "./RoutingWaypoints.module.scss";
 
 interface Props {
@@ -30,7 +27,7 @@ export function RoutingWaypoints({ state }: Props) {
             className={styles.TextField}
             value={point ? formatPoint(point) : ""}
             placeholder="Select point on map"
-            leftChildren={<LocationOnSVGIcon />}
+            leftChildren={<MarkerIcon number={index + 1} />}
             isRightAddon={false}
             rightChildren={
               point && (
