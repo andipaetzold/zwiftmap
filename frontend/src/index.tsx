@@ -17,6 +17,7 @@ import {
   PATTERN_STRAVA_ACTIVITY,
   PATTERN_WORLD,
 } from "./services/routing";
+import { Configuration } from "@react-md/layout";
 
 Sentry.init({
   enabled: (process.env.REACT_APP_SENTRY_DSN ?? "").length > 0,
@@ -90,7 +91,9 @@ ReactDOM.render(
     <HelmetProvider context={helmetContext}>
       <Head />
       <MessageQueue id="message-queue" timeout={3_000}>
-        <App />
+        <Configuration>
+          <App />
+        </Configuration>
       </MessageQueue>
     </HelmetProvider>
   </React.StrictMode>,

@@ -5,11 +5,12 @@ import {
   LandscapeSVGIcon,
   SortSVGIcon,
   SpaceBarSVGIcon,
-  StarSVGIcon
+  StarSVGIcon,
 } from "@react-md/material-icons";
-import { Menu } from "@react-md/menu";
-import { BELOW_INNER_LEFT_ANCHOR, useToggle } from "@react-md/utils";
+import { Menu, useMenu } from "@react-md/menu";
+import { BELOW_INNER_LEFT_ANCHOR } from "@react-md/utils";
 import c from "classnames";
+import { useState } from "react";
 import { useSessionSettings } from "../../hooks/useSessionSettings";
 import { SortKey } from "../../types";
 import styles from "./index.module.scss";
@@ -26,7 +27,15 @@ const NAME_MAP: Record<SortKey, string> = {
 export function SortButton() {
   const [sessionSettings, setSessionSettings] = useSessionSettings();
   const { sortState: state } = sessionSettings;
-  const [menuVisible, , hideMenu, toggleMenu] = useToggle(false);
+
+  const [menuVisible, setMenuVisible] = useState(false);
+  const { menuRef, menuProps, toggleRef, toggleProps } =
+    useMenu<HTMLButtonElement>({
+      baseId: "sort-button",
+      visible: menuVisible,
+      setVisible: setMenuVisible,
+      anchor: BELOW_INNER_LEFT_ANCHOR,
+    });
 
   const handleItemClick = (key: SortKey) => {
     if (state.key === key) {
@@ -46,14 +55,8 @@ export function SortButton() {
     <>
       <SimpleListItem role="presentation">
         <Chip
-          id="sort-menu-button"
-          aria-controls="sort-menu"
           aria-label="Sort List"
           role="listbox"
-          onClick={(e) => {
-            e.stopPropagation();
-            toggleMenu();
-          }}
           rightIcon={
             <SortSVGIcon
               className={c({
@@ -61,21 +64,13 @@ export function SortButton() {
               })}
             />
           }
+          ref={toggleRef}
+          {...toggleProps}
         >
           {NAME_MAP[state.key]}
         </Chip>
 
-        <Menu
-          id="sort-menu"
-          controlId="sort-menu-button"
-          aria-labelledby="sort-menu-button"
-          visible={menuVisible}
-          onRequestClose={hideMenu}
-          anchor={BELOW_INNER_LEFT_ANCHOR}
-          portal
-          // @ts-ignore
-          role="list"
-        >
+        <Menu portal role="list" ref={menuRef} {...menuProps}>
           <ListItem
             onClick={() => handleItemClick("name")}
             leftAddon={<LabelSVGIcon />}

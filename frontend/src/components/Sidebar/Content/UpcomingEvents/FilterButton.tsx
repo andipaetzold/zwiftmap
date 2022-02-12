@@ -2,8 +2,9 @@ import { Chip } from "@react-md/chip";
 import { MenuItemInputToggle } from "@react-md/form";
 import { List, SimpleListItem } from "@react-md/list";
 import { FilterListSVGIcon } from "@react-md/material-icons";
-import { Menu } from "@react-md/menu";
-import { BELOW_INNER_LEFT_ANCHOR, useToggle } from "@react-md/utils";
+import { Menu, useMenu } from "@react-md/menu";
+import { BELOW_INNER_LEFT_ANCHOR } from "@react-md/utils";
+import { useState } from "react";
 import { useSessionSettings } from "../../../../hooks/useSessionSettings";
 import { ZwiftEventType } from "../../../../services/events";
 import { EVENT_TYPES } from "../../../../services/events/constants";
@@ -12,7 +13,14 @@ export function EventFilterButton() {
   const [sessionSettings, setSessionSettings] = useSessionSettings();
   const { eventFilter: state } = sessionSettings;
 
-  const [menuVisible, , hideMenu, toggleMenu] = useToggle(false);
+  const [visible, setVisible] = useState(false);
+  const { menuRef, menuProps, toggleRef, toggleProps } =
+    useMenu<HTMLButtonElement>({
+      baseId: "filter-chip",
+      visible,
+      setVisible,
+      anchor: BELOW_INNER_LEFT_ANCHOR,
+    });
 
   const handleCheckedState = (
     checked: boolean,
@@ -40,25 +48,14 @@ export function EventFilterButton() {
     <>
       <SimpleListItem>
         <Chip
-          id="filter-chip"
-          onClick={(e) => {
-            e.stopPropagation();
-            toggleMenu();
-          }}
           rightIcon={<FilterListSVGIcon />}
+          ref={toggleRef}
+          {...toggleProps}
         >
           Filter
         </Chip>
 
-        <Menu
-          id="filter-menu"
-          controlId="filter-chip"
-          aria-labelledby="filter-chip"
-          visible={menuVisible}
-          onRequestClose={hideMenu}
-          anchor={BELOW_INNER_LEFT_ANCHOR}
-          portal
-        >
+        <Menu ref={menuRef} {...menuProps} portal>
           <List>
             {Object.entries(EVENT_TYPES).map(([eventType, name]) => (
               <MenuItemInputToggle
