@@ -1,5 +1,5 @@
-import { Map as MapType } from "leaflet";
-import { useEffect, useRef, useState } from "react";
+import { LatLngBoundsExpression, Map as MapType } from "leaflet";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   LayerGroup,
   LayersControl,
@@ -40,7 +40,6 @@ export function Map({ state, world, routeStreams }: Props) {
     state.overlay,
     state.setOverlay,
   ]);
-  const prefersReducedMotion = usePrefersReducedMotion();
   const [map, setMap] = useState<MapType | undefined>();
 
   useEffect(() => {
@@ -51,6 +50,7 @@ export function Map({ state, world, routeStreams }: Props) {
     map.setMinZoom(minZoom);
   }, [map, world.bounds]);
 
+  const flyToBounds = useFlyToBounds(map);
   const firstLoad = useRef<boolean>(true);
   useEffect(() => {
     if (!map) {
@@ -62,11 +62,11 @@ export function Map({ state, world, routeStreams }: Props) {
     map.invalidateSize();
 
     if (state.type === "default") {
-      if (firstLoad.current || prefersReducedMotion) {
+      if (firstLoad.current) {
         map.fitBounds(worldConfig.initialBounds, { animate: false });
         firstLoad.current = false;
       } else {
-        map.flyToBounds(worldConfig.initialBounds);
+        flyToBounds(worldConfig.initialBounds);
       }
     } else if (routeStreams) {
       if (state.type === "routing" && !firstLoad.current) {
@@ -74,15 +74,15 @@ export function Map({ state, world, routeStreams }: Props) {
       } else {
         const bounds = getBounds(routeStreams.latlng);
 
-        if (firstLoad.current || prefersReducedMotion) {
+        if (firstLoad.current) {
           map.fitBounds(bounds, { animate: false });
           firstLoad.current = false;
         } else {
-          map.flyToBounds(bounds);
+          flyToBounds(bounds);
         }
       }
     }
-  }, [map, routeStreams, world, prefersReducedMotion, state.type]);
+  }, [map, routeStreams, world, state.type, flyToBounds]);
 
   const worldConfig = worldConfigs[world.slug];
 
@@ -131,5 +131,23 @@ export function Map({ state, world, routeStreams }: Props) {
       <RoutePosition streams={routeStreams} />
       <Markers state={state} />
     </MapContainer>
+  );
+}
+
+function useFlyToBounds(map: MapType | undefined) {
+  const prefersReducedMotion = usePrefersReducedMotion();
+  return useCallback(
+    (bounds: LatLngBoundsExpression) => {
+      if (!map) {
+        return;
+      }
+
+      if (prefersReducedMotion) {
+        map.fitBounds(bounds, { animate: false });
+      } else {
+        map.flyToBounds(bounds);
+      }
+    },
+    [map, prefersReducedMotion]
   );
 }
