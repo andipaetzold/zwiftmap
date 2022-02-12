@@ -9,7 +9,7 @@ import {
   SpaceBarSVGIcon,
   TimerSVGIcon
 } from "@react-md/material-icons";
-import round from "lodash/round";
+import round from "lodash-es/round";
 import {
   getEventDistance,
   getEventElevation,

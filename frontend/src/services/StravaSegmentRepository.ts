@@ -1,4 +1,4 @@
-import fromPairs from "lodash/fromPairs";
+import fromPairs from "lodash-es/fromPairs";
 import { StravaSegment } from "../types";
 import { cachedRequest } from "./cached-request";
 

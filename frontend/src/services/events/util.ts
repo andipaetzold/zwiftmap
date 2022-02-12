@@ -1,4 +1,4 @@
-import { fromPairs, range } from "lodash";
+import { fromPairs, range } from "lodash-es";
 import { Route, routes, World, worlds } from "zwift-data";
 import { StravaSegment } from "../../types";
 import { getStravaSegmentStreams } from "../StravaSegmentRepository";

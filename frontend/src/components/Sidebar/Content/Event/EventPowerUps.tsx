@@ -1,5 +1,5 @@
 import { ListSubheader, SimpleListItem } from "@react-md/list";
-import chunk from "lodash/chunk";
+import chunk from "lodash-es/chunk";
 import {
   Bar,
   BarChart,

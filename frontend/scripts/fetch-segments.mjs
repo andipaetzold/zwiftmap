@@ -3,7 +3,7 @@ import fetch from "node-fetch";
 import path, { dirname } from "path";
 import { routes, segments } from "zwift-data";
 import { fileURLToPath } from "url";
-import _ from "lodash";
+import _ from "lodash-es";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

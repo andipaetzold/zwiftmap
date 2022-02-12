@@ -1,4 +1,4 @@
-import zipWith from "lodash/zipWith";
+import zipWith from "lodash-es/zipWith";
 import { Pane, Polyline } from "react-leaflet";
 import { SURFACE_CONSTANTS, worldConfigs } from "../../../../constants";
 import { useStore } from "../../../../hooks/useStore";
