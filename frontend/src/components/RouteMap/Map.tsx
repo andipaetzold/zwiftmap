@@ -64,20 +64,24 @@ export function Map({ state, world, routeStreams }: Props) {
     if (state.type === "default") {
       if (firstLoad.current || prefersReducedMotion) {
         map.fitBounds(worldConfig.initialBounds, { animate: false });
+        firstLoad.current = false;
       } else {
         map.flyToBounds(worldConfig.initialBounds);
       }
     } else if (routeStreams) {
-      const bounds = getBounds(routeStreams.latlng);
-
-      if (firstLoad.current || prefersReducedMotion) {
-        map.fitBounds(bounds, { animate: false });
+      if (state.type === "routing" && !firstLoad.current) {
+        // only fly to custom route on first load
       } else {
-        map.flyToBounds(bounds);
+        const bounds = getBounds(routeStreams.latlng);
+
+        if (firstLoad.current || prefersReducedMotion) {
+          map.fitBounds(bounds, { animate: false });
+          firstLoad.current = false;
+        } else {
+          map.flyToBounds(bounds);
+        }
       }
     }
-
-    firstLoad.current = false;
   }, [map, routeStreams, world, prefersReducedMotion, state.type]);
 
   const worldConfig = worldConfigs[world.slug];
