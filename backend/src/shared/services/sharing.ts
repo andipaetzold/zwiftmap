@@ -1,4 +1,4 @@
-import pick from "lodash-es/pick";
+import pick from "lodash/pick";
 import { DetailedActivity, StreamSet } from "strava";
 import { FRONTEND_URL } from "../config";
 import { ErrorWithStatusCode } from "../ErrorWithStatusCode";
