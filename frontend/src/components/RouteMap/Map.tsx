@@ -61,7 +61,13 @@ export function Map({ state, world, routeStreams }: Props) {
 
     map.invalidateSize();
 
-    if (routeStreams) {
+    if (state.type === "default") {
+      if (firstLoad.current || prefersReducedMotion) {
+        map.fitBounds(worldConfig.initialBounds, { animate: false });
+      } else {
+        map.flyToBounds(worldConfig.initialBounds);
+      }
+    } else if (routeStreams) {
       const bounds = getBounds(routeStreams.latlng);
 
       if (firstLoad.current || prefersReducedMotion) {
@@ -69,16 +75,10 @@ export function Map({ state, world, routeStreams }: Props) {
       } else {
         map.flyToBounds(bounds);
       }
-    } else {
-      if (firstLoad.current || prefersReducedMotion) {
-        map.fitBounds(worldConfig.initialBounds, { animate: false });
-      } else {
-        map.flyToBounds(worldConfig.initialBounds);
-      }
     }
 
     firstLoad.current = false;
-  }, [map, routeStreams, world, prefersReducedMotion]);
+  }, [map, routeStreams, world, prefersReducedMotion, state.type]);
 
   const worldConfig = worldConfigs[world.slug];
 
