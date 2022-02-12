@@ -1,5 +1,4 @@
 import { Job } from "bull";
-import pick from "lodash/pick";
 import { WebhookEventType } from "../../shared/types";
 import { Logger } from "../services/logger";
 import { handleActivityCreate } from "./handler/activity-create";
@@ -14,7 +13,7 @@ export async function handleStravaWebhookEvent(
   const webhookEvent = job.data;
   logger.info(
     "WebhookEvent",
-    pick(webhookEvent, ["owner_id", "object_type", "object_id", "aspect_type"])
+    `athlete/${webhookEvent.owner_id}/${webhookEvent.object_type}/${webhookEvent.object_id}/${webhookEvent.aspect_type}`
   );
 
   switch (webhookEvent.object_type) {
