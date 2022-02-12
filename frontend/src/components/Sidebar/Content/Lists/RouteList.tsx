@@ -67,9 +67,10 @@ export function RouteList({ state }: Props) {
           "bologna",
           "crit-city",
           "paris",
+          "london",
+          "richmond",
           "yorkshire",
           "watopia",
-          "london",
         ].includes(state.world.slug) && (
           <ListItemState
             role="menuitem"
