@@ -69,6 +69,11 @@
       "react-app"
     ]
   },
+  "jest": {
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules/(?!lodash-es)"
+    ]
+  },
   "browserslist": {
     "production": [
       ">0.2%",
