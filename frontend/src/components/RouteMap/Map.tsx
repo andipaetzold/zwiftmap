@@ -100,7 +100,7 @@ export function Map({ world, routeStreams }: Props) {
       <LayersControl position="topright">
         <LayersControl.BaseLayer name="None" checked={overlay === "none"}>
           <LayerGroup eventHandlers={{ add: () => setOverlay("none") }}>
-            <OverlayNone />
+            <OverlayNone state={state} streams={routeStreams} />
           </LayerGroup>
         </LayersControl.BaseLayer>
         <LayersControl.BaseLayer
@@ -108,7 +108,7 @@ export function Map({ world, routeStreams }: Props) {
           checked={overlay === "segments"}
         >
           <LayerGroup eventHandlers={{ add: () => setOverlay("segments") }}>
-            <OverlaySegments />
+            <OverlaySegments state={state} streams={routeStreams} />
           </LayerGroup>
         </LayersControl.BaseLayer>
         <LayersControl.BaseLayer
@@ -116,7 +116,7 @@ export function Map({ world, routeStreams }: Props) {
           checked={overlay === "surfaces"}
         >
           <LayerGroup eventHandlers={{ add: () => setOverlay("surfaces") }}>
-            <OverlaySurfaces />
+            <OverlaySurfaces state={state} streams={routeStreams} />
           </LayerGroup>
         </LayersControl.BaseLayer>
 

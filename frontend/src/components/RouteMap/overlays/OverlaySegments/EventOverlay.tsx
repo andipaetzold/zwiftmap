@@ -3,7 +3,6 @@ import { useAsync } from "react-async-hook";
 import { Route } from "zwift-data";
 import {
   fetchEvent,
-  getEventStreams,
   getRouteFromEvent,
   ZwiftEvent,
 } from "../../../../services/events";
@@ -17,9 +16,14 @@ const ID = "OverlaySegments-EventOverlay";
 
 interface Props {
   state: LocationStateUpcomingEvent;
+
+  streams?: {
+    latlng: LatLngStream;
+    distance: DistanceStream;
+  };
 }
 
-export function EventOverlay({ state }: Props) {
+export function EventOverlay({ state, streams }: Props) {
   const { result: data } = useAsync(loadData, [state.eventId]);
 
   const unmatchedSegments = useMemo(() => {
@@ -36,12 +40,12 @@ export function EventOverlay({ state }: Props) {
     );
   }, [data]);
 
-  if (!data || unmatchedSegments === undefined) {
+  if (!data || !streams || unmatchedSegments === undefined) {
     return null;
   }
 
   const sections = getRouteSections(
-    { distance: data.distance, latlng: data.latlng },
+    { distance: streams.distance, latlng: streams.latlng },
     data.route.segmentsOnRoute
   );
 
@@ -57,20 +61,16 @@ async function loadData(eventId: string): Promise<
   | {
       event: ZwiftEvent;
       route: Route;
-      distance: DistanceStream;
-      latlng: LatLngStream;
     }
   | undefined
 > {
   const event = await fetchEvent(eventId);
   const route = getRouteFromEvent(event);
-  const streams = await getEventStreams(event, ["distance", "latlng"]);
 
-  if (route && streams) {
+  if (route) {
     return {
       event,
       route,
-      ...streams,
     };
   }
 }

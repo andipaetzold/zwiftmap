@@ -1,12 +1,13 @@
 import { LatLngTuple } from "leaflet";
 import { useAsync } from "react-async-hook";
-import { DetailedSegmentEffort } from "strava";
+import { DetailedSegmentEffort, LatLngStream } from "strava";
 import { Segment, segments, SegmentType } from "zwift-data";
 import { LocationStateStravaActivity } from "../../../../services/location-state";
 import {
   getStravaActivity,
   StravaActivity,
 } from "../../../../services/StravaActivityRepository";
+import { DistanceStream } from "../../../../types";
 import { getSectionsFromIntervals } from "../../../../util/sections";
 import { SectionsPane } from "./components/SectionsPane";
 import { Section } from "./types";
@@ -16,6 +17,11 @@ const SEGMENTS_TO_DISPLAY: SegmentType[] = ["sprint", "climb"];
 
 interface Props {
   state: LocationStateStravaActivity;
+
+  streams?: {
+    latlng: LatLngStream;
+    distance: DistanceStream;
+  };
 }
 
 export function StravaActivityOverlay({ state }: Props) {
@@ -29,11 +35,7 @@ export function StravaActivityOverlay({ state }: Props) {
     return null;
   }
 
-  return (
-    <>
-      <SectionsPane id={`${ID}-route`} sections={data.sections} />
-    </>
-  );
+  return <SectionsPane id={`${ID}-route`} sections={data.sections} />;
 }
 
 async function loadData(

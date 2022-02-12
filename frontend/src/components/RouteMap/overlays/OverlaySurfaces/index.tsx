@@ -1,10 +1,13 @@
 import zipWith from "lodash/zipWith";
-import { useAsync } from "react-async-hook";
 import { Pane, Polyline } from "react-leaflet";
 import { SURFACE_CONSTANTS, worldConfigs } from "../../../../constants";
 import { useStore } from "../../../../hooks/useStore";
-import { useLocationState } from "../../../../services/location-state";
-import { HoverStateType } from "../../../../types";
+import { LocationState } from "../../../../services/location-state";
+import {
+  DistanceStream,
+  HoverStateType,
+  LatLngStream,
+} from "../../../../types";
 import { streamToSections } from "../../../../util/sections";
 import { getSurfaceStream } from "../../../../util/surface";
 import {
@@ -12,15 +15,20 @@ import {
   POLYLINE_WIDTH_HIGHLIGHTED,
   Z_INDEX,
 } from "../../constants";
-import { loadRoute } from "../../loaders/route";
 
 const ID = "OverlaySurfaces";
 
-export function OverlaySurfaces() {
-  const hoverState = useStore((state) => state.hoverState);
-  const state = useLocationState();
+interface Props {
+  state: LocationState;
 
-  const { result: streams } = useAsync(loadRoute, [state]);
+  streams?: {
+    latlng: LatLngStream;
+    distance: DistanceStream;
+  };
+}
+
+export function OverlaySurfaces({ state, streams }: Props) {
+  const hoverState = useStore((state) => state.hoverState);
 
   if (!streams || !state.world) {
     return null;

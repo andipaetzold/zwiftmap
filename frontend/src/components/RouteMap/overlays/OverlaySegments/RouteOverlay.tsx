@@ -1,7 +1,6 @@
 import { useMemo } from "react";
-import { useAsync } from "react-async-hook";
 import { LocationStateRoute } from "../../../../services/location-state";
-import { loadRoute } from "../../loaders/route";
+import { DistanceStream, LatLngStream } from "../../../../types";
 import { SectionsPane } from "./components/SectionsPane";
 import { SegmentsPane } from "./components/SegmentsPane";
 import { getRouteSections } from "./util";
@@ -10,9 +9,14 @@ const ID = "OverlaySegments-RouteOverlay";
 
 interface Props {
   state: LocationStateRoute;
+
+  streams?: {
+    latlng: LatLngStream;
+    distance: DistanceStream;
+  };
 }
 
-export function RouteOverlay({ state }: Props) {
+export function RouteOverlay({ state, streams }: Props) {
   const unmatchedSegments = useMemo(() => {
     const matchedSegmentSlugs = state.route.segmentsOnRoute.map(
       (sor) => sor.segment
@@ -22,8 +26,6 @@ export function RouteOverlay({ state }: Props) {
       (segmentSlug) => !matchedSegmentSlugs.includes(segmentSlug)
     );
   }, [state.route]);
-
-  const { result: streams } = useAsync(loadRoute, [state]);
 
   if (!streams) {
     return null;

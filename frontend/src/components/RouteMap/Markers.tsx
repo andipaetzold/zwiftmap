@@ -1,17 +1,19 @@
-import { useAsync } from "react-async-hook";
 import { CircleMarker, Pane } from "react-leaflet";
 import { LocationState } from "../../services/location-state";
+import { DistanceStream, LatLngStream } from "../../types";
 import { Z_INDEX } from "./constants";
-import { loadRoute } from "./loaders/route";
 import { RoutingMarkers } from "./routing/RoutingMarkers";
 
 interface Props {
   state: LocationState;
+
+  streams?: {
+    latlng: LatLngStream;
+    distance: DistanceStream;
+  };
 }
 
-export function Markers({ state }: Props) {
-  const { result: streams } = useAsync(loadRoute, [state]);
-
+export function Markers({ state, streams }: Props) {
   return (
     <>
       {state.type === "routing" ? (

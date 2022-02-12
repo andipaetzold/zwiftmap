@@ -1,18 +1,23 @@
-import { useAsync } from "react-async-hook";
 import { Pane, Polyline } from "react-leaflet";
 import { COLORS } from "../../../constants";
-import { useLocationState } from "../../../services/location-state";
+import { LocationState } from "../../../services/location-state";
+import { DistanceStream, LatLngStream } from "../../../types";
 import { POLYLINE_WIDTH, Z_INDEX } from "../constants";
-import { loadRoute } from "../loaders/route";
 import { useRoutingClick } from "../routing/useRoutingClick";
 
 const ID = "OverlayNone";
 
-export function OverlayNone() {
-  const state = useLocationState();
+interface Props {
+  state: LocationState;
 
+  streams?: {
+    latlng: LatLngStream;
+    distance: DistanceStream;
+  };
+}
+
+export function OverlayNone({ state, streams }: Props) {
   useRoutingClick(state);
-  const { result: streams } = useAsync(loadRoute, [state]);
 
   if (!streams) {
     return null;
