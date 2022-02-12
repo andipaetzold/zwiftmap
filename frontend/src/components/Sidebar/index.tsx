@@ -1,9 +1,9 @@
-import { Divider } from "@react-md/divider";
 import { List, SimpleListItem } from "@react-md/list";
 import {
   KeyboardArrowDownSVGIcon,
-  KeyboardArrowUpSVGIcon
+  KeyboardArrowUpSVGIcon,
 } from "@react-md/material-icons";
+import { MenuItemSeparator } from "@react-md/menu";
 import c from "classnames";
 import React, { useRef, useState } from "react";
 import { useLocationState } from "../../services/location-state";
@@ -11,7 +11,6 @@ import { Content } from "./Content";
 import styles from "./index.module.scss";
 import { MenuButton } from "./MenuButton";
 import { SearchInput } from "./SearchInput";
-
 
 export function Sidebar() {
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
@@ -38,7 +37,7 @@ export function Sidebar() {
           <SimpleListItem>
             <SearchInput />
           </SimpleListItem>
-          <Divider className={styles.NoGapDivider} />
+          <MenuItemSeparator className={styles.NoGapDivider} />
         </List>
 
         <div className={styles.Content} key={state.key}>
@@ -46,7 +45,7 @@ export function Sidebar() {
         </div>
 
         <List className={styles.BottomMenu}>
-          <Divider className={styles.NoGapDivider} />
+          <MenuItemSeparator className={styles.NoGapDivider} />
           <MenuButton onBottomSheetClose={() => setBottomSheetOpen(false)} />
         </List>
       </div>

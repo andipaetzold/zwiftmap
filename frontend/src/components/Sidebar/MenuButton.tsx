@@ -1,4 +1,3 @@
-import { Divider } from "@react-md/divider";
 import { List, ListItem } from "@react-md/list";
 import {
   ChevronRightSVGIcon,
@@ -6,7 +5,7 @@ import {
   MenuSVGIcon,
   SettingsSVGIcon,
 } from "@react-md/material-icons";
-import { Menu, MenuItem, useMenu } from "@react-md/menu";
+import { Menu, MenuItem, MenuItemSeparator, useMenu } from "@react-md/menu";
 import { BOTTOM_RIGHT_ANCHOR, useToggle } from "@react-md/utils";
 import React, { useState } from "react";
 import { useIsMobile } from "../../hooks/useIsMobile";
@@ -67,7 +66,7 @@ export function MenuButton({ onBottomSheetClose }: Props) {
           >
             Settings
           </MenuItem>
-          <Divider />
+          <MenuItemSeparator />
           <StravaButton />
         </List>
       </Menu>

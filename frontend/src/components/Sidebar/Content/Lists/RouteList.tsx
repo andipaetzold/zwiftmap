@@ -1,5 +1,5 @@
-import { Divider } from "@react-md/divider";
 import { List } from "@react-md/list";
+import { MenuItemSeparator } from "@react-md/menu";
 import { Helmet } from "react-helmet-async";
 import { routes } from "zwift-data";
 import { useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";
@@ -80,7 +80,7 @@ export function RouteList({ state }: Props) {
           </ListItemState>
         )}
 
-        <Divider />
+        <MenuItemSeparator />
       </List>
 
       <List
