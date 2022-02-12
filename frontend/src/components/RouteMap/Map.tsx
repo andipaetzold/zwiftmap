@@ -129,7 +129,7 @@ export function Map({ state, world, routeStreams }: Props) {
       </LayersControl>
 
       <RoutePosition streams={routeStreams} />
-      <Markers state={state} />
+      <Markers state={state} streams={routeStreams} />
     </MapContainer>
   );
 }
