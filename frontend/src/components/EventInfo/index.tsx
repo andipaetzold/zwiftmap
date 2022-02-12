@@ -1,4 +1,4 @@
-import round from "lodash/round";
+import round from "lodash-es/round";
 import { worlds } from "zwift-data";
 import { ZwiftEvent } from "../../services/events";
 import { EVENT_TYPES } from "../../services/events/constants";

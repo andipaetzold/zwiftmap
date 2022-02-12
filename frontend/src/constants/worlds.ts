@@ -1,4 +1,4 @@
-import fromPairs from "lodash/fromPairs";
+import fromPairs from "lodash-es/fromPairs";
 import { World, worlds, WorldSlug } from "zwift-data";
 
 // @ts-ignore

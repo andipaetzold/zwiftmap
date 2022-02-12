@@ -1,8 +1,8 @@
 import { lineString, lineString as turfLineString } from "@turf/helpers";
 import turfNearestPointOnLine from "@turf/nearest-point-on-line";
 import { LatLngTuple } from "leaflet";
-import minBy from "lodash/minBy";
-import round from "lodash/round";
+import minBy from "lodash-es/minBy";
+import round from "lodash-es/round";
 import { SnappedPoint } from "../types";
 import { LatLngAlt } from "../types/LatLngAlt";
 

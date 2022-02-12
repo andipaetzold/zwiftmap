@@ -4,7 +4,7 @@ import { List, SimpleListItem } from "@react-md/list";
 import { ListSVGIcon } from "@react-md/material-icons";
 import { Typography } from "@react-md/typography";
 import { LatLngTuple } from "leaflet";
-import { range } from "lodash";
+import { range } from "lodash-es";
 import { useAsync } from "react-async-hook";
 import { LocationStateRouting } from "../../../../services/location-state";
 import { worker } from "../../../../services/worker-client";

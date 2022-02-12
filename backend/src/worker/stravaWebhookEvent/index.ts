@@ -1,5 +1,5 @@
 import { Job } from "bull";
-import pick from "lodash/pick";
+import pick from "lodash-es/pick";
 import { WebhookEventType } from "../../shared/types";
 import { Logger } from "../services/logger";
 import { handleActivityCreate } from "./handler/activity-create";
