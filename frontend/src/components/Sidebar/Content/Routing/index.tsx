@@ -1,7 +1,7 @@
-import { Divider } from "@react-md/divider";
 import { TextIconSpacing } from "@react-md/icon";
 import { List, SimpleListItem } from "@react-md/list";
 import { ListSVGIcon } from "@react-md/material-icons";
+import { MenuItemSeparator } from "@react-md/menu";
 import { Typography } from "@react-md/typography";
 import { LatLngTuple } from "leaflet";
 import { range } from "lodash-es";
@@ -72,7 +72,7 @@ export function Routing({ state }: Props) {
 
       {stream && (
         <>
-          <Divider />
+          <MenuItemSeparator />
           <RoutingFacts stream={stream} />
           <RoutingElevationChart stream={stream} />
         </>

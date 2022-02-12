@@ -1,4 +1,3 @@
-import { Divider } from "@react-md/divider";
 import { List, ListItem } from "@react-md/list";
 import {
   ChevronRightSVGIcon,
@@ -6,7 +5,7 @@ import {
   MenuSVGIcon,
   SettingsSVGIcon,
 } from "@react-md/material-icons";
-import { Menu, MenuItem } from "@react-md/menu";
+import { Menu, MenuItem, MenuItemSeparator, useMenu } from "@react-md/menu";
 import { BOTTOM_RIGHT_ANCHOR, useToggle } from "@react-md/utils";
 import React, { useState } from "react";
 import { useIsMobile } from "../../hooks/useIsMobile";
@@ -19,7 +18,15 @@ interface Props {
 }
 
 export function MenuButton({ onBottomSheetClose }: Props) {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const { menuRef, menuProps, toggleRef, toggleProps } = useMenu<HTMLLIElement>(
+    {
+      baseId: "sidebar-menu",
+      visible,
+      setVisible,
+      anchor: BOTTOM_RIGHT_ANCHOR,
+    }
+  );
   const [settingsDialogVisible, showSettingsDialog, hideSettingsDialog] =
     useToggle(false);
   const [infoDialogVisible, showInfoDialog, hideInfoDialog] = useToggle(false);
@@ -29,29 +36,15 @@ export function MenuButton({ onBottomSheetClose }: Props) {
   return (
     <>
       <ListItem
-        onClick={(e) => {
-          e.stopPropagation();
-          setMenuOpen(!menuOpen);
-        }}
+        ref={toggleRef}
         rightAddon={isMobile ? <MenuSVGIcon /> : <ChevronRightSVGIcon />}
         rightAddonType="icon"
-        id="sidebar-menu-button"
-        aria-haspopup="true"
-        aria-expanded={menuOpen}
-        aria-controls="sidebar-menu"
+        {...toggleProps}
       >
         Menu
       </ListItem>
 
-      <Menu
-        id="sidebar-menu"
-        controlId="sidebar-menu-button"
-        aria-labelledby="sidebar-menu-button"
-        visible={menuOpen}
-        onRequestClose={() => setMenuOpen(false)}
-        anchor={BOTTOM_RIGHT_ANCHOR}
-        portal
-      >
+      <Menu ref={menuRef} {...menuProps} portal>
         <List>
           <MenuItem
             onClick={() => {
@@ -73,7 +66,7 @@ export function MenuButton({ onBottomSheetClose }: Props) {
           >
             Settings
           </MenuItem>
-          <Divider />
+          <MenuItemSeparator />
           <StravaButton />
         </List>
       </Menu>
