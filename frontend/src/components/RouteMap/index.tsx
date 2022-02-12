@@ -34,6 +34,7 @@ export default function RouteMap() {
       />
       <Map
         key={selectedWorld.slug}
+        state={state}
         world={selectedWorld}
         routeStreams={routeStreams}
       />

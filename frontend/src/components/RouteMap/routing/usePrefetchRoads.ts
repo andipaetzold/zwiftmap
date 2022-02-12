@@ -1,10 +1,8 @@
 import { useEffect } from "react";
-import { useLocationState } from "../../../services/location-state";
+import { LocationState } from "../../../services/location-state";
 import { worker } from "../../../services/worker-client";
 
-export function usePrefetchRoads() {
-  const state = useLocationState();
-
+export function usePrefetchRoads(state: LocationState) {
   useEffect(() => {
     if (state.type !== "routing") {
       return;

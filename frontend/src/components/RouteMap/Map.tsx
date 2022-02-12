@@ -10,7 +10,7 @@ import { World } from "zwift-data";
 import { worldConfigs } from "../../constants/worldConfigs";
 import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 import { useSettings } from "../../hooks/useSettings";
-import { useLocationState } from "../../services/location-state";
+import { LocationState } from "../../services/location-state";
 import { DistanceStream, LatLngStream } from "../../types";
 import { getBounds } from "../../util/bounds";
 import styles from "./index.module.scss";
@@ -26,6 +26,7 @@ import { SurfaceDebugLayer } from "./SurfaceDebugLayer";
 import { WorldImage } from "./WorldImage";
 
 interface Props {
+  state: LocationState;
   world: World;
   routeStreams?: {
     latlng: LatLngStream;
@@ -33,14 +34,13 @@ interface Props {
   };
 }
 
-export function Map({ world, routeStreams }: Props) {
-  const state = useLocationState();
+export function Map({ state, world, routeStreams }: Props) {
+  usePrefetchRoads(state);
   const [overlay, setOverlay] = useSettings((state) => [
     state.overlay,
     state.setOverlay,
   ]);
   const prefersReducedMotion = usePrefersReducedMotion();
-  usePrefetchRoads();
   const [map, setMap] = useState<MapType | undefined>();
 
   useEffect(() => {
