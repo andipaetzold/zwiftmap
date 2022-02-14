@@ -67,6 +67,7 @@ export function RouteList({ state }: Props) {
           "bologna",
           "crit-city",
           "france",
+          "innsbruck",
           "paris",
           "london",
           "richmond",
