@@ -39,7 +39,7 @@
     "@sentry/node": "6.17.7",
     "@sentry/tracing": "6.17.7",
     "axios": "0.26.0",
-    "bull": "4.5.2",
+    "bull": "4.5.4",
     "cloudinary": "1.28.1",
     "compression": "1.7.4",
     "concurrently": "7.0.0",
