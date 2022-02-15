@@ -88,7 +88,7 @@
     "@tsconfig/create-react-app": "1.0.2",
     "@types/lodash-es": "4.17.6",
     "@types/mapbox__polyline": "1.0.2",
-    "netlify-cli": "9.6.1",
+    "netlify-cli": "9.6.2",
     "prettier": "2.5.1",
     "pwa-asset-generator": "6.0.6",
     "sass": "1.49.7",
