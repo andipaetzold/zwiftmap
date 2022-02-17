@@ -13,6 +13,7 @@ import { ButtonState } from "../../../ButtonState";
 import { RoutingElevationChart } from "./RoutingElevationChart";
 import { RoutingFacts } from "./RoutingFacts";
 import { RoutingHelmet } from "./RoutingHelmet";
+import { RoutingSurface } from "./RoutingSurface";
 import { RoutingWaypoints } from "./RoutingWaypoints";
 
 interface Props {
@@ -75,6 +76,7 @@ export function Routing({ state }: Props) {
           <MenuItemSeparator />
           <RoutingFacts stream={stream} />
           <RoutingElevationChart stream={stream} />
+          <RoutingSurface state={state} latLngStream={stream} />
         </>
       )}
     </List>
