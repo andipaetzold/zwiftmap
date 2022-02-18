@@ -47,6 +47,8 @@ function startServer() {
     handlers.handleGETActivityStreams
   );
   app.get("/strava/callback", handlers.handleStravaAuthorizeCallback);
+  app.get("/events", handlers.handleGETEvents);
+  app.get("/events/:eventId", handlers.handleGETEvent);
   app.get("/events/:eventId/workout", handlers.handleGetEventWorkout);
   app.get("/strava/segments/:segmentId", handlers.handleGETSegment);
   app.get("/strava/settings", handlers.handleGETStravaSettings);

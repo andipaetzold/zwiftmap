@@ -10,7 +10,7 @@ export async function fetchEvents(): Promise<ZwiftEvent[]> {
   return response.data;
 }
 
-export async function fetchEvent(eventId: string): Promise<ZwiftEvent> {
+export async function fetchEvent(eventId: number): Promise<ZwiftEvent> {
   const response = await api.get<ZwiftEvent>(`/public/events/${eventId}`);
   return response.data;
 }
