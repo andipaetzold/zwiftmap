@@ -37,7 +37,7 @@ export interface LocationStateUpcomingEvents {
 export interface LocationStateUpcomingEvent {
   type: "event";
   world: World | null;
-  eventId: string;
+  eventId: number;
 }
 
 export interface LocationStateShare {

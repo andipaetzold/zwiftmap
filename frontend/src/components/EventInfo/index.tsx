@@ -1,7 +1,7 @@
 import round from "lodash-es/round";
 import { worlds } from "zwift-data";
-import { ZwiftEvent } from "../../services/events";
-import { EVENT_TYPES } from "../../services/events/constants";
+import { EVENT_TYPES } from "../../services/events";
+import { ZwiftEvent } from "../../types";
 import { formatEventStart } from "../../util/formats";
 import { Distance } from "../Distance";
 

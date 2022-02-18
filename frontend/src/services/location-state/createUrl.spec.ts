@@ -83,7 +83,7 @@ it("event", () => {
     createUrl({
       type: "event",
       world: worldLondon,
-      eventId: "42",
+      eventId: 42,
     })
   ).toBe("/events/42");
 });

@@ -5,8 +5,8 @@ import { useAsync } from "react-async-hook";
 import { Helmet } from "react-helmet-async";
 import { useSessionSettings } from "../../../../hooks/useSessionSettings";
 import { useSettings } from "../../../../hooks/useSettings";
-import { fetchEvents } from "../../../../services/events";
 import { LocationStateUpcomingEvents } from "../../../../services/location-state";
+import { getEvents } from "../../../../services/zwiftMapApi";
 import { ButtonState } from "../../../ButtonState";
 import { LoadingSpinnerListItem } from "../../../Loading";
 import { EventItem } from "./EventItem";
@@ -18,7 +18,7 @@ interface Props {
 
 export function UpcomingEvents({ state }: Props) {
   const [{ eventFilter: filterState }] = useSessionSettings();
-  const { result: events, loading } = useAsync(fetchEvents, []);
+  const { result: events, loading } = useAsync(getEvents, []);
   const sport = useSettings((state) => state.sport);
 
   if (!events) {

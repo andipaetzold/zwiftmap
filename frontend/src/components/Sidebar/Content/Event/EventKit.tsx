@@ -4,7 +4,7 @@ import {
   DirectionsBikeSVGIcon,
 } from "@react-md/material-icons";
 import { bikeFrames, jerseys } from "zwift-data";
-import { ZwiftEvent } from "../../../../services/events";
+import { ZwiftEvent } from "../../../../types";
 
 interface Props {
   event: ZwiftEvent;

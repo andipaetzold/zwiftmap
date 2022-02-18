@@ -1,6 +1,6 @@
 import parseISO from "date-fns/parseISO";
 import { Helmet } from "react-helmet-async";
-import { ZwiftEvent } from "../../../../services/events";
+import { ZwiftEvent } from "../../../../types";
 import { FORMAT_LONG } from "../../../../util/formats";
 
 interface Props {

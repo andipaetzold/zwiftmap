@@ -1,5 +1,5 @@
 import { SimpleListItem } from "@react-md/list";
-import { ZwiftEvent } from "../../../../services/events";
+import { ZwiftEvent } from "../../../../types";
 import styles from "./EventImage.module.scss";
 
 interface Props {

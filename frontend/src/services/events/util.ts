@@ -2,7 +2,7 @@ import { fromPairs, range } from "lodash-es";
 import { Route, routes, World, worlds } from "zwift-data";
 import { StravaSegment } from "../../types";
 import { getStravaSegmentStreams } from "../StravaSegmentRepository";
-import { ZwiftEvent } from "./types";
+import { ZwiftEvent } from "../../types";
 
 export function getWorldFromEvent(event: ZwiftEvent): World | undefined {
   const route = routes.find((r) => r.id === event.routeId);

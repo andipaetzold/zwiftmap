@@ -10,3 +10,4 @@ export * from "./Stream";
 export * from "./Surface";
 export * from "./Worker";
 export * from "./WorldConfig";
+export * from "./ZwiftEvent";

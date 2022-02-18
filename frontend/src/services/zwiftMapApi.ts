@@ -5,7 +5,7 @@ import {
   SummaryActivity,
 } from "strava";
 import { BACKEND_HOST } from "../config";
-import { AuthStatus, Share, StravaSettings } from "../types";
+import { AuthStatus, Share, StravaSettings, ZwiftEvent } from "../types";
 import { cachedRequest } from "./cached-request";
 import { request } from "./request";
 
@@ -111,4 +111,12 @@ export async function getAuthStatus(): Promise<AuthStatus> {
   return await request(`${BACKEND_HOST}/auth/status`, {
     ...DEFAULT_INIT,
   });
+}
+
+export async function getEvents(): Promise<ZwiftEvent[]> {
+  return await cachedRequest(`${BACKEND_HOST}/events`);
+}
+
+export async function getEvent(eventId: number): Promise<ZwiftEvent> {
+  return await cachedRequest(`${BACKEND_HOST}/events/${eventId}`);
 }

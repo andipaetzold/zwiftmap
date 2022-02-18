@@ -11,13 +11,12 @@ import {
 } from "@react-md/material-icons";
 import round from "lodash-es/round";
 import {
-  getEventDistance,
+  EVENT_TYPES, getEventDistance,
   getEventElevation,
   getRouteFromEvent,
-  getWorldFromEvent,
-  ZwiftEvent
+  getWorldFromEvent
 } from "../../../../services/events";
-import { EVENT_TYPES } from "../../../../services/events/constants";
+import { ZwiftEvent } from "../../../../types";
 import { formatEventStart } from "../../../../util/formats";
 import { Distance } from "../../../Distance";
 import { Elevation } from "../../../Elevation";

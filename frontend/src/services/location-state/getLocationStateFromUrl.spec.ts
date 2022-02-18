@@ -163,7 +163,7 @@ describe("event", () => {
     ) as LocationStateUpcomingEvent;
     expect(r.type).toBe("event");
     expect(r.world).toBeNull();
-    expect(r.eventId).toBe("42");
+    expect(r.eventId).toBe(42);
   });
 
   it("legacy", () => {
@@ -173,7 +173,7 @@ describe("event", () => {
     ) as LocationStateUpcomingEvent;
     expect(r1.type).toBe("event");
     expect(r1.world).toBeNull();
-    expect(r1.eventId).toBe("42");
+    expect(r1.eventId).toBe(42);
 
     const r2 = getLocationStateFromUrl(
       "/london",
@@ -181,7 +181,7 @@ describe("event", () => {
     ) as LocationStateUpcomingEvent;
     expect(r2.type).toBe("event");
     expect(r2.world).toBeNull();
-    expect(r2.eventId).toBe("42");
+    expect(r2.eventId).toBe(42);
   });
 });
 
