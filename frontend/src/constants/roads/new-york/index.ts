@@ -1,4 +1,7 @@
 import { Roads } from "../../../services/Roads";
+import edgeSouth5 from "./edges/south-5";
+import edgeSouth6 from "./edges/south-6";
+import edgeSouth7 from "./edges/south-7";
 
 const ROADS = new Roads();
 
@@ -120,9 +123,9 @@ ROADS.createEdge(NORTH_JUNCTION_E_2, SOUTH_JUNCTION_A_3, []);
 ROADS.createEdge(NORTH_JUNCTION_F_2, SOUTH_JUNCTION_A_2, []);
 ROADS.createEdge(NORTH_JUNCTION_C_1, SOUTH_JUNCTION_B_2, []);
 ROADS.createEdge(PADDOCK_EXIT, SOUTH_JUNCTION_C_2, []);
-ROADS.createEdge(SOUTH_JUNCTION_B_3, SOUTH_JUNCTION_C_1, []);
-ROADS.createEdge(SOUTH_JUNCTION_B_1, SOUTH_JUNCTION_E_1, []);
-ROADS.createEdge(SOUTH_JUNCTION_C_3, SOUTH_JUNCTION_E_3, []);
+ROADS.createEdge(SOUTH_JUNCTION_C_1, SOUTH_JUNCTION_B_3, edgeSouth5);
+ROADS.createEdge(SOUTH_JUNCTION_B_1, SOUTH_JUNCTION_E_1, edgeSouth6);
+ROADS.createEdge(SOUTH_JUNCTION_E_3, SOUTH_JUNCTION_C_3, edgeSouth7);
 ROADS.createEdge(SOUTH_JUNCTION_E_2, SOUTH_JUNCTION_D_1, []);
 ROADS.createEdge(SOUTH_JUNCTION_D_3, SOUTH_JUNCTION_A_1, []);
 ROADS.createEdge(SOUTH_JUNCTION_D_2, SOUTH_JUNCTION_F_1, []);
