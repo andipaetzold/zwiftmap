@@ -66,7 +66,14 @@ import { edgeNeokyoD1, edgeNeokyoD2, edgeNeokyoD3 } from "./edges/neokyo-d";
 import { edgeNeokyoE1, edgeNeokyoE2, edgeNeokyoE3 } from "./edges/neokyo-e";
 import { edgeNeokyoF1, edgeNeokyoF2, edgeNeokyoF3 } from "./edges/neokyo-f";
 import { edgeNeokyoG1, edgeNeokyoG2, edgeNeokyoG3 } from "./edges/neokyo-g";
-import { edgeNeokyoH1, edgeNeokyoH2, edgeNeokyoH3, edgeNeokyoH4, edgeNeokyoH5, edgeNeokyoH6 } from "./edges/neokyo-h";
+import {
+  edgeNeokyoH1,
+  edgeNeokyoH2,
+  edgeNeokyoH3,
+  edgeNeokyoH4,
+  edgeNeokyoH5,
+  edgeNeokyoH6,
+} from "./edges/neokyo-h";
 
 const ROADS = new Roads();
 
@@ -362,7 +369,7 @@ ROADS.createEdge(
   edgeNeokyoCastle
 );
 
-// Neokyo Rest
+// Neokyo Junctions
 const NEOKYO_A_1 = ROADS.createNode([-10.783617, 165.838242, 125.8]);
 const NEOKYO_A_2 = ROADS.createNode([-10.783965, 165.838553, 125.8]);
 const NEOKYO_A_3 = ROADS.createNode([-10.784144, 165.838151, 125.8]);
@@ -423,6 +430,26 @@ ROADS.createEdge(NEOKYO_H_4, NEOKYO_H_1, edgeNeokyoH4);
 ROADS.createEdge(NEOKYO_H_1, NEOKYO_H_3, edgeNeokyoH5);
 ROADS.createEdge(NEOKYO_H_2, NEOKYO_H_4, edgeNeokyoH6);
 
+// Neokyo Rest
 ROADS.createEdge(COUNTRY_F, NEOKYO_ROUNDABOUT_1, edgeCountryNeokyo);
+ROADS.createEdge(NEOKYO_ROUNDABOUT_2, NEOKYO_A_1, []);
+ROADS.createEdge(NEOKYO_A_2, PADDOCK_NEOKYO_NORTH_EXIT_3, []);
+ROADS.createEdge(NEOKYO_A_3, NEOKYO_B_1, []);
+ROADS.createEdge(NEOKYO_B_2, NEOKYO_C_1, []);
+ROADS.createEdge(NEOKYO_C_3, NEOKYO_D_2, []);
+ROADS.createEdge(NEOKYO_D_3, PADDOCK_NEOKYO_SOUTH_EXIT, []);
+ROADS.createEdge(PADDOCK_NEOKYO_SOUTH_EXIT, NEOKYO_CASTLE_SOUTH_1, []);
+ROADS.createEdge(NEOKYO_CASTLE_NORTH_3, NEOKYO_E_3, []);
+ROADS.createEdge(NEOKYO_CASTLE_NORTH_2, NEOKYO_D_1, []);
+ROADS.createEdge(NEOKYO_E_2, NEOKYO_CASTLE_SOUTH_2, []);
+ROADS.createEdge(NEOKYO_E_1, NEOKYO_F_2, []);
+ROADS.createEdge(NEOKYO_E_1, NEOKYO_F_2, []);
+ROADS.createEdge(NEOKYO_F_3, NEOKYO_G_1, []);
+ROADS.createEdge(NEOKYO_ROOFTOP_1, NEOKYO_G_3, []);
+ROADS.createEdge(NEOKYO_ROOFTOP_2, NEOKYO_G_2, []);
+ROADS.createEdge(NEOKYO_F_1, NEOKYO_H_3, []);
+ROADS.createEdge(NEOKYO_C_2, NEOKYO_H_2, []);
+ROADS.createEdge(NEOKYO_B_3, NEOKYO_H_1, []);
+ROADS.createEdge(PADDOCK_NEOKYO_NORTH_EXIT_2, NEOKYO_H_4, []);
 
 export default ROADS;
