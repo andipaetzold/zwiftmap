@@ -355,6 +355,66 @@ ROADS.createEdge(
 );
 
 // Neokyo Rest
+const NEOKYO_A_1 = ROADS.createNode([-10.783617, 165.838242, 0]);
+const NEOKYO_A_2 = ROADS.createNode([-10.783965, 165.838553, 0]);
+const NEOKYO_A_3 = ROADS.createNode([-10.784144, 165.838151, 0]);
+ROADS.createEdge(NEOKYO_A_1, NEOKYO_A_2, []);
+ROADS.createEdge(NEOKYO_A_2, NEOKYO_A_3, []);
+ROADS.createEdge(NEOKYO_A_3, NEOKYO_A_1, []);
+
+const NEOKYO_B_1 = ROADS.createNode([-10.788937, 165.837126, 0]);
+const NEOKYO_B_2 = ROADS.createNode([-10.789226, 165.836837, 0]);
+const NEOKYO_B_3 = ROADS.createNode([-10.789263, 165.837199, 0]);
+ROADS.createEdge(NEOKYO_B_1, NEOKYO_B_2, []);
+ROADS.createEdge(NEOKYO_B_2, NEOKYO_B_3, []);
+ROADS.createEdge(NEOKYO_B_3, NEOKYO_B_1, []);
+
+const NEOKYO_C_1 = ROADS.createNode([-10.795363, 165.839811, 0]);
+const NEOKYO_C_2 = ROADS.createNode([-10.795155, 165.840155, 0]);
+const NEOKYO_C_3 = ROADS.createNode([-10.795653, 165.840203, 0]);
+ROADS.createEdge(NEOKYO_C_1, NEOKYO_C_2, []);
+ROADS.createEdge(NEOKYO_C_2, NEOKYO_C_3, []);
+ROADS.createEdge(NEOKYO_C_3, NEOKYO_C_1, []);
+
+const NEOKYO_D_1 = ROADS.createNode([-10.799046, 165.841496, 0]);
+const NEOKYO_D_2 = ROADS.createNode([-10.798606, 165.841037, 0]);
+const NEOKYO_D_3 = ROADS.createNode([-10.799223, 165.840951, 0]);
+ROADS.createEdge(NEOKYO_D_1, NEOKYO_D_2, []);
+ROADS.createEdge(NEOKYO_D_2, NEOKYO_D_3, []);
+ROADS.createEdge(NEOKYO_D_3, NEOKYO_D_1, []);
+
+const NEOKYO_E_1 = ROADS.createNode([-10.796166, 165.843379, 0]);
+const NEOKYO_E_2 = ROADS.createNode([-10.796491, 165.843658, 0]);
+const NEOKYO_E_3 = ROADS.createNode([-10.79667, 165.84332, 0]);
+ROADS.createEdge(NEOKYO_E_1, NEOKYO_E_2, []);
+ROADS.createEdge(NEOKYO_E_2, NEOKYO_E_3, []);
+ROADS.createEdge(NEOKYO_E_3, NEOKYO_E_1, []);
+
+const NEOKYO_F_1 = ROADS.createNode([-10.791508, 165.843545, 0]);
+const NEOKYO_F_2 = ROADS.createNode([-10.791577, 165.844097, 0]);
+const NEOKYO_F_3 = ROADS.createNode([-10.791266, 165.843827, 0]);
+ROADS.createEdge(NEOKYO_F_1, NEOKYO_F_2, []);
+ROADS.createEdge(NEOKYO_F_2, NEOKYO_F_3, []);
+ROADS.createEdge(NEOKYO_F_3, NEOKYO_F_1, []);
+
+const NEOKYO_G_1 = ROADS.createNode([-10.791095, 165.841142, 0]);
+const NEOKYO_G_2 = ROADS.createNode([-10.791355, 165.840409, 0]);
+const NEOKYO_G_3 = ROADS.createNode([-10.791532, 165.84116, 0]);
+ROADS.createEdge(NEOKYO_G_1, NEOKYO_G_2, []);
+ROADS.createEdge(NEOKYO_G_2, NEOKYO_G_3, []);
+ROADS.createEdge(NEOKYO_G_3, NEOKYO_G_1, []);
+
+const NEOKYO_H_1 = ROADS.createNode([-10.791316, 165.840206, 0]);
+const NEOKYO_H_2 = ROADS.createNode([-10.791606, 165.840503, 0]);
+const NEOKYO_H_3 = ROADS.createNode([-10.791411, 165.840793, 0]);
+const NEOKYO_H_4 = ROADS.createNode([-10.79116, 165.840659, 0]);
+ROADS.createEdge(NEOKYO_H_1, NEOKYO_H_2, []);
+ROADS.createEdge(NEOKYO_H_2, NEOKYO_H_3, []);
+ROADS.createEdge(NEOKYO_H_3, NEOKYO_H_4, []);
+ROADS.createEdge(NEOKYO_H_4, NEOKYO_H_1, []);
+ROADS.createEdge(NEOKYO_H_1, NEOKYO_H_3, []);
+ROADS.createEdge(NEOKYO_H_2, NEOKYO_H_4, []);
+
 ROADS.createEdge(COUNTRY_F, NEOKYO_ROUNDABOUT_1, edgeCountryNeokyo);
 
 export default ROADS;
