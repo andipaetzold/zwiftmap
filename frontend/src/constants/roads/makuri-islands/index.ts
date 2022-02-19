@@ -7,6 +7,9 @@ import edgePaddockNeokyoExit1 from "./edges/paddock-neokyo-exit-1";
 import edgePaddockNeokyoExit2 from "./edges/paddock-neokyo-exit-2";
 import edgeNeokyoRoundabout1 from "./edges/neokyo-roundabout-1";
 import edgeNeokyoRoundabout2 from "./edges/neokyo-roundabout-2";
+import edgeVillageNorth from "./edges/village-north";
+import edgeVillageMiddle from "./edges/village-middle";
+import edgeVillageSouth from "./edges/village-south";
 
 const ROADS = new Roads();
 
@@ -54,6 +57,13 @@ ROADS.createEdge(PADDOCK_SOUTH_MIDDLE, PADDOCK_SOUTH_ROW_BACK, []);
 ROADS.createEdge(PADDOCK_SOUTH_ROW_BACK, PADDOCK_SOUTH_ROW_FRONT, []);
 ROADS.createEdge(PADDOCK_SOUTH_ROW_FRONT, PADDOCK_SOUTH_EXIT, []);
 
+// Village
+const VILLAGE_EAST = ROADS.createNode([-10.746258, 165.844588, 153.6]);
+const VILLAGE_WEST = ROADS.createNode([-10.748485, 165.842115, 153.6]);
+ROADS.createEdge(VILLAGE_WEST, VILLAGE_EAST, edgeVillageNorth);
+ROADS.createEdge(VILLAGE_WEST, VILLAGE_EAST, edgeVillageMiddle);
+ROADS.createEdge(VILLAGE_EAST, VILLAGE_WEST, edgeVillageSouth);
+
 // Paddock Neokyo
 const PADDOCK_NEOKYO_1 = ROADS.createNode([-10.781435, 165.842088, 126.4]);
 const PADDOCK_NEOKYO_2 = ROADS.createNode([-10.781446, 165.8438, 126.4]);
@@ -91,8 +101,15 @@ ROADS.createEdge(
 // Neokyo Roundabout
 const NEOKYO_ROUNDABOUT_1 = ROADS.createNode([-10.780663, 165.833776, 125.6]);
 const NEOKYO_ROUNDABOUT_2 = ROADS.createNode([-10.781122, 165.835375, 125.6]);
-ROADS.createEdge(NEOKYO_ROUNDABOUT_2, NEOKYO_ROUNDABOUT_1, edgeNeokyoRoundabout1)
-ROADS.createEdge(NEOKYO_ROUNDABOUT_1, NEOKYO_ROUNDABOUT_2, edgeNeokyoRoundabout2)
-
+ROADS.createEdge(
+  NEOKYO_ROUNDABOUT_2,
+  NEOKYO_ROUNDABOUT_1,
+  edgeNeokyoRoundabout1
+);
+ROADS.createEdge(
+  NEOKYO_ROUNDABOUT_1,
+  NEOKYO_ROUNDABOUT_2,
+  edgeNeokyoRoundabout2
+);
 
 export default ROADS;
