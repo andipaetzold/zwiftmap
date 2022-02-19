@@ -3,6 +3,8 @@ import edgeTempleKOM from "./edges/temple-kom";
 import edgeTempleBypass from "./edges/temple-bypass";
 import edgeTempleEntryNorth from "./edges/temple-entry-north";
 import edgeTempleEntrySouth from "./edges/temple-entry-south";
+import edgePaddockNeokyoExit1 from "./edges/paddock-neokyo-exit-1";
+import edgePaddockNeokyoExit2 from "./edges/paddock-neokyo-exit-2";
 
 const ROADS = new Roads();
 
@@ -49,5 +51,39 @@ ROADS.createEdge(PADDOCK_SOUTH_4, PADDOCK_SOUTH_ROW_BACK, []);
 ROADS.createEdge(PADDOCK_SOUTH_MIDDLE, PADDOCK_SOUTH_ROW_BACK, []);
 ROADS.createEdge(PADDOCK_SOUTH_ROW_BACK, PADDOCK_SOUTH_ROW_FRONT, []);
 ROADS.createEdge(PADDOCK_SOUTH_ROW_FRONT, PADDOCK_SOUTH_EXIT, []);
+
+// Paddock Neokyo
+const PADDOCK_NEOKYO_1 = ROADS.createNode([-10.781435, 165.842088, 126.4]);
+const PADDOCK_NEOKYO_2 = ROADS.createNode([-10.781446, 165.8438, 126.4]);
+const PADDOCK_NEOKYO_3 = ROADS.createNode([-10.780777, 165.842094, 126.4]);
+const PADDOCK_NEOKYO_4 = ROADS.createNode([-10.780777, 165.843816, 126.4]);
+const PADDOCK_NEOKYO_MIDDLE = ROADS.createNode([-10.780276, 165.842995, 126.4]);
+const PADDOCK_NEOKYO_ROW_FRONT = ROADS.createNode([
+  -10.782184, 165.843006, 126.4,
+]);
+const PADDOCK_NEOKYO_ROW_BACK = ROADS.createNode([
+  -10.781477, 165.842995, 126.4,
+]);
+const PADDOCK_NEOKYO_EXIT_1 = ROADS.createNode([-10.782895, 165.843006, 126.4]);
+const PADDOCK_NEOKYO_EXIT_2 = ROADS.createNode([-10.783338, 165.843019, 126.4]);
+const PADDOCK_NEOKYO_EXIT_3 = ROADS.createNode([-10.783169, 165.842577, 126.4]);
+ROADS.createEdge(PADDOCK_NEOKYO_1, PADDOCK_NEOKYO_ROW_FRONT, []);
+ROADS.createEdge(PADDOCK_NEOKYO_2, PADDOCK_NEOKYO_ROW_FRONT, []);
+ROADS.createEdge(PADDOCK_NEOKYO_3, PADDOCK_NEOKYO_ROW_BACK, []);
+ROADS.createEdge(PADDOCK_NEOKYO_4, PADDOCK_NEOKYO_ROW_BACK, []);
+ROADS.createEdge(PADDOCK_NEOKYO_MIDDLE, PADDOCK_NEOKYO_ROW_BACK, []);
+ROADS.createEdge(PADDOCK_NEOKYO_ROW_BACK, PADDOCK_NEOKYO_ROW_FRONT, []);
+ROADS.createEdge(PADDOCK_NEOKYO_ROW_FRONT, PADDOCK_NEOKYO_EXIT_1, []);
+ROADS.createEdge(PADDOCK_NEOKYO_EXIT_1, PADDOCK_NEOKYO_EXIT_2, []);
+ROADS.createEdge(
+  PADDOCK_NEOKYO_EXIT_3,
+  PADDOCK_NEOKYO_EXIT_2,
+  edgePaddockNeokyoExit1
+);
+ROADS.createEdge(
+  PADDOCK_NEOKYO_EXIT_1,
+  PADDOCK_NEOKYO_EXIT_3,
+  edgePaddockNeokyoExit2
+);
 
 export default ROADS;
