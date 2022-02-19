@@ -7,14 +7,14 @@ import edgeCastle5 from "./edges/castle-5";
 import edgeCastle6 from "./edges/castle-6";
 import edgeCastle7 from "./edges/castle-7";
 import {
-  edgeCastleSouthA1,
-  edgeCastleSouthA2,
-  edgeCastleSouthA3,
+    edgeCastleSouthA1,
+    edgeCastleSouthA2,
+    edgeCastleSouthA3
 } from "./edges/castle-south-a";
 import {
-  edgeCastleSouthB1,
-  edgeCastleSouthB2,
-  edgeCastleSouthB3,
+    edgeCastleSouthB1,
+    edgeCastleSouthB2,
+    edgeCastleSouthB3
 } from "./edges/castle-south-b";
 import edgeCountryAToB from "./edges/country-a-to-b";
 import edgeCountryBToCastle from "./edges/country-b-to-castle";
@@ -26,6 +26,7 @@ import edgeCountryCastleToE from "./edges/country-castle-to-e";
 import edgeCountryDToE from "./edges/country-d-to-e";
 import edgeCountryDToF from "./edges/country-d-to-f";
 import edgeCountryDToPaddock from "./edges/country-d-to-paddock";
+import { edgeCountryE1, edgeCountryE2, edgeCountryE3 } from "./edges/country-e";
 import edgeCountryNeokyo from "./edges/country-neokyo";
 import edgeCountryPaddockToA from "./edges/country-paddock-to-a";
 import edgeCountryPaddockToTemple from "./edges/country-paddock-to-temple";
@@ -137,6 +138,9 @@ const COUNTRY_F = ROADS.createNode([-10.775112, 165.83019, 125.6]);
 const COUNTRY_E_1 = ROADS.createNode([-10.759273, 165.838325, 128.2]);
 const COUNTRY_E_2 = ROADS.createNode([-10.759217, 165.838872, 128.2]);
 const COUNTRY_E_3 = ROADS.createNode([-10.759507, 165.838604, 128.2]);
+ROADS.createEdge(COUNTRY_E_1, COUNTRY_E_2, edgeCountryE1)
+ROADS.createEdge(COUNTRY_E_2, COUNTRY_E_3, edgeCountryE2)
+ROADS.createEdge(COUNTRY_E_3, COUNTRY_E_1, edgeCountryE3)
 
 ROADS.createEdge(CASTLE_SOUTH_A_1, PADDOCK_SOUTH_EXIT, edgePaddockToCastle);
 ROADS.createEdge(VILLAGE_EAST, COUNTRY_A, edgeCountryVillageToA);
