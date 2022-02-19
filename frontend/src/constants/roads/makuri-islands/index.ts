@@ -5,6 +5,8 @@ import edgeTempleEntryNorth from "./edges/temple-entry-north";
 import edgeTempleEntrySouth from "./edges/temple-entry-south";
 import edgePaddockNeokyoExit1 from "./edges/paddock-neokyo-exit-1";
 import edgePaddockNeokyoExit2 from "./edges/paddock-neokyo-exit-2";
+import edgeNeokyoRoundabout1 from "./edges/neokyo-roundabout-1";
+import edgeNeokyoRoundabout2 from "./edges/neokyo-roundabout-2";
 
 const ROADS = new Roads();
 
@@ -85,5 +87,12 @@ ROADS.createEdge(
   PADDOCK_NEOKYO_EXIT_3,
   edgePaddockNeokyoExit2
 );
+
+// Neokyo Roundabout
+const NEOKYO_ROUNDABOUT_1 = ROADS.createNode([-10.780663, 165.833776, 0]);
+const NEOKYO_ROUNDABOUT_2 = ROADS.createNode([-10.781122, 165.835375, 0]);
+ROADS.createEdge(NEOKYO_ROUNDABOUT_2, NEOKYO_ROUNDABOUT_1, edgeNeokyoRoundabout1)
+ROADS.createEdge(NEOKYO_ROUNDABOUT_1, NEOKYO_ROUNDABOUT_2, edgeNeokyoRoundabout2)
+
 
 export default ROADS;
