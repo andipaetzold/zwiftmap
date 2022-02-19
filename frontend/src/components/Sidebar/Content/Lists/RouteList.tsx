@@ -68,6 +68,7 @@ export function RouteList({ state }: Props) {
           "crit-city",
           "france",
           "innsbruck",
+          "new-york",
           "paris",
           "london",
           "richmond",
