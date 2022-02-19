@@ -31,23 +31,28 @@ import edgeCountryNeokyo from "./edges/country-neokyo";
 import edgeCountryPaddockToA from "./edges/country-paddock-to-a";
 import edgeCountryPaddockToTemple from "./edges/country-paddock-to-temple";
 import edgeCountryVillageToA from "./edges/country-village-to-a";
-import edgeNeokyoRoundabout1 from "./edges/neokyo-roundabout-1";
-import edgeNeokyoRoundabout2 from "./edges/neokyo-roundabout-2";
-import edgePaddockNeokyoExit1 from "./edges/paddock-neokyo-exit-1";
-import edgePaddockNeokyoExit2 from "./edges/paddock-neokyo-exit-2";
-import edgePaddockToCastle from "./edges/paddock-to-castle";
-import edgeTempleBypass from "./edges/temple-bypass";
-import edgeTempleEntryNorth from "./edges/temple-entry-north";
-import edgeTempleEntrySouth from "./edges/temple-entry-south";
-import edgeTempleKOM from "./edges/temple-kom";
-import edgeVillageMiddle from "./edges/village-middle";
-import edgeVillageNorth from "./edges/village-north";
-import edgeVillageSouth from "./edges/village-south";
-import edgeNeokyoRooftop from "./edges/neokyo-rooftop";
-import edgeNeokyoRooftopJunction1 from "./edges/neokyo-rooftop-junction-1";
-import edgeNeokyoRooftopJunction2 from "./edges/neokyo-rooftop-junction-2";
-import edgeNeokyoRooftopJunction3 from "./edges/neokyo-rooftop-junction-3";
-import edgeNeokyoRooftopJunction4 from "./edges/neokyo-rooftop-junction-4";
+import edgeNeokyo1 from "./edges/neokyo-1";
+import edgeNeokyo10 from "./edges/neokyo-10";
+import edgeNeokyo11 from "./edges/neokyo-11";
+import edgeNeokyo12 from "./edges/neokyo-12";
+import edgeNeokyo13 from "./edges/neokyo-13";
+import edgeNeokyo14 from "./edges/neokyo-14";
+import edgeNeokyo15 from "./edges/neokyo-15";
+import edgeNeokyo16 from "./edges/neokyo-16";
+import edgeNeokyo17 from "./edges/neokyo-17";
+import edgeNeokyo18 from "./edges/neokyo-18";
+import edgeNeokyo19 from "./edges/neokyo-19";
+import edgeNeokyo2 from "./edges/neokyo-2";
+import edgeNeokyo3 from "./edges/neokyo-3";
+import edgeNeokyo4 from "./edges/neokyo-4";
+import edgeNeokyo5 from "./edges/neokyo-5";
+import edgeNeokyo6 from "./edges/neokyo-6";
+import edgeNeokyo7 from "./edges/neokyo-7";
+import edgeNeokyo8 from "./edges/neokyo-8";
+import edgeNeokyo9 from "./edges/neokyo-9";
+import { edgeNeokyoA1, edgeNeokyoA2, edgeNeokyoA3 } from "./edges/neokyo-a";
+import { edgeNeokyoB1, edgeNeokyoB2, edgeNeokyoB3 } from "./edges/neokyo-b";
+import { edgeNeokyoC1, edgeNeokyoC2, edgeNeokyoC3 } from "./edges/neokyo-c";
 import edgeNeokyoCastle from "./edges/neokyo-castle";
 import {
   edgeNeokyoCastleNorth1,
@@ -59,9 +64,6 @@ import {
   edgeNeokyoCastleSouth2,
   edgeNeokyoCastleSouth3,
 } from "./edges/neokyo-castle-south";
-import { edgeNeokyoA1, edgeNeokyoA2, edgeNeokyoA3 } from "./edges/neokyo-a";
-import { edgeNeokyoB1, edgeNeokyoB2, edgeNeokyoB3 } from "./edges/neokyo-b";
-import { edgeNeokyoC1, edgeNeokyoC2, edgeNeokyoC3 } from "./edges/neokyo-c";
 import { edgeNeokyoD1, edgeNeokyoD2, edgeNeokyoD3 } from "./edges/neokyo-d";
 import { edgeNeokyoE1, edgeNeokyoE2, edgeNeokyoE3 } from "./edges/neokyo-e";
 import { edgeNeokyoF1, edgeNeokyoF2, edgeNeokyoF3 } from "./edges/neokyo-f";
@@ -74,6 +76,23 @@ import {
   edgeNeokyoH5,
   edgeNeokyoH6,
 } from "./edges/neokyo-h";
+import edgeNeokyoRooftop from "./edges/neokyo-rooftop";
+import edgeNeokyoRooftopJunction1 from "./edges/neokyo-rooftop-junction-1";
+import edgeNeokyoRooftopJunction2 from "./edges/neokyo-rooftop-junction-2";
+import edgeNeokyoRooftopJunction3 from "./edges/neokyo-rooftop-junction-3";
+import edgeNeokyoRooftopJunction4 from "./edges/neokyo-rooftop-junction-4";
+import edgeNeokyoRoundabout1 from "./edges/neokyo-roundabout-1";
+import edgeNeokyoRoundabout2 from "./edges/neokyo-roundabout-2";
+import edgePaddockNeokyoExit1 from "./edges/paddock-neokyo-exit-1";
+import edgePaddockNeokyoExit2 from "./edges/paddock-neokyo-exit-2";
+import edgePaddockToCastle from "./edges/paddock-to-castle";
+import edgeTempleBypass from "./edges/temple-bypass";
+import edgeTempleEntryNorth from "./edges/temple-entry-north";
+import edgeTempleEntrySouth from "./edges/temple-entry-south";
+import edgeTempleKOM from "./edges/temple-kom";
+import edgeVillageMiddle from "./edges/village-middle";
+import edgeVillageNorth from "./edges/village-north";
+import edgeVillageSouth from "./edges/village-south";
 
 const ROADS = new Roads();
 
@@ -432,24 +451,24 @@ ROADS.createEdge(NEOKYO_H_2, NEOKYO_H_4, edgeNeokyoH6);
 
 // Neokyo Rest
 ROADS.createEdge(COUNTRY_F, NEOKYO_ROUNDABOUT_1, edgeCountryNeokyo);
-ROADS.createEdge(NEOKYO_ROUNDABOUT_2, NEOKYO_A_1, []);
-ROADS.createEdge(NEOKYO_A_2, PADDOCK_NEOKYO_NORTH_EXIT_3, []);
-ROADS.createEdge(NEOKYO_A_3, NEOKYO_B_1, []);
-ROADS.createEdge(NEOKYO_B_2, NEOKYO_C_1, []);
-ROADS.createEdge(NEOKYO_C_3, NEOKYO_D_2, []);
-ROADS.createEdge(NEOKYO_D_3, PADDOCK_NEOKYO_SOUTH_EXIT, []);
-ROADS.createEdge(PADDOCK_NEOKYO_SOUTH_EXIT, NEOKYO_CASTLE_SOUTH_1, []);
-ROADS.createEdge(NEOKYO_CASTLE_NORTH_3, NEOKYO_E_3, []);
-ROADS.createEdge(NEOKYO_CASTLE_NORTH_2, NEOKYO_D_1, []);
-ROADS.createEdge(NEOKYO_E_2, NEOKYO_CASTLE_SOUTH_2, []);
-ROADS.createEdge(NEOKYO_E_1, NEOKYO_F_2, []);
-ROADS.createEdge(NEOKYO_E_1, NEOKYO_F_2, []);
-ROADS.createEdge(NEOKYO_F_3, NEOKYO_G_1, []);
-ROADS.createEdge(NEOKYO_ROOFTOP_1, NEOKYO_G_3, []);
-ROADS.createEdge(NEOKYO_ROOFTOP_2, NEOKYO_G_2, []);
-ROADS.createEdge(NEOKYO_F_1, NEOKYO_H_3, []);
-ROADS.createEdge(NEOKYO_C_2, NEOKYO_H_2, []);
-ROADS.createEdge(NEOKYO_B_3, NEOKYO_H_1, []);
-ROADS.createEdge(PADDOCK_NEOKYO_NORTH_EXIT_2, NEOKYO_H_4, []);
+ROADS.createEdge(NEOKYO_ROUNDABOUT_2, NEOKYO_A_1, edgeNeokyo1);
+ROADS.createEdge(NEOKYO_A_2, PADDOCK_NEOKYO_NORTH_EXIT_3, edgeNeokyo2);
+ROADS.createEdge(NEOKYO_A_3, NEOKYO_B_1, edgeNeokyo3);
+ROADS.createEdge(NEOKYO_B_2, NEOKYO_C_1, edgeNeokyo4);
+ROADS.createEdge(NEOKYO_C_3, NEOKYO_D_2, edgeNeokyo5);
+ROADS.createEdge(NEOKYO_D_3, PADDOCK_NEOKYO_SOUTH_EXIT, edgeNeokyo6);
+ROADS.createEdge(PADDOCK_NEOKYO_SOUTH_EXIT, NEOKYO_CASTLE_SOUTH_1, edgeNeokyo7);
+ROADS.createEdge(NEOKYO_CASTLE_NORTH_3, NEOKYO_E_3, edgeNeokyo8);
+ROADS.createEdge(NEOKYO_CASTLE_NORTH_2, NEOKYO_D_1, edgeNeokyo9);
+ROADS.createEdge(NEOKYO_E_2, NEOKYO_CASTLE_SOUTH_2, edgeNeokyo10);
+ROADS.createEdge(NEOKYO_E_1, NEOKYO_F_2, edgeNeokyo11);
+ROADS.createEdge(NEOKYO_E_1, NEOKYO_F_2, edgeNeokyo12);
+ROADS.createEdge(NEOKYO_F_3, NEOKYO_G_1, edgeNeokyo13);
+ROADS.createEdge(NEOKYO_ROOFTOP_1, NEOKYO_G_3, edgeNeokyo14);
+ROADS.createEdge(NEOKYO_ROOFTOP_2, NEOKYO_G_2, edgeNeokyo15);
+ROADS.createEdge(NEOKYO_F_1, NEOKYO_H_3, edgeNeokyo16);
+ROADS.createEdge(NEOKYO_C_2, NEOKYO_H_2, edgeNeokyo17);
+ROADS.createEdge(NEOKYO_B_3, NEOKYO_H_1, edgeNeokyo18);
+ROADS.createEdge(PADDOCK_NEOKYO_NORTH_EXIT_2, NEOKYO_H_4, edgeNeokyo19);
 
 export default ROADS;
