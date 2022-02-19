@@ -1,10 +1,11 @@
-import parseISO from "date-fns/parseISO";
 import formatISO from "date-fns/formatISO";
 import formatISODuration from "date-fns/formatISODuration";
+import parseISO from "date-fns/parseISO";
 import { JsonLd } from "react-schemaorg";
 import { Event, WithContext } from "schema-dts";
-import { getWorldFromEvent, ZwiftEvent } from "../../../../services/events";
+import { getWorldFromEvent } from "../../../../services/events";
 import { createUrl } from "../../../../services/location-state";
+import { ZwiftEvent } from "../../../../types";
 
 interface Props {
   event: ZwiftEvent;
@@ -35,7 +36,7 @@ export function EventSchema({ event }: Props) {
     alternateName: event.shortName ?? undefined,
     description: event.description,
     url: new URL(
-      createUrl({ type: "event", world, eventId: event.id.toString() }),
+      createUrl({ type: "event", world, eventId: event.id }),
       window.location.origin
     ).toString(),
     sameAs: `https://zwift.com/events/view/${event.id}`,

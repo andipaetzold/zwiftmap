@@ -1,7 +1,7 @@
 import { SimpleListItem } from "@react-md/list";
 import { useState } from "react";
 import { BACKEND_HOST } from "../../../../config";
-import { ZwiftEvent } from "../../../../services/events";
+import { ZwiftEvent } from "../../../../types";
 
 interface Props {
   event: ZwiftEvent;

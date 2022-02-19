@@ -1,6 +1,6 @@
 import { SimpleListItem } from "@react-md/list";
 import { Typography } from "@react-md/typography";
-import { ZwiftEvent } from "../../../../services/events";
+import { ZwiftEvent } from "../../../../types";
 import { EventFacts } from "./EventFacts";
 import { EventHelmet } from "./EventHelmet";
 import { EventImage } from "./EventImage";

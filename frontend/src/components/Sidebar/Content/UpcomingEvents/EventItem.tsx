@@ -3,9 +3,8 @@ import { OpenInNewSVGIcon } from "@react-md/material-icons";
 import { routes } from "zwift-data";
 import { WORLDS_BY_SLUG } from "../../../../constants";
 import { useStore } from "../../../../hooks/useStore";
-import { ZwiftEvent } from "../../../../services/events";
 import { LocationStateUpcomingEvents } from "../../../../services/location-state";
-import { HoverStateType } from "../../../../types";
+import { HoverStateType, ZwiftEvent } from "../../../../types";
 import { EventInfo } from "../../../EventInfo";
 import { ListItemState } from "../../../ListItemState";
 
@@ -38,7 +37,7 @@ export function EventItem({ state, event }: Props) {
       state={{
         type: "event",
         world: WORLDS_BY_SLUG[route.world],
-        eventId: event.id.toString(),
+        eventId: event.id,
       }}
       onClick={() => setHoverState(undefined)}
       onMouseEnter={() => {

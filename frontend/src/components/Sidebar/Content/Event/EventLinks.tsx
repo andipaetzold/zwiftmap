@@ -7,7 +7,7 @@ import whatsOnZwiftLogo from "../../../../assets/WhatsOnZwift-40x40.png";
 import zwiftLogo from "../../../../assets/Zwift-40x40.png";
 import zwiftInsiderLogo from "../../../../assets/ZwiftInsider-40x40.jpg";
 import zwiftPowerLogo from "../../../../assets/ZwiftPower-40x40.png";
-import { ZwiftEvent } from "../../../../services/events";
+import { ZwiftEvent } from "../../../../types";
 
 interface Props {
   event: ZwiftEvent;

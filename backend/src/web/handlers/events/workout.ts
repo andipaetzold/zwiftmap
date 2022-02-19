@@ -1,16 +1,16 @@
 import axios from "axios";
 import { Request, Response } from "express";
-import { fetchEvent } from "../../../shared/events/api";
 import { X2jOptionsOptional, XMLParser } from "fast-xml-parser";
 import { create } from "xmlbuilder2";
-import { getColorForPower } from "./workout/util";
+import { getEvent } from "../../../shared/events";
+import { COLORS, ZONES } from "./workout/constants";
 import {
   BarInterval,
   FreeRideInterval,
   Interval,
-  RampInterval,
+  RampInterval
 } from "./workout/types";
-import { COLORS, ZONES } from "./workout/constants";
+import { getColorForPower } from "./workout/util";
 
 const HEIGHT = 250;
 const WIDTH = 1_000;
@@ -24,9 +24,7 @@ const parserOptions: X2jOptionsOptional = {
 const parser = new XMLParser(parserOptions);
 
 export async function handleGetEventWorkout(req: Request, res: Response) {
-  const eventId = req.params.eventId;
-
-  const event = await fetchEvent(eventId);
+  const event = await getEvent(+req.params.eventId);
 
   if (!event) {
     res.sendStatus(404);

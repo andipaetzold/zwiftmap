@@ -6,8 +6,8 @@ import { Menu, useMenu } from "@react-md/menu";
 import { BELOW_INNER_LEFT_ANCHOR } from "@react-md/utils";
 import { useState } from "react";
 import { useSessionSettings } from "../../../../hooks/useSessionSettings";
-import { ZwiftEventType } from "../../../../services/events";
-import { EVENT_TYPES } from "../../../../services/events/constants";
+import { EVENT_TYPES } from "../../../../services/events";
+import { ZwiftEventType } from "../../../../types";
 
 export function EventFilterButton() {
   const [sessionSettings, setSessionSettings] = useSessionSettings();

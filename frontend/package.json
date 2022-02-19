@@ -40,7 +40,7 @@
     "react": "17.0.2",
     "react-async-hook": "4.0.0",
     "react-dom": "17.0.2",
-    "react-helmet-async": "1.2.2",
+    "react-helmet-async": "1.2.3",
     "react-leaflet": "3.1.0",
     "react-responsive": "9.0.0-beta.6",
     "react-schemaorg": "2.0.0",
@@ -49,7 +49,7 @@
     "strava": "2.0.1",
     "typescript": "4.5.5",
     "zustand": "3.7.0",
-    "zwift-data": "1.13.0"
+    "zwift-data": "1.13.2"
   },
   "scripts": {
     "start": "REACT_APP_GIT_SHA=`git rev-parse --short HEAD` react-scripts start",
@@ -88,10 +88,10 @@
     "@tsconfig/create-react-app": "1.0.2",
     "@types/lodash-es": "4.17.6",
     "@types/mapbox__polyline": "1.0.2",
-    "netlify-cli": "9.6.4",
+    "netlify-cli": "9.6.5",
     "prettier": "2.5.1",
     "pwa-asset-generator": "6.0.6",
-    "sass": "1.49.7",
+    "sass": "1.49.8",
     "schema-dts": "1.0.0",
     "worker-loader": "3.0.8"
   }

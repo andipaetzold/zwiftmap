@@ -53,7 +53,7 @@ const PATTERNS: {
       {
         type: "event",
         world: null,
-        eventId: result.groups!.eventId,
+        eventId: +result.groups!.eventId,
       },
       false,
     ],
@@ -211,7 +211,7 @@ function getLegacyStateWithWorld(
     return {
       world: null,
       type: "event",
-      eventId: searchParams.get("event")!,
+      eventId: +searchParams.get("event")!,
     };
   }
 

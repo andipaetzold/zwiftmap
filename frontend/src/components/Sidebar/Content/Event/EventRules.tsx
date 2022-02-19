@@ -1,6 +1,6 @@
 import { ListSubheader, SimpleListItem } from "@react-md/list";
-import { ZwiftEvent } from "../../../../services/events";
-import { EVENT_RULES } from "../../../../services/events/constants";
+import { EVENT_RULES } from "../../../../services/events";
+import { ZwiftEvent } from "../../../../types";
 
 interface Props {
   event: ZwiftEvent;

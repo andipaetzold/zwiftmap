@@ -1,5 +1,5 @@
 import { Sport } from "zwift-data";
-import { ZwiftEventType } from "../services/events";
+import { ZwiftEventType } from "./ZwiftEvent";
 
 export interface Settings {
   sport: Sport;

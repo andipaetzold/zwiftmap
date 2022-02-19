@@ -46,7 +46,7 @@
     "connect-redis": "6.1.1",
     "cors": "2.8.5",
     "dotenv": "16.0.0",
-    "express": "4.17.2",
+    "express": "4.17.3",
     "express-session": "1.17.2",
     "fast-xml-parser": "4.0.0-beta.6",
     "lodash": "4.17.21",
@@ -61,6 +61,6 @@
     "source-map-support": "0.5.21",
     "strava": "2.0.1",
     "xmlbuilder2": "3.0.2",
-    "zwift-data": "1.13.0"
+    "zwift-data": "1.13.2"
   }
 }

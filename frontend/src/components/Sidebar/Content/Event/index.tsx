@@ -1,13 +1,13 @@
 import { List, SimpleListItem } from "@react-md/list";
 import { useAsync } from "react-async-hook";
 import { Helmet } from "react-helmet-async";
-import { fetchEvent } from "../../../../services/events";
+import { getEvent } from "../../../../services/zwiftMapApi";
 import { LoadingSpinnerListItem } from "../../../Loading";
 import { BackButton } from "./BackButton";
 import { EventComponent } from "./component";
 
 interface Props {
-  eventId: string;
+  eventId: number;
 }
 
 export function Event(props: Props) {
@@ -20,7 +20,7 @@ export function Event(props: Props) {
 }
 
 function EventContent({ eventId }: Props) {
-  const { result: event, loading } = useAsync(fetchEvent, [eventId]);
+  const { result: event, loading } = useAsync(getEvent, [eventId]);
 
   if (loading) {
     return (

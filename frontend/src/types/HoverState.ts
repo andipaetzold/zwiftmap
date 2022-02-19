@@ -1,6 +1,6 @@
-import { ZwiftEvent } from "../services/events";
 import { LatLngStream } from "./Stream";
 import { SurfaceType } from "./Surface";
+import { ZwiftEvent } from "./ZwiftEvent";
 
 export type HoverState =
   | undefined

@@ -10,7 +10,7 @@ import { useAsync } from "react-async-hook";
 import { Route } from "zwift-data";
 import { WORLDS_BY_SLUG } from "../../../../constants";
 import { useSettings } from "../../../../hooks/useSettings";
-import { fetchEvents } from "../../../../services/events/api";
+import { getEvents } from "../../../../services/zwiftMapApi";
 import { EventInfo } from "../../../EventInfo";
 import { ListItemState } from "../../../ListItemState";
 import { LoadingSpinnerListItem } from "../../../Loading";
@@ -20,7 +20,7 @@ interface Props {
 }
 
 export function RouteEvents({ route }: Props) {
-  const { result: events } = useAsync(fetchEvents, []);
+  const { result: events } = useAsync(getEvents, []);
   const sport = useSettings((state) => state.sport);
 
   const filteredEvents = useMemo(() => {
@@ -77,7 +77,7 @@ export function RouteEvents({ route }: Props) {
           state={{
             type: "event",
             world: WORLDS_BY_SLUG[route.world],
-            eventId: event.id.toString(),
+            eventId: event.id,
           }}
           secondaryText={<EventInfo event={event} />}
           threeLines

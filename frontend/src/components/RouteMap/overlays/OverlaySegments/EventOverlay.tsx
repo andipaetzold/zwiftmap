@@ -1,13 +1,10 @@
 import { useMemo } from "react";
 import { useAsync } from "react-async-hook";
 import { Route } from "zwift-data";
-import {
-  fetchEvent,
-  getRouteFromEvent,
-  ZwiftEvent,
-} from "../../../../services/events";
+import { getRouteFromEvent } from "../../../../services/events";
 import { LocationStateUpcomingEvent } from "../../../../services/location-state";
-import { DistanceStream, LatLngStream } from "../../../../types";
+import { getEvent } from "../../../../services/zwiftMapApi";
+import { DistanceStream, LatLngStream, ZwiftEvent } from "../../../../types";
 import { SectionsPane } from "./components/SectionsPane";
 import { SegmentsPane } from "./components/SegmentsPane";
 import { getRouteSections } from "./util";
@@ -57,14 +54,14 @@ export function EventOverlay({ state, streams }: Props) {
   );
 }
 
-async function loadData(eventId: string): Promise<
+async function loadData(eventId: number): Promise<
   | {
       event: ZwiftEvent;
       route: Route;
     }
   | undefined
 > {
-  const event = await fetchEvent(eventId);
+  const event = await getEvent(eventId);
   const route = getRouteFromEvent(event);
 
   if (route) {

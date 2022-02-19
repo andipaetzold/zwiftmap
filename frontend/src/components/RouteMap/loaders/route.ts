@@ -3,12 +3,12 @@ import turfDistance from "@turf/distance";
 import { point as turfPoint } from "@turf/helpers";
 import { LatLngTuple } from "leaflet";
 import { range } from "lodash-es";
-import { fetchEvent, getEventStreams } from "../../../services/events";
+import { getEventStreams } from "../../../services/events";
 import { LocationState } from "../../../services/location-state";
 import { getStravaActivity } from "../../../services/StravaActivityRepository";
 import { getStravaSegmentStreams } from "../../../services/StravaSegmentRepository";
 import { worker } from "../../../services/worker-client";
-import { getShare } from "../../../services/zwiftMapApi";
+import { getEvent, getShare } from "../../../services/zwiftMapApi";
 import { DistanceStream, LatLngStream } from "../../../types";
 import { dropAltitude } from "../../../util/drop-altitude";
 
@@ -62,7 +62,7 @@ export async function loadRoute(state: LocationState): Promise<
       }
 
       case "event": {
-        const event = await fetchEvent(state.eventId);
+        const event = await getEvent(state.eventId);
         const streams = await getEventStreams(event, ["latlng", "distance"]);
         if (streams) {
           return streams;
