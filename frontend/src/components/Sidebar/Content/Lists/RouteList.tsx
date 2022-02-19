@@ -63,31 +63,18 @@ export function RouteList({ state }: Props) {
           Upcoming Events
         </ListItemState>
 
-        {[
-          "bologna",
-          "crit-city",
-          "france",
-          "innsbruck",
-          "new-york",
-          "paris",
-          "london",
-          "richmond",
-          "yorkshire",
-          "watopia",
-        ].includes(state.world.slug) && (
-          <ListItemState
-            role="menuitem"
-            secondaryText="Custom route"
-            state={{
-              points: [null, null],
-              world: state.world,
-              type: "routing",
-            }}
-            query=""
-          >
-            Routing <small>(Beta)</small>
-          </ListItemState>
-        )}
+        <ListItemState
+          role="menuitem"
+          secondaryText="Custom route"
+          state={{
+            points: [null, null],
+            world: state.world,
+            type: "routing",
+          }}
+          query=""
+        >
+          Routing <small>(Beta)</small>
+        </ListItemState>
 
         <MenuItemSeparator />
       </List>
