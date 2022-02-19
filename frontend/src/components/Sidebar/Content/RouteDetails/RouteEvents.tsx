@@ -20,7 +20,7 @@ interface Props {
 }
 
 export function RouteEvents({ route }: Props) {
-  const { result: events } = useAsync(getEvents, []);
+  const { result: events, error } = useAsync(getEvents, []);
   const sport = useSettings((state) => state.sport);
 
   const filteredEvents = useMemo(() => {
@@ -40,6 +40,10 @@ export function RouteEvents({ route }: Props) {
       })
       .sort((a, b) => a.eventStart.localeCompare(b.eventStart));
   }, [events, route, sport]);
+
+  if (error) {
+    return null;
+  }
 
   if (filteredEvents === undefined) {
     return <LoadingSpinnerListItem small />;
