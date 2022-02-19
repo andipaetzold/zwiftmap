@@ -134,7 +134,7 @@ ROADS.createEdge(
 );
 
 // Radio Tower
-const RADIO_TOWER_TOP = ROADS.createNode([-11.675184, 166.950624, 502.6]);
+const RADIO_TOWER_TOP = ROADS.createNode([-11.675184, 166.950624, 504]);
 const RADIO_TOWER_BOTTOM = ROADS.createNode([-11.676543, 166.958332, 373.2]);
 ROADS.createEdge(RADIO_TOWER_TOP, RADIO_TOWER_TOP, edgeRadioRoundabout);
 ROADS.createEdge(RADIO_TOWER_BOTTOM, RADIO_TOWER_TOP, edgeRadioClimb);
