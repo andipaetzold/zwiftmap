@@ -10,6 +10,24 @@ import edgeNeokyoRoundabout2 from "./edges/neokyo-roundabout-2";
 import edgeVillageNorth from "./edges/village-north";
 import edgeVillageMiddle from "./edges/village-middle";
 import edgeVillageSouth from "./edges/village-south";
+import edgePaddockToCastle from "./edges/paddock-to-castle";
+import {
+  edgeCastleSouthA1,
+  edgeCastleSouthA2,
+  edgeCastleSouthA3,
+} from "./edges/castle-south-a";
+import {
+  edgeCastleSouthB1,
+  edgeCastleSouthB2,
+  edgeCastleSouthB3,
+} from "./edges/castle-south-b";
+import edgeCastle1 from "./edges/castle-1";
+import edgeCastle2 from "./edges/castle-2";
+import edgeCastle3 from "./edges/castle-3";
+import edgeCastle4 from "./edges/castle-4";
+import edgeCastle5 from "./edges/castle-5";
+import edgeCastle6 from "./edges/castle-6";
+import edgeCastle7 from "./edges/castle-7";
 
 const ROADS = new Roads();
 
@@ -64,6 +82,33 @@ ROADS.createEdge(VILLAGE_WEST, VILLAGE_EAST, edgeVillageNorth);
 ROADS.createEdge(VILLAGE_WEST, VILLAGE_EAST, edgeVillageMiddle);
 ROADS.createEdge(VILLAGE_EAST, VILLAGE_WEST, edgeVillageSouth);
 
+// Castle
+const CASTLE_NORTH_A = ROADS.createNode([-10.755473, 165.848247, 194.8]);
+const CASTLE_NORTH_B = ROADS.createNode([-10.757028, 165.84792, 0]);
+const CASTLE_MIDDLE = ROADS.createNode([-10.760925, 165.846452, 0]);
+
+const CASTLE_SOUTH_A_1 = ROADS.createNode([-10.764166, 165.844988, 0]);
+const CASTLE_SOUTH_A_2 = ROADS.createNode([-10.7638, 165.845079, 0]);
+const CASTLE_SOUTH_A_3 = ROADS.createNode([-10.763876, 165.845286, 0]);
+ROADS.createEdge(CASTLE_SOUTH_A_2, CASTLE_SOUTH_A_1, edgeCastleSouthA1);
+ROADS.createEdge(CASTLE_SOUTH_A_2, CASTLE_SOUTH_A_3, edgeCastleSouthA2);
+ROADS.createEdge(CASTLE_SOUTH_A_3, CASTLE_SOUTH_A_1, edgeCastleSouthA3);
+
+const CASTLE_SOUTH_B_1 = ROADS.createNode([-10.762461, 165.84542, 159.4]);
+const CASTLE_SOUTH_B_2 = ROADS.createNode([-10.762595, 165.845731, 159.2]);
+const CASTLE_SOUTH_B_3 = ROADS.createNode([-10.762798, 165.845463, 159.2]);
+ROADS.createEdge(CASTLE_SOUTH_B_2, CASTLE_SOUTH_B_1, edgeCastleSouthB1);
+ROADS.createEdge(CASTLE_SOUTH_B_2, CASTLE_SOUTH_B_3, edgeCastleSouthB2);
+ROADS.createEdge(CASTLE_SOUTH_B_1, CASTLE_SOUTH_B_3, edgeCastleSouthB3);
+
+ROADS.createEdge(CASTLE_NORTH_B, CASTLE_NORTH_A, edgeCastle1);
+ROADS.createEdge(TEMPLE_ENTRY_SOUTH, CASTLE_NORTH_B, edgeCastle2);
+ROADS.createEdge(CASTLE_MIDDLE, CASTLE_NORTH_B, edgeCastle3);
+ROADS.createEdge(TEMPLE_ENTRY_SOUTH, CASTLE_MIDDLE, edgeCastle4);
+ROADS.createEdge(CASTLE_MIDDLE, CASTLE_SOUTH_A_3, edgeCastle5);
+ROADS.createEdge(CASTLE_SOUTH_B_3, CASTLE_SOUTH_A_2, edgeCastle6);
+ROADS.createEdge(CASTLE_NORTH_A, CASTLE_SOUTH_B_2, edgeCastle7);
+
 // Paddock Neokyo
 const PADDOCK_NEOKYO_1 = ROADS.createNode([-10.781435, 165.842088, 126.4]);
 const PADDOCK_NEOKYO_2 = ROADS.createNode([-10.781446, 165.8438, 126.4]);
@@ -111,5 +156,8 @@ ROADS.createEdge(
   NEOKYO_ROUNDABOUT_2,
   edgeNeokyoRoundabout2
 );
+
+// Other
+ROADS.createEdge(CASTLE_SOUTH_A_1, PADDOCK_SOUTH_EXIT, edgePaddockToCastle);
 
 export default ROADS;
