@@ -1,111 +1,73 @@
+import { redisClient } from "../../persistence/redis";
+import { createRedisCachedFn } from "../redis-cache";
 import {
-  DetailedActivity,
-  DetailedSegment,
-  StreamSet,
-  SummaryActivity,
-} from "strava";
-import {
-  getActivityByIdFromCache,
-  getActivityStreamsFromCache,
-  getSegmentFromCache,
-  writeActivityStreamsToCache,
-  writeActivityToCache,
-  writeSegmentToCache,
-} from "./cache";
-import { getStravaUserAPI } from "./userApi";
+  fetchActivityById,
+  fetchActivityStreams,
+  fetchSegmentById,
+} from "./api";
+export { fetchActivities as getActivities, updateActivity } from "./api";
 export { stravaAppAPI } from "./appApi";
-export { evictCacheForActivity, evictCacheForAthlete } from "./cache";
 
-export async function getActivityById(
-  athleteId: number,
-  activityId: number
-): Promise<DetailedActivity> {
-  const cachedActivity = await getActivityByIdFromCache(athleteId, activityId);
-  if (cachedActivity) {
-    return cachedActivity;
-  }
+/**
+ * One hour
+ */
+const TTL = 60 * 60;
 
-  const api = await getStravaUserAPI(athleteId);
-  const response = await api.get<DetailedActivity>(`/activities/${activityId}`);
-  await writeActivityToCache(response.data);
-  return response.data;
-}
+const KEY = "strava-cache";
+const TYPE_ACTIVITY = "activity";
+const TYPE_SEGMENT = "segment";
+const KEY_STREAMS = "streams";
 
-interface GetActivitiesParams {
-  before?: number;
-  after?: number;
-  page?: number;
-  per_page?: number;
-}
+export const getActivityById = createRedisCachedFn(
+  fetchActivityById,
+  (athleteId, activityId) =>
+    // strava:$athleteId:activities:$activityId
+    [KEY, athleteId, TYPE_ACTIVITY, activityId].join(":"),
+  TTL
+);
 
-export async function getActivities(
-  athleteId: number,
-  params: GetActivitiesParams
-): Promise<SummaryActivity[]> {
-  const api = await getStravaUserAPI(athleteId);
-  const response = await api.get<SummaryActivity[]>(`/athlete/activities`, {
-    params,
-  });
-  return response.data;
-}
+export const getSegmentById = createRedisCachedFn(
+  fetchSegmentById,
+  (athleteId, segmentId) =>
+    // strava:$athleteId:segments:$segmentId
+    [KEY, athleteId, TYPE_SEGMENT, segmentId].join(":"),
+  TTL
+);
 
-export async function updateActivity(
-  athleteId: number,
-  activityId: number,
-  activity: Partial<Pick<DetailedActivity, "description">>
-): Promise<DetailedActivity> {
-  const api = await getStravaUserAPI(athleteId);
-  const response = await api.put<DetailedActivity>(
-    `/activities/${activityId}`,
-    activity
-  );
-  return response.data;
-}
+export const getActivityStreams = createRedisCachedFn(
+  fetchActivityStreams,
+  (athleteId, activityId) =>
+    // strava:$athleteId:activities:$activityId:streams
+    [KEY, athleteId, TYPE_ACTIVITY, activityId, KEY_STREAMS].join(":"),
+  TTL
+);
 
-export async function getSegmentById(athleteId: number, segmentId: number) {
-  const cachedSegment = await getSegmentFromCache(athleteId, segmentId);
-  if (cachedSegment) {
-    return cachedSegment;
-  }
+export async function evictCacheForAthlete(athleteId: number) {
+  try {
+    const pattern = [KEY, athleteId, "*"].join(":");
+    const keys = await redisClient.keys(pattern);
 
-  const api = await getStravaUserAPI(athleteId);
-  const response = await api.get<DetailedSegment>(`/segments/${segmentId}`);
-  await writeSegmentToCache(athleteId, response.data);
-  return response.data;
-}
-
-export async function getActivityStreams(
-  athleteId: number,
-  activityId: number
-): Promise<Partial<StreamSet>> {
-  const cachedStreams = await getActivityStreamsFromCache(
-    athleteId,
-    activityId
-  );
-  if (cachedStreams) {
-    return cachedStreams;
-  }
-
-  const api = await getStravaUserAPI(athleteId);
-  const response = await api.get<Partial<StreamSet>>(
-    `/activities/${activityId}/streams`,
-    {
-      params: {
-        keys: [
-          "distance",
-          "latlng",
-          "time",
-          "altitude",
-          "watts",
-          "velocity_smooth",
-          "watts",
-          "cadence",
-          "heartrate",
-        ].join(","),
-        key_by_type: true,
-      },
+    for (const key of keys) {
+      await redisClient.del(key);
     }
-  );
-  await writeActivityStreamsToCache(athleteId, activityId, response.data);
-  return response.data;
+  } catch {}
+}
+
+export async function evictCacheForActivity(
+  athleteId: number,
+  activityId: number
+) {
+  try {
+    const key = [KEY, athleteId, TYPE_ACTIVITY, activityId].join(":");
+    await redisClient.del(key);
+
+    const keyStreams = [
+      KEY,
+      athleteId,
+      TYPE_ACTIVITY,
+      activityId,
+      "streams",
+    ].join(":");
+    await redisClient.del(keyStreams);
+  } catch {}
 }
