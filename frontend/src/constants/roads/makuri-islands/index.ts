@@ -1,16 +1,11 @@
 import { Roads } from "../../../services/Roads";
-import edgeTempleKOM from "./edges/temple-kom";
-import edgeTempleBypass from "./edges/temple-bypass";
-import edgeTempleEntryNorth from "./edges/temple-entry-north";
-import edgeTempleEntrySouth from "./edges/temple-entry-south";
-import edgePaddockNeokyoExit1 from "./edges/paddock-neokyo-exit-1";
-import edgePaddockNeokyoExit2 from "./edges/paddock-neokyo-exit-2";
-import edgeNeokyoRoundabout1 from "./edges/neokyo-roundabout-1";
-import edgeNeokyoRoundabout2 from "./edges/neokyo-roundabout-2";
-import edgeVillageNorth from "./edges/village-north";
-import edgeVillageMiddle from "./edges/village-middle";
-import edgeVillageSouth from "./edges/village-south";
-import edgePaddockToCastle from "./edges/paddock-to-castle";
+import edgeCastle1 from "./edges/castle-1";
+import edgeCastle2 from "./edges/castle-2";
+import edgeCastle3 from "./edges/castle-3";
+import edgeCastle4 from "./edges/castle-4";
+import edgeCastle5 from "./edges/castle-5";
+import edgeCastle6 from "./edges/castle-6";
+import edgeCastle7 from "./edges/castle-7";
 import {
   edgeCastleSouthA1,
   edgeCastleSouthA2,
@@ -21,13 +16,32 @@ import {
   edgeCastleSouthB2,
   edgeCastleSouthB3,
 } from "./edges/castle-south-b";
-import edgeCastle1 from "./edges/castle-1";
-import edgeCastle2 from "./edges/castle-2";
-import edgeCastle3 from "./edges/castle-3";
-import edgeCastle4 from "./edges/castle-4";
-import edgeCastle5 from "./edges/castle-5";
-import edgeCastle6 from "./edges/castle-6";
-import edgeCastle7 from "./edges/castle-7";
+import edgeCountryAToB from "./edges/country-a-to-b";
+import edgeCountryBToCastle from "./edges/country-b-to-castle";
+import edgeCountryBToTemple from "./edges/country-b-to-temple";
+import edgeCountryCToE from "./edges/country-c-to-e";
+import edgeCountryCToF from "./edges/country-c-to-f";
+import edgeCountryCToVillage from "./edges/country-c-to-village";
+import edgeCountryCastleToE from "./edges/country-castle-to-e";
+import edgeCountryDToE from "./edges/country-d-to-e";
+import edgeCountryDToF from "./edges/country-d-to-f";
+import edgeCountryDToPaddock from "./edges/country-d-to-paddock";
+import edgeCountryNeokyo from "./edges/country-neokyo";
+import edgeCountryPaddockToA from "./edges/country-paddock-to-a";
+import edgeCountryPaddockToTemple from "./edges/country-paddock-to-temple";
+import edgeCountryVillageToA from "./edges/country-village-to-a";
+import edgeNeokyoRoundabout1 from "./edges/neokyo-roundabout-1";
+import edgeNeokyoRoundabout2 from "./edges/neokyo-roundabout-2";
+import edgePaddockNeokyoExit1 from "./edges/paddock-neokyo-exit-1";
+import edgePaddockNeokyoExit2 from "./edges/paddock-neokyo-exit-2";
+import edgePaddockToCastle from "./edges/paddock-to-castle";
+import edgeTempleBypass from "./edges/temple-bypass";
+import edgeTempleEntryNorth from "./edges/temple-entry-north";
+import edgeTempleEntrySouth from "./edges/temple-entry-south";
+import edgeTempleKOM from "./edges/temple-kom";
+import edgeVillageMiddle from "./edges/village-middle";
+import edgeVillageNorth from "./edges/village-north";
+import edgeVillageSouth from "./edges/village-south";
 
 const ROADS = new Roads();
 
@@ -42,14 +56,14 @@ ROADS.createEdge(TEMPLE_ENTRY_NORTH, TEMPLE_BYPASS_NORTH, edgeTempleEntryNorth);
 ROADS.createEdge(TEMPLE_BYPASS_SOUTH, TEMPLE_ENTRY_SOUTH, edgeTempleEntrySouth);
 
 // Paddock North
-const PADDOCK_NORTH_1 = ROADS.createNode([-10.743354, 165.850334, 0]);
-const PADDOCK_NORTH_2 = ROADS.createNode([-10.742885, 165.852088, 0]);
-const PADDOCK_NORTH_3 = ROADS.createNode([-10.742716, 165.850183, 0]);
-const PADDOCK_NORTH_4 = ROADS.createNode([-10.742231, 165.851895, 0]);
-const PADDOCK_NORTH_MIDDLE = ROADS.createNode([-10.742026, 165.850902, 0]);
-const PADDOCK_NORTH_ROW_FRONT = ROADS.createNode([-10.743855, 165.851428, 0]);
-const PADDOCK_NORTH_ROW_BACK = ROADS.createNode([-10.74319, 165.851251, 0]);
-const PADDOCK_NORTH_EXIT = ROADS.createNode([-10.744888, 165.851723, 0]);
+const PADDOCK_NORTH_1 = ROADS.createNode([-10.743354, 165.850334, 169]);
+const PADDOCK_NORTH_2 = ROADS.createNode([-10.742885, 165.852088, 169]);
+const PADDOCK_NORTH_3 = ROADS.createNode([-10.742716, 165.850183, 169]);
+const PADDOCK_NORTH_4 = ROADS.createNode([-10.742231, 165.851895, 169]);
+const PADDOCK_NORTH_MIDDLE = ROADS.createNode([-10.742026, 165.850902, 169]);
+const PADDOCK_NORTH_ROW_FRONT = ROADS.createNode([-10.743855, 165.851428, 169]);
+const PADDOCK_NORTH_ROW_BACK = ROADS.createNode([-10.74319, 165.851251, 169]);
+const PADDOCK_NORTH_EXIT = ROADS.createNode([-10.744888, 165.851723, 169]);
 ROADS.createEdge(PADDOCK_NORTH_1, PADDOCK_NORTH_ROW_FRONT, []);
 ROADS.createEdge(PADDOCK_NORTH_2, PADDOCK_NORTH_ROW_FRONT, []);
 ROADS.createEdge(PADDOCK_NORTH_3, PADDOCK_NORTH_ROW_BACK, []);
@@ -59,14 +73,18 @@ ROADS.createEdge(PADDOCK_NORTH_ROW_BACK, PADDOCK_NORTH_ROW_FRONT, []);
 ROADS.createEdge(PADDOCK_NORTH_ROW_FRONT, PADDOCK_NORTH_EXIT, []);
 
 // Paddock South
-const PADDOCK_SOUTH_1 = ROADS.createNode([-10.768962, 165.845801, 0]);
-const PADDOCK_SOUTH_2 = ROADS.createNode([-10.767547, 165.846865, 0]);
-const PADDOCK_SOUTH_3 = ROADS.createNode([-10.769357, 165.846337, 0]);
-const PADDOCK_SOUTH_4 = ROADS.createNode([-10.767971, 165.847421, 0]);
-const PADDOCK_SOUTH_MIDDLE = ROADS.createNode([-10.768951, 165.84726, 0]);
-const PADDOCK_SOUTH_ROW_FRONT = ROADS.createNode([-10.767805, 165.845736, 0]);
-const PADDOCK_SOUTH_ROW_BACK = ROADS.createNode([-10.768216, 165.846291, 0]);
-const PADDOCK_SOUTH_EXIT = ROADS.createNode([-10.767157, 165.844875, 0]);
+const PADDOCK_SOUTH_1 = ROADS.createNode([-10.768962, 165.845801, 143.8]);
+const PADDOCK_SOUTH_2 = ROADS.createNode([-10.767547, 165.846865, 143.8]);
+const PADDOCK_SOUTH_3 = ROADS.createNode([-10.769357, 165.846337, 143.8]);
+const PADDOCK_SOUTH_4 = ROADS.createNode([-10.767971, 165.847421, 143.8]);
+const PADDOCK_SOUTH_MIDDLE = ROADS.createNode([-10.768951, 165.84726, 143.8]);
+const PADDOCK_SOUTH_ROW_FRONT = ROADS.createNode([
+  -10.767805, 165.845736, 143.8,
+]);
+const PADDOCK_SOUTH_ROW_BACK = ROADS.createNode([
+  -10.768216, 165.846291, 143.8,
+]);
+const PADDOCK_SOUTH_EXIT = ROADS.createNode([-10.767157, 165.844875, 143.8]);
 ROADS.createEdge(PADDOCK_SOUTH_1, PADDOCK_SOUTH_ROW_FRONT, []);
 ROADS.createEdge(PADDOCK_SOUTH_2, PADDOCK_SOUTH_ROW_FRONT, []);
 ROADS.createEdge(PADDOCK_SOUTH_3, PADDOCK_SOUTH_ROW_BACK, []);
@@ -84,12 +102,12 @@ ROADS.createEdge(VILLAGE_EAST, VILLAGE_WEST, edgeVillageSouth);
 
 // Castle
 const CASTLE_NORTH_A = ROADS.createNode([-10.755473, 165.848247, 194.8]);
-const CASTLE_NORTH_B = ROADS.createNode([-10.757028, 165.84792, 0]);
-const CASTLE_MIDDLE = ROADS.createNode([-10.760925, 165.846452, 0]);
+const CASTLE_NORTH_B = ROADS.createNode([-10.757028, 165.84792, 196.2]);
+const CASTLE_MIDDLE = ROADS.createNode([-10.760925, 165.846452, 196]);
 
-const CASTLE_SOUTH_A_1 = ROADS.createNode([-10.764166, 165.844988, 0]);
-const CASTLE_SOUTH_A_2 = ROADS.createNode([-10.7638, 165.845079, 0]);
-const CASTLE_SOUTH_A_3 = ROADS.createNode([-10.763876, 165.845286, 0]);
+const CASTLE_SOUTH_A_1 = ROADS.createNode([-10.764166, 165.844988, 162.4]);
+const CASTLE_SOUTH_A_2 = ROADS.createNode([-10.7638, 165.845079, 162.4]);
+const CASTLE_SOUTH_A_3 = ROADS.createNode([-10.763876, 165.845286, 162.2]);
 ROADS.createEdge(CASTLE_SOUTH_A_2, CASTLE_SOUTH_A_1, edgeCastleSouthA1);
 ROADS.createEdge(CASTLE_SOUTH_A_2, CASTLE_SOUTH_A_3, edgeCastleSouthA2);
 ROADS.createEdge(CASTLE_SOUTH_A_3, CASTLE_SOUTH_A_1, edgeCastleSouthA3);
@@ -108,6 +126,36 @@ ROADS.createEdge(TEMPLE_ENTRY_SOUTH, CASTLE_MIDDLE, edgeCastle4);
 ROADS.createEdge(CASTLE_MIDDLE, CASTLE_SOUTH_A_3, edgeCastle5);
 ROADS.createEdge(CASTLE_SOUTH_B_3, CASTLE_SOUTH_A_2, edgeCastle6);
 ROADS.createEdge(CASTLE_NORTH_A, CASTLE_SOUTH_B_2, edgeCastle7);
+
+// Countryside Rest
+const COUNTRY_A = ROADS.createNode([-10.746116, 165.846959, 160.6]);
+const COUNTRY_B = ROADS.createNode([-10.750822, 165.852141, 192.8]);
+const COUNTRY_C = ROADS.createNode([-10.758184, 165.834066, 128]);
+const COUNTRY_D = ROADS.createNode([-10.769018, 165.84151, 129.8]);
+const COUNTRY_F = ROADS.createNode([-10.775112, 165.83019, 125.6]);
+
+const COUNTRY_E_1 = ROADS.createNode([-10.759273, 165.838325, 128.2]);
+const COUNTRY_E_2 = ROADS.createNode([-10.759217, 165.838872, 128.2]);
+const COUNTRY_E_3 = ROADS.createNode([-10.759507, 165.838604, 128.2]);
+
+ROADS.createEdge(CASTLE_SOUTH_A_1, PADDOCK_SOUTH_EXIT, edgePaddockToCastle);
+ROADS.createEdge(VILLAGE_EAST, COUNTRY_A, edgeCountryVillageToA);
+ROADS.createEdge(COUNTRY_A, PADDOCK_NORTH_EXIT, edgeCountryPaddockToA);
+ROADS.createEdge(
+  PADDOCK_NORTH_EXIT,
+  TEMPLE_ENTRY_NORTH,
+  edgeCountryPaddockToTemple
+);
+ROADS.createEdge(COUNTRY_B, COUNTRY_A, edgeCountryAToB);
+ROADS.createEdge(COUNTRY_B, TEMPLE_ENTRY_NORTH, edgeCountryBToTemple);
+ROADS.createEdge(CASTLE_NORTH_A, COUNTRY_B, edgeCountryBToCastle);
+ROADS.createEdge(COUNTRY_C, COUNTRY_E_1, edgeCountryCToE);
+ROADS.createEdge(COUNTRY_E_2, CASTLE_SOUTH_B_1, edgeCountryCastleToE);
+ROADS.createEdge(COUNTRY_D, COUNTRY_E_3, edgeCountryDToE);
+ROADS.createEdge(PADDOCK_SOUTH_EXIT, COUNTRY_D, edgeCountryDToPaddock);
+ROADS.createEdge(COUNTRY_C, VILLAGE_WEST, edgeCountryCToVillage);
+ROADS.createEdge(COUNTRY_D, COUNTRY_F, edgeCountryDToF);
+ROADS.createEdge(COUNTRY_F, COUNTRY_C, edgeCountryCToF);
 
 // Paddock Neokyo
 const PADDOCK_NEOKYO_1 = ROADS.createNode([-10.781435, 165.842088, 126.4]);
@@ -157,7 +205,7 @@ ROADS.createEdge(
   edgeNeokyoRoundabout2
 );
 
-// Other
-ROADS.createEdge(CASTLE_SOUTH_A_1, PADDOCK_SOUTH_EXIT, edgePaddockToCastle);
+// Neokyo Rest
+ROADS.createEdge(COUNTRY_F, NEOKYO_ROUNDABOUT_1, edgeCountryNeokyo);
 
 export default ROADS;
