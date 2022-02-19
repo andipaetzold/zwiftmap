@@ -89,8 +89,8 @@ ROADS.createEdge(
 );
 
 // Neokyo Roundabout
-const NEOKYO_ROUNDABOUT_1 = ROADS.createNode([-10.780663, 165.833776, 0]);
-const NEOKYO_ROUNDABOUT_2 = ROADS.createNode([-10.781122, 165.835375, 0]);
+const NEOKYO_ROUNDABOUT_1 = ROADS.createNode([-10.780663, 165.833776, 125.6]);
+const NEOKYO_ROUNDABOUT_2 = ROADS.createNode([-10.781122, 165.835375, 125.6]);
 ROADS.createEdge(NEOKYO_ROUNDABOUT_2, NEOKYO_ROUNDABOUT_1, edgeNeokyoRoundabout1)
 ROADS.createEdge(NEOKYO_ROUNDABOUT_1, NEOKYO_ROUNDABOUT_2, edgeNeokyoRoundabout2)
 
