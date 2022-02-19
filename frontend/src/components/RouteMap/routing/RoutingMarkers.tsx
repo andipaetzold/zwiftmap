@@ -41,8 +41,8 @@ export function RoutingMarkers({ state }: Props) {
             iconUrl: getMarkerIconAsDataUrl(index + 1),
             iconRetinaUrl: undefined,
             shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
-            iconSize: [31, 48],
-            iconAnchor: [31 / 2, 48],
+            iconSize: [26.5, 41],
+            iconAnchor: [26.5 / 2, 41],
             shadowSize: [41, 41],
           });
           return (
