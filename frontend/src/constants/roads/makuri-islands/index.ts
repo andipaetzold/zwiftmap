@@ -48,6 +48,17 @@ import edgeNeokyoRooftopJunction1 from "./edges/neokyo-rooftop-junction-1";
 import edgeNeokyoRooftopJunction2 from "./edges/neokyo-rooftop-junction-2";
 import edgeNeokyoRooftopJunction3 from "./edges/neokyo-rooftop-junction-3";
 import edgeNeokyoRooftopJunction4 from "./edges/neokyo-rooftop-junction-4";
+import edgeNeokyoCastle from "./edges/neokyo-castle";
+import {
+  edgeNeokyoCastleNorth1,
+  edgeNeokyoCastleNorth2,
+  edgeNeokyoCastleNorth3,
+} from "./edges/neokyo-castle-north";
+import {
+  edgeNeokyoCastleSouth1,
+  edgeNeokyoCastleSouth2,
+  edgeNeokyoCastleSouth3,
+} from "./edges/neokyo-castle-south";
 
 const ROADS = new Roads();
 
@@ -296,6 +307,51 @@ ROADS.createEdge(
   NEOKYO_ROOFTOP_3,
   NEOKYO_ROOFTOP_4,
   edgeNeokyoRooftopJunction4
+);
+
+// Neokyo Castle
+const NEOKYO_CASTLE_NORTH_1 = ROADS.createNode([-10.799473, 165.842966, 126.6]);
+const NEOKYO_CASTLE_NORTH_2 = ROADS.createNode([-10.799225, 165.842721, 126.4]);
+const NEOKYO_CASTLE_NORTH_3 = ROADS.createNode([-10.799083, 165.842987, 126.4]);
+ROADS.createEdge(
+  NEOKYO_CASTLE_NORTH_2,
+  NEOKYO_CASTLE_NORTH_1,
+  edgeNeokyoCastleNorth1
+);
+ROADS.createEdge(
+  NEOKYO_CASTLE_NORTH_2,
+  NEOKYO_CASTLE_NORTH_3,
+  edgeNeokyoCastleNorth2
+);
+ROADS.createEdge(
+  NEOKYO_CASTLE_NORTH_3,
+  NEOKYO_CASTLE_NORTH_1,
+  edgeNeokyoCastleNorth3
+);
+
+const NEOKYO_CASTLE_SOUTH_1 = ROADS.createNode([-10.803689, 165.843738, 125.6]);
+const NEOKYO_CASTLE_SOUTH_2 = ROADS.createNode([-10.803578, 165.844116, 125.6]);
+const NEOKYO_CASTLE_SOUTH_3 = ROADS.createNode([-10.803451, 165.843867, 0]);
+ROADS.createEdge(
+  NEOKYO_CASTLE_SOUTH_1,
+  NEOKYO_CASTLE_SOUTH_2,
+  edgeNeokyoCastleSouth1
+);
+ROADS.createEdge(
+  NEOKYO_CASTLE_SOUTH_3,
+  NEOKYO_CASTLE_SOUTH_2,
+  edgeNeokyoCastleSouth2
+);
+ROADS.createEdge(
+  NEOKYO_CASTLE_SOUTH_3,
+  NEOKYO_CASTLE_SOUTH_1,
+  edgeNeokyoCastleSouth3
+);
+
+ROADS.createEdge(
+  NEOKYO_CASTLE_NORTH_1,
+  NEOKYO_CASTLE_SOUTH_3,
+  edgeNeokyoCastle
 );
 
 // Neokyo Rest
