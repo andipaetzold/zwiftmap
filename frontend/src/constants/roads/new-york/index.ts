@@ -1,4 +1,12 @@
 import { Roads } from "../../../services/Roads";
+import edgeNorth1 from "./edges/north-1";
+import edgeNorth2 from "./edges/north-2";
+import edgeNorth3 from "./edges/north-3";
+import edgeNorth4 from "./edges/north-4";
+import edgeNorth5 from "./edges/north-5";
+import edgeNorth6 from "./edges/north-6";
+import edgeNorth7 from "./edges/north-7";
+import edgeNorth8 from "./edges/north-8";
 import edgeSouth1 from "./edges/south-1";
 import edgeSouth2 from "./edges/south-2";
 import edgeSouth3 from "./edges/south-3";
@@ -117,15 +125,14 @@ ROADS.createEdge(SOUTH_JUNCTION_F_2, SOUTH_JUNCTION_F_3, []);
 ROADS.createEdge(SOUTH_JUNCTION_F_3, SOUTH_JUNCTION_F_1, []);
 
 // North Edges
-ROADS.createEdge(NORTH_JUNCTION_A_1, NORTH_JUNCTION_C_2, []);
-ROADS.createEdge(NORTH_JUNCTION_A_2, NORTH_JUNCTION_E_3, []);
-ROADS.createEdge(NORTH_JUNCTION_A_3, NORTH_JUNCTION_B_1, []);
-ROADS.createEdge(NORTH_JUNCTION_B_2, NORTH_JUNCTION_D_2, []);
-ROADS.createEdge(NORTH_JUNCTION_B_3, NORTH_JUNCTION_F_3, []);
-ROADS.createEdge(NORTH_JUNCTION_C_3, NORTH_JUNCTION_D_1, []);
-ROADS.createEdge(NORTH_JUNCTION_D_3, PADDOCK_EXIT, []);
-ROADS.createEdge(NORTH_JUNCTION_E_1, NORTH_JUNCTION_F_1, []);
-ROADS.createEdge(NORTH_JUNCTION_D_3, PADDOCK_EXIT, []);
+ROADS.createEdge(NORTH_JUNCTION_A_1, NORTH_JUNCTION_C_2, edgeNorth1);
+ROADS.createEdge(NORTH_JUNCTION_E_3, NORTH_JUNCTION_A_2, edgeNorth2);
+ROADS.createEdge(NORTH_JUNCTION_B_1, NORTH_JUNCTION_A_3, edgeNorth3);
+ROADS.createEdge(NORTH_JUNCTION_B_2, NORTH_JUNCTION_D_2, edgeNorth4);
+ROADS.createEdge(NORTH_JUNCTION_B_3, NORTH_JUNCTION_F_3, edgeNorth5);
+ROADS.createEdge(NORTH_JUNCTION_C_3, NORTH_JUNCTION_D_1, edgeNorth6);
+ROADS.createEdge(NORTH_JUNCTION_D_3, PADDOCK_EXIT, edgeNorth7);
+ROADS.createEdge(NORTH_JUNCTION_E_1, NORTH_JUNCTION_F_1, edgeNorth8);
 
 // South Edges
 ROADS.createEdge(SOUTH_JUNCTION_A_3, NORTH_JUNCTION_E_2, edgeSouth1);
