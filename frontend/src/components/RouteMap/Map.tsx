@@ -21,7 +21,7 @@ import { OverlaySurfaces } from "./overlays/OverlaySurfaces";
 import { PreviewRoute } from "./PreviewRoute";
 import { RoadLayer } from "./RoadLayer";
 import { RoutePosition } from "./RoutePosition";
-import { usePrefetchRoads } from "./routing/usePrefetchRoads";
+import { usePrefetchRoads } from "./custom-route/usePrefetchRoads";
 import { SurfaceDebugLayer } from "./SurfaceDebugLayer";
 import { WorldImage } from "./WorldImage";
 
@@ -69,7 +69,7 @@ export function Map({ state, world, routeStreams }: Props) {
         flyToBounds(worldConfig.initialBounds);
       }
     } else if (routeStreams) {
-      if (state.type === "routing" && !firstLoad.current) {
+      if (state.type === "custom-route" && !firstLoad.current) {
         // only fly to custom route on first load
       } else {
         const bounds = getBounds(routeStreams.latlng);

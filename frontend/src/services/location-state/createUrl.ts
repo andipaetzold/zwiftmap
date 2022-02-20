@@ -40,8 +40,8 @@ export function createUrl(state: LocationState): string {
       path = `/s/${state.shareId}`;
       break;
 
-    case "routing":
-      path = `/${state.world.slug}/routing`;
+    case "custom-route":
+      path = `/${state.world.slug}/custom-route`;
       const nonNullPoints = state.points.filter(
         (p): p is LatLngTuple => p !== null
       );

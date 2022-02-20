@@ -3,7 +3,7 @@ import { routes, Segment, segments, World, worlds } from "zwift-data";
 import { WORLDS_BY_SLUG } from "../../constants";
 import {
   PATTERN_EVENT,
-  PATTERN_ROUTING,
+  PATTERN_CUSTOM_ROUTE,
   PATTERN_ROUTE_OR_SEGMENT,
   PATTERN_SHARED_ITEM,
   PATTERN_STRAVA_ACTIVITY,
@@ -21,7 +21,7 @@ const PATTERNS: {
   ) => [state: LocationState, updateUrl: boolean];
 }[] = [
   {
-    pattern: PATTERN_ROUTING,
+    pattern: PATTERN_CUSTOM_ROUTE,
     toState: (result, searchParams) => {
       const worldSlug = result.groups!.worldSlug;
       const world = worlds.find((w) => w.slug === worldSlug) ?? DEFAULT_WORLD;
@@ -39,7 +39,7 @@ const PATTERNS: {
 
       return [
         {
-          type: "routing",
+          type: "custom-route",
           world,
           points,
         },

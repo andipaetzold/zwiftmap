@@ -2,17 +2,17 @@ import turfDistance from "@turf/distance";
 import { point as turfPoint } from "@turf/helpers";
 import { useMemo } from "react";
 import { worldConfigs } from "../../../../constants/worldConfigs";
-import { LocationStateRouting } from "../../../../services/location-state";
+import { LocationStateCustomRoute } from "../../../../services/location-state";
 import { LatLngAlt } from "../../../../types";
 import { dropAltitude } from "../../../../util/drop-altitude";
 import { SurfaceListItem } from "../../../SurfaceListItem";
 
 export interface Props {
-  state: LocationStateRouting;
+  state: LocationStateCustomRoute;
   latLngStream: LatLngAlt[];
 }
 
-export function RoutingSurface({ state, latLngStream }: Props) {
+export function CustomRouteSurface({ state, latLngStream }: Props) {
   const distancStream = useMemo(
     () =>
       latLngStream

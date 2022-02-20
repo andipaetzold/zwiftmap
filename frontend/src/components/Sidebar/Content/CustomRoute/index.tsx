@@ -6,21 +6,21 @@ import { Typography } from "@react-md/typography";
 import { LatLngTuple } from "leaflet";
 import { range } from "lodash-es";
 import { useAsync } from "react-async-hook";
-import { LocationStateRouting } from "../../../../services/location-state";
+import { LocationStateCustomRoute } from "../../../../services/location-state";
 import { worker } from "../../../../services/worker-client";
 import { LatLngAlt } from "../../../../types";
 import { ButtonState } from "../../../ButtonState";
-import { RoutingElevationChart } from "./RoutingElevationChart";
-import { RoutingFacts } from "./RoutingFacts";
-import { RoutingHelmet } from "./RoutingHelmet";
-import { RoutingSurface } from "./RoutingSurface";
-import { RoutingWaypoints } from "./RoutingWaypoints";
+import { CustomRouteElevationChart } from "./CustomRouteElevationChart";
+import { CustomRouteFacts } from "./CustomRouteFacts";
+import { CustomRouteHelmet } from "./CustomRouteHelmet";
+import { CustomRouteSurface } from "./CustomRouteSurface";
+import { CustomRouteWaypoints } from "./CustomRouteWaypoints";
 
 interface Props {
-  state: LocationStateRouting;
+  state: LocationStateCustomRoute;
 }
 
-export function Routing({ state }: Props) {
+export function CustomRoute({ state }: Props) {
   const { result: stream } = useAsync(
     async () => {
       const noNullPoints = state.points.filter(
@@ -49,7 +49,7 @@ export function Routing({ state }: Props) {
 
   return (
     <List>
-      <RoutingHelmet world={state.world} />
+      <CustomRouteHelmet world={state.world} />
       <SimpleListItem>
         <ButtonState
           themeType="outline"
@@ -65,18 +65,18 @@ export function Routing({ state }: Props) {
 
       <SimpleListItem>
         <Typography type="headline-6" style={{ margin: 0 }}>
-          Routing
+          Custom Route
         </Typography>
       </SimpleListItem>
 
-      <RoutingWaypoints state={state} />
+      <CustomRouteWaypoints state={state} />
 
       {stream && (
         <>
           <MenuItemSeparator />
-          <RoutingFacts stream={stream} />
-          <RoutingElevationChart stream={stream} />
-          <RoutingSurface state={state} latLngStream={stream} />
+          <CustomRouteFacts stream={stream} />
+          <CustomRouteElevationChart stream={stream} />
+          <CustomRouteSurface state={state} latLngStream={stream} />
         </>
       )}
     </List>

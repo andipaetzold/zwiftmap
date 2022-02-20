@@ -65,15 +65,14 @@ export function RouteList({ state }: Props) {
 
         <ListItemState
           role="menuitem"
-          secondaryText="Custom route"
           state={{
             points: [null, null],
             world: state.world,
-            type: "routing",
+            type: "custom-route",
           }}
           query=""
         >
-          Routing <small>(Beta)</small>
+          Custom route
         </ListItemState>
 
         <MenuItemSeparator />

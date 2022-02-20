@@ -12,7 +12,7 @@ import { fetchAuthStatus } from "./services/auth";
 import {
   PATTERN_EVENT,
   PATTERN_ROUTE_OR_SEGMENT,
-  PATTERN_ROUTING,
+  PATTERN_CUSTOM_ROUTE,
   PATTERN_SHARED_ITEM,
   PATTERN_STRAVA_ACTIVITY,
   PATTERN_WORLD,
@@ -50,11 +50,11 @@ Sentry.init({
             name: "/strava-activities/:stravaActivityId",
           };
         }
-        const resultRouting = PATTERN_ROUTING.exec(context.name);
-        if (resultRouting) {
+        const resultCustomRoute = PATTERN_CUSTOM_ROUTE.exec(context.name);
+        if (resultCustomRoute) {
           return {
             ...context,
-            name: "/:worldSlug/routing",
+            name: "/:worldSlug/custom-route",
           };
         }
 

@@ -3,7 +3,7 @@ import { COLORS } from "../../../constants";
 import { LocationState } from "../../../services/location-state";
 import { DistanceStream, LatLngStream } from "../../../types";
 import { POLYLINE_WIDTH, Z_INDEX } from "../constants";
-import { useRoutingClick } from "../routing/useRoutingClick";
+import { useCustomRouteClick } from "../custom-route/useCustomRouteClick";
 
 const ID = "OverlayNone";
 
@@ -17,7 +17,7 @@ interface Props {
 }
 
 export function OverlayNone({ state, streams }: Props) {
-  useRoutingClick(state);
+  useCustomRouteClick(state);
 
   if (!streams) {
     return null;

@@ -4,7 +4,7 @@ import { worker } from "../../../services/worker-client";
 
 export function usePrefetchRoads(state: LocationState) {
   useEffect(() => {
-    if (state.type !== "routing") {
+    if (state.type !== "custom-route") {
       return;
     }
 

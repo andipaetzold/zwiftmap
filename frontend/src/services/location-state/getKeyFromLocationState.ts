@@ -44,7 +44,7 @@ export function getKeyFromLocationState(locationState: LocationState): string {
         locationState.shareId,
       ].join();
 
-    case "routing":
+    case "custom-route":
       return [locationState.type, getKeyFromWorld(locationState.world)].join();
 
     case "default":

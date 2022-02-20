@@ -3,7 +3,7 @@ import { DistanceStream, LatLngStream } from "../../../../types";
 import { EventOverlay } from "./EventOverlay";
 import { OtherOverlay } from "./OtherOverlay";
 import { RouteOverlay } from "./RouteOverlay";
-import { RoutingOverlay } from "./RoutingOverlay";
+import { CustomRouteOverlay } from "./CustomRouteOverlay";
 import { StravaActivityOverlay } from "./StravaActivityOverlay";
 
 interface Props {
@@ -23,8 +23,8 @@ export function OverlaySegments({ state, streams }: Props) {
       return <EventOverlay state={state} streams={streams} />;
     case "strava-activity":
       return <StravaActivityOverlay state={state} />;
-    case "routing":
-      return <RoutingOverlay state={state} streams={streams} />;
+    case "custom-route":
+      return <CustomRouteOverlay state={state} streams={streams} />;
     default:
       return <OtherOverlay streams={streams} />;
   }

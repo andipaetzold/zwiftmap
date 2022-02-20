@@ -2,7 +2,7 @@ import { CircleMarker, Pane } from "react-leaflet";
 import { LocationState } from "../../services/location-state";
 import { DistanceStream, LatLngStream } from "../../types";
 import { Z_INDEX } from "./constants";
-import { RoutingMarkers } from "./routing/RoutingMarkers";
+import { CustomRouteMarkers } from "./custom-route/CustomRouteMarkers";
 
 interface Props {
   state: LocationState;
@@ -16,8 +16,8 @@ interface Props {
 export function Markers({ state, streams }: Props) {
   return (
     <>
-      {state.type === "routing" ? (
-        <RoutingMarkers state={state} />
+      {state.type === "custom-route" ? (
+        <CustomRouteMarkers state={state} />
       ) : (
         <>
           {streams && (

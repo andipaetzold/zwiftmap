@@ -70,7 +70,7 @@ export async function loadRoute(state: LocationState): Promise<
         break;
       }
 
-      case "routing": {
+      case "custom-route": {
         const nonNullPoints = state.points.filter(
           (p): p is LatLngTuple => p !== null
         );

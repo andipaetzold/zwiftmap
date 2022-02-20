@@ -4,9 +4,9 @@ import { LocationState, navigate } from "../../../services/location-state";
 import { worker } from "../../../services/worker-client";
 import { dropAltitude } from "../../../util/drop-altitude";
 
-export function useRoutingClick(state: LocationState) {
+export function useCustomRouteClick(state: LocationState) {
   useMapEvent("click", async (e) => {
-    if (state.type !== "routing") {
+    if (state.type !== "custom-route") {
       return;
     }
 

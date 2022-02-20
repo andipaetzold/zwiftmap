@@ -5,23 +5,23 @@ import { SimpleListItem } from "@react-md/list";
 import { AddSVGIcon, ClearSVGIcon } from "@react-md/material-icons";
 import { LatLngTuple } from "leaflet";
 import {
-  LocationStateRouting,
+  LocationStateCustomRoute,
   navigate,
 } from "../../../../services/location-state";
 import { MarkerIcon } from "../../../MarkerIcon";
-import styles from "./RoutingWaypoints.module.scss";
+import styles from "./CustomRouteWaypoints.module.scss";
 
 interface Props {
-  state: LocationStateRouting;
+  state: LocationStateCustomRoute;
 }
 
-export function RoutingWaypoints({ state }: Props) {
+export function CustomRouteWaypoints({ state }: Props) {
   return (
     <>
       {state.points.map((point, index) => (
         <SimpleListItem key={index}>
           <TextField
-            id="routing-waypoints-2"
+            id="custom-route-waypoints-2"
             readOnly
             dense
             className={styles.TextField}

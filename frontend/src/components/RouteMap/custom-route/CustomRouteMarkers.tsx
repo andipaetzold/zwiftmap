@@ -2,7 +2,7 @@ import { Icon, LatLngTuple, Marker as LeafletMarker } from "leaflet";
 import { useCallback } from "react";
 import { Marker } from "react-leaflet";
 import {
-  LocationStateRouting,
+  LocationStateCustomRoute,
   navigate,
 } from "../../../services/location-state";
 import { worker } from "../../../services/worker-client";
@@ -10,10 +10,10 @@ import { dropAltitude } from "../../../util/drop-altitude";
 import { getMarkerIconAsDataUrl } from "../../MarkerIcon";
 
 interface Props {
-  state: LocationStateRouting;
+  state: LocationStateCustomRoute;
 }
 
-export function RoutingMarkers({ state }: Props) {
+export function CustomRouteMarkers({ state }: Props) {
   const updateMarker = useCallback(
     async (marker: LeafletMarker, pointIndex) => {
       const latlng = marker.getLatLng();

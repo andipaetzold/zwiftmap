@@ -1,15 +1,15 @@
 import { Pane, Polyline } from "react-leaflet";
 import { COLORS } from "../../../../constants";
-import { LocationStateRouting } from "../../../../services/location-state";
+import { LocationStateCustomRoute } from "../../../../services/location-state";
 import { DistanceStream, LatLngStream } from "../../../../types";
 import { POLYLINE_WIDTH, Z_INDEX } from "../../constants";
-import { RoutingMarkers } from "../../routing/RoutingMarkers";
-import { useRoutingClick } from "../../routing/useRoutingClick";
+import { CustomRouteMarkers } from "../../custom-route/CustomRouteMarkers";
+import { useCustomRouteClick } from "../../custom-route/useCustomRouteClick";
 
 const ID = "OverlaySegments-EventOverlay";
 
 interface Props {
-  state: LocationStateRouting;
+  state: LocationStateCustomRoute;
 
   streams?: {
     latlng: LatLngStream;
@@ -17,8 +17,8 @@ interface Props {
   };
 }
 
-export function RoutingOverlay({ state, streams }: Props) {
-  useRoutingClick(state);
+export function CustomRouteOverlay({ state, streams }: Props) {
+  useCustomRouteClick(state);
 
   if (!streams) {
     return null;
@@ -37,7 +37,7 @@ export function RoutingOverlay({ state, streams }: Props) {
           interactive={false}
         />
       </Pane>
-      <RoutingMarkers state={state} />
+      <CustomRouteMarkers state={state} />
     </>
   );
 }
