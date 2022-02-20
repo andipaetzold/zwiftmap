@@ -26,10 +26,18 @@ export default function RouteMap() {
         world={selectedWorld}
         onWorldChange={(newWorld) => {
           setQuery("");
-          navigate({
-            world: newWorld,
-            type: "default",
-          });
+          if (state.type === "custom-route") {
+            navigate({
+              world: newWorld,
+              type: "custom-route",
+              points: [null, null],
+            });
+          } else {
+            navigate({
+              world: newWorld,
+              type: "default",
+            });
+          }
         }}
       />
       <Map
