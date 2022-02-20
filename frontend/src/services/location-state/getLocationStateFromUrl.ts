@@ -43,7 +43,7 @@ const PATTERNS: {
           world,
           points,
         },
-        false,
+        result[2] === "routing",
       ];
     },
   },
