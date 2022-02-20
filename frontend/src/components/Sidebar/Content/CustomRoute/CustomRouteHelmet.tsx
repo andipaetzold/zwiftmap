@@ -6,12 +6,12 @@ interface Props {
 }
 
 export function CustomRouteHelmet({ world }: Props) {
-  const description = `Custom Route in ${world.name} on Zwift`;
+  const description = `Create a custom route in ${world.name} on Zwift`;
 
   return (
     <Helmet>
       <title>CustomRoute</title>
-      <meta property="og:title" content={`CustomRoute - ZwiftMap`} />
+      <meta property="og:title" content={`Custom Route - ZwiftMap`} />
 
       <meta name="description" content={description} />
       <meta property="og:description" content={description} />
