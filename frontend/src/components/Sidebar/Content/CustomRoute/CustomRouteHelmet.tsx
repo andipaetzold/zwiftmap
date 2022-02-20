@@ -10,8 +10,8 @@ export function CustomRouteHelmet({ world }: Props) {
 
   return (
     <Helmet>
-      <title>CustomRoute</title>
-      <meta property="og:title" content={`Custom Route - ZwiftMap`} />
+      <title>Custom Route</title>
+      <meta property="og:title" content="Custom Route - ZwiftMap" />
 
       <meta name="description" content={description} />
       <meta property="og:description" content={description} />
