@@ -13,6 +13,7 @@ const urls = [DOMAIN, `${DOMAIN}?list=events`];
 
 for (const world of worlds) {
   urls.push(`${DOMAIN}/${world.slug}`);
+  urls.push(`${DOMAIN}/${world.slug}/custom-route`);
   urls.push(`${DOMAIN}/${world.slug}?list=events`);
 }
 
