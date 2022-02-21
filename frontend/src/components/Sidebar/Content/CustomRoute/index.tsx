@@ -13,6 +13,7 @@ import { ButtonState } from "../../../ButtonState";
 import { CustomRouteElevationChart } from "./CustomRouteElevationChart";
 import { CustomRouteFacts } from "./CustomRouteFacts";
 import { CustomRouteHelmet } from "./CustomRouteHelmet";
+import { CustomRouteExport } from "./CustomRouteSharing";
 import { CustomRouteSurface } from "./CustomRouteSurface";
 import { CustomRouteWaypoints } from "./CustomRouteWaypoints";
 
@@ -77,6 +78,7 @@ export function CustomRoute({ state }: Props) {
           <CustomRouteFacts stream={stream} />
           <CustomRouteElevationChart stream={stream} />
           <CustomRouteSurface state={state} latLngStream={stream} />
+          <CustomRouteExport state={state} latLngStream={stream} />
         </>
       )}
     </List>

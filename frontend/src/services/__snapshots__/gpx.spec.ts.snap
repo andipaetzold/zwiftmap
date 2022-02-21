@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns a gpx file 1`] = `
+"<?xml version=\\"1.0\\" encoding=\\"UTF-8\\"?>
+<gpx creator=\\"ZwiftMap\\" xmlns=\\"http://www.topografix.com/GPX/1/1\\" xmlns:xsi=\\"http://www.w3.org/2001/XMLSchema-instance\\" xsi:schemaLocation=\\"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd\\" version=\\"1.1\\">
+  <metadata>
+    <name>Custom Route</name>
+    <desc>Custom Route on Zwift</desc>
+    <author>
+      <name>ZwiftMap</name>
+    </author>
+    <link href=\\"https://zwiftmap.com\\"/>
+  </metadata>
+  <trk>
+    <name>Custom Route</name>
+    <link href=\\"https://zwiftmap.com\\"/>
+    <type>Ride</type>
+    <trkseg>
+      <trkpt lat=\\"10\\" lon=\\"20\\">
+        <ele>30</ele>
+      </trkpt>
+    </trkseg>
+    <trkseg>
+      <trkpt lat=\\"11\\" lon=\\"21\\">
+        <ele>31</ele>
+      </trkpt>
+    </trkseg>
+    <trkseg>
+      <trkpt lat=\\"12\\" lon=\\"22\\">
+        <ele>32</ele>
+      </trkpt>
+    </trkseg>
+  </trk>
+</gpx>
+"
+`;
