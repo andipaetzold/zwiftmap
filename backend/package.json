@@ -56,7 +56,7 @@
     "pg": "8.7.3",
     "puppeteer": "13.3.2",
     "redis": "3.1.2",
-    "runtypes": "6.5.0",
+    "runtypes": "6.5.1",
     "short-uuid": "4.2.0",
     "source-map-support": "0.5.21",
     "strava": "2.0.1",
