@@ -2,23 +2,30 @@ import { Map } from "leaflet";
 import { worlds } from "zwift-data";
 import { getURL } from "./utils";
 
-const layers = worlds.map((world) => {
-  const url = getURL(`../assets/worlds/${world.slug}.png`);
-  return L.imageOverlay(url, world.bounds, {
-    attribution:
-      '© <a href="https://zwift.com" rel="noreferrer noopener">Zwift</a>',
-  });
-});
-const layerGroup = L.layerGroup(layers);
+const initializedLeafletIds = new Set<number>();
 
 L.Map.addInitHook(function () {
   addOverlays(this);
 });
 
 function addOverlays(map: Map) {
-  if (!map.hasLayer(layerGroup)) {
-    layerGroup.addTo(map);
+  // @ts-expect-error
+  const id: number = map._leaflet_id;
+  if (initializedLeafletIds.has(id)) {
+    return;
   }
+  initializedLeafletIds.add(id);
+
+  const layers = worlds.map((world) => {
+    const url = getURL(`../assets/worlds/${world.slug}.png`);
+    return L.imageOverlay(url, world.bounds, {
+      attribution:
+        '© <a href="https://zwift.com" rel="noreferrer noopener">Zwift</a>',
+    });
+  });
+  const layerGroup = L.layerGroup(layers);
+
+  layerGroup.addTo(map);
 }
 
 Strava.Maps.Mapbox.CustomControlView.prototype.changeMapType = function (
@@ -47,7 +54,6 @@ function init() {
 
   satelliteOption.click();
   options.classList.remove("open-menu");
-
 
   const standardOption = options.querySelector<HTMLAnchorElement>("a");
   if (!satelliteOption) {
