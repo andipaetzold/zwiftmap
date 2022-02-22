@@ -1,6 +1,5 @@
 import { Map } from "leaflet";
 import { worlds } from "zwift-data";
-import { onElementById } from "./on-element-by-id";
 import { getURL } from "./utils";
 
 const layers = worlds.map((world) => {
@@ -12,34 +11,50 @@ const layers = worlds.map((world) => {
 });
 const layerGroup = L.layerGroup(layers);
 
+L.Map.addInitHook(function () {
+  addOverlays(this);
+});
+
+function addOverlays(map: Map) {
+  if (!map.hasLayer(layerGroup)) {
+    layerGroup.addTo(map);
+  }
+}
+
 Strava.Maps.Mapbox.CustomControlView.prototype.changeMapType = function (
   ...args: any[]
 ) {
   this.delegateEvents();
 
   const map = this.map();
-  addOverlays(map);
+  addOverlays(map.instance);
 
   return map.setLayer(...args);
 };
 
-function addOverlays({ instance: map }: { instance: Map }) {
-  if (!map.hasLayer(layerGroup)) {
-    layerGroup.addTo(map);
-  }
-}
+function init() {
+  const mapContainer = document.getElementById("map-type-control");
 
-onElementById("map-type-control", (mapTypeControl) => {
-  const options = mapTypeControl.querySelector<HTMLUListElement>(".options");
+  const options = mapContainer.querySelector<HTMLUListElement>(".options");
   if (!options) {
     return;
   }
 
-  const option = options?.querySelector<HTMLAnchorElement>("a");
-  if (!option) {
+  const satelliteOption = options.querySelector<HTMLAnchorElement>("a");
+  if (!satelliteOption) {
     return;
   }
 
-  option.click();
+  satelliteOption.click();
   options.classList.remove("open-menu");
-});
+
+
+  const standardOption = options.querySelector<HTMLAnchorElement>("a");
+  if (!satelliteOption) {
+    return;
+  }
+  standardOption.click();
+  options.classList.remove("open-menu");
+}
+
+init();
