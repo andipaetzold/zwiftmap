@@ -41,6 +41,9 @@ Strava.Maps.Mapbox.CustomControlView.prototype.changeMapType = function (
 
 function init() {
   const mapContainer = document.getElementById("map-type-control");
+  if (!mapContainer) {
+    return;
+  }
 
   const options = mapContainer.querySelector<HTMLUListElement>(".options");
   if (!options) {
