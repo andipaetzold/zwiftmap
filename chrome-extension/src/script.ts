@@ -28,16 +28,18 @@ function addOverlays(map: Map) {
   layerGroup.addTo(map);
 }
 
-Strava.Maps.Mapbox.CustomControlView.prototype.changeMapType = function (
-  ...args: any[]
-) {
-  this.delegateEvents();
+if (Strava.Maps.Mapbox) {
+  Strava.Maps.Mapbox.CustomControlView.prototype.changeMapType = function (
+    ...args: any[]
+  ) {
+    this.delegateEvents();
 
-  const map = this.map();
-  addOverlays(map.instance);
+    const map = this.map();
+    addOverlays(map.instance);
 
-  return map.setLayer(...args);
-};
+    return map.setLayer(...args);
+  };
+}
 
 function init() {
   const mapContainer = document.getElementById("map-type-control");
