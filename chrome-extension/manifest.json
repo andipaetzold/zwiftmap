@@ -7,6 +7,10 @@
     {
       "matches": ["https://www.strava.com/activities/*"],
       "js": ["./dist/inject.js"]
+    },
+    {
+      "matches": ["https://www.strava.com/segments/*"],
+      "js": ["./dist/inject.js"]
     }
   ],
   "web_accessible_resources": [
