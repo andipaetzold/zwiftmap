@@ -91,7 +91,7 @@
     "@types/file-saver": "2.0.5",
     "@types/lodash-es": "4.17.6",
     "@types/mapbox__polyline": "1.0.2",
-    "netlify-cli": "9.7.0",
+    "netlify-cli": "9.8.0",
     "prettier": "2.5.1",
     "pwa-asset-generator": "6.0.6",
     "sass": "1.49.8",
