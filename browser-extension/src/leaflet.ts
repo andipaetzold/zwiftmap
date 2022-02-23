@@ -30,15 +30,15 @@ export async function initLeaflet() {
   });
 
   if (Strava.Maps.Mapbox) {
+    const changeMapTypeOrg =
+      Strava.Maps.Mapbox.CustomControlView.prototype.changeMapType;
     Strava.Maps.Mapbox.CustomControlView.prototype.changeMapType = function (
       ...args: any[]
     ) {
-      this.delegateEvents();
-
       const map = this.map();
       addOverlays(map.instance);
 
-      return map.setLayer(...args);
+      return changeMapTypeOrg.call(this, ...args);
     };
 
     const mapContainer = await getMapTypeControl();
