@@ -115,3 +115,6 @@ jobs:
       - name: Build
         run: npm run build
         working-directory: browser-extension
+      - name: Pack
+        run: npm run pack
+        working-directory: browser-extension

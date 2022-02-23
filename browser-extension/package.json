@@ -10,11 +10,14 @@
     "build:script": "esbuild src/script.ts --bundle --outfile=dist/script.js",
     "dev": "concurrently 'npm run dev:inject' 'npm run dev:script'",
     "dev:inject": "npm run build:inject -- --watch",
-    "dev:script": "npm run build:script -- --watch"
+    "dev:script": "npm run build:script -- --watch",
+    "pack": "node ./scripts/pack.mjs"
   },
   "devDependencies": {
+    "@types/adm-zip": "0.4.34",
     "@types/chrome": "0.0.178",
     "@types/leaflet": "1.0.69",
+    "adm-zip": "0.5.9",
     "concurrently": "7.0.0",
     "esbuild": "0.14.23"
   },
