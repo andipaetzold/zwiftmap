@@ -1,6 +1,6 @@
 {
   "name": "ZwiftMap for Strava",
-  "description": "Test",
+  "description": "Show Zwift maps on Strava",
   "version": "0.1",
   "manifest_version": 2,
   "content_scripts": [
