@@ -2,33 +2,36 @@ const PATTERN_URL = /https:\/\/zwiftmap\.com\/s\/(\w{22})/;
 
 export function initFeed() {
   const container =
-    document.querySelector("#dashboard-feed .feed-container .feed") ??
-    document.querySelector("#interval-rides .feed");
+    document.getElementById("dashboard-feed") ??
+    document.getElementById("activity-log");
 
   if (!container) {
     return;
   }
 
-  container.childNodes.forEach((node) => handleNewFeedNode(node));
+  const feedContainer = getFeedElement(container);
+  if (feedContainer) {
+    feedContainer.childNodes.forEach((node) => handleFeedNode(node));
+  }
 
-  const observer = new MutationObserver((mutations) => {
-    for (const mutation of mutations) {
-      if (mutation.addedNodes.length === 0) {
-        continue;
-      }
-
-      for (const node of mutation.addedNodes) {
-        handleNewFeedNode(node);
-      }
+  const observer = new MutationObserver(() => {
+    const feedContainer = getFeedElement(container);
+    if (feedContainer) {
+      feedContainer.childNodes.forEach((node) => handleFeedNode(node));
     }
   });
 
   observer.observe(container, {
     childList: true,
+    subtree: true,
   });
 }
 
-function handleNewFeedNode(node: Node) {
+function getFeedElement(container: HTMLElement) {
+  return container.querySelector<HTMLElement>(".feed");
+}
+
+function handleFeedNode(node: Node) {
   if (!(node instanceof HTMLElement)) {
     return;
   }
@@ -43,7 +46,7 @@ function handleNewFeedNode(node: Node) {
     return;
   }
 
-  const props = JSON.parse(contentNode.getAttribute("data-react-props"));
+  const props = JSON.parse(contentNode.getAttribute("data-react-props")!);
   if (props.entity !== "Activity") {
     return;
   }
