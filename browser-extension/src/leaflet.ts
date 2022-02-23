@@ -40,34 +40,34 @@ export async function initLeaflet() {
 
       return map.setLayer(...args);
     };
-  }
 
-  const mapContainer = await getMapTypeControl();
-  if (!mapContainer) {
-    return;
-  }
+    const mapContainer = await getMapTypeControl();
+    if (!mapContainer) {
+      return;
+    }
 
-  const options = mapContainer.querySelector<HTMLUListElement>(".options");
-  if (!options) {
-    return;
-  }
+    const options = mapContainer.querySelector<HTMLUListElement>(".options");
+    if (!options) {
+      return;
+    }
 
-  const satelliteOption = options.querySelector<HTMLAnchorElement>("a");
-  if (!satelliteOption) {
-    return;
-  }
+    const satelliteOption = options.querySelector<HTMLAnchorElement>("a");
+    if (!satelliteOption) {
+      return;
+    }
 
-  satelliteOption.click();
-  mapContainer.classList.remove("active");
-  options.classList.remove("open-menu");
+    satelliteOption.click();
+    mapContainer.classList.remove("active");
+    options.classList.remove("open-menu");
 
-  const standardOption = options.querySelector<HTMLAnchorElement>("a");
-  if (!standardOption) {
-    return;
+    const standardOption = options.querySelector<HTMLAnchorElement>("a");
+    if (!standardOption) {
+      return;
+    }
+    standardOption.click();
+    mapContainer.classList.remove("active");
+    options.classList.remove("open-menu");
   }
-  standardOption.click();
-  mapContainer.classList.remove("active");
-  options.classList.remove("open-menu");
 }
 
 async function getMapTypeControl(): Promise<HTMLElement> {
