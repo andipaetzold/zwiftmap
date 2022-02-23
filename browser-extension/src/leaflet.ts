@@ -24,7 +24,7 @@ function addOverlays(map: Map) {
   layerGroup.addTo(map);
 }
 
-export function initLeaflet() {
+export async function initLeaflet() {
   L.Map.addInitHook(function () {
     addOverlays(this);
   });
@@ -42,7 +42,7 @@ export function initLeaflet() {
     };
   }
 
-  const mapContainer = document.getElementById("map-type-control");
+  const mapContainer = await getMapTypeControl();
   if (!mapContainer) {
     return;
   }
@@ -66,4 +66,29 @@ export function initLeaflet() {
   }
   standardOption.click();
   options.classList.remove("open-menu");
+}
+
+async function getMapTypeControl() {
+  const wrapper = document.getElementById("view");
+  if (!wrapper) {
+    return;
+  }
+
+  const mapContainer = wrapper.querySelector("#map-type-control");
+  if (mapContainer) {
+    return mapContainer;
+  }
+
+  return await new Promise((resolve) => {
+    const observer = new MutationObserver(() => {
+      const container = wrapper.querySelector("#map-type-control");
+      if (container) {
+        observer.disconnect();
+        resolve(container);
+        return;
+      }
+    });
+
+    observer.observe(wrapper, { childList: true, subtree: true });
+  });
 }
