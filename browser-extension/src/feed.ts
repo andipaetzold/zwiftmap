@@ -1,9 +1,9 @@
 const PATTERN_URL = /https:\/\/zwiftmap\.com\/s\/(\w{22})/;
 
 export function initFeed() {
-  const container = document.querySelector(
-    "#dashboard-feed .feed-container .feed"
-  );
+  const container =
+    document.querySelector("#dashboard-feed .feed-container .feed") ??
+    document.querySelector("#interval-rides .feed");
 
   if (!container) {
     return;
