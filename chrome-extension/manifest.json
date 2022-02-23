@@ -2,17 +2,12 @@
   "name": "ZwiftMap for Strava",
   "description": "Test",
   "version": "0.1",
-  "manifest_version": 3,
+  "manifest_version": 2,
   "content_scripts": [
     {
       "matches": ["https://www.strava.com/*"],
       "js": ["./dist/inject.js"]
     }
   ],
-  "web_accessible_resources": [
-    {
-      "matches": ["https://www.strava.com/*"],
-      "resources": ["dist/script.js", "assets/*"]
-    }
-  ]
+  "web_accessible_resources": ["dist/script.js", "assets/*"]
 }
