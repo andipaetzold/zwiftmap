@@ -58,30 +58,28 @@ export async function initLeaflet() {
   }
 
   satelliteOption.click();
+  mapContainer.classList.remove("active");
   options.classList.remove("open-menu");
 
   const standardOption = options.querySelector<HTMLAnchorElement>("a");
-  if (!satelliteOption) {
+  if (!standardOption) {
     return;
   }
   standardOption.click();
+  mapContainer.classList.remove("active");
   options.classList.remove("open-menu");
 }
 
-async function getMapTypeControl() {
-  const wrapper = document.getElementById("view");
-  if (!wrapper) {
-    return;
-  }
-
-  const mapContainer = wrapper.querySelector("#map-type-control");
+async function getMapTypeControl(): Promise<HTMLElement> {
+  const mapContainer = document.querySelector<HTMLElement>("#map-type-control");
   if (mapContainer) {
     return mapContainer;
   }
 
-  return await new Promise((resolve) => {
+  return await new Promise<HTMLElement>((resolve) => {
     const observer = new MutationObserver(() => {
-      const container = wrapper.querySelector("#map-type-control");
+      const container =
+        document.querySelector<HTMLElement>("#map-type-control");
       if (container) {
         observer.disconnect();
         resolve(container);
@@ -89,6 +87,15 @@ async function getMapTypeControl() {
       }
     });
 
-    observer.observe(wrapper, { childList: true, subtree: true });
+    const wrappers = [
+      document.getElementById("view"),
+      document.getElementById("map_canvas"),
+    ];
+    for (const wrapper of wrappers) {
+      if (wrapper === null) {
+        continue;
+      }
+      observer.observe(wrapper, { childList: true, subtree: true });
+    }
   });
 }
