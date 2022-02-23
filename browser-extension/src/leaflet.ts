@@ -25,6 +25,10 @@ function addOverlays(map: Map) {
 }
 
 export async function initLeaflet() {
+  if (!isVirtual()) {
+    return;
+  }
+
   L.Map.addInitHook(function () {
     addOverlays(this);
   });
@@ -98,4 +102,10 @@ async function getMapTypeControl(): Promise<HTMLElement> {
       observer.observe(wrapper, { childList: true, subtree: true });
     }
   });
+}
+
+function isVirtual() {
+  const activityType: string =
+    globalThis.pageView?._activity.attributes.detailedType ?? "virtual";
+  return activityType.toLocaleLowerCase().includes("virtual");
 }
