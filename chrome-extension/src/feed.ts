@@ -62,8 +62,14 @@ function handleNewFeedNode(node: Node) {
     return;
   }
 
-  const url = `https://res.cloudinary.com/zwiftmap/image/upload/s/${shareId}.png`;
+  const rect = mapImage.getBoundingClientRect();
+  const urlSmall = `https://res.cloudinary.com/zwiftmap/image/upload/c_fill,w_${Math.round(
+    rect.width
+  )},h_${Math.round(rect.height)}/s/${shareId}.png`;
+  const urlBig = `https://res.cloudinary.com/zwiftmap/image/upload/c_fill,w_${Math.round(
+    rect.width * 2
+  )},h_${Math.round(rect.height * 2)}/s/${shareId}.png`;
 
-  mapImage.removeAttribute("srcset");
-  mapImage.setAttribute("src", url);
+  mapImage.setAttribute("src", urlSmall);
+  mapImage.setAttribute("srcset", urlBig);
 }
