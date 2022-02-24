@@ -41,23 +41,22 @@ function handleFeedNode(node: Node) {
     return;
   }
 
-  const type = contentNode.getAttribute("data-react-class");
-  if (type !== "Activity") {
-    return;
-  }
-
   const props = JSON.parse(contentNode.getAttribute("data-react-props")!);
-  if (props.entity !== "Activity") {
+  switch (props.entity) {
+    case "Activity":
+      handleFeedActivityNode(contentNode, props);
+      break;
+    case "GroupActivity":
+      handleFeedGroupActivityNode(contentNode, props);
+      break;
+  }
+}
+
+function handleFeedActivityNode(contentNode: HTMLElement, props: any) {
+  const shareId = extractShareId(props.activity.description ?? "");
+  if (!shareId) {
     return;
   }
-
-  const description = props.activity.description ?? "";
-  const match = PATTERN_URL.exec(description);
-  if (!match) {
-    return;
-  }
-
-  const shareId = match[1];
 
   const mapImage =
     contentNode.querySelector<HTMLImageElement>("[data-testid=map]");
@@ -65,7 +64,31 @@ function handleFeedNode(node: Node) {
     return;
   }
 
-  const rect = mapImage.getBoundingClientRect();
+  replaceImage(mapImage, shareId);
+}
+
+function handleFeedGroupActivityNode(contentNode: HTMLElement, props: any) {
+  const descriptions = props.rowData.activities.map(
+    (activity: any) => activity.description as string | undefined
+  );
+  const shareId: string = descriptions
+    .map((description: string | null) => extractShareId(description ?? ""))
+    .filter((shareId: string | undefined) => !!shareId)[0];
+  if (!shareId) {
+    return;
+  }
+
+  const mapImage =
+    contentNode.querySelector<HTMLImageElement>("[data-testid=map]");
+  if (!mapImage) {
+    return;
+  }
+
+  replaceImage(mapImage, shareId);
+}
+
+function replaceImage(element: HTMLImageElement, shareId: string) {
+  const rect = element.getBoundingClientRect();
   const urlSmall = `https://res.cloudinary.com/zwiftmap/image/upload/c_fill,w_${Math.round(
     rect.width
   )},h_${Math.round(rect.height)},f_auto/s/${shareId}`;
@@ -73,6 +96,15 @@ function handleFeedNode(node: Node) {
     rect.width * 2
   )},h_${Math.round(rect.height * 2)},f_auto/s/${shareId}`;
 
-  mapImage.setAttribute("src", urlSmall);
-  mapImage.setAttribute("srcset", urlBig);
+  element.setAttribute("src", urlSmall);
+  element.setAttribute("srcset", urlBig);
+}
+
+function extractShareId(description: string): string | undefined {
+  const match = PATTERN_URL.exec(description);
+  if (!match) {
+    return;
+  }
+
+  return match[1];
 }
