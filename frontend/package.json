@@ -95,7 +95,7 @@
     "prettier": "2.5.1",
     "pwa-asset-generator": "6.0.6",
     "sass": "1.49.9",
-    "schema-dts": "1.0.0",
+    "schema-dts": "1.1.0",
     "worker-loader": "3.0.8"
   }
 }
