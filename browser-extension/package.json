@@ -5,12 +5,8 @@
   "author": "Andi Pätzold",
   "license": "MIT",
   "scripts": {
-    "build": "npm run build:inject && npm run build:script",
-    "build:inject": "esbuild src/inject.ts --bundle --outfile=dist/inject.js",
-    "build:script": "esbuild src/script.ts --bundle --outfile=dist/script.js",
-    "dev": "concurrently 'npm run dev:inject' 'npm run dev:script'",
-    "dev:inject": "npm run build:inject -- --watch",
-    "dev:script": "npm run build:script -- --watch",
+    "build": "esbuild src/inject.ts src/script.ts --bundle --outdir=dist",
+    "dev": "npm run build -- --watch",
     "pack": "node ./scripts/pack.mjs"
   },
   "devDependencies": {
@@ -18,7 +14,6 @@
     "@types/chrome": "0.0.178",
     "@types/leaflet": "1.0.69",
     "adm-zip": "0.5.9",
-    "concurrently": "7.0.0",
     "esbuild": "0.14.23"
   },
   "dependencies": {
