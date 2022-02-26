@@ -19,7 +19,4 @@ export default defineConfig({
     ],
   },
   plugins: [reactRefresh()],
-  worker: {
-    format: "es",
-  },
 });
