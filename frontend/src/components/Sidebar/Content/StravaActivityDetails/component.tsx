@@ -1,6 +1,5 @@
 import { SimpleListItem } from "@react-md/list";
 import { Typography } from "@react-md/typography";
-import React from "react";
 import { Helmet } from "react-helmet-async";
 import { StravaActivity } from "../../../../services/StravaActivityRepository";
 import { StravaActivityElevationChart } from "./StravaActivityElevationChart";

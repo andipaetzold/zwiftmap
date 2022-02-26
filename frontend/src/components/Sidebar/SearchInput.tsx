@@ -1,7 +1,6 @@
 import { Button } from "@react-md/button";
 import { TextField } from "@react-md/form";
 import { ClearSVGIcon } from "@react-md/material-icons";
-import React from "react";
 import { useStore } from "../../hooks/useStore";
 import {
   DEFAULT_WORLD,

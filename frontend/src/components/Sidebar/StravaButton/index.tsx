@@ -1,6 +1,5 @@
 import { ExitToAppSVGIcon } from "@react-md/material-icons";
 import { MenuItem, MenuItemLink } from "@react-md/menu";
-import React from "react";
 import ConnectToStrava from "../../../assets/ConnectToStravaLight.svg";
 import { useIsLoggedInStrava } from "../../../hooks/useIsLoggedInStrava";
 import { logout } from "../../../services/auth";

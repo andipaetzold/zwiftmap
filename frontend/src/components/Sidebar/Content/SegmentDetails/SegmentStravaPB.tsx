@@ -1,6 +1,5 @@
 import { ListItemLink, ListItemText, SimpleListItem } from "@react-md/list";
 import { OpenInNewSVGIcon, TimerSVGIcon } from "@react-md/material-icons";
-import React from "react";
 import { useAsync } from "react-async-hook";
 import { Segment } from "zwift-data";
 import {

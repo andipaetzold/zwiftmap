@@ -1,5 +1,4 @@
 import { List, ListSubheader, SimpleListItem } from "@react-md/list";
-import React from "react";
 import { Helmet } from "react-helmet-async";
 import { Route, Segment, World } from "zwift-data";
 import { useSessionSettings } from "../../../../hooks/useSessionSettings";

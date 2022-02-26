@@ -1,5 +1,4 @@
 import { SimpleListItem } from "@react-md/list";
-import React from "react";
 import { useAsync } from "react-async-hook";
 import { useIsLoggedInStrava } from "../../../../../hooks/useIsLoggedInStrava";
 import { getStravaActivity } from "../../../../../services/StravaActivityRepository";

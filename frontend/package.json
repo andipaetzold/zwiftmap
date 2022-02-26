@@ -35,6 +35,7 @@
     "date-fns": "2.28.0",
     "fast-xml-parser": "4.0.3",
     "file-saver": "2.0.5",
+    "jest": "27.5.1",
     "leaflet": "1.7.1",
     "lodash-es": "4.17.21",
     "mitt": "3.0.0",
@@ -46,29 +47,24 @@
     "react-leaflet": "3.1.0",
     "react-responsive": "9.0.0-beta.6",
     "react-schemaorg": "2.0.0",
-    "react-scripts": "5.0.0",
     "recharts": "2.1.9",
     "strava": "2.0.1",
     "typescript": "4.5.5",
+    "vite": "2.8.4",
     "zustand": "3.7.0",
     "zwift-data": "1.13.2"
   },
   "scripts": {
-    "start": "REACT_APP_GIT_SHA=`git rev-parse --short HEAD` react-scripts start",
+    "start": "VITE_GIT_SHA=`git rev-parse --short HEAD` vite",
     "prebuild": "npm run prebuild:fetch-segments && npm run prebuild:sitemap && npm run prebuild:assets",
     "prebuild:fetch-segments": "node scripts/fetch-segments.mjs",
     "prebuild:sitemap": "node scripts/create-sitemap.mjs",
-    "prebuild:assets": "pwa-asset-generator ./public/assets/logo.svg ./public/assets -i ./public/index.html -m ./public/manifest.webmanifest -o true -t png",
-    "build": "REACT_APP_GIT_SHA=`git rev-parse --short HEAD` react-scripts build",
-    "test": "react-scripts test",
+    "prebuild:assets": "pwa-asset-generator ./public/assets/logo.svg ./public/assets -v /assets -i ./index.html -m ./public/manifest.webmanifest -o true -t png",
+    "build": "tsc --noEmit && VITE_GIT_SHA=`git rev-parse --short HEAD` vite build",
+    "test": "jest",
     "deploy": "netlify deploy"
   },
   "type": "module",
-  "eslintConfig": {
-    "extends": [
-      "react-app"
-    ]
-  },
   "jest": {
     "transformIgnorePatterns": [
       "<rootDir>/node_modules/(?!lodash-es)"
@@ -91,6 +87,7 @@
     "@types/file-saver": "2.0.5",
     "@types/lodash-es": "4.17.6",
     "@types/mapbox__polyline": "1.0.2",
+    "@vitejs/plugin-react-refresh": "1.3.6",
     "netlify-cli": "9.8.3",
     "prettier": "2.5.1",
     "pwa-asset-generator": "6.0.6",

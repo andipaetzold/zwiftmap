@@ -7,7 +7,6 @@ import {
   DialogTitle,
 } from "@react-md/dialog";
 import { Typography } from "@react-md/typography";
-import React from "react";
 import styles from "./index.module.scss";
 
 interface Props {

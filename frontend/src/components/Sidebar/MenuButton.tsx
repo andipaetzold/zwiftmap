@@ -7,7 +7,7 @@ import {
 } from "@react-md/material-icons";
 import { Menu, MenuItem, MenuItemSeparator, useMenu } from "@react-md/menu";
 import { BOTTOM_RIGHT_ANCHOR, useToggle } from "@react-md/utils";
-import React, { useState } from "react";
+import  { useState } from "react";
 import { useIsMobile } from "../../hooks/useIsMobile";
 import { InfoDialog } from "../InfoDialog";
 import { SettingsDialog } from "../SettingsDialog";

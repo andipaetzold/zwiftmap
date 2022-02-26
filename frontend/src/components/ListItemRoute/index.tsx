@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import  { useRef } from "react";
 import { Route } from "zwift-data";
 import { WORLDS_BY_SLUG } from "../../constants";
 import { useStore } from "../../hooks/useStore";

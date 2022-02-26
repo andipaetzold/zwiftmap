@@ -8,7 +8,6 @@ import {
 } from "@react-md/dialog";
 import { Select } from "@react-md/form";
 import { ArrowDropDownSVGIcon } from "@react-md/material-icons";
-import React from "react";
 import { useSettings } from "../../hooks/useSettings";
 import { StravaSettings } from "./StravaSettings";
 
