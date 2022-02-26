@@ -1,4 +1,5 @@
-import { identity, range } from "lodash-es";
+import identity from "lodash-es/identity";
+import range from "lodash-es/range";
 import { getSectionsFromIntervals } from "./sections";
 
 describe("getSectionsFromIntervals", () => {
