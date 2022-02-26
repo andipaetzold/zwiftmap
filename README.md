@@ -17,4 +17,8 @@ https://zwiftmap.com
 
 ![Desktop Screenshot](./docs/screenshot-desktop.png)
 
-<img src="./docs/screenshot-mobile.png" width="300">
+## Browser Extension for Strava
+
+![Strava Activity Feed](./browser-extension/screenshots/activity-feed.png)
+![Strava Activity](./browser-extension/screenshots/activity.png)
+![Strava Segment](./browser-extension/screenshots/segment.png)
