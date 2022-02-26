@@ -1,10 +1,5 @@
 import { pool } from "./pg";
-import { redisClient } from "./redis";
 import { StravaToken } from "./types";
-
-function createKey(athleteId: number): string {
-  return `stravaToken:${athleteId}`;
-}
 
 export async function writeStravaToken(stravaToken: StravaToken) {
   await pool.query<
@@ -24,10 +19,6 @@ export async function writeStravaToken(stravaToken: StravaToken) {
       stravaToken.scope,
     ]
   );
-
-  // TODO: remove after migration
-  const key = createKey(stravaToken.athleteId);
-  await redisClient.del(key);
 }
 
 export async function readStravaToken(
@@ -38,24 +29,11 @@ export async function readStravaToken(
     [athleteId]
   );
 
-  if (result.rowCount === 0) {
-    const token = await redisClient.get<StravaToken>(createKey(athleteId));
-    if (token) {
-      console.log(`Migrating StravaToken ${athleteId}`);
-      await writeStravaToken(token);
-    }
-    return token;
-  }
-
-  const row = result.rows[0];
-  return row;
+  return result.rows[0];
 }
 
 export async function removeStravaToken(athleteId: number): Promise<void> {
   await pool.query('DELETE FROM "StravaToken" WHERE "athleteId" = $1', [
     athleteId,
   ]);
-
-  // TODO: remove after migration
-  await redisClient.del(createKey(athleteId));
 }
