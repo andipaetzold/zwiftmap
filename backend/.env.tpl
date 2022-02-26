@@ -2,7 +2,7 @@ ENVIRONMENT=development
 
 BACKEND_URL=http://localhost:3001
 FRONTEND_URL=http://localhost:3000
-STATIC_URL==http://localhost:3002
+STATIC_URL=http://localhost:3002
 
 PORT=3001
 
@@ -10,8 +10,8 @@ STRAVA_CLIENT_ID=
 STRAVA_CLIENT_SECRET=
 STRAVA_WEBHOOK_HOST=
 
-REDIS_URL=
-DATABASE_URL=
+REDIS_URL=redis://127.0.0.1:6379
+DATABASE_URL=postgres://127.0.0.1:5432/zwiftmap
 
 AUTH_SECRET=secret
 

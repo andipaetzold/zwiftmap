@@ -1,46 +1,40 @@
 import { Job } from "bull";
 import puppeteer from "puppeteer";
 import { URL } from "url";
-import { ENVIRONMENT, STATIC_URL } from "../../shared/config";
-import { cloudinary } from "../../shared/services/cloudinary";
+import { STATIC_URL } from "../../shared/config";
+import { ImageQueueJobData } from "../../shared/queue";
+import { uploadToCloudinary } from "../../shared/services/cloudinary";
+import { uploadToGoogleCloudStorage } from "../../shared/services/gcp";
 import { Logger } from "../services/logger";
 
-export async function handleImage(job: Job<{ path: string }>, logger: Logger) {
-  const { path } = job.data;
+export async function handleImage(job: Job<ImageQueueJobData>, logger: Logger) {
+  const { path, resolution, cloudinary, googleCloudStorage } = job.data;
 
   logger.log(`Render image`, { path });
   const browser = await puppeteer.launch({ args: PUPPETEER_ARGS });
   const page = await browser.newPage();
-  page.setViewport({ width: 1920, height: 1080 });
+  page.setViewport(resolution);
   await page.goto(new URL(path, STATIC_URL).toString(), {
     waitUntil: "networkidle0",
   });
   const imageBuffer = (await page.screenshot()) as Buffer;
   await browser.close();
 
-  const pathParts = path.split("/");
-  const folder = pathParts.slice(0, -1).join("/");
-  const publicId = pathParts.at(-1);
-  logger.log(`Uploading image`, { folder, publicId });
-  await new Promise((resolve, reject) =>
-    cloudinary.uploader
-      .upload_stream(
-        {
-          tags: [`env:${ENVIRONMENT}`],
-          folder,
-          public_id: publicId,
-          overwrite: true,
-        },
-        (error, result) => {
-          if (error) {
-            reject(error);
-          } else {
-            resolve(result);
-          }
-        }
-      )
-      .end(imageBuffer)
-  );
+  logger.log(`Uploading image`, { path });
+  if (cloudinary) {
+    await uploadToCloudinary(
+      cloudinary.folder,
+      cloudinary.publicId,
+      imageBuffer
+    );
+  }
+  if (googleCloudStorage) {
+    await uploadToGoogleCloudStorage(
+      "images.zwiftmap.com",
+      googleCloudStorage.filename,
+      imageBuffer
+    );
+  }
 }
 
 const PUPPETEER_ARGS = [

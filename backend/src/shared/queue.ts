@@ -15,6 +15,19 @@ export const stravaWebhookEventQueue = new Queue<WebhookEventType>(
   { defaultJobOptions: DEFAULT_JOB_OPTIONS }
 );
 
-export const imageQueue = new Queue<{ path: string }>("image", REDIS_URL, {
+export interface ImageQueueJobData {
+  path: string;
+
+  resolution: { width: number; height: number };
+  cloudinary?: {
+    folder: string;
+    publicId: string;
+  };
+  googleCloudStorage?: {
+    filename: string;
+  };
+}
+
+export const imageQueue = new Queue<ImageQueueJobData>("image", REDIS_URL, {
   defaultJobOptions: DEFAULT_JOB_OPTIONS,
 });

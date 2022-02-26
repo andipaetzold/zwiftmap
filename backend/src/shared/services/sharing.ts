@@ -79,7 +79,17 @@ async function createShare(
 
   const share = await writeShare(shareWithoutId);
 
-  await imageQueue.add({ path: `/s/${share.id}` });
+  await imageQueue.add({
+    path: `/s/${share.id}`,
+    resolution: { width: 1920, height: 1080 },
+    cloudinary: {
+      folder: "s",
+      publicId: share.id,
+    },
+    googleCloudStorage: {
+      filename: `shares/${share.id}.png`,
+    },
+  });
 
   return share;
 }
