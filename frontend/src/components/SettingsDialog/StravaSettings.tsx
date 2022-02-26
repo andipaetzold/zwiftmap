@@ -12,7 +12,7 @@ export function StravaSettings() {
     <>
       <Switch
         id="settings-strava-add-link"
-        label="Add link to activity description"
+        label="Automatically add ZwiftMap links to Strava activities"
         checked={settings.addLinkToActivityDescription}
         onChange={(e) =>
           setSettings({
