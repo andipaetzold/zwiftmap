@@ -1,4 +1,3 @@
-import React from "react";
 import { useStore } from "../../../hooks/useStore";
 import {
   DEFAULT_WORLD,

@@ -1,5 +1,4 @@
 import "leaflet/dist/leaflet.css";
-import React from "react";
 import { useAsync } from "react-async-hook";
 import { useStore } from "../../hooks/useStore";
 import {

@@ -5,7 +5,7 @@ import {
   SimpleListItem,
 } from "@react-md/list";
 import { Typography } from "@react-md/typography";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { useAsync } from "react-async-hook";
 import { Route } from "zwift-data";
 import { WORLDS_BY_SLUG } from "../../../../constants";

@@ -1,7 +1,7 @@
 import { MessageQueue } from "@react-md/alert";
 import * as Sentry from "@sentry/react";
 import { Integrations } from "@sentry/tracing";
-import React from "react";
+import { StrictMode } from "react";
 import ReactDOM from "react-dom";
 import { HelmetProvider } from "react-helmet-async";
 import App from "./App";
@@ -19,8 +19,8 @@ import {
 } from "./services/routing";
 
 Sentry.init({
-  enabled: (process.env.REACT_APP_SENTRY_DSN ?? "").length > 0,
-  dsn: process.env.REACT_APP_SENTRY_DSN,
+  enabled: ((import.meta.env.VITE_SENTRY_DSN as string) ?? "").length > 0,
+  dsn: import.meta.env.VITE_SENTRY_DSN as string,
   environment: "production",
   release: GIT_SHA,
   integrations: [
@@ -86,13 +86,13 @@ fetchAuthStatus();
 const helmetContext = {};
 
 ReactDOM.render(
-  <React.StrictMode>
+  <StrictMode>
     <HelmetProvider context={helmetContext}>
       <Head />
       <MessageQueue id="message-queue" timeout={3_000}>
         <App />
       </MessageQueue>
     </HelmetProvider>
-  </React.StrictMode>,
-  document.getElementById("app")
+  </StrictMode>,
+  document.getElementById("root")
 );

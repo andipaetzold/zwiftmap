@@ -1,6 +1,5 @@
 import { Select } from "@react-md/form";
 import { ArrowDropDownSVGIcon } from "@react-md/material-icons";
-import React from "react";
 import { World, worlds, WorldSlug } from "zwift-data";
 import { WORLDS_BY_SLUG } from "../../constants";
 import styles from "./WorldSelect.module.scss";

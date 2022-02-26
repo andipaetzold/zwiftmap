@@ -1,6 +1,5 @@
 import { List, SimpleListItem } from "@react-md/list";
 import * as Sentry from "@sentry/react";
-import React from "react";
 import { useAsync } from "react-async-hook";
 import { Helmet } from "react-helmet-async";
 import { useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";

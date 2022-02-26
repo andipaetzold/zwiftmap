@@ -1,5 +1,4 @@
 import c from "classnames";
-import React from "react";
 import styles from "./App.module.scss";
 import RouteMap from "./components/RouteMap";
 import { Sidebar } from "./components/Sidebar";
