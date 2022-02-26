@@ -8,6 +8,7 @@ import {
 import { worker } from "../../../services/worker-client";
 import { dropAltitude } from "../../../util/drop-altitude";
 import { getMarkerIconAsDataUrl } from "../../MarkerIcon";
+import shadowUrl from "./marker-shadow.png";
 
 interface Props {
   state: LocationStateCustomRoute;
@@ -40,7 +41,7 @@ export function CustomRouteMarkers({ state }: Props) {
           const icon = new Icon({
             iconUrl: getMarkerIconAsDataUrl(index + 1),
             iconRetinaUrl: undefined,
-            shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
+            shadowUrl,
             iconSize: [26.5, 41],
             iconAnchor: [26.5 / 2, 41],
             shadowSize: [41, 41],
