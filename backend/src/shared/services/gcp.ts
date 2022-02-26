@@ -1,4 +1,5 @@
 import { Storage } from "@google-cloud/storage";
+import { ENVIRONMENT } from "../config";
 
 const storage = new Storage();
 
@@ -7,7 +8,15 @@ export async function uploadToGoogleCloudStorage(
   filename: string,
   buffer: Buffer
 ) {
-  await storage.bucket(bucket).file(filename).save(buffer, {
-    resumable: false,
-  });
+  await storage
+    .bucket(bucket)
+    .file(filename)
+    .save(buffer, {
+      resumable: false,
+      metadata: {
+        metadata: {
+          environment: ENVIRONMENT,
+        },
+      },
+    });
 }
