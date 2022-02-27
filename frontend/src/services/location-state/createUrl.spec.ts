@@ -1,4 +1,5 @@
-import { routes, segments, worlds } from "zwift-data";
+import { describe, expect, it } from "vitest";
+import { routes, worlds } from "zwift-data";
 import { createUrl } from "./createUrl";
 
 const worldLondon = worlds.find((w) => w.slug === "london")!;

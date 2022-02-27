@@ -19,4 +19,7 @@ export default defineConfig({
     ],
   },
   plugins: [reactRefresh()],
+  test: {
+    environment: "happy-dom",
+  }
 });

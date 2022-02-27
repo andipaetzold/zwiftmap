@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
 exports[`returns a gpx file 1`] = `
 "<?xml version=\\"1.0\\" encoding=\\"UTF-8\\"?>

@@ -1,3 +1,4 @@
+import { describe, expect, it } from "vitest";
 import { worldConfigs } from ".";
 
 describe("ensure bounds are topleft and bottomright", () => {

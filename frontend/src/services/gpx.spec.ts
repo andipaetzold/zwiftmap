@@ -1,4 +1,5 @@
 import { createGPX } from "./gpx";
+import { expect, it } from "vitest";
 
 it("returns a gpx file", async () => {
   const string = createGPX("https://zwiftmap.com", [

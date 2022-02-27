@@ -1,6 +1,7 @@
 import identity from "lodash-es/identity";
 import range from "lodash-es/range";
 import { getSectionsFromIntervals } from "./sections";
+import { describe, expect, it } from "vitest";
 
 describe("getSectionsFromIntervals", () => {
   it("returns single section if no intervals are passed", () => {
