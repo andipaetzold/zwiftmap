@@ -8,6 +8,7 @@ export async function uploadToGoogleCloudStorage(
   filename: string,
   buffer: Buffer
 ) {
+  console.log("Uploading to cloudinary", { bucket, filename });
   await storage
     .bucket(bucket)
     .file(filename)

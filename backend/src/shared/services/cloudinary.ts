@@ -11,6 +11,7 @@ export async function uploadToCloudinary(
   filename: string,
   buffer: Buffer
 ) {
+  console.log("Uploading to cloudinary", { folder, filename });
   await new Promise((resolve, reject) =>
     cloudinary.v2.uploader
       .upload_stream(

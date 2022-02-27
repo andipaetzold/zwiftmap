@@ -79,17 +79,50 @@ async function createShare(
 
   const share = await writeShare(shareWithoutId);
 
-  await imageQueue.add({
-    path: `/s/${share.id}`,
-    resolution: { width: 1920, height: 1080 },
-    cloudinary: {
-      folder: "s",
-      publicId: share.id,
+  const path = `/s/${share.id}`;
+
+  await imageQueue.addBulk([
+    {
+      data: {
+        path,
+        resolution: { width: 1920, height: 1080 },
+        cloudinary: {
+          folder: "s",
+          publicId: share.id,
+        },
+        googleCloudStorage: {
+          filename: `shares/${share.id}.png`,
+        },
+      },
     },
-    googleCloudStorage: {
-      filename: `shares/${share.id}.png`,
+    {
+      data: {
+        path,
+        resolution: { width: 1088, height: 436 },
+        googleCloudStorage: {
+          filename: `strava-activities/${activity.id}/feed-wide.png`,
+        },
+      },
     },
-  });
+    {
+      data: {
+        path,
+        resolution: { width: 540, height: 540 },
+        googleCloudStorage: {
+          filename: `strava-activities/${activity.id}/feed-square.png`,
+        },
+      },
+    },
+    {
+      data: {
+        path,
+        resolution: { width: 1088, height: 362 },
+        googleCloudStorage: {
+          filename: `strava-activities/${activity.id}/feed-group.png`,
+        },
+      },
+    },
+  ]);
 
   return share;
 }

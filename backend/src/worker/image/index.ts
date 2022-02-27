@@ -20,7 +20,6 @@ export async function handleImage(job: Job<ImageQueueJobData>, logger: Logger) {
   const imageBuffer = (await page.screenshot()) as Buffer;
   await browser.close();
 
-  logger.log(`Uploading image`, { path });
   if (cloudinary) {
     await uploadToCloudinary(
       cloudinary.folder,
