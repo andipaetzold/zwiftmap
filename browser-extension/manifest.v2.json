@@ -2,19 +2,14 @@
   "name": "ZwiftMap for Strava",
   "description": "Replace real-world maps with Zwift maps when visiting Strava",
   "version": "0.2.0",
-  "manifest_version": 3,
+  "manifest_version": 2,
   "content_scripts": [
     {
       "matches": ["https://www.strava.com/*"],
       "js": ["./dist/inject.js"]
     }
   ],
-  "web_accessible_resources": [
-    {
-      "resources": ["dist/script.js", "assets/*"],
-      "matches": ["https://www.strava.com/*"]
-    }
-  ],
+  "web_accessible_resources": ["dist/script.js", "assets/*"],
   "icons": {
     "16": "assets/logo-16.png",
     "48": "assets/logo-48.png",
