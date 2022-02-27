@@ -35,6 +35,8 @@ function startServer() {
   app.use(Sentry.Handlers.requestHandler());
   app.use(Sentry.Handlers.tracingHandler());
 
+  app.get("/health", handlers.handleHealth);
+
   app.get("/auth/status", handlers.handleGETAuthStatus);
   app.post("/auth/logout", handlers.handleLogout);
 
