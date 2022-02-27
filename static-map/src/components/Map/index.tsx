@@ -50,7 +50,7 @@ export function Map() {
 
   return (
     <>
-      <img src={logo} alt="" className={styles.Logo} width={128} height={128} />
+      <img src={logo} alt="" className={styles.Logo} />
 
       <MapContainer
         key={world.slug}
@@ -76,7 +76,7 @@ export function Map() {
             <Pane name="route" style={{ zIndex: 504 }}>
               <Polyline
                 positions={routeLatLngStream}
-                pathOptions={{ color: "#fc6719", weight: 10 }}
+                pathOptions={{ color: "#fc6719", weight: 5 }}
               />
             </Pane>
             <Pane name="route-start" style={{ zIndex: Z_INDEX.routeStart }}>
