@@ -52,8 +52,8 @@ function handleFeedNode(node: Node) {
   }
 }
 
-function handleFeedActivityNode(contentNode: HTMLElement, props: any) {
-  const shareId = extractShareId(props.activity.description ?? "");
+function handleFeedActivityNode(contentNode: HTMLElement, { activity }: any) {
+  const shareId = extractShareId(activity.description ?? "");
   if (!shareId) {
     return;
   }
@@ -64,17 +64,29 @@ function handleFeedActivityNode(contentNode: HTMLElement, props: any) {
     return;
   }
 
-  replaceImage(mapImage, shareId);
+  const rect = mapImage.getBoundingClientRect();
+  const ratio = rect.width / rect.height;
+
+  if (Math.abs(ratio - 1) < 0.1) {
+    replaceImage(
+      mapImage,
+      `/strava-activities/${activity.id}/feed-square.png`,
+      extractShareId(activity.description)!
+    );
+  } else {
+    replaceImage(
+      mapImage,
+      `/strava-activities/${activity.id}/feed-wide.png`,
+      extractShareId(activity.description)!
+    );
+  }
 }
 
 function handleFeedGroupActivityNode(contentNode: HTMLElement, props: any) {
-  const descriptions = props.rowData.activities.map(
-    (activity: any) => activity.description as string | undefined
+  const activity = props.rowData.activities.find(
+    (activity) => !!extractShareId(activity.description ?? "")
   );
-  const shareId: string = descriptions
-    .map((description: string | null) => extractShareId(description ?? ""))
-    .filter((shareId: string | undefined) => !!shareId)[0];
-  if (!shareId) {
+  if (!activity) {
     return;
   }
 
@@ -84,20 +96,28 @@ function handleFeedGroupActivityNode(contentNode: HTMLElement, props: any) {
     return;
   }
 
-  replaceImage(mapImage, shareId);
+  replaceImage(
+    mapImage,
+    `/strava-activities/${activity.activity_id}/feed-group.png`,
+    extractShareId(activity.description)!
+  );
 }
 
-function replaceImage(element: HTMLImageElement, shareId: string) {
-  const rect = element.getBoundingClientRect();
-  const urlSmall = `https://res.cloudinary.com/zwiftmap/image/upload/c_fill,w_${Math.round(
-    rect.width
-  )},h_${Math.round(rect.height)},f_auto/s/${shareId}`;
-  const urlBig = `https://res.cloudinary.com/zwiftmap/image/upload/c_fill,w_${Math.round(
-    rect.width * 2
-  )},h_${Math.round(rect.height * 2)},f_auto/s/${shareId}`;
+async function replaceImage(
+  element: HTMLImageElement,
+  path: string,
+  shareId: string
+) {
+  const imagesUrl = `https://images.zwiftmap.com${path}`;
+  const cloudinaryUrl = `https://res.cloudinary.com/zwiftmap/image/upload/s/${shareId}`;
 
-  element.setAttribute("src", urlSmall);
-  element.setAttribute("srcset", urlBig);
+  element.removeAttribute("srcset");
+
+  element.setAttribute("src", imagesUrl);
+  element.setAttribute(
+    "onerror",
+    `this.onerror=null;this.src='${cloudinaryUrl}'`
+  );
 }
 
 function extractShareId(description: string): string | undefined {
