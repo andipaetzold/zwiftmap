@@ -1,6 +1,6 @@
 {
   "name": "ZwiftMap for Strava",
-  "description": "Show Zwift maps on Strava",
+  "description": "Replace real-world maps with Zwift maps when visiting Strava",
   "version": "0.2.0",
   "manifest_version": 2,
   "content_scripts": [
