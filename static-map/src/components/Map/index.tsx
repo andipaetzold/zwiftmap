@@ -76,14 +76,14 @@ export function Map() {
             <Pane name="route" style={{ zIndex: 504 }}>
               <Polyline
                 positions={routeLatLngStream}
-                pathOptions={{ color: "#fc6719", weight: 5 }}
+                pathOptions={{ color: "#fc6719", weight: 7 }}
               />
             </Pane>
             <Pane name="route-start" style={{ zIndex: Z_INDEX.routeStart }}>
               <CircleMarker
                 center={routeLatLngStream[0]}
-                radius={10}
-                weight={4}
+                radius={7}
+                weight={3}
                 pathOptions={{
                   color: "white",
                   fillColor: "green",
@@ -94,8 +94,8 @@ export function Map() {
             <Pane name="route-end" style={{ zIndex: Z_INDEX.routeEnd }}>
               <CircleMarker
                 center={routeLatLngStream[routeLatLngStream.length - 1]}
-                radius={10}
-                weight={4}
+                radius={7}
+                weight={3}
                 pathOptions={{
                   color: "white",
                   fillColor: "red",
