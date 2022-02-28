@@ -47,7 +47,7 @@
     "react-schemaorg": "2.0.0",
     "recharts": "2.1.9",
     "strava": "2.0.1",
-    "zustand": "3.7.0",
+    "zustand": "3.7.1",
     "zwift-data": "1.13.2"
   },
   "scripts": {
