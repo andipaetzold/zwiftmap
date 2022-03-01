@@ -22,7 +22,7 @@ https://zwiftmap.com
 
 ## Browser Extension for Strava
 
-* Chrome / Edge / Brave: Coming soon
+* [Chrome, Brave, Edge, and other Chromium-Browsers](https://chrome.google.com/webstore/detail/zwiftmap-for-strava/eiaekjobfimlijhpggbbkhoihlchdhdl)
 * [Firefox](https://addons.mozilla.org/en-US/firefox/addon/zwiftmap/)
 
 ![Strava Activity Feed](./browser-extension/screenshots/activity-feed.png)
