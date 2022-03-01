@@ -41,6 +41,6 @@
     "netlify-cli": "9.8.4",
     "sass": "1.49.9",
     "typescript": "4.6.2",
-    "vite": "2.8.5"
+    "vite": "2.8.6"
   }
 }
