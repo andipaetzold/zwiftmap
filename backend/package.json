@@ -55,7 +55,7 @@
     "nocache": "3.0.1",
     "node-pg-migrate": "6.2.1",
     "pg": "8.7.3",
-    "puppeteer": "13.4.0",
+    "puppeteer": "13.4.1",
     "redis": "3.1.2",
     "runtypes": "6.5.1",
     "short-uuid": "4.2.0",
