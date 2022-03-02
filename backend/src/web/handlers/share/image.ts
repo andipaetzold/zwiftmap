@@ -42,7 +42,7 @@ export async function handleGETShareImage(req: Request, res: Response) {
   const height = req.query.height;
   const width = req.query.width;
 
-  const xAndYBounds = world.bounds.map((b) => toXAndY(b));
+  const xAndYBounds = bbox(share.streams.latlng.data).map((b) => toXAndY(b));
   const topLeft: LatLng = [
     Math.min(...xAndYBounds.map(([x]) => x)),
     Math.min(...xAndYBounds.map(([, y]) => y)),
@@ -55,7 +55,7 @@ export async function handleGETShareImage(req: Request, res: Response) {
   // longitude: x
   const content = [
     '<?xml version="1.0" encoding="UTF-8"?>',
-    `<svg viewBox="${viewBox}" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink" width="${width}" height="${height}">`,
+    `<svg viewBox="${viewBox}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${width}" height="${height}">`,
     await getWorldImageTag(world),
     `<polyline points="${share.streams.latlng.data
       .map((latlng) => toXAndY(latlng))
@@ -107,4 +107,32 @@ async function getWorldImageTag(world: World) {
   return `<image  x="${x}" y="${y}" width="${width}" height="${height}" xlink:href="${bufferToDataUrl(
     buffer
   )}"  />`;
+}
+
+const PADDING = 0.001;
+function bbox(stream: LatLng[]): [LatLng, LatLng] {
+  const result: [LatLng, LatLng] = [
+    [Infinity, Infinity],
+    [-Infinity, -Infinity],
+  ];
+
+  for (const latlng of stream) {
+    if (result[0][0] > latlng[0]) {
+      result[0][0] = latlng[0];
+    }
+    if (result[0][1] > latlng[1]) {
+      result[0][1] = latlng[1];
+    }
+    if (result[1][0] < latlng[0]) {
+      result[1][0] = latlng[0];
+    }
+    if (result[1][1] < latlng[1]) {
+      result[1][1] = latlng[1];
+    }
+  }
+
+  return [
+    [result[0][0] + PADDING, result[0][1] - PADDING],
+    [result[1][0] - PADDING, result[1][1] + PADDING],
+  ];
 }
