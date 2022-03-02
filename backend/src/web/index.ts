@@ -60,6 +60,7 @@ function startServer() {
 
   app.post("/share", handlers.handleCreateShare);
   app.get("/share/:shareId", handlers.handleGetShare);
+  app.get("/share/:shareId/image", handlers.handleGETShareImage);
 
   app.use(Sentry.Handlers.errorHandler());
   app.use(errorHandler);

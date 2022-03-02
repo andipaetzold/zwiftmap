@@ -1,4 +1,4 @@
-import { DetailedActivity, SummaryActivity } from "strava";
+import { DetailedActivity, LatLng, SummaryActivity } from "strava";
 import { World, worlds } from "zwift-data";
 
 export function randomString(length = 16) {
@@ -33,9 +33,9 @@ export function isZwiftActivity(
   return true;
 }
 
-export function getWorld(
-  activity: DetailedActivity | SummaryActivity
-): World | undefined {
+export function getWorld(activity: {
+  start_latlng: LatLng;
+}): World | undefined {
   return worlds.find((world) => {
     const bb = world.bounds;
     return (
