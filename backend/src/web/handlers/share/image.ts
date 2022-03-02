@@ -3,6 +3,7 @@ import { promises as fs } from "fs";
 import { Record } from "runtypes";
 import sharp from "sharp";
 import { LatLng } from "strava";
+import { World, worlds, WorldSlug } from "zwift-data";
 import { readShare } from "../../../shared/persistence/share";
 import { getWorld } from "../../../shared/util";
 import { NumberString } from "../../services/runtypes";
@@ -50,18 +51,12 @@ export async function handleGETShareImage(req: Request, res: Response) {
   const viewBoxHeight = diff(xAndYBounds[0][1], xAndYBounds[1][1]);
   const viewBox = [...topLeft, viewBoxWidth, viewBoxHeight].join(" ");
 
-  const mapBuffer = await fs.readFile(`assets/${world.slug}.png`);
-
   // latitude: y
   // longitude: x
   const content = [
     '<?xml version="1.0" encoding="UTF-8"?>',
     `<svg viewBox="${viewBox}" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink" width="${width}" height="${height}">`,
-    `<image  x="${topLeft[0]}" y="${
-      topLeft[1]
-    }" width="${viewBoxWidth}" height="${viewBoxHeight}" xlink:href="${bufferToDataUrl(
-      mapBuffer
-    )}"  />`,
+    await getWorldImageTag(world),
     `<polyline points="${share.streams.latlng.data
       .map((latlng) => toXAndY(latlng))
       .join(" ")}" fill="none" stroke="#f26722" stroke-width="0.000002" />`,
@@ -71,10 +66,10 @@ export async function handleGETShareImage(req: Request, res: Response) {
   res.header("Content-Type", "image/svg+xml");
   res.send(content);
 
-//   sharp(Buffer.from(content))
-//     .toFormat("png")
-//     .pipe(res)
-//     .header("Content-Type", "image/png");
+  //   sharp(Buffer.from(content))
+  //     .toFormat("png")
+  //     .pipe(res)
+  //     .header("Content-Type", "image/png");
 }
 
 function bufferToDataUrl(buffer: Buffer, mime = "image/png"): string {
@@ -93,4 +88,23 @@ function degreesToRadians(degrees: number) {
 
 function diff(a: number, b: number) {
   return Math.abs(a - b);
+}
+
+const worldImages = Object.fromEntries(
+  worlds.map((world) => [world.slug, fs.readFile(`assets/${world.slug}.png`)])
+) as { [world in WorldSlug]: Promise<Buffer> };
+
+async function getWorldImageTag(world: World) {
+  const xAndYBounds = world.bounds.map((b) => toXAndY(b));
+
+  const x = Math.min(...xAndYBounds.map(([x]) => x));
+  const y = Math.min(...xAndYBounds.map(([, y]) => y));
+
+  const width = diff(xAndYBounds[0][0], xAndYBounds[1][0]);
+  const height = diff(xAndYBounds[0][1], xAndYBounds[1][1]);
+
+  const buffer = await worldImages[world.slug];
+  return `<image  x="${x}" y="${y}" width="${width}" height="${height}" xlink:href="${bufferToDataUrl(
+    buffer
+  )}"  />`;
 }
