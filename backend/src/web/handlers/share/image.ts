@@ -84,7 +84,7 @@ function bufferToDataUrl(buffer: Buffer, mime = "image/png"): string {
 }
 
 function toXAndY([lat, lng]: LatLng): [x: number, y: number] {
-  return [degreesToRadians(lng), Math.asinh(Math.tan(degreesToRadians(lat)))];
+  return [degreesToRadians(lng), -Math.asinh(Math.tan(degreesToRadians(lat)))];
 }
 
 function degreesToRadians(degrees: number) {
