@@ -1,5 +1,6 @@
 import { List, SimpleListItem } from "@react-md/list";
 import * as Sentry from "@sentry/react";
+import { lazy, Suspense } from "react";
 import { useAsync } from "react-async-hook";
 import { Helmet } from "react-helmet-async";
 import { useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";
@@ -9,7 +10,8 @@ import { getStravaActivity } from "../../../../services/StravaActivityRepository
 import { ConnectToStravaListItem } from "../../../ConnectToStravaListItem";
 import { LoadingSpinnerListItem } from "../../../Loading";
 import { BackButton } from "./BackButton";
-import { StravaActivityDetailsComponent } from "./component";
+
+const Component = lazy(() => import("./component"));
 
 interface Props {
   state: LocationStateStravaActivity;
@@ -115,5 +117,9 @@ function StravaActivityDetailsContent({ state }: Props) {
     );
   }
 
-  return <StravaActivityDetailsComponent activity={activity} />;
+  return (
+    <Suspense fallback={<LoadingSpinnerListItem />}>
+      <Component activity={activity} />
+    </Suspense>
+  );
 }

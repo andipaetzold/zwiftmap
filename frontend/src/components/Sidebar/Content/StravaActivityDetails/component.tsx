@@ -14,7 +14,7 @@ interface Props {
   activity: StravaActivity;
 }
 
-export function StravaActivityDetailsComponent({ activity }: Props) {
+export default function StravaActivityDetailsComponent({ activity }: Props) {
   return (
     <>
       <Helmet>

@@ -16,7 +16,7 @@ interface Props {
   event: ZwiftEvent;
 }
 
-export function EventComponent({ event }: Props) {
+export default function EventComponent({ event }: Props) {
   return (
     <>
       <EventHelmet event={event} />

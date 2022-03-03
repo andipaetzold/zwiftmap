@@ -1,10 +1,12 @@
 import { List, SimpleListItem } from "@react-md/list";
+import { lazy, Suspense } from "react";
 import { useAsync } from "react-async-hook";
 import { Helmet } from "react-helmet-async";
 import { getEvent } from "../../../../services/zwiftMapApi";
 import { LoadingSpinnerListItem } from "../../../Loading";
 import { BackButton } from "./BackButton";
-import { EventComponent } from "./component";
+
+const Component = lazy(() => import("./component"));
 
 interface Props {
   eventId: number;
@@ -48,5 +50,9 @@ function EventContent({ eventId }: Props) {
     );
   }
 
-  return <EventComponent event={event} />;
+  return (
+    <Suspense fallback={<LoadingSpinnerListItem />}>
+      <Component event={event} />
+    </Suspense>
+  );
 }
