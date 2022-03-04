@@ -8,6 +8,23 @@ import { readShare } from "../../../shared/persistence/share";
 import { getWorld } from "../../../shared/util";
 import { NumberString } from "../../services/runtypes";
 
+const STROKE_WIDTH = 0.000003;
+const PADDING = 0.0005;
+
+const BACKGROUNDS: { [slug in WorldSlug]: string } = {
+  bologna: "#b9b9b8",
+  "crit-city": "#7c9938",
+  france: "#6f992d",
+  innsbruck: "#7c9938",
+  london: "#6f992d",
+  "makuri-islands": "#7d9a35",
+  "new-york": "#bbbbb7",
+  paris: "#b9b9b9",
+  richmond: "#7c9938",
+  watopia: "#0884e2",
+  yorkshire: "#7c9938",
+};
+
 const Query = Record({
   width: NumberString,
   height: NumberString,
@@ -53,23 +70,25 @@ export async function handleGETShareImage(req: Request, res: Response) {
 
   // latitude: y
   // longitude: x
-  const content = [
+  let content = [
     '<?xml version="1.0" encoding="UTF-8"?>',
     `<svg viewBox="${viewBox}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${width}" height="${height}" preserveAspectRatio="xMidYMid meet">`,
     await getWorldImageTag(world),
     `<polyline points="${share.streams.latlng.data
       .map((latlng) => toXAndY(latlng))
-      .join(" ")}" fill="none" stroke="#f26722" stroke-width="0.000002" />`,
+      .join(" ")}" fill="none" stroke="#f26722" stroke-width="${multiply(
+      STROKE_WIDTH
+    )}" />`,
     "</svg>",
   ].join("\n");
 
-  res.header("Content-Type", "image/svg+xml");
-  res.send(content);
-
-  //   sharp(Buffer.from(content))
-  //     .toFormat("png")
-  //     .pipe(res)
-  //     .header("Content-Type", "image/png");
+  sharp(Buffer.from(content))
+    .flatten({
+      background: BACKGROUNDS[world.slug],
+    })
+    .png()
+    .pipe(res)
+    .header("Content-Type", "image/png");
 }
 
 function bufferToDataUrl(buffer: Buffer, mime = "image/png"): string {
@@ -79,7 +98,10 @@ function bufferToDataUrl(buffer: Buffer, mime = "image/png"): string {
 }
 
 function toXAndY([lat, lng]: LatLng): [x: number, y: number] {
-  return [degreesToRadians(lng), -Math.asinh(Math.tan(degreesToRadians(lat)))];
+  return [
+    multiply(degreesToRadians(lng)),
+    multiply(-Math.asinh(Math.tan(degreesToRadians(lat)))),
+  ];
 }
 
 function degreesToRadians(degrees: number) {
@@ -109,7 +131,6 @@ async function getWorldImageTag(world: World) {
   )}" />`;
 }
 
-const PADDING = 0.0005;
 function bbox(stream: LatLng[]): [LatLng, LatLng] {
   const result: [LatLng, LatLng] = [
     [Infinity, Infinity],
@@ -135,4 +156,12 @@ function bbox(stream: LatLng[]): [LatLng, LatLng] {
     [result[0][0] - PADDING, result[0][1] - PADDING],
     [result[1][0] + PADDING, result[1][1] + PADDING],
   ];
+}
+
+/**
+ * `sharp` doesn't like too small numbers and renders an empty image.
+ * So, this just multiplies all dimensions.
+ */
+function multiply(n: number): number {
+  return Math.round(n * Math.pow(10, 6));
 }
