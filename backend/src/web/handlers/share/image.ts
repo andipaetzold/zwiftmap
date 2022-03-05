@@ -177,5 +177,5 @@ function bbox(stream: LatLng[]): [LatLng, LatLng] {
  * So, this just multiplies all dimensions.
  */
 function multiply(n: number): number {
-  return Math.round(n * Math.pow(10, 6));
+  return Math.round(n * Math.pow(10, 8));
 }
