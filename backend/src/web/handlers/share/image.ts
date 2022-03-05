@@ -8,7 +8,9 @@ import { readShare } from "../../../shared/persistence/share";
 import { getWorld } from "../../../shared/util";
 import { NumberString } from "../../services/runtypes";
 
-const STROKE_WIDTH = 0.000003;
+const STROKE_WIDTH = 0.000002;
+const MARKER_RADIUS = 0.000003;
+const MARKER_STROKE = 0.000001;
 const PADDING = 0.0005;
 
 const BACKGROUNDS: { [slug in WorldSlug]: string } = {
@@ -79,6 +81,18 @@ export async function handleGETShareImage(req: Request, res: Response) {
       .join(" ")}" fill="none" stroke="#f26722" stroke-width="${multiply(
       STROKE_WIDTH
     )}" />`,
+    `<circle cx="${toXAndY(share.streams.latlng.data[0])[0]}" cy="${
+      toXAndY(share.streams.latlng.data[0])[1]
+    }" r="${multiply(
+      MARKER_RADIUS
+    )}" fill="green" stroke="white" stroke-width="${multiply(
+      MARKER_STROKE
+    )}" />`,
+    `<circle cx="${toXAndY(share.streams.latlng.data.at(-1)!)[0]}" cy="${
+      toXAndY(share.streams.latlng.data.at(-1)!)[1]
+    }" r="${multiply(
+      MARKER_RADIUS
+    )}" fill="red" stroke="white" stroke-width="${multiply(MARKER_STROKE)}" />`,
     "</svg>",
   ].join("\n");
 
