@@ -84,7 +84,8 @@ async function createShare(
   await imageQueue.addBulk([
     {
       data: {
-        path,
+        type: "share",
+        shareId: share.id,
         resolution: { width: 1920, height: 1080 },
         cloudinary: {
           folder: "s",
@@ -97,7 +98,8 @@ async function createShare(
     },
     {
       data: {
-        path,
+        type: "share",
+        shareId: share.id,
         resolution: { width: 1088, height: 436 },
         googleCloudStorage: {
           filename: `strava-activities/${activity.id}/feed-wide.png`,
@@ -106,7 +108,8 @@ async function createShare(
     },
     {
       data: {
-        path,
+        type: "share",
+        shareId: share.id,
         resolution: { width: 540, height: 540 },
         googleCloudStorage: {
           filename: `strava-activities/${activity.id}/feed-square.png`,
@@ -115,7 +118,8 @@ async function createShare(
     },
     {
       data: {
-        path,
+        type: "share",
+        shareId: share.id,
         resolution: { width: 1088, height: 362 },
         googleCloudStorage: {
           filename: `strava-activities/${activity.id}/feed-group.png`,

@@ -16,7 +16,8 @@ export const stravaWebhookEventQueue = new Queue<WebhookEventType>(
 );
 
 export interface ImageQueueJobData {
-  path: string;
+  type: "share";
+  shareId: string;
 
   resolution: { width: number; height: number };
   cloudinary?: {

@@ -2,7 +2,6 @@ ENVIRONMENT=development
 
 BACKEND_URL=http://localhost:3001
 FRONTEND_URL=http://localhost:3000
-STATIC_URL=http://localhost:3002
 
 PORT=3001
 
