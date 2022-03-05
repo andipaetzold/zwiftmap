@@ -3,7 +3,7 @@ import { Typography } from "@react-md/typography";
 import { useAsync } from "react-async-hook";
 import { request } from "../../../../../services/request";
 import { ShareStravaActivity } from "../../../../../types";
-import { getShareImageUrl } from "../../../../../util/cloudinary";
+import { getShareImageUrl } from "../../../../../util/image";
 import { SharedStravaActivityElevationChart } from "./ElevationChart";
 import { SharedStravaActivityFacts } from "./Facts";
 import { SharedStravaActivityHelmet } from "./Helmet";

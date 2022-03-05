@@ -14,7 +14,7 @@ import {
   StravaActivity,
 } from "../../../../services/StravaActivityRepository";
 import { shareStravaActivity } from "../../../../services/zwiftMapApi";
-import { getShareImageUrl } from "../../../../util/cloudinary";
+import { getShareImageUrl } from "../../../../util/image";
 import { shareImage } from "../../../../util/shareImage";
 
 const isSharingSupported = "share" in navigator;
@@ -117,28 +117,9 @@ function ShareActivityAsImage({ activity }: Props) {
 
       const { id: shareId } = await shareStravaActivity(activity.id);
 
-      const cloudinaryURL = getShareImageUrl(shareId);
+      const imageUrl = getShareImageUrl(shareId);
 
-      const pollPromise = new Promise<void>((resolve, reject) => {
-        pollInterval.current = setInterval(async () => {
-          if (pollCounter.current >= 10) {
-            reset();
-            reject(new Error(`Image wasn't created in time`));
-          } else {
-            try {
-              await request(cloudinaryURL, { method: "HEAD" });
-              resolve();
-            } catch {
-            } finally {
-              pollCounter.current++;
-            }
-          }
-        }, 2_500);
-      });
-
-      await pollPromise;
-
-      await shareImage(cloudinaryURL);
+      await shareImage(imageUrl);
     } catch (e) {
       Sentry.captureException(e);
       addMessage({ children: "Error sharing the acitivty" });
