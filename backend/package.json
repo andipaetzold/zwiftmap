@@ -27,7 +27,7 @@
     "@types/lodash": "4.14.179",
     "@types/morgan": "1.9.3",
     "@types/node": "16.11.26",
-    "@types/pg": "8.6.4",
+    "@types/pg": "8.6.5",
     "@types/redis": "2.8.32",
     "@types/sharp": "0.29.5",
     "@types/tsc-watch": "4.2.0",
