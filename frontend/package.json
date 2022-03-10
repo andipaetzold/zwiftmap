@@ -48,7 +48,7 @@
     "recharts": "2.1.9",
     "strava": "2.0.1",
     "zustand": "3.7.1",
-    "zwift-data": "1.13.3"
+    "zwift-data": "1.14.0"
   },
   "scripts": {
     "start": "VITE_GIT_SHA=`git rev-parse --short HEAD` vite",
