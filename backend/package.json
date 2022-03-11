@@ -29,7 +29,7 @@
     "@types/node": "16.11.26",
     "@types/pg": "8.6.5",
     "@types/redis": "2.8.32",
-    "@types/sharp": "0.29.5",
+    "@types/sharp": "0.30.0",
     "@types/tsc-watch": "4.2.0",
     "@types/validator": "13.7.1",
     "ngrok": "4.3.1",
