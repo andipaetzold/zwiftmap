@@ -14,3 +14,5 @@ Sentry.init({
 
 stravaWebhookEventQueue.process(wrap(handleStravaWebhookEvent));
 imageQueue.process(wrap(handleImage));
+
+console.log("Worker started");
