@@ -4,7 +4,7 @@ import https from "https";
 import { BACKEND_URL } from "../../shared/config";
 import { ImageQueueJobData } from "../../shared/queue";
 import { uploadToCloudinary } from "../../shared/services/cloudinary";
-import { uploadToGoogleCloudStorage } from "../../shared/services/gcp";
+import { uploadToGoogleCloudStorage } from "../../shared/services/gcs";
 import { Logger } from "../services/logger";
 
 export async function handleImage(job: Job<ImageQueueJobData>, logger: Logger) {
