@@ -7,10 +7,11 @@ import {
 } from "@react-md/material-icons";
 import { Menu, MenuItem, MenuItemSeparator, useMenu } from "@react-md/menu";
 import { BOTTOM_RIGHT_ANCHOR, useToggle } from "@react-md/utils";
-import  { useState } from "react";
+import { useState } from "react";
 import { useIsMobile } from "../../hooks/useIsMobile";
 import { InfoDialog } from "../InfoDialog";
 import { SettingsDialog } from "../SettingsDialog";
+import { BrowserExtensionItem } from "./BrowserExtensionItem";
 import { StravaButton } from "./StravaButton";
 
 interface Props {
@@ -56,6 +57,7 @@ export function MenuButton({ onBottomSheetClose }: Props) {
           >
             Info
           </MenuItem>
+          <BrowserExtensionItem />
           <MenuItem
             onClick={() => {
               showSettingsDialog();
