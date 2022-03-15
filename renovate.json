@@ -18,6 +18,8 @@
   "postUpdateOptions": ["npmDedupe"],
   "ignoreDeps": [
     "react-leaflet",
-    "@react-leaflet/core"
+    "@react-leaflet/core",
+    "@sentry/node",
+    "@sentry/tracing"
   ]
 }
