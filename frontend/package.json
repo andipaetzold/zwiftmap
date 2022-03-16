@@ -83,7 +83,7 @@
     "cli-progress": "3.10.0",
     "happy-dom": "2.47.2",
     "netlify-cli": "9.13.2",
-    "prettier": "2.5.1",
+    "prettier": "2.6.0",
     "pwa-asset-generator": "6.0.6",
     "sass": "1.49.9",
     "schema-dts": "1.1.0",
