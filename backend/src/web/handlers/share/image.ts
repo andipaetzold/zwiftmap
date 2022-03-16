@@ -123,7 +123,7 @@ async function getWorldImageTag(world: World) {
   const height = diff(xAndYBounds[0][1], xAndYBounds[1][1]);
 
   const buffer = await worldImages[world.slug];
-  return `<image x="${x}" y="${y}" width="${width}" height="${height}" xlink:href="${bufferToDataUrl(
+  return `<image x="${x}" y="${y}" width="${width}" height="${height}" preserveAspectRatio="none" xlink:href="${bufferToDataUrl(
     buffer
   )}" />`;
 }
