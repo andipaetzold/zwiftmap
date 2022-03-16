@@ -108,7 +108,7 @@ async function replaceImage(
   path: string,
   shareId: string
 ) {
-  const imagesUrl = `https://images.zwiftmap.com${path}`;
+  const imagesUrl = `https://storage.googleapis.com/images.zwiftmap.com${path}`;
   const cloudinaryUrl = `https://res.cloudinary.com/zwiftmap/image/upload/s/${shareId}`;
 
   element.removeAttribute("srcset");
