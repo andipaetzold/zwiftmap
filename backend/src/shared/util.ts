@@ -46,3 +46,7 @@ export function getWorld(activity: {
     );
   });
 }
+
+export function diff(a: number, b: number) {
+  return Math.abs(a - b);
+}
