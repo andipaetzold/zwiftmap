@@ -1,7 +1,12 @@
 import short from "short-uuid";
 import { FRONTEND_URL } from "../config";
 import { pool } from "./pg";
-import { Share, ShareDBRow, ShareStravaActivityDBRow } from "./types";
+import {
+  Share,
+  ShareDBRow,
+  ShareStravaActivity,
+  ShareStravaActivityDBRow,
+} from "./types";
 
 export function getShareUrl(id: string) {
   return `${FRONTEND_URL}/s/${id}`;
@@ -42,6 +47,15 @@ export async function writeShare(
     activity: row.activity,
     streams: row.streams,
   };
+}
+
+export async function* iterateShares() {
+  const shareResults = await pool.query<ShareDBRow>('SELECT * FROM "Share"');
+
+  for (const shareDBRow of shareResults.rows) {
+    const share = await readShare(shareDBRow.id);
+    yield share;
+  }
 }
 
 export async function readShare(shareId: string): Promise<Share | undefined> {
