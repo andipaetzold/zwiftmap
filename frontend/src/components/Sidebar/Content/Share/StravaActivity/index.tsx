@@ -1,7 +1,5 @@
 import { SimpleListItem } from "@react-md/list";
 import { Typography } from "@react-md/typography";
-import { useAsync } from "react-async-hook";
-import { request } from "../../../../../services/request";
 import { ShareStravaActivity } from "../../../../../types";
 import { getShareImageUrl } from "../../../../../util/image";
 import { SharedStravaActivityElevationChart } from "./ElevationChart";
@@ -17,24 +15,10 @@ interface Props {
 
 export function SharedStravaActivity({ share }: Props) {
   const imageUrl = getShareImageUrl(share.id);
-  const { result: imageExists } = useAsync<boolean>(
-    async (u: string) => {
-      try {
-        await request(u, { method: "HEAD" });
-        return true;
-      } catch {
-        return false;
-      }
-    },
-    [share.id]
-  );
 
   return (
     <>
-      <SharedStravaActivityHelmet
-        share={share}
-        imageUrl={imageExists ? imageUrl : null}
-      />
+      <SharedStravaActivityHelmet share={share} imageUrl={imageUrl} />
 
       <SimpleListItem>
         <Typography type="headline-6" style={{ margin: 0 }}>
@@ -47,7 +31,7 @@ export function SharedStravaActivity({ share }: Props) {
       <SharedStravaActivityElevationChart share={share} />
       <SharedStravaActivitySurface share={share} />
 
-      <SharedStravaActivitySharing url={imageExists ? imageUrl : null} />
+      <SharedStravaActivitySharing url={imageUrl} />
       <SharedStravaActivityLinks share={share} />
     </>
   );
