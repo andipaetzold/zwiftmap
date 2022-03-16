@@ -8,6 +8,8 @@ import { readShare } from "../../../shared/persistence/share";
 import { getWorld } from "../../../shared/util";
 import { NumberString } from "../../services/runtypes";
 
+sharp.cache(false);
+
 const STROKE_WIDTH = 0.000002;
 const MARKER_RADIUS = 0.000003;
 const MARKER_STROKE = 0.000001;
