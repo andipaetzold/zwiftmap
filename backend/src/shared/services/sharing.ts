@@ -79,8 +79,6 @@ async function createShare(
 
   const share = await writeShare(shareWithoutId);
 
-  const path = `/s/${share.id}`;
-
   await imageQueue.addBulk([
     {
       data: {
