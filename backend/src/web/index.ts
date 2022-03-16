@@ -4,8 +4,6 @@ import runner from "node-pg-migrate";
 import "source-map-support/register";
 import { PORT, SENTRY_WEB_DSN } from "../shared/config";
 import { pool } from "../shared/persistence/pg";
-import { iterateShares } from "../shared/persistence/share";
-import { imageQueue } from "../shared/queue";
 import * as handlers from "./handlers";
 import { errorHandler } from "./middleware/errorHandler";
 import { app } from "./server";
@@ -31,49 +29,6 @@ async function pgMigrate() {
     count: Infinity,
   });
   client.release();
-}
-
-async function triggerAllShares() {
-  for await (const share of iterateShares()) {
-    if (!share) {
-      continue;
-    }
-
-    console.log(`Adding share to queue ${share.id}`);
-
-    await imageQueue.addBulk([
-      {
-        data: {
-          type: "share",
-          shareId: share.id,
-          resolution: { width: 1088, height: 436 },
-          googleCloudStorage: {
-            filename: `strava-activities/${share.activity.id}/feed-wide.png`,
-          },
-        },
-      },
-      {
-        data: {
-          type: "share",
-          shareId: share.id,
-          resolution: { width: 540, height: 540 },
-          googleCloudStorage: {
-            filename: `strava-activities/${share.activity.id}/feed-square.png`,
-          },
-        },
-      },
-      {
-        data: {
-          type: "share",
-          shareId: share.id,
-          resolution: { width: 1088, height: 362 },
-          googleCloudStorage: {
-            filename: `strava-activities/${share.activity.id}/feed-group.png`,
-          },
-        },
-      },
-    ]);
-  }
 }
 
 function startServer() {
@@ -119,7 +74,6 @@ function startServer() {
 
 async function main() {
   await pgMigrate();
-  await triggerAllShares();
   startServer();
 }
 main();
