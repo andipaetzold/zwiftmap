@@ -17,6 +17,7 @@ import edgeJungle4 from "./edges/jungle-4";
 import edgeJungleBridge from "./edges/jungle-bridge";
 import edgeJunglePaddockEast from "./edges/jungle-paddock-east";
 import edgeJunglePaddockWest from "./edges/jungle-paddock-west";
+import edgeJWBCliff from "./edges/jwb-cliff";
 import edgeMainBetweenExits from "./edges/main-between-exits";
 import edgeMainEast1 from "./edges/main-east-1";
 import edgeMainEast2 from "./edges/main-east-2";
@@ -25,6 +26,8 @@ import edgeMainKOM2 from "./edges/main-kom-2";
 import edgeMainKOM3 from "./edges/main-kom-3";
 import edgeMainKOM4 from "./edges/main-kom-4";
 import edgeMainKOMBypass from "./edges/main-kom-bypass";
+import edgeMainPaddockEast from "./edges/main-paddock-east";
+import edgeMainPaddockWest from "./edges/main-paddock-west";
 import edgeMainJunction1 from "./edges/main-south-junction-1";
 import edgeMainJunction2 from "./edges/main-south-junction-2";
 import edgeMainJunction3 from "./edges/main-south-junction-3";
@@ -47,7 +50,10 @@ import edgeRadioClimb from "./edges/radio-climb";
 import edgeRadioRoundabout from "./edges/radio-roundabout";
 import edgeTitansFuegoNorth from "./edges/titans-fuego-north";
 import edgeTitansFuegoSouth from "./edges/titans-fuego-south";
-import edgeTitansGrove from "./edges/titans-grove";
+import edgeTitansGroveMiddle from "./edges/titans-grove-middle";
+import edgeTitansGroveNorth from "./edges/titans-grove-north";
+import edgeTitansGroveSouth from "./edges/titans-grove-south";
+import edgeTitansRepackRidge from "./edges/titans-repack-ridge";
 import edgeVolcano1 from "./edges/volcano-1";
 import edgeVolcano2 from "./edges/volcano-2";
 import edgeVolcano3 from "./edges/volcano-3";
@@ -55,9 +61,6 @@ import edgeVolcanoKOM from "./edges/volcano-kom";
 import edgeVolcanoNorth from "./edges/volcano-north";
 import edgeVolcanoSouth from "./edges/volcano-south";
 import edgeVolcanoTop from "./edges/volcano-top";
-import edgeJWBCliff from "./edges/jwb-cliff";
-import edgeMainPaddockEast from "./edges/main-paddock-east";
-import edgeMainPaddockWest from "./edges/main-paddock-west";
 
 const ROADS = new Roads();
 
@@ -187,10 +190,27 @@ ROADS.createEdge(EPIC_KOM_BYPASS_EAST, OCEAN_EAST, edgeOceanEast1);
 
 // Titans Grove
 const TITANS_NORTH = ROADS.createNode([-11.636581, 166.969395, 11.8]);
+const TITANS_REPACK_RIDGE_NORTH = ROADS.createNode([
+  -11.646597, 166.974335, 42.4,
+]);
+const TITANS_REPACK_RIDGE_SOUTH = ROADS.createNode([
+  -11.650538, 166.973723, 65.2,
+]);
 const TITANS_SOUTH = ROADS.createNode([-11.659446, 166.976759, 28]);
-ROADS.createEdge(TITANS_SOUTH, TITANS_NORTH, edgeTitansGrove);
+ROADS.createEdge(TITANS_REPACK_RIDGE_NORTH, TITANS_NORTH, edgeTitansGroveNorth);
+ROADS.createEdge(
+  TITANS_REPACK_RIDGE_SOUTH,
+  TITANS_REPACK_RIDGE_NORTH,
+  edgeTitansGroveMiddle
+);
+ROADS.createEdge(TITANS_SOUTH, TITANS_REPACK_RIDGE_SOUTH, edgeTitansGroveSouth);
 ROADS.createEdge(OCEAN_NORTH, TITANS_NORTH, edgeMainTitansNorth);
 ROADS.createEdge(TITANS_SOUTH, OCEAN_EAST, edgeOceanTitansSouth);
+ROADS.createEdge(
+  TITANS_REPACK_RIDGE_NORTH,
+  TITANS_REPACK_RIDGE_SOUTH,
+  edgeTitansRepackRidge
+);
 
 // Main Paddock
 const MAIN_PADDOCK_1 = ROADS.createNode([-11.635633, 166.95485, 5]);
