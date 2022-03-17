@@ -1,6 +1,6 @@
 {
   "name": "chrome-extension",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Replace real-world maps with Zwift maps when visiting Strava",
   "author": "Andi Pätzold",
   "license": "MIT",
