@@ -84,20 +84,6 @@ async function createShare(
       data: {
         type: "share",
         shareId: share.id,
-        resolution: { width: 1920, height: 1080 },
-        cloudinary: {
-          folder: "s",
-          publicId: share.id,
-        },
-        googleCloudStorage: {
-          filename: `shares/${share.id}.png`,
-        },
-      },
-    },
-    {
-      data: {
-        type: "share",
-        shareId: share.id,
         resolution: { width: 1088, height: 436 },
         googleCloudStorage: {
           filename: `strava-activities/${activity.id}/feed-wide.png`,

@@ -42,7 +42,6 @@
     "@sentry/tracing": "6.18.1",
     "axios": "0.26.1",
     "bull": "4.7.0",
-    "cloudinary": "1.28.1",
     "compression": "1.7.4",
     "concurrently": "7.0.0",
     "connect-redis": "6.1.2",

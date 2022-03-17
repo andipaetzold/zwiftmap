@@ -20,10 +20,6 @@ export interface ImageQueueJobData {
   shareId: string;
 
   resolution: { width: number; height: number };
-  cloudinary?: {
-    folder: string;
-    publicId: string;
-  };
   googleCloudStorage?: {
     filename: string;
   };

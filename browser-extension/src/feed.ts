@@ -53,7 +53,7 @@ function handleFeedNode(node: Node) {
 }
 
 function handleFeedActivityNode(contentNode: HTMLElement, { activity }: any) {
-  const shareId = extractShareId(activity.description ?? "");
+  const shareId = hasSharedLink(activity.description ?? "");
   if (!shareId) {
     return;
   }
@@ -68,23 +68,15 @@ function handleFeedActivityNode(contentNode: HTMLElement, { activity }: any) {
   const ratio = rect.width / rect.height;
 
   if (Math.abs(ratio - 1) < 0.1) {
-    replaceImage(
-      mapImage,
-      `/strava-activities/${activity.id}/feed-square.png`,
-      extractShareId(activity.description)!
-    );
+    replaceImage(mapImage, `/strava-activities/${activity.id}/feed-square.png`);
   } else {
-    replaceImage(
-      mapImage,
-      `/strava-activities/${activity.id}/feed-wide.png`,
-      extractShareId(activity.description)!
-    );
+    replaceImage(mapImage, `/strava-activities/${activity.id}/feed-wide.png`);
   }
 }
 
 function handleFeedGroupActivityNode(contentNode: HTMLElement, props: any) {
-  const activity = props.rowData.activities.find(
-    (activity) => !!extractShareId(activity.description ?? "")
+  const activity = props.rowData.activities.find((activity) =>
+    hasSharedLink(activity.description ?? "")
   );
   if (!activity) {
     return;
@@ -98,33 +90,18 @@ function handleFeedGroupActivityNode(contentNode: HTMLElement, props: any) {
 
   replaceImage(
     mapImage,
-    `/strava-activities/${activity.activity_id}/feed-group.png`,
-    extractShareId(activity.description)!
+    `/strava-activities/${activity.activity_id}/feed-group.png`
   );
 }
 
-async function replaceImage(
-  element: HTMLImageElement,
-  path: string,
-  shareId: string
-) {
+async function replaceImage(element: HTMLImageElement, path: string) {
   const imagesUrl = `https://storage.googleapis.com/images.zwiftmap.com${path}`;
-  const cloudinaryUrl = `https://res.cloudinary.com/zwiftmap/image/upload/s/${shareId}`;
 
   element.removeAttribute("srcset");
-
   element.setAttribute("src", imagesUrl);
-  element.setAttribute(
-    "onerror",
-    `this.onerror=null;this.src='${cloudinaryUrl}'`
-  );
 }
 
-function extractShareId(description: string): string | undefined {
+function hasSharedLink(description: string): boolean {
   const match = PATTERN_URL.exec(description);
-  if (!match) {
-    return;
-  }
-
-  return match[1];
+  return match !== null;
 }
