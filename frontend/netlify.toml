@@ -9,7 +9,7 @@ status = 200
 to = "/index.html"
 
 [[headers]]
-for = "/static/*"
+for = "/assets/*"
 [headers.values]
 Cache-Control = "public, max-age=31536000"
 
