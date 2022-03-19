@@ -14,16 +14,6 @@ for = "/assets/*"
 Cache-Control = "public, max-age=31536000"
 
 [[headers]]
-for = "/routes/*"
-[headers.values]
-Cache-Control = "public, max-age=604800"
-
-[[headers]]
-for = "/segments/*"
-[headers.values]
-Cache-Control = "public, max-age=604800"
-
-[[headers]]
 for = "/strava-segments/*"
 [headers.values]
 Cache-Control = "public, max-age=604800"
