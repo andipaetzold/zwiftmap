@@ -9,10 +9,16 @@
   "lockFileMaintenance": {
     "enabled": true
   },
+  "stabilityDays": 3,
+  "prCreation": "not-pending",
   "packageRules": [
     {
       "matchPackagePatterns": ["^@react-md/"],
       "groupName": "react-md monorepo"
+    },
+    {
+      "matchPackagePatterns": ["zwift-data"],
+      "stabilityDays": 0
     }
   ],
   "postUpdateOptions": ["npmDedupe"],
