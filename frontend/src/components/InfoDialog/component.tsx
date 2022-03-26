@@ -4,8 +4,9 @@ import {
   DialogContent,
   DialogFooter,
   DialogHeader,
-  DialogTitle
+  DialogTitle,
 } from "@react-md/dialog";
+import { Link } from "@react-md/link";
 import { Typography } from "@react-md/typography";
 import styles from "./component.module.scss";
 
@@ -26,17 +27,19 @@ export default function InfoDialog({ onClose }: Props) {
         <DialogTitle id="info-dialog-title">ZwiftMap</DialogTitle>
       </DialogHeader>
       <DialogContent>
-        <Typography>ZwiftMap is a fan project created by Andi Pätzold.</Typography>
+        <Typography>
+          ZwiftMap is a fan project created by Andi Pätzold.
+        </Typography>
 
         <Typography>
           All code is open source and available on{" "}
-          <a
+          <Link
             href="https://github.com/andipaetzold/zwiftmap"
             rel="noreferrer noopener"
             target="_blank"
           >
             GitHub
-          </a>
+          </Link>
           .
         </Typography>
 
@@ -45,57 +48,61 @@ export default function InfoDialog({ onClose }: Props) {
         </Typography>
         <ul>
           <li>
-            <a
+            <Link
               href="https://strava.com"
               rel="noreferrer noopener"
               target="_blank"
             >
               Strava
-            </a>
+            </Link>
           </li>
           <li>
-            <a
+            <Link
               href="https://whatsonzwift.com"
               rel="noreferrer noopener"
               target="_blank"
             >
               What's on Zwift
-            </a>
+            </Link>
           </li>
           <li>
-            <a
+            <Link
               href="https://zwift.com"
               rel="noreferrer noopener"
               target="_blank"
             >
               Zwift
-            </a>
+            </Link>
           </li>
           <li>
-            <a
+            <Link
               href="https://zwifthub.com"
               rel="noreferrer noopener"
               target="_blank"
             >
               ZwiftHub
-            </a>
+            </Link>
           </li>
           <li>
-            <a
+            <Link
               href="https://zwiftpower.com"
               rel="noreferrer noopener"
               target="_blank"
             >
               Zwift Power
-            </a>
+            </Link>
           </li>
         </ul>
 
         <Typography>
           World maps were created by{" "}
-          <a href="https://zwift.com" rel="noreferrer noopener" target="_blank">
+          <Link
+            href="https://zwift.com"
+            rel="noreferrer noopener"
+            target="_blank"
+          >
             Zwift
-          </a>
+          </Link>
           .
         </Typography>
 
@@ -110,28 +117,30 @@ export default function InfoDialog({ onClose }: Props) {
         <Typography>
           Andi Pätzold
           <br />
-          <a
+          <Link
             href="mailto:info@zwiftmap.com"
             rel="noreferrer noopener"
             target="_blank"
           >
             info@zwiftmap.com
-          </a> or <a
+          </Link>{" "}
+          or{" "}
+          <Link
             href="https://twitter.com/andipaetzold"
             rel="noreferrer noopener"
             target="_blank"
           >
             Twitter
-          </a>
+          </Link>
           <br />
           Support this project via{" "}
-          <a
+          <Link
             href="https://paypal.com/donate?hosted_button_id=PWQGBVL8H88QW"
             rel="noreferrer noopener"
             target="_blank"
           >
             PayPal
-          </a>
+          </Link>
         </Typography>
       </DialogContent>
       <DialogFooter>
