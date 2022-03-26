@@ -4,7 +4,7 @@ import {
   DialogContent,
   DialogFooter,
   DialogHeader,
-  DialogTitle,
+  DialogTitle
 } from "@react-md/dialog";
 import { Typography } from "@react-md/typography";
 import styles from "./component.module.scss";
@@ -116,6 +116,12 @@ export default function InfoDialog({ onClose }: Props) {
             target="_blank"
           >
             info@zwiftmap.com
+          </a> or <a
+            href="https://twitter.com/andipaetzold"
+            rel="noreferrer noopener"
+            target="_blank"
+          >
+            Twitter
           </a>
           <br />
           Support this project via{" "}
