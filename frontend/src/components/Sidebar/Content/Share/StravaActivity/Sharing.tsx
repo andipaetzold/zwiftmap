@@ -8,14 +8,10 @@ import { FileDownloadSVGIcon, ShareSVGIcon } from "@react-md/material-icons";
 import { shareImage } from "../../../../../util/shareImage";
 
 interface Props {
-  url: string | null;
+  url: string;
 }
 
 export function SharedStravaActivitySharing({ url }: Props) {
-  if (url === null) {
-    return null;
-  }
-
   if ("share" in navigator) {
     return (
       <>
