@@ -49,7 +49,7 @@ export function ButtonState({
         theme,
         themeType,
         buttonType,
-        className: c(styles.link, className),
+        className: c(styles.Link, className),
       })}
       onClick={handleClick}
       href={createUrl(state)}
