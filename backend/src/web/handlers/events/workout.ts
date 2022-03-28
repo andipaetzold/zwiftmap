@@ -168,35 +168,19 @@ function createImage(parsedXML: any) {
     })
   );
 
-  const intervalsWithRelativeValues: Interval[] = intervals.map(
-    (interval): Interval => {
-      const duration = interval.duration / totalDuration;
-
-      switch (interval.type) {
-        case "free-ride":
-          return { type: "free-ride", duration };
-        case "ramp":
-          return {
-            type: "ramp",
-            duration,
-            from: interval.from / maxPower,
-            to: interval.to / maxPower,
-          };
-        case "bar":
-          return { type: "bar", duration, power: interval.power / maxPower };
-      }
-    }
+  const intervalsWithRelativeDuration: Interval[] = intervals.map(
+    (interval) => ({ ...interval, duration: interval.duration / totalDuration })
   );
 
   const svgNodes: any[] = [];
   let currentTime = 0;
-  for (const interval of intervalsWithRelativeValues) {
+  for (const interval of intervalsWithRelativeDuration) {
     switch (interval.type) {
       case "ramp":
-        svgNodes.push(...createRamp(currentTime, interval));
+        svgNodes.push(...createRamp(currentTime, interval, maxPower));
         break;
       case "bar":
-        svgNodes.push(...createBar(currentTime, interval));
+        svgNodes.push(...createBar(currentTime, interval, maxPower));
         break;
       case "free-ride":
         svgNodes.push(...createFreeRide(currentTime, interval));
@@ -219,7 +203,11 @@ function createImage(parsedXML: any) {
   return doc.end({ prettyPrint: true });
 }
 
-function createRamp(start: number, interval: RampInterval): any[] {
+function createRamp(
+  start: number,
+  interval: RampInterval,
+  maxPower: number
+): any[] {
   const lowPower = Math.min(interval.from, interval.to);
   const highPower = Math.max(interval.from, interval.to);
   const powerAmplitude = highPower - lowPower;
@@ -241,24 +229,32 @@ function createRamp(start: number, interval: RampInterval): any[] {
         start +
         (interval.duration / powerAmplitude) * Math.abs(interval.from - from);
 
-      return createRamp(newStart, {
-        type: "ramp",
-        duration,
-        from,
-        to,
-      });
+      return createRamp(
+        newStart,
+        {
+          type: "ramp",
+          duration,
+          from,
+          to,
+        },
+        maxPower
+      );
     });
   }
 
   const zone = zonesInInterval[0];
+
+  const relativePowerFrom = interval.from / maxPower;
+  const relativePowerTo = interval.to / maxPower;
+
   return [
     {
       path: {
         "@d": [
           `M ${start * WIDTH},${HEIGHT}`,
-          `L ${start * WIDTH},${(1 - interval.from) * HEIGHT}`,
+          `L ${start * WIDTH},${(1 - relativePowerFrom) * HEIGHT}`,
           `L ${(start + interval.duration) * WIDTH},${
-            (1 - interval.to) * HEIGHT
+            (1 - relativePowerTo) * HEIGHT
           }`,
           `L ${(start + interval.duration) * WIDTH},${HEIGHT}`,
         ].join("\n"),
@@ -269,13 +265,14 @@ function createRamp(start: number, interval: RampInterval): any[] {
   ];
 }
 
-function createBar(start: number, interval: BarInterval) {
+function createBar(start: number, interval: BarInterval, maxPower: number) {
+  const relativePower = interval.power / maxPower;
   return [
     {
       rect: {
         "@x": start * WIDTH,
-        "@y": (1 - interval.power) * HEIGHT,
-        "@height": interval.power * HEIGHT,
+        "@y": (1 - relativePower) * HEIGHT,
+        "@height": relativePower * HEIGHT,
         "@width": interval.duration * WIDTH,
         "@stroke-width": 0,
         "@fill": getColorForPower(interval.power),
