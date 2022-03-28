@@ -8,9 +8,9 @@ import {
   BarInterval,
   FreeRideInterval,
   Interval,
-  RampInterval
+  RampInterval,
 } from "./workout/types";
-import { getColorForPower } from "./workout/util";
+import { getColorForPower, getPowerForZone } from "./workout/util";
 
 const HEIGHT = 250;
 const WIDTH = 1_000;
@@ -63,23 +63,43 @@ function createImage(parsedXML: any) {
   const intervals: Interval[] = workout
     .flatMap((node): Interval[] => {
       if ("Warmup" in node) {
-        return [
-          {
-            type: "ramp",
-            duration: node[":@"].Duration,
-            from: node[":@"].PowerLow,
-            to: node[":@"].PowerHigh,
-          },
-        ];
+        if (node[":@"].Zone) {
+          return [
+            {
+              type: "bar",
+              duration: node[":@"].Duration,
+              power: getPowerForZone(node[":@"].Zone),
+            },
+          ];
+        } else {
+          return [
+            {
+              type: "ramp",
+              duration: node[":@"].Duration,
+              from: node[":@"].PowerLow,
+              to: node[":@"].PowerHigh,
+            },
+          ];
+        }
       } else if ("Cooldown" in node) {
-        return [
-          {
-            type: "ramp",
-            duration: node[":@"].Duration,
-            from: node[":@"].PowerLow,
-            to: node[":@"].PowerHigh,
-          },
-        ];
+        if (node[":@"].Zone) {
+          return [
+            {
+              type: "bar",
+              duration: node[":@"].Duration,
+              power: getPowerForZone(node[":@"].Zone),
+            },
+          ];
+        } else {
+          return [
+            {
+              type: "ramp",
+              duration: node[":@"].Duration,
+              from: node[":@"].PowerLow,
+              to: node[":@"].PowerHigh,
+            },
+          ];
+        }
       } else if ("SteadyState" in node) {
         return [
           {
