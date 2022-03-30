@@ -17,6 +17,7 @@ import {
   PATTERN_STRAVA_ACTIVITY,
   PATTERN_WORLD,
 } from "./services/routing";
+import { registerSW } from "virtual:pwa-register";
 
 Sentry.init({
   enabled: ((import.meta.env.VITE_SENTRY_DSN as string) ?? "").length > 0,
@@ -96,3 +97,5 @@ ReactDOM.render(
   </StrictMode>,
   document.getElementById("root")
 );
+
+registerSW();
