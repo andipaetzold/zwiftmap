@@ -17,3 +17,8 @@ Cache-Control = "public, max-age=31536000"
 for = "/strava-segments/*"
 [headers.values]
 Cache-Control = "public, max-age=604800"
+
+[[headers]]
+for = "/manifest.webmanifest"
+[headers.values]
+Content-Type = "application/manifest+json"
