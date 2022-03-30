@@ -89,6 +89,7 @@
     "schema-dts": "1.1.0",
     "typescript": "4.6.3",
     "vite": "2.8.6",
+    "vite-plugin-pwa": "0.11.13",
     "vitest": "0.7.10"
   }
 }
