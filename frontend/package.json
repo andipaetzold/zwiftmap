@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@mapbox/polyline": "1.1.1",
-    "@react-leaflet/core": "1.0.2",
+    "@react-leaflet/core": "1.1.1",
     "@react-md/alert": "5.1.2",
     "@react-md/avatar": "5.1.2",
     "@react-md/button": "5.1.2",
@@ -43,7 +43,7 @@
     "react-async-hook": "4.0.0",
     "react-dom": "17.0.2",
     "react-helmet-async": "1.2.3",
-    "react-leaflet": "3.1.0",
+    "react-leaflet": "3.2.5",
     "react-responsive": "9.0.0-beta.6",
     "react-schemaorg": "2.0.0",
     "recharts": "2.1.9",
