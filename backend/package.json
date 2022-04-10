@@ -38,8 +38,8 @@
   },
   "dependencies": {
     "@google-cloud/storage": "5.19.0",
-    "@sentry/node": "6.18.1",
-    "@sentry/tracing": "6.18.1",
+    "@sentry/node": "6.19.6",
+    "@sentry/tracing": "6.19.6",
     "axios": "0.26.1",
     "bull": "4.8.1",
     "compression": "1.7.4",
