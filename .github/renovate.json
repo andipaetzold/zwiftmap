@@ -21,9 +21,5 @@
       "stabilityDays": 0
     }
   ],
-  "postUpdateOptions": ["npmDedupe"],
-  "ignoreDeps": [
-    "@sentry/node",
-    "@sentry/tracing"
-  ]
+  "postUpdateOptions": ["npmDedupe"]
 }

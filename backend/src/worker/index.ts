@@ -1,4 +1,5 @@
 import * as Sentry from "@sentry/node";
+import "@sentry/tracing";
 import { SENTRY_WORKER_DSN } from "../shared/config";
 import { imageQueue, stravaWebhookEventQueue } from "../shared/queue";
 import { handleImage } from "./image";
