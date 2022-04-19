@@ -1,4 +1,5 @@
 import * as Sentry from "@sentry/node";
+import "@sentry/tracing";
 import * as Tracing from "@sentry/tracing";
 import runner from "node-pg-migrate";
 import "source-map-support/register";
