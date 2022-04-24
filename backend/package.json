@@ -41,7 +41,7 @@
     "@sentry/node": "6.19.6",
     "@sentry/tracing": "6.19.6",
     "axios": "0.26.1",
-    "bull": "4.8.1",
+    "bull": "4.8.2",
     "compression": "1.7.4",
     "concurrently": "7.1.0",
     "connect-redis": "6.1.3",
