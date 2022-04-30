@@ -40,7 +40,7 @@
     "@google-cloud/storage": "5.19.3",
     "@sentry/node": "6.19.7",
     "@sentry/tracing": "6.19.7",
-    "axios": "0.26.1",
+    "axios": "0.27.2",
     "bull": "4.8.2",
     "compression": "1.7.4",
     "concurrently": "7.1.0",
