@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build": "esbuild src/inject.ts src/script.ts --bundle --outdir=dist && node ./scripts/pack.mjs",
-    "dev": "npm run build -- --watch"
+    "dev": "esbuild src/inject.ts src/script.ts --bundle --outdir=dist --watch"
   },
   "devDependencies": {
     "@types/adm-zip": "0.5.0",
