@@ -52,13 +52,21 @@ export async function handleGetEventWorkout(req: Request, res: Response) {
   const workout = parser.parse(xmlData);
   const image = createImage(workout);
 
+  if (!image) {
+    res.sendStatus(404);
+    return;
+  }
+
   res.status(200).contentType("svg").send(image);
 }
 
 function createImage(parsedXML: any) {
   const workout: any[] = parsedXML
-    .find((node: any) => "workout_file" in node)!
-    .workout_file.find((node: any) => "workout" in node).workout;
+    .find((node: any) => "workout_file" in node)
+    ?.workout_file.find((node: any) => "workout" in node)?.workout;
+  if (!workout) {
+    return;
+  }
 
   const intervals: Interval[] = workout
     .flatMap((node): Interval[] => {
