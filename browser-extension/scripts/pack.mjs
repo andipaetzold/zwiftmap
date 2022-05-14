@@ -24,7 +24,6 @@ function createChromeSource() {
 
   zip.addLocalFile("manifest.json");
   zip.addLocalFile("package.json");
-  zip.addLocalFile("package-lock.json");
   zip.addLocalFile("README.md");
   zip.addLocalFolder("assets", "assets");
   zip.addLocalFolder("src", "src");
@@ -37,7 +36,6 @@ function createFirefoxSource() {
 
   zip.addLocalFile("manifest.v2.json", undefined, "manifest.json");
   zip.addLocalFile("package.json");
-  zip.addLocalFile("package-lock.json");
   zip.addLocalFile("README.md");
   zip.addLocalFolder("assets", "assets");
   zip.addLocalFolder("src", "src");

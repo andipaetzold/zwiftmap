@@ -1,5 +1,5 @@
 {
-  "name": "zwiftmap-backend",
+  "name": "@zwiftmap/backend",
   "version": "0.0.0",
   "private": true,
   "engines": {
