@@ -15,7 +15,7 @@ export default defineConfig({
     alias: [
       {
         find: /~(.+)/,
-        replacement: join(process.cwd(), "node_modules/$1"),
+        replacement: "$1",
       },
     ],
   },

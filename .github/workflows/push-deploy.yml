@@ -4,7 +4,20 @@ on:
   - push
 
 jobs:
+  build-and-test:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Switch node version
+        shell: bash -l {0}
+        run: nvm install
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+
   frontend:
+    needs: build-and-test
     runs-on: ubuntu-20.04
 
     steps:
@@ -13,24 +26,17 @@ jobs:
         shell: bash -l {0}
         run: nvm install
 
-      - name: Install
-        run: npm install --no-optional
-        working-directory: frontend
-      - name: Test
-        run: npm test
-        working-directory: frontend
+      - run: npm ci
       - name: Build
-        run: npm run build
-        working-directory: frontend
+        run: npm run build -- --filter=@zwiftmap/frontend
 
       - name: Deploy
         run: |
           if [[ ${{ github.ref }} == "refs/heads/main" ]]; then
-            npm run deploy -- --prod
+            npm run deploy  -- --filter=@zwiftmap/frontend -- --prod
           else
-            npm run deploy
+            npm run deploy -- --filter=@zwiftmap/frontend
           fi
-        working-directory: frontend
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
@@ -40,13 +46,14 @@ jobs:
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-          SENTRY_PROJECT: frontend
         with:
           sourcemaps: frontend/build/static/js
           environment: production
           ignore_empty: true
+          projects: frontend
 
   backend:
+    needs: build-and-test
     runs-on: ubuntu-20.04
 
     steps:
@@ -55,38 +62,28 @@ jobs:
         shell: bash -l {0}
         run: nvm install
 
-      - name: Install
-        run: npm ci
-        working-directory: backend
-      - name: Build
-        run: npm run build
-        working-directory: backend
-      - name: Sentry Release
+      - run: npm ci
+      - run: npm run build -- --filter=@zwiftmap/backend
+
+      - name: Sentry Release (web)
         if: github.ref == 'refs/heads/main'
         uses: getsentry/action-release@v1.1.6
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
         with:
+          sourcemaps: backend/build-web
           environment: production
           ignore_empty: true
-          projects: web worker
-
-  browser-extension:
-    runs-on: ubuntu-20.04
-
-    steps:
-      - uses: actions/checkout@v3
-      - name: Switch node version
-        shell: bash -l {0}
-        run: nvm install
-
-      - name: Install
-        run: npm ci
-        working-directory: browser-extension
-      - name: Build
-        run: npm run build
-        working-directory: browser-extension
-      - name: Pack
-        run: npm run pack
-        working-directory: browser-extension
+          projects: web
+      - name: Sentry Release (worker)
+        if: github.ref == 'refs/heads/main'
+        uses: getsentry/action-release@v1.1.6
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+        with:
+          sourcemaps: backend/build-worker
+          environment: production
+          ignore_empty: true
+          projects: worker
