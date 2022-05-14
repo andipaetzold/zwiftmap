@@ -6,7 +6,7 @@
     "node": "16.15.0"
   },
   "scripts": {
-    "start:both": "concurrently -n web,worker npm:start:web npm:start:worker",
+    "start": "concurrently -n web,worker npm:start:web npm:start:worker",
     "start:web": "node ./build-web/web",
     "start:worker": "node ./build-worker/worker",
     "dev:web": "node ./scripts/start-web.mjs",

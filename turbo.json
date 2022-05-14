@@ -16,6 +16,9 @@
     "deploy": {
       "outputs": []
     },
+    "start": {
+      "outputs": []
+    },
     "test": {
       "outputs": []
     }

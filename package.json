@@ -8,6 +8,7 @@
     "frontend"
   ],
   "scripts": {
+    "start": "turbo run start",
     "build": "turbo run build",
     "deploy": "turbo run deploy",
     "test": "CI=true turbo run test"
