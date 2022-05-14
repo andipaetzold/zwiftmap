@@ -7,6 +7,9 @@
     "browser-extension",
     "frontend"
   ],
+  "engines": {
+    "node": "16.15.0"
+  },
   "scripts": {
     "start": "turbo run start",
     "build": "turbo run build",
