@@ -21,6 +21,7 @@ jobs:
   frontend:
     needs: build-and-test
     runs-on: ubuntu-20.04
+    if: github.ref == 'refs/heads/main'
 
     steps:
       - uses: actions/checkout@v3
@@ -35,17 +36,11 @@ jobs:
         run: npm run build -- --filter=@zwiftmap/frontend
 
       - name: Deploy
-        run: |
-          if [[ ${{ github.ref }} == "refs/heads/main" ]]; then
-            npm run deploy  -- --filter=@zwiftmap/frontend -- --prod
-          else
-            npm run deploy -- --filter=@zwiftmap/frontend
-          fi
+        run: npm run deploy  -- --filter=@zwiftmap/frontend -- --prod
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
       - name: Sentry Release
-        if: github.ref == 'refs/heads/main'
         uses: getsentry/action-release@v1.1.6
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
@@ -59,6 +54,7 @@ jobs:
   backend:
     needs: build-and-test
     runs-on: ubuntu-20.04
+    if: github.ref == 'refs/heads/main'
 
     steps:
       - uses: actions/checkout@v3
@@ -72,7 +68,6 @@ jobs:
       - run: npm run build -- --filter=@zwiftmap/backend
 
       - name: Sentry Release (web)
-        if: github.ref == 'refs/heads/main'
         uses: getsentry/action-release@v1.1.6
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
@@ -83,7 +78,6 @@ jobs:
           ignore_empty: true
           projects: web
       - name: Sentry Release (worker)
-        if: github.ref == 'refs/heads/main'
         uses: getsentry/action-release@v1.1.6
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
