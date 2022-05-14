@@ -13,7 +13,7 @@
   "scripts": {
     "start": "turbo run start",
     "build": "turbo run build",
-    "heroku-postbuild": "turbo run build -- --filter=@zwiftmap/backend",
+    "heroku-postbuild": "turbo run build --filter=@zwiftmap/backend",
     "deploy": "turbo run deploy",
     "test": "CI=true turbo run test"
   },
