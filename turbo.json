@@ -9,6 +9,7 @@
         "dist/**",
         "dist-web/**",
         "dist-worker/**",
+        "lib/**",
         "extension-*.zip",
         "source-*.zip"
       ]

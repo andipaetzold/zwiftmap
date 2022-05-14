@@ -8,8 +8,7 @@ import {
 } from "react-leaflet";
 import { World, WorldSlug } from "zwift-data";
 import { ENVIRONMENT } from "../../config";
-import { WORLD_ROADS } from "../../constants/roads";
-import { Roads } from "../../services/Roads";
+import { Roads, WORLD_ROADS } from "@zwiftmap/roads";
 import { dropAltitude } from "../../util/drop-altitude";
 
 interface Props {

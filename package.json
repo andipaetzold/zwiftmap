@@ -5,7 +5,8 @@
   "workspaces": [
     "backend",
     "browser-extension",
-    "frontend"
+    "frontend",
+    "packages/**"
   ],
   "engines": {
     "node": "16.15.0"
