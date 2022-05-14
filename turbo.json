@@ -14,9 +14,15 @@
       ]
     },
     "deploy": {
+      "cache": false,
+      "outputs": []
+    },
+    "dev": {
+      "cache": false,
       "outputs": []
     },
     "start": {
+      "cache": false,
       "outputs": []
     },
     "test": {

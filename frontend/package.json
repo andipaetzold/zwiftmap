@@ -51,7 +51,8 @@
     "zwift-data": "1.16.0"
   },
   "scripts": {
-    "start": "VITE_GIT_SHA=`git rev-parse --short HEAD` vite",
+    "start": "npm run dev",
+    "dev": "VITE_GIT_SHA=`git rev-parse --short HEAD` vite",
     "prebuild": "npm run prebuild:fetch-segments && npm run prebuild:sitemap && npm run prebuild:assets",
     "prebuild:fetch-segments": "node scripts/fetch-segments.mjs",
     "prebuild:sitemap": "node scripts/create-sitemap.mjs",

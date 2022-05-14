@@ -9,6 +9,7 @@
     "start": "concurrently -n web,worker npm:start:web npm:start:worker",
     "start:web": "node ./build-web/web",
     "start:worker": "node ./build-worker/worker",
+    "dev": "concurrently -n web,worker npm:dev:web npm:dev:worker",
     "dev:web": "node ./scripts/start-web.mjs",
     "dev:worker": "tsc-watch -P worker.tsconfig.json --preserveWatchOutput --onSuccess \"node ./build-worker/worker\"",
     "build": "npm run build:web && npm run build:worker",
