@@ -9,9 +9,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Switch node version
-        shell: bash -l {0}
-        run: nvm install
+      - name: Use node
+        uses: actions/setup-node@v2.5.1
+        with:
+          cache: "npm"
+          node-version-file: ".nvmrc"
       - run: npm ci
       - run: npm test
       - run: npm run build
@@ -22,9 +24,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Switch node version
-        shell: bash -l {0}
-        run: nvm install
+      - name: Use node
+        uses: actions/setup-node@v2.5.1
+        with:
+          cache: "npm"
+          node-version-file: ".nvmrc"
 
       - run: npm ci
       - name: Build
@@ -58,9 +62,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Switch node version
-        shell: bash -l {0}
-        run: nvm install
+      - name: Use node
+        uses: actions/setup-node@v2.5.1
+        with:
+          cache: "npm"
+          node-version-file: ".nvmrc"
 
       - run: npm ci
       - run: npm run build -- --filter=@zwiftmap/backend
