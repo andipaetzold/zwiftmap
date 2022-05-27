@@ -22,6 +22,6 @@
     "zwift-data": "1.16.0"
   },
   "devDependencies": {
-    "typescript": "4.7.1-rc"
+    "typescript": "4.7.2"
   }
 }

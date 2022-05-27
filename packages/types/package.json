@@ -16,6 +16,6 @@
     "@tsconfig/recommended": "1.0.1"
   },
   "devDependencies": {
-    "typescript": "4.7.1-rc"
+    "typescript": "4.7.2"
   }
 }
