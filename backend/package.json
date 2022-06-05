@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "engines": {
-    "node": "16.15.0"
+    "node": "16.15.1"
   },
   "scripts": {
     "start": "concurrently -n web,worker npm:start:web npm:start:worker",
@@ -27,7 +27,7 @@
     "@types/express-session": "1.17.4",
     "@types/lodash": "4.14.182",
     "@types/morgan": "1.9.3",
-    "@types/node": "16.11.36",
+    "@types/node": "16.11.38",
     "@types/pg": "8.6.5",
     "@types/redis": "2.8.32",
     "@types/sharp": "0.30.2",
