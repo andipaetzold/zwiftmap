@@ -84,7 +84,7 @@
     "@vitejs/plugin-react": "1.3.2",
     "cli-progress": "3.11.1",
     "happy-dom": "5.2.0",
-    "netlify-cli": "10.4.0",
+    "netlify-cli": "10.5.1",
     "prettier": "2.6.2",
     "pwa-asset-generator": "6.1.0",
     "sass": "1.52.3",
