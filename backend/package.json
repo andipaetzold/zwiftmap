@@ -18,7 +18,7 @@
     "pg-migrate": "node-pg-migrate"
   },
   "devDependencies": {
-    "@tsconfig/node16": "1.0.2",
+    "@tsconfig/node16": "1.0.3",
     "@types/bull": "3.15.8",
     "@types/compression": "1.7.2",
     "@types/connect-redis": "0.0.18",
