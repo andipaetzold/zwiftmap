@@ -1,5 +1,5 @@
 import { LatLngBoundsExpression, Map as MapType } from "leaflet";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { RefObject, useCallback, useEffect, useRef, useState } from "react";
 import {
   LayerGroup,
   LayersControl,
@@ -40,30 +40,33 @@ export function Map({ state, world, routeStreams }: Props) {
     state.overlay,
     state.setOverlay,
   ]);
-  const [map, setMap] = useState<MapType | undefined>();
+
+  const mapRef = useRef<MapType>(null);
 
   useEffect(() => {
-    if (map === undefined) {
+    if (!mapRef.current) {
       return;
     }
-    const minZoom = map.getBoundsZoom(world.bounds, false);
-    map.setMinZoom(minZoom);
-  }, [map, world.bounds]);
 
-  const flyToBounds = useFlyToBounds(map);
+    const minZoom = mapRef.current.getBoundsZoom(world.bounds, false);
+    mapRef.current.setMinZoom(minZoom);
+  }, [mapRef.current, world.bounds]);
+
+  const flyToBounds = useFlyToBounds(mapRef);
   const firstLoad = useRef<boolean>(true);
+
   useEffect(() => {
-    if (!map) {
+    if (!mapRef.current) {
       return;
     }
 
     const worldConfig = worldConfigs[world.slug];
 
-    map.invalidateSize();
+    mapRef.current.invalidateSize();
 
     if (state.type === "default") {
       if (firstLoad.current) {
-        map.fitBounds(worldConfig.initialBounds, { animate: false });
+        mapRef.current.fitBounds(worldConfig.initialBounds, { animate: false });
         firstLoad.current = false;
       } else {
         flyToBounds(worldConfig.initialBounds);
@@ -75,20 +78,20 @@ export function Map({ state, world, routeStreams }: Props) {
         const bounds = getBounds(routeStreams.latlng);
 
         if (firstLoad.current) {
-          map.fitBounds(bounds, { animate: false });
+          mapRef.current.fitBounds(bounds, { animate: false });
           firstLoad.current = false;
         } else {
           flyToBounds(bounds);
         }
       }
     }
-  }, [map, routeStreams, world, state.type, flyToBounds]);
+  }, [mapRef.current, routeStreams, world, state.type, flyToBounds]);
 
   const worldConfig = worldConfigs[world.slug];
 
   return (
     <MapContainer
-      whenCreated={setMap}
+      ref={mapRef}
       bounds={world.bounds}
       maxBounds={world.bounds}
       style={{ backgroundColor: worldConfig.backgroundColor }}
@@ -134,20 +137,20 @@ export function Map({ state, world, routeStreams }: Props) {
   );
 }
 
-function useFlyToBounds(map: MapType | undefined) {
+function useFlyToBounds(mapRef: RefObject<MapType>) {
   const prefersReducedMotion = usePrefersReducedMotion();
   return useCallback(
     (bounds: LatLngBoundsExpression) => {
-      if (!map) {
+      if (!mapRef.current) {
         return;
       }
 
       if (prefersReducedMotion) {
-        map.fitBounds(bounds, { animate: false });
+        mapRef.current.fitBounds(bounds, { animate: false });
       } else {
-        map.flyToBounds(bounds);
+        mapRef.current.flyToBounds(bounds);
       }
     },
-    [map, prefersReducedMotion]
+    [mapRef, prefersReducedMotion]
   );
 }
