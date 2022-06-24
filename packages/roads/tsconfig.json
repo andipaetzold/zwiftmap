@@ -1,0 +1,11 @@
+{
+  "extends": "@tsconfig/recommended/tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "declaration": true,
+    "module": "ES2020",
+    "moduleResolution": "Node"
+  },
+  "include": ["src"],
+  "exclude": ["src/**/*.spec.ts"]
+}

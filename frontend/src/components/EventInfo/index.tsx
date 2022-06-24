@@ -1,5 +1,5 @@
 import round from "lodash-es/round";
-import { worlds } from "zwift-data";
+import { routes, worlds } from "zwift-data";
 import { EVENT_TYPES } from "../../services/events";
 import { ZwiftEvent } from "../../types";
 import { formatEventStart } from "../../util/formats";
@@ -11,7 +11,8 @@ interface Props {
 }
 
 export function EventInfo({ event, showWorld = false }: Props) {
-  const world = worlds.find((w) => w.id === event.mapId)?.name;
+  const worldSlug = routes.find((r) => r.id === event.routeId)?.world;
+  const world = worlds.find((w) => w.slug === worldSlug);
 
   const type = EVENT_TYPES[event.eventType] ?? event.eventType;
   const content = getEventContent(event);
@@ -22,7 +23,7 @@ export function EventInfo({ event, showWorld = false }: Props) {
       {showWorld && world && (
         <>
           {" | "}
-          {world}
+          {world.name}
         </>
       )}
       <br />

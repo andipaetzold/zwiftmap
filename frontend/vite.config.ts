@@ -1,7 +1,6 @@
-import reactRefresh from "@vitejs/plugin-react-refresh";
+import react from "@vitejs/plugin-react";
 import { join } from "path";
 import { defineConfig } from "vite";
-
 import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
@@ -10,18 +9,18 @@ export default defineConfig({
     sourcemap: true,
   },
   esbuild: {
-    jsxInject: `import React from 'react'`,
+    legalComments: "none",
   },
   resolve: {
     alias: [
       {
         find: /~(.+)/,
-        replacement: join(process.cwd(), "node_modules/$1"),
+        replacement: "$1",
       },
     ],
   },
   plugins: [
-    reactRefresh(),
+    react(),
     VitePWA({
       manifest: false,
       registerType: "autoUpdate",

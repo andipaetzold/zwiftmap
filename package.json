@@ -1,0 +1,25 @@
+{
+  "name": "zwiftmap",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "browser-extension",
+    "frontend",
+    "packages/**"
+  ],
+  "engines": {
+    "node": "16.15.1"
+  },
+  "scripts": {
+    "start": "turbo run start",
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "heroku-postbuild": "turbo run build --filter=@zwiftmap/backend",
+    "deploy": "turbo run deploy",
+    "test": "CI=true turbo run test"
+  },
+  "devDependencies": {
+    "turbo": "1.2.16"
+  }
+}

@@ -1,7 +1,7 @@
+import { SnappedPoint } from "@zwiftmap/roads";
 import type { LatLngTuple } from "leaflet";
 import { WorldSlug } from "zwift-data";
 import { LatLngAlt } from "./LatLngAlt";
-import { SnappedPoint } from "./SnappedPoint";
 
 export interface ComlinkWorker {
   navigate(

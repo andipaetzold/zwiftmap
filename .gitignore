@@ -1,0 +1,5 @@
+.DS_Store
+.turbo
+google-credentials.json
+npm-debug.log*
+node_modules

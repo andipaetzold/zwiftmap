@@ -1,14 +1,13 @@
 import turfDistance from "@turf/distance";
 import {
   lineString as turfLineString,
-  point as turfPoint,
+  point as turfPoint
 } from "@turf/helpers";
 import turfLength from "@turf/length";
+import { Edge, Node, Roads, WORLD_ROADS } from "@zwiftmap/roads";
 import type { LatLngTuple } from "leaflet";
 import minBy from "lodash-es/minBy";
 import { WorldSlug } from "zwift-data";
-import { WORLD_ROADS } from "../constants/roads";
-import { Edge, Node, Roads } from "../services/Roads";
 import { LatLngAlt } from "../types";
 
 export async function navigate(

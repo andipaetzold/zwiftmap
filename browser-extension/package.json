@@ -1,22 +1,21 @@
 {
-  "name": "chrome-extension",
+  "name": "@zwiftmap/browser-extension",
   "version": "0.3.0",
   "description": "Replace real-world maps with Zwift maps when visiting Strava",
   "author": "Andi Pätzold",
   "license": "MIT",
   "scripts": {
-    "build": "esbuild src/inject.ts src/script.ts --bundle --outdir=dist",
-    "dev": "npm run build -- --watch",
-    "pack": "node ./scripts/pack.mjs"
+    "build": "esbuild src/inject.ts src/script.ts --bundle --outdir=dist && node ./scripts/pack.mjs",
+    "dev": "esbuild src/inject.ts src/script.ts --bundle --outdir=dist --watch"
   },
   "devDependencies": {
     "@types/adm-zip": "0.5.0",
-    "@types/chrome": "0.0.181",
-    "@types/leaflet": "1.0.69",
+    "@types/chrome": "0.0.190",
+    "@types/leaflet": "1.7.11",
     "adm-zip": "0.5.9",
-    "esbuild": "0.14.36"
+    "esbuild": "0.14.47"
   },
   "dependencies": {
-    "zwift-data": "1.15.0"
+    "zwift-data": "1.16.0"
   }
 }
