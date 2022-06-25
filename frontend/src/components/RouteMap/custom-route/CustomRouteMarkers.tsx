@@ -16,7 +16,7 @@ interface Props {
 
 export function CustomRouteMarkers({ state }: Props) {
   const updateMarker = useCallback(
-    async (marker: LeafletMarker, pointIndex) => {
+    async (marker: LeafletMarker, pointIndex: number) => {
       const latlng = marker.getLatLng();
       const snapped = await worker.snapPoint(
         [latlng.lat, latlng.lng],
