@@ -61,7 +61,7 @@
     "prebuild:assets": "pwa-asset-generator ./public/assets/logo.svg ./public/assets -v /assets -i ./index.html -m ./public/manifest.webmanifest -o true -t png",
     "build": "tsc --noEmit && VITE_GIT_SHA=`git rev-parse --short HEAD` vite build",
     "test": "vitest",
-    "deploy": "netlify"
+    "deploy": "netlify deploy"
   },
   "type": "module",
   "browserslist": {
