@@ -63,7 +63,7 @@ export async function writeShare(
       .where("activity", "==", shareWithoutId.activity.id)
       .get();
 
-    if (snap.empty) {
+    if (!snap.empty) {
       return snap.docs[0].data();
     }
 
