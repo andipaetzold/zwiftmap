@@ -1,7 +1,45 @@
+import { QueryDocumentSnapshot } from "@google-cloud/firestore";
+import { mapValues } from "lodash";
 import short from "short-uuid";
 import { FRONTEND_URL } from "../config";
+import { firestore } from "./firestore";
 import { pool } from "./pg";
 import { Share, ShareDBRow, ShareStravaActivityDBRow } from "./types";
+
+const COLLECTION_NAME = "shares";
+const collection = firestore.collection(COLLECTION_NAME).withConverter<Share>({
+  fromFirestore: (snap: QueryDocumentSnapshot) => {
+    const share = snap.data() as any;
+    share.id = snap.id;
+
+    switch (share.type) {
+      case "strava-activity":
+        return {
+          ...share,
+          streams: mapValues(share.streams, (stream) => ({
+            ...stream,
+            data: JSON.parse(stream.data),
+          })),
+        };
+      default:
+        throw new Error(`'${share.type}' is not a valid share type`);
+    }
+  },
+  toFirestore: (share: Share) => {
+    switch (share.type) {
+      case "strava-activity":
+        return {
+          ...share,
+          streams: mapValues(share.streams, (stream) => ({
+            ...stream,
+            data: JSON.stringify(stream!.data),
+          })),
+        };
+      default:
+        throw new Error(`'${share.type}' is not a valid share type`);
+    }
+  },
+});
 
 export function getShareUrl(id: string) {
   return `${FRONTEND_URL}/s/${id}`;
@@ -20,31 +58,55 @@ export async function writeShare(
   );
 
   if (result.rowCount === 0) {
+    const snap = await collection
+      .where("athlete", "==", shareWithoutId.athlete.id)
+      .where("activity", "==", shareWithoutId.activity.id)
+      .get();
+
+    if (snap.empty) {
+      return snap.docs[0].data();
+    }
+
     const id = short.generate();
     const share = { ...shareWithoutId, id };
-    await pool.query<any, [string, string]>(
-      'INSERT INTO "Share"("id", "type") VALUES($1, $2)',
-      [share.id, "strava-activity"]
-    );
-    await pool.query<any, [string, any, any, any]>(
-      'INSERT INTO "ShareStravaActivity"("id", "athlete", "activity", "streams") VALUES($1, $2, $3, $4)',
-      [share.id, share.athlete, share.activity, share.streams as any]
-    );
+    await collection.doc(id).set(share);
+    return share;
+  } else {
+    const row = result.rows[0];
+    const share: Share = {
+      id: row.id,
+      type: "strava-activity",
+      athlete: row.athlete,
+      activity: row.activity,
+      streams: row.streams,
+    };
 
+    await collection.doc(share.id).set(share);
+    await removeShareFromPG(share.id);
     return share;
   }
-
-  const row = result.rows[0];
-  return {
-    id: row.id,
-    type: "strava-activity",
-    athlete: row.athlete,
-    activity: row.activity,
-    streams: row.streams,
-  };
 }
 
 export async function readShare(shareId: string): Promise<Share | undefined> {
+  const snap = await collection.doc(shareId).get();
+  if (snap.exists) {
+    return snap.data()!;
+  } else {
+    const share = await readShareFromPG(shareId);
+    if (!share) {
+      return undefined;
+    }
+
+    await collection.doc(share.id).set(share);
+    await removeShareFromPG(shareId);
+    return share;
+  }
+}
+
+/**
+ * @deprecated
+ */
+async function readShareFromPG(shareId: string): Promise<Share | undefined> {
   const shareResult = await pool.query<ShareDBRow, [string]>(
     'SELECT * FROM "Share" WHERE "id" = $1',
     [shareId]
@@ -78,6 +140,14 @@ export async function readShare(shareId: string): Promise<Share | undefined> {
 }
 
 export async function removeShare(shareId: string): Promise<void> {
+  await collection.doc(shareId).delete();
+  await removeShareFromPG(shareId);
+}
+
+/**
+ * @deprecated
+ */
+async function removeShareFromPG(shareId: string): Promise<void> {
   await pool.query<any, [string]>('DELETE FROM "Share" WHERE "id" = $1', [
     shareId,
   ]);
