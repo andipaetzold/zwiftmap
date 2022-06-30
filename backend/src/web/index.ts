@@ -5,7 +5,6 @@ import runner from "node-pg-migrate";
 import "source-map-support/register";
 import { PORT, SENTRY_WEB_DSN } from "../shared/config";
 import { pool } from "../shared/persistence/pg";
-import { migrateSharesToFirestore } from "../shared/persistence/share";
 import * as handlers from "./handlers";
 import { errorHandler } from "./middleware/errorHandler";
 import { app } from "./server";
@@ -76,7 +75,6 @@ function startServer() {
 
 async function main() {
   await pgMigrate();
-  migrateSharesToFirestore(); // No await, so it can run in background
   startServer();
 }
 main();
