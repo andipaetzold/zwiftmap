@@ -164,7 +164,12 @@ export async function migrateSharesToFirestore(): Promise<void> {
 
   const shareIds = result.rows.map((row) => row.id);
   for (const shareId of shareIds) {
-    console.log(`Migrating share ${shareId}`);
-    await readShare(shareId);
+    try {
+      await readShare(shareId);
+    } catch (e) {
+      console.error(`Error migrating share ${shareId}`, e);
+    }
   }
+
+  console.log("Migration done");
 }
