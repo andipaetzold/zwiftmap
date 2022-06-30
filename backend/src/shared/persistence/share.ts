@@ -59,8 +59,8 @@ export async function writeShare(
 
   if (result.rowCount === 0) {
     const snap = await collection
-      .where("athlete", "==", shareWithoutId.athlete.id)
-      .where("activity", "==", shareWithoutId.activity.id)
+      .where("athlete.id", "==", shareWithoutId.athlete.id)
+      .where("activity.id", "==", shareWithoutId.activity.id)
       .get();
 
     if (!snap.empty) {
