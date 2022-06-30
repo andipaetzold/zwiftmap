@@ -156,3 +156,15 @@ async function removeShareFromPG(shareId: string): Promise<void> {
     [shareId]
   );
 }
+
+export async function migrateSharesToFirestore(): Promise<void> {
+  const result = await pool.query<{ id: string }>(
+    'SELECT id FROM "ShareStravaActivity"'
+  );
+
+  const shareIds = result.rows.map((row) => row.id);
+  for (const shareId of shareIds) {
+    console.log(`Migrating share ${shareId}`);
+    await readShare(shareId);
+  }
+}
