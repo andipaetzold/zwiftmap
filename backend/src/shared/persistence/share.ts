@@ -4,6 +4,7 @@ import short from "short-uuid";
 import { FRONTEND_URL } from "../config";
 import { firestore } from "./firestore";
 import { Share } from "./types";
+import { decompressFromBase64, compressToBase64 } from "lz-string";
 
 const COLLECTION_NAME = "shares";
 const collection = firestore.collection(COLLECTION_NAME).withConverter<Share>({
@@ -15,10 +16,16 @@ const collection = firestore.collection(COLLECTION_NAME).withConverter<Share>({
       case "strava-activity":
         return {
           ...share,
-          streams: mapValues(share.streams, (stream) => ({
-            ...stream,
-            data: JSON.parse(stream.data),
-          })),
+          streams: mapValues(share.streams, (stream) => {
+            let streamString = stream.data;
+            try {
+              streamString = decompressFromBase64(streamString) ?? streamString;
+            } catch {
+              // noop
+            }
+
+            return { ...stream, data: JSON.parse(streamString) };
+          }),
         };
       default:
         throw new Error(`'${share.type}' is not a valid share type`);
@@ -31,7 +38,7 @@ const collection = firestore.collection(COLLECTION_NAME).withConverter<Share>({
           ...share,
           streams: mapValues(share.streams, (stream) => ({
             ...stream,
-            data: JSON.stringify(stream!.data),
+            data: compressToBase64(JSON.stringify(stream!.data)),
           })),
         };
       default:
