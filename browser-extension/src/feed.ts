@@ -1,4 +1,4 @@
-const PATTERN_URL = /https:\/\/zwiftmap\.com\/s\/(\w{22})/;
+import { hasSharedLink, replaceImage } from "./utils";
 
 export function initFeed() {
   const container =
@@ -92,16 +92,4 @@ function handleFeedGroupActivityNode(contentNode: HTMLElement, props: any) {
     mapImage,
     `/strava-activities/${activity.activity_id}/feed-group.png`
   );
-}
-
-async function replaceImage(element: HTMLImageElement, path: string) {
-  const imagesUrl = `https://storage.googleapis.com/images.zwiftmap.com${path}`;
-
-  element.removeAttribute("srcset");
-  element.setAttribute("src", imagesUrl);
-}
-
-function hasSharedLink(description: string): boolean {
-  const match = PATTERN_URL.exec(description);
-  return match !== null;
 }
