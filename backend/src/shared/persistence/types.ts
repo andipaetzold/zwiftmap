@@ -16,11 +16,6 @@ export interface StravaToken {
   scope?: string[] | null;
 }
 
-export interface ShareDBRow {
-  id: string;
-  type: "strava-activity";
-}
-
 export type Share = ShareStravaActivity;
 
 export interface ShareStravaActivity {
@@ -40,21 +35,4 @@ export interface ShareStravaActivity {
   >;
   streams: Pick<StreamSet, "distance" | "altitude" | "latlng"> &
     Partial<Omit<StreamSet, "distance" | "altitude" | "latlng">>;
-}
-
-export interface ShareStravaActivityDBRow {
-  id: string;
-  athlete: { id: number };
-  activity: Pick<
-    DetailedActivity,
-    | "id"
-    | "name"
-    | "distance"
-    | "moving_time"
-    | "total_elevation_gain"
-    | "average_watts"
-    | "start_latlng"
-    | "start_date"
-  >;
-  streams: StreamSet;
 }
