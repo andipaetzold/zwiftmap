@@ -1,58 +1,92 @@
-const PATTERN_URL = /https:\/\/zwiftmap\.com\/s\/(\w{22})/;
+import { request } from "./request";
+import { hasSharedLink, replaceImage } from "./utils";
+
+interface FeedResponseData {
+  entries: Entry[];
+  pagination: Pagination;
+}
+
+interface Entry {
+  entity: "Activity" | "Challenge" | "Post";
+  activity: Activity;
+  cursorData: CursorData;
+}
+
+interface Activity {
+  id: string;
+  activityName: string;
+  description: null | string;
+}
+
+interface Pagination {
+  maxEntries: boolean;
+  hasMore: boolean;
+}
+
+interface CursorData {
+  before: string;
+  rank: string;
+}
 
 export function initFeed() {
-  const container =
-    document.getElementById("dashboard-feed") ??
-    document.getElementById("activity-log");
+  const container = document.querySelector<HTMLElement>(
+    "[data-react-class=FeedRouter]"
+  );
 
   if (!container) {
     return;
   }
 
-  const feedContainer = getFeedElement(container);
-  if (feedContainer) {
-    feedContainer.childNodes.forEach((node) => handleFeedNode(node));
-  }
+  let fetcher: ReturnType<typeof createFeedEntriesFetcher>;
 
-  const observer = new MutationObserver(() => {
-    const feedContainer = getFeedElement(container);
-    if (feedContainer) {
-      feedContainer.childNodes.forEach((node) => handleFeedNode(node));
+  updateFetcher();
+  new MutationObserver(() => {
+    console.log("mutate");
+    updateFetcher();
+  }).observe(container, { attributes: true });
+
+  function updateFetcher() {
+    if (!container) {
+      return;
     }
-  });
+    const containerData = JSON.parse(
+      container.getAttribute("data-react-props")!
+    );
+    fetcher = createFeedEntriesFetcher(containerData);
+  }
 
-  observer.observe(container, {
-    childList: true,
-    subtree: true,
-  });
+  replaceEntries(container, fetcher!.getEntries());
+  new MutationObserver(() => {
+    replaceEntries(container, fetcher.getEntries());
+  }).observe(container, { childList: true });
 }
 
-function getFeedElement(container: HTMLElement) {
-  return container.querySelector<HTMLElement>(".feed");
+function replaceEntries(container: HTMLElement, entries: Entry[]) {
+  for (const entryElement of container.childNodes) {
+    if (!entryElement.firstChild) {
+      continue;
+    }
+
+    const child = entryElement.firstChild as HTMLElement;
+    replaceEntry(child, entries);
+  }
 }
 
-function handleFeedNode(node: Node) {
-  if (!(node instanceof HTMLElement)) {
+function replaceEntry(node: HTMLElement, entries: Entry[]) {
+  const index = parseInt(node.getAttribute("index") ?? "");
+  if (isNaN(index)) {
     return;
   }
 
-  const contentNode = node.querySelector<HTMLElement>(".content");
-  if (!contentNode) {
-    return;
-  }
-
-  const props = JSON.parse(contentNode.getAttribute("data-react-props")!);
-  switch (props.entity) {
+  const entry = entries[index];
+  switch (entry.entity) {
     case "Activity":
-      handleFeedActivityNode(contentNode, props);
-      break;
-    case "GroupActivity":
-      handleFeedGroupActivityNode(contentNode, props);
+      replaceActivityNode(node, entry);
       break;
   }
 }
 
-function handleFeedActivityNode(contentNode: HTMLElement, { activity }: any) {
+function replaceActivityNode(contentNode: HTMLElement, { activity }: Entry) {
   const shareId = hasSharedLink(activity.description ?? "");
   if (!shareId) {
     return;
@@ -94,14 +128,65 @@ function handleFeedGroupActivityNode(contentNode: HTMLElement, props: any) {
   );
 }
 
-async function replaceImage(element: HTMLImageElement, path: string) {
-  const imagesUrl = `https://storage.googleapis.com/images.zwiftmap.com${path}`;
-
-  element.removeAttribute("srcset");
-  element.setAttribute("src", imagesUrl);
+interface FeedEntriesFetcherOptions {
+  page: string;
+  preFetchedEntries: Entry[];
+  currentAthleteId: number;
+  clubId: string;
+  feedType: "dashboard" | "club" | "profile";
 }
 
-function hasSharedLink(description: string): boolean {
-  const match = PATTERN_URL.exec(description);
-  return match !== null;
+function createFeedEntriesFetcher({
+  clubId,
+  feedType,
+  page,
+  preFetchedEntries,
+  currentAthleteId,
+}: FeedEntriesFetcherOptions) {
+  const entries = preFetchedEntries ?? [];
+  const searchParams = new URLSearchParams(document.location.search);
+
+  const buildEndpointUrl = (): string | null => {
+    const { before, rank } = entries[entries.length - 1]?.cursorData ?? {};
+
+    let url: string;
+    switch (page) {
+      case "dashboard":
+        url = `/dashboard/feed`;
+        break;
+      case "club":
+        url = `/clubs/${clubId}/feed`;
+        break;
+      case "profile":
+        return null;
+      default:
+        return null;
+    }
+
+    url = url.concat(`?feed_type=${feedType}`);
+    url = currentAthleteId
+      ? url.concat(`&athlete_id=${currentAthleteId}`)
+      : url;
+    url = clubId ? url.concat(`&club_id=${clubId}`) : url;
+    url = before ? url.concat(`&before=${before}`) : url; // See README for how before and rank cursor works
+    url = rank ? url.concat(`&cursor=${rank}`) : url;
+
+    return url;
+  };
+
+  const loadEntries = async () => {
+    const url = buildEndpointUrl();
+    if (!url) {
+      return;
+    }
+
+    const data = await request(url);
+    entries.push(...data.entries);
+
+    console.log(entries);
+  };
+
+  const getEntries = () => entries;
+
+  return { loadEntries, getEntries };
 }
