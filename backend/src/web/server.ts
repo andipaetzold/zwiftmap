@@ -16,7 +16,6 @@ import { requestId } from "./middleware/requestId";
 import { requestLogger } from "./middleware/requestLogger";
 
 export const app = express();
-app.use(nocache());
 app.use(compression());
 app.use(requestId);
 app.use(requestLogger);

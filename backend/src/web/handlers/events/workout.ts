@@ -24,7 +24,7 @@ const parserOptions: X2jOptionsOptional = {
 const parser = new XMLParser(parserOptions);
 
 export async function handleGetEventWorkout(req: Request, res: Response) {
-  const event = await getEvent(+req.params.eventId);
+  const { result: event, ttl } = await getEvent(+req.params.eventId);
 
   if (!event) {
     res.sendStatus(404);
@@ -57,7 +57,11 @@ export async function handleGetEventWorkout(req: Request, res: Response) {
     return;
   }
 
-  res.status(200).contentType("svg").send(image);
+  res
+    .status(200)
+    .contentType("svg")
+    .header("Cache-Control", `public, max-age=${ttl}`)
+    .send(image);
 }
 
 function createImage(parsedXML: any) {

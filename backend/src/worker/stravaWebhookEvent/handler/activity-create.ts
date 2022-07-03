@@ -21,7 +21,7 @@ export async function handleActivityCreate(
 
   let activity: DetailedActivity;
   try {
-    activity = await getActivityById(athleteId, activityId);
+    activity = (await getActivityById(athleteId, activityId)).result;
   } catch (e) {
     logger.info("Error fetching activity");
     return;
