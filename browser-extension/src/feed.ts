@@ -6,16 +6,30 @@ interface FeedResponseData {
   pagination: Pagination;
 }
 
-interface Entry {
-  entity: "Activity" | "Challenge" | "Post";
-  activity: Activity;
-  cursorData: CursorData;
+type Entry = { cursorData: CursorData } & (
+  | { entity: "Post" | "Challenge" }
+  | ActivityEntry
+  | GroupActivityEntry
+);
+
+interface ActivityEntry {
+  entity: "Activity";
+  activity: {
+    id: string;
+    activityName: string;
+    description: null | string;
+  };
 }
 
-interface Activity {
-  id: string;
-  activityName: string;
-  description: null | string;
+interface GroupActivityEntry {
+  entity: "GroupActivity";
+  rowData: {
+    activities: {
+      activity_id: number;
+      name: string;
+      description: null | string;
+    }[];
+  };
 }
 
 interface Pagination {
@@ -29,6 +43,10 @@ interface CursorData {
 }
 
 export function initFeed() {
+  if (!["/dashboard"].includes(document.location.pathname)) {
+    return;
+  }
+
   const container = document.querySelector<HTMLElement>(
     "[data-react-class=FeedRouter]"
   );
@@ -37,58 +55,54 @@ export function initFeed() {
     return;
   }
 
-  let fetcher: ReturnType<typeof createFeedEntriesFetcher>;
+  let fetchEntry = createFeedEntriesFetcher(document.location);
 
-  updateFetcher();
+  replaceEntries(container, fetchEntry);
   new MutationObserver(() => {
-    console.log("mutate");
-    updateFetcher();
-  }).observe(container, { attributes: true });
-
-  function updateFetcher() {
-    if (!container) {
-      return;
-    }
-    const containerData = JSON.parse(
-      container.getAttribute("data-react-props")!
-    );
-    fetcher = createFeedEntriesFetcher(containerData);
-  }
-
-  replaceEntries(container, fetcher!.getEntries());
-  new MutationObserver(() => {
-    replaceEntries(container, fetcher.getEntries());
+    replaceEntries(container, fetchEntry);
   }).observe(container, { childList: true });
 }
 
-function replaceEntries(container: HTMLElement, entries: Entry[]) {
+async function replaceEntries(
+  container: HTMLElement,
+  fetchEntry: ReturnType<typeof createFeedEntriesFetcher>
+) {
   for (const entryElement of container.childNodes) {
     if (!entryElement.firstChild) {
       continue;
     }
 
     const child = entryElement.firstChild as HTMLElement;
-    replaceEntry(child, entries);
+    await replaceEntry(child, fetchEntry);
   }
 }
 
-function replaceEntry(node: HTMLElement, entries: Entry[]) {
+async function replaceEntry(
+  node: HTMLElement,
+  fetchEntry: ReturnType<typeof createFeedEntriesFetcher>
+) {
   const index = parseInt(node.getAttribute("index") ?? "");
   if (isNaN(index)) {
     return;
   }
 
-  const entry = entries[index];
+  const entry = await fetchEntry(index);
+  if (!entry) {
+    return;
+  }
+
   switch (entry.entity) {
     case "Activity":
-      replaceActivityNode(node, entry);
+      replaceActivityImage(node, entry);
+      break;
+    case "GroupActivity":
+      replaceGroupActivityImage(node, entry);
       break;
   }
 }
 
-function replaceActivityNode(contentNode: HTMLElement, { activity }: Entry) {
-  const shareId = hasSharedLink(activity.description ?? "");
-  if (!shareId) {
+function replaceActivityImage(contentNode: HTMLElement, entry: ActivityEntry) {
+  if (!hasSharedLink(entry.activity.description ?? "")) {
     return;
   }
 
@@ -102,16 +116,26 @@ function replaceActivityNode(contentNode: HTMLElement, { activity }: Entry) {
   const ratio = rect.width / rect.height;
 
   if (Math.abs(ratio - 1) < 0.1) {
-    replaceImage(mapImage, `/strava-activities/${activity.id}/feed-square.png`);
+    replaceImage(
+      mapImage,
+      `/strava-activities/${entry.activity.id}/feed-square.png`
+    );
   } else {
-    replaceImage(mapImage, `/strava-activities/${activity.id}/feed-wide.png`);
+    replaceImage(
+      mapImage,
+      `/strava-activities/${entry.activity.id}/feed-wide.png`
+    );
   }
 }
 
-function handleFeedGroupActivityNode(contentNode: HTMLElement, props: any) {
-  const activity = props.rowData.activities.find((activity) =>
+function replaceGroupActivityImage(
+  contentNode: HTMLElement,
+  entry: GroupActivityEntry
+) {
+  const activity = entry.rowData.activities.find((activity) =>
     hasSharedLink(activity.description ?? "")
   );
+
   if (!activity) {
     return;
   }
@@ -128,65 +152,56 @@ function handleFeedGroupActivityNode(contentNode: HTMLElement, props: any) {
   );
 }
 
-interface FeedEntriesFetcherOptions {
-  page: string;
-  preFetchedEntries: Entry[];
-  currentAthleteId: number;
-  clubId: string;
-  feedType: "dashboard" | "club" | "profile";
-}
+function createFeedEntriesFetcher(location: Location) {
+  let hasMore = true;
+  const entries: Entry[] = [];
 
-function createFeedEntriesFetcher({
-  clubId,
-  feedType,
-  page,
-  preFetchedEntries,
-  currentAthleteId,
-}: FeedEntriesFetcherOptions) {
-  const entries = preFetchedEntries ?? [];
-  const searchParams = new URLSearchParams(document.location.search);
+  const locationParams = new URLSearchParams(location.search);
+  const clubId = locationParams.get("club_id");
+  const numEntries = locationParams.get("num_entries");
+  const feedType = locationParams.get("feed_type") ?? "following";
 
-  const buildEndpointUrl = (): string | null => {
+  const createUrl = (): string => {
+    const url = clubId ? `/clubs/${clubId}/feed` : `/dashboard/feed`;
+    const params = new URLSearchParams();
+    params.set("feed_type", feedType);
+    if (numEntries) {
+      params.set("num_entries", numEntries);
+    }
+    params.set("athlete_id", globalThis.currentAthlete.id);
+    if (clubId) {
+      params.set("club_id", clubId);
+    }
+
     const { before, rank } = entries[entries.length - 1]?.cursorData ?? {};
-
-    let url: string;
-    switch (page) {
-      case "dashboard":
-        url = `/dashboard/feed`;
-        break;
-      case "club":
-        url = `/clubs/${clubId}/feed`;
-        break;
-      case "profile":
-        return null;
-      default:
-        return null;
+    if (before) {
+      params.set("before", before);
     }
 
-    url = url.concat(`?feed_type=${feedType}`);
-    url = currentAthleteId
-      ? url.concat(`&athlete_id=${currentAthleteId}`)
-      : url;
-    url = clubId ? url.concat(`&club_id=${clubId}`) : url;
-    url = before ? url.concat(`&before=${before}`) : url; // See README for how before and rank cursor works
-    url = rank ? url.concat(`&cursor=${rank}`) : url;
+    if (rank) {
+      params.set("cursor", rank);
+    }
 
-    return url;
+    return `${url}?${params.toString()}`;
   };
 
-  const loadEntries = async () => {
-    const url = buildEndpointUrl();
-    if (!url) {
-      return;
-    }
-
-    const data = await request(url);
+  const loadNextPage = async (): Promise<void> => {
+    const url = createUrl();
+    const data = await request<FeedResponseData>(url);
     entries.push(...data.entries);
-
-    console.log(entries);
+    hasMore = data.pagination.hasMore;
   };
 
-  const getEntries = () => entries;
+  const fetchEntry = async (index: number): Promise<Entry | undefined> => {
+    while (!entries[index]) {
+      if (!hasMore) {
+        break;
+      }
+      await loadNextPage();
+    }
 
-  return { loadEntries, getEntries };
+    return entries[index] ?? undefined;
+  };
+
+  return fetchEntry;
 }

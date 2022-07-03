@@ -1,4 +1,4 @@
-export async function request(url: string) {
+export async function request<T = unknown>(url: string): Promise<T> {
   const r = await fetch(url, {
     headers: {
       "X-Requested-With": "XMLHttpRequest",
@@ -13,4 +13,3 @@ function csrfToken() {
     .querySelector('meta[name="csrf-token"]')!
     .getAttribute("content")!;
 }
-
