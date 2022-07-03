@@ -21,7 +21,7 @@ export async function getShare(id: string): Promise<Share> {
 }
 
 export async function getStravaSettings(): Promise<StravaSettings> {
-  return await request(`${BACKEND_HOST}/strava/settings`, {
+  return await dedupedRequest(`${BACKEND_HOST}/strava/settings`, {
     ...DEFAULT_INIT,
   });
 }
@@ -109,7 +109,7 @@ export async function authLogout(): Promise<void> {
 }
 
 export async function getAuthStatus(): Promise<AuthStatus> {
-  return await request(`${BACKEND_HOST}/auth/status`, {
+  return await dedupedRequest(`${BACKEND_HOST}/auth/status`, {
     ...DEFAULT_INIT,
   });
 }
