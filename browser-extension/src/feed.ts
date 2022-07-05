@@ -43,7 +43,29 @@ interface CursorData {
 }
 
 export function initFeed() {
-  const container = document.querySelector<HTMLElement>(
+  const containerParent =
+    document.querySelector<HTMLElement>(".react-feed-container") ?? // profile & club
+    document.querySelector<HTMLElement>(".feed-container"); // dashboard
+
+  if (!containerParent) {
+    return;
+  }
+
+  let unsubscribe: (() => void) | undefined;
+  unsubscribe = initFeedRouter(containerParent);
+  new MutationObserver(() => {
+    unsubscribe?.();
+    unsubscribe = initFeedRouter(containerParent);
+  }).observe(containerParent, {
+    subtree: false,
+    childList: true,
+  });
+}
+
+function initFeedRouter(
+  parentContainer: HTMLElement
+): (() => void) | undefined {
+  const container = parentContainer.querySelector<HTMLElement>(
     "[data-react-class=FeedRouter]"
   );
 
@@ -51,17 +73,28 @@ export function initFeed() {
     return;
   }
 
-  const propsRaw = container.getAttribute("data-react-props");
-  if (!propsRaw) {
+  const props = getFeedRouterProps(container);
+  if (!props) {
     return;
   }
-  const props = JSON.parse(propsRaw);
-  let fetchEntry = createFeedEntriesFetcher(props);
 
+  const fetchEntry = createFeedEntriesFetcher(props);
   replaceEntries(container, fetchEntry);
-  new MutationObserver(() => {
+
+  const observer = new MutationObserver(() => {
     replaceEntries(container, fetchEntry);
-  }).observe(container, { childList: true });
+  });
+  observer.observe(container, { childList: true });
+  return () => observer.disconnect();
+}
+
+function getFeedRouterProps(container: HTMLElement): FeedRouterProps | null {
+  const propsRaw = container.getAttribute("data-react-props");
+  if (!propsRaw) {
+    return null;
+  }
+
+  return JSON.parse(propsRaw);
 }
 
 async function replaceEntries(
