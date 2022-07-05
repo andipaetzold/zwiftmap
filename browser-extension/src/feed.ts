@@ -43,10 +43,6 @@ interface CursorData {
 }
 
 export function initFeed() {
-  if (!["/dashboard"].includes(document.location.pathname)) {
-    return;
-  }
-
   const container = document.querySelector<HTMLElement>(
     "[data-react-class=FeedRouter]"
   );
@@ -55,7 +51,12 @@ export function initFeed() {
     return;
   }
 
-  let fetchEntry = createFeedEntriesFetcher(document.location);
+  const propsRaw = container.getAttribute("data-react-props");
+  if (!propsRaw) {
+    return;
+  }
+  const props = JSON.parse(propsRaw);
+  let fetchEntry = createFeedEntriesFetcher(props);
 
   replaceEntries(container, fetchEntry);
   new MutationObserver(() => {
@@ -152,44 +153,68 @@ function replaceGroupActivityImage(
   );
 }
 
-function createFeedEntriesFetcher(location: Location) {
-  let hasMore = true;
-  const entries: Entry[] = [];
+interface FeedRouterProps {
+  clubId: string;
+  currentAthleteId: number;
+  feedType: string;
+  preFetchedEntries: Entry[];
+  page: string;
+}
 
-  const locationParams = new URLSearchParams(location.search);
-  const clubId = locationParams.get("club_id");
-  const numEntries = locationParams.get("num_entries");
-  const feedType = locationParams.get("feed_type") ?? "following";
+function createFeedEntriesFetcher({
+  page,
+  preFetchedEntries,
+  currentAthleteId,
+  clubId,
+  feedType,
+}: FeedRouterProps) {
+  let hasMore = page !== "profile";
+  let maxEntries = true;
 
-  const createUrl = (): string => {
-    const url = clubId ? `/clubs/${clubId}/feed` : `/dashboard/feed`;
-    const params = new URLSearchParams();
-    params.set("feed_type", feedType);
-    if (numEntries) {
-      params.set("num_entries", numEntries);
-    }
-    params.set("athlete_id", globalThis.currentAthlete.id);
-    if (clubId) {
-      params.set("club_id", clubId);
-    }
+  const entries: Entry[] = [...preFetchedEntries];
 
+  /**
+   * `buildEndpointUrl` of `useFetchFeedEntries.js`
+   */
+  const createUrl = (): string | null => {
     const { before, rank } = entries[entries.length - 1]?.cursorData ?? {};
-    if (before) {
-      params.set("before", before);
+
+    let url: string;
+    switch (page) {
+      case "dashboard":
+        url = `/dashboard/feed`;
+        break;
+      case "club":
+        url = `/clubs/${clubId}/feed`;
+        break;
+      case "profile":
+        // profile feed entries are pre-fetched since it is still reloaded on interval graph filters and is not paginated
+        return null;
+      default:
+        return null;
     }
 
-    if (rank) {
-      params.set("cursor", rank);
-    }
+    url = url.concat(`?feed_type=${feedType}`);
+    url = currentAthleteId
+      ? url.concat(`&athlete_id=${currentAthleteId}`)
+      : url;
+    url = clubId ? url.concat(`&club_id=${clubId}`) : url;
+    url = before ? url.concat(`&before=${before}`) : url; // See README for how before and rank cursor works
+    url = rank ? url.concat(`&cursor=${rank}`) : url;
 
-    return `${url}?${params.toString()}`;
+    return url;
   };
 
   const loadNextPage = async (): Promise<void> => {
     const url = createUrl();
+    if (!url) {
+      throw new Error("Cannot generate url");
+    }
+
     const data = await request<FeedResponseData>(url);
     entries.push(...data.entries);
-    hasMore = data.pagination.hasMore;
+    maxEntries = data.pagination.maxEntries;
+    hasMore = data.pagination.hasMore && data.entries.length !== 0;
   };
 
   const fetchEntry = async (index: number): Promise<Entry | undefined> => {
@@ -200,7 +225,7 @@ function createFeedEntriesFetcher(location: Location) {
       await loadNextPage();
     }
 
-    return entries[index] ?? undefined;
+    return entries[index];
   };
 
   return fetchEntry;
