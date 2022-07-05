@@ -12,8 +12,11 @@ export async function shareActivity(
   athleteId: number,
   activityId: number
 ): Promise<Share> {
-  const activity = await getActivityById(athleteId, activityId);
-  const activityStreams = await getActivityStreams(athleteId, activityId);
+  const { result: activity } = await getActivityById(athleteId, activityId);
+  const { result: activityStreams } = await getActivityStreams(
+    athleteId,
+    activityId
+  );
 
   if (!isZwiftActivity(activity)) {
     throw new ErrorWithStatusCode("Activity is no Zwift activity", 404);
@@ -26,8 +29,11 @@ export async function addLinkToActivity(
   athleteId: number,
   activityId: number
 ): Promise<void> {
-  const activity = await getActivityById(athleteId, activityId);
-  const activityStreams = await getActivityStreams(athleteId, activityId);
+  const { result: activity } = await getActivityById(athleteId, activityId);
+  const { result: activityStreams } = await getActivityStreams(
+    athleteId,
+    activityId
+  );
 
   if (!isZwiftActivity(activity)) {
     throw new ErrorWithStatusCode("Activity is no Zwift activity", 404);

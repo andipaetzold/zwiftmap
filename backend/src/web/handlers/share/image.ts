@@ -32,6 +32,7 @@ export async function handleGETShareImage(req: Request, res: Response) {
     width: +req.query.width,
     height: +req.query.height,
   });
-  res.header("Content-Type", "image/png");
+
+  res.contentType("png").header("public, max-age=604800");
   stream.pipe(res);
 }
