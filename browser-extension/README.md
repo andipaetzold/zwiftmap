@@ -6,8 +6,6 @@
 
 Run `npm run build` to compile and bundle the source code. The compiled files are located in the `dist` folder.
 
-Run `npm run pack` to create a zip folder with all required files
-
 ### Requirements
 
 - Node 16 or later
