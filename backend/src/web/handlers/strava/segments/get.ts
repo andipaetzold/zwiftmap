@@ -9,7 +9,7 @@ export async function handleGETSegment(req: Request, res: Response) {
     return;
   }
 
-  const activity = await getSegmentById(
+  const { result: activity } = await getSegmentById(
     session.stravaAthleteId,
     +req.params.segmentId
   );

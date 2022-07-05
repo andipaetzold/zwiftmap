@@ -9,7 +9,7 @@ export async function handleGETActivityStreams(req: Request, res: Response) {
     return;
   }
 
-  const activity = await getActivityStreams(
+  const { result: activity } = await getActivityStreams(
     session.stravaAthleteId,
     +req.params.activityId
   );
