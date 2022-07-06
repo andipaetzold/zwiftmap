@@ -54,7 +54,11 @@ function startServer() {
     "/strava/activities/:activityId/streams",
     handlers.handleGETActivityStreams
   );
-  app.get("/strava/callback", handlers.handleStravaAuthorizeCallback);
+  app.get(
+    "/strava/callback",
+    nocache(),
+    handlers.handleStravaAuthorizeCallback
+  );
   app.get("/strava/segments/:segmentId", nocache(), handlers.handleGETSegment);
   app.get("/strava/settings", nocache(), handlers.handleGETStravaSettings);
   app.put("/strava/settings", nocache(), handlers.handlePUTStravaSettings);

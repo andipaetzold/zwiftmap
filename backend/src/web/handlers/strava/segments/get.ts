@@ -9,9 +9,12 @@ export async function handleGETSegment(req: Request, res: Response) {
     return;
   }
 
-  const { result: activity } = await getSegmentById(
+  const { result: activity, ttl } = await getSegmentById(
     session.stravaAthleteId,
     +req.params.segmentId
   );
-  res.status(200).json(activity);
+  res
+    .status(200)
+    .header("Cache-Control", `private, max-age=${ttl}`)
+    .json(activity);
 }
