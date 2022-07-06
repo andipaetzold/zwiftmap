@@ -1,10 +1,5 @@
 import { pool } from "./pg";
-import { redisClient } from "./redis";
 import { StravaSettingsDBRow, StravaSettingsType } from "./types";
-
-function createKey(athleteId: number | string): string {
-  return `strava-settings:${athleteId}`;
-}
 
 export async function writeStravaSettings(
   athleteId: number,
@@ -18,10 +13,6 @@ export async function writeStravaSettings(
      SET "addLinkToActivityDescription" = $2`,
     [athleteId, settings.addLinkToActivityDescription]
   );
-
-  // TODO: remove after migration
-  const key = createKey(athleteId);
-  redisClient.del(key);
 }
 
 export async function readStravaSettings(
@@ -33,16 +24,9 @@ export async function readStravaSettings(
   );
 
   if (result.rowCount === 0) {
-    // TODO: remove after migration
-    const settings = await redisClient.get(createKey(athleteId));
-    if (!settings) {
-      return {
-        addLinkToActivityDescription: false,
-      };
-    }
-    console.log(`Migrating StravaSettings ${athleteId}`);
-    await writeStravaSettings(athleteId, settings);
-    return settings;
+    return {
+      addLinkToActivityDescription: false,
+    };
   }
 
   const row = result.rows[0];
@@ -55,17 +39,4 @@ export async function removeStravaSettings(athleteId: number): Promise<void> {
   await pool.query('DELETE FROM "StravaSettings" WHERE "athleteId" = $1', [
     athleteId,
   ]);
-
-  // TODO: remove after migration
-  await redisClient.del(createKey(athleteId));
-}
-
-export async function migrateStravaSettings(): Promise<void> {
-  const keys = await redisClient.keys(createKey("*"));
-  for (const key of keys) {
-    const [, athleteId] = key.split(":");
-
-    console.log(`Migrating Strava Settings ${athleteId}`);
-    await readStravaSettings(+athleteId);
-  }
 }
