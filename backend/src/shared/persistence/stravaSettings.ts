@@ -2,7 +2,7 @@ import { pool } from "./pg";
 import { redisClient } from "./redis";
 import { StravaSettingsDBRow, StravaSettingsType } from "./types";
 
-function createKey(athleteId: number): string {
+function createKey(athleteId: number | string): string {
   return `strava-settings:${athleteId}`;
 }
 
@@ -58,4 +58,14 @@ export async function removeStravaSettings(athleteId: number): Promise<void> {
 
   // TODO: remove after migration
   await redisClient.del(createKey(athleteId));
+}
+
+export async function migrateStravaSettings(): Promise<void> {
+  const keys = await redisClient.keys(createKey("*"));
+  for (const key of keys) {
+    const [, athleteId] = key.split(":");
+
+    console.log(`Migrating Strava Settings ${athleteId}`);
+    await readStravaSettings(+athleteId);
+  }
 }

@@ -6,6 +6,7 @@ import runner from "node-pg-migrate";
 import "source-map-support/register";
 import { PORT, SENTRY_WEB_DSN } from "../shared/config";
 import { pool } from "../shared/persistence/pg";
+import { migrateStravaSettings } from "../shared/persistence/stravaSettings";
 import * as handlers from "./handlers";
 import { errorHandler } from "./middleware/errorHandler";
 import { app } from "./server";
@@ -85,6 +86,7 @@ function startServer() {
 
 async function main() {
   await pgMigrate();
+  await migrateStravaSettings();
   startServer();
 }
 main();
