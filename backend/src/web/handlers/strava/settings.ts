@@ -3,7 +3,7 @@ import {
   readStravaSettings,
   writeStravaSettings,
 } from "../../../shared/persistence/stravaSettings";
-import { StravaSettings } from "../../../shared/persistence/types";
+import { StravaAthleteSchema } from "../../../shared/persistence/types";
 import { Session } from "../../types";
 
 export async function handleGETStravaSettings(req: Request, res: Response) {
@@ -19,7 +19,7 @@ export async function handleGETStravaSettings(req: Request, res: Response) {
 }
 
 export async function handlePUTStravaSettings(req: Request, res: Response) {
-  if (!StravaSettings.guard(req.body)) {
+  if (!StravaAthleteSchema.guard(req.body)) {
     res.sendStatus(400);
     return;
   }

@@ -1,12 +1,15 @@
 import { Boolean, Record, Static } from "runtypes";
 import { DetailedActivity, StreamSet } from "strava";
 
-export const StravaSettings = Record({
+export const StravaAthleteSchema = Record({
   addLinkToActivityDescription: Boolean,
 });
 
-export type StravaSettingsType = Static<typeof StravaSettings>;
-export type StravaSettingsDBRow = { athleteId: number } & StravaSettingsType;
+export type StravaAthlete = Static<typeof StravaAthleteSchema>;
+/**
+ * @deprecated
+ */
+export type StravaSettingsDBRow = { athleteId: number } & StravaAthlete;
 
 export interface StravaToken {
   athleteId: number;
