@@ -55,14 +55,15 @@ function startServer() {
     handlers.handleGETActivityStreams
   );
   app.get("/strava/callback", handlers.handleStravaAuthorizeCallback);
-  app.get("/events", handlers.handleGETEvents);
-  app.get("/events/:eventId", handlers.handleGETEvent);
-  app.get("/events/:eventId/workout", handlers.handleGetEventWorkout);
   app.get("/strava/segments/:segmentId", nocache(), handlers.handleGETSegment);
   app.get("/strava/settings", nocache(), handlers.handleGETStravaSettings);
   app.put("/strava/settings", nocache(), handlers.handlePUTStravaSettings);
   app.post("/strava/webhook", nocache(), handlers.handleWebhook);
   app.get("/strava/webhook", nocache(), handlers.handleWebhookVerification);
+
+  app.get("/events", handlers.handleGETEvents);
+  app.get("/events/:eventId", handlers.handleGETEvent);
+  app.get("/events/:eventId/workout", handlers.handleGetEventWorkout);
 
   app.post("/share", nocache(), handlers.handleCreateShare);
   app.get("/share/:shareId", handlers.handleGetShare);
