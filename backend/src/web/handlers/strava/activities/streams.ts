@@ -9,9 +9,12 @@ export async function handleGETActivityStreams(req: Request, res: Response) {
     return;
   }
 
-  const { result: activity } = await getActivityStreams(
+  const { result: activity, ttl } = await getActivityStreams(
     session.stravaAthleteId,
     +req.params.activityId
   );
-  res.status(200).json(activity);
+  res
+    .status(200)
+    .header("Cache-Control", `private, max-age=${ttl}`)
+    .json(activity);
 }

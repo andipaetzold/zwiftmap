@@ -44,11 +44,7 @@ function startServer() {
 
   app.get("/strava/authorize", nocache(), handlers.handleStravaAuthorize);
   app.get("/strava/activities", nocache(), handlers.handleGETActivities);
-  app.get(
-    "/strava/activities/:activityId",
-    nocache(),
-    handlers.handleGETActivity
-  );
+  app.get("/strava/activities/:activityId", handlers.handleGETActivity);
   app.put(
     "/strava/activities/:activityId",
     nocache(),
@@ -56,7 +52,6 @@ function startServer() {
   );
   app.get(
     "/strava/activities/:activityId/streams",
-    nocache(),
     handlers.handleGETActivityStreams
   );
   app.get("/strava/callback", handlers.handleStravaAuthorizeCallback);
