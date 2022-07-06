@@ -64,7 +64,7 @@ function startServer() {
   app.post("/strava/webhook", nocache(), handlers.handleWebhook);
   app.get("/strava/webhook", nocache(), handlers.handleWebhookVerification);
 
-  app.post("/share", handlers.handleCreateShare);
+  app.post("/share", nocache(), handlers.handleCreateShare);
   app.get("/share/:shareId", handlers.handleGetShare);
   app.get("/share/:shareId/image", handlers.handleGETShareImage);
 
