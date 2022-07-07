@@ -10,16 +10,13 @@ export async function handleGETActivity(req: Request, res: Response) {
     return;
   }
 
-  const { result: activity, ttl } = await getActivityById(
+  const { result: activity } = await getActivityById(
     session.stravaAthleteId,
     +req.params.activityId
   );
 
   if (isZwiftActivity(activity)) {
-    res
-      .status(200)
-      .header("Cache-Control", `private, max-age=${ttl}`)
-      .json(activity);
+    res.status(200).json(activity);
   } else {
     res.sendStatus(404);
   }
