@@ -64,7 +64,10 @@ async function createShare(
     !activityStreams.distance ||
     !activityStreams.latlng
   ) {
-    throw new Error("Altitude, Distance, and LatLng streams must exist");
+    throw new ErrorWithStatusCode(
+      "Altitude, Distance, and LatLng streams must exist",
+      404
+    );
   }
 
   const shareWithoutId: Omit<Share, "id"> = {
