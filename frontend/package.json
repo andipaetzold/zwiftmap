@@ -50,7 +50,7 @@
     "recharts": "2.1.12",
     "strava": "2.0.1",
     "zustand": "3.7.2",
-    "zwift-data": "1.16.0"
+    "zwift-data": "1.17.0"
   },
   "scripts": {
     "start": "npm run dev",
