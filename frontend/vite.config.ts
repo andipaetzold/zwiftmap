@@ -8,6 +8,9 @@ export default defineConfig({
     outDir: "build",
     sourcemap: true,
   },
+  server: {
+    port: 3000,
+  },
   esbuild: {
     legalComments: "none",
   },
