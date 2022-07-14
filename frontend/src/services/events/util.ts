@@ -33,11 +33,16 @@ export async function getEventStreams<
     return streams;
   }
 
+  const distance = event.distanceInMeters / 1_000 - (route.leadInDistance ?? 0);
+  // Some events have wrong distances (e.g. 1m)
+  if (distance < 0) {
+    return streams;
+  }
+
   // @ts-ignore
   const adjustedStreams: Pick<StravaSegment, StreamType | "distance"> =
     fromPairs(streamTypes.map((type) => [type, []]));
 
-  const distance = event.distanceInMeters / 1_000 - (route.leadInDistance ?? 0);
   if (route.lap) {
     const laps = Math.floor(distance / route.distance);
     range(0, laps).forEach(() => {
@@ -54,6 +59,7 @@ export async function getEventStreams<
   const finishIndex = streams.distance.findIndex(
     (d) => d / 1_000 > remainingDistance
   );
+
   for (let streamType of streamTypes) {
     adjustedStreams[streamType].push(
       // @ts-ignore
