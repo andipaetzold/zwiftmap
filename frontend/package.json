@@ -70,7 +70,7 @@
     "@types/mapbox__polyline": "1.0.2",
     "@vitejs/plugin-react": "2.0.0",
     "cli-progress": "3.11.2",
-    "happy-dom": "6.0.3",
+    "happy-dom": "6.0.4",
     "netlify-cli": "10.10.0",
     "prettier": "2.7.1",
     "pwa-asset-generator": "6.1.1",
