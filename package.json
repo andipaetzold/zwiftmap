@@ -19,7 +19,7 @@
     "deploy": "turbo run deploy",
     "test": "CI=true turbo run test"
   },
-  "devDependencies": {
+  "dependencies": {
     "turbo": "1.4.0"
   }
 }
