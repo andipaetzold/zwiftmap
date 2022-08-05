@@ -20,6 +20,6 @@
     "test": "CI=true turbo run test"
   },
   "dependencies": {
-    "turbo": "1.4.0"
+    "turbo": "1.4.2"
   }
 }
