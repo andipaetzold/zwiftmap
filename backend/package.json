@@ -33,7 +33,7 @@
     "@types/redis": "2.8.32",
     "@types/sharp": "0.30.4",
     "@types/tsc-watch": "4.2.0",
-    "@types/validator": "13.7.4",
+    "@types/validator": "13.7.5",
     "ngrok": "4.3.1",
     "tsc-watch": "5.0.3",
     "typescript": "4.7.4"
