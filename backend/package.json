@@ -41,8 +41,8 @@
   "dependencies": {
     "@google-cloud/firestore": "6.0.0",
     "@google-cloud/storage": "6.3.0",
-    "@sentry/node": "7.8.1",
-    "@sentry/tracing": "7.8.1",
+    "@sentry/node": "7.9.0",
+    "@sentry/tracing": "7.9.0",
     "axios": "0.27.2",
     "bull": "4.8.5",
     "compression": "1.7.4",
