@@ -31,7 +31,7 @@
     "@types/node": "16.11.47",
     "@types/pg": "8.6.5",
     "@types/redis": "2.8.32",
-    "@types/sharp": "0.30.4",
+    "@types/sharp": "0.30.5",
     "@types/tsc-watch": "4.2.0",
     "@types/validator": "13.7.5",
     "ngrok": "4.3.1",
