@@ -19,7 +19,7 @@ interface SettingStore extends Settings {
   setOverlay(overlay: Overlay): void;
 }
 
-export const useSettings = create<SettingStore>(
+export const useSettings = create<SettingStore>()(
   persist(
     (set) => ({
       ...DEFAULT_SETTINGS,
