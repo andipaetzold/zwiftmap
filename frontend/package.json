@@ -25,7 +25,7 @@
     "@turf/length": "6.5.0",
     "@turf/nearest-point-on-line": "6.5.0",
     "@types/leaflet": "1.7.11",
-    "@types/node": "16.11.47",
+    "@types/node": "16.11.48",
     "@types/react": "18.0.17",
     "@types/react-dom": "18.0.6",
     "@zwiftmap/roads": "1.0.0",
