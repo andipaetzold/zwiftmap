@@ -34,7 +34,7 @@
     "@types/sharp": "0.30.5",
     "@types/tsc-watch": "4.2.0",
     "@types/validator": "13.7.5",
-    "ngrok": "4.3.1",
+    "ngrok": "4.3.3",
     "tsc-watch": "5.0.3",
     "typescript": "4.7.4"
   },
