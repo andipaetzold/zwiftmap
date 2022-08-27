@@ -32,7 +32,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
   session({
     store: new FirestoreStore({
-      dataset: firestore,
+      firestore,
       collection: "express-sessions",
     }),
     secret: AUTH_SECRET,

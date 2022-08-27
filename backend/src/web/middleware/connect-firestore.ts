@@ -4,7 +4,7 @@ import { Firestore } from "@google-cloud/firestore";
 import { SessionData, Store } from "express-session";
 
 export interface FirestoreStoreOptions {
-  dataset: Firestore;
+  firestore: Firestore;
   collection: string;
 }
 
@@ -15,7 +15,7 @@ export class FirestoreStore extends Store {
   public constructor(options: FirestoreStoreOptions) {
     super();
 
-    this.firestore = options.dataset;
+    this.firestore = options.firestore;
     this.collection = options.collection;
   }
 
@@ -35,7 +35,7 @@ export class FirestoreStore extends Store {
       }
 
       try {
-        const result = doc.data()! as SessionData;
+        const result = JSON.parse(doc.data()!.data) as SessionData;
         callback(null, result);
       } catch (err) {
         callback(err as Error);
@@ -51,13 +51,12 @@ export class FirestoreStore extends Store {
     callback?: (err?: Error) => void
   ): Promise<void> {
     try {
-      await this.firestore
-        .collection(this.collection)
-        .doc(sessionId)
-        .set(
-          // Firestore cannot serialize custom classes
-          JSON.parse(JSON.stringify(session))
-        );
+      const data = {
+        data: JSON.stringify(session),
+        expireAt: session.cookie?.expires ?? null,
+      };
+
+      await this.firestore.collection(this.collection).doc(sessionId).set(data);
       callback?.();
     } catch (e) {
       callback?.(e as Error);
