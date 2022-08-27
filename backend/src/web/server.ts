@@ -9,7 +9,9 @@ import {
   ENVIRONMENT,
   FRONTEND_URL,
 } from "../shared/config";
+import { firestore } from "../shared/persistence/firestore";
 import { redisCallbackClient } from "../shared/persistence/redis";
+import { FirestoreStore } from "./middleware/connect-firestore";
 import { logger } from "./middleware/logger";
 import { requestId } from "./middleware/requestId";
 import { requestLogger } from "./middleware/requestLogger";
@@ -33,9 +35,13 @@ const RedisStore = connectRedis(session);
 
 app.use(
   session({
-    store: new RedisStore({
-      client: redisCallbackClient,
-      prefix: "session:",
+    store: new FirestoreStore({
+      firestore,
+      collection: "express-sessions",
+      redisStore: new RedisStore({
+        client: redisCallbackClient,
+        prefix: "session:",
+      }),
     }),
     secret: AUTH_SECRET,
     resave: false,
