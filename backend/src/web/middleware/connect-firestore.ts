@@ -6,6 +6,9 @@ import { SessionData, Store } from "express-session";
 export interface FirestoreStoreOptions {
   firestore: Firestore;
   collection: string;
+  /**
+   * remove once migration is done
+   */
   redisStore: Store;
 }
 
