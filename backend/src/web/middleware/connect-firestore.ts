@@ -42,12 +42,12 @@ export class FirestoreStore extends Store {
             callback(err);
           } else if (session) {
             // move session to firestore
-            this.set(sessionId, session)
-            this.redisStore.destroy(sessionId)
-            callback(null, session)
+            this.set(sessionId, session);
+            this.redisStore.destroy(sessionId);
+            callback(null, session);
           } else {
             // not found
-            callback()
+            callback();
           }
         });
         return;
@@ -70,9 +70,10 @@ export class FirestoreStore extends Store {
     callback?: (err?: Error) => void
   ): Promise<void> {
     try {
+      const expireAt = session.cookie?.expires ?? null;
       const data = {
         data: JSON.stringify(session),
-        expireAt: session.cookie?.expires ?? null,
+        expireAt: expireAt ? new Date(expireAt) : null,
       };
 
       await this.firestore.collection(this.collection).doc(sessionId).set(data);
