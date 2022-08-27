@@ -3,7 +3,6 @@ import connectRedis from "connect-redis";
 import cors from "cors";
 import express from "express";
 import session from "express-session";
-import nocache from "nocache";
 import {
   AUTH_COOKIE_NAME,
   AUTH_SECRET,
