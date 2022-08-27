@@ -1,4 +1,5 @@
 import compression from "compression";
+import connectRedis from "connect-redis";
 import cors from "cors";
 import express from "express";
 import session from "express-session";
@@ -9,6 +10,7 @@ import {
   FRONTEND_URL,
 } from "../shared/config";
 import { firestore } from "../shared/persistence/firestore";
+import { redisCallbackClient } from "../shared/persistence/redis";
 import { FirestoreStore } from "./middleware/connect-firestore";
 import { logger } from "./middleware/logger";
 import { requestId } from "./middleware/requestId";
@@ -29,11 +31,17 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const RedisStore = connectRedis(session);
+
 app.use(
   session({
     store: new FirestoreStore({
       firestore,
       collection: "express-sessions",
+      redisStore: new RedisStore({
+        client: redisCallbackClient,
+        prefix: "session:",
+      }),
     }),
     secret: AUTH_SECRET,
     resave: false,
