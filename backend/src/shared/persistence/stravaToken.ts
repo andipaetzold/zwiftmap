@@ -56,3 +56,10 @@ async function removeStravaTokenPg(athleteId: number): Promise<void> {
     athleteId,
   ]);
 }
+
+export async function getAllStravaTokenIds(): Promise<number[]> {
+  const result = await pool.query<{ athleteId: number }>(
+    'SELECT "athleteId" FROM "StravaToken"'
+  );
+  return result.rows.map(row => row.athleteId);
+}

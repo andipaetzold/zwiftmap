@@ -6,6 +6,10 @@ import runner from "node-pg-migrate";
 import "source-map-support/register";
 import { PORT, SENTRY_WEB_DSN } from "../shared/config";
 import { pool } from "../shared/persistence/pg";
+import {
+  getAllStravaTokenIds,
+  readStravaToken,
+} from "../shared/persistence/stravaToken";
 import * as handlers from "./handlers";
 import { errorHandler } from "./middleware/errorHandler";
 import { app } from "./server";
@@ -31,6 +35,10 @@ async function pgMigrate() {
     count: Infinity,
   });
   client.release();
+
+  for (const athleteId of await getAllStravaTokenIds()) {
+    await readStravaToken(athleteId);
+  }
 }
 
 function startServer() {
