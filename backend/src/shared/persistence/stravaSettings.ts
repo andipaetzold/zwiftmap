@@ -74,3 +74,11 @@ async function removeStravaSettingsPg(athleteId: number): Promise<void> {
     athleteId,
   ]);
 }
+
+export async function getAllStravaSettingsAthleteIds(): Promise<number[]> {
+  const result = await pool.query<{ athleteId: number }>(
+    'SELECT "athleteId" FROM "StravaSettings"'
+  );
+
+  return result.rows.map((row) => row.athleteId);
+}
