@@ -6,10 +6,6 @@ export const StravaAthleteSchema = Record({
 });
 
 export type StravaAthlete = Static<typeof StravaAthleteSchema>;
-/**
- * @deprecated
- */
-export type StravaSettingsDBRow = { athleteId: number } & StravaAthlete;
 
 export interface StravaToken {
   athleteId: number;
