@@ -37,6 +37,7 @@ async function pgMigrate() {
   client.release();
 
   for (const athleteId of await getAllStravaTokenIds()) {
+    console.log(`Migrating StravaToken ${athleteId}`);
     await readStravaToken(athleteId);
   }
 }
