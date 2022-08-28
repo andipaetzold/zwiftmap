@@ -14,8 +14,7 @@
     "dev:worker": "tsc-watch -P worker.tsconfig.json --preserveWatchOutput --onSuccess \"node ./build-worker/worker\"",
     "build": "npm run build:web && npm run build:worker",
     "build:web": "tsc -P web.tsconfig.json",
-    "build:worker": "tsc -P worker.tsconfig.json",
-    "pg-migrate": "node-pg-migrate"
+    "build:worker": "tsc -P worker.tsconfig.json"
   },
   "devDependencies": {
     "@tsconfig/node16": "1.0.3",
@@ -29,7 +28,6 @@
     "@types/lz-string": "1.3.34",
     "@types/morgan": "1.9.3",
     "@types/node": "16.11.56",
-    "@types/pg": "8.6.5",
     "@types/redis": "2.8.32",
     "@types/sharp": "0.30.5",
     "@types/tsc-watch": "4.2.0",
@@ -57,8 +55,6 @@
     "lz-string": "1.4.4",
     "morgan": "1.10.0",
     "nocache": "3.0.4",
-    "node-pg-migrate": "6.2.2",
-    "pg": "8.8.0",
     "redis": "3.1.2",
     "runtypes": "6.6.0",
     "sharp": "0.30.7",

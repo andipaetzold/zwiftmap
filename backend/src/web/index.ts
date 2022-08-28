@@ -2,10 +2,8 @@ import * as Sentry from "@sentry/node";
 import "@sentry/tracing";
 import * as Tracing from "@sentry/tracing";
 import nocache from "nocache";
-import runner from "node-pg-migrate";
 import "source-map-support/register";
 import { PORT, SENTRY_WEB_DSN } from "../shared/config";
-import { pool } from "../shared/persistence/pg";
 import * as handlers from "./handlers";
 import { errorHandler } from "./middleware/errorHandler";
 import { app } from "./server";
@@ -20,18 +18,6 @@ Sentry.init({
   ],
   tracesSampleRate: 0.01,
 });
-
-async function pgMigrate() {
-  const client = await pool.connect();
-  await runner({
-    dbClient: client,
-    migrationsTable: "pgmigrations",
-    dir: "migrations",
-    direction: "up",
-    count: Infinity,
-  });
-  client.release();
-}
 
 function startServer() {
   app.use(Sentry.Handlers.requestHandler());
@@ -84,7 +70,6 @@ function startServer() {
 }
 
 async function main() {
-  await pgMigrate();
   startServer();
 }
 main();
