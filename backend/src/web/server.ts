@@ -10,7 +10,7 @@ import {
   FRONTEND_URL,
 } from "../shared/config";
 import { firestore } from "../shared/persistence/firestore";
-import { redisCallbackClient } from "../shared/persistence/redis";
+import { redisClient } from "../shared/persistence/redis";
 import { FirestoreStore } from "./middleware/connect-firestore";
 import { logger } from "./middleware/logger";
 import { requestId } from "./middleware/requestId";
@@ -39,7 +39,7 @@ app.use(
       firestore,
       collection: "express-sessions",
       redisStore: new RedisStore({
-        client: redisCallbackClient,
+        client: redisClient,
         prefix: "session:",
       }),
     }),

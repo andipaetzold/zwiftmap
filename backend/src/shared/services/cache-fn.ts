@@ -1,6 +1,6 @@
-import { redisClient } from "../persistence/redis";
+import { nodeCache } from "./cache";
 
-export function createRedisCachedFn<Args extends any[], R>(
+export function createCachedFn<Args extends any[], R>(
   fn: (...args: Args) => Promise<R>,
   getKey: ((...args: Args) => string) | string,
   ttl: number
@@ -8,16 +8,16 @@ export function createRedisCachedFn<Args extends any[], R>(
   return async (...args: Args): Promise<{ result: R; ttl: number }> => {
     const key = typeof getKey === "string" ? getKey : getKey(...args);
 
-    const cachedResult = await redisClient.get<R>(key);
+    const cachedResult = nodeCache.get<R>(key);
     if (cachedResult) {
       return {
         result: cachedResult,
-        ttl: (await redisClient.ttl(key)) ?? 0,
+        ttl: nodeCache.getTtl(key) ?? 0,
       };
     }
 
     const result = await fn(...args);
-    redisClient.setex(key, result, ttl);
+    nodeCache.set(key, result, ttl);
     return {
       result,
       ttl,

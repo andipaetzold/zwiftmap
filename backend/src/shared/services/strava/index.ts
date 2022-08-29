@@ -1,5 +1,5 @@
-import { redisClient } from "../../persistence/redis";
-import { createRedisCachedFn } from "../redis-cache";
+import { nodeCache } from "../cache";
+import { createCachedFn } from "../cache-fn";
 import {
   fetchActivityById,
   fetchActivityStreams,
@@ -18,7 +18,7 @@ const TYPE_ACTIVITY = "activity";
 const TYPE_SEGMENT = "segment";
 const KEY_STREAMS = "streams";
 
-export const getActivityById = createRedisCachedFn(
+export const getActivityById = createCachedFn(
   fetchActivityById,
   (athleteId, activityId) =>
     // strava:$athleteId:activities:$activityId
@@ -26,7 +26,7 @@ export const getActivityById = createRedisCachedFn(
   TTL
 );
 
-export const getSegmentById = createRedisCachedFn(
+export const getSegmentById = createCachedFn(
   fetchSegmentById,
   (athleteId, segmentId) =>
     // strava:$athleteId:segments:$segmentId
@@ -34,7 +34,7 @@ export const getSegmentById = createRedisCachedFn(
   TTL
 );
 
-export const getActivityStreams = createRedisCachedFn(
+export const getActivityStreams = createCachedFn(
   fetchActivityStreams,
   (athleteId, activityId) =>
     // strava:$athleteId:activities:$activityId:streams
@@ -43,31 +43,25 @@ export const getActivityStreams = createRedisCachedFn(
 );
 
 export async function evictCacheForAthlete(athleteId: number) {
-  try {
-    const pattern = [KEY, athleteId, "*"].join(":");
-    const keys = await redisClient.keys(pattern);
-
-    for (const key of keys) {
-      await redisClient.del(key);
-    }
-  } catch {}
+  const allKeys = nodeCache.keys();
+  const pattern = [KEY, athleteId, ""].join(":");
+  const keys = allKeys.filter((key) => key.startsWith(pattern));
+  nodeCache.del(keys);
 }
 
 export async function evictCacheForActivity(
   athleteId: number,
   activityId: number
 ) {
-  try {
-    const key = [KEY, athleteId, TYPE_ACTIVITY, activityId].join(":");
-    await redisClient.del(key);
+  const key = [KEY, athleteId, TYPE_ACTIVITY, activityId].join(":");
+  nodeCache.del(key);
 
-    const keyStreams = [
-      KEY,
-      athleteId,
-      TYPE_ACTIVITY,
-      activityId,
-      "streams",
-    ].join(":");
-    await redisClient.del(keyStreams);
-  } catch {}
+  const streamsKey = [
+    KEY,
+    athleteId,
+    TYPE_ACTIVITY,
+    activityId,
+    "streams",
+  ].join(":");
+  nodeCache.del(streamsKey);
 }
