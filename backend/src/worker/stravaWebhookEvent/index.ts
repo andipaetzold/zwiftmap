@@ -1,6 +1,5 @@
 import { Job } from "bull";
-import { WebhookEventType } from "../../shared/types";
-import { Logger } from "../services/logger";
+import { Logger, WebhookEventType } from "../../shared/types";
 import { handleActivityCreate } from "./handler/activity-create";
 import { handleActivityDelete } from "./handler/activity-delete";
 import { handleActivityUpdate } from "./handler/activity-update";

@@ -1,7 +1,8 @@
 import * as Sentry from "@sentry/node";
 import axios from "axios";
 import { Job } from "bull";
-import { createLogger, Logger } from "./services/logger";
+import { Logger } from "../shared/types";
+import { createLogger } from "./services/logger";
 
 export function wrap<T>(
   handler: (job: Job<T>, logger: Logger) => Promise<void>

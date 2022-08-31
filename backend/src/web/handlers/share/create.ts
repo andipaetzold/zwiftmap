@@ -3,6 +3,7 @@ import { Literal, Number, Record } from "runtypes";
 import { ErrorWithStatusCode } from "../../../shared/ErrorWithStatusCode";
 import { Share } from "../../../shared/persistence/types";
 import { shareActivity } from "../../../shared/services/sharing";
+import { Logger } from "../../../shared/types";
 import { Session } from "../../types";
 
 const Body = Record({
@@ -21,7 +22,11 @@ export async function handleCreateShare(req: Request, res: Response) {
   let share: Share;
   switch (req.body.type) {
     case "strava-activity": {
-      share = await handleStravaActivity(session, req.body.stravaActivityId);
+      share = await handleStravaActivity(
+        session,
+        req.body.stravaActivityId,
+        req.logger
+      );
       break;
     }
   }
@@ -31,11 +36,12 @@ export async function handleCreateShare(req: Request, res: Response) {
 
 async function handleStravaActivity(
   session: Session,
-  stravaActivityId: number
+  stravaActivityId: number,
+  logger: Logger
 ): Promise<Share> {
   if (!session.stravaAthleteId) {
     throw new ErrorWithStatusCode("Not authenticated with Strava", 403);
   }
 
-  return await shareActivity(session.stravaAthleteId, stravaActivityId);
+  return await shareActivity(session.stravaAthleteId, stravaActivityId, logger);
 }

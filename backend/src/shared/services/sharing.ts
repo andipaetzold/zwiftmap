@@ -5,12 +5,15 @@ import { ErrorWithStatusCode } from "../ErrorWithStatusCode";
 import { getShareUrl, writeShare } from "../persistence/share";
 import { Share, ShareStravaActivity } from "../persistence/types";
 import { imageQueue } from "../queue";
+import { ImageQueueData, Logger } from "../types";
 import { isZwiftActivity } from "../util";
 import { getActivityById, getActivityStreams, updateActivity } from "./strava";
+import { enqueueImageTask } from "./tasks";
 
 export async function shareActivity(
   athleteId: number,
-  activityId: number
+  activityId: number,
+  logger: Logger
 ): Promise<Share> {
   const { result: activity } = await getActivityById(athleteId, activityId);
   const { result: activityStreams } = await getActivityStreams(
@@ -22,12 +25,13 @@ export async function shareActivity(
     throw new ErrorWithStatusCode("Activity is no Zwift activity", 404);
   }
 
-  return await createShare(activity, activityStreams);
+  return await createShare(activity, activityStreams, logger);
 }
 
 export async function addLinkToActivity(
   athleteId: number,
-  activityId: number
+  activityId: number,
+  logger: Logger
 ): Promise<void> {
   const { result: activity } = await getActivityById(athleteId, activityId);
   const { result: activityStreams } = await getActivityStreams(
@@ -43,7 +47,7 @@ export async function addLinkToActivity(
     return;
   }
 
-  const share = await createShare(activity, activityStreams);
+  const share = await createShare(activity, activityStreams, logger);
 
   const url = getShareUrl(share.id);
   const text = `View on ZwiftMap:\n${url}`;
@@ -57,7 +61,8 @@ export async function addLinkToActivity(
 
 async function createShare(
   activity: DetailedActivity,
-  activityStreams: Partial<StreamSet>
+  activityStreams: Partial<StreamSet>,
+  logger: Logger
 ) {
   if (
     !activityStreams.altitude ||
@@ -88,7 +93,7 @@ async function createShare(
 
   const share = await writeShare(shareWithoutId);
 
-  await imageQueue.addBulk([
+  const jobs = [
     {
       data: {
         type: "share",
@@ -119,7 +124,12 @@ async function createShare(
         },
       },
     },
-  ]);
+  ] as { data: ImageQueueData }[];
+  await imageQueue.addBulk(jobs);
+
+  for (const job of jobs) {
+    await enqueueImageTask(job.data, logger);
+  }
 
   return share;
 }

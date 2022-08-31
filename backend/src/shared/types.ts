@@ -19,3 +19,24 @@ export const WebhookEvent = Record({
   updates: Dictionary(Unknown) as StringDictionary<typeof Unknown>,
 });
 export type WebhookEventType = Static<typeof WebhookEvent>;
+
+export type LogFn = (...data: any) => void;
+
+export interface Logger {
+  debug: LogFn;
+  info: LogFn;
+  log: LogFn;
+  error: LogFn;
+  trace: LogFn;
+  warn: LogFn;
+}
+
+export interface ImageQueueData {
+  type: "share";
+  shareId: string;
+
+  resolution: { width: number; height: number };
+  googleCloudStorage?: {
+    filename: string;
+  };
+}

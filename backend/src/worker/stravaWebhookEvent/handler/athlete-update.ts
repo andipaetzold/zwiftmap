@@ -1,8 +1,7 @@
 import { removeStravaSettings } from "../../../shared/persistence/stravaSettings";
 import { removeStravaToken } from "../../../shared/persistence/stravaToken";
 import { evictCacheForAthlete } from "../../../shared/services/strava";
-import { WebhookEventType } from "../../../shared/types";
-import { Logger } from "../../services/logger";
+import { Logger, WebhookEventType } from "../../../shared/types";
 
 export async function handleAthleteUpdate(
   webhookEvent: WebhookEventType,

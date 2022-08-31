@@ -1,13 +1,4 @@
-type LogFn = (...data: any) => void;
-
-export interface Logger {
-  debug: LogFn;
-  info: LogFn;
-  log: LogFn;
-  error: LogFn;
-  trace: LogFn;
-  warn: LogFn;
-}
+import { LogFn, Logger } from "../../shared/types";
 
 export function createLogger(jobId: number | string): Logger {
   const createLogFnWithId =

@@ -1,11 +1,10 @@
 import { Job } from "bull";
 import { createImage } from "../../shared/image";
 import { readShare } from "../../shared/persistence/share";
-import { ImageQueueJobData } from "../../shared/queue";
 import { uploadToGoogleCloudStorage } from "../../shared/services/gcs";
-import { Logger } from "../services/logger";
+import { ImageQueueData, Logger } from "../../shared/types";
 
-export async function handleImage(job: Job<ImageQueueJobData>, logger: Logger) {
+export async function handleImage(job: Job<ImageQueueData>, logger: Logger) {
   const { shareId, resolution, googleCloudStorage } = job.data;
 
   const share = await readShare(shareId);

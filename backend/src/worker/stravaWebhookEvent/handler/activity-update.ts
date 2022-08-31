@@ -1,6 +1,5 @@
 import { evictCacheForActivity } from "../../../shared/services/strava";
-import { WebhookEventType } from "../../../shared/types";
-import { Logger } from "../../services/logger";
+import { Logger, WebhookEventType } from "../../../shared/types";
 
 export async function handleActivityUpdate(
   webhookEvent: WebhookEventType,

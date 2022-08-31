@@ -1,16 +1,6 @@
 import { NextFunction } from "express";
 import { IncomingMessage, OutgoingMessage } from "http";
-
-type LogFn = (...data: any) => void;
-
-export interface Logger {
-  debug: LogFn;
-  info: LogFn;
-  log: LogFn;
-  error: LogFn;
-  trace: LogFn;
-  warn: LogFn;
-}
+import { Logger, LogFn } from "../../shared/types";
 
 declare module "http" {
   interface IncomingMessage {

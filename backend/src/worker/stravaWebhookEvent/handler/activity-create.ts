@@ -2,9 +2,8 @@ import { DetailedActivity } from "strava";
 import { readStravaSettings } from "../../../shared/persistence/stravaSettings";
 import { addLinkToActivity } from "../../../shared/services/sharing";
 import { getActivityById } from "../../../shared/services/strava";
-import { WebhookEventType } from "../../../shared/types";
+import { Logger, WebhookEventType } from "../../../shared/types";
 import { isZwiftActivity } from "../../../shared/util";
-import { Logger } from "../../services/logger";
 
 export async function handleActivityCreate(
   webhookEvent: WebhookEventType,
@@ -33,5 +32,5 @@ export async function handleActivityCreate(
   }
 
   logger.info("Adding link to activity description");
-  await addLinkToActivity(athleteId, activityId);
+  await addLinkToActivity(athleteId, activityId, logger);
 }
