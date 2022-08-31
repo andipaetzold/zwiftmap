@@ -45,5 +45,5 @@ async function enqueue(
     },
   });
 
-  logger.info(`Enqueued task ${response.name} to queue ${queue}`);
+  logger.info(`Enqueued task ${response.name}`);
 }
