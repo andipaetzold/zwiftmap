@@ -25,8 +25,9 @@ export async function handleWebhook(req: Request, res: Response) {
   }
 
   const job = await stravaWebhookEventQueue.add(webhookEvent);
-  enqueueStravaWebhookEvent(webhookEvent, req.logger);
-
   req.logger.log(`Enqueued job ${job.id}`);
+
+  await enqueueStravaWebhookEvent(webhookEvent, req.logger);
+
   res.sendStatus(204);
 }
