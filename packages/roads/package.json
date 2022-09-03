@@ -9,16 +9,17 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && npm pack",
+    "postbuild": "cp zwiftmap-roads-1.0.0.tgz ../../frontend/zwiftmap-roads-1.0.0.tgz",
     "dev": "tsc --watch"
   },
   "dependencies": {
     "@tsconfig/recommended": "1.0.1",
-    "@turf/nearest-point-on-line": "6.5.0",
     "@turf/helpers": "6.5.0",
-    "@zwiftmap/types": "1.0.0",
-    "lodash-es": "4.17.21",
+    "@turf/nearest-point-on-line": "6.5.0",
+    "@zwiftmap/types": "file:zwiftmap-types-1.0.0.tgz",
     "leaflet": "1.8.0",
+    "lodash-es": "4.17.21",
     "zwift-data": "1.17.0"
   },
   "devDependencies": {
