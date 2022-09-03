@@ -12,7 +12,6 @@ jobs:
       - name: Use node
         uses: actions/setup-node@v3.4.1
         with:
-          cache: "npm"
           node-version-file: ".nvmrc"
 
       - run: npm ci && npm run build
@@ -45,7 +44,6 @@ jobs:
       - name: Use node
         uses: actions/setup-node@v3.4.1
         with:
-          cache: "npm"
           node-version-file: ".nvmrc"
       - run: npm ci
         working-directory: browser-extension
@@ -60,7 +58,6 @@ jobs:
       - name: Use node
         uses: actions/setup-node@v3.4.1
         with:
-          cache: "npm"
           node-version-file: ".nvmrc"
 
       - run: npm ci && npm run build
