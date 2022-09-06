@@ -1,12 +1,12 @@
-import { Job } from "bull";
 import { createImage } from "../../shared/image";
 import { readShare } from "../../shared/persistence/share";
 import { uploadToGoogleCloudStorage } from "../../shared/services/gcs";
 import { ImageQueueData, Logger } from "../../shared/types";
 
-export async function handleImage(job: Job<ImageQueueData>, logger: Logger) {
-  const { shareId, resolution, googleCloudStorage } = job.data;
-
+export async function handleImage(
+  { shareId, resolution, googleCloudStorage }: ImageQueueData,
+  logger: Logger
+) {
   const share = await readShare(shareId);
   if (!share) {
     throw new Error(`Could not find share '${shareId}'`);

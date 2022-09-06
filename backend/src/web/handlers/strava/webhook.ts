@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { stravaWebhookEventQueue } from "../../../shared/queue";
 import { enqueueStravaWebhookEvent } from "../../../shared/services/tasks";
 import { WebhookEvent } from "../../../shared/types";
 import { getWebhookSubscriptionId } from "../../state";
@@ -23,9 +22,6 @@ export async function handleWebhook(req: Request, res: Response) {
     res.sendStatus(403);
     return;
   }
-
-  const job = await stravaWebhookEventQueue.add(webhookEvent);
-  req.logger.log(`Enqueued job ${job.id}`);
 
   await enqueueStravaWebhookEvent(webhookEvent, req.logger);
 

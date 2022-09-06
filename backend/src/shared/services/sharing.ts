@@ -4,7 +4,6 @@ import { FRONTEND_URL } from "../config";
 import { ErrorWithStatusCode } from "../ErrorWithStatusCode";
 import { getShareUrl, writeShare } from "../persistence/share";
 import { Share, ShareStravaActivity } from "../persistence/types";
-import { imageQueue } from "../queue";
 import { ImageQueueData, Logger } from "../types";
 import { isZwiftActivity } from "../util";
 import { getActivityById, getActivityStreams, updateActivity } from "./strava";
@@ -95,40 +94,33 @@ async function createShare(
 
   const jobs = [
     {
-      data: {
-        type: "share",
-        shareId: share.id,
-        resolution: { width: 1088, height: 436 },
-        googleCloudStorage: {
-          filename: `strava-activities/${activity.id}/feed-wide.png`,
-        },
+      type: "share",
+      shareId: share.id,
+      resolution: { width: 1088, height: 436 },
+      googleCloudStorage: {
+        filename: `strava-activities/${activity.id}/feed-wide.png`,
       },
     },
     {
-      data: {
-        type: "share",
-        shareId: share.id,
-        resolution: { width: 540, height: 540 },
-        googleCloudStorage: {
-          filename: `strava-activities/${activity.id}/feed-square.png`,
-        },
+      type: "share",
+      shareId: share.id,
+      resolution: { width: 540, height: 540 },
+      googleCloudStorage: {
+        filename: `strava-activities/${activity.id}/feed-square.png`,
       },
     },
     {
-      data: {
-        type: "share",
-        shareId: share.id,
-        resolution: { width: 1088, height: 362 },
-        googleCloudStorage: {
-          filename: `strava-activities/${activity.id}/feed-group.png`,
-        },
+      type: "share",
+      shareId: share.id,
+      resolution: { width: 1088, height: 362 },
+      googleCloudStorage: {
+        filename: `strava-activities/${activity.id}/feed-group.png`,
       },
     },
-  ] as { data: ImageQueueData }[];
-  await imageQueue.addBulk(jobs);
+  ] as ImageQueueData[];
 
   for (const job of jobs) {
-    await enqueueImageTask(job.data, logger);
+    await enqueueImageTask(job, logger);
   }
 
   return share;

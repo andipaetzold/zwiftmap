@@ -4,8 +4,7 @@ google-credentials.json
 /node_modules
 
 # production
-/build-web
-/build-worker
+/build
 
 # misc
 .env

@@ -1,4 +1,3 @@
-import { Job } from "bull";
 import { Logger, WebhookEventType } from "../../shared/types";
 import { handleActivityCreate } from "./handler/activity-create";
 import { handleActivityDelete } from "./handler/activity-delete";
@@ -6,10 +5,9 @@ import { handleActivityUpdate } from "./handler/activity-update";
 import { handleAthleteUpdate } from "./handler/athlete-update";
 
 export async function handleStravaWebhookEvent(
-  job: Job<WebhookEventType>,
+  webhookEvent: WebhookEventType,
   logger: Logger
 ) {
-  const webhookEvent = job.data;
   logger.info(
     "WebhookEvent",
     `athlete/${webhookEvent.owner_id}/${webhookEvent.object_type}/${webhookEvent.object_id}/${webhookEvent.aspect_type}`

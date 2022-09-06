@@ -65,7 +65,7 @@ function startServer() {
   app.listen(PORT, async () => {
     console.log(`Listening at port ${PORT}`);
 
-    await setupWebhook();
+    // await setupWebhook();
   });
 }
 
