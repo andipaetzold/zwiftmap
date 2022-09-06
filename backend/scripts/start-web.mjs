@@ -39,4 +39,4 @@ watch.on("compile_errors", () => {
   killChildProcess();
 });
 
-watch.start("--project", "web.tsconfig.json", "--preserveWatchOutput");
+watch.start("--preserveWatchOutput");

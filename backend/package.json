@@ -8,7 +8,7 @@
   "scripts": {
     "start": "node ./build/web",
     "dev": "node ./scripts/start.mjs",
-    "build": "tsc -P web.tsconfig.json"
+    "build": "tsc"
   },
   "devDependencies": {
     "@tsconfig/node16": "1.0.3",
