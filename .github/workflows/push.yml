@@ -14,12 +14,12 @@ jobs:
         with:
           node-version-file: ".nvmrc"
 
-      - run: npm ci && npm run build
+      - run: npm i && npm run build
         working-directory: packages/types
-      - run: npm ci && npm run build
+      - run: npm i && npm run build
         working-directory: packages/roads
 
-      - run: npm ci
+      - run: npm i
         working-directory: backend
       - run: npm run build
         working-directory: backend
@@ -45,7 +45,7 @@ jobs:
         uses: actions/setup-node@v3.4.1
         with:
           node-version-file: ".nvmrc"
-      - run: npm ci
+      - run: npm i
         working-directory: browser-extension
       - run: npm run build
         working-directory: browser-extension
@@ -60,12 +60,12 @@ jobs:
         with:
           node-version-file: ".nvmrc"
 
-      - run: npm ci && npm run build
+      - run: npm i && npm run build
         working-directory: packages/types
-      - run: npm ci && npm run build
+      - run: npm i && npm run build
         working-directory: packages/roads
 
-      - run: npm ci
+      - run: npm i
         working-directory: frontend
       - name: Build
         run: npm run build
