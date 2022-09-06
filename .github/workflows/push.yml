@@ -1,0 +1,91 @@
+name: Push
+
+on:
+  - push
+
+jobs:
+  backend:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use node
+        uses: actions/setup-node@v3.4.1
+        with:
+          node-version-file: ".nvmrc"
+
+      - run: npm i && npm run build
+        working-directory: packages/types
+      - run: npm i && npm run build
+        working-directory: packages/roads
+
+      - run: npm i
+        working-directory: backend
+      - run: npm run build
+        working-directory: backend
+
+      - name: Sentry Release
+        if: github.ref == 'refs/heads/main'
+        uses: getsentry/action-release@v1.2.0
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+        with:
+          sourcemaps: backend/build-web
+          environment: production
+          ignore_empty: true
+          projects: web
+
+  browser-extension:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use node
+        uses: actions/setup-node@v3.4.1
+        with:
+          node-version-file: ".nvmrc"
+      - run: npm i
+        working-directory: browser-extension
+      - run: npm run build
+        working-directory: browser-extension
+
+  frontend:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use node
+        uses: actions/setup-node@v3.4.1
+        with:
+          node-version-file: ".nvmrc"
+
+      - run: npm i && npm run build
+        working-directory: packages/types
+      - run: npm i && npm run build
+        working-directory: packages/roads
+
+      - run: npm i
+        working-directory: frontend
+      - name: Build
+        run: npm run build
+        working-directory: frontend
+
+      - name: Deploy
+        run: npm run deploy --prod
+        if: github.ref == 'refs/heads/main'
+        working-directory: frontend
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      - name: Sentry Release
+        if: github.ref == 'refs/heads/main'
+        uses: getsentry/action-release@v1.2.0
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+        with:
+          sourcemaps: frontend/build/static/js
+          environment: production
+          ignore_empty: true
+          projects: frontend
