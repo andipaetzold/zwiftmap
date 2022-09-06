@@ -16,7 +16,7 @@ export const STRAVA_WEBHOOK_HOST =
   process.env.STRAVA_WEBHOOK_HOST ?? BACKEND_URL;
 export const STRAVA_VERIFY_TOKEN = randomString();
 
-export const SENTRY_WEB_DSN = process.env.SENTRY_WEB_DSN ?? "";
+export const SENTRY_DSN = process.env.SENTRY_DSN ?? "";
 
 export const AUTH_SECRET = process.env.AUTH_SECRET!;
 export const AUTH_COOKIE_NAME = "sessionID";
