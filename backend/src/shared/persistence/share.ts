@@ -1,7 +1,7 @@
 import { QueryDocumentSnapshot } from "@google-cloud/firestore";
 import { mapValues } from "lodash-es";
 import short from "short-uuid";
-import { FRONTEND_URL } from "../config.js";
+import { config } from "../config.js";
 import { firestore } from "./firestore.js";
 import { Share } from "./types.js";
 import lzString from "lz-string";
@@ -50,7 +50,7 @@ const collection = firestore.collection(COLLECTION_NAME).withConverter<Share>({
 });
 
 export function getShareUrl(id: string) {
-  return `${FRONTEND_URL}/s/${id}`;
+  return `${config.frontendUrl}/s/${id}`;
 }
 
 export async function writeShare(

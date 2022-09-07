@@ -1,17 +1,17 @@
+import "source-map-support/register.js";
 import * as Sentry from "@sentry/node";
 import "@sentry/tracing";
 import * as Tracing from "@sentry/tracing";
 import nocache from "nocache";
-import "source-map-support/register.js";
-import { GAE_VERSION, PORT, SENTRY_DSN } from "../shared/config.js";
+import { config } from "../shared/config.js";
 import * as handlers from "./handlers/index.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import { app } from "./server.js";
 
 Sentry.init({
-  enabled: SENTRY_DSN.length > 0,
-  dsn: SENTRY_DSN,
-  release: GAE_VERSION,
+  enabled: config.sentry.dsn.length > 0,
+  dsn: config.sentry.dsn,
+  release: config.sentry.version,
   integrations: [
     new Sentry.Integrations.Http({ tracing: true }),
     new Tracing.Integrations.Express({ app }),
@@ -57,6 +57,6 @@ app.get("/share/:shareId/image", handlers.handleGETShareImage);
 app.use(Sentry.Handlers.errorHandler());
 app.use(errorHandler);
 
-app.listen(PORT, async () => {
-  console.log(`Listening at port ${PORT}`);
+app.listen(config.port, async () => {
+  console.log(`Listening at port ${config.port}`);
 });

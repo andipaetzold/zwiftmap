@@ -1,9 +1,7 @@
 import { Request, Response } from "express";
 import { Record, String } from "runtypes";
 import { URLSearchParams } from "url";
-import {
-  BACKEND_URL, STRAVA_CLIENT_ID
-} from "../../../shared/config.js";
+import { config } from "../../../shared/config.js";
 
 const Query = Record({
   state: String,
@@ -16,8 +14,8 @@ export function handleStravaAuthorize(req: Request, res: Response) {
   }
 
   const params = new URLSearchParams();
-  params.set("client_id", STRAVA_CLIENT_ID.toString());
-  params.set("redirect_uri", `${BACKEND_URL}/strava/callback`);
+  params.set("client_id", config.strava.clientId.toString());
+  params.set("redirect_uri", `${config.backendUrl}/strava/callback`);
   params.set("response_type", "code");
   params.set("approval_prompt", "auto");
   params.set("scope", "activity:write,activity:read_all");

@@ -1,6 +1,6 @@
 import { pick } from "lodash-es";
 import { DetailedActivity, StreamSet } from "strava";
-import { FRONTEND_URL } from "../config.js";
+import { config } from "../config.js";
 import { ErrorWithStatusCode } from "../ErrorWithStatusCode.js";
 import { getShareUrl, writeShare } from "../persistence/share.js";
 import { Share, ShareStravaActivity } from "../persistence/types.js";
@@ -46,7 +46,7 @@ export async function addLinkToActivity(
     throw new ErrorWithStatusCode("Activity is no Zwift activity", 404);
   }
 
-  if ((activity.description ?? "").includes(FRONTEND_URL)) {
+  if ((activity.description ?? "").includes(config.frontendUrl)) {
     return;
   }
 

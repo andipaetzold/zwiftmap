@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Record, String, Union } from "runtypes";
 import { URLSearchParams } from "url";
-import { FRONTEND_URL } from "../../../shared/config.js";
+import { config } from "../../../shared/config.js";
 import { writeStravaToken } from "../../../shared/persistence/stravaToken.js";
 import { stravaAppAPI } from "../../../shared/services/strava/index.js";
 import { Session } from "../../types.js";
@@ -63,7 +63,7 @@ export async function handleStravaAuthorizeCallback(
   } catch {}
   const paramsString = params.toString();
 
-  let redirectUrl = `${FRONTEND_URL}${path}`;
+  let redirectUrl = `${config.frontendUrl}${path}`;
   if (paramsString !== "") {
     redirectUrl += `?${paramsString}`;
   }

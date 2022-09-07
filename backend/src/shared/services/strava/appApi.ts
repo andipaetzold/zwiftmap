@@ -1,10 +1,10 @@
 import { default as axios } from "axios";
-import { STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET } from "../../config.js";
+import { config } from "../../config.js";
 
 export const stravaAppAPI = axios.create({
   baseURL: "https://www.strava.com",
   params: {
-    client_id: STRAVA_CLIENT_ID,
-    client_secret: STRAVA_CLIENT_SECRET,
+    client_id: config.strava.clientId,
+    client_secret: config.strava.clientSecret,
   },
 });
