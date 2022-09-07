@@ -1,3 +1,11 @@
 runtime: nodejs16
 
 instance_class: F1
+
+env:
+  BACKEND_URL: https://api.zwiftmap.com
+  FRONTEND_URL: https://zwiftmap.com
+
+  STRAVA_CLIENT_ID: 66426
+
+  PORT: 8080

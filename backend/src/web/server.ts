@@ -5,7 +5,7 @@ import session from "express-session";
 import {
   AUTH_COOKIE_NAME,
   AUTH_SECRET,
-  ENVIRONMENT,
+  NODE_ENV,
   FRONTEND_URL,
 } from "../shared/config";
 import { firestore } from "../shared/persistence/firestore";
@@ -39,7 +39,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: ENVIRONMENT === "production",
+      secure: NODE_ENV === "production",
       httpOnly: true,
       maxAge: 30 * 24 * 60 * 60 * 1_000,
       sameSite: true,
@@ -49,6 +49,6 @@ app.use(
   })
 );
 
-if (ENVIRONMENT === "production") {
+if (NODE_ENV === "production") {
   app.set("trust proxy", 1);
 }

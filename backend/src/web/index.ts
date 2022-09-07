@@ -3,7 +3,7 @@ import "@sentry/tracing";
 import * as Tracing from "@sentry/tracing";
 import nocache from "nocache";
 import "source-map-support/register";
-import { PORT, SENTRY_DSN } from "../shared/config";
+import { GAE_VERSION, PORT, SENTRY_DSN } from "../shared/config";
 import * as handlers from "./handlers";
 import { errorHandler } from "./middleware/errorHandler";
 import { app } from "./server";
@@ -12,6 +12,7 @@ import { setupWebhook } from "./services/webhook";
 Sentry.init({
   enabled: SENTRY_DSN.length > 0,
   dsn: SENTRY_DSN,
+  release: GAE_VERSION,
   integrations: [
     new Sentry.Integrations.Http({ tracing: true }),
     new Tracing.Integrations.Express({ app }),

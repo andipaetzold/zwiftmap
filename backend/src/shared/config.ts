@@ -2,10 +2,9 @@ import "dotenv/config";
 import { randomString } from "./util";
 
 export const PORT = Number.parseInt(process.env.PORT!);
+export const GAE_VERSION = process.env.GAE_VERSION ?? "unknown";
 
-export const ENVIRONMENT = process.env.ENVIRONMENT as
-  | "development"
-  | "production";
+export const NODE_ENV = process.env.NODE_ENV as "development" | "production";
 
 export const BACKEND_URL = process.env.BACKEND_URL!;
 export const FRONTEND_URL = process.env.FRONTEND_URL!;

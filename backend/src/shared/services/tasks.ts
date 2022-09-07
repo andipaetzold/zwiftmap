@@ -26,7 +26,7 @@ async function enqueue(
 
   const [response] = await client.createTask({
     parent: client.queuePath(
-      process.env.GCP_PROJECT!,
+      process.env.GOOGLE_CLOUD_PROJECT!,
       process.env.GCP_TASKS_LOCATION!,
       queue
     ),
