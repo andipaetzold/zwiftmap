@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { AUTH_COOKIE_NAME } from "../../../shared/config";
+import { AUTH_COOKIE_NAME } from "../../../shared/config.js";
 
 export async function handleLogout(req: Request, res: Response) {
   await new Promise<void>((resolve, reject) => {

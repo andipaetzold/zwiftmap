@@ -1,5 +1,5 @@
-import axios from "axios";
-import { ZwiftEvent } from "./types";
+import { default as axios } from "axios";
+import { ZwiftEvent } from "./types.js";
 
 const api = axios.create({
   baseURL: "https://us-or-rly101.zwift.com/api",

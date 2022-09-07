@@ -1,3 +1,3 @@
-export * from "./create";
-export * from "./get";
-export * from "./image";
+export * from "./create.js";
+export * from "./get.js";
+export * from "./image.js";

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { getSegmentById } from "../../../../shared/services/strava";
-import { Session } from "../../../types";
+import { getSegmentById } from "../../../../shared/services/strava/index.js";
+import { Session } from "../../../types.js";
 
 export async function handleGETSegment(req: Request, res: Response) {
   const session = req.session as Session;

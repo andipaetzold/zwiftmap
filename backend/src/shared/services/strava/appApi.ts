@@ -1,5 +1,5 @@
-import axios from "axios";
-import { STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET } from "../../config";
+import { default as axios } from "axios";
+import { STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET } from "../../config.js";
 
 export const stravaAppAPI = axios.create({
   baseURL: "https://www.strava.com",

@@ -1,13 +1,13 @@
-import axios, { AxiosInstance } from "axios";
+import { default as axios, AxiosInstance } from "axios";
 import { RefreshTokenResponse } from "strava";
 import {
   readStravaToken,
   removeStravaToken,
   writeStravaToken,
-} from "../../persistence/stravaToken";
-import { StravaToken } from "../../persistence/types";
-import { stravaAppAPI } from "./appApi";
-import { TokenNotFoundError } from "./types";
+} from "../../persistence/stravaToken.js";
+import { StravaToken } from "../../persistence/types.js";
+import { stravaAppAPI } from "./appApi.js";
+import { TokenNotFoundError } from "./types.js";
 
 export async function getStravaUserAPI(
   athleteId: number

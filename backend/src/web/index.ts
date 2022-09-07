@@ -2,12 +2,12 @@ import * as Sentry from "@sentry/node";
 import "@sentry/tracing";
 import * as Tracing from "@sentry/tracing";
 import nocache from "nocache";
-import "source-map-support/register";
-import { GAE_VERSION, PORT, SENTRY_DSN } from "../shared/config";
-import * as handlers from "./handlers";
-import { errorHandler } from "./middleware/errorHandler";
-import { app } from "./server";
-import { setupWebhook } from "./services/webhook";
+import "source-map-support/register.js";
+import { GAE_VERSION, PORT, SENTRY_DSN } from "../shared/config.js";
+import * as handlers from "./handlers/index.js";
+import { errorHandler } from "./middleware/errorHandler.js";
+import { app } from "./server.js";
+import { setupWebhook } from "./services/webhook.js";
 
 Sentry.init({
   enabled: SENTRY_DSN.length > 0,

@@ -1,5 +1,5 @@
 import { CloudTasksClient } from "@google-cloud/tasks";
-import { ImageQueueData, Logger, WebhookEventType } from "../types";
+import { ImageQueueData, Logger, WebhookEventType } from "../types.js";
 
 const client = new CloudTasksClient();
 

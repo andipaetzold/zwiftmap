@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { enqueueStravaWebhookEvent } from "../../../shared/services/tasks";
-import { WebhookEvent } from "../../../shared/types";
-import { getWebhookSubscriptionId } from "../../state";
+import { enqueueStravaWebhookEvent } from "../../../shared/services/tasks.js";
+import { WebhookEvent } from "../../../shared/types.js";
+import { getWebhookSubscriptionId } from "../../state.js";
 
 export async function handleWebhook(req: Request, res: Response) {
   const webhookEvent = req.body;

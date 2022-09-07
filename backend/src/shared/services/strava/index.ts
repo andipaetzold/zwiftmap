@@ -1,12 +1,12 @@
-import { nodeCache } from "../cache";
-import { createCachedFn } from "../cache-fn";
+import { nodeCache } from "../cache.js";
+import { createCachedFn } from "../cache-fn.js";
 import {
   fetchActivityById,
   fetchActivityStreams,
   fetchSegmentById,
-} from "./api";
-export { fetchActivities as getActivities, updateActivity } from "./api";
-export { stravaAppAPI } from "./appApi";
+} from "./api.js";
+export { fetchActivities as getActivities, updateActivity } from "./api.js";
+export { stravaAppAPI } from "./appApi.js";
 
 /**
  * One hour

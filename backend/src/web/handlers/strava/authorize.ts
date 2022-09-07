@@ -3,7 +3,7 @@ import { Record, String } from "runtypes";
 import { URLSearchParams } from "url";
 import {
   BACKEND_URL, STRAVA_CLIENT_ID
-} from "../../../shared/config";
+} from "../../../shared/config.js";
 
 const Query = Record({
   state: String,

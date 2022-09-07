@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { Record } from "runtypes";
-import { createImage } from "../../../shared/image";
-import { readShare } from "../../../shared/persistence/share";
-import { NumberString } from "../../services/runtypes";
+import { createImage } from "../../../shared/image.js";
+import { readShare } from "../../../shared/persistence/share.js";
+import { NumberString } from "../../services/runtypes.js";
 
 const Query = Record({
   width: NumberString,

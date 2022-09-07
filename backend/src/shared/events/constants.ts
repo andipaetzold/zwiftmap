@@ -1,5 +1,4 @@
-import { RulesSet } from ".";
-import { ZwiftEventType } from "./types";
+import { RulesSet, ZwiftEventType } from "./types.js";
 
 export const EVENT_TYPES: { [type in ZwiftEventType]: string } = {
   GROUP_RIDE: "Group Ride",

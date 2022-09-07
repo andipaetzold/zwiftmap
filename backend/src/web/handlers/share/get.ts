@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { readShare } from "../../../shared/persistence/share";
+import { readShare } from "../../../shared/persistence/share.js";
 
 export async function handleGetShare(req: Request, res: Response) {
   const shareId = req.params.shareId;

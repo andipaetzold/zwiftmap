@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { Record, String, Union } from "runtypes";
 import { URLSearchParams } from "url";
-import { FRONTEND_URL } from "../../../shared/config";
-import { writeStravaToken } from "../../../shared/persistence/stravaToken";
-import { stravaAppAPI } from "../../../shared/services/strava";
-import { Session } from "../../types";
+import { FRONTEND_URL } from "../../../shared/config.js";
+import { writeStravaToken } from "../../../shared/persistence/stravaToken.js";
+import { stravaAppAPI } from "../../../shared/services/strava/index.js";
+import { Session } from "../../types.js";
 
 const SuccessQuery = Record({
   state: String,

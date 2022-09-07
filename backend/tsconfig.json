@@ -3,7 +3,9 @@
   "compilerOptions": {
     "outDir": "build",
     "baseUrl": "src",
-    "sourceMap": true
+    "sourceMap": true,
+    "module": "Node16",
+    "moduleResolution": "Node16"
   },
   "files": ["./src/web/index.ts"]
 }

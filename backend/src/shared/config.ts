@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { randomString } from "./util";
+import { randomString } from "./util.js";
 
 export const PORT = Number.parseInt(process.env.PORT!);
 export const GAE_VERSION = process.env.GAE_VERSION ?? "unknown";

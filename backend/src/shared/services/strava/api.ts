@@ -4,7 +4,7 @@ import {
   StreamSet,
   SummaryActivity,
 } from "strava";
-import { getStravaUserAPI } from "./userApi";
+import { getStravaUserAPI } from "./userApi.js";
 
 export async function fetchActivityById(athleteId: number, activityId: number) {
   const api = await getStravaUserAPI(athleteId);

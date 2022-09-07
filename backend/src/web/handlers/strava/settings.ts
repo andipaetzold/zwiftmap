@@ -2,9 +2,9 @@ import { Request, Response } from "express";
 import {
   readStravaSettings,
   writeStravaSettings,
-} from "../../../shared/persistence/stravaSettings";
-import { StravaAthleteSchema } from "../../../shared/persistence/types";
-import { Session } from "../../types";
+} from "../../../shared/persistence/stravaSettings.js";
+import { StravaAthleteSchema } from "../../../shared/persistence/types.js";
+import { Session } from "../../types.js";
 
 export async function handleGETStravaSettings(req: Request, res: Response) {
   const session = req.session as Session;

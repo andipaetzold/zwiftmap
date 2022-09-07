@@ -1,4 +1,4 @@
-import { STRAVA_VERIFY_TOKEN } from "../../../shared/config";
+import { STRAVA_VERIFY_TOKEN } from "../../../shared/config.js";
 import { Request, Response } from "express";
 
 export function handleWebhookVerification(req: Request, res: Response) {

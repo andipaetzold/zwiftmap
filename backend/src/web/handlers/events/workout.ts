@@ -1,16 +1,16 @@
-import axios from "axios";
+import { default as axios } from "axios";
 import { Request, Response } from "express";
 import { X2jOptionsOptional, XMLParser } from "fast-xml-parser";
 import { create } from "xmlbuilder2";
-import { getEvent } from "../../../shared/events";
-import { COLORS, ZONES } from "./workout/constants";
+import { getEvent } from "../../../shared/events/index.js";
+import { COLORS, ZONES } from "./workout/constants.js";
 import {
   BarInterval,
   FreeRideInterval,
   Interval,
   RampInterval,
-} from "./workout/types";
-import { getColorForPower, getPowerForZone } from "./workout/util";
+} from "./workout/types.js";
+import { getColorForPower, getPowerForZone } from "./workout/util.js";
 
 const HEIGHT = 250;
 const WIDTH = 1_000;

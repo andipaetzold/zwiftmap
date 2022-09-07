@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { getActivityStreams } from "../../../../shared/services/strava";
-import { Session } from "../../../types";
+import { getActivityStreams } from "../../../../shared/services/strava/index.js";
+import { Session } from "../../../types.js";
 
 export async function handleGETActivityStreams(req: Request, res: Response) {
   const session = req.session as Session;

@@ -1,4 +1,4 @@
-import { Zone } from "./types";
+import { Zone } from "./types.js";
 
 // https://github.com/breiko83/zwo-editor/blob/master/src/components/Constants.js
 export const COLORS = {

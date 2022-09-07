@@ -1,13 +1,17 @@
-import pick from "lodash/pick";
+import { pick } from "lodash-es";
 import { DetailedActivity, StreamSet } from "strava";
-import { FRONTEND_URL } from "../config";
-import { ErrorWithStatusCode } from "../ErrorWithStatusCode";
-import { getShareUrl, writeShare } from "../persistence/share";
-import { Share, ShareStravaActivity } from "../persistence/types";
-import { ImageQueueData, Logger } from "../types";
-import { isZwiftActivity } from "../util";
-import { getActivityById, getActivityStreams, updateActivity } from "./strava";
-import { enqueueImageTask } from "./tasks";
+import { FRONTEND_URL } from "../config.js";
+import { ErrorWithStatusCode } from "../ErrorWithStatusCode.js";
+import { getShareUrl, writeShare } from "../persistence/share.js";
+import { Share, ShareStravaActivity } from "../persistence/types.js";
+import { ImageQueueData, Logger } from "../types.js";
+import { isZwiftActivity } from "../util.js";
+import {
+  getActivityById,
+  getActivityStreams,
+  updateActivity,
+} from "./strava/index.js";
+import { enqueueImageTask } from "./tasks.js";
 
 export async function shareActivity(
   athleteId: number,

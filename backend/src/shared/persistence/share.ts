@@ -1,10 +1,12 @@
 import { QueryDocumentSnapshot } from "@google-cloud/firestore";
-import { mapValues } from "lodash";
+import { mapValues } from "lodash-es";
 import short from "short-uuid";
-import { FRONTEND_URL } from "../config";
-import { firestore } from "./firestore";
-import { Share } from "./types";
-import { decompressFromBase64, compressToBase64 } from "lz-string";
+import { FRONTEND_URL } from "../config.js";
+import { firestore } from "./firestore.js";
+import { Share } from "./types.js";
+import lzString from "lz-string";
+
+const { decompressFromBase64, compressToBase64 } = lzString;
 
 const COLLECTION_NAME = "shares";
 const collection = firestore.collection(COLLECTION_NAME).withConverter<Share>({

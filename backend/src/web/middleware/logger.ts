@@ -1,6 +1,6 @@
 import { NextFunction } from "express";
 import { IncomingMessage, OutgoingMessage } from "http";
-import { Logger, LogFn } from "../../shared/types";
+import { Logger, LogFn } from "../../shared/types.js";
 
 declare module "http" {
   interface IncomingMessage {

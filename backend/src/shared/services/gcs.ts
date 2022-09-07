@@ -1,5 +1,5 @@
 import { Storage } from "@google-cloud/storage";
-import { NODE_ENV } from "../config";
+import { NODE_ENV } from "../config.js";
 
 const storage = new Storage();
 

@@ -1,7 +1,7 @@
-import axios from "axios";
+import { default as axios } from "axios";
 import { NextFunction, Request, Response } from "express";
-import { NODE_ENV } from "../../shared/config";
-import { ErrorWithStatusCode } from "../../shared/ErrorWithStatusCode";
+import { NODE_ENV } from "../../shared/config.js";
+import { ErrorWithStatusCode } from "../../shared/ErrorWithStatusCode.js";
 
 export function errorHandler(
   err: unknown,

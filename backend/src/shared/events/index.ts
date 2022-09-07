@@ -1,6 +1,6 @@
-import { createCachedFn } from "../services/cache-fn";
-import { fetchEvent, fetchEvents } from "./api";
-export * from "./types";
+import { createCachedFn } from "../services/cache-fn.js";
+import { fetchEvent, fetchEvents } from "./api.js";
+export * from "./types.js";
 
 export const getEvents = createCachedFn(fetchEvents, "events", 5 * 60);
 export const getEvent = createCachedFn(

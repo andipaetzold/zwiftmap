@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getEvents } from "../../../shared/events";
+import { getEvents } from "../../../shared/events/index.js";
 
 export async function handleGETEvents(_req: Request, res: Response) {
   const { result: events, ttl } = await getEvents();

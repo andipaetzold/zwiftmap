@@ -1,7 +1,7 @@
 import { QueryDocumentSnapshot } from "@google-cloud/firestore";
-import { identity } from "lodash";
-import { firestore } from "./firestore";
-import { StravaAthlete } from "./types";
+import { identity } from "lodash-es";
+import { firestore } from "./firestore.js";
+import { StravaAthlete } from "./types.js";
 
 const DEFAULT_STRAVA_ATHLETE = Object.freeze<StravaAthlete>({
   addLinkToActivityDescription: false,

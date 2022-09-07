@@ -2,9 +2,9 @@ import {
   STRAVA_CLIENT_ID,
   STRAVA_VERIFY_TOKEN,
   STRAVA_WEBHOOK_HOST,
-} from "../../shared/config";
-import { stravaAppAPI } from "../../shared/services/strava";
-import { setWebhookSubscriptionId } from "../state";
+} from "../../shared/config.js";
+import { stravaAppAPI } from "../../shared/services/strava/index.js";
+import { setWebhookSubscriptionId } from "../state.js";
 import * as Sentry from "@sentry/node";
 
 interface WebhookSubscription {

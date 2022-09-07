@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Optional, Record, String } from "runtypes";
-import { updateActivity } from "../../../../shared/services/strava";
-import { Session } from "../../../types";
+import { updateActivity } from "../../../../shared/services/strava/index.js";
+import { Session } from "../../../types.js";
 
 const Body = Record({
   description: Optional(String),

@@ -7,12 +7,12 @@ import {
   AUTH_SECRET,
   NODE_ENV,
   FRONTEND_URL,
-} from "../shared/config";
-import { firestore } from "../shared/persistence/firestore";
-import { FirestoreStore } from "./middleware/connect-firestore";
-import { logger } from "./middleware/logger";
-import { requestId } from "./middleware/requestId";
-import { requestLogger } from "./middleware/requestLogger";
+} from "../shared/config.js";
+import { firestore } from "../shared/persistence/firestore.js";
+import { FirestoreStore } from "./middleware/connect-firestore.js";
+import { logger } from "./middleware/logger.js";
+import { requestId } from "./middleware/requestId.js";
+import { requestLogger } from "./middleware/requestLogger.js";
 
 export const app = express();
 app.use(compression());
