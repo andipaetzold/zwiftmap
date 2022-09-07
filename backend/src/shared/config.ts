@@ -73,7 +73,13 @@ async function getConfig(): Promise<Config> {
 
 const client = new SecretManagerServiceClient();
 async function getSecret(name: string): Promise<string> {
-  const [version] = await client.accessSecretVersion({ name });
+  const [version] = await client.accessSecretVersion({
+    name: client.secretVersionPath(
+      process.env.GOOGLE_CLOUD_PROJECT!,
+      name,
+      "latest"
+    ),
+  });
   const payload = version.payload?.data?.toString();
 
   if (!payload) {
