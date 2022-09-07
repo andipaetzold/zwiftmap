@@ -36,6 +36,13 @@ jobs:
           ignore_empty: true
           projects: web
 
+      - uses: 'google-github-actions/auth@v0'
+        with:
+          credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
+      - uses: 'google-github-actions/deploy-appengine@v0'
+        with:
+          working_directory: backend
+
   browser-extension:
     runs-on: ubuntu-20.04
 
