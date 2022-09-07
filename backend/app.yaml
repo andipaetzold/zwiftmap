@@ -2,7 +2,7 @@ runtime: nodejs16
 
 instance_class: F1
 
-env:
+env_variables:
   BACKEND_URL: https://api.zwiftmap.com
   FRONTEND_URL: https://zwiftmap.com
 
