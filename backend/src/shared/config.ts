@@ -26,7 +26,7 @@ async function getConfig(): Promise<Config> {
   if (process.env.GOOGLE_CLOUD_PROJECT) {
     return {
       port: +process.env.PORT!,
-      environment: "development",
+      environment: "production",
       backendUrl: process.env.BACKEND_URL!,
       frontendUrl: process.env.FRONTEND_URL!,
       strava: {
