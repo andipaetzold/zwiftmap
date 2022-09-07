@@ -26,7 +26,7 @@ function killChildProcess() {
 watch.on("success", () => {
   killChildProcess();
 
-  childProcess = spawn(`node`, ["./build-web/web"], {
+  childProcess = spawn(`node`, ["./build/web"], {
     stdio: "inherit",
     env: {
       ...process.env,
