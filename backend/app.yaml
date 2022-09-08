@@ -2,6 +2,12 @@ runtime: nodejs16
 
 instance_class: F1
 
+automatic_scaling:
+  min_instances: 1
+
+inbound_services:
+  - warmup
+
 env_variables:
   BACKEND_URL: https://api2.zwiftmap.com
   FRONTEND_URL: https://zwiftmap.com
