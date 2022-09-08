@@ -4,7 +4,7 @@ import {
   StreamSet,
   SummaryActivity,
 } from "strava";
-import { BACKEND_HOST } from "../config";
+import { BACKEND_HOST, BACKEND_HOST2 } from "../config";
 import { AuthStatus, Share, StravaSettings, ZwiftEvent } from "../types";
 import { cachedRequest } from "./cached-request";
 import { dedupedRequest } from "./deduped-request";
@@ -115,9 +115,9 @@ export async function getAuthStatus(): Promise<AuthStatus> {
 }
 
 export async function getEvents(): Promise<ZwiftEvent[]> {
-  return await dedupedRequest<ZwiftEvent[]>(`${BACKEND_HOST}/events`);
+  return await dedupedRequest<ZwiftEvent[]>(`${BACKEND_HOST2}/events`);
 }
 
 export async function getEvent(eventId: number): Promise<ZwiftEvent> {
-  return await dedupedRequest<ZwiftEvent>(`${BACKEND_HOST}/events/${eventId}`);
+  return await dedupedRequest<ZwiftEvent>(`${BACKEND_HOST2}/events/${eventId}`);
 }
