@@ -7,6 +7,7 @@ import { config } from "../shared/config.js";
 import * as handlers from "./handlers/index.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import { app } from "./server.js";
+import { logger } from "./services/logger.js";
 
 Sentry.init({
   enabled: config.sentry.dsn.length > 0,
@@ -59,5 +60,5 @@ app.use(Sentry.Handlers.errorHandler());
 app.use(errorHandler);
 
 app.listen(config.port, async () => {
-  console.log(`Listening at port ${config.port}`);
+  logger.info(`Listening at port ${config.port}`);
 });

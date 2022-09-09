@@ -1,29 +1,11 @@
-import { NextFunction } from "express";
-import { IncomingMessage, OutgoingMessage } from "http";
-import { Logger, LogFn } from "../../shared/types.js";
+import { express } from "@google-cloud/logging-winston";
+import { Logger } from "../../shared/types.js";
+import { logger } from "../services/logger.js";
 
 declare module "http" {
   interface IncomingMessage {
-    logger: Logger;
+    log: Logger;
   }
 }
 
-export function logger(
-  req: IncomingMessage,
-  res: OutgoingMessage,
-  next: NextFunction
-) {
-  const createLogFnWithId =
-    (logFn: LogFn): LogFn =>
-    (...data) =>
-      logFn(`[${req.id}]`, ...data);
-  req.logger = {
-    debug: createLogFnWithId(console.debug),
-    info: createLogFnWithId(console.info),
-    log: createLogFnWithId(console.log),
-    error: createLogFnWithId(console.error),
-    trace: createLogFnWithId(console.trace),
-    warn: createLogFnWithId(console.warn),
-  };
-  next();
-}
+export const loggerMiddleware = await express.makeMiddleware(logger);

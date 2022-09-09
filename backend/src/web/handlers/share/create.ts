@@ -25,7 +25,7 @@ export async function handleCreateShare(req: Request, res: Response) {
       share = await handleStravaActivity(
         session,
         req.body.stravaActivityId,
-        req.logger
+        req.log
       );
       break;
     }

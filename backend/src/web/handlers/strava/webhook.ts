@@ -23,7 +23,7 @@ export async function handleWebhook(req: Request, res: Response) {
     return;
   }
 
-  await enqueueStravaWebhookEvent(webhookEvent, req.logger);
+  await enqueueStravaWebhookEvent(webhookEvent, req.log);
 
   res.sendStatus(204);
 }

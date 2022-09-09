@@ -10,7 +10,7 @@ export function errorHandler(
   next: NextFunction
 ) {
   if (config.environment === "development") {
-    req.logger.error(err);
+    req.log.error(err);
   }
 
   if (err instanceof ErrorWithStatusCode) {
