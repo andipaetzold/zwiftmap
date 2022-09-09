@@ -15,7 +15,7 @@ const DEFAULT_INIT: Partial<RequestInit> = {
 };
 
 export async function getShare(id: string): Promise<Share> {
-  return await dedupedRequest<Share>(`${BACKEND_HOST}/share/${id}`, {
+  return await dedupedRequest<Share>(`${BACKEND_HOST2}/share/${id}`, {
     ...DEFAULT_INIT,
   });
 }
