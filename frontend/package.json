@@ -47,7 +47,7 @@
     "react-leaflet": "4.0.2",
     "react-responsive": "9.0.0-beta.10",
     "react-schemaorg": "2.0.0",
-    "recharts": "2.1.13",
+    "recharts": "2.1.14",
     "strava": "2.0.1",
     "zustand": "4.1.1",
     "zwift-data": "1.17.0"
