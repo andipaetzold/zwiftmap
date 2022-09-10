@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BACKEND_HOST } from "../../config";
+import { BACKEND_HOST2 } from "../../config";
 import { urlSearchParamsToObject } from "../../util/urlSearchParamsToObject";
 import { addStateListener, removeStateListener } from "../location-state";
 
@@ -15,7 +15,7 @@ function getStravaAuthUrl() {
     })
   );
 
-  return `${BACKEND_HOST}/strava/authorize?${params.toString()}`;
+  return `${BACKEND_HOST2}/strava/authorize?${params.toString()}`;
 }
 
 export function useStravaAuthUrl(): string {
