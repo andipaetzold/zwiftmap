@@ -6,8 +6,6 @@ import { Share } from "./persistence/types.js";
 import { project } from "./projection.js";
 import { diff, getWorld } from "./util.js";
 
-sharp.cache(false);
-
 // in meters
 const STROKE_WIDTH = 20;
 const MARKER_RADIUS = 30;
