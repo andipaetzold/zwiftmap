@@ -9,8 +9,9 @@ STRAVA_CLIENT_SECRET=
 AUTH_SECRET=secret
 
 GOOGLE_APPLICATION_CREDENTIALS=
-GCP_TASKS_LOCATION=
-GCP_SERVICE_ACCOUNT=
-GCP_FUNCTIONS_URL=
+
+FUNCTIONS_BASE_URL=https://europe-west1-zwift-map.cloudfunctions.net
+TASKS_LOCATION=europe-west1
+SERVICE_ACCOUNT=zwift-map@appspot.gserviceaccount.com
 
 SENTRY_DSN=

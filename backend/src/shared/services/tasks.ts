@@ -1,4 +1,5 @@
 import { CloudTasksClient } from "@google-cloud/tasks";
+import { config } from "../config.js";
 import { ImageQueueData, Logger, WebhookEventType } from "../types.js";
 
 const client = new CloudTasksClient();
@@ -22,20 +23,16 @@ async function enqueue(
 ) {
   const convertedPayload = JSON.stringify(data);
   const body = Buffer.from(convertedPayload).toString("base64");
-  const url = new URL(cloudFunction, process.env.GCP_FUNCTIONS_URL!).toString();
+  const url = new URL(cloudFunction, config.functions.baseUrl).toString();
 
   const [response] = await client.createTask({
-    parent: client.queuePath(
-      process.env.GOOGLE_CLOUD_PROJECT!,
-      process.env.GCP_TASKS_LOCATION!,
-      queue
-    ),
+    parent: client.queuePath(config.project, config.tasks.location, queue),
     task: {
       httpRequest: {
         httpMethod: "POST",
         url,
         oidcToken: {
-          serviceAccountEmail: process.env.GCP_SERVICE_ACCOUNT!,
+          serviceAccountEmail: config.serviceAccount,
         },
         headers: {
           "Content-Type": "application/json",
