@@ -19,14 +19,18 @@ const collection = firestore.collection(COLLECTION_NAME).withConverter<Share>({
         return {
           ...share,
           streams: mapValues(share.streams, (stream) => {
-            let streamString = stream.data;
+            let data: any;
             try {
-              streamString = decompressFromBase64(streamString) ?? streamString;
+              data = JSON.parse(stream.data);
             } catch {
-              // noop
+              const decompressed = decompressFromBase64(stream.data);
+              if (decompressed === null) {
+                return [];
+              }
+              return JSON.parse(decompressed);
             }
 
-            return { ...stream, data: JSON.parse(streamString) };
+            return { ...stream, data };
           }),
         };
       default:
