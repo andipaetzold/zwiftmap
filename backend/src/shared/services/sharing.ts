@@ -96,7 +96,7 @@ async function createShare(
 
   const share = await writeShare(shareWithoutId);
 
-  const jobs = [
+  const tasks = [
     {
       type: "share",
       shareId: share.id,
@@ -123,9 +123,7 @@ async function createShare(
     },
   ] as ImageQueueData[];
 
-  for (const job of jobs) {
-    await enqueueImageTask(job, logger);
-  }
+  await Promise.all(tasks.map((task) => enqueueImageTask(task, logger)));
 
   return share;
 }
