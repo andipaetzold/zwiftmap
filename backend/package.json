@@ -34,7 +34,7 @@
     "@types/validator": "13.7.6",
     "ngrok": "4.3.3",
     "tsc-watch": "5.0.3",
-    "typescript": "4.8.2"
+    "typescript": "4.8.3"
   },
   "dependencies": {
     "@google-cloud/firestore": "6.0.0",
