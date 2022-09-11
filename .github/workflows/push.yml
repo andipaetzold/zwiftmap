@@ -15,9 +15,7 @@ jobs:
           node-version-file: ".nvmrc"
 
       - run: npm i && npm run build
-        working-directory: packages/types
-      - run: npm i && npm run build
-        working-directory: packages/roads
+        working-directory: packages/shared
 
       - run: npm i
         working-directory: backend
