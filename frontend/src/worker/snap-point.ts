@@ -1,4 +1,4 @@
-import { SnappedPoint, WORLD_ROADS } from "@zwiftmap/roads";
+import { SnappedPoint, WORLD_ROADS } from "@zwiftmap/shared";
 import { LatLngTuple } from "leaflet";
 import { WorldSlug } from "zwift-data";
 

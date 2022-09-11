@@ -1,0 +1,29 @@
+{
+  "name": "@zwiftmap/shared",
+  "version": "1.0.0",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc && npm pack",
+    "postbuild": "cp zwiftmap-shared-1.0.0.tgz ../../frontend/zwiftmap-shared-1.0.0.tgz && cp zwiftmap-shared-1.0.0.tgz ../../backend/zwiftmap-shared-1.0.0.tgz",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "@turf/helpers": "^6.5.0",
+    "@turf/nearest-point-on-line": "^6.5.0",
+    "leaflet": "^1.8.0",
+    "lodash-es": "^4.17.21",
+    "zwift-data": "^1.17.0"
+  },
+  "devDependencies": {
+    "@tsconfig/recommended": "1.0.1",
+    "@types/leaflet": "1.7.11",
+    "@types/lodash-es": "4.17.6",
+    "typescript": "4.8.2"
+  }
+}
