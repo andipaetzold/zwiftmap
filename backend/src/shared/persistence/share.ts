@@ -27,7 +27,7 @@ const collection = firestore.collection(COLLECTION_NAME).withConverter<Share>({
               if (decompressed === null) {
                 return [];
               }
-              return JSON.parse(decompressed);
+              data = JSON.parse(decompressed);
             }
 
             return { ...stream, data };
