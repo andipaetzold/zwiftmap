@@ -115,7 +115,7 @@ jobs:
           name: createImage
           runtime: nodejs16
           region: europe-west1
-          memory_mb: 128MB
+          memory_mb: 128
           timeout: 10
           source_dir: functions/createImage
 
@@ -141,6 +141,6 @@ jobs:
           name: handleStravaWebhook
           runtime: nodejs16
           region: europe-west1
-          memory_mb: 128MB
+          memory_mb: 128
           timeout: 10
           source_dir: functions/handleStravaWebhook
