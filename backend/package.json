@@ -37,7 +37,7 @@
     "typescript": "4.8.3"
   },
   "dependencies": {
-    "@google-cloud/firestore": "6.0.0",
+    "@google-cloud/firestore": "6.2.0",
     "@google-cloud/storage": "6.4.2",
     "@google-cloud/tasks": "3.0.2",
     "@sentry/node": "7.12.1",
