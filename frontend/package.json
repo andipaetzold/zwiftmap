@@ -24,7 +24,7 @@
     "@turf/helpers": "6.5.0",
     "@turf/length": "6.5.0",
     "@turf/nearest-point-on-line": "6.5.0",
-    "@types/leaflet": "1.7.11",
+    "@types/leaflet": "1.8.0",
     "@types/node": "16.11.59",
     "@types/react": "18.0.20",
     "@types/react-dom": "18.0.6",
