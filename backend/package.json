@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@google-cloud/firestore": "6.2.0",
-    "@google-cloud/storage": "6.4.2",
+    "@google-cloud/storage": "6.5.0",
     "@google-cloud/tasks": "3.0.2",
     "@sentry/node": "7.13.0",
     "@sentry/tracing": "7.13.0",
