@@ -38,7 +38,9 @@ http("createImage", async (req, res) => {
       resumable: false,
       metadata: {
         metadata: {
-          environment: process.env.GCP_PROJECT ? "production" : "development",
+          environment: process.env.GCLOUD_PROJECT
+            ? "production"
+            : "development",
         },
       },
     });
