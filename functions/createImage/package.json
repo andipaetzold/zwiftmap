@@ -14,7 +14,9 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@google-cloud/functions-framework": "3.1.2"
+    "@google-cloud/functions-framework": "3.1.2",
+    "@google-cloud/storage": "6.5.2",
+    "axios": "0.27.2"
   },
   "devDependencies": {
     "@tsconfig/node16": "1.0.3",
