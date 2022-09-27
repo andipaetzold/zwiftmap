@@ -1,7 +1,8 @@
 import * as Sentry from "@sentry/node";
 import "@sentry/tracing";
 import { SENTRY_WORKER_DSN } from "../shared/config";
-import { stravaWebhookEventQueue } from "../shared/queue";
+import { imageQueue, stravaWebhookEventQueue } from "../shared/queue";
+import { handleImage } from "./image";
 import { handleStravaWebhookEvent } from "./stravaWebhookEvent";
 import { wrap } from "./util";
 
@@ -13,5 +14,6 @@ Sentry.init({
 });
 
 stravaWebhookEventQueue.process(wrap(handleStravaWebhookEvent));
+imageQueue.process(wrap(handleImage));
 
 console.log("Worker started");
