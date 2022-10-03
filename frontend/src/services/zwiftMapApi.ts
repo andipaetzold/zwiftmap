@@ -4,7 +4,7 @@ import {
   StreamSet,
   SummaryActivity,
 } from "strava";
-import { BACKEND_HOST2 } from "../config";
+import { BACKEND_HOST } from "../config";
 import { AuthStatus, Share, StravaSettings, ZwiftEvent } from "../types";
 import { cachedRequest } from "./cached-request";
 import { dedupedRequest } from "./deduped-request";
@@ -15,19 +15,19 @@ const DEFAULT_INIT: Partial<RequestInit> = {
 };
 
 export async function getShare(id: string): Promise<Share> {
-  return await dedupedRequest<Share>(`${BACKEND_HOST2}/share/${id}`, {
+  return await dedupedRequest<Share>(`${BACKEND_HOST}/share/${id}`, {
     ...DEFAULT_INIT,
   });
 }
 
 export async function getStravaSettings(): Promise<StravaSettings> {
-  return await dedupedRequest(`${BACKEND_HOST2}/strava/settings`, {
+  return await dedupedRequest(`${BACKEND_HOST}/strava/settings`, {
     ...DEFAULT_INIT,
   });
 }
 
 export async function updateStravaSettings(settings: StravaSettings) {
-  await request(`${BACKEND_HOST2}/strava/settings`, {
+  await request(`${BACKEND_HOST}/strava/settings`, {
     ...DEFAULT_INIT,
     method: "PUT",
     headers: {
@@ -38,7 +38,7 @@ export async function updateStravaSettings(settings: StravaSettings) {
 }
 
 export async function getStravaActivities(): Promise<SummaryActivity[]> {
-  return await cachedRequest(`${BACKEND_HOST2}/strava/activities`, {
+  return await cachedRequest(`${BACKEND_HOST}/strava/activities`, {
     ...DEFAULT_INIT,
   });
 }
@@ -47,7 +47,7 @@ export async function getStravaActivityById(
   activityId: number
 ): Promise<DetailedActivity> {
   return await dedupedRequest(
-    `${BACKEND_HOST2}/strava/activities/${activityId}`,
+    `${BACKEND_HOST}/strava/activities/${activityId}`,
     {
       ...DEFAULT_INIT,
     }
@@ -58,7 +58,7 @@ export async function updateStravaActivity(
   activityId: number,
   activity: Pick<DetailedActivity, "description">
 ) {
-  await request(`${BACKEND_HOST2}/strava/activities/${activityId}`, {
+  await request(`${BACKEND_HOST}/strava/activities/${activityId}`, {
     ...DEFAULT_INIT,
     method: "PUT",
     headers: {
@@ -71,7 +71,7 @@ export async function updateStravaActivity(
 export async function getStravaSegmentById(
   segmentId: number
 ): Promise<DetailedSegment> {
-  return await cachedRequest(`${BACKEND_HOST2}/strava/segments/${segmentId}`, {
+  return await cachedRequest(`${BACKEND_HOST}/strava/segments/${segmentId}`, {
     ...DEFAULT_INIT,
   });
 }
@@ -80,7 +80,7 @@ export async function getStravaActivityStreams(
   activityId: number
 ): Promise<Partial<StreamSet>> {
   return await cachedRequest(
-    `${BACKEND_HOST2}/strava/activities/${activityId}/streams`,
+    `${BACKEND_HOST}/strava/activities/${activityId}/streams`,
     { ...DEFAULT_INIT }
   );
 }
@@ -88,7 +88,7 @@ export async function getStravaActivityStreams(
 export async function shareStravaActivity(
   activityId: number
 ): Promise<{ id: string }> {
-  return await request(`${BACKEND_HOST2}/share`, {
+  return await request(`${BACKEND_HOST}/share`, {
     ...DEFAULT_INIT,
     method: "POST",
     headers: {
@@ -102,22 +102,22 @@ export async function shareStravaActivity(
 }
 
 export async function authLogout(): Promise<void> {
-  await request(`${BACKEND_HOST2}/auth/logout`, {
+  await request(`${BACKEND_HOST}/auth/logout`, {
     ...DEFAULT_INIT,
     method: "POST",
   });
 }
 
 export async function getAuthStatus(): Promise<AuthStatus> {
-  return await dedupedRequest(`${BACKEND_HOST2}/auth/status`, {
+  return await dedupedRequest(`${BACKEND_HOST}/auth/status`, {
     ...DEFAULT_INIT,
   });
 }
 
 export async function getEvents(): Promise<ZwiftEvent[]> {
-  return await dedupedRequest<ZwiftEvent[]>(`${BACKEND_HOST2}/events`);
+  return await dedupedRequest<ZwiftEvent[]>(`${BACKEND_HOST}/events`);
 }
 
 export async function getEvent(eventId: number): Promise<ZwiftEvent> {
-  return await dedupedRequest<ZwiftEvent>(`${BACKEND_HOST2}/events/${eventId}`);
+  return await dedupedRequest<ZwiftEvent>(`${BACKEND_HOST}/events/${eventId}`);
 }
