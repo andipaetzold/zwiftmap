@@ -37,7 +37,14 @@ jobs:
       - name: Deploy
         run: |
           echo "${API_ENV_YAML}" >> .env.yaml
-          gcloud functions deploy api --gen2 --region=europe-west1 --runtime=nodejs16 --trigger-http --env-vars-file .env.yaml --memory=512MiB
+          gcloud functions deploy api --gen2 \
+                                      --region=europe-west1 \
+                                      --runtime=nodejs16 \
+                                      --trigger-http \
+                                      --env-vars-file .env.yaml \
+                                      --memory=512MiB \
+                                      --allow-unauthenticated
+        working-directory: backend
         env:
           API_ENV_YAML: ${{ secrets.API_ENV_YAML }}
 
