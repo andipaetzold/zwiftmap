@@ -38,7 +38,7 @@ jobs:
           echo "${API_ENV_YAML}" >> .env.yaml
           gcloud functions deploy api --gen2 --region=europe-west1 --runtime=nodejs16 --trigger-http --env-vars-file .env.yaml --memory=512MiB
         env:
-          NPM_TOKEN: ${{ secrets.API_ENV_YAML }}
+          API_ENV_YAML: ${{ secrets.API_ENV_YAML }}
 
   browser-extension:
     runs-on: ubuntu-20.04
