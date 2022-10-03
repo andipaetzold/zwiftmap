@@ -14,9 +14,6 @@ jobs:
         with:
           node-version-file: ".nvmrc"
 
-      - run: npm i && npm run build
-        working-directory: packages/shared
-
       - run: npm i
         working-directory: backend
       - run: npm run build
@@ -66,9 +63,6 @@ jobs:
         uses: actions/setup-node@v3.4.1
         with:
           node-version-file: ".nvmrc"
-
-      - run: npm i && npm run build
-        working-directory: packages/shared
 
       - run: npm i
         working-directory: frontend
