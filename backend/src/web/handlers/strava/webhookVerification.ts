@@ -12,5 +12,7 @@ export function handleWebhookVerification(req: Request, res: Response) {
     } else {
       res.sendStatus(403);
     }
+  } else {
+    res.sendStatus(400);
   }
 }
