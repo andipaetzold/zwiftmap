@@ -5,7 +5,6 @@
   "engines": {
     "node": "16.x.x"
   },
-  "type": "module",
   "main": "build/web/index.js",
   "scripts": {
     "build": "tsc"
