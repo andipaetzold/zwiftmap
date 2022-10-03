@@ -1,5 +1,5 @@
-import { firestore } from "./firestore";
-import { StravaToken } from "./types";
+import { firestore } from "./firestore.js";
+import { StravaToken } from "./types.js";
 
 const COLLECTION_NAME = "strava-tokens";
 const collection = firestore.collection(COLLECTION_NAME);

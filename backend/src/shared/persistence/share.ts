@@ -1,10 +1,12 @@
 import { QueryDocumentSnapshot } from "@google-cloud/firestore";
-import { mapValues } from "lodash";
+import { mapValues } from "lodash-es";
 import short from "short-uuid";
-import { FRONTEND_URL } from "../config";
-import { firestore } from "./firestore";
-import { Share } from "./types";
-import { decompressFromBase64, compressToBase64 } from "lz-string";
+import { config } from "../config.js";
+import { firestore } from "./firestore.js";
+import { Share } from "./types.js";
+import lzString from "lz-string";
+
+const { decompressFromBase64, compressToBase64 } = lzString;
 
 const COLLECTION_NAME = "shares";
 const collection = firestore.collection(COLLECTION_NAME).withConverter<Share>({
@@ -17,14 +19,18 @@ const collection = firestore.collection(COLLECTION_NAME).withConverter<Share>({
         return {
           ...share,
           streams: mapValues(share.streams, (stream) => {
-            let streamString = stream.data;
+            let data: any;
             try {
-              streamString = decompressFromBase64(streamString) ?? streamString;
+              data = JSON.parse(stream.data);
             } catch {
-              // noop
+              const decompressed = decompressFromBase64(stream.data);
+              if (decompressed === null) {
+                return [];
+              }
+              data = JSON.parse(decompressed);
             }
 
-            return { ...stream, data: JSON.parse(streamString) };
+            return { ...stream, data };
           }),
         };
       default:
@@ -48,7 +54,7 @@ const collection = firestore.collection(COLLECTION_NAME).withConverter<Share>({
 });
 
 export function getShareUrl(id: string) {
-  return `${FRONTEND_URL}/s/${id}`;
+  return `${config.frontendUrl}/s/${id}`;
 }
 
 export async function writeShare(

@@ -2,9 +2,9 @@ import { promises as fs } from "fs";
 import sharp from "sharp";
 import { LatLng } from "strava";
 import { World, worlds, WorldSlug } from "zwift-data";
-import { Share } from "./persistence/types";
-import { project } from "./projection";
-import { diff, getWorld } from "./util";
+import { Share } from "./persistence/types.js";
+import { project } from "./projection.js";
+import { diff, getWorld } from "./util.js";
 
 sharp.cache(false);
 

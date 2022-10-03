@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ErrorWithStatusCode } from "./ErrorWithStatusCode";
+import { ErrorWithStatusCode } from "./ErrorWithStatusCode.js";
 
 export function handleError(e: unknown, defaultMessage: string) {
   if (axios.isAxiosError(e)) {

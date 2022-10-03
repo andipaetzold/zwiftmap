@@ -6,23 +6,17 @@ import { SessionData, Store } from "express-session";
 export interface FirestoreStoreOptions {
   firestore: Firestore;
   collection: string;
-  /**
-   * remove once migration is done
-   */
-  redisStore: Store;
 }
 
 export class FirestoreStore extends Store {
   private readonly firestore: Firestore;
   private readonly collection: string;
-  private readonly redisStore: Store;
 
   public constructor(options: FirestoreStoreOptions) {
     super();
 
     this.firestore = options.firestore;
     this.collection = options.collection;
-    this.redisStore = options.redisStore;
   }
 
   async get(
@@ -36,20 +30,7 @@ export class FirestoreStore extends Store {
         .get();
 
       if (!doc.exists) {
-        this.redisStore.get(sessionId, (err, session) => {
-          if (err) {
-            // error
-            callback(err);
-          } else if (session) {
-            // move session to firestore
-            this.set(sessionId, session);
-            this.redisStore.destroy(sessionId);
-            callback(null, session);
-          } else {
-            // not found
-            callback();
-          }
-        });
+        callback();
         return;
       }
 
@@ -77,7 +58,6 @@ export class FirestoreStore extends Store {
       };
 
       await this.firestore.collection(this.collection).doc(sessionId).set(data);
-      this.redisStore.destroy(sessionId);
       callback?.();
     } catch (e) {
       callback?.(e as Error);
@@ -90,7 +70,6 @@ export class FirestoreStore extends Store {
   ): Promise<void> {
     try {
       await this.firestore.collection(this.collection).doc(sessionId).delete();
-      this.redisStore.destroy(sessionId);
       callback?.();
     } catch (e) {
       callback?.(e as Error);

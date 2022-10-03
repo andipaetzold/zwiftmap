@@ -1,13 +1,13 @@
 import turfDistance from "@turf/distance";
 import {
   lineString as turfLineString,
-  point as turfPoint
+  point as turfPoint,
 } from "@turf/helpers";
 import turfLength from "@turf/length";
-import { Edge, Node, Roads, WORLD_ROADS } from "@zwiftmap/roads";
 import type { LatLngTuple } from "leaflet";
 import minBy from "lodash-es/minBy";
 import { WorldSlug } from "zwift-data";
+import { WORLD_ROADS, RoadsNode, Roads, RoadsEdge } from "../services/roads";
 import { LatLngAlt } from "../types";
 
 export async function navigate(
@@ -24,7 +24,7 @@ export async function navigate(
 }
 
 interface NodeWithValue {
-  node: Node;
+  node: RoadsNode;
   value: number;
 }
 
@@ -39,8 +39,8 @@ function findRoute(
   const toNode = roads.splitEdge(roads.snapPoint(to));
 
   const estimateDistanceByNode = getEstimationMap(roads.nodes, toNode);
-  const distancesByNode = new Map<Node, number>();
-  const predecessors = new Map<Node, Node>();
+  const distancesByNode = new Map<RoadsNode, number>();
+  const predecessors = new Map<RoadsNode, RoadsNode>();
 
   for (const node of roads.nodes) {
     distancesByNode.set(node, Infinity);
@@ -50,7 +50,7 @@ function findRoute(
   open.push({ node: fromNode, value: 0 });
   distancesByNode.set(fromNode, 0);
 
-  const closed = new Set<Node>();
+  const closed = new Set<RoadsNode>();
 
   while (open.length > 0) {
     const currentNode = minBy([...open], ({ value }) => value)!;
@@ -98,32 +98,35 @@ function findRoute(
   return null;
 }
 
-function distance(from: Node, to: Node): number {
+function distance(from: RoadsNode, to: RoadsNode): number {
   return turfDistance(turfPoint(from.position), turfPoint(to.position));
 }
 
-function edgeDistance(edge: Edge): number {
+function edgeDistance(edge: RoadsEdge): number {
   return turfLength(turfLineString(edge.stream.map((p) => [p[0], p[1]])));
 }
 
 function getEstimationMap(
-  nodes: ReadonlyArray<Node>,
-  destination: Node
-): ReadonlyMap<Node, number> {
-  const result = new Map<Node, number>();
+  nodes: ReadonlyArray<RoadsNode>,
+  destination: RoadsNode
+): ReadonlyMap<RoadsNode, number> {
+  const result = new Map<RoadsNode, number>();
   for (const node of nodes) {
     result.set(node, distance(node, destination));
   }
   return result;
 }
 
-function getSuccessors(node: Node): Set<Node> {
+function getSuccessors(node: RoadsNode): Set<RoadsNode> {
   return new Set(
     [...node.edges].flatMap((e) => [e.from, e.to]).filter((n) => n !== node)
   );
 }
 
-function findShortestEdge(from: Node, to: Node): Edge | undefined {
+function findShortestEdge(
+  from: RoadsNode,
+  to: RoadsNode
+): RoadsEdge | undefined {
   return [...from.edges]
     .filter(
       (e) =>
@@ -132,7 +135,10 @@ function findShortestEdge(from: Node, to: Node): Edge | undefined {
     .sort((a, b) => edgeDistance(a) - edgeDistance(b))[0];
 }
 
-function createRoute(source: Node, predecessors: Map<Node, Node>): LatLngAlt[] {
+function createRoute(
+  source: RoadsNode,
+  predecessors: Map<RoadsNode, RoadsNode>
+): LatLngAlt[] {
   const result: LatLngAlt[] = [];
 
   let cur = source;

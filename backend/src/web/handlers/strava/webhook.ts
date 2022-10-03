@@ -1,8 +1,6 @@
 import { Request, Response } from "express";
-import { stravaWebhookEventQueue } from "../../../shared/queue";
-import { enqueueStravaWebhookEvent } from "../../../shared/services/tasks";
-import { WebhookEvent } from "../../../shared/types";
-import { getWebhookSubscriptionId } from "../../state";
+import { handleStravaWebhookEvent } from "../../../shared/services/strava/index.js";
+import { WebhookEvent } from "../../../shared/types.js";
 
 export async function handleWebhook(req: Request, res: Response) {
   const webhookEvent = req.body;
@@ -11,23 +9,7 @@ export async function handleWebhook(req: Request, res: Response) {
     return;
   }
 
-  const webhookSubscriptionId = getWebhookSubscriptionId();
-  if (webhookSubscriptionId === undefined) {
-    console.warn("Webhooks are not ready yet");
-    res.sendStatus(503);
-    return;
-  }
-
-  if (webhookEvent.subscription_id !== webhookSubscriptionId) {
-    console.warn("Wrong subscription id");
-    res.sendStatus(403);
-    return;
-  }
-
-  const job = await stravaWebhookEventQueue.add(webhookEvent);
-  req.logger.log(`Enqueued job ${job.id}`);
-
-  await enqueueStravaWebhookEvent(webhookEvent, req.logger);
+  await handleStravaWebhookEvent(webhookEvent, req.log);
 
   res.sendStatus(204);
 }

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { getActivityById } from "../../../../shared/services/strava";
-import { isZwiftActivity } from "../../../../shared/util";
-import { Session } from "../../../types";
+import { getActivityById } from "../../../../shared/services/strava/index.js";
+import { isZwiftActivity } from "../../../../shared/util.js";
+import { Session } from "../../../types.js";
 
 export async function handleGETActivity(req: Request, res: Response) {
   const session = req.session as Session;

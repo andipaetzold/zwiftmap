@@ -1,25 +1,88 @@
-import "dotenv/config";
-import { randomString } from "./util";
+import { SecretManagerServiceClient } from "@google-cloud/secret-manager";
+import { config as dotenvConfig } from "dotenv";
 
-export const PORT = Number.parseInt(process.env.PORT!);
+export interface Config {
+  environment: "development" | "production";
+  backendUrl: string;
+  frontendUrl: string;
+  strava: {
+    clientId: number;
+    clientSecret: string;
+    webhookHost: string;
+    verifyToken: string;
+  };
+  sentry: {
+    dsn: string;
+    version: string;
+  };
+  auth: {
+    secret: string;
+    cookieName: string;
+  };
+}
 
-export const ENVIRONMENT = process.env.ENVIRONMENT as
-  | "development"
-  | "production";
+async function getConfig(): Promise<Config> {
+  if (process.env.GCP_PROJECT) {
+    return {
+      environment: "production",
+      backendUrl: process.env.BACKEND_URL!,
+      frontendUrl: process.env.FRONTEND_URL!,
+      strava: {
+        clientId: +process.env.STRAVA_CLIENT_ID!,
+        clientSecret: await getSecret("GAE_STRAVA_CLIENT_SECRET"),
+        webhookHost: process.env.BACKEND_URL!,
+        verifyToken: await getSecret("GAE_STRAVA_VERIFY_TOKEN"),
+      },
+      sentry: {
+        dsn: await getSecret("GAE_SENTRY_DSN"),
+        version: process.env.K_REVISION!,
+      },
+      auth: {
+        secret: await getSecret("GAE_AUTH_SECRET"),
+        cookieName: "sessionID",
+      },
+    };
+  } else {
+    dotenvConfig();
 
-export const BACKEND_URL = process.env.BACKEND_URL!;
-export const FRONTEND_URL = process.env.FRONTEND_URL!;
+    return {
+      environment: "development",
+      backendUrl: process.env.BACKEND_URL!,
+      frontendUrl: process.env.FRONTEND_URL!,
+      strava: {
+        clientId: +process.env.STRAVA_CLIENT_ID!,
+        clientSecret: process.env.STRAVA_CLIENT_SECRET!,
+        webhookHost:
+          process.env.STRAVA_WEBHOOK_HOST ?? process.env.BACKEND_URL!,
+        verifyToken: "token",
+      },
+      sentry: {
+        dsn: "",
+        version: "unknown",
+      },
+      auth: {
+        secret: process.env.AUTH_SECRET!,
+        cookieName: "sessionID",
+      },
+    };
+  }
+}
 
-export const STRAVA_CLIENT_ID = +process.env.STRAVA_CLIENT_ID!;
-export const STRAVA_CLIENT_SECRET = process.env.STRAVA_CLIENT_SECRET!;
-export const STRAVA_WEBHOOK_HOST =
-  process.env.STRAVA_WEBHOOK_HOST ?? BACKEND_URL;
-export const STRAVA_VERIFY_TOKEN = randomString();
+const client = new SecretManagerServiceClient();
+async function getSecret(name: string): Promise<string> {
+  const [version] = await client.accessSecretVersion({
+    name: client.secretVersionPath(
+      process.env.GCP_PROJECT!,
+      name,
+      "latest"
+    ),
+  });
+  const payload = version.payload?.data?.toString();
 
-export const SENTRY_WEB_DSN = process.env.SENTRY_WEB_DSN ?? "";
-export const SENTRY_WORKER_DSN = process.env.SENTRY_WORKER_DSN ?? "";
+  if (!payload) {
+    throw new Error(`Could not find secret '${name}'`);
+  }
+  return payload;
+}
 
-export const REDIS_URL = process.env.REDIS_URL!;
-
-export const AUTH_SECRET = process.env.AUTH_SECRET!;
-export const AUTH_COOKIE_NAME = "sessionID";
+export const config = await getConfig();

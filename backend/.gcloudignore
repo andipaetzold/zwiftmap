@@ -1,0 +1,11 @@
+.gcloudignore
+
+.git
+.gitignore
+
+.env.tpl
+.nvmrc
+tsconfig.json
+
+node_modules/
+scripts/

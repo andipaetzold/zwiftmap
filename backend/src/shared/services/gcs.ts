@@ -1,5 +1,5 @@
 import { Storage } from "@google-cloud/storage";
-import { ENVIRONMENT } from "../config";
+import { config } from "../config.js";
 
 const storage = new Storage();
 
@@ -16,7 +16,7 @@ export async function uploadToGoogleCloudStorage(
       resumable: false,
       metadata: {
         metadata: {
-          environment: ENVIRONMENT,
+          environment: config.environment,
         },
       },
     });

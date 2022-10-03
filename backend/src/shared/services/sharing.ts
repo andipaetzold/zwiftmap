@@ -1,14 +1,18 @@
-import pick from "lodash/pick";
+import { pick } from "lodash-es";
 import { DetailedActivity, StreamSet } from "strava";
-import { FRONTEND_URL } from "../config";
-import { ErrorWithStatusCode } from "../ErrorWithStatusCode";
-import { getShareUrl, writeShare } from "../persistence/share";
-import { Share, ShareStravaActivity } from "../persistence/types";
-import { imageQueue } from "../queue";
-import { ImageQueueData, Logger } from "../types";
-import { isZwiftActivity } from "../util";
-import { getActivityById, getActivityStreams, updateActivity } from "./strava";
-import { enqueueImageTask } from "./tasks";
+import { config } from "../config.js";
+import { ErrorWithStatusCode } from "../ErrorWithStatusCode.js";
+import { getShareUrl, writeShare } from "../persistence/share.js";
+import { Share, ShareStravaActivity } from "../persistence/types.js";
+import { ImageQueueData, Logger } from "../types.js";
+import { isZwiftActivity } from "../util.js";
+import {
+  getActivityById,
+  getActivityStreams,
+  updateActivity,
+} from "./strava/index.js";
+import { uploadToGoogleCloudStorage } from "../services/gcs.js";
+import { createImage } from "../image.js";
 
 export async function shareActivity(
   athleteId: number,
@@ -43,7 +47,7 @@ export async function addLinkToActivity(
     throw new ErrorWithStatusCode("Activity is no Zwift activity", 404);
   }
 
-  if ((activity.description ?? "").includes(FRONTEND_URL)) {
+  if ((activity.description ?? "").includes(config.frontendUrl)) {
     return;
   }
 
@@ -93,42 +97,39 @@ async function createShare(
 
   const share = await writeShare(shareWithoutId);
 
-  const jobs = [
+  const tasks = [
     {
-      data: {
-        type: "share",
-        shareId: share.id,
-        resolution: { width: 1088, height: 436 },
-        googleCloudStorage: {
-          filename: `strava-activities/${activity.id}/feed-wide.png`,
-        },
-      },
+      type: "share",
+      shareId: share.id,
+      resolution: { width: 1088, height: 436 },
+      gcsFilename: `strava-activities/${activity.id}/feed-wide.png`,
     },
     {
-      data: {
-        type: "share",
-        shareId: share.id,
-        resolution: { width: 540, height: 540 },
-        googleCloudStorage: {
-          filename: `strava-activities/${activity.id}/feed-square.png`,
-        },
-      },
+      type: "share",
+      shareId: share.id,
+      resolution: { width: 540, height: 540 },
+      gcsFilename: `strava-activities/${activity.id}/feed-square.png`,
     },
     {
-      data: {
-        type: "share",
-        shareId: share.id,
-        resolution: { width: 1088, height: 362 },
-        googleCloudStorage: {
-          filename: `strava-activities/${activity.id}/feed-group.png`,
-        },
-      },
+      type: "share",
+      shareId: share.id,
+      resolution: { width: 1088, height: 362 },
+      gcsFilename: `strava-activities/${activity.id}/feed-group.png`,
     },
-  ] as { data: ImageQueueData }[];
-  await imageQueue.addBulk(jobs);
+  ];
 
-  for (const job of jobs) {
-    await enqueueImageTask(job.data, logger);
+  for (const task of tasks) {
+    const stream = await createImage(share, task.resolution);
+    const chunks: Buffer[] = [];
+    for await (let chunk of stream) {
+      chunks.push(chunk as Buffer);
+    }
+    const buffer = Buffer.concat(chunks);
+    await uploadToGoogleCloudStorage(
+      "images.zwiftmap.com",
+      task.gcsFilename,
+      buffer
+    );
   }
 
   return share;

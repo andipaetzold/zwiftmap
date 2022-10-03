@@ -1,2 +1,2 @@
-export * from "./logout";
-export * from "./status";
+export * from "./logout.js";
+export * from "./status.js";

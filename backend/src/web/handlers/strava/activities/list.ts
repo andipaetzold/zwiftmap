@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { SummaryActivity } from "strava";
-import { getActivities } from "../../../../shared/services/strava";
-import { isZwiftActivity } from "../../../../shared/util";
-import { Session } from "../../../types";
+import { getActivities } from "../../../../shared/services/strava/index.js";
+import { isZwiftActivity } from "../../../../shared/util.js";
+import { Session } from "../../../types.js";
 
 const PER_PAGE = 30;
 

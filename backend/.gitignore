@@ -1,12 +1,7 @@
+.env
+.env.yaml
+.DS_Store
 google-credentials.json
 
-# dependencies
+/build
 /node_modules
-
-# production
-/build-web
-/build-worker
-
-# misc
-.env
-.DS_Store

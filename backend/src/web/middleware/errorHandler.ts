@@ -1,7 +1,7 @@
-import axios from "axios";
+import { default as axios } from "axios";
 import { NextFunction, Request, Response } from "express";
-import { ENVIRONMENT } from "../../shared/config";
-import { ErrorWithStatusCode } from "../../shared/ErrorWithStatusCode";
+import { config } from "../../shared/config.js";
+import { ErrorWithStatusCode } from "../../shared/ErrorWithStatusCode.js";
 
 export function errorHandler(
   err: unknown,
@@ -9,8 +9,8 @@ export function errorHandler(
   res: Response,
   next: NextFunction
 ) {
-  if (ENVIRONMENT === "development") {
-    req.logger.error(err);
+  if (config.environment === "development") {
+    req.log.error(err);
   }
 
   if (err instanceof ErrorWithStatusCode) {

@@ -1,9 +1,0 @@
-{
-  "extends": "@tsconfig/node16/tsconfig.json",
-  "compilerOptions": {
-    "outDir": "build-web",
-    "baseUrl": "src",
-    "sourceMap": true
-  },
-  "files": ["./src/web/index.ts"]
-}

@@ -1,4 +1,4 @@
-import { STRAVA_VERIFY_TOKEN } from "../../../shared/config";
+import { config } from "../../../shared/config.js";
 import { Request, Response } from "express";
 
 export function handleWebhookVerification(req: Request, res: Response) {
@@ -7,10 +7,12 @@ export function handleWebhookVerification(req: Request, res: Response) {
   const challenge = req.query["hub.challenge"];
 
   if (mode && token) {
-    if (mode === "subscribe" && token === STRAVA_VERIFY_TOKEN) {
+    if (mode === "subscribe" && token === config.strava.verifyToken) {
       res.json({ "hub.challenge": challenge });
     } else {
       res.sendStatus(403);
     }
+  } else {
+    res.sendStatus(400);
   }
 }

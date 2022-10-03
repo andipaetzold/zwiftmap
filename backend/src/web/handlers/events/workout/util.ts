@@ -1,4 +1,4 @@
-import { ZONES } from "./constants";
+import { ZONES } from "./constants.js";
 
 export function getColorForPower(power: number): string {
   return ZONES.find((zone) => power >= zone.min && power < zone.max)!.color;

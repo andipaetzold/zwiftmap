@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { Literal, Number, Record } from "runtypes";
-import { ErrorWithStatusCode } from "../../../shared/ErrorWithStatusCode";
-import { Share } from "../../../shared/persistence/types";
-import { shareActivity } from "../../../shared/services/sharing";
-import { Logger } from "../../../shared/types";
-import { Session } from "../../types";
+import { ErrorWithStatusCode } from "../../../shared/ErrorWithStatusCode.js";
+import { Share } from "../../../shared/persistence/types.js";
+import { shareActivity } from "../../../shared/services/sharing.js";
+import { Logger } from "../../../shared/types.js";
+import { Session } from "../../types.js";
 
 const Body = Record({
   type: Literal("strava-activity"),
@@ -25,7 +25,7 @@ export async function handleCreateShare(req: Request, res: Response) {
       share = await handleStravaActivity(
         session,
         req.body.stravaActivityId,
-        req.logger
+        req.log
       );
       break;
     }
