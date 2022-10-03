@@ -1,13 +1,13 @@
 import turfDistance from "@turf/distance";
 import {
   lineString as turfLineString,
-  point as turfPoint
+  point as turfPoint,
 } from "@turf/helpers";
 import turfLength from "@turf/length";
-import { RoadsEdge, RoadsNode, Roads, WORLD_ROADS } from "@zwiftmap/shared";
 import type { LatLngTuple } from "leaflet";
 import minBy from "lodash-es/minBy";
 import { WorldSlug } from "zwift-data";
+import { WORLD_ROADS, RoadsNode, Roads, RoadsEdge } from "../services/roads";
 import { LatLngAlt } from "../types";
 
 export async function navigate(
@@ -123,7 +123,10 @@ function getSuccessors(node: RoadsNode): Set<RoadsNode> {
   );
 }
 
-function findShortestEdge(from: RoadsNode, to: RoadsNode): RoadsEdge | undefined {
+function findShortestEdge(
+  from: RoadsNode,
+  to: RoadsNode
+): RoadsEdge | undefined {
   return [...from.edges]
     .filter(
       (e) =>
@@ -132,7 +135,10 @@ function findShortestEdge(from: RoadsNode, to: RoadsNode): RoadsEdge | undefined
     .sort((a, b) => edgeDistance(a) - edgeDistance(b))[0];
 }
 
-function createRoute(source: RoadsNode, predecessors: Map<RoadsNode, RoadsNode>): LatLngAlt[] {
+function createRoute(
+  source: RoadsNode,
+  predecessors: Map<RoadsNode, RoadsNode>
+): LatLngAlt[] {
   const result: LatLngAlt[] = [];
 
   let cur = source;

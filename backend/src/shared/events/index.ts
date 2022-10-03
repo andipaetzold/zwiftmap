@@ -1,4 +1,4 @@
-import { createCachedFn } from "../services/cache-fn.js";
+import { createCachedFn } from "../services/cache/cache-fn.js";
 import { fetchEvent, fetchEvents } from "./api.js";
 export * from "./types.js";
 

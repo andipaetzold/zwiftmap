@@ -37,9 +37,11 @@ jobs:
       - uses: "google-github-actions/auth@v0"
         with:
           credentials_json: "${{ secrets.GOOGLE_CREDENTIALS }}"
-      - uses: "google-github-actions/deploy-appengine@v0"
-        with:
-          working_directory: backend
+      - run: |
+          echo "${API_ENV_YAML}" >> .env.yaml
+          gcloud functions deploy api --gen2 --region=europe-west1 --runtime=nodejs16 --trigger-http --env-vars-file .env.yaml --memory=512MiB
+        env:
+          NPM_TOKEN: ${{ secrets.API_ENV_YAML }}
 
   browser-extension:
     runs-on: ubuntu-20.04
@@ -93,54 +95,3 @@ jobs:
           ignore_empty: true
           projects: frontend
 
-  functions-createImage:
-    runs-on: ubuntu-20.04
-
-    steps:
-      - uses: actions/checkout@v3
-      - name: Use node
-        uses: actions/setup-node@v3.4.1
-        with:
-          node-version-file: ".nvmrc"
-      - run: npm i
-        working-directory: functions/createImage
-      - run: npm run build
-        working-directory: functions/createImage
-
-      - uses: "google-github-actions/auth@v0"
-        with:
-          credentials_json: "${{ secrets.GOOGLE_CREDENTIALS }}"
-      - uses: "google-github-actions/deploy-cloud-functions@v0"
-        with:
-          name: createImage
-          runtime: nodejs16
-          region: europe-west1
-          memory_mb: 128
-          timeout: 10
-          source_dir: functions/createImage
-
-  functions-handleStravaWebhook:
-    runs-on: ubuntu-20.04
-
-    steps:
-      - uses: actions/checkout@v3
-      - name: Use node
-        uses: actions/setup-node@v3.4.1
-        with:
-          node-version-file: ".nvmrc"
-      - run: npm i
-        working-directory: functions/handleStravaWebhook
-      - run: npm run build
-        working-directory: functions/handleStravaWebhook
-
-      - uses: "google-github-actions/auth@v0"
-        with:
-          credentials_json: "${{ secrets.GOOGLE_CREDENTIALS }}"
-      - uses: "google-github-actions/deploy-cloud-functions@v0"
-        with:
-          name: handleStravaWebhook
-          runtime: nodejs16
-          region: europe-west1
-          memory_mb: 128
-          timeout: 10
-          source_dir: functions/handleStravaWebhook

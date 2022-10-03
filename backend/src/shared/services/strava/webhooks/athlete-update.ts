@@ -1,7 +1,7 @@
-import { removeStravaSettings } from "../../../shared/persistence/stravaSettings";
-import { removeStravaToken } from "../../../shared/persistence/stravaToken";
-import { evictCacheForAthlete } from "../../../shared/services/strava";
-import { Logger, WebhookEventType } from "../../../shared/types";
+import { removeStravaSettings } from "../../../persistence/stravaSettings.js";
+import { removeStravaToken } from "../../../persistence/stravaToken.js";
+import { Logger, WebhookEventType } from "../../../types.js";
+import { evictCacheForAthlete } from "../cached-api.js";
 
 export async function handleAthleteUpdate(
   webhookEvent: WebhookEventType,

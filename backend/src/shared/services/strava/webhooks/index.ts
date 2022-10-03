@@ -1,8 +1,8 @@
-import { Logger, WebhookEventType } from "../../shared/types";
-import { handleActivityCreate } from "./handler/activity-create";
-import { handleActivityDelete } from "./handler/activity-delete";
-import { handleActivityUpdate } from "./handler/activity-update";
-import { handleAthleteUpdate } from "./handler/athlete-update";
+import { Logger, WebhookEventType } from "../../../types.js";
+import { handleActivityCreate } from "./activity-create.js";
+import { handleActivityDelete } from "./activity-delete.js";
+import { handleActivityUpdate } from "./activity-update.js";
+import { handleAthleteUpdate } from "./athlete-update.js";
 
 export async function handleStravaWebhookEvent(
   webhookEvent: WebhookEventType,

@@ -8,6 +8,7 @@ import * as handlers from "./handlers/index.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import { app } from "./server.js";
 import { logger } from "./services/logger.js";
+import { http } from "@google-cloud/functions-framework";
 
 Sentry.init({
   enabled: config.sentry.dsn.length > 0,
@@ -59,6 +60,11 @@ app.get("/share/:shareId/image", handlers.handleGETShareImage);
 app.use(Sentry.Handlers.errorHandler());
 app.use(errorHandler);
 
-app.listen(config.port, async () => {
-  logger.info(`Listening at port ${config.port}`);
-});
+if (config.environment === "production") {
+  http("api", app);
+} else {
+  const port = +(process.env.PORT ?? "3001");
+  app.listen(port, async () => {
+    logger.info(`Listening at port ${port}`);
+  });
+}

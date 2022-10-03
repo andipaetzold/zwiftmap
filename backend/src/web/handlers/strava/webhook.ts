@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { enqueueStravaWebhookEvent } from "../../../shared/services/tasks.js";
+import { handleStravaWebhookEvent } from "../../../shared/services/strava/index.js";
 import { WebhookEvent } from "../../../shared/types.js";
 import { getWebhookSubscriptionId } from "../../state.js";
 
@@ -23,7 +23,7 @@ export async function handleWebhook(req: Request, res: Response) {
     return;
   }
 
-  await enqueueStravaWebhookEvent(webhookEvent, req.log);
+  await handleStravaWebhookEvent(webhookEvent, req.log);
 
   res.sendStatus(204);
 }

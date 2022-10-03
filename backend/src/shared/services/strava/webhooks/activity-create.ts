@@ -1,9 +1,9 @@
 import { DetailedActivity } from "strava";
-import { readStravaSettings } from "../../../shared/persistence/stravaSettings";
-import { addLinkToActivity } from "../../../shared/services/sharing";
-import { getActivityById } from "../../../shared/services/strava";
-import { Logger, WebhookEventType } from "../../../shared/types";
-import { isZwiftActivity } from "../../../shared/util";
+import { readStravaSettings } from "../../../persistence/stravaSettings.js";
+import { addLinkToActivity } from "../../sharing.js";
+import { getActivityById } from "../cached-api.js";
+import { Logger, WebhookEventType } from "../../../types.js";
+import { isZwiftActivity } from "../../../util.js";
 
 export async function handleActivityCreate(
   webhookEvent: WebhookEventType,

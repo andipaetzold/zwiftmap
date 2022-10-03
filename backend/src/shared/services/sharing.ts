@@ -11,7 +11,8 @@ import {
   getActivityStreams,
   updateActivity,
 } from "./strava/index.js";
-import { enqueueImageTask } from "./tasks.js";
+import { uploadToGoogleCloudStorage } from "../services/gcs.js";
+import { createImage } from "../image.js";
 
 export async function shareActivity(
   athleteId: number,
@@ -101,29 +102,35 @@ async function createShare(
       type: "share",
       shareId: share.id,
       resolution: { width: 1088, height: 436 },
-      googleCloudStorage: {
-        filename: `strava-activities/${activity.id}/feed-wide.png`,
-      },
+      gcsFilename: `strava-activities/${activity.id}/feed-wide.png`,
     },
     {
       type: "share",
       shareId: share.id,
       resolution: { width: 540, height: 540 },
-      googleCloudStorage: {
-        filename: `strava-activities/${activity.id}/feed-square.png`,
-      },
+      gcsFilename: `strava-activities/${activity.id}/feed-square.png`,
     },
     {
       type: "share",
       shareId: share.id,
       resolution: { width: 1088, height: 362 },
-      googleCloudStorage: {
-        filename: `strava-activities/${activity.id}/feed-group.png`,
-      },
+      gcsFilename: `strava-activities/${activity.id}/feed-group.png`,
     },
-  ] as ImageQueueData[];
+  ];
 
-  await Promise.all(tasks.map((task) => enqueueImageTask(task, logger)));
+  for (const task of tasks) {
+    const stream = await createImage(share, task.resolution);
+    const chunks: Buffer[] = [];
+    for await (let chunk of stream) {
+      chunks.push(chunk as Buffer);
+    }
+    const buffer = Buffer.concat(chunks);
+    await uploadToGoogleCloudStorage(
+      "images.zwiftmap.com",
+      task.gcsFilename,
+      buffer
+    );
+  }
 
   return share;
 }

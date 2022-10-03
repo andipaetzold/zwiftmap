@@ -1,4 +1,4 @@
-import { nodeCache } from "./cache.js";
+import { nodeCache } from "./node-cache.js";
 
 export function createCachedFn<Args extends any[], R>(
   fn: (...args: Args) => Promise<R>,

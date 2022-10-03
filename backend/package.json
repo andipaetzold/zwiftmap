@@ -6,9 +6,8 @@
     "node": "16.x.x"
   },
   "type": "module",
+  "main": "build/web/index.js",
   "scripts": {
-    "start": "node ./build/web",
-    "dev": "node ./scripts/start.mjs",
     "build": "tsc"
   },
   "devDependencies": {
@@ -29,10 +28,10 @@
   },
   "dependencies": {
     "@google-cloud/firestore": "6.0.0",
+    "@google-cloud/functions-framework": "3.1.2",
     "@google-cloud/logging-winston": "5.1.5",
     "@google-cloud/secret-manager": "4.1.1",
     "@google-cloud/storage": "6.4.2",
-    "@google-cloud/tasks": "3.0.2",
     "@sentry/node": "7.12.1",
     "@sentry/tracing": "7.12.1",
     "axios": "0.27.2",

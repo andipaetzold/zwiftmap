@@ -2,11 +2,9 @@ import { SecretManagerServiceClient } from "@google-cloud/secret-manager";
 import { config as dotenvConfig } from "dotenv";
 
 export interface Config {
-  port: number;
   environment: "development" | "production";
   backendUrl: string;
   frontendUrl: string;
-  project: string;
   strava: {
     clientId: number;
     clientSecret: string;
@@ -21,24 +19,14 @@ export interface Config {
     secret: string;
     cookieName: string;
   };
-  functions: {
-    baseUrl: string;
-  };
-  tasks: {
-    location: string;
-  };
-  serviceAccount: string;
 }
 
 async function getConfig(): Promise<Config> {
-  if (process.env.GOOGLE_CLOUD_PROJECT) {
+  if (process.env.GCP_PROJECT) {
     return {
-      port: +process.env.PORT!,
       environment: "production",
       backendUrl: process.env.BACKEND_URL!,
       frontendUrl: process.env.FRONTEND_URL!,
-      project: process.env.GOOGLE_CLOUD_PROJECT!,
-      serviceAccount: process.env.SERVICE_ACCOUNT!,
       strava: {
         clientId: +process.env.STRAVA_CLIENT_ID!,
         clientSecret: await getSecret("GAE_STRAVA_CLIENT_SECRET"),
@@ -47,29 +35,20 @@ async function getConfig(): Promise<Config> {
       },
       sentry: {
         dsn: await getSecret("GAE_SENTRY_DSN"),
-        version: process.env.GAE_VERSION!,
+        version: process.env.K_REVISION!,
       },
       auth: {
         secret: await getSecret("GAE_AUTH_SECRET"),
         cookieName: "sessionID",
-      },
-      functions: {
-        baseUrl: process.env.FUNCTIONS_BASE_URL!,
-      },
-      tasks: {
-        location: process.env.TASKS_LOCATION!,
       },
     };
   } else {
     dotenvConfig();
 
     return {
-      port: +process.env.PORT!,
       environment: "development",
       backendUrl: process.env.BACKEND_URL!,
       frontendUrl: process.env.FRONTEND_URL!,
-      project: process.env.GOOGLE_CLOUD_PROJECT!,
-      serviceAccount: process.env.SERVICE_ACCOUNT!,
       strava: {
         clientId: +process.env.STRAVA_CLIENT_ID!,
         clientSecret: process.env.STRAVA_CLIENT_SECRET!,
@@ -85,12 +64,6 @@ async function getConfig(): Promise<Config> {
         secret: process.env.AUTH_SECRET!,
         cookieName: "sessionID",
       },
-      functions: {
-        baseUrl: process.env.FUNCTIONS_BASE_URL!,
-      },
-      tasks: {
-        location: process.env.TASKS_LOCATION!,
-      },
     };
   }
 }
@@ -99,7 +72,7 @@ const client = new SecretManagerServiceClient();
 async function getSecret(name: string): Promise<string> {
   const [version] = await client.accessSecretVersion({
     name: client.secretVersionPath(
-      process.env.GOOGLE_CLOUD_PROJECT!,
+      process.env.GCP_PROJECT!,
       name,
       "latest"
     ),
