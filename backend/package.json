@@ -31,7 +31,7 @@
     "@google-cloud/logging-winston": "5.1.5",
     "@google-cloud/secret-manager": "4.1.1",
     "@google-cloud/storage": "6.5.2",
-    "@sentry/node": "7.14.0",
+    "@sentry/serverless": "7.14.1",
     "@sentry/tracing": "7.14.0",
     "axios": "0.27.2",
     "compression": "1.7.4",
