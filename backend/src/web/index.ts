@@ -24,7 +24,6 @@ Sentry.init({
 app.use(Sentry.Handlers.requestHandler());
 app.use(Sentry.Handlers.tracingHandler());
 
-app.get("/_ah/warmup", nocache(), handlers.handleAHWarmup);
 app.get("/health", nocache(), handlers.handleHealth);
 
 app.get("/auth/status", nocache(), handlers.handleGETAuthStatus);
