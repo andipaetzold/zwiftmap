@@ -1,6 +1,7 @@
 import { default as axios } from "axios";
 import { ZwiftEvent } from "./types.js";
 
+// @ts-expect-error Type issue fixed in https://github.com/axios/axios/pull/4884
 const api = axios.create({
   baseURL: "https://us-or-rly101.zwift.com/api",
 });

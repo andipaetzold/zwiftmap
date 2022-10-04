@@ -14,6 +14,7 @@ export async function getStravaUserAPI(
 ): Promise<AxiosInstance> {
   const token = await getToken(athleteId);
 
+  // @ts-expect-error Type issue fixed in https://github.com/axios/axios/pull/4884
   return axios.create({
     baseURL: "https://www.strava.com/api/v3",
     headers: {

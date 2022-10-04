@@ -6,6 +6,7 @@
     "node": "16.x.x"
   },
   "main": "build/web/index.js",
+  "type": "module",
   "scripts": {
     "build": "tsc"
   },

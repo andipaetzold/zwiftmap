@@ -1,6 +1,7 @@
 import { default as axios } from "axios";
 import { config } from "../../config.js";
 
+// @ts-expect-error Type issue fixed in https://github.com/axios/axios/pull/4884
 export const stravaAppAPI = axios.create({
   baseURL: "https://www.strava.com",
   params: {

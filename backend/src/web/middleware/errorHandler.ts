@@ -15,7 +15,9 @@ export function errorHandler(
 
   if (err instanceof ErrorWithStatusCode) {
     res.statusCode = err.statusCode;
+  // @ts-expect-error Type issue fixed in https://github.com/axios/axios/pull/4884
   } else if (axios.isAxiosError(err)) {
+    // @ts-expect-error Type issue fixed in https://github.com/axios/axios/pull/4884
     res.statusCode = err.response?.status ?? 500;
   } else {
     res.statusCode = 500;

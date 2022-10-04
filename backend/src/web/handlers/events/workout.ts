@@ -46,6 +46,7 @@ export async function handleGetEventWorkout(req: Request, res: Response) {
     return;
   }
 
+  // @ts-expect-error Type issue fixed in https://github.com/axios/axios/pull/4884
   const response = await axios.get(workoutUrl);
   const xmlData = response.data;
 
