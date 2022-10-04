@@ -1,5 +1,5 @@
 import "source-map-support/register.js";
-import * as Sentry from "@sentry/serverless";
+import Sentry from "@sentry/serverless";
 import nocache from "nocache";
 import { config } from "../shared/config.js";
 import * as handlers from "./handlers/index.js";
