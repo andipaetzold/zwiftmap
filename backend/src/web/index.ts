@@ -1,7 +1,5 @@
 import "source-map-support/register.js";
 import * as Sentry from "@sentry/serverless";
-import "@sentry/tracing";
-import * as Tracing from "@sentry/tracing";
 import nocache from "nocache";
 import { config } from "../shared/config.js";
 import * as handlers from "./handlers/index.js";
@@ -13,10 +11,6 @@ Sentry.init({
   enabled: config.sentry.dsn.length > 0,
   dsn: config.sentry.dsn,
   release: config.sentry.version,
-  integrations: [
-    new Sentry.Integrations.Http({ tracing: true }),
-    new Tracing.Integrations.Express({ app }),
-  ],
   tracesSampleRate: 0.01,
 });
 
