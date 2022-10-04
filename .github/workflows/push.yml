@@ -32,9 +32,12 @@ jobs:
           projects: web
 
       - uses: "google-github-actions/auth@v0"
+        if: github.ref == 'refs/heads/main'
         with:
           credentials_json: "${{ secrets.GOOGLE_CREDENTIALS }}"
+
       - name: Deploy
+        if: github.ref == 'refs/heads/main'
         run: |
           echo "${API_ENV_YAML}" >> .env.yaml
           gcloud functions deploy api --gen2 \
