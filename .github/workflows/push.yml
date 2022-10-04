@@ -79,12 +79,13 @@ jobs:
         working-directory: frontend
 
       - name: Deploy
-        run: npm run deploy --prod
+        run: npm run deploy -- --prod
         if: github.ref == 'refs/heads/main'
         working-directory: frontend
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
       - name: Sentry Release
         if: github.ref == 'refs/heads/main'
         uses: getsentry/action-release@v1.2.0
