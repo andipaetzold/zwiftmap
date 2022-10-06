@@ -8,7 +8,8 @@
   "main": "build/web/index.js",
   "type": "module",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "dev": "node ./scripts/start.mjs"
   },
   "devDependencies": {
     "@tsconfig/node16": "1.0.3",
