@@ -1,15 +1,20 @@
-import { List } from "@react-md/list";
+import { Button } from "@react-md/button";
+import { List, SimpleListItem } from "@react-md/list";
+import { EventSVGIcon, ModeEditSVGIcon } from "@react-md/material-icons";
 import { MenuItemSeparator } from "@react-md/menu";
 import { Helmet } from "react-helmet-async";
 import { routes } from "zwift-data";
-import { useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";
 import { useSessionSettings } from "../../../../hooks/useSessionSettings";
 import { useSettings } from "../../../../hooks/useSettings";
-import { LocationStateDefault } from "../../../../services/location-state";
+import {
+  LocationStateDefault,
+  navigate,
+} from "../../../../services/location-state";
 import { sortRoute } from "../../../../util/sort";
+import { StravaAvatar } from "../../../Avatar";
 import { ListItemRoute } from "../../../ListItemRoute";
-import { ListItemState } from "../../../ListItemState";
 import { SortButton } from "../../../SortButton";
+import styles from "./RouteList.module.scss";
 
 interface Props {
   state: LocationStateDefault;
@@ -17,7 +22,6 @@ interface Props {
 
 export function RouteList({ state }: Props) {
   const sport = useSettings((state) => state.sport);
-  const isLoggedIn = useIsLoggedInStrava();
   const [{ sortState }] = useSessionSettings();
 
   return (
@@ -36,44 +40,49 @@ export function RouteList({ state }: Props) {
         />
       </Helmet>
 
-      <List style={{ paddingBottom: 0 }} role="menu">
-        {isLoggedIn && (
-          <ListItemState
-            role="menuitem"
-            secondaryText="Last 30 days"
-            state={{
-              world: state.world,
-              type: "strava-activities",
-            }}
-            query=""
+      <List style={{ paddingTop: 0, paddingBottom: 0 }} role="presentation">
+        <SimpleListItem className={styles.AvatarMenu} role="menu">
+          <Button
+            buttonType="icon"
+            themeType="outline"
+            title="Upcoming 200 events"
+            onClick={() =>
+              navigate({
+                world: state.world,
+                type: "events",
+              })
+            }
           >
-            Recent Strava Activities
-          </ListItemState>
-        )}
-
-        <ListItemState
-          role="menuitem"
-          secondaryText="Next 200 events"
-          state={{
-            world: state.world,
-            type: "events",
-          }}
-          query=""
-        >
-          Upcoming Events
-        </ListItemState>
-
-        <ListItemState
-          role="menuitem"
-          state={{
-            points: [null, null],
-            world: state.world,
-            type: "custom-route",
-          }}
-          query=""
-        >
-          Custom route
-        </ListItemState>
+            <EventSVGIcon />
+          </Button>
+          <Button
+            buttonType="icon"
+            themeType="outline"
+            title="Custom route"
+            onClick={() =>
+              navigate({
+                points: [null, null],
+                world: state.world,
+                type: "custom-route",
+              })
+            }
+          >
+            <ModeEditSVGIcon />
+          </Button>
+          <Button
+            buttonType="icon"
+            themeType="outline"
+            title="Recent Strava activities"
+            onClick={() => {
+              navigate({
+                world: state.world,
+                type: "strava-activities",
+              });
+            }}
+          >
+            <StravaAvatar />
+          </Button>
+        </SimpleListItem>
 
         <MenuItemSeparator />
       </List>
