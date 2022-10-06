@@ -1,9 +1,7 @@
-import { Avatar } from "@react-md/avatar";
 import { ListItemLink, ListItemText, ListSubheader } from "@react-md/list";
 import { OpenInNewSVGIcon } from "@react-md/material-icons";
 import { Segment } from "zwift-data";
-import stravaLogo from "../../../../assets/strava-40x40.png";
-import whatsOnZwiftLogo from "../../../../assets/WhatsOnZwift-40x40.png";
+import { StravaAvatar, WhatsOnZwiftAvatar } from "../../../Avatar";
 
 interface Props {
   segment: Segment;
@@ -18,9 +16,9 @@ export function SegmentLinks({ segment }: Props) {
           href={segment.stravaSegmentUrl}
           target="_blank"
           leftAddon={
-            <Avatar>
-              <img src={stravaLogo} alt="" />
-            </Avatar>
+            <div>
+              <StravaAvatar />
+            </div>
           }
           leftAddonType="avatar"
           rightAddon={<OpenInNewSVGIcon />}
@@ -34,9 +32,9 @@ export function SegmentLinks({ segment }: Props) {
           href={segment.whatsOnZwiftUrl}
           target="_blank"
           leftAddon={
-            <Avatar>
-              <img src={whatsOnZwiftLogo} alt="" />
-            </Avatar>
+            <div>
+              <WhatsOnZwiftAvatar />
+            </div>
           }
           leftAddonType="avatar"
           rightAddon={<OpenInNewSVGIcon />}

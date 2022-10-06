@@ -1,13 +1,14 @@
-import { Avatar } from "@react-md/avatar";
 import { ListItemLink, ListItemText, ListSubheader } from "@react-md/list";
 import { OpenInNewSVGIcon } from "@react-md/material-icons";
 import { routes } from "zwift-data";
-import stravaLogo from "../../../../assets/strava-40x40.png";
-import whatsOnZwiftLogo from "../../../../assets/WhatsOnZwift-40x40.png";
-import zwiftLogo from "../../../../assets/Zwift-40x40.png";
-import zwiftInsiderLogo from "../../../../assets/ZwiftInsider-40x40.jpg";
-import zwiftPowerLogo from "../../../../assets/ZwiftPower-40x40.png";
 import { ZwiftEvent } from "../../../../types";
+import {
+  StravaAvatar,
+  WhatsOnZwiftAvatar,
+  ZwiftAvatar,
+  ZwiftInsiderAvatar,
+  ZwiftPowerAvatar,
+} from "../../../Avatar";
 
 interface Props {
   event: ZwiftEvent;
@@ -24,9 +25,9 @@ export function EventLinks({ event }: Props) {
         href={`https://zwift.com/events/view/${event.id}`}
         target="_blank"
         leftAddon={
-          <Avatar>
-            <img src={zwiftLogo} alt="" />
-          </Avatar>
+          <div>
+            <ZwiftAvatar />
+          </div>
         }
         leftAddonType="avatar"
         rightAddon={<OpenInNewSVGIcon />}
@@ -39,9 +40,9 @@ export function EventLinks({ event }: Props) {
         href={`https://zwiftpower.com/events.php?zid=${event.id}`}
         target="_blank"
         leftAddon={
-          <Avatar>
-            <img src={zwiftPowerLogo} alt="" />
-          </Avatar>
+          <div>
+            <ZwiftPowerAvatar />
+          </div>
         }
         leftAddonType="avatar"
         rightAddon={<OpenInNewSVGIcon />}
@@ -57,9 +58,9 @@ export function EventLinks({ event }: Props) {
               href={route.zwiftInsiderUrl}
               target="_blank"
               leftAddon={
-                <Avatar color="#fc6719">
-                  <img src={zwiftInsiderLogo} alt="" />
-                </Avatar>
+                <div>
+                  <ZwiftInsiderAvatar />
+                </div>
               }
               leftAddonType="avatar"
               rightAddon={<OpenInNewSVGIcon />}
@@ -73,9 +74,9 @@ export function EventLinks({ event }: Props) {
               href={route.stravaSegmentUrl}
               target="_blank"
               leftAddon={
-                <Avatar color="#ff6b00">
-                  <img src={stravaLogo} alt="" />
-                </Avatar>
+                <div>
+                  <StravaAvatar />
+                </div>
               }
               leftAddonType="avatar"
               rightAddon={<OpenInNewSVGIcon />}
@@ -89,9 +90,9 @@ export function EventLinks({ event }: Props) {
               href={route.whatsOnZwiftUrl}
               target="_blank"
               leftAddon={
-                <Avatar color="#000000">
-                  <img src={whatsOnZwiftLogo} alt="" />
-                </Avatar>
+                <div>
+                  <WhatsOnZwiftAvatar />
+                </div>
               }
               leftAddonType="avatar"
               rightAddon={<OpenInNewSVGIcon />}

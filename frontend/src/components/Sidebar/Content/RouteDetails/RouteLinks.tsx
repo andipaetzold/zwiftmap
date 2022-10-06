@@ -1,4 +1,3 @@
-import { Avatar } from "@react-md/avatar";
 import {
   List,
   ListItemLink,
@@ -7,9 +6,11 @@ import {
 } from "@react-md/list";
 import { OpenInNewSVGIcon } from "@react-md/material-icons";
 import { Route } from "zwift-data";
-import stravaLogo from "../../../../assets/strava-40x40.png";
-import whatsOnZwiftLogo from "../../../../assets/WhatsOnZwift-40x40.png";
-import zwiftInsiderLogo from "../../../../assets/ZwiftInsider-40x40.jpg";
+import {
+  StravaAvatar,
+  WhatsOnZwiftAvatar,
+  ZwiftInsiderAvatar,
+} from "../../../Avatar";
 
 interface Props {
   route: Route;
@@ -30,9 +31,9 @@ export function RouteLinks({ route }: Props) {
           href={route.zwiftInsiderUrl}
           target="_blank"
           leftAddon={
-            <Avatar>
-              <img src={zwiftInsiderLogo} alt="" />
-            </Avatar>
+            <div>
+              <ZwiftInsiderAvatar />
+            </div>
           }
           leftAddonType="avatar"
           rightAddon={<OpenInNewSVGIcon />}
@@ -46,9 +47,9 @@ export function RouteLinks({ route }: Props) {
           href={route.stravaSegmentUrl}
           target="_blank"
           leftAddon={
-            <Avatar>
-              <img src={stravaLogo} alt="" />
-            </Avatar>
+            <div>
+              <StravaAvatar />
+            </div>
           }
           leftAddonType="avatar"
           rightAddon={<OpenInNewSVGIcon />}
@@ -62,9 +63,9 @@ export function RouteLinks({ route }: Props) {
           href={route.whatsOnZwiftUrl}
           target="_blank"
           leftAddon={
-            <Avatar>
-              <img src={whatsOnZwiftLogo} alt="" />
-            </Avatar>
+            <div>
+              <WhatsOnZwiftAvatar />
+            </div>
           }
           leftAddonType="avatar"
           rightAddon={<OpenInNewSVGIcon />}
