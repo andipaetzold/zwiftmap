@@ -16,7 +16,10 @@ export const logger = createLogger({
       ? [loggingWinston]
       : [
           new transports.Console({
-            format: format.combine(format.colorize(), format.simple()),
+            format: format.combine(
+              format.colorize(),
+              format.printf(({ level, message }) => `${level}: ${message}`)
+            ),
           }),
         ],
 });
