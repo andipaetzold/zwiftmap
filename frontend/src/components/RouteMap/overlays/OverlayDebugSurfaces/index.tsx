@@ -1,13 +1,13 @@
 import { LayerGroup, LayersControl, Polygon } from "react-leaflet";
 import { World } from "zwift-data";
-import { ENVIRONMENT } from "../../config";
-import { SURFACE_CONSTANTS, worldConfigs } from "../../constants";
+import { ENVIRONMENT } from "../../../../config";
+import { SURFACE_CONSTANTS, worldConfigs } from "../../../../constants";
 
 interface Props {
   world: World;
 }
 
-export function SurfaceDebugLayer({ world }: Props) {
+export function OverlayDebugSurfaces({ world }: Props) {
   if (ENVIRONMENT === "production") {
     return null;
   }
@@ -15,7 +15,7 @@ export function SurfaceDebugLayer({ world }: Props) {
   const worldConfig = worldConfigs[world.slug];
 
   return (
-    <LayersControl.Overlay name="Surface Polygons">
+    <LayersControl.Overlay name="Surfaces">
       <LayerGroup>
         {worldConfig.surfaces.map((s, surfaceIndex) => (
           <Polygon

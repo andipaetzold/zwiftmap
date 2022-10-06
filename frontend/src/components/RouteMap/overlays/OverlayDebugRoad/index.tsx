@@ -7,15 +7,15 @@ import {
   Popup,
 } from "react-leaflet";
 import { World, WorldSlug } from "zwift-data";
-import { ENVIRONMENT } from "../../config";
-import { Roads, WORLD_ROADS } from "../../services/roads";
-import { dropAltitude } from "../../util/drop-altitude";
+import { ENVIRONMENT } from "../../../../config";
+import { Roads, WORLD_ROADS } from "../../../../services/roads";
+import { dropAltitude } from "../../../../util/drop-altitude";
 
 interface Props {
   world: World;
 }
 
-export function RoadLayer({ world }: Props) {
+export function OverlayDebugRoads({ world }: Props) {
   if (ENVIRONMENT === "production") {
     return null;
   }

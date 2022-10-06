@@ -1,10 +1,9 @@
 import { LatLngBoundsExpression, Map as MapType } from "leaflet";
-import { RefObject, useCallback, useEffect, useRef, useState } from "react";
+import { RefObject, useCallback, useEffect, useRef } from "react";
 import {
   LayerGroup,
   LayersControl,
   MapContainer,
-  Pane,
   ZoomControl,
 } from "react-leaflet";
 import { World } from "zwift-data";
@@ -14,18 +13,18 @@ import { useSettings } from "../../hooks/useSettings";
 import { LocationState } from "../../services/location-state";
 import { DistanceStream, LatLngStream } from "../../types";
 import { getBounds } from "../../util/bounds";
+import { usePrefetchRoads } from "./custom-route/usePrefetchRoads";
 import styles from "./index.module.scss";
 import { Markers } from "./Markers";
+import { OverlayDebugRoads } from "./overlays/OverlayDebugRoad";
+import { OverlayDebugSurfaces } from "./overlays/OverlayDebugSurfaces";
+import { OverlayFog } from "./overlays/OverlayFog";
 import { OverlayNone } from "./overlays/OverlayNone";
 import { OverlaySegments } from "./overlays/OverlaySegments";
 import { OverlaySurfaces } from "./overlays/OverlaySurfaces";
 import { PreviewRoute } from "./PreviewRoute";
-import { RoadLayer } from "./RoadLayer";
 import { RoutePosition } from "./RoutePosition";
-import { usePrefetchRoads } from "./custom-route/usePrefetchRoads";
-import { SurfaceDebugLayer } from "./SurfaceDebugLayer";
 import { WorldImage } from "./WorldImage";
-import { OverlayFog } from "./overlays/OverlayFog";
 
 interface Props {
   state: LocationState;
@@ -131,8 +130,8 @@ export function Map({ state, world, routeStreams }: Props) {
 
         <OverlayFog world={world} />
 
-        <SurfaceDebugLayer world={world} />
-        <RoadLayer world={world} />
+        <OverlayDebugSurfaces world={world} />
+        <OverlayDebugRoads world={world} />
       </LayersControl>
 
       <RoutePosition streams={routeStreams} />
