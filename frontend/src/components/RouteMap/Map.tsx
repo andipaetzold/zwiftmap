@@ -4,6 +4,7 @@ import {
   LayerGroup,
   LayersControl,
   MapContainer,
+  Pane,
   ZoomControl,
 } from "react-leaflet";
 import { World } from "zwift-data";
@@ -24,6 +25,7 @@ import { RoutePosition } from "./RoutePosition";
 import { usePrefetchRoads } from "./custom-route/usePrefetchRoads";
 import { SurfaceDebugLayer } from "./SurfaceDebugLayer";
 import { WorldImage } from "./WorldImage";
+import { OverlayFog } from "./overlays/OverlayFog";
 
 interface Props {
   state: LocationState;
@@ -126,6 +128,8 @@ export function Map({ state, world, routeStreams }: Props) {
             <OverlaySurfaces state={state} streams={routeStreams} />
           </LayerGroup>
         </LayersControl.BaseLayer>
+
+        <OverlayFog world={world} />
 
         <SurfaceDebugLayer world={world} />
         <RoadLayer world={world} />
