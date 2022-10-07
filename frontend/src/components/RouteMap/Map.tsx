@@ -4,7 +4,7 @@ import {
   LayerGroup,
   LayersControl,
   MapContainer,
-  ZoomControl
+  ZoomControl,
 } from "react-leaflet";
 import { World } from "zwift-data";
 import { worldConfigs } from "../../constants/worldConfigs";
@@ -14,11 +14,11 @@ import { LocationState } from "../../services/location-state";
 import { DistanceStream, LatLngStream } from "../../types";
 import { getBounds } from "../../util/bounds";
 import { usePrefetchRoads } from "./custom-route/usePrefetchRoads";
+import { Fog } from "./Fog";
 import styles from "./index.module.scss";
 import { Markers } from "./Markers";
 import { OverlayDebugRoads } from "./overlays/OverlayDebugRoad";
 import { OverlayDebugSurfaces } from "./overlays/OverlayDebugSurfaces";
-import { OverlayFog } from "./overlays/OverlayFog";
 import { OverlayNone } from "./overlays/OverlayNone";
 import { OverlaySegments } from "./overlays/OverlaySegments";
 import { OverlaySurfaces } from "./overlays/OverlaySurfaces";
@@ -104,38 +104,41 @@ export function Map({ state, world, routeStreams }: Props) {
       <ZoomControl position="topright" />
       <WorldImage world={world} />
       <PreviewRoute />
+      {state.type === "fog" ? (
+        <Fog state={state} />
+      ) : (
+        <>
+          <LayersControl position="topright">
+            <LayersControl.BaseLayer name="None" checked={overlay === "none"}>
+              <LayerGroup eventHandlers={{ add: () => setOverlay("none") }}>
+                <OverlayNone state={state} streams={routeStreams} />
+              </LayerGroup>
+            </LayersControl.BaseLayer>
+            <LayersControl.BaseLayer
+              name="Segments"
+              checked={overlay === "segments"}
+            >
+              <LayerGroup eventHandlers={{ add: () => setOverlay("segments") }}>
+                <OverlaySegments state={state} streams={routeStreams} />
+              </LayerGroup>
+            </LayersControl.BaseLayer>
+            <LayersControl.BaseLayer
+              name="Surfaces"
+              checked={overlay === "surfaces"}
+            >
+              <LayerGroup eventHandlers={{ add: () => setOverlay("surfaces") }}>
+                <OverlaySurfaces state={state} streams={routeStreams} />
+              </LayerGroup>
+            </LayersControl.BaseLayer>
 
-      <LayersControl position="topright">
-        <LayersControl.BaseLayer name="None" checked={overlay === "none"}>
-          <LayerGroup eventHandlers={{ add: () => setOverlay("none") }}>
-            <OverlayNone state={state} streams={routeStreams} />
-          </LayerGroup>
-        </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer
-          name="Segments"
-          checked={overlay === "segments"}
-        >
-          <LayerGroup eventHandlers={{ add: () => setOverlay("segments") }}>
-            <OverlaySegments state={state} streams={routeStreams} />
-          </LayerGroup>
-        </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer
-          name="Surfaces"
-          checked={overlay === "surfaces"}
-        >
-          <LayerGroup eventHandlers={{ add: () => setOverlay("surfaces") }}>
-            <OverlaySurfaces state={state} streams={routeStreams} />
-          </LayerGroup>
-        </LayersControl.BaseLayer>
+            <OverlayDebugSurfaces world={world} />
+            <OverlayDebugRoads world={world} />
+          </LayersControl>
 
-        <OverlayFog world={world} stream={routeStreams?.latlng} />
-
-        <OverlayDebugSurfaces world={world} />
-        <OverlayDebugRoads world={world} />
-      </LayersControl>
-
-      <RoutePosition streams={routeStreams} />
-      <Markers state={state} streams={routeStreams} />
+          <RoutePosition streams={routeStreams} />
+          <Markers state={state} streams={routeStreams} />
+        </>
+      )}
     </MapContainer>
   );
 }
