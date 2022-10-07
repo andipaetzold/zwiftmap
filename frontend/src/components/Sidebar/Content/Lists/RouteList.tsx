@@ -1,14 +1,18 @@
 import { Button } from "@react-md/button";
 import { List, SimpleListItem } from "@react-md/list";
-import { EventSVGIcon, ModeEditSVGIcon } from "@react-md/material-icons";
+import {
+  CloudSVGIcon, EventSVGIcon,
+  ModeEditSVGIcon
+} from "@react-md/material-icons";
 import { MenuItemSeparator } from "@react-md/menu";
 import { Helmet } from "react-helmet-async";
 import { routes } from "zwift-data";
+import { ENVIRONMENT } from "../../../../config";
 import { useSessionSettings } from "../../../../hooks/useSessionSettings";
 import { useSettings } from "../../../../hooks/useSettings";
 import {
   LocationStateDefault,
-  navigate,
+  navigate
 } from "../../../../services/location-state";
 import { sortRoute } from "../../../../util/sort";
 import { StravaAvatar } from "../../../Avatar";
@@ -69,6 +73,21 @@ export function RouteList({ state }: Props) {
           >
             <ModeEditSVGIcon />
           </Button>
+          {ENVIRONMENT === "development" && (
+            <Button
+              buttonType="icon"
+              themeType="outline"
+              title="Fog of Zwift"
+              onClick={() => {
+                navigate({
+                  world: state.world,
+                  type: "fog",
+                });
+              }}
+            >
+              <CloudSVGIcon />
+            </Button>
+          )}
           <Button
             buttonType="icon"
             themeType="outline"
