@@ -33,19 +33,11 @@ export function CustomRouteFacts({ stream }: Props) {
 
   return (
     <>
-      <SimpleListItem
-        clickable={false}
-        leftAddon={<SpaceBarSVGIcon />}
-        leftAddonType="icon"
-      >
+      <SimpleListItem leftAddon={<SpaceBarSVGIcon />} leftAddonType="icon">
         <Distance distance={distance} />
       </SimpleListItem>
 
-      <SimpleListItem
-        clickable={false}
-        leftAddon={<LandscapeSVGIcon />}
-        leftAddonType="icon"
-      >
+      <SimpleListItem leftAddon={<LandscapeSVGIcon />} leftAddonType="icon">
         <Elevation elevation={elevation} />
       </SimpleListItem>
     </>

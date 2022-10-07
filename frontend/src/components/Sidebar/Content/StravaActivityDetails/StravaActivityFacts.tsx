@@ -18,33 +18,21 @@ interface Props {
 export function StravaActivityFacts({ activity }: Props) {
   return (
     <>
-      <SimpleListItem
-        clickable={false}
-        leftAddon={<TimerSVGIcon />}
-        leftAddonType="icon"
-      >
+      <SimpleListItem leftAddon={<TimerSVGIcon />} leftAddonType="icon">
         <Time seconds={activity.time} />
       </SimpleListItem>
-      <SimpleListItem
-        clickable={false}
-        leftAddon={<SpaceBarSVGIcon />}
-        leftAddonType="icon"
-      >
+      <SimpleListItem leftAddon={<SpaceBarSVGIcon />} leftAddonType="icon">
         <Distance distance={activity.distance} />
       </SimpleListItem>
-      <SimpleListItem
-        clickable={false}
-        leftAddon={<LandscapeSVGIcon />}
-        leftAddonType="icon"
-      >
+      <SimpleListItem leftAddon={<LandscapeSVGIcon />} leftAddonType="icon">
         <Elevation elevation={activity.elevation} />
       </SimpleListItem>
-      <SimpleListItem clickable={false} leftAddon={<MapSVGIcon />}>
+      <SimpleListItem leftAddon={<MapSVGIcon />}>
         {activity.world.name}
       </SimpleListItem>
 
       {activity.kudos > 0 && (
-        <SimpleListItem clickable={false} leftAddon={<ThumbUpSVGIcon />}>
+        <SimpleListItem leftAddon={<ThumbUpSVGIcon />}>
           {activity.kudos}
         </SimpleListItem>
       )}

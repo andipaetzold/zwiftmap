@@ -20,31 +20,17 @@ export function SharedStravaActivityFacts({ share }: Props) {
 
   return (
     <>
-      <SimpleListItem
-        clickable={false}
-        leftAddon={<TimerSVGIcon />}
-        leftAddonType="icon"
-      >
+      <SimpleListItem leftAddon={<TimerSVGIcon />} leftAddonType="icon">
         <Time seconds={share.activity.moving_time} />
       </SimpleListItem>
-      <SimpleListItem
-        clickable={false}
-        leftAddon={<SpaceBarSVGIcon />}
-        leftAddonType="icon"
-      >
+      <SimpleListItem leftAddon={<SpaceBarSVGIcon />} leftAddonType="icon">
         <Distance distance={share.activity.distance / 1_000} />
       </SimpleListItem>
-      <SimpleListItem
-        clickable={false}
-        leftAddon={<LandscapeSVGIcon />}
-        leftAddonType="icon"
-      >
+      <SimpleListItem leftAddon={<LandscapeSVGIcon />} leftAddonType="icon">
         <Elevation elevation={share.activity.total_elevation_gain} />
       </SimpleListItem>
       {world && (
-        <SimpleListItem clickable={false} leftAddon={<MapSVGIcon />}>
-          {world.name}
-        </SimpleListItem>
+        <SimpleListItem leftAddon={<MapSVGIcon />}>{world.name}</SimpleListItem>
       )}
     </>
   );

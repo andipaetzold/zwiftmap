@@ -18,27 +18,17 @@ export function SegmentFacts({ segment }: Props) {
 
   return (
     <>
-      <SimpleListItem
-        clickable={false}
-        leftAddon={<SpaceBarSVGIcon />}
-        leftAddonType="icon"
-      >
+      <SimpleListItem leftAddon={<SpaceBarSVGIcon />} leftAddonType="icon">
         <Distance distance={segment.distance} />
       </SimpleListItem>
 
       {segment.elevation && (
-        <SimpleListItem
-          clickable={false}
-          leftAddon={<LandscapeSVGIcon />}
-          leftAddonType="icon"
-        >
+        <SimpleListItem leftAddon={<LandscapeSVGIcon />} leftAddonType="icon">
           <Elevation elevation={segment.elevation} />
         </SimpleListItem>
       )}
 
-      <SimpleListItem clickable={false} leftAddon={<MapSVGIcon />}>
-        {world.name}
-      </SimpleListItem>
+      <SimpleListItem leftAddon={<MapSVGIcon />}>{world.name}</SimpleListItem>
     </>
   );
 }

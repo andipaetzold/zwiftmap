@@ -20,11 +20,7 @@ export function RouteFacts({ route }: Props) {
 
   return (
     <>
-      <SimpleListItem
-        clickable={false}
-        leftAddon={<SpaceBarSVGIcon />}
-        leftAddonType="icon"
-      >
+      <SimpleListItem leftAddon={<SpaceBarSVGIcon />} leftAddonType="icon">
         <Distance distance={route.distance} />
         {route.leadInDistance !== undefined && (
           <>
@@ -41,11 +37,7 @@ export function RouteFacts({ route }: Props) {
         )}
       </SimpleListItem>
 
-      <SimpleListItem
-        clickable={false}
-        leftAddon={<LandscapeSVGIcon />}
-        leftAddonType="icon"
-      >
+      <SimpleListItem leftAddon={<LandscapeSVGIcon />} leftAddonType="icon">
         <Elevation elevation={route.elevation} />
         {route.leadInElevation !== undefined && (
           <>
@@ -64,7 +56,6 @@ export function RouteFacts({ route }: Props) {
 
       {route.experience && (
         <SimpleListItem
-          clickable={false}
           leftAddon={<StarSVGIcon />}
           leftAddonType="icon"
           aria-label={`Experience: ${route.experience}`}
@@ -74,17 +65,12 @@ export function RouteFacts({ route }: Props) {
       )}
 
       {route.eventOnly && (
-        <SimpleListItem
-          clickable={false}
-          leftAddon={<EventSVGIcon />}
-          leftAddonType="icon"
-        >
+        <SimpleListItem leftAddon={<EventSVGIcon />} leftAddonType="icon">
           Event only route
         </SimpleListItem>
       )}
 
       <SimpleListItem
-        clickable={false}
         leftAddon={<MapSVGIcon />}
         aria-label={`World: ${world.name}`}
       >

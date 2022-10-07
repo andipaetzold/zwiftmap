@@ -24,7 +24,6 @@ export function EventKit({ event }: Props) {
 
       {jersey && (
         <SimpleListItem
-          clickable={false}
           leftAddon={<AccessibilitySVGIcon />}
           leftAddonType="icon"
         >
@@ -33,7 +32,6 @@ export function EventKit({ event }: Props) {
       )}
       {bikeFrame && (
         <SimpleListItem
-          clickable={false}
           leftAddon={<DirectionsBikeSVGIcon />}
           leftAddonType="icon"
         >
