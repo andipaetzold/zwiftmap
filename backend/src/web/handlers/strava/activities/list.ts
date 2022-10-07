@@ -6,7 +6,7 @@ import { Session } from "../../../types.js";
 
 const PER_PAGE = 200;
 
-const MONTH_IN_SECONDS = 30 * 24 * 60 * 60;
+const MONTH_IN_SECONDS = 6 * 30 * 24 * 60 * 60;
 const NOW = new Date().getTime() / 1_000;
 
 export async function handleGETActivities(req: Request, res: Response) {

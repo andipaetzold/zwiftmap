@@ -49,7 +49,7 @@ export function StravaActivitiesListComponent({ state }: Props) {
   if (activities.length === 0) {
     return (
       <SimpleListItem>
-        Could not find any Zwift activities on Strava within the last 30 days.
+        Could not find any Zwift activities on Strava within the last 6 months.
       </SimpleListItem>
     );
   }

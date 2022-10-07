@@ -62,13 +62,13 @@ function Header({ state }: HeaderProps) {
         <title>Strava Activities</title>
         <meta
           name="description"
-          content="List of your Strava activities from the last 30 days"
+          content="List of your Strava activities from the last 6 moths"
         />
 
         <meta property="og:title" content={`Strava Activities - ZwiftMap`} />
         <meta
           property="og:description"
-          content="List of your Strava activities from the last 30 days"
+          content="List of your Strava activities from the last 6 months"
         />
       </Helmet>
       <SimpleListItem>
