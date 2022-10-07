@@ -4,7 +4,7 @@ import { getActivities } from "../../../../shared/services/strava/index.js";
 import { isZwiftActivity } from "../../../../shared/util.js";
 import { Session } from "../../../types.js";
 
-const PER_PAGE = 30;
+const PER_PAGE = 200;
 
 const MONTH_IN_SECONDS = 30 * 24 * 60 * 60;
 const NOW = new Date().getTime() / 1_000;
