@@ -4,7 +4,7 @@ import {
   LayerGroup,
   LayersControl,
   MapContainer,
-  ZoomControl,
+  ZoomControl
 } from "react-leaflet";
 import { World } from "zwift-data";
 import { worldConfigs } from "../../constants/worldConfigs";
@@ -128,7 +128,7 @@ export function Map({ state, world, routeStreams }: Props) {
           </LayerGroup>
         </LayersControl.BaseLayer>
 
-        <OverlayFog world={world} />
+        <OverlayFog world={world} stream={routeStreams?.latlng} />
 
         <OverlayDebugSurfaces world={world} />
         <OverlayDebugRoads world={world} />
