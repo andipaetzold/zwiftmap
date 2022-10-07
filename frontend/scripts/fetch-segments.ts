@@ -49,9 +49,6 @@ async function fetchSegment(
   const response = await fetch(
     `https://www.strava.com/stream/segments/${stravaSegmentId}?streams%5B%5D=latlng&streams%5B%5D=distance&streams%5B%5D=altitude`
   );
-  console.log(
-    `https://www.strava.com/stream/segments/${stravaSegmentId}?streams%5B%5D=latlng&streams%5B%5D=distance&streams%5B%5D=altitude`
-  );
 
   if (response.status !== 200) {
     console.error(`Could not fetch segment '${name}'`);

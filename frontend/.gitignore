@@ -2,6 +2,7 @@
 /public/segments/*
 /public/sitemap.txt
 /public/strava-segments/*
+/public/worlds/*
 
 # dependencies
 /node_modules

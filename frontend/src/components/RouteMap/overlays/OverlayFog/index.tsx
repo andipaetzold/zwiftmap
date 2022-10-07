@@ -1,7 +1,7 @@
 import bboxPolygon from "@turf/bbox-polygon";
 import buffer from "@turf/buffer";
-import { lineString } from "@turf/helpers";
-import mask from "@turf/mask";
+import difference from "@turf/difference";
+import { Feature, lineString, MultiPolygon } from "@turf/helpers";
 import { useMemo } from "react";
 import {
   LayerGroup,
@@ -42,10 +42,16 @@ export function OverlayFog({ world, stream }: Props) {
     const line = lineString(lngLatStream);
     const linePolygon = buffer(line, BUFFER_RADIUS, { units: "kilometers" });
 
-    const finalPolygon = mask(boundsPolygon, linePolygon);
-    return finalPolygon.geometry.coordinates.map((polygon) =>
-      polygon.map(positionToLatLng)
-    );
+    const finalPolygon = difference(boundsPolygon, linePolygon)!;
+    if (finalPolygon.geometry.type === "Polygon") {
+      return finalPolygon.geometry.coordinates.map((polOrMulti) =>
+        polOrMulti.map(positionToLatLng)
+      );
+    } else {
+      return (finalPolygon as Feature<MultiPolygon>).geometry.coordinates.map(
+        (polygon) => polygon.map((stream) => stream.map(positionToLatLng))
+      );
+    }
   }, [stream]);
 
   if (ENVIRONMENT === "production") {
