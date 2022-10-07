@@ -45,8 +45,7 @@ export function getKeyFromLocationState(locationState: LocationState): string {
       ].join();
 
     case "custom-route":
-      return [locationState.type, getKeyFromWorld(locationState.world)].join();
-
+    case "fog":
     case "default":
       return [locationState.type, getKeyFromWorld(locationState.world)].join();
   }

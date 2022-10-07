@@ -54,6 +54,10 @@ export function createUrl(state: LocationState): string {
         );
       }
       break;
+
+    case "fog":
+      path = `/${state.world.slug}/fog`;
+      break;
   }
 
   const searchParamsString = searchParams.toString();

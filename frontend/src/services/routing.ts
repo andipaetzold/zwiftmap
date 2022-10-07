@@ -6,3 +6,4 @@ export const PATTERN_ROUTE_OR_SEGMENT =
   /^\/(?<worldSlug>.+)\/(?<routeOrSegmentSlug>.+)$/;
 export const PATTERN_WORLD = /^\/(?<worldSlug>.+)$/;
 export const PATTERN_CUSTOM_ROUTE = /^\/(?<worldSlug>.+)\/(custom-route|routing)$/;
+export const PATTERN_FOG = /^\/(?<worldSlug>.+)\/fog$/;

@@ -14,6 +14,7 @@ import { SegmentDetails } from "./SegmentDetails";
 import { Share } from "./Share";
 import { StravaActivityDetails } from "./StravaActivityDetails";
 import { UpcomingEvents } from "./UpcomingEvents";
+import { Fog } from "./Fog";
 
 export function Content() {
   const state = useLocationState();
@@ -62,6 +63,8 @@ export function Content() {
       );
     case "custom-route":
       return <CustomRoute state={state} />;
+    case "fog":
+      return <Fog state={state} />;
     case "default":
       if (query === "") {
         return <RouteList state={state} />;

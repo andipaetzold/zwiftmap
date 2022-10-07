@@ -8,6 +8,7 @@ import {
   PATTERN_SHARED_ITEM,
   PATTERN_STRAVA_ACTIVITY,
   PATTERN_WORLD,
+  PATTERN_FOG,
 } from "../routing";
 import { DEFAULT_WORLD } from "./constants";
 import { createUrl } from "./createUrl";
@@ -79,6 +80,21 @@ const PATTERNS: {
       },
       false,
     ],
+  },
+  {
+    pattern: PATTERN_FOG,
+    toState: (result) => {
+      const worldSlug = result.groups!.worldSlug;
+      const world = worlds.find((w) => w.slug === worldSlug) ?? DEFAULT_WORLD;
+
+      return [
+        {
+          type: "fog",
+          world,
+        },
+        false,
+      ];
+    },
   },
   {
     pattern: PATTERN_ROUTE_OR_SEGMENT,

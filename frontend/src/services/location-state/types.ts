@@ -52,6 +52,11 @@ export interface LocationStateCustomRoute {
   points: (LatLngTuple | null)[];
 }
 
+export interface LocationStateFog {
+  type: "fog";
+  world: World;
+}
+
 export type LocationStateWithKey = LocationState & { key: string };
 export type LocationState =
   | LocationStateDefault
@@ -62,4 +67,5 @@ export type LocationState =
   | LocationStateUpcomingEvents
   | LocationStateUpcomingEvent
   | LocationStateShare
-  | LocationStateCustomRoute;
+  | LocationStateCustomRoute
+  | LocationStateFog;
