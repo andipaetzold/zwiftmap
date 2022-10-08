@@ -20,7 +20,7 @@ export function OverlayDebugRoads({ world }: Props) {
   }
 
   return (
-    <LayersControl.Overlay name="Roads" checked>
+    <LayersControl.Overlay name="Roads">
       <LayerGroup>
         <Lines world={world} />
       </LayerGroup>
