@@ -50,7 +50,7 @@ app.post("/share", nocache(), handlers.handleCreateShare);
 app.get("/share/:shareId", handlers.handleGetShare);
 app.get("/share/:shareId/image", handlers.handleGETShareImage);
 
-// app.use(Sentry.Handlers.errorHandler());
+app.use(Sentry.Handlers.errorHandler());
 app.use(errorHandler);
 
 export const api = Sentry.GCPFunction.wrapHttpFunction(app);
