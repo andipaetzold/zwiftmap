@@ -6,6 +6,7 @@ import * as handlers from "./handlers/index.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import { app } from "./server.js";
 import { logger } from "./services/logger.js";
+import "express-async-errors";
 
 Sentry.init({
   enabled: config.sentry.dsn.length > 0,
@@ -49,7 +50,7 @@ app.post("/share", nocache(), handlers.handleCreateShare);
 app.get("/share/:shareId", handlers.handleGetShare);
 app.get("/share/:shareId/image", handlers.handleGETShareImage);
 
-app.use(Sentry.Handlers.errorHandler());
+// app.use(Sentry.Handlers.errorHandler());
 app.use(errorHandler);
 
 export const api = Sentry.GCPFunction.wrapHttpFunction(app);
