@@ -1,9 +1,9 @@
 import { Roads } from "../Roads.js";
-import edgeADZ from "./edges/adz.js";
 import edgeADZTop from "./edges/adz-top.js";
-import edgeEpic from "./edges/epic.js";
+import edgeADZ from "./edges/adz.js";
 import edgeEpicBypass from "./edges/epic-bypass.js";
 import edgeEpicReverse from "./edges/epic-reverse.js";
+import edgeEpic from "./edges/epic.js";
 import edgeFuegoFlats from "./edges/fuego-flats.js";
 import edgeFuegoNorthRoundabout1 from "./edges/fuego-north-roundabout-1.js";
 import edgeFuegoNorthRoundabout2 from "./edges/fuego-north-roundabout-2.js";
@@ -31,10 +31,10 @@ import edgeMainPaddockWest from "./edges/main-paddock-west.js";
 import edgeMainJunction1 from "./edges/main-south-junction-1.js";
 import edgeMainJunction2 from "./edges/main-south-junction-2.js";
 import edgeMainJunction3 from "./edges/main-south-junction-3.js";
-import edgeMainSouthWest from "./edges/main-south-west.js";
 import edgeMainSouthWestJunction1 from "./edges/main-south-west-junction-1.js";
 import edgeMainSouthWestJunction2 from "./edges/main-south-west-junction-2.js";
 import edgeMainSouthWestJunction3 from "./edges/main-south-west-junction-3.js";
+import edgeMainSouthWest from "./edges/main-south-west.js";
 import edgeMainTitansNorth from "./edges/main-titans-north.js";
 import edgeMainWest1 from "./edges/main-west-1.js";
 import edgeMainWest2 from "./edges/main-west-2.js";
@@ -123,13 +123,13 @@ const JUNGLE_PADDOCK_ROW_FRONT = ROADS.createNode([
   -11.666222, 166.943264, 98.2,
 ]);
 const JUNGLE_PADDOCK_ROW_BACK = ROADS.createNode([-11.66566, 166.942835, 98.2]);
-ROADS.createEdge(JUNGLE_PADDOCK_1, JUNGLE_PADDOCK_ROW_FRONT, []);
-ROADS.createEdge(JUNGLE_PADDOCK_2, JUNGLE_PADDOCK_ROW_FRONT, []);
-ROADS.createEdge(JUNGLE_PADDOCK_ROW_BACK, JUNGLE_PADDOCK_ROW_FRONT, []);
-ROADS.createEdge(JUNGLE_PADDOCK_3, JUNGLE_PADDOCK_ROW_BACK, []);
-ROADS.createEdge(JUNGLE_PADDOCK_4, JUNGLE_PADDOCK_ROW_BACK, []);
-ROADS.createEdge(JUNGLE_PADDOCK_CENTER, JUNGLE_PADDOCK_ROW_BACK, []);
-ROADS.createEdge(JUNGLE_PADDOCK_ROW_FRONT, JUNGLE_PADDOCK_EXIT, []);
+ROADS.createEdge(JUNGLE_PADDOCK_1, JUNGLE_PADDOCK_ROW_FRONT, [], false);
+ROADS.createEdge(JUNGLE_PADDOCK_2, JUNGLE_PADDOCK_ROW_FRONT, [], false);
+ROADS.createEdge(JUNGLE_PADDOCK_ROW_BACK, JUNGLE_PADDOCK_ROW_FRONT, [], false);
+ROADS.createEdge(JUNGLE_PADDOCK_3, JUNGLE_PADDOCK_ROW_BACK, [], false);
+ROADS.createEdge(JUNGLE_PADDOCK_4, JUNGLE_PADDOCK_ROW_BACK, [], false);
+ROADS.createEdge(JUNGLE_PADDOCK_CENTER, JUNGLE_PADDOCK_ROW_BACK, [], false);
+ROADS.createEdge(JUNGLE_PADDOCK_ROW_FRONT, JUNGLE_PADDOCK_EXIT, [], false);
 ROADS.createEdge(
   JUNGLE_PADDOCK_EXIT,
   JUNGLE_JUNCTION_EAST_1,
@@ -223,22 +223,24 @@ const MAIN_PADDOCK_ROW_FRONT = ROADS.createNode([-11.635481, 166.953907, 5]);
 const MAIN_PADDOCK_SPLIT = ROADS.createNode([-11.635792, 166.953503, 5]);
 const MAIN_PADDOCK_EXIT_WEST = ROADS.createNode([-11.635513, 166.952232, 1.6]);
 const MAIN_PADDOCK_EXIT_EAST = ROADS.createNode([-11.637415, 166.95431, 1.8]);
-ROADS.createEdge(MAIN_PADDOCK_CENTER, MAIN_PADDOCK_ROW_BACK, []);
-ROADS.createEdge(MAIN_PADDOCK_ROW_BACK, MAIN_PADDOCK_ROW_FRONT, []);
-ROADS.createEdge(MAIN_PADDOCK_1, MAIN_PADDOCK_ROW_FRONT, []);
-ROADS.createEdge(MAIN_PADDOCK_2, MAIN_PADDOCK_ROW_FRONT, []);
-ROADS.createEdge(MAIN_PADDOCK_3, MAIN_PADDOCK_ROW_BACK, []);
-ROADS.createEdge(MAIN_PADDOCK_4, MAIN_PADDOCK_ROW_BACK, []);
-ROADS.createEdge(MAIN_PADDOCK_ROW_FRONT, MAIN_PADDOCK_SPLIT, []);
+ROADS.createEdge(MAIN_PADDOCK_CENTER, MAIN_PADDOCK_ROW_BACK, [], false);
+ROADS.createEdge(MAIN_PADDOCK_ROW_BACK, MAIN_PADDOCK_ROW_FRONT, [], false);
+ROADS.createEdge(MAIN_PADDOCK_1, MAIN_PADDOCK_ROW_FRONT, [], false);
+ROADS.createEdge(MAIN_PADDOCK_2, MAIN_PADDOCK_ROW_FRONT, [], false);
+ROADS.createEdge(MAIN_PADDOCK_3, MAIN_PADDOCK_ROW_BACK, [], false);
+ROADS.createEdge(MAIN_PADDOCK_4, MAIN_PADDOCK_ROW_BACK, [], false);
+ROADS.createEdge(MAIN_PADDOCK_ROW_FRONT, MAIN_PADDOCK_SPLIT, [], false);
 ROADS.createEdge(
   MAIN_PADDOCK_SPLIT,
   MAIN_PADDOCK_EXIT_WEST,
-  edgeMainPaddockWest
+  edgeMainPaddockWest,
+  false
 );
 ROADS.createEdge(
   MAIN_PADDOCK_SPLIT,
   MAIN_PADDOCK_EXIT_EAST,
-  edgeMainPaddockEast
+  edgeMainPaddockEast,
+  false
 );
 ROADS.createEdge(
   MAIN_PADDOCK_EXIT_WEST,
@@ -344,12 +346,12 @@ ROADS.createEdge(
   edgeFuegoNorthRoundaboutPaddock
 );
 ROADS.createEdge(TITANS_NORTH, FUEGO_PADDOCK_EXIT, edgeTitansFuegoNorth);
-ROADS.createEdge(FUEGO_PADDOCK_CENTER, FUEGO_PADDOCK_ROW_BACK, []);
-ROADS.createEdge(FUEGO_PADDOCK_ROW_BACK, FUEGO_PADDOCK_ROW_FRONT, []);
-ROADS.createEdge(FUEGO_PADDOCK_ROW_FRONT, FUEGO_PADDOCK_EXIT, []);
-ROADS.createEdge(FUEGO_PADDOCK_1, FUEGO_PADDOCK_ROW_FRONT, []);
-ROADS.createEdge(FUEGO_PADDOCK_2, FUEGO_PADDOCK_ROW_FRONT, []);
-ROADS.createEdge(FUEGO_PADDOCK_3, FUEGO_PADDOCK_ROW_BACK, []);
-ROADS.createEdge(FUEGO_PADDOCK_4, FUEGO_PADDOCK_ROW_BACK, []);
+ROADS.createEdge(FUEGO_PADDOCK_CENTER, FUEGO_PADDOCK_ROW_BACK, [], false);
+ROADS.createEdge(FUEGO_PADDOCK_ROW_BACK, FUEGO_PADDOCK_ROW_FRONT, [], false);
+ROADS.createEdge(FUEGO_PADDOCK_ROW_FRONT, FUEGO_PADDOCK_EXIT, [], false);
+ROADS.createEdge(FUEGO_PADDOCK_1, FUEGO_PADDOCK_ROW_FRONT, [], false);
+ROADS.createEdge(FUEGO_PADDOCK_2, FUEGO_PADDOCK_ROW_FRONT, [], false);
+ROADS.createEdge(FUEGO_PADDOCK_3, FUEGO_PADDOCK_ROW_BACK, [], false);
+ROADS.createEdge(FUEGO_PADDOCK_4, FUEGO_PADDOCK_ROW_BACK, [], false);
 
 export default ROADS;

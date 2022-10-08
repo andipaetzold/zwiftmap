@@ -20,7 +20,7 @@ export function OverlayDebugRoads({ world }: Props) {
   }
 
   return (
-    <LayersControl.Overlay name="Roads">
+    <LayersControl.Overlay name="Roads" checked>
       <LayerGroup>
         <Lines world={world} />
       </LayerGroup>
@@ -45,6 +45,7 @@ function Lines({ world }: Props) {
           key={edgeIndex}
           interactive={false}
           positions={edge.stream.map(dropAltitude)}
+          pathOptions={{ color: edge.fog ? "#3388ff" : "lightblue" }}
         />
       ))}
       {roads.nodes.map(({ position }, nodeIndex) => (

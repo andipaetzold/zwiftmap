@@ -29,7 +29,8 @@ export class Roads {
   public createEdge(
     from: RoadsNode,
     to: RoadsNode,
-    stream: LatLngAlt[]
+    stream: LatLngAlt[],
+    fog = true
   ): RoadsEdge {
     if (!this.#nodes.has(from)) {
       throw new Error("`from` must be added to `node` first");
@@ -41,7 +42,7 @@ export class Roads {
 
     const fullStream = [from.position, ...stream, to.position];
 
-    const edge = { from, to, stream: fullStream };
+    const edge: RoadsEdge = { from, to, stream: fullStream, fog };
 
     from.edges.add(edge);
     to.edges.add(edge);
@@ -71,7 +72,11 @@ export class Roads {
     return newRoads;
   }
 
-  public splitEdge({ edge, edgeStreamIndex, position }: SnappedPoint): RoadsNode {
+  public splitEdge({
+    edge,
+    edgeStreamIndex,
+    position,
+  }: SnappedPoint): RoadsNode {
     this.#edges.delete(edge);
     edge.from.edges.delete(edge);
     edge.to.edges.delete(edge);
@@ -150,4 +155,5 @@ export interface RoadsEdge {
   from: RoadsNode;
   to: RoadsNode;
   stream: LatLngAlt[];
+  fog: boolean;
 }

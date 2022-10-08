@@ -9,6 +9,8 @@ import edgeRoundabout3 from "./edges/roundabout-3.js";
 import edgeRing from "./edges/ring.js";
 import edgeMiddle from "./edges/middle.js";
 
+// TODO: Paddock
+
 const ROADS = new Roads();
 
 const LUTSCHER_ROUNDABOUT_1 = ROADS.createNode([47.253996, 11.413398, 297.2]);

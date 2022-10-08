@@ -20,6 +20,7 @@ for (const world of worlds) {
   const roads = await WORLD_ROADS[world.slug]();
 
   const linePolygons = roads.edges
+    .filter((edge) => edge.fog)
     .map((edge) => [
       edge.from.position,
       ...edge.stream.map(dropAltitude).map(latLngToPosition),
