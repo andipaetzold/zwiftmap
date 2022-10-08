@@ -4,7 +4,7 @@ import {
   UseQueryOptions,
 } from "@tanstack/react-query";
 import { LatLngTuple } from "leaflet";
-import { range } from "lodash-es";
+import range from "lodash-es/range";
 import { WorldSlug } from "zwift-data";
 import { worker } from "../services/worker-client";
 import { LatLngAlt } from "../types";

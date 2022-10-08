@@ -1,4 +1,4 @@
-import { range } from "lodash-es";
+import range from "lodash-es/range";
 import { Route, routes, World, worlds } from "zwift-data";
 import { DistanceStream, ZwiftEvent } from "../../types";
 
