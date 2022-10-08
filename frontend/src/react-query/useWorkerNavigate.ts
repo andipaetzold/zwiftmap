@@ -26,7 +26,7 @@ async function queryFn({
   );
 
   if (noNullPoints.length < 2) {
-    return;
+    return null;
   }
 
   const routes = await Promise.all(
@@ -42,10 +42,10 @@ async function queryFn({
   return ([] as LatLngAlt[]).concat.apply([], routes);
 }
 
-export function useWorkerNavigate<TData = LatLngAlt[] | undefined>(
+export function useWorkerNavigate<TData = LatLngAlt[] | null>(
   params: Params | undefined,
   options?: Omit<
-    UseQueryOptions<LatLngAlt[] | undefined, unknown, TData, QueryKey>,
+    UseQueryOptions<LatLngAlt[] | null, unknown, TData, QueryKey>,
     "queryKey" | "queryFn" | "staleTime" | "cacheTime"
   >
 ) {
@@ -56,13 +56,13 @@ export function useWorkerNavigate<TData = LatLngAlt[] | undefined>(
   );
 }
 
-export function getWorkerNavigateQueryOptions<TData = LatLngAlt[] | undefined>(
+export function getWorkerNavigateQueryOptions<TData = LatLngAlt[] | null>(
   params: Params | undefined,
   options?: Omit<
-    UseQueryOptions<LatLngAlt[] | undefined, unknown, TData, QueryKey>,
+    UseQueryOptions<LatLngAlt[] | null, unknown, TData, QueryKey>,
     "queryFn" | "queryKey" | "staleTime" | "cacheTime"
   >
-): UseQueryOptions<LatLngAlt[] | undefined, unknown, TData, QueryKey> {
+): UseQueryOptions<LatLngAlt[] | null, unknown, TData, QueryKey> {
   return {
     queryKey: createQueryKey(params),
     queryFn: queryFn,
