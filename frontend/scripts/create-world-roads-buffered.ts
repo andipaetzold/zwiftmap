@@ -20,7 +20,11 @@ for (const world of worlds) {
   const roads = await WORLD_ROADS[world.slug]();
 
   const linePolygons = roads.edges
-    .map((edge) => edge.stream.map(dropAltitude).map(latLngToPosition))
+    .map((edge) => [
+      edge.from.position,
+      ...edge.stream.map(dropAltitude).map(latLngToPosition),
+      edge.to.position,
+    ])
     .map((line) => lineString(line))
     .map((line) => buffer(line, BUFFER_RADIUS, { units: "kilometers" }));
 
