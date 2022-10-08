@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { Segment } from "zwift-data";
-import { useStravaSegmentStream } from "../../react-query/useStravaSegmentStream";
+import { useStravaSegmentStream } from "../../react-query";
 import { LoadingSpinner } from "../Loading";
 import { TARGET_RESOLUTION } from "./constants";
 import { GenericElevationChartPreview } from "./GenericElevationChartPreview";

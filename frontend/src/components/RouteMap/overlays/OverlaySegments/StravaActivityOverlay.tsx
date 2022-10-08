@@ -1,7 +1,7 @@
 import { LatLngTuple } from "leaflet";
 import { DetailedSegmentEffort, LatLngStream } from "strava";
 import { Segment, segments, SegmentType } from "zwift-data";
-import { useStravaActivity } from "../../../../react-query/useStravaActivity";
+import { useStravaActivity } from "../../../../react-query";
 import { LocationStateStravaActivity } from "../../../../services/location-state";
 import { DistanceStream } from "../../../../types";
 import { getSectionsFromIntervals } from "../../../../util/sections";

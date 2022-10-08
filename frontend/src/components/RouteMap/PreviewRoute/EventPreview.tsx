@@ -1,6 +1,5 @@
 import { useMemo } from "react";
-import { useStravaSegmentStream } from "../../../react-query";
-import { useEvent } from "../../../react-query/useEvent";
+import { useEvent, useStravaSegmentStream } from "../../../react-query";
 import {
   adjustStreamForEvent,
   getRouteFromEvent,

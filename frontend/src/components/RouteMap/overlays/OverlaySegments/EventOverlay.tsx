@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useEvent } from "../../../../react-query/useEvent";
+import { useEvent } from "../../../../react-query";
 import { getRouteFromEvent } from "../../../../services/events";
 import { LocationStateUpcomingEvent } from "../../../../services/location-state";
 import { DistanceStream, LatLngStream } from "../../../../types";

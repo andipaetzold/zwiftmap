@@ -4,7 +4,7 @@ import { ListSVGIcon } from "@react-md/material-icons";
 import { Helmet } from "react-helmet-async";
 import { useSessionSettings } from "../../../../hooks/useSessionSettings";
 import { useSettings } from "../../../../hooks/useSettings";
-import { useEvents } from "../../../../react-query/useEvents";
+import { useEvents } from "../../../../react-query";
 import { LocationStateUpcomingEvents } from "../../../../services/location-state";
 import { ButtonState } from "../../../ButtonState";
 import { LoadingSpinnerListItem } from "../../../Loading";

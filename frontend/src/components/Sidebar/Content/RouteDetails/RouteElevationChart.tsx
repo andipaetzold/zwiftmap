@@ -1,5 +1,5 @@
 import { Route, segments } from "zwift-data";
-import { useStravaSegmentStream } from "../../../../react-query/useStravaSegmentStream";
+import { useStravaSegmentStream } from "../../../../react-query";
 import { ElevationChart } from "../../../ElevationChart";
 import { LoadingSpinnerListItem } from "../../../Loading";
 

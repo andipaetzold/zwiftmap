@@ -1,7 +1,7 @@
 import { ListItemLink, ListItemText, SimpleListItem } from "@react-md/list";
 import { OpenInNewSVGIcon, TimerSVGIcon } from "@react-md/material-icons";
 import { Route } from "zwift-data";
-import { useStravaSegment } from "../../../../react-query/useStravaSegment";
+import { useStravaSegment } from "../../../../react-query";
 import { LoadingSpinner } from "../../../Loading";
 import { Time } from "../../../Time";
 

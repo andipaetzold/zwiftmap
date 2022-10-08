@@ -2,7 +2,7 @@ import { List, SimpleListItem } from "@react-md/list";
 import { lazy, Suspense } from "react";
 import { Helmet } from "react-helmet-async";
 import { useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";
-import { useStravaActivity } from "../../../../react-query/useStravaActivity";
+import { useStravaActivity } from "../../../../react-query";
 import { LocationStateStravaActivity } from "../../../../services/location-state";
 import { ErrorWithStatus } from "../../../../services/request";
 import { ConnectToStravaListItem } from "../../../ConnectToStravaListItem";

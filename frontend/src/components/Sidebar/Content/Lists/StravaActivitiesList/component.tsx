@@ -1,7 +1,7 @@
 import polyline from "@mapbox/polyline";
 import { SimpleListItem } from "@react-md/list";
 import { useStore } from "../../../../../hooks/useStore";
-import { useStravaActivities } from "../../../../../react-query/useStravaActivities";
+import { useStravaActivities } from "../../../../../react-query";
 import { LocationStateStravaActivities } from "../../../../../services/location-state";
 import { ErrorWithStatus } from "../../../../../services/request";
 import { HoverStateType } from "../../../../../types";

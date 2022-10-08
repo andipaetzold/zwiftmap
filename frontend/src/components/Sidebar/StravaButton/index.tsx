@@ -2,7 +2,7 @@ import { ExitToAppSVGIcon } from "@react-md/material-icons";
 import { MenuItem, MenuItemLink } from "@react-md/menu";
 import ConnectToStrava from "../../../assets/ConnectToStravaLight.svg";
 import { useIsLoggedInStrava } from "../../../hooks/useIsLoggedInStrava";
-import { useAuthLogout } from "../../../react-query/useAuthLogout";
+import { useAuthLogout } from "../../../react-query";
 import { useStravaAuthUrl } from "../../../services/strava/auth";
 import styles from "./index.module.scss";
 

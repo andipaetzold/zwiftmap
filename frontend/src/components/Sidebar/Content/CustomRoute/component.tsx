@@ -4,7 +4,7 @@ import { ListSVGIcon } from "@react-md/material-icons";
 import { MenuItemSeparator } from "@react-md/menu";
 import { Typography } from "@react-md/typography";
 import { LatLngTuple } from "leaflet";
-import { useWorkerNavigate } from "../../../../react-query/useWorkerNavigate";
+import { useWorkerNavigate } from "../../../../react-query";
 import { LocationStateCustomRoute } from "../../../../services/location-state";
 import { ButtonState } from "../../../ButtonState";
 import { CustomRouteElevationChart } from "./CustomRouteElevationChart";

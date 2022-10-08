@@ -1,6 +1,6 @@
 import { SimpleListItem } from "@react-md/list";
 import { useIsLoggedInStrava } from "../../../../../hooks/useIsLoggedInStrava";
-import { useStravaActivity } from "../../../../../react-query/useStravaActivity";
+import { useStravaActivity } from "../../../../../react-query";
 import { ConnectToStravaListItem } from "../../../../ConnectToStravaListItem";
 import { Distance } from "../../../../Distance";
 import { Elevation } from "../../../../Elevation";

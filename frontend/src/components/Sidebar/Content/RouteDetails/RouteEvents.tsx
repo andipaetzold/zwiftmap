@@ -9,7 +9,7 @@ import { useMemo } from "react";
 import { Route } from "zwift-data";
 import { WORLDS_BY_SLUG } from "../../../../constants";
 import { useSettings } from "../../../../hooks/useSettings";
-import { useEvents } from "../../../../react-query/useEvents";
+import { useEvents } from "../../../../react-query";
 import { EventInfo } from "../../../EventInfo";
 import { ListItemState } from "../../../ListItemState";
 import { LoadingSpinnerListItem } from "../../../Loading";

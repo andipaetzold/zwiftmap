@@ -4,12 +4,12 @@ import { LatLngTuple } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useStore } from "../../hooks/useStore";
 import {
+  useEvent,
   useShare,
   useStravaActivity,
   useStravaSegmentStreams,
+  useWorkerNavigate,
 } from "../../react-query";
-import { useEvent } from "../../react-query/useEvent";
-import { useWorkerNavigate } from "../../react-query/useWorkerNavigate";
 import { getRouteFromEvent } from "../../services/events";
 import {
   DEFAULT_WORLD,

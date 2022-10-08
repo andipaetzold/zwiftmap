@@ -1,5 +1,5 @@
 import { Switch } from "@react-md/form";
-import { useStravaSettings } from "../../react-query/useStravaSettings";
+import { useStravaSettings } from "../../react-query";
 
 export function StravaSettings() {
   const [settings, setSettings] = useStravaSettings();
@@ -9,18 +9,16 @@ export function StravaSettings() {
   }
 
   return (
-    <>
-      <Switch
-        id="settings-strava-add-link"
-        label="Automatically add ZwiftMap links to Strava activities"
-        checked={settings.addLinkToActivityDescription}
-        onChange={(e) =>
-          setSettings({
-            ...settings,
-            addLinkToActivityDescription: e.target.checked,
-          })
-        }
-      />
-    </>
+    <Switch
+      id="settings-strava-add-link"
+      label="Automatically add ZwiftMap links to Strava activities"
+      checked={settings.addLinkToActivityDescription}
+      onChange={(e) =>
+        setSettings({
+          ...settings,
+          addLinkToActivityDescription: e.target.checked,
+        })
+      }
+    />
   );
 }

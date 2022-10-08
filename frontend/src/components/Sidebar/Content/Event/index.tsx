@@ -1,7 +1,7 @@
 import { List, SimpleListItem } from "@react-md/list";
 import { lazy, Suspense } from "react";
 import { Helmet } from "react-helmet-async";
-import { useEvent } from "../../../../react-query/useEvent";
+import { useEvent } from "../../../../react-query";
 import { LoadingSpinnerListItem } from "../../../Loading";
 import { BackButton } from "./BackButton";
 

@@ -3,7 +3,7 @@ import { Typography } from "@react-md/typography";
 import { Route, Segment, segments, SegmentType } from "zwift-data";
 import { FORMAT_INCLINE, WORLDS_BY_SLUG } from "../../../../constants";
 import { useStore } from "../../../../hooks/useStore";
-import { useStravaSegment } from "../../../../react-query/useStravaSegment";
+import { useStravaSegment } from "../../../../react-query";
 import { HoverStateType } from "../../../../types";
 import { Distance } from "../../../Distance";
 import { ListItemState } from "../../../ListItemState";
