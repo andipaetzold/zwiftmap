@@ -1,11 +1,9 @@
 import { QueryKey, useQuery, UseQueryOptions } from "@tanstack/react-query";
 import { getEvent } from "../services/zwiftMapApi";
 import { ZwiftEvent } from "../types";
+import { queries } from "./queryKeys";
 
-export const eventQueryKey = (eventId: number | undefined) => [
-  "events",
-  eventId,
-];
+const STALE_TIME = 60 * 60;
 
 export function useEvent<TData = ZwiftEvent>(
   eventId: number | undefined,
@@ -15,10 +13,10 @@ export function useEvent<TData = ZwiftEvent>(
   >
 ) {
   return useQuery<ZwiftEvent, Error, TData, QueryKey>(
-    eventQueryKey(eventId),
+    queries.event(eventId),
     () => getEvent(eventId!),
     {
-      staleTime: 60 * 60,
+      staleTime: STALE_TIME,
       ...options,
       enabled: (options?.enabled ?? true) && eventId !== undefined,
     }
