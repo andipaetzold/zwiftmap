@@ -12,7 +12,8 @@ export const request: RequestFn = async (
     if (response.status === 204) {
       return undefined;
     } else {
-      const contentType = response.headers.get("content-type")?.split(";")[0];
+      const contentType =
+        response.headers.get("content-type")?.split(";")[0] ?? "";
       if (["application/json", "application/geo+json"].includes(contentType)) {
         return await response.json();
       } else if (contentType?.startsWith("text/")) {
