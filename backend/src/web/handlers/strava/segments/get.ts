@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Record } from "runtypes";
 import { getSegmentById } from "../../../../shared/services/strava/index.js";
-import { NumberString } from "../../../services/runtypes.js";
+import { NumberString } from "../../../../shared/runtypes.js";
 import { Session } from "../../../types.js";
 
 const paramsRunType = Record({

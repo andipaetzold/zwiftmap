@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Optional, Record, String } from "runtypes";
-import { NumberString } from "../../../services/runtypes.js";
+import { NumberString } from "../../../../shared/runtypes.js";
 import { updateActivity } from "../../../../shared/services/strava/index.js";
 import { Session } from "../../../types.js";
 

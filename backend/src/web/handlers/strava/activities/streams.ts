@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { getActivityStreams } from "../../../../shared/services/strava/index.js";
 import { Session } from "../../../types.js";
-import { NumberString } from "../../../services/runtypes.js";
+import { NumberString } from "../../../../shared/runtypes.js";
 import { Record } from "runtypes";
 
 const paramsRunType = Record({

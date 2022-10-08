@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Record } from "runtypes";
 import { getEvent } from "../../../shared/events/index.js";
-import { NumberString } from "../../services/runtypes.js";
+import { NumberString } from "../../../shared/runtypes.js";
 
 const paramsRunType = Record({
   eventId: NumberString,

@@ -4,7 +4,7 @@ import { X2jOptionsOptional, XMLParser } from "fast-xml-parser";
 import { Record } from "runtypes";
 import { create } from "xmlbuilder2";
 import { getEvent } from "../../../shared/events/index.js";
-import { NumberString } from "../../services/runtypes.js";
+import { NumberString } from "../../../shared/runtypes.js";
 import { COLORS, ZONES } from "./workout/constants.js";
 import {
   BarInterval,

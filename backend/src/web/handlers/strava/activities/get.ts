@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Record } from "runtypes";
-import { NumberString } from "../../../services/runtypes.js";
+import { NumberString } from "../../../../shared/runtypes.js";
 import { getActivityById } from "../../../../shared/services/strava/index.js";
 import { isZwiftActivity } from "../../../../shared/util.js";
 import { Session } from "../../../types.js";
