@@ -42,7 +42,7 @@ export function adjustStreamForEvent<T>(
     (d) => d / 1_000 > remainingDistance
   );
 
-  adjustedStream.push(...adjustedStream.slice(0, finishIndex));
+  adjustedStream.push(...stream.slice(0, finishIndex));
   return adjustedStream;
 }
 
