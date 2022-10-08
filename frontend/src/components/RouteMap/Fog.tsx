@@ -36,10 +36,10 @@ export function Fog({ state }: Props) {
     }
 
     const boundsPolygon = bboxPolygon([
-      state.world.bounds[0][1],
-      state.world.bounds[0][0],
-      state.world.bounds[1][1],
-      state.world.bounds[1][0],
+      state.world.bounds[0][1] - 1,
+      state.world.bounds[0][0] + 1,
+      state.world.bounds[1][1] + 1,
+      state.world.bounds[1][0] - 1,
     ]);
 
     const multiOrSinglePolygon = activities
