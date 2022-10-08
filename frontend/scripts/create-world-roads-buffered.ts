@@ -6,8 +6,8 @@ import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import path, { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { worlds } from "zwift-data";
+import { latLngToPosition, positionToLatLng } from "../src/shared/coordinates";
 import { WORLD_ROADS } from "../src/shared/roads";
-import { latLngToPosition, positionToLatLng } from "../src/util/coordinates";
 import { dropAltitude } from "../src/util/drop-altitude";
 
 const __filename = fileURLToPath(import.meta.url);

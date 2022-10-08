@@ -1,9 +1,11 @@
+import { Feature, MultiPolygon, Polygon } from "@turf/helpers";
 import {
   DetailedActivity,
   DetailedSegment,
   StreamSet,
   SummaryActivity,
 } from "strava";
+import { WorldSlug } from "zwift-data";
 import { BACKEND_HOST } from "../config";
 import { AuthStatus, Share, StravaSettings, ZwiftEvent } from "../types";
 import { cachedRequest } from "./cached-request";
@@ -116,4 +118,12 @@ export async function getEvents(): Promise<ZwiftEvent[]> {
 
 export async function getEvent(eventId: number): Promise<ZwiftEvent> {
   return await request<ZwiftEvent>(`${BACKEND_HOST}/events/${eventId}`);
+}
+
+export async function getWorldUserFog(
+  world: WorldSlug
+): Promise<Feature<Polygon | MultiPolygon>> {
+  return await request(`${BACKEND_HOST}/worlds/${world}/fog`, {
+    ...DEFAULT_INIT,
+  });
 }
