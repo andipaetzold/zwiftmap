@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { getActivityStreams } from "../../../../shared/services/strava/index.js";
-import { Session } from "../../../types.js";
-import { NumberString } from "../../../../shared/runtypes.js";
 import { Record } from "runtypes";
+import { NumberString } from "../../../../shared/runtypes.js";
+import { StravaUserAPI } from "../../../../shared/services/strava/index.js";
+import { Session } from "../../../types.js";
 
 const paramsRunType = Record({
   activityId: NumberString,
@@ -20,10 +20,11 @@ export async function handleGETActivityStreams(req: Request, res: Response) {
     return;
   }
 
-  const { result: activity, ttl } = await getActivityStreams(
-    session.stravaAthleteId,
+  const api = new StravaUserAPI(session.stravaAthleteId);
+  const { result: activity, ttl } = await api.getActivityStreams(
     +req.params.activityId
   );
+
   res
     .status(200)
     .header("Cache-Control", `private, max-age=${ttl}`)

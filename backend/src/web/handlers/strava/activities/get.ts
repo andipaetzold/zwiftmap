@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Record } from "runtypes";
 import { NumberString } from "../../../../shared/runtypes.js";
-import { getActivityById } from "../../../../shared/services/strava/index.js";
+import { StravaUserAPI } from "../../../../shared/services/strava/index.js";
 import { isZwiftActivity } from "../../../../shared/util.js";
 import { Session } from "../../../types.js";
 
@@ -21,8 +21,8 @@ export async function handleGETActivity(req: Request, res: Response) {
     return;
   }
 
-  const { result: activity } = await getActivityById(
-    session.stravaAthleteId,
+  const api = new StravaUserAPI(session.stravaAthleteId);
+  const { result: activity } = await api.getActivityById(
     +req.params.activityId
   );
 

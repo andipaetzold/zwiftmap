@@ -1,7 +1,7 @@
 import { DetailedActivity } from "strava";
 import { readStravaSettings } from "../../../persistence/stravaSettings.js";
 import { addLinkToActivity } from "../../sharing.js";
-import { getActivityById } from "../cached-api.js";
+import { StravaUserAPI } from "../api.js";
 import { Logger, WebhookEventType } from "../../../types.js";
 import { isZwiftActivity } from "../../../util.js";
 
@@ -20,7 +20,8 @@ export async function handleActivityCreate(
 
   let activity: DetailedActivity;
   try {
-    activity = (await getActivityById(athleteId, activityId)).result;
+    const api = new StravaUserAPI(athleteId);
+    activity = (await api.getActivityById(activityId)).result;
   } catch (e) {
     logger.info("Error fetching activity");
     return;

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { SummaryActivity } from "strava";
-import { getActivities } from "../../../../shared/services/strava/index.js";
+import { StravaUserAPI } from "../../../../shared/services/strava/index.js";
 import { isZwiftActivity } from "../../../../shared/util.js";
 import { Session } from "../../../types.js";
 
@@ -20,8 +20,9 @@ export async function handleGETActivities(req: Request, res: Response) {
   const activities: SummaryActivity[] = [];
   let newActivities: SummaryActivity[];
 
+  const api = new StravaUserAPI(session.stravaAthleteId);
   do {
-    newActivities = await getActivities(session.stravaAthleteId, {
+    newActivities = await api.getActivities({
       after: NOW - MONTH_IN_SECONDS,
       page,
       per_page: PER_PAGE,

@@ -1,5 +1,5 @@
 import { Logger, WebhookEventType } from "../../../types.js";
-import { evictCacheForActivity } from "../cached-api.js";
+import { StravaUserAPI } from "../api.js";
 
 export async function handleActivityUpdate(
   webhookEvent: WebhookEventType,
@@ -9,5 +9,5 @@ export async function handleActivityUpdate(
 
   const athleteId = webhookEvent.owner_id;
   const activityId = webhookEvent.object_id;
-  await evictCacheForActivity(athleteId, activityId);
+  await StravaUserAPI.evictCacheForActivity(athleteId, activityId);
 }

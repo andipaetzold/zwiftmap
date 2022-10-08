@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Record } from "runtypes";
-import { getSegmentById } from "../../../../shared/services/strava/index.js";
 import { NumberString } from "../../../../shared/runtypes.js";
+import { StravaUserAPI } from "../../../../shared/services/strava/index.js";
 import { Session } from "../../../types.js";
 
 const paramsRunType = Record({
@@ -20,8 +20,8 @@ export async function handleGETSegment(req: Request, res: Response) {
     return;
   }
 
-  const { result: activity, ttl } = await getSegmentById(
-    session.stravaAthleteId,
+  const api = new StravaUserAPI(session.stravaAthleteId);
+  const { result: activity, ttl } = await api.getSegmentById(
     +req.params.segmentId
   );
 

@@ -2,27 +2,23 @@ import { pick } from "lodash-es";
 import { DetailedActivity, StreamSet } from "strava";
 import { config } from "../config.js";
 import { ErrorWithStatusCode } from "../ErrorWithStatusCode.js";
+import { createImage } from "../image.js";
 import { getShareUrl, writeShare } from "../persistence/share.js";
 import { Share, ShareStravaActivity } from "../persistence/types.js";
-import { ImageQueueData, Logger } from "../types.js";
-import { isZwiftActivity } from "../util.js";
-import {
-  getActivityById,
-  getActivityStreams,
-  updateActivity,
-} from "./strava/index.js";
 import { uploadToGoogleCloudStorage } from "../services/gcs.js";
-import { createImage } from "../image.js";
+import { Logger } from "../types.js";
+import { isZwiftActivity } from "../util.js";
+import { StravaUserAPI } from "./strava/index.js";
 
 export async function shareActivity(
   athleteId: number,
   activityId: number,
   logger: Logger
 ): Promise<Share> {
-  const { result: activity } = await getActivityById(athleteId, activityId);
-  const { result: activityStreams } = await getActivityStreams(
-    athleteId,
-    activityId
+  const api = new StravaUserAPI(athleteId);
+
+  const [{ result: activity }, { result: activityStreams }] = await Promise.all(
+    [api.getActivityById(activityId), api.getActivityStreams(activityId)]
   );
 
   if (!isZwiftActivity(activity)) {
@@ -37,10 +33,9 @@ export async function addLinkToActivity(
   activityId: number,
   logger: Logger
 ): Promise<void> {
-  const { result: activity } = await getActivityById(athleteId, activityId);
-  const { result: activityStreams } = await getActivityStreams(
-    athleteId,
-    activityId
+  const api = new StravaUserAPI(athleteId);
+  const [{ result: activity }, { result: activityStreams }] = await Promise.all(
+    [api.getActivityById(activityId), api.getActivityStreams(activityId)]
   );
 
   if (!isZwiftActivity(activity)) {
@@ -60,7 +55,7 @@ export async function addLinkToActivity(
       ? text
       : `${activity.description}\n\n${text}`;
 
-  await updateActivity(athleteId, activityId, { description });
+  await api.updateActivity(activityId, { description });
 }
 
 async function createShare(
