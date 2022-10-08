@@ -1,17 +1,15 @@
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { WorldSlug } from "zwift-data";
 import { WORLD_ROADS } from "../services/roads";
+import { queries } from "./queryKeys";
 
-const queryKey = (world: WorldSlug) => ["worlds", world, "roads"] as const;
+type QueryKey = ReturnType<typeof queries["worldRoads"]>;
+type Context = QueryFunctionContext<QueryKey>;
 
-export type WorldRoadsQueryKey = ReturnType<typeof queryKey>;
-export type WorldRoadsQueryFnContext = QueryFunctionContext<WorldRoadsQueryKey>;
-
-const queryFn = ({ queryKey: [, world] }: WorldRoadsQueryFnContext) =>
-  WORLD_ROADS[world]();
+const queryFn = ({ queryKey: [, world] }: Context) => WORLD_ROADS[world]();
 
 export function useWorldRoads(world: WorldSlug) {
-  return useQuery(queryKey(world), queryFn, {
+  return useQuery(queries.worldRoads(world), queryFn, {
     staleTime: Infinity,
   });
 }

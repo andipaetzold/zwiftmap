@@ -33,8 +33,8 @@ for (const world of worlds) {
     linePolygons[0] as Feature<Polygon | MultiPolygon>
   ) as Feature<Polygon>;
 
-  const data = linePolygon.geometry.coordinates.map((polOrMulti) =>
-    polOrMulti
+  const data = linePolygon.geometry.coordinates.map((polygon) =>
+    polygon
       .map(positionToLatLng)
       .map(([lat, lng]) => [_.round(lat, 6), _.round(lng, 6)])
   );
