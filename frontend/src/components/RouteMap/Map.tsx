@@ -67,7 +67,7 @@ export function Map({ state, world, routeStreams }: Props) {
 
     mapRef.current.invalidateSize();
 
-    if (state.type === "default") {
+    if (["default", "fog"].includes(state.type)) {
       if (firstLoad.current) {
         mapRef.current.fitBounds(worldConfig.initialBounds, { animate: false });
         firstLoad.current = false;
