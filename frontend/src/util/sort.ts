@@ -2,7 +2,7 @@ import { Route, Segment, World } from "zwift-data";
 import { SortState } from "../types";
 
 export function sortWorld(sortState: SortState, a: World, b: World): number {
-  let result = a.name.localeCompare(b.name);
+  const result = a.name.localeCompare(b.name);
   return sortState.dir === "ASC" ? result : -result;
 }
 

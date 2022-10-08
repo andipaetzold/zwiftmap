@@ -9,10 +9,7 @@ import {
   useStravaSegmentStreams,
 } from "../../react-query";
 import { useEvent } from "../../react-query/useEvent";
-import {
-  getWorkerNavigateQueryOptions,
-  useWorkerNavigate,
-} from "../../react-query/useWorkerNavigate";
+import { useWorkerNavigate } from "../../react-query/useWorkerNavigate";
 import { getRouteFromEvent } from "../../services/events";
 import {
   DEFAULT_WORLD,
@@ -186,51 +183,5 @@ function useRouteStreams(state: LocationState): RouteStreams | undefined {
         latlng: shareResult.data.streams.latlng.data,
       };
     }
-  }
-}
-
-function getQueries(state: LocationState) {
-  switch (state.type) {
-    case "event":
-      return [];
-
-    case "custom-route":
-      return [
-        getWorkerNavigateQueryOptions(
-          {
-            points: state.points.filter((p): p is LatLngTuple => p !== null),
-            world: state.world.slug,
-          },
-          {
-            select: (stream) => {
-              if (!stream) {
-                return;
-              }
-
-              const distance = stream
-                .map(dropAltitude)
-                .map((latlng, index, array) =>
-                  index === 0
-                    ? 0
-                    : turfDistance(
-                        turfPoint(array[index - 1]),
-                        turfPoint(latlng),
-                        {
-                          units: "meters",
-                        }
-                      )
-                )
-                .reduce(
-                  (prev, cur, index) =>
-                    index === 0 ? [0] : [...prev, prev[prev.length - 1] + cur],
-                  [] as number[]
-                );
-            },
-          }
-        ),
-      ];
-
-    default:
-      return [];
   }
 }

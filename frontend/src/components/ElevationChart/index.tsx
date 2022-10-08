@@ -133,7 +133,7 @@ function ElevationChartComponent({
     for (let i = 0; i < thinnedDistanceStream.length - 1; ++i) {
       const distanceInKM = thinnedDistanceStream[i] / 1_000;
 
-      let currentType = (segments
+      const currentType = (segments
         .filter((s) => s.type !== "segment")
         .find(
           ({ range: [from, to] }) => from <= distanceInKM && distanceInKM <= to
@@ -172,7 +172,7 @@ function ElevationChartComponent({
           <AreaChart
             data={data}
             margin={{ top: 25, bottom: 15 }}
-            // @ts-ignore
+            // @ts-expect-error Prop is missing in types
             baseValue="dataMin"
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}

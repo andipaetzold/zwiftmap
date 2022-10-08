@@ -72,7 +72,7 @@ const searchResultsSegment = [...segments]
 
 export function search(
   term: string,
-  sport: Sport
+  _sport: Sport
 ): { [type in SearchResult["type"]]: SearchResult[] } {
   if (REGEX_STRAVA_ACTIVITY.test(term)) {
     const [, stravaActivityId] = REGEX_STRAVA_ACTIVITY.exec(term)!;

@@ -62,7 +62,7 @@ export default function InfoDialog({ onClose }: Props) {
               rel="noreferrer noopener"
               target="_blank"
             >
-              What's on Zwift
+              What&apos;s on Zwift
             </Link>
           </li>
           <li>

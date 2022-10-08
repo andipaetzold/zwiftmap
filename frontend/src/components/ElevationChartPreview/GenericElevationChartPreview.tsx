@@ -13,7 +13,7 @@ export function GenericElevationChartPreview({ data }: Props) {
       height={50}
       width={100}
       data={data}
-      // @ts-ignore
+      // @ts-expect-error Prop is missing in types
       baseValue="dataMin"
       aria-hidden="true"
     >

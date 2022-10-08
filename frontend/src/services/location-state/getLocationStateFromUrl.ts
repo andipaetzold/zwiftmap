@@ -241,7 +241,7 @@ export function getLocationStateFromUrl(
   let updateUrl = false;
   const searchParams = new URLSearchParams(search);
   let state: LocationState | undefined;
-  for (let { pattern, toState } of PATTERNS) {
+  for (const { pattern, toState } of PATTERNS) {
     const result = pattern.exec(pathname);
 
     if (result === null) {

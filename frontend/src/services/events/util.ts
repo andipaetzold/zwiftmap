@@ -2,8 +2,6 @@ import { range } from "lodash-es";
 import { Route, routes, World, worlds } from "zwift-data";
 import { DistanceStream, ZwiftEvent } from "../../types";
 
-type Stream = "altitude" | "latlng" | "distance";
-
 export function getWorldFromEvent(event: ZwiftEvent): World | undefined {
   const route = routes.find((r) => r.id === event.routeId);
   return worlds.find((w) => w.slug === route?.world || w.id === event.mapId);

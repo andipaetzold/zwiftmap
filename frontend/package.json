@@ -59,6 +59,7 @@
     "zwift-data": "1.18.0"
   },
   "scripts": {
+    "prepare": "cd .. && husky install frontend/.husky",
     "start": "npm run dev",
     "dev": "VITE_GIT_SHA=`git rev-parse --short HEAD` vite --host",
     "prebuild": "npm run prebuild:fetch-segments && npm run prebuild:sitemap && npm run prebuild:world-roads-buffered && npm run prebuild:assets",
@@ -68,7 +69,9 @@
     "prebuild:assets": "pwa-asset-generator ./public/assets/logo.svg ./public/assets -v /assets -i ./index.html -m ./public/manifest.webmanifest -o true -t png",
     "build": "tsc && VITE_GIT_SHA=`git rev-parse --short HEAD` vite build",
     "test": "vitest",
-    "deploy": "netlify deploy"
+    "deploy": "netlify deploy",
+    "lint": "eslint src",
+    "lint-staged": "lint-staged"
   },
   "type": "module",
   "devDependencies": {
@@ -76,9 +79,19 @@
     "@types/file-saver": "2.0.5",
     "@types/lodash-es": "4.17.6",
     "@types/mapbox__polyline": "1.0.2",
+    "@typescript-eslint/eslint-plugin": "5.39.0",
+    "@typescript-eslint/parser": "5.39.0",
     "@vitejs/plugin-react": "2.1.0",
+    "eslint": "8.25.0",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-plugin-jsx-a11y": "6.6.1",
+    "eslint-plugin-prettier": "4.2.1",
+    "eslint-plugin-react": "7.31.8",
+    "eslint-plugin-react-hooks": "4.6.0",
     "cli-progress": "3.11.2",
     "happy-dom": "6.0.4",
+    "husky": "8.0.1",
+    "lint-staged": "13.0.3",
     "netlify-cli": "12.0.6",
     "prettier": "2.7.1",
     "pwa-asset-generator": "6.2.0",
@@ -89,5 +102,11 @@
     "vite": "3.1.4",
     "vite-plugin-pwa": "0.13.1",
     "vitest": "0.23.4"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json}": [
+      "prettier --write",
+      "eslint"
+    ]
   }
 }

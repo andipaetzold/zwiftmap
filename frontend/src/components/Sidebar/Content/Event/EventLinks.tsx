@@ -98,7 +98,7 @@ export function EventLinks({ event }: Props) {
               rightAddon={<OpenInNewSVGIcon />}
               rightAddonType="icon"
             >
-              <ListItemText>Route on What's on Zwift</ListItemText>
+              <ListItemText>Route on What&apos;s on Zwift</ListItemText>
             </ListItemLink>
           )}
         </>

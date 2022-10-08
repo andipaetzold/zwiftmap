@@ -8,7 +8,6 @@ import {
 import * as Sentry from "@sentry/react";
 import { useEffect, useRef, useState } from "react";
 import { createUrl } from "../../../../services/location-state";
-import { request } from "../../../../services/request";
 import {
   appendStravaDescription,
   StravaActivity,

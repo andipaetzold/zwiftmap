@@ -51,6 +51,8 @@ export function Map({ state, world, routeStreams }: Props) {
 
     const minZoom = mapRef.current.getBoundsZoom(world.bounds, false);
     mapRef.current.setMinZoom(minZoom);
+    // TODO: do not depend on ref
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mapRef.current, world.bounds]);
 
   const flyToBounds = useFlyToBounds(mapRef);
@@ -86,6 +88,8 @@ export function Map({ state, world, routeStreams }: Props) {
         }
       }
     }
+    // TODO: do not depend on ref
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mapRef.current, routeStreams, world, state.type, flyToBounds]);
 
   const worldConfig = worldConfigs[world.slug];

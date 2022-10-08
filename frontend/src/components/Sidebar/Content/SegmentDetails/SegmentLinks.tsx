@@ -40,7 +40,7 @@ export function SegmentLinks({ segment }: Props) {
           rightAddon={<OpenInNewSVGIcon />}
           rightAddonType="icon"
         >
-          <ListItemText>What's on Zwift</ListItemText>
+          <ListItemText>What&apos;s on Zwift</ListItemText>
         </ListItemLink>
       )}
     </>
