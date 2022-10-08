@@ -1,4 +1,3 @@
-import { useAsync } from "react-async-hook";
 import {
   CircleMarker,
   LayerGroup,
@@ -6,9 +5,9 @@ import {
   Polyline,
   Popup,
 } from "react-leaflet";
-import { World, WorldSlug } from "zwift-data";
+import { World } from "zwift-data";
 import { ENVIRONMENT } from "../../../../config";
-import { Roads, WORLD_ROADS } from "../../../../services/roads";
+import { useWorldRoads } from "../../../../react-query";
 import { dropAltitude } from "../../../../util/drop-altitude";
 
 interface Props {
@@ -34,10 +33,7 @@ interface Props {
 }
 
 function Lines({ world }: Props) {
-  const { result: roads } = useAsync<Roads | undefined>(
-    async (s: WorldSlug) => WORLD_ROADS[s]?.(),
-    [world.slug]
-  );
+  const { data: roads } = useWorldRoads(world.slug);
 
   if (!roads) {
     return null;

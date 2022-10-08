@@ -1,10 +1,8 @@
 import { useMemo } from "react";
-import { useAsync } from "react-async-hook";
 import { Segment } from "zwift-data";
-import { getStravaSegmentStreams } from "../../services/StravaSegmentRepository";
-import { StravaSegment } from "../../types";
+import { useStravaSegmentStream } from "../../react-query/useStravaSegmentStream";
 import { LoadingSpinner } from "../Loading";
-import { REQUIRED_STREAMS, TARGET_RESOLUTION } from "./constants";
+import { TARGET_RESOLUTION } from "./constants";
 import { GenericElevationChartPreview } from "./GenericElevationChartPreview";
 import { Data } from "./types";
 
@@ -15,26 +13,39 @@ interface SegmentProps {
 export default function SegmentElevationChartPreview({
   segment,
 }: SegmentProps) {
-  const { result: streams, error } = useAsync<
-    Pick<StravaSegment, "altitude" | "distance">
-  >(getStravaSegmentStreams, [segment.stravaSegmentId, REQUIRED_STREAMS]);
+  const {
+    data: altitudeStream,
+    isLoading: isLoadingAltitude,
+    isError: isErrorAltitude,
+  } = useStravaSegmentStream({
+    stravaSegmentId: segment.stravaSegmentId,
+    stream: "altitude",
+  });
+  const {
+    data: distanceStream,
+    isLoading: isLoadingDistance,
+    isError: isErrorDistance,
+  } = useStravaSegmentStream({
+    stravaSegmentId: segment.stravaSegmentId,
+    stream: "distance",
+  });
 
   const data: Data[] | undefined = useMemo(() => {
-    if (streams === undefined) {
+    if (!altitudeStream || !distanceStream) {
       return;
     }
 
-    const filteredData = streams.distance
+    const filteredData = distanceStream
       .map((distance, index) => ({
         distance: distance / 1_000,
-        elevation: streams.altitude[index],
+        elevation: altitudeStream[index],
       }))
       .filter(
         (_d, index) =>
           index %
             Math.max(
               1,
-              Math.floor(streams.distance.length / TARGET_RESOLUTION)
+              Math.floor(distanceStream.length / TARGET_RESOLUTION)
             ) ===
           0
       );
@@ -44,13 +55,13 @@ export default function SegmentElevationChartPreview({
       ...d,
       elevation: d.elevation - lowestElevation,
     }));
-  }, [streams]);
+  }, [altitudeStream, distanceStream]);
 
-  if (error) {
+  if (isErrorAltitude || isErrorDistance) {
     return null;
   }
 
-  if (!data) {
+  if (isLoadingAltitude || isLoadingDistance || !data) {
     return <LoadingSpinner small />;
   }
 

@@ -1,8 +1,7 @@
 import { List, SimpleListItem } from "@react-md/list";
 import { lazy, Suspense } from "react";
-import { useAsync } from "react-async-hook";
 import { Helmet } from "react-helmet-async";
-import { getEvent } from "../../../../services/zwiftMapApi";
+import { useEvent } from "../../../../react-query/useEvent";
 import { LoadingSpinnerListItem } from "../../../Loading";
 import { BackButton } from "./BackButton";
 
@@ -22,9 +21,9 @@ export function Event(props: Props) {
 }
 
 function EventContent({ eventId }: Props) {
-  const { result: event, loading } = useAsync(getEvent, [eventId]);
+  const { data: event, isLoading } = useEvent(eventId);
 
-  if (loading) {
+  if (isLoading) {
     return (
       <>
         <Helmet>

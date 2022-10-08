@@ -1,11 +1,9 @@
 import polyline from "@mapbox/polyline";
 import { SimpleListItem } from "@react-md/list";
-import * as Sentry from "@sentry/react";
-import { useAsync } from "react-async-hook";
 import { useStore } from "../../../../../hooks/useStore";
+import { useStravaActivities } from "../../../../../react-query/useStravaActivities";
 import { LocationStateStravaActivities } from "../../../../../services/location-state";
 import { ErrorWithStatus } from "../../../../../services/request";
-import { getStravaActivities } from "../../../../../services/zwiftMapApi";
 import { HoverStateType } from "../../../../../types";
 import { getWorld } from "../../../../../util/strava";
 import { Distance } from "../../../../Distance";
@@ -20,13 +18,7 @@ interface Props {
 
 export function StravaActivitiesListComponent({ state }: Props) {
   const setHoverState = useStore((store) => store.setHoverState);
-  const {
-    result: activities,
-    loading,
-    error,
-  } = useAsync(getStravaActivities, [], {
-    onError: (e) => Sentry.captureException(e),
-  });
+  const { data: activities, isLoading, error } = useStravaActivities();
 
   if (error) {
     if (error instanceof ErrorWithStatus && error.status === 429) {
@@ -42,7 +34,7 @@ export function StravaActivitiesListComponent({ state }: Props) {
     return <SimpleListItem>An error occurred</SimpleListItem>;
   }
 
-  if (loading || activities === undefined) {
+  if (isLoading || activities === undefined) {
     return <LoadingSpinnerListItem />;
   }
 

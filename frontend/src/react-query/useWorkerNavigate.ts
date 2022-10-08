@@ -1,0 +1,74 @@
+import {
+  QueryFunctionContext,
+  useQuery,
+  UseQueryOptions,
+} from "@tanstack/react-query";
+import { LatLngTuple } from "leaflet";
+import { range } from "lodash-es";
+import { WorldSlug } from "zwift-data";
+import { worker } from "../services/worker-client";
+import { LatLngAlt } from "../types";
+
+interface Params {
+  world: WorldSlug;
+  points: LatLngTuple[];
+}
+
+const createQueryKey = (params: Params | undefined) =>
+  ["worker", "navigate", params] as const;
+type QueryKey = ReturnType<typeof createQueryKey>;
+
+async function queryFn({
+  queryKey: [, , params],
+}: QueryFunctionContext<QueryKey>) {
+  const noNullPoints = params!.points.filter(
+    (p): p is LatLngTuple => p !== null
+  );
+
+  if (noNullPoints.length < 2) {
+    return;
+  }
+
+  const routes = await Promise.all(
+    range(0, noNullPoints.length - 1).map((index) =>
+      worker.navigate(
+        noNullPoints[index],
+        noNullPoints[index + 1],
+        params!.world
+      )
+    )
+  );
+
+  return ([] as LatLngAlt[]).concat.apply([], routes);
+}
+
+export function useWorkerNavigate<TData = LatLngAlt[] | undefined>(
+  params: Params | undefined,
+  options?: Omit<
+    UseQueryOptions<LatLngAlt[] | undefined, unknown, TData, QueryKey>,
+    "queryKey" | "queryFn" | "staleTime" | "cacheTime"
+  >
+) {
+  return useQuery(
+    createQueryKey(params),
+    queryFn,
+    getWorkerNavigateQueryOptions<TData>(params, options)
+  );
+}
+
+export function getWorkerNavigateQueryOptions<TData = LatLngAlt[] | undefined>(
+  params: Params | undefined,
+  options?: Omit<
+    UseQueryOptions<LatLngAlt[] | undefined, unknown, TData, QueryKey>,
+    "queryFn" | "queryKey" | "staleTime" | "cacheTime"
+  >
+): UseQueryOptions<LatLngAlt[] | undefined, unknown, TData, QueryKey> {
+  return {
+    queryKey: createQueryKey(params),
+    queryFn: queryFn,
+    staleTime: 0,
+    cacheTime: 0,
+    ...options,
+    enabled: (options?.enabled ?? true) && params !== undefined,
+  };
+}

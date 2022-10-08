@@ -1,11 +1,10 @@
-import * as Sentry from "@sentry/react";
-import { useAsync } from "react-async-hook";
+import { useQueries } from "@tanstack/react-query";
 import { Pane, Polyline } from "react-leaflet";
-import { segments, SegmentType } from "zwift-data";
+import { Segment, segments, SegmentType } from "zwift-data";
 import { getSegmentColor } from "../../../../../constants";
 import { useStore } from "../../../../../hooks/useStore";
-import { getStravaSegmentStreams } from "../../../../../services/StravaSegmentRepository";
-import { HoverStateType } from "../../../../../types";
+import { getStravaSegmentStreamQueryOptions } from "../../../../../react-query";
+import { HoverStateType, LatLngStream } from "../../../../../types";
 import {
   POLYLINE_WIDTH,
   POLYLINE_WIDTH_HIGHLIGHTED,
@@ -14,22 +13,39 @@ import {
 
 const SEGMENTS_TO_DISPLAY: SegmentType[] = ["sprint", "climb"];
 
+type Data = Segment & { latlng: LatLngStream };
+
 interface SegmentsPaneProps {
   segmentSlugs: string[];
 }
 
 export function SegmentsPane({ segmentSlugs }: SegmentsPaneProps) {
   const hoverState = useStore((state) => state.hoverState);
-  const { result: segmentsData } = useAsync(loadSegments, [segmentSlugs]);
 
-  if (!segmentsData) {
-    return null;
-  }
+  const segementsToLoad = segmentSlugs
+    .map((segmentSlug) => segments.find((s) => s.slug === segmentSlug)!)
+    .filter((segment) => SEGMENTS_TO_DISPLAY.includes(segment.type))
+    .filter((segment) => segment.stravaSegmentId !== undefined);
+
+  const results = useQueries({
+    queries: segementsToLoad.map((segment) =>
+      getStravaSegmentStreamQueryOptions<"latlng", Data>(
+        {
+          stravaSegmentId: segment.stravaSegmentId!,
+          stream: "latlng",
+        },
+        {
+          select: (latlng: LatLngStream) => ({ ...segment, latlng }),
+        }
+      )
+    ),
+  });
 
   return (
     <Pane name="segments" style={{ zIndex: Z_INDEX.segments }}>
-      {segmentsData
-        .filter((segment) => SEGMENTS_TO_DISPLAY.includes(segment.type))
+      {results
+        .map((result) => result.data)
+        .filter((data): data is Data => data !== undefined)
         .map((segment) => (
           <Polyline
             key={segment.slug}
@@ -48,26 +64,4 @@ export function SegmentsPane({ segmentSlugs }: SegmentsPaneProps) {
         ))}
     </Pane>
   );
-}
-
-async function loadSegments(segmentsToLoad: readonly string[]) {
-  try {
-    const segmentsOnRoute = segmentsToLoad
-      .map((segmentSlug) => segments.find((s) => s.slug === segmentSlug)!)
-      .filter((s) => s.stravaSegmentId !== undefined);
-
-    const streams = await Promise.all(
-      segmentsOnRoute.map((s) =>
-        getStravaSegmentStreams(s.stravaSegmentId!, ["latlng"])
-      )
-    );
-
-    return streams.map((stream, streamIndex) => ({
-      latlng: stream.latlng,
-      type: segmentsOnRoute[streamIndex].type,
-      slug: segmentsOnRoute[streamIndex].slug,
-    }));
-  } catch (e) {
-    Sentry.captureException(e);
-  }
 }

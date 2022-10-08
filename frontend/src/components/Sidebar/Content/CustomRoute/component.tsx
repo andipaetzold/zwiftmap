@@ -4,11 +4,8 @@ import { ListSVGIcon } from "@react-md/material-icons";
 import { MenuItemSeparator } from "@react-md/menu";
 import { Typography } from "@react-md/typography";
 import { LatLngTuple } from "leaflet";
-import { range } from "lodash-es";
-import { useAsync } from "react-async-hook";
+import { useWorkerNavigate } from "../../../../react-query/useWorkerNavigate";
 import { LocationStateCustomRoute } from "../../../../services/location-state";
-import { worker } from "../../../../services/worker-client";
-import { LatLngAlt } from "../../../../types";
 import { ButtonState } from "../../../ButtonState";
 import { CustomRouteElevationChart } from "./CustomRouteElevationChart";
 import { CustomRouteFacts } from "./CustomRouteFacts";
@@ -22,30 +19,12 @@ interface Props {
 }
 
 export default function CustomRoute({ state }: Props) {
-  const { result: stream } = useAsync(
-    async () => {
-      const noNullPoints = state.points.filter(
-        (p): p is LatLngTuple => p !== null
-      );
-
-      if (noNullPoints.length < 2) {
-        return;
-      }
-
-      const routes = await Promise.all(
-        range(0, noNullPoints.length - 1).map((index) =>
-          worker.navigate(
-            noNullPoints[index],
-            noNullPoints[index + 1],
-            state.world.slug
-          )
-        )
-      );
-
-      return ([] as LatLngAlt[]).concat.apply([], routes);
+  const { data: stream } = useWorkerNavigate(
+    {
+      world: state.world.slug,
+      points: state.points.filter((p): p is LatLngTuple => p !== null),
     },
-    [state, state.world.slug],
-    { setLoading: (state) => ({ ...state, loading: true }) }
+    { keepPreviousData: true }
   );
 
   return (

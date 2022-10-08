@@ -7,7 +7,6 @@ import {
 import { BACKEND_HOST } from "../config";
 import { AuthStatus, Share, StravaSettings, ZwiftEvent } from "../types";
 import { cachedRequest } from "./cached-request";
-import { dedupedRequest } from "./deduped-request";
 import { request } from "./request";
 
 const DEFAULT_INIT: Partial<RequestInit> = {
@@ -15,13 +14,13 @@ const DEFAULT_INIT: Partial<RequestInit> = {
 };
 
 export async function getShare(id: string): Promise<Share> {
-  return await dedupedRequest<Share>(`${BACKEND_HOST}/share/${id}`, {
+  return await request<Share>(`${BACKEND_HOST}/share/${id}`, {
     ...DEFAULT_INIT,
   });
 }
 
 export async function getStravaSettings(): Promise<StravaSettings> {
-  return await dedupedRequest(`${BACKEND_HOST}/strava/settings`, {
+  return await request(`${BACKEND_HOST}/strava/settings`, {
     ...DEFAULT_INIT,
   });
 }
@@ -38,7 +37,7 @@ export async function updateStravaSettings(settings: StravaSettings) {
 }
 
 export async function getStravaActivities(): Promise<SummaryActivity[]> {
-  return await cachedRequest(`${BACKEND_HOST}/strava/activities`, {
+  return await request(`${BACKEND_HOST}/strava/activities`, {
     ...DEFAULT_INIT,
   });
 }
@@ -46,12 +45,9 @@ export async function getStravaActivities(): Promise<SummaryActivity[]> {
 export async function getStravaActivityById(
   activityId: number
 ): Promise<DetailedActivity> {
-  return await dedupedRequest(
-    `${BACKEND_HOST}/strava/activities/${activityId}`,
-    {
-      ...DEFAULT_INIT,
-    }
-  );
+  return await request(`${BACKEND_HOST}/strava/activities/${activityId}`, {
+    ...DEFAULT_INIT,
+  });
 }
 
 export async function updateStravaActivity(
@@ -71,7 +67,7 @@ export async function updateStravaActivity(
 export async function getStravaSegmentById(
   segmentId: number
 ): Promise<DetailedSegment> {
-  return await cachedRequest(`${BACKEND_HOST}/strava/segments/${segmentId}`, {
+  return await request(`${BACKEND_HOST}/strava/segments/${segmentId}`, {
     ...DEFAULT_INIT,
   });
 }
@@ -109,15 +105,15 @@ export async function authLogout(): Promise<void> {
 }
 
 export async function getAuthStatus(): Promise<AuthStatus> {
-  return await dedupedRequest(`${BACKEND_HOST}/auth/status`, {
+  return await request(`${BACKEND_HOST}/auth/status`, {
     ...DEFAULT_INIT,
   });
 }
 
 export async function getEvents(): Promise<ZwiftEvent[]> {
-  return await dedupedRequest<ZwiftEvent[]>(`${BACKEND_HOST}/events`);
+  return await request<ZwiftEvent[]>(`${BACKEND_HOST}/events`);
 }
 
 export async function getEvent(eventId: number): Promise<ZwiftEvent> {
-  return await dedupedRequest<ZwiftEvent>(`${BACKEND_HOST}/events/${eventId}`);
+  return await request<ZwiftEvent>(`${BACKEND_HOST}/events/${eventId}`);
 }

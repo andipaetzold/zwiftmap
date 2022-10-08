@@ -43,7 +43,7 @@ export function EventItem({ state, event }: Props) {
       onMouseEnter={() => {
         setHoverState({
           type: HoverStateType.PreviewEvent,
-          event,
+          event: event.id,
         });
       }}
       onMouseLeave={() => setHoverState(undefined)}

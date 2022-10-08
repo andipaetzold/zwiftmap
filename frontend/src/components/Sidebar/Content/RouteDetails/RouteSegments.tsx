@@ -1,14 +1,9 @@
 import { List, ListSubheader, SimpleListItem } from "@react-md/list";
 import { Typography } from "@react-md/typography";
-import { useAsync } from "react-async-hook";
 import { Route, Segment, segments, SegmentType } from "zwift-data";
 import { FORMAT_INCLINE, WORLDS_BY_SLUG } from "../../../../constants";
-import {
-  IsLoggedInStrava,
-  useIsLoggedInStrava
-} from "../../../../hooks/useIsLoggedInStrava";
 import { useStore } from "../../../../hooks/useStore";
-import { getStravaSegmentById } from "../../../../services/zwiftMapApi";
+import { useStravaSegment } from "../../../../react-query/useStravaSegment";
 import { HoverStateType } from "../../../../types";
 import { Distance } from "../../../Distance";
 import { ListItemState } from "../../../ListItemState";
@@ -83,16 +78,7 @@ interface SecondaryTextProps {
 }
 
 function SecondaryText({ segment }: SecondaryTextProps) {
-  const isLoggedIn = useIsLoggedInStrava();
-  const { result: stravaSegment } = useAsync(
-    async (sid: number | undefined, loggedIn: IsLoggedInStrava) => {
-      if (sid === undefined || loggedIn !== true) {
-        return null;
-      }
-      return await getStravaSegmentById(sid);
-    },
-    [segment.stravaSegmentId, isLoggedIn]
-  );
+  const { data: stravaSegment } = useStravaSegment(segment.stravaSegmentId);
   const segmentPB =
     (stravaSegment?.athlete_segment_stats.effort_count ?? 0) > 0
       ? stravaSegment?.athlete_segment_stats.pr_elapsed_time

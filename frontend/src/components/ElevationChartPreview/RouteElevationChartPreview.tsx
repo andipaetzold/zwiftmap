@@ -1,10 +1,8 @@
 import { useMemo } from "react";
-import { useAsync } from "react-async-hook";
 import { Route } from "zwift-data";
-import { getStravaSegmentStreams } from "../../services/StravaSegmentRepository";
-import { StravaSegment } from "../../types";
+import { useStravaSegmentStream } from "../../react-query";
 import { LoadingSpinner } from "../Loading";
-import { REQUIRED_STREAMS, TARGET_RESOLUTION } from "./constants";
+import { TARGET_RESOLUTION } from "./constants";
 import { GenericElevationChartPreview } from "./GenericElevationChartPreview";
 import { Data } from "./types";
 
@@ -13,26 +11,39 @@ interface RouteProps {
 }
 
 export default function RouteElevationChartPreview({ route }: RouteProps) {
-  const { result: streams, error } = useAsync<
-    Pick<StravaSegment, "altitude" | "distance">
-  >(getStravaSegmentStreams, [route.stravaSegmentId, REQUIRED_STREAMS]);
+  const {
+    data: altitudeStream,
+    isLoading: isLoadingAltitude,
+    isError: isErrorAltitude,
+  } = useStravaSegmentStream({
+    stravaSegmentId: route.stravaSegmentId,
+    stream: "altitude",
+  });
+  const {
+    data: distanceStream,
+    isLoading: isLoadingDistance,
+    isError: isErrorDistance,
+  } = useStravaSegmentStream({
+    stravaSegmentId: route.stravaSegmentId,
+    stream: "distance",
+  });
 
   const data: Data[] | undefined = useMemo(() => {
-    if (streams === undefined) {
+    if (!altitudeStream || !distanceStream) {
       return;
     }
 
-    const filteredData = streams.distance
+    const filteredData = distanceStream
       .map((distance, index) => ({
         distance: distance / 1_000,
-        elevation: streams.altitude[index],
+        elevation: altitudeStream[index],
       }))
       .filter(
         (_d, index) =>
           index %
             Math.max(
               1,
-              Math.floor(streams.distance.length / TARGET_RESOLUTION)
+              Math.floor(distanceStream.length / TARGET_RESOLUTION)
             ) ===
           0
       );
@@ -42,13 +53,13 @@ export default function RouteElevationChartPreview({ route }: RouteProps) {
       ...d,
       elevation: d.elevation - lowestElevation,
     }));
-  }, [streams]);
+  }, [altitudeStream, distanceStream]);
 
-  if (error) {
+  if (isErrorAltitude || isErrorDistance) {
     return null;
   }
 
-  if (!data) {
+  if (isLoadingAltitude || isLoadingDistance || !data) {
     return <LoadingSpinner small />;
   }
 

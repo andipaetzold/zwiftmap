@@ -1,7 +1,6 @@
 import { SimpleListItem } from "@react-md/list";
-import { useAsync } from "react-async-hook";
 import { useIsLoggedInStrava } from "../../../../../hooks/useIsLoggedInStrava";
-import { getStravaActivity } from "../../../../../services/StravaActivityRepository";
+import { useStravaActivity } from "../../../../../react-query/useStravaActivity";
 import { ConnectToStravaListItem } from "../../../../ConnectToStravaListItem";
 import { Distance } from "../../../../Distance";
 import { Elevation } from "../../../../Elevation";
@@ -26,15 +25,13 @@ export function ListItemStravaActivity({ activity }: Props) {
 function SearchResultCardStravaActivityLoggedIn({
   activity: { activityId },
 }: Props) {
-  const { result: activity, loading } = useAsync(getStravaActivity, [
-    activityId,
-  ]);
+  const { data: activity, isLoading, isError } = useStravaActivity(activityId);
 
-  if (loading) {
+  if (isLoading) {
     return <LoadingSpinnerListItem />;
   }
 
-  if (!activity) {
+  if (isError) {
     return (
       <SimpleListItem threeLines>
         An error occurred. Make sure you can access the activity and it was

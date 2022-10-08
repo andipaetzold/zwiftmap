@@ -1,29 +1,30 @@
-import { useAsync } from "react-async-hook";
 import { Segment } from "zwift-data";
-import { getStravaSegmentStreams } from "../../../../services/StravaSegmentRepository";
-import { StravaSegment } from "../../../../types";
 import { worldConfigs } from "../../../../constants/worldConfigs";
+import { useStravaSegmentStream } from "../../../../react-query";
 import { SurfaceListItem } from "../../../SurfaceListItem";
 
 interface Props {
   segment: Segment;
 }
 
-const REQUIRED_STREAMS = ["latlng", "distance"] as const;
-
 export function SegmentSurface({ segment }: Props) {
-  const { result: routeSegment } = useAsync<
-    Pick<StravaSegment, "latlng" | "distance">
-  >(getStravaSegmentStreams, [segment.stravaSegmentId, REQUIRED_STREAMS]);
+  const { data: distanceStream } = useStravaSegmentStream({
+    stravaSegmentId: segment.stravaSegmentId,
+    stream: "distance",
+  });
+  const { data: latLngStream } = useStravaSegmentStream({
+    stravaSegmentId: segment.stravaSegmentId,
+    stream: "latlng",
+  });
 
-  if (!routeSegment) {
+  if (!distanceStream || !latLngStream) {
     return null;
   }
 
   return (
     <SurfaceListItem
-      distancStream={routeSegment.distance}
-      latLngStream={routeSegment.latlng}
+      distancStream={distanceStream}
+      latLngStream={latLngStream}
       surfaces={worldConfigs[segment.world].surfaces}
     />
   );

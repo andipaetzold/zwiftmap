@@ -1,8 +1,8 @@
-import { fromPairs, range } from "lodash-es";
+import { range } from "lodash-es";
 import { Route, routes, World, worlds } from "zwift-data";
-import { StravaSegment } from "../../types";
-import { getStravaSegmentStreams } from "../StravaSegmentRepository";
-import { ZwiftEvent } from "../../types";
+import { DistanceStream, ZwiftEvent } from "../../types";
+
+type Stream = "altitude" | "latlng" | "distance";
 
 export function getWorldFromEvent(event: ZwiftEvent): World | undefined {
   const route = routes.find((r) => r.id === event.routeId);
@@ -13,61 +13,39 @@ export function getRouteFromEvent(event: ZwiftEvent): Route | undefined {
   return routes.find((r) => r.id === event.routeId);
 }
 
-export async function getEventStreams<
-  StreamType extends "altitude" | "latlng" | "distance"
->(
+export function adjustStreamForEvent<T>(
   event: ZwiftEvent,
-  streamTypes: ReadonlyArray<StreamType>
-): Promise<Pick<StravaSegment, StreamType> | undefined> {
+  distanceStream: DistanceStream,
+  stream: T[]
+): T[] | undefined {
   const route = getRouteFromEvent(event);
   if (!route?.stravaSegmentId) {
     return undefined;
   }
-  const streamTypesToFetch = [...streamTypes, "distance" as const];
-  const streams = await getStravaSegmentStreams(
-    route.stravaSegmentId,
-    streamTypesToFetch
-  );
-
-  if (!event.distanceInMeters) {
-    return streams;
-  }
 
   const distance = event.distanceInMeters / 1_000 - (route.leadInDistance ?? 0);
+
   // Some events have wrong distances (e.g. 1m)
   if (distance < 0) {
-    return streams;
+    return stream;
   }
 
-  // @ts-ignore
-  const adjustedStreams: Pick<StravaSegment, StreamType | "distance"> =
-    fromPairs(streamTypes.map((type) => [type, []]));
+  const adjustedStream: T[] = [];
 
   if (route.lap) {
     const laps = Math.floor(distance / route.distance);
-    range(0, laps).forEach(() => {
-      for (let streamType of streamTypes) {
-        adjustedStreams[streamType].push(
-          // @ts-ignore
-          ...streams[streamType]
-        );
-      }
-    });
+    for (const _ of range(0, laps)) {
+      adjustedStream.push(...stream);
+    }
   }
 
   const remainingDistance = route.lap ? distance % route.distance : distance;
-  const finishIndex = streams.distance.findIndex(
+  const finishIndex = distanceStream.findIndex(
     (d) => d / 1_000 > remainingDistance
   );
 
-  for (let streamType of streamTypes) {
-    adjustedStreams[streamType].push(
-      // @ts-ignore
-      ...streams[streamType].slice(0, finishIndex)
-    );
-  }
-
-  return adjustedStreams;
+  adjustedStream.push(...adjustedStream.slice(0, finishIndex));
+  return adjustedStream;
 }
 
 export function getEventDistance(event: ZwiftEvent): number | undefined {

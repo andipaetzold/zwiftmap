@@ -5,23 +5,24 @@ import { HelmetProvider } from "react-helmet-async";
 import { registerSW } from "virtual:pwa-register";
 import App from "./App";
 import { Head } from "./components/Head";
+import { ReactQueryProvider } from "./components/ReactQueryProvider";
 import "./index.scss";
 import { initSentry } from "./sentry";
-import { fetchAuthStatus } from "./services/auth";
 
 initSentry();
-fetchAuthStatus();
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
 root.render(
   <StrictMode>
-    <HelmetProvider>
-      <Head />
-      <MessageQueue id="message-queue" timeout={3_000}>
-        <App />
-      </MessageQueue>
-    </HelmetProvider>
+    <ReactQueryProvider>
+      <HelmetProvider>
+        <Head />
+        <MessageQueue id="message-queue" timeout={3_000}>
+          <App />
+        </MessageQueue>
+      </HelmetProvider>
+    </ReactQueryProvider>
   </StrictMode>
 );
 

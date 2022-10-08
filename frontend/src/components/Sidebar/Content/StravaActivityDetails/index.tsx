@@ -1,12 +1,10 @@
 import { List, SimpleListItem } from "@react-md/list";
-import * as Sentry from "@sentry/react";
 import { lazy, Suspense } from "react";
-import { useAsync } from "react-async-hook";
 import { Helmet } from "react-helmet-async";
 import { useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";
+import { useStravaActivity } from "../../../../react-query/useStravaActivity";
 import { LocationStateStravaActivity } from "../../../../services/location-state";
 import { ErrorWithStatus } from "../../../../services/request";
-import { getStravaActivity } from "../../../../services/StravaActivityRepository";
 import { ConnectToStravaListItem } from "../../../ConnectToStravaListItem";
 import { LoadingSpinnerListItem } from "../../../Loading";
 import { BackButton } from "./BackButton";
@@ -29,12 +27,10 @@ export function StravaActivityDetails(props: Props) {
 function StravaActivityDetailsContent({ state }: Props) {
   const isLoggedInStrava = useIsLoggedInStrava();
   const {
-    result: activity,
-    loading,
+    data: activity,
+    isLoading,
     error,
-  } = useAsync(getStravaActivity, [state.stravaActivityId], {
-    onError: (e) => Sentry.captureException(e),
-  });
+  } = useStravaActivity(state.stravaActivityId);
 
   const genericHelmet = (
     <Helmet>
@@ -108,7 +104,7 @@ function StravaActivityDetailsContent({ state }: Props) {
     );
   }
 
-  if (loading || activity === undefined) {
+  if (isLoading || activity === undefined) {
     return (
       <>
         {genericHelmet}

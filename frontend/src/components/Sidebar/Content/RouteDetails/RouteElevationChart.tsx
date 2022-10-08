@@ -1,7 +1,5 @@
-import { useAsync } from "react-async-hook";
 import { Route, segments } from "zwift-data";
-import { getStravaSegmentStreams } from "../../../../services/StravaSegmentRepository";
-import { StravaSegment } from "../../../../types";
+import { useStravaSegmentStream } from "../../../../react-query/useStravaSegmentStream";
 import { ElevationChart } from "../../../ElevationChart";
 import { LoadingSpinnerListItem } from "../../../Loading";
 
@@ -9,25 +7,36 @@ interface Props {
   route: Route;
 }
 
-const REQUIRED_STREAMS = ["altitude", "distance"] as const;
-
 export function RouteElevationChart({ route }: Props) {
-  const { result: routeSegment, error } = useAsync<
-    Pick<StravaSegment, "altitude" | "distance">
-  >(getStravaSegmentStreams, [route.stravaSegmentId, REQUIRED_STREAMS]);
+  const {
+    data: altitudeStream,
+    isLoading: isLoadingAltitude,
+    isError: isErrorAltitude,
+  } = useStravaSegmentStream({
+    stravaSegmentId: route.stravaSegmentId,
+    stream: "altitude",
+  });
+  const {
+    data: distanceStream,
+    isLoading: isLoadingDistance,
+    isError: isErrorDistance,
+  } = useStravaSegmentStream({
+    stravaSegmentId: route.stravaSegmentId,
+    stream: "distance",
+  });
 
-  if (error) {
+  if (isErrorAltitude || isErrorDistance) {
     return null;
   }
 
-  if (!routeSegment) {
+  if (isLoadingAltitude || isLoadingDistance) {
     return <LoadingSpinnerListItem />;
   }
 
   return (
     <ElevationChart
-      altitudeStream={routeSegment.altitude}
-      distanceStream={routeSegment.distance}
+      altitudeStream={altitudeStream}
+      distanceStream={distanceStream}
       segments={route.segmentsOnRoute.map((sor) => ({
         range: [sor.from, sor.to],
         type: segments.find((s) => s.slug === sor.segment)!.type,

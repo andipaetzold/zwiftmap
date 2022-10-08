@@ -1,13 +1,8 @@
 import { ListItemLink, ListItemText, SimpleListItem } from "@react-md/list";
 import { OpenInNewSVGIcon, TimerSVGIcon } from "@react-md/material-icons";
-import { useAsync } from "react-async-hook";
 import { Route } from "zwift-data";
-import {
-  IsLoggedInStrava,
-  useIsLoggedInStrava
-} from "../../../../hooks/useIsLoggedInStrava";
-import { getStravaSegmentById } from "../../../../services/zwiftMapApi";
-import { LoadingSpinner, LoadingSpinnerListItem } from "../../../Loading";
+import { useStravaSegment } from "../../../../react-query/useStravaSegment";
+import { LoadingSpinner } from "../../../Loading";
 import { Time } from "../../../Time";
 
 interface Props {
@@ -15,28 +10,13 @@ interface Props {
 }
 
 export function RouteStravaPB({ route }: Props) {
-  const isLoggedInStrava = useIsLoggedInStrava();
-
   const {
-    result: segment,
-    loading,
-    error,
-  } = useAsync(
-    async (loggedIn: IsLoggedInStrava, segmentId?: number) => {
-      if (loggedIn !== true || segmentId === undefined) {
-        return null;
-      }
+    data: segment,
+    isLoading,
+    isError,
+  } = useStravaSegment(route.stravaSegmentId);
 
-      return await getStravaSegmentById(segmentId);
-    },
-    [isLoggedInStrava, route.stravaSegmentId]
-  );
-
-  if (isLoggedInStrava === null) {
-    return <LoadingSpinnerListItem />;
-  }
-
-  if (loading) {
+  if (isLoading) {
     return (
       <SimpleListItem
         leftAddon={<TimerSVGIcon />}
@@ -49,7 +29,7 @@ export function RouteStravaPB({ route }: Props) {
     );
   }
 
-  if (error || segment === null || segment === undefined) {
+  if (isError) {
     return null;
   }
 

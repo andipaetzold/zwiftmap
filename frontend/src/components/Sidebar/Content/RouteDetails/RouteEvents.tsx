@@ -6,11 +6,10 @@ import {
 } from "@react-md/list";
 import { Typography } from "@react-md/typography";
 import { useMemo } from "react";
-import { useAsync } from "react-async-hook";
 import { Route } from "zwift-data";
 import { WORLDS_BY_SLUG } from "../../../../constants";
 import { useSettings } from "../../../../hooks/useSettings";
-import { getEvents } from "../../../../services/zwiftMapApi";
+import { useEvents } from "../../../../react-query/useEvents";
 import { EventInfo } from "../../../EventInfo";
 import { ListItemState } from "../../../ListItemState";
 import { LoadingSpinnerListItem } from "../../../Loading";
@@ -20,7 +19,7 @@ interface Props {
 }
 
 export function RouteEvents({ route }: Props) {
-  const { result: events, error } = useAsync(getEvents, []);
+  const { data: events, isLoading, isError } = useEvents();
   const sport = useSettings((state) => state.sport);
 
   const filteredEvents = useMemo(() => {
@@ -41,11 +40,11 @@ export function RouteEvents({ route }: Props) {
       .sort((a, b) => a.eventStart.localeCompare(b.eventStart));
   }, [events, route, sport]);
 
-  if (error) {
+  if (isError) {
     return null;
   }
 
-  if (filteredEvents === undefined) {
+  if (isLoading || filteredEvents === undefined) {
     return <LoadingSpinnerListItem small />;
   }
 

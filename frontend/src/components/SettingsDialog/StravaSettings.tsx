@@ -1,5 +1,5 @@
 import { Switch } from "@react-md/form";
-import { useStravaSettings } from "../../hooks/useStravaSettings";
+import { useStravaSettings } from "../../react-query/useStravaSettings";
 
 export function StravaSettings() {
   const [settings, setSettings] = useStravaSettings();

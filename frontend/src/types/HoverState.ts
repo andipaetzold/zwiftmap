@@ -1,6 +1,5 @@
 import { LatLngStream } from "./Stream";
 import { SurfaceType } from "./Surface";
-import { ZwiftEvent } from "./ZwiftEvent";
 
 export type HoverState =
   | undefined
@@ -29,7 +28,7 @@ export interface HoverStatePreviewRoute {
 
 export interface HoverStatePreviewEvent {
   type: HoverStateType.PreviewEvent;
-  event: ZwiftEvent;
+  event: number;
 }
 
 export interface HoverStatePreviewSegment {
@@ -39,6 +38,9 @@ export interface HoverStatePreviewSegment {
 
 export interface HoverStatePreviewLatLngStream {
   type: HoverStateType.PreviewLatLngStream;
+  /**
+   * TODO: store activity id instead of stream
+   */
   latLngStream: LatLngStream;
 }
 
