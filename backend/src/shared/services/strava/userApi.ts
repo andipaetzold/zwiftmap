@@ -1,12 +1,11 @@
-import { default as axios, AxiosInstance } from "axios";
-import { RefreshTokenResponse } from "strava";
+import { AxiosInstance, default as axios } from "axios";
 import {
   readStravaToken,
   removeStravaToken,
   writeStravaToken,
 } from "../../persistence/stravaToken.js";
 import { StravaToken } from "../../persistence/types.js";
-import { stravaAppAPI } from "./appApi.js";
+import { StravaAppAPI } from "./appApi.js";
 import { TokenNotFoundError } from "./types.js";
 
 export async function getStravaUserAPI(
@@ -43,13 +42,8 @@ async function refreshToken(
   stravaToken: StravaToken
 ): Promise<StravaToken | undefined> {
   try {
-    const response = await stravaAppAPI.post<RefreshTokenResponse>(
-      "/oauth/token",
-      {
-        grant_type: "refresh_token",
-        refresh_token: stravaToken.refreshToken,
-      }
-    );
+    const api = new StravaAppAPI();
+    const response = await api.refreshToken(stravaToken.refreshToken);
 
     const refreshedStravaToken: StravaToken = {
       athleteId: stravaToken.athleteId,

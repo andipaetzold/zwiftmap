@@ -3,7 +3,7 @@ import { Record, String, Union } from "runtypes";
 import { URLSearchParams } from "url";
 import { config } from "../../../shared/config.js";
 import { writeStravaToken } from "../../../shared/persistence/stravaToken.js";
-import { stravaAppAPI } from "../../../shared/services/strava/index.js";
+import { StravaAppAPI } from "../../../shared/services/strava/index.js";
 import { Session } from "../../types.js";
 
 const SuccessQuery = Record({
@@ -34,10 +34,8 @@ export async function handleStravaAuthorizeCallback(
   if (!("error" in query)) {
     const session: Session = req.session;
 
-    const response = await stravaAppAPI.post("/oauth/token", {
-      code: query.code,
-      grant_type: "authorization_code",
-    });
+    const api = new StravaAppAPI();
+    const response = await api.authorize(query.code);
     const responseJSON = response.data;
     const athleteId: number = responseJSON.athlete.id;
 
