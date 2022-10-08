@@ -5,6 +5,7 @@ import {
   adjustStreamForEvent,
   getRouteFromEvent,
 } from "../../../services/events";
+import { useLocationState } from "../../../services/location-state";
 import { HoverStatePreviewEvent } from "../../../types";
 import { PreviewRoutePane } from "./PreviewRoutePane";
 
@@ -13,19 +14,20 @@ interface Props {
 }
 
 export function EventPreview({ state }: Props) {
+  const locationState = useLocationState();
   const { data: event } = useEvent(state.event);
   const stravaSegmentId = event
     ? getRouteFromEvent(event)?.stravaSegmentId
     : undefined;
 
-  const { data: latLngStream } = useStravaSegmentStream({
-    stravaSegmentId,
-    stream: "latlng",
-  });
-  const { data: distanceStream } = useStravaSegmentStream({
-    stravaSegmentId,
-    stream: "distance",
-  });
+  const { data: latLngStream } = useStravaSegmentStream(
+    { stravaSegmentId, stream: "latlng" },
+    { enabled: locationState.world?.id === event?.mapId }
+  );
+  const { data: distanceStream } = useStravaSegmentStream(
+    { stravaSegmentId, stream: "distance" },
+    { enabled: locationState.world?.id === event?.mapId }
+  );
 
   const stream = useMemo(() => {
     if (!latLngStream || !distanceStream || !event) {

@@ -32,8 +32,19 @@ const queryFn = <S extends Stream>({
 }: QueryFunctionContext<QueryKey<S>>) =>
   getStravaSegmentStream<S>(stravaSegmentId!, stream as S);
 
-export function useStravaSegmentStream<S extends Stream>(params: Params<S>) {
-  return useQuery(getStravaSegmentStreamQueryOptions<S>(params));
+export function useStravaSegmentStream<
+  S extends Stream,
+  TData = StravaSegment[S]
+>(
+  params: Params<S>,
+  options?: Omit<
+    UseQueryOptions<StravaSegment[S], unknown, TData, QueryKey<S>>,
+    "queryFn" | "queryKey" | "staleTime"
+  >
+) {
+  return useQuery(
+    getStravaSegmentStreamQueryOptions<S, TData>(params, options)
+  );
 }
 
 export function getStravaSegmentStreamQueryOptions<
@@ -51,6 +62,6 @@ export function getStravaSegmentStreamQueryOptions<
     queryFn: queryFn,
     ...options,
     staleTime: Infinity,
-    enabled: params.stravaSegmentId !== undefined,
+    enabled: (options?.enabled ?? true) && params.stravaSegmentId !== undefined,
   };
 }
