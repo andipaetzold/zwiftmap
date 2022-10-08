@@ -1,6 +1,6 @@
 import type { LatLngTuple } from "leaflet";
 import { WorldSlug } from "zwift-data";
-import { SnappedPoint } from "../services/roads";
+import { SnappedPoint } from "../shared/roads";
 import { LatLngAlt } from "./LatLngAlt";
 
 export interface ComlinkWorker {

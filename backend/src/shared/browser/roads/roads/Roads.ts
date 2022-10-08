@@ -1,9 +1,8 @@
 import { lineString, lineString as turfLineString } from "@turf/helpers";
 import turfNearestPointOnLine from "@turf/nearest-point-on-line";
-import { LatLngTuple } from "leaflet";
 import minBy from "lodash-es/minBy";
 import round from "lodash-es/round";
-import { LatLngAlt, SnappedPoint } from "../types";
+import { LatLng, LatLngAlt, SnappedPoint } from "../types";
 
 export class Roads {
   #nodes = new Set<RoadsNode>();
@@ -119,7 +118,7 @@ export class Roads {
     return newNode;
   }
 
-  public snapPoint(point: LatLngTuple): SnappedPoint {
+  public snapPoint(point: LatLng): SnappedPoint {
     const nearestPositions = this.edges.map((edge) =>
       turfNearestPointOnLine(turfLineString(edge.stream), point)
     );

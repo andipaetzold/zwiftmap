@@ -1,6 +1,6 @@
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { WorldSlug } from "zwift-data";
-import { WORLD_ROADS } from "../services/roads";
+import { WORLD_ROADS } from "../shared/roads";
 import { queries } from "./queryKeys";
 
 type QueryKey = ReturnType<typeof queries["worldRoads"]>;

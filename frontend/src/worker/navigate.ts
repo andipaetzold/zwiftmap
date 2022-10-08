@@ -7,7 +7,7 @@ import turfLength from "@turf/length";
 import type { LatLngTuple } from "leaflet";
 import minBy from "lodash-es/minBy";
 import { WorldSlug } from "zwift-data";
-import { WORLD_ROADS, RoadsNode, Roads, RoadsEdge } from "../services/roads";
+import { WORLD_ROADS, RoadsNode, Roads, RoadsEdge } from "../shared/roads";
 import { LatLngAlt } from "../types";
 
 export async function navigate(

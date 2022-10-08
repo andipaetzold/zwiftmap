@@ -1,6 +1,6 @@
 import { LatLngTuple } from "leaflet";
 import { WorldSlug } from "zwift-data";
-import { SnappedPoint, WORLD_ROADS } from "../services/roads";
+import { SnappedPoint, WORLD_ROADS } from "../shared/roads";
 
 export async function snapPoint(
   point: LatLngTuple,
