@@ -24,6 +24,7 @@ export async function handleGETSegment(req: Request, res: Response) {
     session.stravaAthleteId,
     +req.params.segmentId
   );
+
   res
     .status(200)
     .header("Cache-Control", `private, max-age=${ttl}`)

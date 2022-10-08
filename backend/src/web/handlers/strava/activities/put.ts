@@ -1,15 +1,24 @@
 import { Request, Response } from "express";
 import { Optional, Record, String } from "runtypes";
+import { NumberString } from "../../../services/runtypes.js";
 import { updateActivity } from "../../../../shared/services/strava/index.js";
 import { Session } from "../../../types.js";
 
-const Body = Record({
+const paramsRunType = Record({
+  activityId: NumberString,
+});
+
+const bodyRunType = Record({
   description: Optional(String),
 });
 
 export async function handlePUTActivity(req: Request, res: Response) {
-  const body = req.body;
-  if (!Body.guard(body)) {
+  if (!paramsRunType.guard(req.params)) {
+    res.sendStatus(400);
+    return;
+  }
+
+  if (!bodyRunType.guard(req.body)) {
     res.sendStatus(400);
     return;
   }
@@ -23,7 +32,7 @@ export async function handlePUTActivity(req: Request, res: Response) {
   const activity = await updateActivity(
     session.stravaAthleteId,
     +req.params.activityId,
-    body
+    req.body
   );
   res.status(200).json(activity);
 }

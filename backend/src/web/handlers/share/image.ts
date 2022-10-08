@@ -1,16 +1,25 @@
 import { Request, Response } from "express";
-import { Record } from "runtypes";
+import { Record, String } from "runtypes";
 import { createImage } from "../../../shared/image.js";
 import { readShare } from "../../../shared/persistence/share.js";
 import { NumberString } from "../../services/runtypes.js";
 
-const Query = Record({
+const paramsRunType = Record({
+  shareId: String,
+});
+
+const queryRunType = Record({
   width: NumberString,
   height: NumberString,
 });
 
 export async function handleGETShareImage(req: Request, res: Response) {
-  if (!Query.guard(req.query)) {
+  if (!paramsRunType.guard(req.params)) {
+    res.sendStatus(400);
+    return;
+  }
+
+  if (!queryRunType.guard(req.query)) {
     res.sendStatus(400);
     return;
   }

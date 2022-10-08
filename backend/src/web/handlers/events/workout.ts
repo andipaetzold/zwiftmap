@@ -1,8 +1,10 @@
 import { default as axios } from "axios";
 import { Request, Response } from "express";
 import { X2jOptionsOptional, XMLParser } from "fast-xml-parser";
+import { Record } from "runtypes";
 import { create } from "xmlbuilder2";
 import { getEvent } from "../../../shared/events/index.js";
+import { NumberString } from "../../services/runtypes.js";
 import { COLORS, ZONES } from "./workout/constants.js";
 import {
   BarInterval,
@@ -23,7 +25,16 @@ const parserOptions: X2jOptionsOptional = {
 };
 const parser = new XMLParser(parserOptions);
 
+const paramsRunType = Record({
+  eventId: NumberString,
+});
+
 export async function handleGetEventWorkout(req: Request, res: Response) {
+  if (!paramsRunType.guard(req.params)) {
+    res.sendStatus(400);
+    return;
+  }
+
   const { result: event, ttl } = await getEvent(+req.params.eventId);
 
   if (!event) {
