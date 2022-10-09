@@ -4,17 +4,17 @@ import {
   LocationState,
   useLocationState,
 } from "../../../services/location-state";
+import { CustomRoute } from "./CustomRoute";
 import { Event } from "./Event";
+import { Fog } from "./Fog";
 import { RouteList } from "./Lists/RouteList";
 import { SearchResultList } from "./Lists/SearchResultList";
 import { StravaActivitiesList } from "./Lists/StravaActivitiesList";
-import { CustomRoute } from "./CustomRoute";
 import { RouteDetails } from "./RouteDetails";
 import { SegmentDetails } from "./SegmentDetails";
 import { Share } from "./Share";
 import { StravaActivityDetails } from "./StravaActivityDetails";
 import { UpcomingEvents } from "./UpcomingEvents";
-import { Fog } from "./Fog";
 
 export function Content() {
   const state = useLocationState();

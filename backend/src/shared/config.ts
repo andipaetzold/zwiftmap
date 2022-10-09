@@ -10,6 +10,7 @@ export interface Config {
     clientSecret: string;
     webhookHost: string;
     verifyToken: string;
+    betaUsers: number[];
   };
   sentry: {
     dsn: string;
@@ -32,6 +33,10 @@ async function getConfig(): Promise<Config> {
         clientSecret: await getSecret("GAE_STRAVA_CLIENT_SECRET"),
         webhookHost: process.env.BACKEND_URL!,
         verifyToken: await getSecret("GAE_STRAVA_VERIFY_TOKEN"),
+        betaUsers: process.env
+          .STRAVA_BETA_USERS!.split(",")
+          .map((userId) => +userId)
+          .filter((userId) => !Number.isNaN(userId)),
       },
       sentry: {
         dsn: await getSecret("GAE_SENTRY_DSN"),
@@ -55,6 +60,10 @@ async function getConfig(): Promise<Config> {
         webhookHost:
           process.env.STRAVA_WEBHOOK_HOST ?? process.env.BACKEND_URL!,
         verifyToken: "token",
+        betaUsers: process.env
+          .STRAVA_BETA_USERS!.split(",")
+          .map((userId) => +userId)
+          .filter((userId) => !Number.isNaN(userId)),
       },
       sentry: {
         dsn: "",
@@ -71,11 +80,7 @@ async function getConfig(): Promise<Config> {
 const client = new SecretManagerServiceClient();
 async function getSecret(name: string): Promise<string> {
   const [version] = await client.accessSecretVersion({
-    name: client.secretVersionPath(
-      process.env.GCP_PROJECT!,
-      name,
-      "latest"
-    ),
+    name: client.secretVersionPath(process.env.GCP_PROJECT!, name, "latest"),
   });
   const payload = version.payload?.data?.toString();
 

@@ -5,6 +5,7 @@ import difference from "@turf/difference";
 import { Feature, lineString, MultiPolygon, Polygon } from "@turf/helpers";
 import { Request, Response } from "express";
 import { Record, String } from "runtypes";
+import { config } from "../../../shared/config.js";
 import { SummaryActivity } from "strava";
 import { World, worlds } from "zwift-data";
 import { latLngToPosition } from "../../../shared/browser/coordinates.js";
@@ -30,6 +31,11 @@ export async function handleGETWorldFog(req: Request, res: Response) {
 
   const session = req.session as Session;
   if (!session.stravaAthleteId) {
+    res.sendStatus(403);
+    return;
+  }
+
+  if (!config.strava.betaUsers.includes(session.stravaAthleteId)) {
     res.sendStatus(403);
     return;
   }

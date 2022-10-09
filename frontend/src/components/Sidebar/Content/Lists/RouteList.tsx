@@ -1,18 +1,19 @@
 import { Button } from "@react-md/button";
 import { List, SimpleListItem } from "@react-md/list";
 import {
-  CloudSVGIcon, EventSVGIcon,
-  ModeEditSVGIcon
+  CloudSVGIcon,
+  EventSVGIcon,
+  ModeEditSVGIcon,
 } from "@react-md/material-icons";
 import { MenuItemSeparator } from "@react-md/menu";
 import { Helmet } from "react-helmet-async";
 import { routes } from "zwift-data";
-import { ENVIRONMENT } from "../../../../config";
 import { useSessionSettings } from "../../../../hooks/useSessionSettings";
 import { useSettings } from "../../../../hooks/useSettings";
+import { useAuthStatus } from "../../../../react-query";
 import {
   LocationStateDefault,
-  navigate
+  navigate,
 } from "../../../../services/location-state";
 import { sortRoute } from "../../../../util/sort";
 import { StravaAvatar } from "../../../Avatar";
@@ -27,6 +28,7 @@ interface Props {
 export function RouteList({ state }: Props) {
   const sport = useSettings((state) => state.sport);
   const [{ sortState }] = useSessionSettings();
+  const { data: authStatus } = useAuthStatus();
 
   return (
     <>
@@ -73,7 +75,7 @@ export function RouteList({ state }: Props) {
           >
             <ModeEditSVGIcon />
           </Button>
-          {ENVIRONMENT === "development" && (
+          {authStatus?.betaUser && (
             <Button
               buttonType="icon"
               themeType="outline"
