@@ -3,8 +3,8 @@ import {
   readStravaToken,
   removeStravaToken,
   writeStravaToken,
-} from "shared/persistence/stravaToken.js";
-import { StravaToken } from "shared/persistence/types.js";
+} from "../../persistence/stravaToken.js";
+import { StravaToken } from "../../persistence/types.js";
 import {
   DetailedActivity,
   DetailedSegment,
