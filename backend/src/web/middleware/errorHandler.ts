@@ -1,4 +1,4 @@
-import { default as axios } from "axios";
+import axios from "axios";
 import { NextFunction, Request, Response } from "express";
 import { config } from "../../shared/config.js";
 import { ErrorWithStatusCode } from "../../shared/ErrorWithStatusCode.js";
@@ -15,16 +15,14 @@ export function errorHandler(
     if (config.environment === "development") {
       req.log.error(err.message);
     }
-    // @ts-expect-error Type issue fixed in https://github.com/axios/axios/pull/4884
   } else if (axios.isAxiosError(err)) {
-    // @ts-expect-error Type issue fixed in https://github.com/axios/axios/pull/4884
     res.statusCode = err.response?.status ?? 500;
 
     if (config.environment === "development") {
-      // @ts-expect-error Type issue fixed in https://github.com/axios/axios/pull/4884
       req.log.error(err.message);
-      // @ts-expect-error Type issue fixed in https://github.com/axios/axios/pull/4884
-      req.log.error(err.response.data);
+      if (err.response) {
+        req.log.error(err.response.data);
+      }
     }
   } else {
     res.statusCode = 500;
