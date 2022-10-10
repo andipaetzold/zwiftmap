@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Record } from "runtypes";
 import { NumberString } from "../../../../shared/runtypes.js";
-import { StravaUserAPI } from "../../../../shared/services/strava/index.js";
+import { CachedStravaUserAPI } from "../../../../shared/services/strava/index.js";
 import { Session } from "../../../types.js";
 
 const paramsRunType = Record({
@@ -20,7 +20,7 @@ export async function handleGETActivityStreams(req: Request, res: Response) {
     return;
   }
 
-  const api = new StravaUserAPI(session.stravaAthleteId);
+  const api = new CachedStravaUserAPI(session.stravaAthleteId);
   const { result: activity, ttl } = await api.getActivityStreams(
     +req.params.activityId
   );

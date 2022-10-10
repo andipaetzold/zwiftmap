@@ -1,7 +1,7 @@
 import { removeStravaSettings } from "../../../persistence/stravaSettings.js";
 import { removeStravaToken } from "../../../persistence/stravaToken.js";
 import { Logger, WebhookEventType } from "../../../types.js";
-import { StravaUserAPI } from "../api.js";
+import { CachedStravaUserAPI } from "../cached-api.js";
 
 export async function handleAthleteUpdate(
   webhookEvent: WebhookEventType,
@@ -9,13 +9,13 @@ export async function handleAthleteUpdate(
 ) {
   if (webhookEvent.updates["authorized"] === false) {
     const athleteId = webhookEvent.object_id;
-    const api = new StravaUserAPI(athleteId);
+    const api = new CachedStravaUserAPI(athleteId);
 
     logger.info("Removing Strava token");
     await removeStravaToken(athleteId);
     await removeStravaSettings(athleteId);
 
     logger.info("Evicting athlete cache");
-    await StravaUserAPI.evictCacheForAthlete(athleteId);
+    await CachedStravaUserAPI.evictCacheForAthlete(athleteId);
   }
 }

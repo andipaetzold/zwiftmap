@@ -9,7 +9,7 @@ import { config } from "../../../shared/config.js";
 import { SummaryActivity } from "strava";
 import { World, worlds } from "zwift-data";
 import { latLngToPosition } from "../../../shared/browser/coordinates.js";
-import { StravaUserAPI } from "../../../shared/services/strava/index.js";
+import { CachedStravaUserAPI } from "../../../shared/services/strava/index.js";
 import { getWorld, isZwiftActivity } from "../../../shared/util.js";
 import { Session } from "../../types.js";
 
@@ -53,7 +53,7 @@ async function getActivities(athleteId: number) {
   const activities: SummaryActivity[] = [];
   let newActivities: SummaryActivity[];
 
-  const api = new StravaUserAPI(athleteId);
+  const api = new CachedStravaUserAPI(athleteId);
   do {
     newActivities = await api.getActivities({
       after: NOW - MONTH_IN_SECONDS,

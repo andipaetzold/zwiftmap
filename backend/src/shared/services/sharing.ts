@@ -8,14 +8,14 @@ import { Share, ShareStravaActivity } from "../persistence/types.js";
 import { uploadToGoogleCloudStorage } from "../services/gcs.js";
 import { Logger } from "../types.js";
 import { isZwiftActivity } from "../util.js";
-import { StravaUserAPI } from "./strava/index.js";
+import { CachedStravaUserAPI } from "./strava/index.js";
 
 export async function shareActivity(
   athleteId: number,
   activityId: number,
   logger: Logger
 ): Promise<Share> {
-  const api = new StravaUserAPI(athleteId);
+  const api = new CachedStravaUserAPI(athleteId);
 
   const [{ result: activity }, { result: activityStreams }] = await Promise.all(
     [api.getActivityById(activityId), api.getActivityStreams(activityId)]
@@ -33,7 +33,7 @@ export async function addLinkToActivity(
   activityId: number,
   logger: Logger
 ): Promise<void> {
-  const api = new StravaUserAPI(athleteId);
+  const api = new CachedStravaUserAPI(athleteId);
   const [{ result: activity }, { result: activityStreams }] = await Promise.all(
     [api.getActivityById(activityId), api.getActivityStreams(activityId)]
   );
