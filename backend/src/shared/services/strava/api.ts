@@ -1,11 +1,18 @@
-import { AxiosInstance } from "axios";
+import axios, { AxiosInstance } from "axios";
+import {
+  readStravaToken,
+  removeStravaToken,
+  writeStravaToken,
+} from "shared/persistence/stravaToken.js";
+import { StravaToken } from "shared/persistence/types.js";
 import {
   DetailedActivity,
   DetailedSegment,
   StreamSet,
   SummaryActivity,
 } from "strava";
-import { getStravaUserAPI } from "./userApi.js";
+import { StravaAppAPI } from "./index.js";
+import { TokenNotFoundError } from "./types.js";
 
 interface GetActivitiesParams {
   before?: number;
@@ -15,10 +22,58 @@ interface GetActivitiesParams {
 }
 
 export class StravaUserAPI {
+  #appApi = new StravaAppAPI();
   #axiosInstance: Promise<AxiosInstance>;
 
   constructor(readonly athleteId: number) {
-    this.#axiosInstance = getStravaUserAPI(athleteId);
+    this.#axiosInstance = this.#createAxiosInstance(athleteId);
+  }
+
+  async #createAxiosInstance(athleteId: number): Promise<AxiosInstance> {
+    const token = await this.#getToken(athleteId);
+
+    return axios.create({
+      baseURL: "https://www.strava.com/api/v3",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  async #getToken(athleteId: number): Promise<string> {
+    let stravaToken = await readStravaToken(athleteId);
+    if (!stravaToken) {
+      throw new TokenNotFoundError();
+    }
+
+    if (stravaToken.expiresAt < Date.now() / 1_000 - 60) {
+      stravaToken = await this.#refreshToken(stravaToken);
+    }
+
+    return stravaToken.token;
+  }
+
+  async #refreshToken(stravaToken: StravaToken): Promise<StravaToken> {
+    try {
+      const response = await this.#appApi.refreshToken(
+        stravaToken.refreshToken
+      );
+
+      const refreshedStravaToken: StravaToken = {
+        athleteId: stravaToken.athleteId,
+        expiresAt: response.data.expires_at,
+        refreshToken: response.data.refresh_token,
+        token: response.data.access_token,
+        scope: stravaToken.scope,
+      };
+
+      await writeStravaToken(refreshedStravaToken);
+
+      return refreshedStravaToken;
+    } catch {
+      await removeStravaToken(stravaToken.athleteId);
+      throw new TokenNotFoundError();
+    }
   }
 
   async getActivityById(activityId: number) {
