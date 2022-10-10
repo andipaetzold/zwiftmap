@@ -1,4 +1,4 @@
-import { default as axios } from "axios";
+import axios from "axios";
 import { Request, Response } from "express";
 import { X2jOptionsOptional, XMLParser } from "fast-xml-parser";
 import { Record } from "runtypes";
@@ -57,7 +57,6 @@ export async function handleGetEventWorkout(req: Request, res: Response) {
     return;
   }
 
-  // @ts-expect-error Type issue fixed in https://github.com/axios/axios/pull/4884
   const response = await axios.get(workoutUrl);
   const xmlData = response.data;
 

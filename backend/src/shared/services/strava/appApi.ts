@@ -1,4 +1,4 @@
-import { AxiosInstance, default as axios } from "axios";
+import axios, { AxiosInstance } from "axios";
 import { RefreshTokenResponse } from "strava";
 import { config } from "../../config.js";
 
@@ -6,7 +6,6 @@ export class StravaAppAPI {
   #axiosInstance: AxiosInstance;
 
   constructor() {
-    // @ts-expect-error Type issue fixed in https://github.com/axios/axios/pull/4884
     this.#axiosInstance = axios.create({
       baseURL: "https://www.strava.com",
       params: {
