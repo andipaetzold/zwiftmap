@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Literal, Number, Record } from "runtypes";
 import { ErrorWithStatusCode } from "../../../shared/ErrorWithStatusCode.js";
-import { Share } from "../../../shared/persistence/types.js";
+import { Share } from "../../../shared/persistence/index.js";
 import { shareActivity } from "../../../shared/services/sharing.js";
 import { Logger } from "../../../shared/types.js";
 import { Session } from "../../types.js";

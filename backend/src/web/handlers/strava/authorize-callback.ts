@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { Record, String, Union } from "runtypes";
 import { URLSearchParams } from "url";
 import { config } from "../../../shared/config.js";
-import { writeStravaToken } from "../../../shared/persistence/stravaToken.js";
+import { writeStravaToken } from "../../../shared/persistence/index.js";
 import { StravaAppAPI } from "../../../shared/services/strava/index.js";
 import { Session } from "../../types.js";
 

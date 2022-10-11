@@ -3,7 +3,7 @@ import cors from "cors";
 import express from "express";
 import session from "express-session";
 import { config } from "../shared/config.js";
-import { firestore } from "../shared/persistence/firestore.js";
+import { firestore } from "../shared/persistence/index.js";
 import { FirestoreStore } from "./middleware/connect-firestore.js";
 import { loggerMiddleware } from "./middleware/logger.js";
 

@@ -1,5 +1,7 @@
-import { removeStravaSettings } from "../../../persistence/stravaSettings.js";
-import { removeStravaToken } from "../../../persistence/stravaToken.js";
+import {
+  removeStravaAthlete,
+  removeStravaToken,
+} from "../../../persistence/index.js";
 import { Logger, WebhookEventType } from "../../../types.js";
 import { CachedStravaUserAPI } from "../cached-api.js";
 
@@ -13,7 +15,7 @@ export async function handleAthleteUpdate(
 
     logger.info("Removing Strava token");
     await removeStravaToken(athleteId);
-    await removeStravaSettings(athleteId);
+    await removeStravaAthlete(athleteId);
 
     logger.info("Evicting athlete cache");
     await CachedStravaUserAPI.evictCacheForAthlete(athleteId);

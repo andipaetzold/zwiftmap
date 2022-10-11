@@ -22,14 +22,14 @@ const collection = firestore
     toFirestore: identity,
   });
 
-export async function writeStravaSettings(
+export async function writeStravaAthlete(
   athleteId: number,
   settings: StravaAthlete
 ) {
   await collection.doc(athleteId.toString()).set(settings);
 }
 
-export async function readStravaSettings(
+export async function readStravaAthlete(
   athleteId: number
 ): Promise<StravaAthlete> {
   const doc = collection.doc(athleteId.toString());
@@ -42,6 +42,6 @@ export async function readStravaSettings(
   return DEFAULT_STRAVA_ATHLETE;
 }
 
-export async function removeStravaSettings(athleteId: number) {
+export async function removeStravaAthlete(athleteId: number) {
   await collection.doc(athleteId.toString()).delete();
 }

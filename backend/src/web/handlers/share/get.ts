@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Record, String } from "runtypes";
-import { readShare } from "../../../shared/persistence/share.js";
+import { readShare } from "../../../shared/persistence/index.js";
 
 const paramsRunType = Record({
   shareId: String,

@@ -3,8 +3,12 @@ import { DetailedActivity, StreamSet } from "strava";
 import { config } from "../config.js";
 import { ErrorWithStatusCode } from "../ErrorWithStatusCode.js";
 import { createImage } from "../image.js";
-import { getShareUrl, writeShare } from "../persistence/share.js";
-import { Share, ShareStravaActivity } from "../persistence/types.js";
+import {
+  getShareUrl,
+  Share,
+  ShareStravaActivity,
+  writeShare,
+} from "../persistence/index.js";
 import { uploadToGoogleCloudStorage } from "../services/gcs.js";
 import { Logger } from "../types.js";
 import { isZwiftActivity } from "../util.js";

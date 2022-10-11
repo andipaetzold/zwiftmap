@@ -1,16 +1,16 @@
 import axios, { AxiosInstance } from "axios";
 import {
-  readStravaToken,
-  removeStravaToken,
-  writeStravaToken,
-} from "../../persistence/stravaToken.js";
-import { StravaToken } from "../../persistence/types.js";
-import {
   DetailedActivity,
   DetailedSegment,
   StreamSet,
   SummaryActivity,
 } from "strava";
+import {
+  readStravaToken,
+  removeStravaToken,
+  StravaToken,
+  writeStravaToken,
+} from "../../persistence/index.js";
 import { StravaAppAPI } from "./index.js";
 import { TokenNotFoundError } from "./types.js";
 

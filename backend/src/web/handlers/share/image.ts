@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Record, String } from "runtypes";
 import { createImage } from "../../../shared/image.js";
-import { readShare } from "../../../shared/persistence/share.js";
+import { readShare } from "../../../shared/persistence/index.js";
 import { NumberString } from "../../../shared/runtypes.js";
 
 const paramsRunType = Record({

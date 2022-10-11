@@ -1,9 +1,9 @@
 import { DetailedActivity } from "strava";
-import { readStravaSettings } from "../../../persistence/stravaSettings.js";
-import { addLinkToActivity } from "../../sharing.js";
-import { CachedStravaUserAPI } from "../cached-api.js";
+import { readStravaAthlete } from "../../../persistence/index.js";
 import { Logger, WebhookEventType } from "../../../types.js";
 import { isZwiftActivity } from "../../../util.js";
+import { addLinkToActivity } from "../../sharing.js";
+import { CachedStravaUserAPI } from "../cached-api.js";
 
 export async function handleActivityCreate(
   webhookEvent: WebhookEventType,
@@ -11,7 +11,7 @@ export async function handleActivityCreate(
 ) {
   const athleteId = webhookEvent.owner_id;
   const activityId = webhookEvent.object_id;
-  const settings = await readStravaSettings(athleteId);
+  const settings = await readStravaAthlete(athleteId);
 
   if (!settings.addLinkToActivityDescription) {
     logger.info("Setting to add link to activity description is disabled");

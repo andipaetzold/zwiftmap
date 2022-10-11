@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import {
-  readStravaSettings,
-  writeStravaSettings,
-} from "../../../shared/persistence/stravaSettings.js";
-import { StravaAthleteSchema } from "../../../shared/persistence/types.js";
+  readStravaAthlete,
+  StravaAthleteSchema,
+  writeStravaAthlete,
+} from "../../../shared/persistence/index.js";
 import { Session } from "../../types.js";
 
 export async function handleGETStravaSettings(req: Request, res: Response) {
@@ -14,7 +14,7 @@ export async function handleGETStravaSettings(req: Request, res: Response) {
     return;
   }
 
-  const settings = await readStravaSettings(session.stravaAthleteId);
+  const settings = await readStravaAthlete(session.stravaAthleteId);
   res.json(settings);
 }
 
@@ -31,6 +31,6 @@ export async function handlePUTStravaSettings(req: Request, res: Response) {
     return;
   }
 
-  await writeStravaSettings(session.stravaAthleteId, req.body);
+  await writeStravaAthlete(session.stravaAthleteId, req.body);
   res.json(req.body);
 }
