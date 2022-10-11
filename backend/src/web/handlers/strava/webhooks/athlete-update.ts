@@ -1,9 +1,6 @@
-import {
-  removeStravaAthlete,
-  removeStravaToken,
-} from "../../../persistence/index.js";
-import { Logger, WebhookEventType } from "../../../types.js";
-import { CachedStravaUserAPI } from "../cached-api.js";
+import { removeStravaAthlete, removeStravaToken } from "../../../../shared/persistence/index.js";
+import { CachedStravaUserAPI } from "../../../../shared/services/strava/index.js";
+import { Logger, WebhookEventType } from "../../../../shared/types.js";
 
 export async function handleAthleteUpdate(
   webhookEvent: WebhookEventType,

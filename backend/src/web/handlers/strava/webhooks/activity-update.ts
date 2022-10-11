@@ -1,5 +1,5 @@
-import { Logger, WebhookEventType } from "../../../types.js";
-import { CachedStravaUserAPI } from "../cached-api.js";
+import { CachedStravaUserAPI } from "../../../../shared/services/strava/index.js";
+import { Logger, WebhookEventType } from "../../../../shared/types.js";
 
 export async function handleActivityUpdate(
   webhookEvent: WebhookEventType,

@@ -1,10 +1,27 @@
-import { Logger, WebhookEventType } from "../../../types.js";
+import { Request, Response } from "express";
+import {
+  Logger,
+  WebhookEvent,
+  WebhookEventType,
+} from "../../../../shared/types.js";
 import { handleActivityCreate } from "./activity-create.js";
 import { handleActivityDelete } from "./activity-delete.js";
 import { handleActivityUpdate } from "./activity-update.js";
 import { handleAthleteUpdate } from "./athlete-update.js";
 
-export async function handleStravaWebhookEvent(
+export async function handleWebhook(req: Request, res: Response) {
+  const webhookEvent = req.body;
+  if (!WebhookEvent.guard(webhookEvent)) {
+    res.sendStatus(400);
+    return;
+  }
+
+  await handleStravaWebhookEvent(webhookEvent, req.log);
+
+  res.sendStatus(204);
+}
+
+async function handleStravaWebhookEvent(
   webhookEvent: WebhookEventType,
   logger: Logger
 ) {

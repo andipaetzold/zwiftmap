@@ -3,5 +3,5 @@ export * from "./authorize.js";
 export * from "./authorize-callback.js";
 export * from "./segments/index.js";
 export * from "./settings.js";
-export * from "./webhook.js";
+export * from "./webhooks/index.js";
 export * from "./webhookVerification.js";
