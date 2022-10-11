@@ -5,11 +5,10 @@ import difference from "@turf/difference";
 import { Feature, lineString, MultiPolygon, Polygon } from "@turf/helpers";
 import { Request, Response } from "express";
 import { Record, String } from "runtypes";
-import { config } from "../../../shared/config.js";
 import { SummaryActivity } from "strava";
 import { World, worlds } from "zwift-data";
 import { latLngToPosition } from "../../../shared/browser/coordinates.js";
-import { CachedStravaUserAPI } from "../../../shared/services/strava/index.js";
+import { CachedStravaUserAPI, isStravaBetaUser } from "../../../shared/services/strava/index.js";
 import { getWorld, isZwiftActivity } from "../../../shared/util.js";
 import { Session } from "../../types.js";
 
@@ -35,7 +34,7 @@ export async function handleGETWorldFog(req: Request, res: Response) {
     return;
   }
 
-  if (!config.strava.betaUsers.includes(session.stravaAthleteId)) {
+  if (!isStravaBetaUser(session.stravaAthleteId)) {
     res.sendStatus(403);
     return;
   }

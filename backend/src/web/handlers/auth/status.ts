@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { config } from "../../../shared/config.js";
+import { isStravaBetaUser } from "../../../shared/services/strava/index.js";
 import { Session } from "../../types.js";
 
 export function handleGETAuthStatus(req: Request, res: Response) {
@@ -8,6 +8,6 @@ export function handleGETAuthStatus(req: Request, res: Response) {
     strava: session.stravaAthleteId !== undefined,
     betaUser:
       session.stravaAthleteId !== undefined &&
-      config.strava.betaUsers.includes(session.stravaAthleteId),
+      isStravaBetaUser(session.stravaAthleteId),
   });
 }
