@@ -1,4 +1,3 @@
-import { DetailedActivity } from "strava";
 import {
   readStravaAthlete,
   writeStravaActivity,
@@ -6,6 +5,7 @@ import {
 import { addLinkToActivity } from "../../../../shared/services/sharing.js";
 import {
   CachedStravaUserAPI,
+  DetailedActivity,
   isStravaBetaUser,
 } from "../../../../shared/services/strava/index.js";
 import { Logger, WebhookEventType } from "../../../../shared/types.js";

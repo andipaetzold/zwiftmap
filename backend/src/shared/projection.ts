@@ -1,4 +1,4 @@
-import type { LatLng } from "strava";
+import { LatLng } from "./types.js";
 
 const EARTH_RADIUS = 6378137;
 const MAX_LATITUDE = 85.0511287798;

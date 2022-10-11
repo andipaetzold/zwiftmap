@@ -1,5 +1,5 @@
 import { DocumentReference } from "@google-cloud/firestore";
-import { DetailedActivity } from "strava";
+import { DetailedActivity } from "../services/strava/index.js";
 import {
   STRAVA_ACTIVITIES_COLLECTION_NAME,
   STRAVA_ATHLETES_COLLECTION_NAME,

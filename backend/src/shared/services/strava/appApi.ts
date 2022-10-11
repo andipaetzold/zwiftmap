@@ -1,6 +1,9 @@
 import axios, { AxiosInstance } from "axios";
-import { RefreshTokenResponse } from "strava";
 import { config } from "../../config.js";
+import {
+  RefreshTokenRequest,
+  RefreshTokenResponse,
+} from "./api-types/index.js";
 
 export class StravaAppAPI {
   #axiosInstance: AxiosInstance;
@@ -28,7 +31,7 @@ export class StravaAppAPI {
       {
         grant_type: "refresh_token",
         refresh_token: token,
-      }
+      } as Partial<RefreshTokenRequest>
     );
   }
 }

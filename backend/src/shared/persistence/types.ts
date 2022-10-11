@@ -1,5 +1,5 @@
 import { Boolean, Record, Static } from "runtypes";
-import { DetailedActivity, StreamSet } from "strava";
+import { DetailedActivity, StreamSet } from "../services/strava/index.js";
 
 export const StravaAthleteSchema = Record({
   addLinkToActivityDescription: Boolean,

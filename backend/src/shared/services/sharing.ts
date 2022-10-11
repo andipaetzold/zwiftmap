@@ -1,5 +1,4 @@
 import { pick } from "lodash-es";
-import { DetailedActivity, StreamSet } from "strava";
 import { config } from "../config.js";
 import { ErrorWithStatusCode } from "../ErrorWithStatusCode.js";
 import { createImage } from "../image.js";
@@ -12,7 +11,7 @@ import {
 import { uploadToGoogleCloudStorage } from "../services/gcs.js";
 import { Logger } from "../types.js";
 import { isZwiftActivity } from "../util.js";
-import { CachedStravaUserAPI } from "./strava/index.js";
+import { CachedStravaUserAPI, DetailedActivity, StreamSet } from "./strava/index.js";
 
 export async function shareActivity(
   athleteId: number,

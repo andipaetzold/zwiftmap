@@ -1,4 +1,4 @@
-import { removeStravaActivity } from "shared/persistence/stravaActivity.js";
+import { removeStravaActivity } from "../../../../shared/persistence/stravaActivity.js";
 import { CachedStravaUserAPI } from "../../../../shared/services/strava/index.js";
 import { Logger, WebhookEventType } from "../../../../shared/types.js";
 

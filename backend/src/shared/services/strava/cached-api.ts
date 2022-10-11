@@ -1,5 +1,5 @@
-import { DetailedActivity, SummaryActivity } from "strava";
 import { createCachedFn, nodeCache } from "../cache/index.js";
+import { DetailedActivity, SummaryActivity } from "./api-types/index.js";
 import { StravaUserAPI } from "./api.js";
 
 /**

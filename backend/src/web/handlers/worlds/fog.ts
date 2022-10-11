@@ -5,10 +5,9 @@ import difference from "@turf/difference";
 import { Feature, lineString, MultiPolygon, Polygon } from "@turf/helpers";
 import { Request, Response } from "express";
 import { Record, String } from "runtypes";
-import { SummaryActivity } from "strava";
 import { World, worlds } from "zwift-data";
 import { latLngToPosition } from "../../../shared/browser/coordinates.js";
-import { CachedStravaUserAPI, isStravaBetaUser } from "../../../shared/services/strava/index.js";
+import { CachedStravaUserAPI, isStravaBetaUser, SummaryActivity } from "../../../shared/services/strava/index.js";
 import { getWorld, isZwiftActivity } from "../../../shared/util.js";
 import { Session } from "../../types.js";
 

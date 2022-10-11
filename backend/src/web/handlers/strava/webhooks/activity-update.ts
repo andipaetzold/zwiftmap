@@ -1,7 +1,7 @@
-import { writeStravaActivity } from "shared/persistence/index.js";
-import { DetailedActivity } from "strava";
+import { writeStravaActivity } from "../../../../shared/persistence/index.js";
 import {
   CachedStravaUserAPI,
+  DetailedActivity,
   isStravaBetaUser,
 } from "../../../../shared/services/strava/index.js";
 import { Logger, WebhookEventType } from "../../../../shared/types.js";

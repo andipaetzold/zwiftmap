@@ -1,5 +1,6 @@
-import { DetailedActivity, LatLng, SummaryActivity } from "strava";
 import { World, worlds } from "zwift-data";
+import { DetailedActivity, SummaryActivity } from "./services/strava/index.js";
+import { LatLng } from "./types.js";
 
 export function isZwiftActivity(
   activity: DetailedActivity | SummaryActivity

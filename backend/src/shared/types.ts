@@ -40,3 +40,5 @@ export interface ImageQueueData {
     filename: string;
   };
 }
+
+export type LatLng = [lat: number, lng: number];

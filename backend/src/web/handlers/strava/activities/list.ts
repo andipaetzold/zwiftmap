@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
-import { SummaryActivity } from "strava";
-import { CachedStravaUserAPI } from "../../../../shared/services/strava/index.js";
+import { CachedStravaUserAPI, SummaryActivity } from "../../../../shared/services/strava/index.js";
 import { isZwiftActivity } from "../../../../shared/util.js";
 import { Session } from "../../../types.js";
 
