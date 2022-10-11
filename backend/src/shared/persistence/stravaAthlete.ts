@@ -43,5 +43,6 @@ export async function readStravaAthlete(
 }
 
 export async function removeStravaAthlete(athleteId: number) {
-  await collection.doc(athleteId.toString()).delete();
+  const doc = collection.doc(athleteId.toString());
+  await firestore.recursiveDelete(doc);
 }
