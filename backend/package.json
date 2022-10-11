@@ -45,7 +45,7 @@
     "compression": "1.7.4",
     "cors": "2.8.5",
     "dotenv": "16.0.3",
-    "express": "4.18.1",
+    "express": "4.18.2",
     "express-async-errors": "3.1.1",
     "express-session": "1.17.3",
     "fast-xml-parser": "4.0.11",
