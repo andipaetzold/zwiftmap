@@ -1,5 +1,6 @@
 import { QueryDocumentSnapshot } from "@google-cloud/firestore";
 import { identity } from "lodash-es";
+import { STRAVA_ATHLETES_COLLECTION_NAME } from "./constants.js";
 import { firestore } from "./firestore.js";
 import { StravaAthlete } from "./types.js";
 
@@ -7,9 +8,8 @@ const DEFAULT_STRAVA_ATHLETE = Object.freeze<StravaAthlete>({
   addLinkToActivityDescription: false,
 });
 
-const COLLECTION_NAME = "strava-athletes";
 const collection = firestore
-  .collection(COLLECTION_NAME)
+  .collection(STRAVA_ATHLETES_COLLECTION_NAME)
   .withConverter<StravaAthlete>({
     fromFirestore: (snap: QueryDocumentSnapshot) => {
       const data = snap.data() as Partial<StravaAthlete>;

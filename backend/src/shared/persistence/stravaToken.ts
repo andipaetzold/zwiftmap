@@ -1,8 +1,8 @@
+import { STRAVA_TOKENS_COLLECTION_NAME } from "./constants.js";
 import { firestore } from "./firestore.js";
 import { StravaToken } from "./types.js";
 
-const COLLECTION_NAME = "strava-tokens";
-const collection = firestore.collection(COLLECTION_NAME);
+const collection = firestore.collection(STRAVA_TOKENS_COLLECTION_NAME);
 
 export async function writeStravaToken(stravaToken: StravaToken) {
   await collection.doc(stravaToken.athleteId.toString()).set(stravaToken);
