@@ -20,7 +20,7 @@
     "@sentry/react": "7.14.2",
     "@sentry/tracing": "7.14.2",
     "@tanstack/react-query": "4.10.3",
-    "@tanstack/react-query-devtools": "4.10.3",
+    "@tanstack/react-query-devtools": "4.11.0",
     "@turf/boolean-point-in-polygon": "6.5.0",
     "@turf/buffer": "6.5.0",
     "@turf/distance": "6.5.0",
