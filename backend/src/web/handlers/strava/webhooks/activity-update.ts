@@ -5,6 +5,7 @@ import {
   isStravaBetaUser,
 } from "../../../../shared/services/strava/index.js";
 import { Logger, WebhookEventType } from "../../../../shared/types.js";
+import { isZwiftActivity } from "../../../../shared/util.js";
 
 export async function handleActivityUpdate(
   webhookEvent: WebhookEventType,
@@ -22,6 +23,10 @@ export async function handleActivityUpdate(
       activity = (await api.getActivityById(activityId)).result;
     } catch (e) {
       logger.error("Error fetching activity");
+      return;
+    }
+
+    if (!isZwiftActivity(activity)) {
       return;
     }
 
