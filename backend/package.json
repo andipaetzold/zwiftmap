@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@google-cloud/firestore": "6.3.0",
-    "@google-cloud/logging-winston": "5.1.5",
+    "@google-cloud/logging-winston": "5.1.6",
     "@google-cloud/secret-manager": "4.1.3",
     "@google-cloud/storage": "6.5.2",
     "@mapbox/polyline": "1.1.1",
