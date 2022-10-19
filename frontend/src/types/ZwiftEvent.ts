@@ -87,7 +87,7 @@ export interface EventSubgroup {
   startLocation: number;
   invitedLeaders: number[];
   invitedSweepers: number[];
-  paceType: number;
+  paceType: PaceType;
   fromPaceValue: number;
   toPaceValue: number;
   fieldLimit: null;
@@ -152,3 +152,7 @@ export type Type =
   | "EVENT_TYPE_GROUP_WORKOUT"
   | "EVENT_TYPE_RACE"
   | "EVENT_TYPE_TIME_TRIAL";
+
+export enum PaceType {
+  WKG = 1,
+}
