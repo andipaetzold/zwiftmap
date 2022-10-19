@@ -86,7 +86,7 @@ export function getEventPaceRangeAsString(event: ZwiftEvent): string | null {
   } else {
     // TODO: use formatRange once supported
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/formatRange
-    return `${PACE_NUMER_FORMAT.format(paceFrom)} - ${PACE_NUMER_FORMAT.format(
+    return `${PACE_NUMER_FORMAT.format(paceFrom)} – ${PACE_NUMER_FORMAT.format(
       paceTo
     )} W/kg`;
   }
