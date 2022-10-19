@@ -7,6 +7,7 @@ import {
   PlaceSVGIcon,
   RefreshSVGIcon,
   SpaceBarSVGIcon,
+  TimelineSVGIcon,
   TimerSVGIcon,
 } from "@react-md/material-icons";
 import round from "lodash-es/round";
@@ -14,6 +15,7 @@ import {
   EVENT_TYPES,
   getEventDistance,
   getEventElevation,
+  getEventPaceRangeAsString,
   getRouteFromEvent,
   getWorldFromEvent,
 } from "../../../../services/events";
@@ -33,6 +35,7 @@ export function EventFacts({ event }: Props) {
 
   const distance = getEventDistance(event);
   const elevation = getEventElevation(event);
+  const paceRange = getEventPaceRangeAsString(event);
 
   return (
     <>
@@ -74,6 +77,11 @@ export function EventFacts({ event }: Props) {
       {event.laps > 0 && (
         <SimpleListItem leftAddon={<RefreshSVGIcon />}>
           {event.laps === 1 ? "1 Lap" : `${event.laps} Laps`}
+        </SimpleListItem>
+      )}
+      {paceRange && (
+        <SimpleListItem leftAddon={<TimelineSVGIcon />} leftAddonType="icon">
+          {paceRange}
         </SimpleListItem>
       )}
       {route && world && (
