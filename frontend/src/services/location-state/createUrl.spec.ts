@@ -85,6 +85,16 @@ it("event", () => {
       type: "event",
       world: worldLondon,
       eventId: 42,
+      subgroupLabel: null,
     })
   ).toBe("/events/42");
+
+  expect(
+    createUrl({
+      type: "event",
+      world: worldLondon,
+      eventId: 42,
+      subgroupLabel: "A",
+    })
+  ).toBe("/events/42/A");
 });
