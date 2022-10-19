@@ -81,6 +81,7 @@ export function RouteEvents({ route }: Props) {
             type: "event",
             world: WORLDS_BY_SLUG[route.world],
             eventId: event.id,
+            subgroupLabel: null,
           }}
           secondaryText={<EventInfo event={event} />}
           threeLines
