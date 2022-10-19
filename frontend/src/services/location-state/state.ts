@@ -1,7 +1,7 @@
 import cloneDeep from "lodash-es/cloneDeep";
 import isEqual from "lodash-es/isEqual";
 import { getWorld } from "../../util/strava";
-import { getWorldFromEvent } from "../events";
+import { getSubgroupFromEvent, getWorldFromEvent } from "../events";
 import { getStravaActivity } from "../StravaActivityRepository";
 import { getEvent, getShare } from "../zwiftMapApi";
 import { getKeyFromLocationState } from "./getKeyFromLocationState";
@@ -58,11 +58,7 @@ async function fetchWorld() {
       case "event": {
         const event = await getEvent(state.eventId);
         if (isEqual(stateBefore, state)) {
-          const subgroupLabel = state.subgroupLabel;
-          const subgroup =
-            event.eventSubgroups.find(
-              (g) => g.subgroupLabel === subgroupLabel
-            ) ?? event.eventSubgroups[0];
+          const subgroup = getSubgroupFromEvent(event, state.subgroupLabel);
           const world = getWorldFromEvent(subgroup);
 
           if (world) {

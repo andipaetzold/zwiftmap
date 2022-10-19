@@ -1,5 +1,6 @@
 import { SimpleListItem } from "@react-md/list";
 import { Typography } from "@react-md/typography";
+import { getSubgroupFromEvent } from "../../../../services/events";
 import { LocationStateUpcomingEvent } from "../../../../services/location-state";
 import { ZwiftEvent } from "../../../../types";
 import { EventFacts } from "./EventFacts";
@@ -20,9 +21,7 @@ interface Props {
 }
 
 export default function EventComponent({ event, state }: Props) {
-  const subgroup =
-    event.eventSubgroups.find((g) => g.subgroupLabel === state.subgroupLabel) ??
-    event.eventSubgroups[0];
+  const subgroup = getSubgroupFromEvent(event, state.subgroupLabel);
 
   return (
     <>

@@ -8,16 +8,18 @@ import {
 } from "../../types";
 
 export function getWorldFromEvent(
-  event: ZwiftEvent | EventSubgroup
+  eventOrGroup: ZwiftEvent | EventSubgroup
 ): World | undefined {
-  const route = routes.find((r) => r.id === event.routeId);
-  return worlds.find((w) => w.slug === route?.world || w.id === event.mapId);
+  const route = routes.find((r) => r.id === eventOrGroup.routeId);
+  return worlds.find(
+    (w) => w.slug === route?.world || w.id === eventOrGroup.mapId
+  );
 }
 
 export function getRouteFromEvent(
-  event: ZwiftEvent | EventSubgroup
+  eventOrGroup: ZwiftEvent | EventSubgroup
 ): Route | undefined {
-  return routes.find((r) => r.id === event.routeId);
+  return routes.find((r) => r.id === eventOrGroup.routeId);
 }
 
 export function adjustStreamForEvent<T>(
@@ -56,23 +58,23 @@ export function adjustStreamForEvent<T>(
 }
 
 export function getEventDistance(
-  event: ZwiftEvent | EventSubgroup
+  eventOrGroup: ZwiftEvent | EventSubgroup
 ): number | undefined {
-  const route = getRouteFromEvent(event);
+  const route = getRouteFromEvent(eventOrGroup);
 
-  if (event.distanceInMeters) {
-    return event.distanceInMeters / 1_000;
-  } else if (route && event.laps > 0) {
-    return event.laps * route.distance + (route.leadInDistance ?? 0);
+  if (eventOrGroup.distanceInMeters) {
+    return eventOrGroup.distanceInMeters / 1_000;
+  } else if (route && eventOrGroup.laps > 0) {
+    return eventOrGroup.laps * route.distance + (route.leadInDistance ?? 0);
   }
 }
 
 export function getEventElevation(
-  event: ZwiftEvent | EventSubgroup
+  eventOrGroup: ZwiftEvent | EventSubgroup
 ): number | undefined {
-  const route = getRouteFromEvent(event);
-  if (route && event.laps > 0) {
-    return event.laps * route.elevation + (route.leadInElevation ?? 0);
+  const route = getRouteFromEvent(eventOrGroup);
+  if (route && eventOrGroup.laps > 0) {
+    return eventOrGroup.laps * route.elevation + (route.leadInElevation ?? 0);
   }
 }
 
@@ -115,4 +117,14 @@ export function formatEventPace(
       to
     )} ${unit}`;
   }
+}
+
+export function getSubgroupFromEvent(
+  event: ZwiftEvent,
+  subgroupLabel: string | null
+) {
+  return (
+    event.eventSubgroups.find((g) => g.subgroupLabel === subgroupLabel) ??
+    event.eventSubgroups[0]
+  );
 }

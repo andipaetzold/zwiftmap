@@ -10,7 +10,7 @@ import {
   useStravaSegmentStreams,
   useWorkerNavigate,
 } from "../../react-query";
-import { getRouteFromEvent } from "../../services/events";
+import { getRouteFromEvent, getSubgroupFromEvent } from "../../services/events";
 import {
   DEFAULT_WORLD,
   LocationState,
@@ -90,7 +90,9 @@ function useRouteStreams(state: LocationState): RouteStreams | undefined {
   const eventStreamsResult = useStravaSegmentStreams({
     stravaSegmentId:
       state.type === "event" && eventResult.data
-        ? getRouteFromEvent(eventResult.data)?.stravaSegmentId
+        ? getRouteFromEvent(
+            getSubgroupFromEvent(eventResult.data, state.subgroupLabel)
+          )?.stravaSegmentId
         : undefined,
     streams: ["distance", "latlng"] as const,
   });
