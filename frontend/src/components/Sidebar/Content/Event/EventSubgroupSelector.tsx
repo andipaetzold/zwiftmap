@@ -3,7 +3,6 @@ import { SimpleListItem } from "@react-md/list";
 import { ArrowDropDownSVGIcon } from "@react-md/material-icons";
 import round from "lodash-es/round";
 import { useId } from "react";
-import { ENVIRONMENT } from "../../../../config";
 import { useSettings } from "../../../../hooks/useSettings";
 import {
   formatEventPace,
