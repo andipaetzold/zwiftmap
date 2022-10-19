@@ -1,13 +1,13 @@
 import range from "lodash-es/range";
 import { Route, routes, World, worlds } from "zwift-data";
-import { DistanceStream, PaceType, ZwiftEvent } from "../../types";
+import { DistanceStream, EventSubgroup, PaceType, ZwiftEvent } from "../../types";
 
 export function getWorldFromEvent(event: ZwiftEvent): World | undefined {
   const route = routes.find((r) => r.id === event.routeId);
   return worlds.find((w) => w.slug === route?.world || w.id === event.mapId);
 }
 
-export function getRouteFromEvent(event: ZwiftEvent): Route | undefined {
+export function getRouteFromEvent(event: ZwiftEvent | EventSubgroup): Route | undefined {
   return routes.find((r) => r.id === event.routeId);
 }
 
@@ -67,13 +67,15 @@ const PACE_NUMER_FORMAT = new Intl.NumberFormat("en-US", {
   minimumFractionDigits: 1,
   maximumFractionDigits: 1,
 });
-export function getEventPaceRangeAsString(event: ZwiftEvent): string | null {
+export function getEventPaceRangeAsString(
+  event: ZwiftEvent
+): string | undefined {
   if (event.eventSubgroups.length === 0) {
-    return null;
+    return;
   }
 
   if (event.eventSubgroups.some((g) => g.paceType !== PaceType.WKG)) {
-    return null;
+    return;
   }
 
   const paceFrom = Math.min(
@@ -81,13 +83,25 @@ export function getEventPaceRangeAsString(event: ZwiftEvent): string | null {
   );
   const paceTo = Math.max(...event.eventSubgroups.map((g) => g.toPaceValue));
 
-  if (paceFrom === paceTo) {
-    return `${PACE_NUMER_FORMAT.format(paceFrom)} W/kg`;
+  return formatEventPace(PaceType.WKG, paceFrom, paceTo);
+}
+
+export function formatEventPace(
+  type: PaceType,
+  from: number,
+  to: number
+): string | undefined {
+  if (type !== PaceType.WKG) {
+    return;
+  }
+
+  if (from === to) {
+    return `${PACE_NUMER_FORMAT.format(from)} W/kg`;
   } else {
     // TODO: use formatRange once supported
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/formatRange
-    return `${PACE_NUMER_FORMAT.format(paceFrom)} – ${PACE_NUMER_FORMAT.format(
-      paceTo
+    return `${PACE_NUMER_FORMAT.format(from)} – ${PACE_NUMER_FORMAT.format(
+      to
     )} W/kg`;
   }
 }

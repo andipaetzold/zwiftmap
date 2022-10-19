@@ -9,6 +9,7 @@ import { EventLinks } from "./EventLinks";
 import { EventPowerUps } from "./EventPowerUps";
 import { EventRules } from "./EventRules";
 import { EventSchema } from "./EventSchema";
+import { EventSubgroupSelector } from "./EventSubgroupSelector";
 import { EventTimeTrial } from "./EventTimeTrial";
 import { EventWorkoutChart } from "./EventWorkoutChart";
 
@@ -29,6 +30,8 @@ export default function EventComponent({ event }: Props) {
           {event.name}
         </Typography>
       </SimpleListItem>
+
+      <EventSubgroupSelector event={event} />
 
       <EventFacts event={event} />
       <EventPowerUps event={event} />
