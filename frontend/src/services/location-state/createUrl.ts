@@ -34,6 +34,9 @@ export function createUrl(state: LocationState): string {
 
     case "event":
       path = `/events/${state.eventId}`;
+      if (state.subgroupLabel !== null) {
+        path += `/${state.subgroupLabel}`;
+      }
       break;
 
     case "share":

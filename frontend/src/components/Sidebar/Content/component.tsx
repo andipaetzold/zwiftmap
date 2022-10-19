@@ -52,7 +52,7 @@ export function Content() {
     case "events":
       return <UpcomingEvents state={state} />;
     case "event":
-      return <Event eventId={state.eventId} />;
+      return <Event state={state} />;
     case "share":
       return (
         <Share

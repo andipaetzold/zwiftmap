@@ -9,15 +9,20 @@ import {
   formatEventPace,
   getRouteFromEvent,
 } from "../../../../services/events";
+import {
+  LocationStateUpcomingEvent,
+  navigate,
+} from "../../../../services/location-state";
 import { EventSubgroup, PaceType, Units, ZwiftEvent } from "../../../../types";
 import { formatDistance } from "../../../Distance";
 import styles from "./EventSubgroupSelector.module.scss";
 
 interface Props {
   event: ZwiftEvent;
+  state: LocationStateUpcomingEvent;
 }
 
-export function EventSubgroupSelector({ event }: Props) {
+export function EventSubgroupSelector({ event, state }: Props) {
   const id = useId();
   const units = useSettings((state) => state.units);
 
@@ -53,7 +58,10 @@ export function EventSubgroupSelector({ event }: Props) {
         className={styles.Select}
         name="subgroup"
         label="Group"
-        value={event.eventSubgroups[0].subgroupLabel}
+        value={state.subgroupLabel ?? event.eventSubgroups[0].subgroupLabel}
+        onChange={(newSubgroupLabel) =>
+          navigate({ ...state, subgroupLabel: newSubgroupLabel })
+        }
         rightChildren={<ArrowDropDownSVGIcon />}
         options={event.eventSubgroups.map((group) => ({
           label: getLabel(
@@ -69,7 +77,6 @@ export function EventSubgroupSelector({ event }: Props) {
           ),
           value: group.subgroupLabel,
         }))}
-        onChange={(event) => console.log(event)}
       />
     </SimpleListItem>
   );

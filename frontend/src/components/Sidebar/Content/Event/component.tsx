@@ -1,5 +1,6 @@
 import { SimpleListItem } from "@react-md/list";
 import { Typography } from "@react-md/typography";
+import { LocationStateUpcomingEvent } from "../../../../services/location-state";
 import { ZwiftEvent } from "../../../../types";
 import { EventFacts } from "./EventFacts";
 import { EventHelmet } from "./EventHelmet";
@@ -15,9 +16,10 @@ import { EventWorkoutChart } from "./EventWorkoutChart";
 
 interface Props {
   event: ZwiftEvent;
+  state: LocationStateUpcomingEvent;
 }
 
-export default function EventComponent({ event }: Props) {
+export default function EventComponent({ event, state }: Props) {
   return (
     <>
       <EventHelmet event={event} />
@@ -31,7 +33,7 @@ export default function EventComponent({ event }: Props) {
         </Typography>
       </SimpleListItem>
 
-      <EventSubgroupSelector event={event} />
+      <EventSubgroupSelector event={event} state={state} />
 
       <EventFacts event={event} />
       <EventPowerUps event={event} />

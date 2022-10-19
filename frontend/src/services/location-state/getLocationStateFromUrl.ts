@@ -55,6 +55,7 @@ const PATTERNS: {
         type: "event",
         world: null,
         eventId: +result.groups!.eventId,
+        subgroupLabel: result.groups?.subgroupLabel ?? null,
       },
       false,
     ],

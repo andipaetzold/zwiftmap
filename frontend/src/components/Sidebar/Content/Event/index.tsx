@@ -2,13 +2,14 @@ import { List, SimpleListItem } from "@react-md/list";
 import { lazy, Suspense } from "react";
 import { Helmet } from "react-helmet-async";
 import { useEvent } from "../../../../react-query";
+import { LocationStateUpcomingEvent } from "../../../../services/location-state";
 import { LoadingSpinnerListItem } from "../../../Loading";
 import { BackButton } from "./BackButton";
 
 const Component = lazy(() => import("./component"));
 
 interface Props {
-  eventId: number;
+  state: LocationStateUpcomingEvent;
 }
 
 export function Event(props: Props) {
@@ -20,8 +21,8 @@ export function Event(props: Props) {
   );
 }
 
-function EventContent({ eventId }: Props) {
-  const { data: event, isLoading } = useEvent(eventId);
+function EventContent({ state }: Props) {
+  const { data: event, isLoading } = useEvent(state.eventId);
 
   if (isLoading) {
     return (
@@ -51,7 +52,7 @@ function EventContent({ eventId }: Props) {
 
   return (
     <Suspense fallback={<LoadingSpinnerListItem />}>
-      <Component event={event} />
+      <Component event={event} state={state} />
     </Suspense>
   );
 }
