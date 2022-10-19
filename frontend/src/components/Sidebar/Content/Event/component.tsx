@@ -44,7 +44,7 @@ export default function EventComponent({ event, state }: Props) {
       <EventTimeTrial event={event} subgroup={subgroup} />
       <EventRules event={event} subgroup={subgroup} />
       <EventKit subgroup={subgroup} />
-      <EventLinks event={event} />
+      <EventLinks event={event} subgroup={subgroup} />
     </>
   );
 }

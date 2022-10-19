@@ -1,7 +1,7 @@
 import { ListItemLink, ListItemText, ListSubheader } from "@react-md/list";
 import { OpenInNewSVGIcon } from "@react-md/material-icons";
-import { routes } from "zwift-data";
-import { ZwiftEvent } from "../../../../types";
+import { getRouteFromEvent } from "../../../../services/events";
+import { EventSubgroup, ZwiftEvent } from "../../../../types";
 import {
   StravaAvatar,
   WhatsOnZwiftAvatar,
@@ -12,10 +12,11 @@ import {
 
 interface Props {
   event: ZwiftEvent;
+  subgroup: EventSubgroup;
 }
 
-export function EventLinks({ event }: Props) {
-  const route = routes.find((r) => r.id === event.routeId);
+export function EventLinks({ event, subgroup }: Props) {
+  const route = getRouteFromEvent(subgroup);
 
   return (
     <>
