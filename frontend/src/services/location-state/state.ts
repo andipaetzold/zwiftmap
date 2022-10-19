@@ -6,11 +6,7 @@ import { getStravaActivity } from "../StravaActivityRepository";
 import { getEvent, getShare } from "../zwiftMapApi";
 import { getKeyFromLocationState } from "./getKeyFromLocationState";
 import { getLocationStateFromUrl } from "./getLocationStateFromUrl";
-import {
-  LocationState,
-  LocationStateUpcomingEvent,
-  LocationStateWithKey,
-} from "./types";
+import { LocationState, LocationStateWithKey } from "./types";
 
 export type Listener = (newState: LocationStateWithKey) => void;
 const listeners: Listener[] = [];
