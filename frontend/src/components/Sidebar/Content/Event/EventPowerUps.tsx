@@ -8,7 +8,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { ZwiftEvent } from "../../../../types";
+import { EventSubgroup, ZwiftEvent } from "../../../../types";
 
 interface PowerUp {
   name: string;
@@ -41,18 +41,19 @@ const DEFAULT_DISTRIBUTION = {
 
 interface Props {
   event: ZwiftEvent;
+  subgroup: EventSubgroup;
 }
 
-export function EventPowerUps({ event }: Props) {
+export function EventPowerUps({ event, subgroup }: Props) {
   if (
-    event.rulesSet.includes("NO_POWERUPS") ||
+    subgroup.rulesSet.includes("NO_POWERUPS") ||
     event.eventType === "TIME_TRIAL" ||
     event.eventType === "GROUP_WORKOUT"
   ) {
     return null;
   }
 
-  const tag = event.tags.find((tag) => tag.startsWith("powerup_percent="));
+  const tag = subgroup.tags.find((tag) => tag.startsWith("powerup_percent="));
   const distribution = tag
     ? Object.fromEntries(
         chunk(

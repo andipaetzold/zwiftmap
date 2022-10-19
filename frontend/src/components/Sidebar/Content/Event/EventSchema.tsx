@@ -5,14 +5,15 @@ import { JsonLd } from "react-schemaorg";
 import { Event, WithContext } from "schema-dts";
 import { getWorldFromEvent } from "../../../../services/events";
 import { createUrl } from "../../../../services/location-state";
-import { ZwiftEvent } from "../../../../types";
+import { EventSubgroup, ZwiftEvent } from "../../../../types";
 
 interface Props {
   event: ZwiftEvent;
+  subgroup: EventSubgroup;
 }
 
-export function EventSchema({ event }: Props) {
-  const world = getWorldFromEvent(event);
+export function EventSchema({ event, subgroup }: Props) {
+  const world = getWorldFromEvent(subgroup);
 
   if (!world) {
     return null;
@@ -32,27 +33,34 @@ export function EventSchema({ event }: Props) {
     disambiguatingDescription: event.shortDescription
       ? event.shortDescription
       : undefined,
-    name: event.name,
+    name: subgroup.name || event.name,
     alternateName: event.shortName ?? undefined,
-    description: event.description,
+    description: subgroup.description || event.description,
     url: new URL(
-      createUrl({ type: "event", world, eventId: event.id }),
+      createUrl({
+        type: "event",
+        world,
+        eventId: event.id,
+        subgroupLabel: subgroup.subgroupLabel,
+      }),
       window.location.origin
     ).toString(),
     sameAs: `https://zwift.com/events/view/${event.id}`,
     eventAttendanceMode: "OnlineEventAttendanceMode",
-    startDate: formatISO(parseISO(event.eventStart)),
+    startDate: formatISO(parseISO(subgroup.eventSubgroupStart)),
     duration:
-      event.durationInSeconds > 0
+      subgroup.durationInSeconds > 0
         ? formatISODuration({
-            seconds: event.durationInSeconds,
+            seconds: subgroup.durationInSeconds,
           })
         : undefined,
-    maximumAttendeeCapacity: event.timeTrialOptions
-      ? event.timeTrialOptions.maxRidersPerRow * event.timeTrialOptions.maxRows
+    maximumAttendeeCapacity: subgroup.timeTrialOptions
+      ? subgroup.timeTrialOptions.maxRidersPerRow *
+        subgroup.timeTrialOptions.maxRows
       : undefined,
-    maximumVirtualAttendeeCapacity: event.timeTrialOptions
-      ? event.timeTrialOptions.maxRidersPerRow * event.timeTrialOptions.maxRows
+    maximumVirtualAttendeeCapacity: subgroup.timeTrialOptions
+      ? subgroup.timeTrialOptions.maxRidersPerRow *
+        subgroup.timeTrialOptions.maxRows
       : undefined,
     image: event.imageUrl,
     isAccessibleForFree: true,

@@ -26,10 +26,6 @@ export function EventSubgroupSelector({ event, state }: Props) {
   const id = useId();
   const units = useSettings((state) => state.units);
 
-  if (ENVIRONMENT === "production") {
-    return null;
-  }
-
   if (event.eventSubgroups.length <= 1) {
     return null;
   }
@@ -60,7 +56,10 @@ export function EventSubgroupSelector({ event, state }: Props) {
         label="Group"
         value={state.subgroupLabel ?? event.eventSubgroups[0].subgroupLabel}
         onChange={(newSubgroupLabel) =>
-          navigate({ ...state, subgroupLabel: newSubgroupLabel })
+          navigate({
+            ...state,
+            subgroupLabel: newSubgroupLabel,
+          })
         }
         rightChildren={<ArrowDropDownSVGIcon />}
         options={event.eventSubgroups.map((group) => ({

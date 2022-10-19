@@ -1,22 +1,24 @@
 import parseISO from "date-fns/parseISO";
 import { Helmet } from "react-helmet-async";
-import { ZwiftEvent } from "../../../../types";
+import { EventSubgroup } from "../../../../types";
 import { FORMAT_LONG } from "../../../../util/formats";
 
 interface Props {
-  event: ZwiftEvent;
+  subgroup: EventSubgroup;
 }
 
-export function EventHelmet({ event }: Props) {
+export function EventHelmet({ subgroup }: Props) {
   const description = `Event details for "${
-    event.name
-  }" starting ${FORMAT_LONG.format(parseISO(event.eventStart))} on Zwift`;
+    subgroup.name
+  }" starting ${FORMAT_LONG.format(
+    parseISO(subgroup.eventSubgroupStart)
+  )} on Zwift`;
   return (
     <Helmet>
-      <title>{event.name}</title>
+      <title>{subgroup.name}</title>
       <meta name="description" content={description} />
 
-      <meta property="og:title" content={`${event.name} - ZwiftMap`} />
+      <meta property="og:title" content={`${subgroup.name} - ZwiftMap`} />
       <meta property="og:description" content={description} />
     </Helmet>
   );

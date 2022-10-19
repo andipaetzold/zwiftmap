@@ -44,6 +44,7 @@ app.get("/strava/webhook", nocache(), handlers.handleWebhookVerification);
 
 app.get("/events", handlers.handleGETEvents);
 app.get("/events/:eventId", handlers.handleGETEvent);
+app.get("/events/:eventId/:subgroupId/workout", handlers.handleGetEventWorkout);
 app.get("/events/:eventId/workout", handlers.handleGetEventWorkout);
 
 app.post("/share", nocache(), handlers.handleCreateShare);

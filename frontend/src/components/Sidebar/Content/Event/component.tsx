@@ -20,27 +20,31 @@ interface Props {
 }
 
 export default function EventComponent({ event, state }: Props) {
+  const subgroup =
+    event.eventSubgroups.find((g) => g.subgroupLabel === state.subgroupLabel) ??
+    event.eventSubgroups[0];
+
   return (
     <>
-      <EventHelmet event={event} />
-      <EventSchema event={event} />
+      <EventHelmet subgroup={subgroup} />
+      <EventSchema event={event} subgroup={subgroup} />
 
       <EventImage event={event} />
 
       <SimpleListItem>
         <Typography type="headline-6" style={{ margin: 0 }}>
-          {event.name}
+          {subgroup.name || event.name}
         </Typography>
       </SimpleListItem>
 
       <EventSubgroupSelector event={event} state={state} />
 
-      <EventFacts event={event} />
-      <EventPowerUps event={event} />
-      <EventWorkoutChart event={event} />
-      <EventTimeTrial event={event} />
-      <EventRules event={event} />
-      <EventKit event={event} />
+      <EventFacts event={event} subgroup={subgroup} />
+      <EventPowerUps event={event} subgroup={subgroup} />
+      <EventWorkoutChart event={event} subgroup={subgroup} />
+      <EventTimeTrial event={event} subgroup={subgroup} />
+      <EventRules event={event} subgroup={subgroup} />
+      <EventKit subgroup={subgroup} />
       <EventLinks event={event} />
     </>
   );

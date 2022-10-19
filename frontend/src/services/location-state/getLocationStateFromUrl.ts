@@ -229,6 +229,7 @@ function getLegacyStateWithWorld(
       world: null,
       type: "event",
       eventId: +searchParams.get("event")!,
+      subgroupLabel: null, // Subgroups were not supported in legacy
     };
   }
 

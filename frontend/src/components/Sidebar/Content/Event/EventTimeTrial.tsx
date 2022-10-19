@@ -1,12 +1,13 @@
 import { ListSubheader, SimpleListItem } from "@react-md/list";
-import { ZwiftEvent } from "../../../../types";
+import { EventSubgroup, ZwiftEvent } from "../../../../types";
 
 interface Props {
   event: ZwiftEvent;
+  subgroup: EventSubgroup;
 }
 
-export function EventTimeTrial({ event }: Props) {
-  if (event.eventType !== "TIME_TRIAL" || !event.timeTrialOptions) {
+export function EventTimeTrial({ event, subgroup }: Props) {
+  if (event.eventType !== "TIME_TRIAL" || !subgroup.timeTrialOptions) {
     return null;
   }
 
@@ -15,12 +16,12 @@ export function EventTimeTrial({ event }: Props) {
       <ListSubheader>Time Trial</ListSubheader>
 
       <SimpleListItem>
-        Row gap: {event.timeTrialOptions.timeGapBetweenRowsMs / 1_000}s
+        Row gap: {subgroup.timeTrialOptions.timeGapBetweenRowsMs / 1_000}s
       </SimpleListItem>
       <SimpleListItem>
         Rider Limit:{" "}
-        {event.timeTrialOptions.maxRidersPerRow *
-          event.timeTrialOptions.maxRows}
+        {subgroup.timeTrialOptions.maxRidersPerRow *
+          subgroup.timeTrialOptions.maxRows}
       </SimpleListItem>
     </>
   );

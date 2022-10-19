@@ -156,4 +156,5 @@ export type Type =
 
 export enum PaceType {
   WKG = 1,
+  KPH = 2
 }

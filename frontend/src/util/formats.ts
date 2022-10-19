@@ -1,7 +1,7 @@
 import { isAfter } from "date-fns";
 import parseISO from "date-fns/parseISO";
 import subDays from "date-fns/subDays";
-import { ZwiftEvent } from "../types";
+import { EventSubgroup, ZwiftEvent } from "../types";
 
 export const FORMAT_SHORT = new Intl.DateTimeFormat("en-US", {
   hour: "2-digit",
@@ -19,6 +19,15 @@ export const FORMAT_LONG = new Intl.DateTimeFormat("en-US", {
 
 export function formatEventStart(event: ZwiftEvent): string {
   const startDate = parseISO(event.eventStart);
+  if (isAfter(startDate, subDays(new Date(), 1))) {
+    return FORMAT_SHORT.format(startDate);
+  } else {
+    return FORMAT_LONG.format(startDate);
+  }
+}
+
+export function formatEventSubgroupStart(subgroup: EventSubgroup): string {
+  const startDate = parseISO(subgroup.eventSubgroupStart);
   if (isAfter(startDate, subDays(new Date(), 1))) {
     return FORMAT_SHORT.format(startDate);
   } else {

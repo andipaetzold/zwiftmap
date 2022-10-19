@@ -1,13 +1,14 @@
 import { ListSubheader, SimpleListItem } from "@react-md/list";
 import { EVENT_RULES } from "../../../../services/events";
-import { ZwiftEvent } from "../../../../types";
+import { EventSubgroup, ZwiftEvent } from "../../../../types";
 
 interface Props {
   event: ZwiftEvent;
+  subgroup: EventSubgroup;
 }
 
-export function EventRules({ event }: Props) {
-  if (event.rulesSet.length === 0 && !event.categoryEnforcement) {
+export function EventRules({ event, subgroup }: Props) {
+  if (subgroup.rulesSet.length === 0 && !event.categoryEnforcement) {
     return null;
   }
 
@@ -18,7 +19,7 @@ export function EventRules({ event }: Props) {
       {event.categoryEnforcement && (
         <SimpleListItem>Category enforced</SimpleListItem>
       )}
-      {event.rulesSet.map((rule) => (
+      {subgroup.rulesSet.map((rule) => (
         <SimpleListItem key={rule}>{EVENT_RULES[rule]}</SimpleListItem>
       ))}
     </>

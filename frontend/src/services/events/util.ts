@@ -1,13 +1,22 @@
 import range from "lodash-es/range";
 import { Route, routes, World, worlds } from "zwift-data";
-import { DistanceStream, EventSubgroup, PaceType, ZwiftEvent } from "../../types";
+import {
+  DistanceStream,
+  EventSubgroup,
+  PaceType,
+  ZwiftEvent,
+} from "../../types";
 
-export function getWorldFromEvent(event: ZwiftEvent): World | undefined {
+export function getWorldFromEvent(
+  event: ZwiftEvent | EventSubgroup
+): World | undefined {
   const route = routes.find((r) => r.id === event.routeId);
   return worlds.find((w) => w.slug === route?.world || w.id === event.mapId);
 }
 
-export function getRouteFromEvent(event: ZwiftEvent | EventSubgroup): Route | undefined {
+export function getRouteFromEvent(
+  event: ZwiftEvent | EventSubgroup
+): Route | undefined {
   return routes.find((r) => r.id === event.routeId);
 }
 
@@ -46,7 +55,9 @@ export function adjustStreamForEvent<T>(
   return adjustedStream;
 }
 
-export function getEventDistance(event: ZwiftEvent): number | undefined {
+export function getEventDistance(
+  event: ZwiftEvent | EventSubgroup
+): number | undefined {
   const route = getRouteFromEvent(event);
 
   if (event.distanceInMeters) {
@@ -56,7 +67,9 @@ export function getEventDistance(event: ZwiftEvent): number | undefined {
   }
 }
 
-export function getEventElevation(event: ZwiftEvent): number | undefined {
+export function getEventElevation(
+  event: ZwiftEvent | EventSubgroup
+): number | undefined {
   const route = getRouteFromEvent(event);
   if (route && event.laps > 0) {
     return event.laps * route.elevation + (route.leadInElevation ?? 0);
@@ -91,17 +104,15 @@ export function formatEventPace(
   from: number,
   to: number
 ): string | undefined {
-  if (type !== PaceType.WKG) {
-    return;
-  }
+  const unit = type === PaceType.WKG ? "W/kg" : "km/h"; // TODO: display mph
 
   if (from === to) {
-    return `${PACE_NUMER_FORMAT.format(from)} W/kg`;
+    return `${PACE_NUMER_FORMAT.format(from)} ${unit}`;
   } else {
     // TODO: use formatRange once supported
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/formatRange
     return `${PACE_NUMER_FORMAT.format(from)} – ${PACE_NUMER_FORMAT.format(
       to
-    )} W/kg`;
+    )} ${unit}`;
   }
 }

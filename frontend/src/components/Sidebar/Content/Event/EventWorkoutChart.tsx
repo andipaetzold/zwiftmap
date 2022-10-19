@@ -1,13 +1,14 @@
 import { SimpleListItem } from "@react-md/list";
 import { useState } from "react";
 import { BACKEND_HOST } from "../../../../config";
-import { ZwiftEvent } from "../../../../types";
+import { EventSubgroup, ZwiftEvent } from "../../../../types";
 
 interface Props {
   event: ZwiftEvent;
+  subgroup: EventSubgroup;
 }
 
-export function EventWorkoutChart({ event }: Props) {
+export function EventWorkoutChart({ event, subgroup }: Props) {
   const [error, setError] = useState(false);
 
   if (error) {
@@ -18,7 +19,10 @@ export function EventWorkoutChart({ event }: Props) {
     return null;
   }
 
-  const url = new URL(`/events/${event.id}/workout`, BACKEND_HOST);
+  const url = new URL(
+    `/events/${event.id}/${subgroup.subgroupLabel}/workout`,
+    BACKEND_HOST
+  );
   return (
     <SimpleListItem>
       <img

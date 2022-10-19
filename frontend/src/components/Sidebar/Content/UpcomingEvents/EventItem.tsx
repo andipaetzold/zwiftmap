@@ -38,6 +38,7 @@ export function EventItem({ state, event }: Props) {
         type: "event",
         world: WORLDS_BY_SLUG[route.world],
         eventId: event.id,
+        subgroupLabel: null,
       }}
       onClick={() => setHoverState(undefined)}
       onMouseEnter={() => {

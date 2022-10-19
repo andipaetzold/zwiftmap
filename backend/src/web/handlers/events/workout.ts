@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Request, Response } from "express";
 import { X2jOptionsOptional, XMLParser } from "fast-xml-parser";
-import { Record } from "runtypes";
+import { Record, String } from "runtypes";
 import { create } from "xmlbuilder2";
 import { getEvent } from "../../../shared/events/index.js";
 import { NumberString } from "../../../shared/runtypes.js";
@@ -27,6 +27,7 @@ const parser = new XMLParser(parserOptions);
 
 const paramsRunType = Record({
   eventId: NumberString,
+  subGroupId: String.optional(),
 });
 
 export async function handleGetEventWorkout(req: Request, res: Response) {
@@ -48,9 +49,10 @@ export async function handleGetEventWorkout(req: Request, res: Response) {
   }
 
   const workoutUrl =
-    event.customUrl !== ""
-      ? event.customUrl
-      : event.eventSubgroups[0].customUrl;
+    event.eventSubgroups.find((g) => g.subgroupLabel === req.params.subgroupId)
+      ?.customUrl ??
+    event.eventSubgroups[0].customUrl ??
+    event.customUrl;
 
   if (!workoutUrl) {
     res.sendStatus(404);

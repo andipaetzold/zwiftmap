@@ -6,7 +6,11 @@ import { getStravaActivity } from "../StravaActivityRepository";
 import { getEvent, getShare } from "../zwiftMapApi";
 import { getKeyFromLocationState } from "./getKeyFromLocationState";
 import { getLocationStateFromUrl } from "./getLocationStateFromUrl";
-import { LocationState, LocationStateWithKey } from "./types";
+import {
+  LocationState,
+  LocationStateUpcomingEvent,
+  LocationStateWithKey,
+} from "./types";
 
 export type Listener = (newState: LocationStateWithKey) => void;
 const listeners: Listener[] = [];
@@ -54,7 +58,12 @@ async function fetchWorld() {
       case "event": {
         const event = await getEvent(state.eventId);
         if (isEqual(stateBefore, state)) {
-          const world = getWorldFromEvent(event);
+          const subgroupLabel = state.subgroupLabel;
+          const subgroup =
+            event.eventSubgroups.find(
+              (g) => g.subgroupLabel === subgroupLabel
+            ) ?? event.eventSubgroups[0];
+          const world = getWorldFromEvent(subgroup);
 
           if (world) {
             setLocationState({ ...state, world });
