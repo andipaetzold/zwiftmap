@@ -7,7 +7,7 @@ interface Props {
 }
 
 export function EventRules({ event }: Props) {
-  if (event.rulesSet.length === 0) {
+  if (event.rulesSet.length === 0 && !event.categoryEnforcement) {
     return null;
   }
 
@@ -15,6 +15,9 @@ export function EventRules({ event }: Props) {
     <>
       <ListSubheader>Rules</ListSubheader>
 
+      {event.categoryEnforcement && (
+        <SimpleListItem>Category enforced</SimpleListItem>
+      )}
       {event.rulesSet.map((rule) => (
         <SimpleListItem key={rule}>{EVENT_RULES[rule]}</SimpleListItem>
       ))}

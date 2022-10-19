@@ -56,6 +56,7 @@ export interface ZwiftEvent {
   recordable: boolean;
   imported: boolean;
   eventTemplateId: null;
+  categoryEnforcement: boolean;
   eventType: ZwiftEventType;
 }
 
