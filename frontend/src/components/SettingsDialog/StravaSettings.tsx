@@ -101,10 +101,10 @@ export function StravaSettings() {
         <Typography type="body-1" component="div">
           <ol>
             <li>
-              New activities are stored on ZwiftMap servers. The data won't be
-              deleted when you revoke ZwiftMap's access to your Strava account
-              to ensure the links stay valid. If you still want to remove all
-              your data, please reach out to{" "}
+              New activities are stored on ZwiftMap servers. The data won&apos;t
+              be deleted when you revoke ZwiftMap&apos;s access to your Strava
+              account to ensure the links stay valid. If you still want to
+              remove all your data, please reach out to{" "}
               <Link href="mailto:support@zwiftmap.com">
                 support@zwiftmap.com
               </Link>
@@ -113,9 +113,9 @@ export function StravaSettings() {
             </li>
             <li>
               New activities are stored on ZwiftMap servers. They will be
-              deleted automatically when you revoke ZwiftMap's access to your
-              Strava account. The persisted data is not accessible by any other
-              person.
+              deleted automatically when you revoke ZwiftMap&apos;s access to
+              your Strava account. The persisted data is not accessible by any
+              other person.
             </li>
           </ol>
         </Typography>
