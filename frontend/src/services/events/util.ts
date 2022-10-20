@@ -4,6 +4,7 @@ import {
   DistanceStream,
   EventSubgroup,
   PaceType,
+  Units,
   ZwiftEvent,
 } from "../../types";
 
@@ -83,7 +84,8 @@ const PACE_NUMER_FORMAT = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 1,
 });
 export function getEventPaceRangeAsString(
-  event: ZwiftEvent
+  event: ZwiftEvent,
+  units: Units
 ): string | undefined {
   if (event.eventSubgroups.length === 0) {
     return;
@@ -98,24 +100,29 @@ export function getEventPaceRangeAsString(
   );
   const paceTo = Math.max(...event.eventSubgroups.map((g) => g.toPaceValue));
 
-  return formatEventPace(PaceType.WKG, paceFrom, paceTo);
+  return formatEventPace(PaceType.WKG, paceFrom, paceTo, units);
 }
 
 export function formatEventPace(
   type: PaceType,
   from: number,
-  to: number
+  to: number,
+  units: Units
 ): string | undefined {
-  const unit = type === PaceType.WKG ? "W/kg" : "km/h"; // TODO: display mph
+  const unit =
+    type === PaceType.WKG ? "W/kg" : units === "imperial" ? "mp/h" : "km/h";
+
+  const fromConverted = units === "imperial" ? from / 1.609 : from;
+  const toConverted = units === "imperial" ? to / 1.609 : to;
 
   if (from === to) {
-    return `${PACE_NUMER_FORMAT.format(from)} ${unit}`;
+    return `${PACE_NUMER_FORMAT.format(fromConverted)} ${unit}`;
   } else {
     // TODO: use formatRange once supported
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/formatRange
-    return `${PACE_NUMER_FORMAT.format(from)} – ${PACE_NUMER_FORMAT.format(
-      to
-    )} ${unit}`;
+    return `${PACE_NUMER_FORMAT.format(
+      fromConverted
+    )} – ${PACE_NUMER_FORMAT.format(toConverted)} ${unit}`;
   }
 }
 

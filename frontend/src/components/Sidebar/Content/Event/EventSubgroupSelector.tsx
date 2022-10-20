@@ -117,7 +117,8 @@ function getDifference(
     return formatEventPace(
       group.paceType,
       group.fromPaceValue,
-      group.toPaceValue
+      group.toPaceValue,
+      units
     );
   } else if (differentRoute) {
     return getRouteFromEvent(group)?.name ?? null;

@@ -1,5 +1,6 @@
 import round from "lodash-es/round";
 import { routes, worlds } from "zwift-data";
+import { useSettings } from "../../hooks/useSettings";
 import { EVENT_TYPES, getEventPaceRangeAsString } from "../../services/events";
 import { ZwiftEvent } from "../../types";
 import { formatEventStart } from "../../util/formats";
@@ -13,10 +14,11 @@ interface Props {
 export function EventInfo({ event, showWorld = false }: Props) {
   const worldSlug = routes.find((r) => r.id === event.routeId)?.world;
   const world = worlds.find((w) => w.slug === worldSlug);
+  const units = useSettings((state) => state.units);
 
   const type = EVENT_TYPES[event.eventType] ?? event.eventType;
   const content = getEventContent(event);
-  const paceRange = getEventPaceRangeAsString(event);
+  const paceRange = getEventPaceRangeAsString(event, units);
 
   return (
     <>

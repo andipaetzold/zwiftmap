@@ -11,6 +11,7 @@ import {
   TimerSVGIcon,
 } from "@react-md/material-icons";
 import round from "lodash-es/round";
+import { useSettings } from "../../../../hooks/useSettings";
 import {
   EVENT_TYPES,
   formatEventPace,
@@ -33,13 +34,15 @@ interface Props {
 export function EventFacts({ event, subgroup }: Props) {
   const route = getRouteFromEvent(subgroup);
   const world = getWorldFromEvent(subgroup);
+  const units = useSettings((state) => state.units);
 
   const distance = getEventDistance(subgroup);
   const elevation = getEventElevation(subgroup);
   const paceRange = formatEventPace(
     subgroup.paceType,
     subgroup.fromPaceValue,
-    subgroup.toPaceValue
+    subgroup.toPaceValue,
+    units
   );
 
   return (
