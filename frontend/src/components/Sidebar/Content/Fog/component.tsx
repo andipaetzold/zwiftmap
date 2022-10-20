@@ -1,15 +1,11 @@
-import { TextIconSpacing } from "@react-md/icon";
 import { List, SimpleListItem } from "@react-md/list";
 import {
   CloudQueueSVGIcon,
-  ListSVGIcon,
   MapSVGIcon,
   SpaceBarSVGIcon,
 } from "@react-md/material-icons";
-import { Typography } from "@react-md/typography";
 import { useWorldUserFog } from "../../../../react-query";
 import { LocationStateFog } from "../../../../services/location-state";
-import { ButtonState } from "../../../ButtonState";
 import { Distance } from "../../../Distance";
 import { LoadingSpinner } from "../../../Loading";
 
@@ -23,32 +19,11 @@ interface Props {
   state: LocationStateFog;
 }
 
-/**
- * TODO: helmet
- */
-export default function Fog({ state }: Props) {
+export function FogComponent({ state }: Props) {
   const { data } = useWorldUserFog(state.world.slug);
 
   return (
     <List>
-      <SimpleListItem>
-        <ButtonState
-          themeType="outline"
-          query=""
-          state={{
-            world: state.world,
-            type: "default",
-          }}
-        >
-          <TextIconSpacing icon={<ListSVGIcon />}>Route List</TextIconSpacing>
-        </ButtonState>
-      </SimpleListItem>
-
-      <SimpleListItem>
-        <Typography type="headline-6" style={{ margin: 0 }}>
-          Fog of Zwift
-        </Typography>
-      </SimpleListItem>
       <SimpleListItem leftAddon={<CloudQueueSVGIcon />}>
         {data !== undefined ? (
           <>
