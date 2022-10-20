@@ -9,4 +9,6 @@ export const queries = {
   worldRoadsBuffered: (world: WorldSlug) =>
     ["worlds", world, "roads-buffered"] as const,
   worldUserFog: (world: WorldSlug) => ["worlds", world, "fog"] as const,
+  worldUserFogGeoJSON: (world: WorldSlug) =>
+    ["worlds", world, "fog", "geojson"] as const,
 };

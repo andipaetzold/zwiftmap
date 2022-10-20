@@ -1,5 +1,5 @@
 import { GeoJSON, Rectangle } from "react-leaflet";
-import { useWorldUserFogGeoJSON } from "../../react-query/useWorldUserFogGeoJSON";
+import { useWorldUserFogGeoJSON } from "../../react-query";
 import { LocationStateFog } from "../../services/location-state";
 
 const PATH_OPTIONS = { color: "black", stroke: false, fillOpacity: 0.5 };

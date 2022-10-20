@@ -120,6 +120,12 @@ export async function getEvent(eventId: number): Promise<ZwiftEvent> {
   return await request<ZwiftEvent>(`${BACKEND_HOST}/events/${eventId}`);
 }
 
+export async function getWorldUserFog(world: WorldSlug): Promise<unknown> {
+  return await request(`${BACKEND_HOST}/worlds/${world}/fog`, {
+    ...DEFAULT_INIT,
+  });
+}
+
 export async function getWorldUserFogGeoJSON(
   world: WorldSlug
 ): Promise<Feature<Polygon | MultiPolygon>> {
