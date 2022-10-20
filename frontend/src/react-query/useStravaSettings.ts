@@ -27,7 +27,6 @@ export function useStravaSettings(): [
   const { mutate } = useMutation(updateStravaSettings, {
     onSuccess: () => queryClient.invalidateQueries(queries.authStravaSettings),
   });
-  console.log(stravaSettings);
 
   return [stravaSettings ?? null, mutate];
 }
