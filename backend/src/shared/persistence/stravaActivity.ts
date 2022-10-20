@@ -1,4 +1,7 @@
-import { DocumentReference } from "@google-cloud/firestore";
+import {
+  CollectionReference,
+  DocumentReference,
+} from "@google-cloud/firestore";
 import { DetailedActivity } from "../services/strava/index.js";
 import {
   STRAVA_ACTIVITIES_COLLECTION_NAME,
@@ -6,12 +9,19 @@ import {
 } from "./constants.js";
 import { firestore } from "./firestore.js";
 
-function getDoc(athleteId: number, activityId: number) {
+function getCollection(athleteId: number) {
   return firestore
     .collection(STRAVA_ATHLETES_COLLECTION_NAME)
     .doc(athleteId.toString())
-    .collection(STRAVA_ACTIVITIES_COLLECTION_NAME)
-    .doc(activityId.toString()) as DocumentReference<DetailedActivity>;
+    .collection(
+      STRAVA_ACTIVITIES_COLLECTION_NAME
+    ) as CollectionReference<DetailedActivity>;
+}
+
+function getDoc(athleteId: number, activityId: number) {
+  return getCollection(athleteId).doc(
+    activityId.toString()
+  ) as DocumentReference<DetailedActivity>;
 }
 
 export async function writeStravaActivity(
@@ -28,6 +38,14 @@ export async function readStravaActivity(
   const doc = getDoc(athleteId, activityId);
   const snap = await doc.get();
   return snap.data();
+}
+
+export async function readStravaActivities(
+  athleteId: number
+): Promise<DetailedActivity[]> {
+  const collection = getCollection(athleteId);
+  const snap = await collection.get();
+  return snap.docs.map((doc) => doc.data());
 }
 
 export async function removeStravaActivity(
