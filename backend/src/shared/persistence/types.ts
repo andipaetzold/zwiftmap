@@ -3,6 +3,7 @@ import { DetailedActivity, StreamSet } from "../services/strava/index.js";
 
 export const StravaAthleteSchema = Record({
   addLinkToActivityDescription: Boolean,
+  persistActivities: Boolean,
 });
 
 export type StravaAthlete = Static<typeof StravaAthleteSchema>;

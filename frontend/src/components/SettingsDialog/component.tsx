@@ -8,8 +8,10 @@ import {
 } from "@react-md/dialog";
 import { Select } from "@react-md/form";
 import { ArrowDropDownSVGIcon } from "@react-md/material-icons";
+import { useId } from "react";
 import { useSettings } from "../../hooks/useSettings";
 import { StravaSettings } from "./StravaSettings";
+import styles from './styles.module.scss'
 
 interface Props {
   onClose: () => void;
@@ -20,10 +22,12 @@ export default function SettingsDialog({ onClose }: Props) {
 
   return (
     <Dialog
-      id="settings-dialog"
+      id={useId()}
       aria-labelledby="settings-dialog-title"
       visible={true}
       onRequestClose={onClose}
+      type="centered"
+      className={styles.Dialog}
     >
       <DialogHeader style={{ paddingBottom: 0 }}>
         <DialogTitle id="settings-dialog-title">Settings</DialogTitle>

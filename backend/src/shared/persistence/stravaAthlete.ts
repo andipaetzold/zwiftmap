@@ -6,6 +6,7 @@ import { StravaAthlete } from "./types.js";
 
 const DEFAULT_STRAVA_ATHLETE = Object.freeze<StravaAthlete>({
   addLinkToActivityDescription: false,
+  persistActivities: false,
 });
 
 const collection = firestore
@@ -17,6 +18,8 @@ const collection = firestore
         addLinkToActivityDescription:
           data.addLinkToActivityDescription ??
           DEFAULT_STRAVA_ATHLETE.addLinkToActivityDescription,
+        persistActivities:
+          data.persistActivities ?? DEFAULT_STRAVA_ATHLETE.persistActivities,
       };
     },
     toFirestore: identity,

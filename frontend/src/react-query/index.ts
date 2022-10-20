@@ -10,5 +10,6 @@ export * from "./useStravaSegment";
 export * from "./useStravaSegmentStream";
 export * from "./useStravaSegmentStreams";
 export * from "./useStravaSettings";
+export * from "./useUpdateStravaSettings";
 export * from "./useWorkerNavigate";
 export * from "./useWorldRoads";
