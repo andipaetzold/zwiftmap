@@ -5,22 +5,22 @@ import difference from "@turf/difference";
 import { Feature, lineString, MultiPolygon, Polygon } from "@turf/helpers";
 import { Request, Response } from "express";
 import { Record, String } from "runtypes";
-import { readStravaActivities } from "../../../shared/persistence/stravaActivity.js";
+import { readStravaActivities } from "../../../../shared/persistence/stravaActivity.js";
 import { World, worlds } from "zwift-data";
-import { latLngToPosition } from "../../../shared/browser/coordinates.js";
+import { latLngToPosition } from "../../../../shared/browser/coordinates.js";
 import {
   DetailedActivity,
   isStravaBetaUser,
-} from "../../../shared/services/strava/index.js";
-import { getWorld } from "../../../shared/util.js";
-import { Session } from "../../types.js";
+} from "../../../../shared/services/strava/index.js";
+import { getWorld } from "../../../../shared/util.js";
+import { Session } from "../../../types.js";
 
 const slugs = worlds.map((w) => w.slug as string);
 const paramsRunType = Record({
   worldSlug: String.withConstraint((worldSlug) => slugs.includes(worldSlug)),
 });
 
-export async function handleGETWorldFog(req: Request, res: Response) {
+export async function handleGETWorldFogGeoJSON(req: Request, res: Response) {
   if (!paramsRunType.guard(req.params)) {
     res.sendStatus(400);
     return;

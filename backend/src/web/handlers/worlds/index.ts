@@ -1,1 +1,1 @@
-export * from "./fog.js";
+export * from "./fog/geojson.js";
