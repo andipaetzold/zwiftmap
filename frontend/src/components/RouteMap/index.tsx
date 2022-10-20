@@ -43,6 +43,11 @@ export default function RouteMap() {
               type: "custom-route",
               points: [null, null],
             });
+          } else if (state.type === "fog") {
+            navigate({
+              world: newWorld,
+              type: "fog",
+            });
           } else {
             navigate({
               world: newWorld,
