@@ -51,6 +51,7 @@ export function EventSubgroupSelector({ event, state }: Props) {
         id={id}
         dense
         className={styles.Select}
+        listboxStyle={{ zIndex: 6000 }}
         name="subgroup"
         label="Group"
         value={state.subgroupLabel ?? event.eventSubgroups[0].subgroupLabel}
