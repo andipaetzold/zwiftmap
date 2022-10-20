@@ -10,6 +10,7 @@ import { Route } from "zwift-data";
 import { WORLDS_BY_SLUG } from "../../../../constants";
 import { useSettings } from "../../../../hooks/useSettings";
 import { useEvents } from "../../../../react-query";
+import { EventSubgroup, ZwiftEvent } from "../../../../types";
 import { EventInfo } from "../../../EventInfo";
 import { ListItemState } from "../../../ListItemState";
 import { LoadingSpinnerListItem } from "../../../Loading";
@@ -23,20 +24,26 @@ export function RouteEvents({ route }: Props) {
   const sport = useSettings((state) => state.sport);
 
   const filteredEvents = useMemo(() => {
-    if (!events) {
+    if (!events || !route.id) {
       return;
     }
 
     return events
       .filter((e) => e.sport.toLowerCase() === sport)
-      .filter((event) => {
-        const eventRouteIds = [
-          event.routeId,
-          ...event.eventSubgroups.map((esg) => esg.routeId),
-        ];
+      .map((event) => {
+        const subgroup = event.eventSubgroups.find(
+          (esg) => esg.routeId === route.id
+        );
+        if (!subgroup) {
+          return null;
+        }
 
-        return route.id && eventRouteIds.includes(route.id);
+        return {
+          ...event,
+          subgroup,
+        };
       })
+      .filter((e): e is ZwiftEvent & { subgroup: EventSubgroup } => e !== null)
       .sort((a, b) => a.eventStart.localeCompare(b.eventStart));
   }, [events, route, sport]);
 
@@ -81,7 +88,7 @@ export function RouteEvents({ route }: Props) {
             type: "event",
             world: WORLDS_BY_SLUG[route.world],
             eventId: event.id,
-            subgroupLabel: null,
+            subgroupLabel: event.subgroup.subgroupLabel,
           }}
           secondaryText={<EventInfo event={event} />}
           threeLines
