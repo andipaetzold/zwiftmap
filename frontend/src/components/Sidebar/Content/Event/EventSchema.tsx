@@ -8,11 +8,12 @@ import { createUrl } from "../../../../services/location-state";
 import { EventSubgroup, ZwiftEvent } from "../../../../types";
 
 interface Props {
+  name: string;
   event: ZwiftEvent;
   subgroup: EventSubgroup;
 }
 
-export function EventSchema({ event, subgroup }: Props) {
+export function EventSchema({ name, event, subgroup }: Props) {
   const world = getWorldFromEvent(subgroup);
 
   if (!world) {
@@ -33,7 +34,7 @@ export function EventSchema({ event, subgroup }: Props) {
     disambiguatingDescription: event.shortDescription
       ? event.shortDescription
       : undefined,
-    name: subgroup.name || event.name,
+    name,
     alternateName: event.shortName ?? undefined,
     description: subgroup.description || event.description,
     url: new URL(

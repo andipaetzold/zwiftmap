@@ -23,16 +23,19 @@ interface Props {
 export default function EventComponent({ event, state }: Props) {
   const subgroup = getSubgroupFromEvent(event, state.subgroupLabel);
 
+  const name =
+    event.eventSubgroups.length > 1 ? subgroup.name || event.name : event.name;
+
   return (
     <>
-      <EventHelmet subgroup={subgroup} />
-      <EventSchema event={event} subgroup={subgroup} />
+      <EventHelmet name={name} subgroup={subgroup} />
+      <EventSchema name={name} event={event} subgroup={subgroup} />
 
       <EventImage event={event} />
 
       <SimpleListItem>
         <Typography type="headline-6" style={{ margin: 0 }}>
-          {subgroup.name || event.name}
+          {name}
         </Typography>
       </SimpleListItem>
 
