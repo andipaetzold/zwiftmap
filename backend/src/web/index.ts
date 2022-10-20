@@ -51,6 +51,7 @@ app.post("/share", nocache(), handlers.handleCreateShare);
 app.get("/share/:shareId", handlers.handleGetShare);
 app.get("/share/:shareId/image", handlers.handleGETShareImage);
 
+app.get("/worlds/:worldSlug/fog", handlers.handleGETWorldFogStats);
 app.get("/worlds/:worldSlug/fog/geojson", handlers.handleGETWorldFogGeoJSON);
 
 app.use(Sentry.Handlers.errorHandler());

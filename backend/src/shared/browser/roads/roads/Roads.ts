@@ -1,8 +1,8 @@
 import { lineString, lineString as turfLineString } from "@turf/helpers";
+// @ts-expect-error Broken types
 import turfNearestPointOnLine from "@turf/nearest-point-on-line";
-import minBy from "lodash-es/minBy";
-import round from "lodash-es/round";
-import { LatLng, LatLngAlt, SnappedPoint } from "../types";
+import { minBy, round } from "lodash-es";
+import { LatLng, LatLngAlt, SnappedPoint } from "../types.js";
 
 export class Roads {
   #nodes = new Set<RoadsNode>();

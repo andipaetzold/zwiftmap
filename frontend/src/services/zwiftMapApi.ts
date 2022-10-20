@@ -120,7 +120,12 @@ export async function getEvent(eventId: number): Promise<ZwiftEvent> {
   return await request<ZwiftEvent>(`${BACKEND_HOST}/events/${eventId}`);
 }
 
-export async function getWorldUserFog(world: WorldSlug): Promise<unknown> {
+export async function getWorldUserFog(world: WorldSlug): Promise<{
+  activityDistance: number;
+  activityCount: number;
+  worldDistance: number;
+  unlockedDistance: number;
+}> {
   return await request(`${BACKEND_HOST}/worlds/${world}/fog`, {
     ...DEFAULT_INIT,
   });

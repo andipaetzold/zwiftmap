@@ -1,4 +1,4 @@
-import { RoadsEdge } from "./roads";
+import { RoadsEdge } from "./roads/index.js";
 
 export type LatLng = [latitude: number, longitude: number];
 export type LatLngAlt = [latitude: number, longitude: number, altitude: number];

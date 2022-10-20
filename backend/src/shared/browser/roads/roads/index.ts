@@ -8,7 +8,7 @@ import makuriIslands from "./makuri-islands/index.js";
 import newYork from "./new-york/index.js";
 import paris from "./paris/index.js";
 import richmond from "./richmond/index.js";
-import { Roads } from "./Roads";
+import { Roads } from "./Roads.js";
 import watopia from "./watopia/index.js";
 import yorkshire from "./yorkshire/index.js";
 export * from "./Roads.js";
