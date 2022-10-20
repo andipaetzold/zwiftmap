@@ -22,5 +22,5 @@ export function Elevation({ elevation, label = "Elevation" }: Props) {
       text = `${formatNoDigits.format(elevation)}m`;
       break;
   }
-  return <span aria-label={`${label}: ${text}`}>{text}</span>;
+  return <span title={`${label}: ${text}`}>{text}</span>;
 }

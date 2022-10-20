@@ -21,7 +21,7 @@ interface Props {
 export function Distance({ distance, label = "Distance" }: Props) {
   const units = useSettings((state) => state.units);
   const text = formatDistance(distance, units);
-  return <span aria-label={`${label}: ${text}`}>{text}</span>;
+  return <span title={`${label}: ${text}`}>{text}</span>;
 }
 
 export function formatDistance(distance: number, units: Units): string {
