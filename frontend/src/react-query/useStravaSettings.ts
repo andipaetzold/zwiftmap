@@ -5,8 +5,7 @@ import {
   updateStravaSettings,
 } from "../services/zwiftMapApi";
 import { StravaSettings } from "../types";
-
-const queryKey = ["auth", "strava-settings"];
+import { queries } from "./queryKeys";
 
 export function useStravaSettings(): [
   StravaSettings | null,
@@ -16,15 +15,19 @@ export function useStravaSettings(): [
 
   const queryClient = useQueryClient();
   const { data: stravaSettings } = useQuery(
-    ["auth", "strava-settings"],
+    queries.authStravaSettings,
     async () => {
-      return await getStravaSettings();
-    },
-    { enabled: isLoggedInStrava === true }
+      if (isLoggedInStrava) {
+        return await getStravaSettings();
+      } else {
+        return null;
+      }
+    }
   );
   const { mutate } = useMutation(updateStravaSettings, {
-    onSuccess: () => queryClient.invalidateQueries(queryKey),
+    onSuccess: () => queryClient.invalidateQueries(queries.authStravaSettings),
   });
+  console.log(stravaSettings);
 
   return [stravaSettings ?? null, mutate];
 }

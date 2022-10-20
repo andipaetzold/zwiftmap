@@ -10,7 +10,7 @@ export function useAuthLogout() {
     },
     {
       onSuccess: async () => {
-        await queryClient.invalidateQueries(queries.authStatus);
+        await queryClient.invalidateQueries(queries.authStatus)
       },
     }
   );
