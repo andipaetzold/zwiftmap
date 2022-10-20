@@ -10,7 +10,7 @@ type Context = QueryFunctionContext<QueryKey>;
 const queryFn = async ({ queryKey: [, world] }: Context) =>
 getWorldUserFogGeoJSON(world);
 
-export function useWorldUserFog(world: WorldSlug) {
+export function useWorldUserFogGeoJSON(world: WorldSlug) {
   const isLoggedIn = useIsLoggedInStrava();
   return useQuery(queries.worldUserFog(world), queryFn, {
     staleTime: Infinity,
