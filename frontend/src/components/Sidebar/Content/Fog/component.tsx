@@ -85,6 +85,16 @@ export default function Fog({ state }: Props) {
         aria-label={`World: ${state.world.name}`}
       >
         {state.world.name}
+        {data !== undefined && (
+          <>
+            &nbsp;(
+            <Distance
+              label={`Available roads in ${state.world.name}`}
+              distance={data.worldDistance / 1_000}
+            />
+            )
+          </>
+        )}
       </SimpleListItem>
     </List>
   );
