@@ -2,6 +2,8 @@ import {
   CollectionReference,
   DocumentReference,
 } from "@google-cloud/firestore";
+import { getWorld } from "shared/util.js";
+import { WorldSlug } from "zwift-data";
 import { DetailedActivity } from "../services/strava/index.js";
 import {
   STRAVA_ACTIVITIES_COLLECTION_NAME,
@@ -9,32 +11,44 @@ import {
 } from "./constants.js";
 import { firestore } from "./firestore.js";
 
+export interface StravaActivity extends DetailedActivity {
+  zwift: {
+    world: WorldSlug;
+  };
+}
+
 function getCollection(athleteId: number) {
   return firestore
     .collection(STRAVA_ATHLETES_COLLECTION_NAME)
     .doc(athleteId.toString())
     .collection(
       STRAVA_ACTIVITIES_COLLECTION_NAME
-    ) as CollectionReference<DetailedActivity>;
+    ) as CollectionReference<StravaActivity>;
 }
 
 function getDoc(athleteId: number, activityId: number) {
   return getCollection(athleteId).doc(
     activityId.toString()
-  ) as DocumentReference<DetailedActivity>;
+  ) as DocumentReference<StravaActivity>;
 }
 
 export async function writeStravaActivity(
   athleteId: number,
   activity: DetailedActivity
 ) {
-  await getDoc(athleteId, activity.id).set(activity);
+  const world = getWorld(activity)!;
+  await getDoc(athleteId, activity.id).set({
+    ...activity,
+    zwift: {
+      world: world.slug,
+    },
+  });
 }
 
 export async function readStravaActivity(
   athleteId: number,
   activityId: number
-): Promise<DetailedActivity | undefined> {
+): Promise<StravaActivity | undefined> {
   const doc = getDoc(athleteId, activityId);
   const snap = await doc.get();
   return snap.data();
@@ -42,7 +56,7 @@ export async function readStravaActivity(
 
 export async function readStravaActivities(
   athleteId: number
-): Promise<DetailedActivity[]> {
+): Promise<StravaActivity[]> {
   const collection = getCollection(athleteId);
   const snap = await collection.get();
   return snap.docs.map((doc) => doc.data());
