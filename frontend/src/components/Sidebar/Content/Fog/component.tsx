@@ -9,6 +9,7 @@ import { LocationStateFog } from "../../../../services/location-state";
 import { Distance } from "../../../Distance";
 import { LoadingSpinner } from "../../../Loading";
 import { EnableActivityPersistence } from "./EnableActivityPersistence";
+import { Info } from "./Info";
 
 const percentFormat = new Intl.NumberFormat("en-US", {
   style: "percent",
@@ -72,6 +73,7 @@ export function FogComponent({ state }: Props) {
           </>
         )}
       </SimpleListItem>
+      <Info />
       <EnableActivityPersistence />
     </List>
   );
