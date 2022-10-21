@@ -8,6 +8,7 @@ import { useWorldUserFog } from "../../../../react-query";
 import { LocationStateFog } from "../../../../services/location-state";
 import { Distance } from "../../../Distance";
 import { LoadingSpinner } from "../../../Loading";
+import { EnableActivityPersistence } from "./EnableActivityPersistence";
 
 const percentFormat = new Intl.NumberFormat("en-US", {
   style: "percent",
@@ -71,6 +72,7 @@ export function FogComponent({ state }: Props) {
           </>
         )}
       </SimpleListItem>
+      <EnableActivityPersistence />
     </List>
   );
 }
