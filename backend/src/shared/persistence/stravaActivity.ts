@@ -62,6 +62,15 @@ export async function readStravaActivities(
   return snap.docs.map((doc) => doc.data());
 }
 
+export async function readStravaActivitiesByWorld(
+  athleteId: number,
+  world: WorldSlug
+): Promise<StravaActivity[]> {
+  const query = getCollection(athleteId).where("zwift.world", "==", world);
+  const snap = await query.get();
+  return snap.docs.map((doc) => doc.data());
+}
+
 export async function removeStravaActivity(
   athleteId: number,
   activityId: number

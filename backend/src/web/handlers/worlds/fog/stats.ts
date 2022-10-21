@@ -3,7 +3,9 @@ import { round, sum } from "lodash-es";
 import { Record, String } from "runtypes";
 import { World, worlds } from "zwift-data";
 import { WORLD_ROADS } from "../../../../shared/browser/roads/index.js";
-import { readStravaActivities } from "../../../../shared/persistence/stravaActivity.js";
+import {
+  readStravaActivitiesByWorld,
+} from "../../../../shared/persistence/stravaActivity.js";
 import {
   DetailedActivity,
   isStravaBetaUser,
@@ -42,14 +44,14 @@ export async function handleGETWorldFogStats(req: Request, res: Response) {
   }
 
   const world = worlds.find((w) => w.slug === req.params.worldSlug)!;
-  const activities = await readStravaActivities(session.stravaAthleteId);
-  const activitiesInWorld = activities.filter(
-    (activity) => getWorld(activity)?.id === world?.id
-  ); // TODO: Do this check when querying the activities
-
+  const activities = await readStravaActivitiesByWorld(
+    session.stravaAthleteId,
+    world.slug
+  );
+  
   res.json({
-    activityDistance: getActivityDistance(activitiesInWorld),
-    activityCount: activitiesInWorld.length,
+    activityDistance: getActivityDistance(activities),
+    activityCount: activities.length,
     worldDistance: await getWorldDistance(world),
     unlockedDistance: await getUnlockedDistance(world, activities),
   });
