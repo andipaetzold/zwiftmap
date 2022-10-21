@@ -19,7 +19,11 @@ export async function handleActivityCreate(
   const activityId = webhookEvent.object_id;
   const settings = await readStravaAthlete(athleteId);
 
-  if (!settings.addLinkToActivityDescription && !isStravaBetaUser(athleteId)) {
+  if (
+    !settings.addLinkToActivityDescription &&
+    !isStravaBetaUser(athleteId) &&
+    !settings.persistActivities
+  ) {
     return;
   }
 
@@ -42,7 +46,7 @@ export async function handleActivityCreate(
     await addLinkToActivity(athleteId, activityId, logger);
   }
 
-  if (isStravaBetaUser(athleteId)) {
+  if (isStravaBetaUser(athleteId) || settings.persistActivities) {
     logger.info("Writing Strava Activity");
     await writeStravaActivity(athleteId, activity);
   }

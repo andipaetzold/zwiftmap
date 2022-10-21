@@ -1,4 +1,7 @@
-import { writeStravaActivity } from "../../../../shared/persistence/index.js";
+import {
+  readStravaAthlete,
+  writeStravaActivity,
+} from "../../../../shared/persistence/index.js";
 import {
   CachedStravaUserAPI,
   DetailedActivity,
@@ -16,7 +19,8 @@ export async function handleActivityUpdate(
 
   // TODO: update share
 
-  if (isStravaBetaUser(athleteId)) {
+  const settings = await readStravaAthlete(athleteId);
+  if (isStravaBetaUser(athleteId) || settings.persistActivities) {
     let activity: DetailedActivity;
     try {
       const api = new CachedStravaUserAPI(athleteId);
