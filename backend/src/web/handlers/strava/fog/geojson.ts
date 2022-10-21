@@ -19,7 +19,7 @@ const paramsRunType = Record({
   worldSlug: String.withConstraint((worldSlug) => slugs.includes(worldSlug)),
 });
 
-export async function handleGETWorldFogGeoJSON(req: Request, res: Response) {
+export async function handleGETStravaFogGeoJSON(req: Request, res: Response) {
   if (!paramsRunType.guard(req.params)) {
     res.sendStatus(400);
     return;

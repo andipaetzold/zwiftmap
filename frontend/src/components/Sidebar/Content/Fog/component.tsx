@@ -4,7 +4,7 @@ import {
   MapSVGIcon,
   SpaceBarSVGIcon,
 } from "@react-md/material-icons";
-import { useWorldUserFog } from "../../../../react-query";
+import { useStravaFogStats } from "../../../../react-query";
 import { LocationStateFog } from "../../../../services/location-state";
 import { Distance } from "../../../Distance";
 import { LoadingSpinner } from "../../../Loading";
@@ -22,7 +22,7 @@ interface Props {
 }
 
 export function FogComponent({ state }: Props) {
-  const { data } = useWorldUserFog(state.world.slug);
+  const { data } = useStravaFogStats(state.world.slug);
 
   return (
     <List>

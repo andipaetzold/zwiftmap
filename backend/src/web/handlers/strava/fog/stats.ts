@@ -1,23 +1,20 @@
+import polyline from "@mapbox/polyline";
+import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
+import buffer from "@turf/buffer";
+import { lineString, point } from "@turf/helpers";
+import length from "@turf/length";
 import { Request, Response } from "express";
 import { round, sum } from "lodash-es";
 import { Record, String } from "runtypes";
 import { World, worlds } from "zwift-data";
+import { latLngToPosition } from "../../../../shared/browser/coordinates.js";
 import { WORLD_ROADS } from "../../../../shared/browser/roads/index.js";
-import {
-  readStravaActivitiesByWorld,
-} from "../../../../shared/persistence/stravaActivity.js";
+import { readStravaActivitiesByWorld } from "../../../../shared/persistence/stravaActivity.js";
 import {
   DetailedActivity,
   isStravaBetaUser,
 } from "../../../../shared/services/strava/index.js";
-import { getWorld } from "../../../../shared/util.js";
 import { Session } from "../../../types.js";
-import { lineString, point } from "@turf/helpers";
-import length from "@turf/length";
-import { latLngToPosition } from "../../../../shared/browser/coordinates.js";
-import polyline from "@mapbox/polyline";
-import buffer from "@turf/buffer";
-import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
 
 const BUFFER_RADIUS = 50;
 
@@ -26,7 +23,7 @@ const paramsRunType = Record({
   worldSlug: String.withConstraint((worldSlug) => slugs.includes(worldSlug)),
 });
 
-export async function handleGETWorldFogStats(req: Request, res: Response) {
+export async function handleGETStravaFogStats(req: Request, res: Response) {
   if (!paramsRunType.guard(req.params)) {
     res.sendStatus(400);
     return;
@@ -48,7 +45,7 @@ export async function handleGETWorldFogStats(req: Request, res: Response) {
     session.stravaAthleteId,
     world.slug
   );
-  
+
   res.json({
     activityDistance: getActivityDistance(activities),
     activityCount: activities.length,

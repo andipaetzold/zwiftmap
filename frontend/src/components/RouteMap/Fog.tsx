@@ -1,5 +1,5 @@
 import { GeoJSON, Rectangle } from "react-leaflet";
-import { useWorldUserFogGeoJSON } from "../../react-query";
+import { useStravaFogGeoJSON } from "../../react-query";
 import { LocationStateFog } from "../../services/location-state";
 
 const PATH_OPTIONS = { color: "black", stroke: false, fillOpacity: 0.5 };
@@ -9,7 +9,7 @@ interface Props {
 }
 
 export function Fog({ state }: Props) {
-  const { data: fog } = useWorldUserFogGeoJSON(state.world.slug);
+  const { data: fog } = useStravaFogGeoJSON(state.world.slug);
 
   if (!fog) {
     return (

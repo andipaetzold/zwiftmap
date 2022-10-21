@@ -8,7 +8,7 @@ export const queries = {
   worldRoads: (world: WorldSlug) => ["worlds", world, "roads"] as const,
   worldRoadsBuffered: (world: WorldSlug) =>
     ["worlds", world, "roads-buffered"] as const,
-  worldUserFog: (world: WorldSlug) => ["worlds", world, "fog"] as const,
-  worldUserFogGeoJSON: (world: WorldSlug) =>
+  stravaFogStats: (world: WorldSlug) => ["worlds", world, "fog"] as const,
+  stravaFogGeoJSON: (world: WorldSlug) =>
     ["worlds", world, "fog", "geojson"] as const,
 };

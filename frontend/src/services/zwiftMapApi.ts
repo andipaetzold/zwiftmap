@@ -120,21 +120,21 @@ export async function getEvent(eventId: number): Promise<ZwiftEvent> {
   return await request<ZwiftEvent>(`${BACKEND_HOST}/events/${eventId}`);
 }
 
-export async function getWorldUserFog(world: WorldSlug): Promise<{
+export async function getStravaFogStats(world: WorldSlug): Promise<{
   activityDistance: number;
   activityCount: number;
   worldDistance: number;
   unlockedDistance: number;
 }> {
-  return await request(`${BACKEND_HOST}/worlds/${world}/fog`, {
+  return await request(`${BACKEND_HOST}/strava/fog/${world}/stats`, {
     ...DEFAULT_INIT,
   });
 }
 
-export async function getWorldUserFogGeoJSON(
+export async function getStravaFogGeoJSON(
   world: WorldSlug
 ): Promise<Feature<Polygon | MultiPolygon>> {
-  return await request(`${BACKEND_HOST}/worlds/${world}/fog/geojson`, {
+  return await request(`${BACKEND_HOST}/strava/fog/${world}/geojson`, {
     ...DEFAULT_INIT,
   });
 }
