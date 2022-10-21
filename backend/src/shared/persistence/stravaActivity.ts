@@ -2,7 +2,7 @@ import {
   CollectionReference,
   DocumentReference,
 } from "@google-cloud/firestore";
-import { getWorld } from "shared/util.js";
+import { getWorld } from "../util.js";
 import { WorldSlug } from "zwift-data";
 import { DetailedActivity } from "../services/strava/index.js";
 import {
