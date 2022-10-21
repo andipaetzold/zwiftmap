@@ -7,6 +7,7 @@ import { useIsLoggedInStrava } from "../../../../hooks/useIsLoggedInStrava";
 import { LocationStateFog } from "../../../../services/location-state";
 import { ButtonState } from "../../../ButtonState";
 import { ConnectToStravaListItem } from "../../../ConnectToStravaListItem";
+import { LoadingSpinnerListItem } from "../../../Loading";
 import { FogComponent } from "./component";
 
 interface Props {
@@ -15,6 +16,15 @@ interface Props {
 
 export function Fog(props: Props) {
   const isLoggedInStrava = useIsLoggedInStrava();
+  
+  if (isLoggedInStrava === null) {
+    return (
+      <List>
+        <Header state={props.state} />
+        <LoadingSpinnerListItem />
+      </List>
+    );
+  }
 
   if (!isLoggedInStrava) {
     return (
