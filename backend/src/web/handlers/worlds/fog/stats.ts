@@ -11,12 +11,10 @@ import {
 import { getWorld } from "../../../../shared/util.js";
 import { Session } from "../../../types.js";
 import { lineString, point } from "@turf/helpers";
-// @ts-expect-error Broken types
 import length from "@turf/length";
 import { latLngToPosition } from "../../../../shared/browser/coordinates.js";
 import polyline from "@mapbox/polyline";
 import buffer from "@turf/buffer";
-// @ts-expect-error Broken types
 import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
 
 const BUFFER_RADIUS = 50;

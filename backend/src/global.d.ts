@@ -731,3 +731,131 @@ declare module "@turf/helpers" {
    */
   export declare function validateId(id: any): void;
 }
+
+declare module "@turf/nearest-point-on-line" {
+  import {
+    Feature,
+    Point,
+    LineString,
+    MultiLineString,
+    Coord,
+    Units,
+  } from "@turf/helpers";
+  export interface NearestPointOnLine extends Feature<Point> {
+    properties: {
+      index?: number;
+      dist?: number;
+      location?: number;
+      [key: string]: any;
+    };
+  }
+  /**
+   * Takes a {@link Point} and a {@link LineString} and calculates the closest Point on the (Multi)LineString.
+   *
+   * @name nearestPointOnLine
+   * @param {Geometry|Feature<LineString|MultiLineString>} lines lines to snap to
+   * @param {Geometry|Feature<Point>|number[]} pt point to snap from
+   * @param {Object} [options={}] Optional parameters
+   * @param {string} [options.units='kilometers'] can be degrees, radians, miles, or kilometers
+   * @returns {Feature<Point>} closest point on the `line` to `point`. The properties object will contain three values: `index`: closest point was found on nth line part, `dist`: distance between pt and the closest point, `location`: distance along the line between start and the closest point.
+   * @example
+   * var line = turf.lineString([
+   *     [-77.031669, 38.878605],
+   *     [-77.029609, 38.881946],
+   *     [-77.020339, 38.884084],
+   *     [-77.025661, 38.885821],
+   *     [-77.021884, 38.889563],
+   *     [-77.019824, 38.892368]
+   * ]);
+   * var pt = turf.point([-77.037076, 38.884017]);
+   *
+   * var snapped = turf.nearestPointOnLine(line, pt, {units: 'miles'});
+   *
+   * //addToMap
+   * var addToMap = [line, pt, snapped];
+   * snapped.properties['marker-color'] = '#00f';
+   */
+  declare function nearestPointOnLine<G extends LineString | MultiLineString>(
+    lines: Feature<G> | G,
+    pt: Coord,
+    options?: {
+      units?: Units;
+    }
+  ): NearestPointOnLine;
+  export default nearestPointOnLine;
+}
+
+declare module "@turf/boolean-point-in-polygon" {
+  import {
+    Coord,
+    Feature,
+    MultiPolygon,
+    Polygon,
+    Properties,
+  } from "@turf/helpers";
+  /**
+   * Takes a {@link Point} and a {@link Polygon} or {@link MultiPolygon} and determines if the point
+   * resides inside the polygon. The polygon can be convex or concave. The function accounts for holes.
+   *
+   * @name booleanPointInPolygon
+   * @param {Coord} point input point
+   * @param {Feature<Polygon|MultiPolygon>} polygon input polygon or multipolygon
+   * @param {Object} [options={}] Optional parameters
+   * @param {boolean} [options.ignoreBoundary=false] True if polygon boundary should be ignored when determining if
+   * the point is inside the polygon otherwise false.
+   * @returns {boolean} `true` if the Point is inside the Polygon; `false` if the Point is not inside the Polygon
+   * @example
+   * var pt = turf.point([-77, 44]);
+   * var poly = turf.polygon([[
+   *   [-81, 41],
+   *   [-81, 47],
+   *   [-72, 47],
+   *   [-72, 41],
+   *   [-81, 41]
+   * ]]);
+   *
+   * turf.booleanPointInPolygon(pt, poly);
+   * //= true
+   */
+  export default function booleanPointInPolygon<
+    G extends Polygon | MultiPolygon,
+    P = Properties
+  >(
+    point: Coord,
+    polygon: Feature<G, P> | G,
+    options?: {
+      ignoreBoundary?: boolean;
+    }
+  ): boolean;
+}
+
+declare module "@turf/length" {
+  import {
+    Feature,
+    FeatureCollection,
+    GeometryCollection,
+    Units,
+  } from "@turf/helpers";
+  /**
+   * Takes a {@link GeoJSON} and measures its length in the specified units, {@link (Multi)Point}'s distance are ignored.
+   *
+   * @name length
+   * @param {Feature<LineString|MultiLineString>} geojson GeoJSON to measure
+   * @param {Object} [options={}] Optional parameters
+   * @param {string} [options.units=kilometers] can be degrees, radians, miles, or kilometers
+   * @returns {number} length of GeoJSON
+   * @example
+   * var line = turf.lineString([[115, -32], [131, -22], [143, -25], [150, -34]]);
+   * var length = turf.length(line, {units: 'miles'});
+   *
+   * //addToMap
+   * var addToMap = [line];
+   * line.properties.distance = length;
+   */
+  export default function length(
+    geojson: Feature<any> | FeatureCollection<any> | GeometryCollection,
+    options?: {
+      units?: Units;
+    }
+  ): number;
+}
