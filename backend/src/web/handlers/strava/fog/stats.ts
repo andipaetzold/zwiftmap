@@ -61,11 +61,7 @@ async function getWorldDistance(world: World) {
     .map((e) => [e.from.position, ...e.stream, e.to.position])
     .map((stream) => stream.map((p) => latLngToPosition([p[0], p[1]])))
     .map((stream) => lineString(stream))
-    .map((stream) =>
-      length(stream, {
-        units: "meters",
-      })
-    );
+    .map((stream) => length(stream, { units: "meters" }));
 
   return round(sum(distances));
 }
@@ -105,11 +101,7 @@ async function getUnlockedDistance(
   const coveredEdgeDistances = coveredEdges
     .filter((ce) => ce.length >= 2)
     .map((stream) => lineString(stream))
-    .map((stream) =>
-      length(stream, {
-        units: "meters",
-      })
-    );
+    .map((stream) => length(stream, { units: "meters" }));
 
   return round(sum(coveredEdgeDistances));
 }
