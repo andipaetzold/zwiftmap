@@ -6,7 +6,6 @@ import { addLinkToActivity } from "../../../../shared/services/sharing.js";
 import {
   CachedStravaUserAPI,
   DetailedActivity,
-  isStravaBetaUser,
 } from "../../../../shared/services/strava/index.js";
 import { Logger, WebhookEventType } from "../../../../shared/types.js";
 import { isZwiftActivity } from "../../../../shared/util.js";
@@ -42,7 +41,7 @@ export async function handleActivityCreate(
     await addLinkToActivity(athleteId, activityId, logger);
   }
 
-  if (isStravaBetaUser(athleteId) || settings.persistActivities) {
+  if (settings.persistActivities) {
     logger.info("Writing Strava Activity");
     await writeStravaActivity(athleteId, activity);
   }

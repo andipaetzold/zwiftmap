@@ -8,10 +8,7 @@ import { Record, String } from "runtypes";
 import { World, worlds } from "zwift-data";
 import { latLngToPosition } from "../../../../shared/browser/coordinates.js";
 import { readStravaActivitiesByWorld } from "../../../../shared/persistence/stravaActivity.js";
-import {
-  DetailedActivity,
-  isStravaBetaUser,
-} from "../../../../shared/services/strava/index.js";
+import { DetailedActivity } from "../../../../shared/services/strava/index.js";
 import { Session } from "../../../types.js";
 
 const slugs = worlds.map((w) => w.slug as string);
@@ -27,11 +24,6 @@ export async function handleGETStravaFogGeoJSON(req: Request, res: Response) {
 
   const session = req.session as Session;
   if (!session.stravaAthleteId) {
-    res.sendStatus(403);
-    return;
-  }
-
-  if (!isStravaBetaUser(session.stravaAthleteId)) {
     res.sendStatus(403);
     return;
   }

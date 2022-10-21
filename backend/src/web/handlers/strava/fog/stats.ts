@@ -10,10 +10,7 @@ import { World, worlds } from "zwift-data";
 import { latLngToPosition } from "../../../../shared/browser/coordinates.js";
 import { WORLD_ROADS } from "../../../../shared/browser/roads/index.js";
 import { readStravaActivitiesByWorld } from "../../../../shared/persistence/stravaActivity.js";
-import {
-  DetailedActivity,
-  isStravaBetaUser,
-} from "../../../../shared/services/strava/index.js";
+import { DetailedActivity } from "../../../../shared/services/strava/index.js";
 import { Session } from "../../../types.js";
 
 const BUFFER_RADIUS = 50;
@@ -31,11 +28,6 @@ export async function handleGETStravaFogStats(req: Request, res: Response) {
 
   const session = req.session as Session;
   if (!session.stravaAthleteId) {
-    res.sendStatus(403);
-    return;
-  }
-
-  if (!isStravaBetaUser(session.stravaAthleteId)) {
     res.sendStatus(403);
     return;
   }
