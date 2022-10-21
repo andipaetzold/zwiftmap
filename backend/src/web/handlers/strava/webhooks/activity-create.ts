@@ -19,11 +19,7 @@ export async function handleActivityCreate(
   const activityId = webhookEvent.object_id;
   const settings = await readStravaAthlete(athleteId);
 
-  if (
-    !settings.addLinkToActivityDescription &&
-    !isStravaBetaUser(athleteId) &&
-    !settings.persistActivities
-  ) {
+  if (!settings.addLinkToActivityDescription && !settings.persistActivities) {
     return;
   }
 

@@ -5,7 +5,6 @@ import {
 import {
   CachedStravaUserAPI,
   DetailedActivity,
-  isStravaBetaUser,
 } from "../../../../shared/services/strava/index.js";
 import { Logger, WebhookEventType } from "../../../../shared/types.js";
 import { isZwiftActivity } from "../../../../shared/util.js";
@@ -20,7 +19,7 @@ export async function handleActivityUpdate(
   // TODO: update share
 
   const settings = await readStravaAthlete(athleteId);
-  if (isStravaBetaUser(athleteId) || settings.persistActivities) {
+  if (settings.persistActivities) {
     let activity: DetailedActivity;
     try {
       const api = new CachedStravaUserAPI(athleteId);
