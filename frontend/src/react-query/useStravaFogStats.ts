@@ -7,7 +7,7 @@ import { queries } from "./queryKeys";
 type QueryKey = ReturnType<typeof queries["stravaFogStats"]>;
 type Context = QueryFunctionContext<QueryKey>;
 
-const queryFn = async ({ queryKey: [, world] }: Context) =>
+const queryFn = async ({ queryKey: [, , world] }: Context) =>
   getStravaFogStats(world);
 
 export function useStravaFogStats(world: WorldSlug) {

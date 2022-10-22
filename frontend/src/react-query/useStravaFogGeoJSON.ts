@@ -7,7 +7,7 @@ import { queries } from "./queryKeys";
 type QueryKey = ReturnType<typeof queries["stravaFogGeoJSON"]>;
 type Context = QueryFunctionContext<QueryKey>;
 
-const queryFn = async ({ queryKey: [, world] }: Context) =>
+const queryFn = async ({ queryKey: [, , world] }: Context) =>
   getStravaFogGeoJSON(world);
 
 export function useStravaFogGeoJSON(world: WorldSlug) {
