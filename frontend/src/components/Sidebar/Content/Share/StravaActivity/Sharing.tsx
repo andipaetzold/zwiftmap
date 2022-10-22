@@ -5,13 +5,17 @@ import {
   ListSubheader,
 } from "@react-md/list";
 import { FileDownloadSVGIcon, ShareSVGIcon } from "@react-md/material-icons";
+import { ShareStravaActivity } from "../../../../../types";
+import { getShareImageUrl } from "../../../../../util/image";
 import { shareImage } from "../../../../../util/shareImage";
 
 interface Props {
-  url: string;
+  share: ShareStravaActivity;
 }
 
-export function SharedStravaActivitySharing({ url }: Props) {
+export function SharedStravaActivitySharing({ share }: Props) {
+  const url = getShareImageUrl(share.id);
+
   if ("share" in navigator) {
     return (
       <>
@@ -19,7 +23,7 @@ export function SharedStravaActivitySharing({ url }: Props) {
         <ListItem
           rightAddon={<ShareSVGIcon />}
           rightAddonType="icon"
-          onClick={() => shareImage(url)}
+          onClick={() => shareImage(url, `share-${share.id}.png`)}
         >
           <ListItemText>Share as image</ListItemText>
         </ListItem>

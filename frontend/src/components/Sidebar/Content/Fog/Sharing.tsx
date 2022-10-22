@@ -23,7 +23,7 @@ export function Sharing({ state }: Props) {
         <ListItem
           rightAddon={<ShareSVGIcon />}
           rightAddonType="icon"
-          onClick={() => shareImage(url)}
+          onClick={() => shareImage(url, `fog-${state.world.slug}.png`)}
         >
           <ListItemText>Share as image</ListItemText>
         </ListItem>

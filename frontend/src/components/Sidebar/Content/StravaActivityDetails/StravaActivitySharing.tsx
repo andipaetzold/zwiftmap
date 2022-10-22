@@ -118,7 +118,7 @@ function ShareActivityAsImage({ activity }: Props) {
 
       const imageUrl = getShareImageUrl(shareId);
 
-      await shareImage(imageUrl);
+      await shareImage(imageUrl, `share-${shareId}.png`);
     } catch (e) {
       Sentry.captureException(e);
       addMessage({ children: "Error sharing the acitivty" });

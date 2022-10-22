@@ -2,7 +2,7 @@ import * as Sentry from "@sentry/react";
 
 const isNavigatorShareSupported = "share" in navigator;
 
-export async function shareImage(url: string): Promise<void> {
+export async function shareImage(url: string, fileName: string): Promise<void> {
   if (!isNavigatorShareSupported) {
     window.open(url, "__blank");
     return;
@@ -16,13 +16,17 @@ export async function shareImage(url: string): Promise<void> {
       ? +response.headers.get("last-modified")!
       : new Date().getTime();
     const files = [
-      new File([blob], url.split("/").pop()!, {
+      new File([blob], fileName, {
         type: "image/png",
         lastModified,
       }),
     ];
 
-    await navigator.share({ files });
+    if (navigator.canShare({ files })) {
+      await navigator.share({ files });
+    } else {
+      window.open(url, "__blank");
+    }
   } catch (e) {
     if (e instanceof DOMException && e.name === "AbortError") {
       // ignore
