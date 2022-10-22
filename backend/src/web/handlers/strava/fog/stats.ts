@@ -96,6 +96,7 @@ async function getUnlockedDistance(
 
   const roads = await WORLD_ROADS[world.slug]();
   const edges = roads.edges
+    .filter((e) => e.fog)
     .map((e) => [e.from.position, ...e.stream, e.to.position])
     .map((stream) => stream.map((p) => latLngToPosition([p[0], p[1]])));
 
