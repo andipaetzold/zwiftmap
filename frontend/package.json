@@ -31,7 +31,7 @@
     "@turf/nearest-point-on-line": "6.5.0",
     "@turf/union": "6.5.0",
     "@types/leaflet": "1.9.0",
-    "@types/node": "16.11.65",
+    "@types/node": "16.11.68",
     "@types/object-hash": "2.2.1",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
