@@ -135,7 +135,7 @@ function ShareActivityAsImage({ activity }: Props) {
       rightAddonType="icon"
       disabled={loading}
     >
-      {loading ? "Generating image…" : "Share activity as image"}
+      {loading ? "Generating image…" : "Share as image"}
     </ListItem>
   );
 }

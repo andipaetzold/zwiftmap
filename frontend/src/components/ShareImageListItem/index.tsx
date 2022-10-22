@@ -1,5 +1,5 @@
 import { ListItem, ListItemLink, ListItemText } from "@react-md/list";
-import { FileDownloadSVGIcon, ShareSVGIcon } from "@react-md/material-icons";
+import { ImageSVGIcon } from "@react-md/material-icons";
 import { shareImage } from "../../util/shareImage";
 
 interface Props {
@@ -16,7 +16,7 @@ export function ShareImageListItem({
   if ("share" in navigator) {
     return (
       <ListItem
-        rightAddon={<ShareSVGIcon />}
+        rightAddon={<ImageSVGIcon />}
         rightAddonType="icon"
         onClick={() => shareImage(url, filename)}
       >
@@ -30,7 +30,7 @@ export function ShareImageListItem({
       href={url}
       download
       target="_blank"
-      rightAddon={<FileDownloadSVGIcon />}
+      rightAddon={<ImageSVGIcon />}
       rightAddonType="icon"
     >
       <ListItemText>{label}</ListItemText>

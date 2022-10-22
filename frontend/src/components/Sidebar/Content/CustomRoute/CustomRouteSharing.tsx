@@ -1,5 +1,8 @@
 import { ListItem, ListSubheader } from "@react-md/list";
-import { FileDownloadSVGIcon } from "@react-md/material-icons";
+import {
+  FileDownloadSVGIcon,
+  InsertDriveFileSVGIcon,
+} from "@react-md/material-icons";
 import { saveAs } from "file-saver";
 import { LatLngTuple } from "leaflet";
 import { createGPX } from "../../../../services/gpx";
@@ -41,8 +44,8 @@ function Export({ state, latLngStream }: Props) {
   return (
     <ListItem
       onClick={onClick}
-      rightAddon={<FileDownloadSVGIcon />}
       rightAddonType="icon"
+      rightAddon={<InsertDriveFileSVGIcon />}
     >
       Export as GPX
     </ListItem>
