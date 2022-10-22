@@ -7,8 +7,6 @@ import { LatLng } from "../types.js";
 import { diff } from "../util.js";
 import { getWorldImageTag } from "./world.js";
 
-sharp.cache(false);
-
 export async function createFogImage(
   world: World,
   fog: Feature<Polygon | MultiPolygon, GeoJsonProperties>,

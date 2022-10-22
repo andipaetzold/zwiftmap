@@ -13,7 +13,7 @@ export function isZwiftActivity(
     return false;
   }
 
-  const world = getWorld(activity);
+  const world = getWorldFromActivity(activity);
 
   if (world === undefined) {
     return false;
@@ -22,16 +22,24 @@ export function isZwiftActivity(
   return true;
 }
 
-export function getWorld(activity: {
+export function getWorldFromActivity(activity: {
   start_latlng: LatLng;
 }): World | undefined {
+  if (!activity.start_latlng) {
+    return undefined;
+  }
+
+  return getWorld(activity.start_latlng);
+}
+
+export function getWorld(latLng: LatLng): World | undefined {
   return worlds.find((world) => {
     const bb = world.bounds;
     return (
-      bb[0][0] >= activity.start_latlng![0] &&
-      activity.start_latlng![0] >= bb[1][0] &&
-      bb[0][1] <= activity.start_latlng![1] &&
-      activity.start_latlng![1] <= bb[1][1]
+      bb[0][0] >= latLng[0] &&
+      latLng[0] >= bb[1][0] &&
+      bb[0][1] <= latLng[1] &&
+      latLng[1] <= bb[1][1]
     );
   });
 }

@@ -9,7 +9,7 @@ import {
   DetailedActivity,
 } from "../../../../shared/services/strava/index.js";
 import { Logger, WebhookEventType } from "../../../../shared/types.js";
-import { getWorld, isZwiftActivity } from "../../../../shared/util.js";
+import { getWorldFromActivity, isZwiftActivity } from "../../../../shared/util.js";
 
 export async function handleActivityCreate(
   webhookEvent: WebhookEventType,
@@ -47,5 +47,5 @@ export async function handleActivityCreate(
     await writeStravaActivity(athleteId, activity);
   }
 
-  await removeStravaFog(athleteId, getWorld(activity)!.slug);
+  await removeStravaFog(athleteId, getWorldFromActivity(activity)!.slug);
 }

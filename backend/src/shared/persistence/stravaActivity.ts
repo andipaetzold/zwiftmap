@@ -2,7 +2,7 @@ import {
   CollectionReference,
   DocumentReference,
 } from "@google-cloud/firestore";
-import { getWorld } from "../util.js";
+import { getWorldFromActivity } from "../util.js";
 import { WorldSlug } from "zwift-data";
 import { DetailedActivity } from "../services/strava/index.js";
 import {
@@ -36,7 +36,7 @@ export async function writeStravaActivity(
   athleteId: number,
   activity: DetailedActivity
 ) {
-  const world = getWorld(activity)!;
+  const world = getWorldFromActivity(activity)!;
   await getDoc(athleteId, activity.id).set({
     ...activity,
     zwift: {

@@ -7,6 +7,9 @@ import { errorHandler } from "./middleware/errorHandler.js";
 import { app } from "./server.js";
 import { logger } from "./services/logger.js";
 import "express-async-errors";
+import sharp from "sharp";
+
+sharp.cache(false);
 
 Sentry.init({
   enabled: config.sentry.dsn.length > 0,
