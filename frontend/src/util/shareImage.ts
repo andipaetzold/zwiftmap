@@ -9,7 +9,7 @@ export async function shareImage(url: string, fileName: string): Promise<void> {
   }
 
   try {
-    const response = await fetch(url);
+    const response = await fetch(url, { credentials: "include" });
     const blob = await response.blob();
 
     const lastModified = response.headers.has("last-modified")
