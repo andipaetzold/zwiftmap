@@ -27,6 +27,7 @@ export default defineConfig({
     VitePWA({
       manifest: false,
       registerType: "autoUpdate",
+      selfDestroying: true,
     }),
   ],
   test: {
