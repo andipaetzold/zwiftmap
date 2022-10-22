@@ -1,7 +1,7 @@
 import { pick } from "lodash-es";
 import { config } from "../config.js";
 import { ErrorWithStatusCode } from "../ErrorWithStatusCode.js";
-import { createImage } from "../image.js";
+import { createShareImage } from "../image/share.js";
 import {
   getShareUrl,
   Share,
@@ -117,7 +117,7 @@ async function createShare(
   ];
 
   for (const task of tasks) {
-    const stream = await createImage(share, task.resolution);
+    const stream = await createShareImage(share, task.resolution);
     const chunks: Buffer[] = [];
     for await (let chunk of stream) {
       chunks.push(chunk as Buffer);

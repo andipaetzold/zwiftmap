@@ -36,8 +36,9 @@ app.get(
   handlers.handleGETActivityStreams
 );
 app.get("/strava/callback", nocache(), handlers.handleStravaAuthorizeCallback);
-app.get("/strava/fog/:worldSlug/stats", handlers.handleGETStravaFogStats);
 app.get("/strava/fog/:worldSlug/geojson", handlers.handleGETStravaFogGeoJSON);
+app.get("/strava/fog/:worldSlug/image", handlers.handleGETStravaFogImage);
+app.get("/strava/fog/:worldSlug/stats", handlers.handleGETStravaFogStats);
 app.get("/strava/segments/:segmentId", nocache(), handlers.handleGETSegment);
 app.get("/strava/settings", nocache(), handlers.handleGETStravaSettings);
 app.put("/strava/settings", nocache(), handlers.handlePUTStravaSettings);

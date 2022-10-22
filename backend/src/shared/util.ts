@@ -39,3 +39,9 @@ export function getWorld(activity: {
 export function diff(a: number, b: number) {
   return Math.abs(a - b);
 }
+
+export function bufferToDataUrl(buffer: Buffer, mime = "image/png"): string {
+  const encoding = "base64";
+  const data = buffer.toString(encoding);
+  return `data:${mime};${encoding},${data}`;
+}

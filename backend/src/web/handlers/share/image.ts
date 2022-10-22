@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Record, String } from "runtypes";
-import { createImage } from "../../../shared/image.js";
+import { createShareImage } from "../../../shared/image/share.js";
 import { readShare } from "../../../shared/persistence/index.js";
 import { NumberString } from "../../../shared/runtypes.js";
 
@@ -37,7 +37,7 @@ export async function handleGETShareImage(req: Request, res: Response) {
     return;
   }
 
-  const stream = await createImage(share, {
+  const stream = await createShareImage(share, {
     width: +req.query.width,
     height: +req.query.height,
   });
