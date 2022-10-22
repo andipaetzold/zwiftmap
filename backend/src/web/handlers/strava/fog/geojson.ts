@@ -1,5 +1,9 @@
 import { Request, Response } from "express";
 import { Record, String } from "runtypes";
+import {
+  readStravaFog,
+  writeStravaFogGeoJSON,
+} from "../../../../shared/persistence/stravaFog.js";
 import { worlds } from "zwift-data";
 import { readStravaActivitiesByWorld } from "../../../../shared/persistence/stravaActivity.js";
 import { calcFogPolygon } from "../../../../shared/services/strava/index.js";
@@ -21,14 +25,20 @@ export async function handleGETStravaFogGeoJSON(req: Request, res: Response) {
     res.sendStatus(403);
     return;
   }
+  const { stravaAthleteId } = session;
 
   const world = worlds.find((w) => w.slug === req.params.worldSlug)!;
 
-  const activities = await readStravaActivitiesByWorld(
-    session.stravaAthleteId,
-    world.slug
-  );
-  const fog = calcFogPolygon(world, activities);
+  const stravaFog = await readStravaFog(stravaAthleteId, world.slug);
+  let geoJSON = stravaFog?.geoJSON;
+  if (!geoJSON) {
+    const activities = await readStravaActivitiesByWorld(
+      session.stravaAthleteId,
+      world.slug
+    );
+    geoJSON = calcFogPolygon(world, activities);
+    await writeStravaFogGeoJSON(stravaAthleteId, world.slug, geoJSON);
+  }
 
-  res.contentType("application/geo+json").json(fog);
+  res.contentType("application/geo+json").json(geoJSON);
 }

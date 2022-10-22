@@ -6,6 +6,11 @@ import length from "@turf/length";
 import { Request, Response } from "express";
 import { round, sum } from "lodash-es";
 import { Record, String } from "runtypes";
+import {
+  readStravaFog,
+  StravaFogStats,
+  writeStravaFogStats,
+} from "../../../../shared/persistence/index.js";
 import { World, worlds } from "zwift-data";
 import { latLngToPosition } from "../../../../shared/browser/coordinates.js";
 import { WORLD_ROADS } from "../../../../shared/browser/roads/index.js";
@@ -32,17 +37,30 @@ export async function handleGETStravaFogStats(req: Request, res: Response) {
     return;
   }
 
+  const { stravaAthleteId } = session;
+
   const world = worlds.find((w) => w.slug === req.params.worldSlug)!;
-  const activities = await readStravaActivitiesByWorld(
-    session.stravaAthleteId,
-    world.slug
-  );
+
+  const stravaFog = await readStravaFog(stravaAthleteId, world.slug);
+  let stats = stravaFog?.stats;
+  if (!stats) {
+    const activities = await readStravaActivitiesByWorld(
+      stravaAthleteId,
+      world.slug
+    );
+
+    stats = {
+      activityDistance: getActivityDistance(activities),
+      activityCount: activities.length,
+      unlockedDistance: await getUnlockedDistance(world, activities),
+    };
+
+    await writeStravaFogStats(stravaAthleteId, world.slug, stats);
+  }
 
   res.json({
-    activityDistance: getActivityDistance(activities),
-    activityCount: activities.length,
+    ...stats,
     worldDistance: await getWorldDistance(world),
-    unlockedDistance: await getUnlockedDistance(world, activities),
   });
 }
 
