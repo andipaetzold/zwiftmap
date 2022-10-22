@@ -12,7 +12,6 @@ import {
   StreamSet,
   SummaryActivity,
 } from "./index.js";
-import { TokenNotFoundError } from "./types.js";
 
 interface GetActivitiesParams {
   before?: number;
@@ -43,7 +42,7 @@ export class StravaUserAPI {
   async #getToken(athleteId: number): Promise<string> {
     let stravaToken = await readStravaToken(athleteId);
     if (!stravaToken) {
-      throw new TokenNotFoundError();
+      throw new Error("Strava token not found");
     }
 
     if (stravaToken.expiresAt < Date.now() / 1_000 - 60) {
@@ -72,7 +71,7 @@ export class StravaUserAPI {
       return refreshedStravaToken;
     } catch {
       await removeStravaToken(stravaToken.athleteId);
-      throw new TokenNotFoundError();
+      throw new Error("Strava token not found");
     }
   }
 
