@@ -6,6 +6,7 @@ import {
   ShareSVGIcon,
 } from "@react-md/material-icons";
 import * as Sentry from "@sentry/react";
+import { useMutation } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { createUrl } from "../../../../services/location-state";
 import {
@@ -37,21 +38,11 @@ export function StravaActivitySharing({ activity }: Props) {
 }
 
 function ShareActivity({ activity }: Props) {
-  const [loading, setLoading] = useState<boolean>(false);
+  const { mutate: createShare, isLoading } = useMutation(
+    async () => {
+      const share = await shareStravaActivity(activity.id);
 
-  const addMessage = useAddMessage();
-
-  const handleClick = async () => {
-    try {
-      setLoading(true);
-
-      const { id: shareId } = await shareStravaActivity(activity.id);
-
-      const path = createUrl({
-        type: "share",
-        shareId,
-        world: null,
-      });
+      const path = createUrl({ type: "share", shareId: share.id, world: null });
       const url = new URL(path, window.location.origin).toString();
 
       if (isSharingSupported) {
@@ -74,22 +65,25 @@ function ShareActivity({ activity }: Props) {
         await navigator.clipboard.writeText(url);
         addMessage({ children: "URL copied to the clipboard" });
       }
-    } catch (e) {
-      Sentry.captureException(e);
-      addMessage({ children: "Error sharing the acitivty" });
-    } finally {
-      setLoading(false);
+    },
+    {
+      onError: (e) => {
+        Sentry.captureException(e);
+        addMessage({ children: "Error sharing the acitivty" });
+      },
     }
-  };
+  );
+
+  const addMessage = useAddMessage();
 
   return (
     <ListItem
       rightAddon={<ShareSVGIcon />}
       rightAddonType="icon"
-      onClick={handleClick}
-      disabled={loading}
+      onClick={() => createShare()}
+      disabled={isLoading}
     >
-      {loading ? "Sharing…" : "Share activity"}
+      {isLoading ? "Sharing…" : "Share activity"}
     </ListItem>
   );
 }
