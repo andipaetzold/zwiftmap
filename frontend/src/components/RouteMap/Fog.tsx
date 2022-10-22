@@ -2,7 +2,7 @@ import { GeoJSON, Rectangle } from "react-leaflet";
 import { useStravaFogGeoJSON } from "../../react-query";
 import { LocationStateFog } from "../../services/location-state";
 
-const PATH_OPTIONS = { color: "black", stroke: false, fillOpacity: 0.5 };
+const PATH_OPTIONS = { color: "black", stroke: false, fillOpacity: 0.75 };
 
 interface Props {
   state: LocationStateFog;

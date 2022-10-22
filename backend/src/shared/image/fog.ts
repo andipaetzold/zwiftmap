@@ -62,6 +62,6 @@ async function getPolygonTags(
         .map((polygon) =>
           polygon.map((pos, i) => (i === 0 ? `M ${pos} L` : `${pos}`)).join(" ")
         )
-        .join(" Z ")} Z" fill-rule="evenodd" fill="black" fill-opacity="0.5" />`
+        .join(" Z ")} Z" fill-rule="evenodd" fill="black" fill-opacity="0.75" />`
   );
 }
