@@ -31,7 +31,7 @@ export function SharedStravaActivity({ share }: Props) {
       <SharedStravaActivityElevationChart share={share} />
       <SharedStravaActivitySurface share={share} />
 
-      <SharedStravaActivitySharing url={imageUrl} />
+      <SharedStravaActivitySharing share={share} />
       <SharedStravaActivityLinks share={share} />
     </>
   );
