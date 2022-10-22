@@ -1,13 +1,7 @@
-import {
-  ListItem,
-  ListItemLink,
-  ListItemText,
-  ListSubheader,
-} from "@react-md/list";
-import { FileDownloadSVGIcon, ShareSVGIcon } from "@react-md/material-icons";
+import { ListSubheader } from "@react-md/list";
 import { LocationStateFog } from "../../../../services/location-state";
 import { getFogImageUrl } from "../../../../util/image";
-import { shareImage } from "../../../../util/shareImage";
+import { ShareImageListItem } from "../../../ShareImageListItem";
 
 interface Props {
   state: LocationStateFog;
@@ -16,33 +10,10 @@ interface Props {
 export function Sharing({ state }: Props) {
   const url = getFogImageUrl(state.world.slug);
 
-  if ("share" in navigator) {
-    return (
-      <>
-        <ListSubheader>Sharing</ListSubheader>
-        <ListItem
-          rightAddon={<ShareSVGIcon />}
-          rightAddonType="icon"
-          onClick={() => shareImage(url, `fog-${state.world.slug}.png`)}
-        >
-          <ListItemText>Share as image</ListItemText>
-        </ListItem>
-      </>
-    );
-  }
-
   return (
     <>
       <ListSubheader>Sharing</ListSubheader>
-      <ListItemLink
-        href={url}
-        download
-        target="_blank"
-        rightAddon={<FileDownloadSVGIcon />}
-        rightAddonType="icon"
-      >
-        <ListItemText>Download as image</ListItemText>
-      </ListItemLink>
+      <ShareImageListItem url={url} filename={`fog-${state.world.slug}.png`} />
     </>
   );
 }
