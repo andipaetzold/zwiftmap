@@ -45,6 +45,11 @@ function ShareActivity({ activity }: Props) {
       const path = createUrl({ type: "share", shareId: share.id, world: null });
       const url = new URL(path, window.location.origin).toString();
 
+      const copyToClipboard = async () => {
+        await navigator.clipboard.writeText(url);
+        addMessage({ children: "URL copied to the clipboard" });
+      };
+
       if (isSharingSupported) {
         try {
           await navigator.share({ title: `${activity.name} - ZwiftMap`, url });
@@ -55,15 +60,13 @@ function ShareActivity({ activity }: Props) {
             e instanceof DOMException &&
             e.name === "NotAllowedError"
           ) {
-            await navigator.clipboard.writeText(url);
-            addMessage({ children: "URL copied to the clipboard" });
+            await copyToClipboard();
           } else {
             throw e;
           }
         }
       } else {
-        await navigator.clipboard.writeText(url);
-        addMessage({ children: "URL copied to the clipboard" });
+        await copyToClipboard();
       }
     },
     {
