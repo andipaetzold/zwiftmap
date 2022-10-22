@@ -1,22 +1,30 @@
 import { ListItem, ListSubheader } from "@react-md/list";
 import { FileDownloadSVGIcon } from "@react-md/material-icons";
 import { saveAs } from "file-saver";
+import { LatLngTuple } from "leaflet";
 import { createGPX } from "../../../../services/gpx";
 import {
   createUrl,
   LocationStateCustomRoute,
 } from "../../../../services/location-state";
 import { LatLngAlt } from "../../../../types";
+import { getCustomRouteImageUrl } from "../../../../util/image";
+import { ShareImageListItem } from "../../../ShareImageListItem";
 
 interface Props {
   state: LocationStateCustomRoute;
   latLngStream: LatLngAlt[];
 }
 
-export function CustomRouteExport({ state, latLngStream }: Props) {
+export function CustomRouteSharing({ state, latLngStream }: Props) {
+  const url = state.points.every((p) => p !== null)
+    ? getCustomRouteImageUrl(state.points as LatLngTuple[])
+    : undefined;
+
   return (
     <>
       <ListSubheader>Sharing</ListSubheader>
+      {url && <ShareImageListItem url={url} filename="custom-route.png" />}
       <Export state={state} latLngStream={latLngStream} />
     </>
   );

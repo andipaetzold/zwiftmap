@@ -26,6 +26,8 @@ app.get("/health", nocache(), handlers.handleHealth);
 app.get("/auth/status", nocache(), handlers.handleGETAuthStatus);
 app.post("/auth/logout", nocache(), handlers.handleLogout);
 
+app.get("/custom-route/image", handlers.handleGETCustomRouteImage);
+
 app.get("/strava/authorize", nocache(), handlers.handleStravaAuthorize);
 app.get("/strava/activities", nocache(), handlers.handleGETActivities);
 app.get("/strava/activities/:activityId", handlers.handleGETActivity);
