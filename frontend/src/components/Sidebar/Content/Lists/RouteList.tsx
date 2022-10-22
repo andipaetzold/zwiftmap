@@ -10,7 +10,6 @@ import { Helmet } from "react-helmet-async";
 import { routes } from "zwift-data";
 import { useSessionSettings } from "../../../../hooks/useSessionSettings";
 import { useSettings } from "../../../../hooks/useSettings";
-import { useAuthStatus } from "../../../../react-query";
 import {
   LocationStateDefault,
   navigate,
@@ -28,7 +27,6 @@ interface Props {
 export function RouteList({ state }: Props) {
   const sport = useSettings((state) => state.sport);
   const [{ sortState }] = useSessionSettings();
-  const { data: authStatus } = useAuthStatus();
 
   return (
     <>
@@ -75,21 +73,19 @@ export function RouteList({ state }: Props) {
           >
             <ModeEditSVGIcon />
           </Button>
-          {authStatus?.betaUser && (
-            <Button
-              buttonType="icon"
-              themeType="outline"
-              title="Fog of Zwift"
-              onClick={() => {
-                navigate({
-                  world: state.world,
-                  type: "fog",
-                });
-              }}
-            >
-              <CloudSVGIcon />
-            </Button>
-          )}
+          <Button
+            buttonType="icon"
+            themeType="outline"
+            title="Fog of Zwift"
+            onClick={() => {
+              navigate({
+                world: state.world,
+                type: "fog",
+              });
+            }}
+          >
+            <CloudSVGIcon />
+          </Button>
           <Button
             buttonType="icon"
             themeType="outline"

@@ -78,7 +78,7 @@ function Header({ state }: HeaderProps) {
 
       <SimpleListItem>
         <Typography type="headline-6" style={{ margin: 0 }}>
-          Fog of Zwift
+          Fog of Zwift (Beta)
         </Typography>
       </SimpleListItem>
     </>

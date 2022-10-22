@@ -1,16 +1,12 @@
+import { Divider } from "@react-md/divider";
 import { ExpansionPanel } from "@react-md/expansion-panel";
 import { AsyncSwitch } from "@react-md/form";
+import { Link } from "@react-md/link";
 import { KeyboardArrowDownSVGIcon } from "@react-md/material-icons";
 import { Typography } from "@react-md/typography";
 import { useId, useState } from "react";
-import {
-  useAuthStatus,
-  useStravaSettings,
-  useUpdateStravaSettings,
-} from "../../react-query";
+import { useStravaSettings, useUpdateStravaSettings } from "../../react-query";
 import { StravaSettings as StravaSettingsType } from "../../types";
-import { Divider } from "@react-md/divider";
-import { Link } from "@react-md/link";
 
 const DEFAULT_STRAVA_SETTINGS: StravaSettingsType = {
   addLinkToActivityDescription: false,
@@ -22,10 +18,7 @@ export function StravaSettings() {
   const { mutate: updateStravaSettings1, isLoading: isLoading1 } =
     useUpdateStravaSettings();
   const { mutate: update2, isLoading: isLoading2 } = useUpdateStravaSettings();
-
-  const saveActivitiesId = useId();
   const [footnotesExpanded, setFootnotesExpanded] = useState(false);
-  const { data: authStatus } = useAuthStatus();
 
   return (
     <>
@@ -56,33 +49,31 @@ export function StravaSettings() {
         }}
       />
 
-      {authStatus?.betaUser && (
-        <AsyncSwitch
-          id={saveActivitiesId}
-          label={
-            <>
-              Allow ZwiftMap to save and process activities&nbsp;<sup>2</sup>
-            </>
+      <AsyncSwitch
+        id={useId()}
+        label={
+          <>
+            Allow ZwiftMap to save and process activities&nbsp;<sup>2</sup>
+          </>
+        }
+        aria-label="Allow ZwiftMap to save and process activities"
+        checked={
+          settings?.persistActivities ??
+          DEFAULT_STRAVA_SETTINGS.persistActivities
+        }
+        disabled={settings === null}
+        loading={isLoading2}
+        onChange={(e) => {
+          if (!settings) {
+            return;
           }
-          aria-label="Allow ZwiftMap to save and process activities"
-          checked={
-            settings?.persistActivities ??
-            DEFAULT_STRAVA_SETTINGS.persistActivities
-          }
-          disabled={settings === null}
-          loading={isLoading2}
-          onChange={(e) => {
-            if (!settings) {
-              return;
-            }
 
-            update2({
-              ...settings,
-              persistActivities: e.target.checked,
-            });
-          }}
-        />
-      )}
+          update2({
+            ...settings,
+            persistActivities: e.target.checked,
+          });
+        }}
+      />
 
       {settings === null && (
         <Typography type="body-2">
