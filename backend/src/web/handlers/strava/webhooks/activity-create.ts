@@ -1,5 +1,6 @@
 import {
   readStravaAthlete,
+  removeStravaFog,
   writeStravaActivity,
 } from "../../../../shared/persistence/index.js";
 import { addLinkToActivity } from "../../../../shared/services/sharing.js";
@@ -8,7 +9,7 @@ import {
   DetailedActivity,
 } from "../../../../shared/services/strava/index.js";
 import { Logger, WebhookEventType } from "../../../../shared/types.js";
-import { isZwiftActivity } from "../../../../shared/util.js";
+import { getWorld, isZwiftActivity } from "../../../../shared/util.js";
 
 export async function handleActivityCreate(
   webhookEvent: WebhookEventType,
@@ -45,4 +46,6 @@ export async function handleActivityCreate(
     logger.info("Writing Strava Activity");
     await writeStravaActivity(athleteId, activity);
   }
+
+  await removeStravaFog(athleteId, getWorld(activity)!.slug);
 }

@@ -1,3 +1,4 @@
+import { removeStravaFogs } from "../../../../shared/persistence/index.js";
 import { removeStravaActivity } from "../../../../shared/persistence/stravaActivity.js";
 import { CachedStravaUserAPI } from "../../../../shared/services/strava/index.js";
 import { Logger, WebhookEventType } from "../../../../shared/types.js";
@@ -14,4 +15,5 @@ export async function handleActivityDelete(
 
   logger.info("Evicting activity cache");
   await CachedStravaUserAPI.evictCacheForActivity(athleteId, activityId);
+  await removeStravaFogs(athleteId);
 }

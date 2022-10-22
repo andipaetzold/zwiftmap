@@ -1,5 +1,6 @@
 import {
   readStravaAthlete,
+  removeStravaFogs,
   writeStravaActivity,
 } from "../../../../shared/persistence/index.js";
 import {
@@ -37,6 +38,7 @@ export async function handleActivityUpdate(
     await writeStravaActivity(athleteId, activity);
   }
 
-  logger.info("Evicting activity cache");
+  logger.info("Evicting cache");
   await CachedStravaUserAPI.evictCacheForActivity(athleteId, activityId);
+  await removeStravaFogs(athleteId);
 }

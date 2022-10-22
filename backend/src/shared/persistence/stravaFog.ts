@@ -1,4 +1,5 @@
 import {
+  CollectionReference,
   DocumentReference,
   QueryDocumentSnapshot,
 } from "@google-cloud/firestore";
@@ -29,11 +30,15 @@ interface FirestoreStravaFog {
   geoJSON?: string;
 }
 
-function getDoc(athleteId: number, world: WorldSlug) {
+function getCollection(athleteId: number) {
   return firestore
     .collection(STRAVA_ATHLETES_COLLECTION_NAME)
     .doc(athleteId.toString())
-    .collection(STRAVA_FOG_COLLECTION_NAME)
+    .collection(STRAVA_FOG_COLLECTION_NAME) as CollectionReference<StravaFog>;
+}
+
+function getDoc(athleteId: number, world: WorldSlug) {
+  return getCollection(athleteId)
     .doc(world)
     .withConverter<StravaFog>({
       fromFirestore: (snap: QueryDocumentSnapshot<FirestoreStravaFog>) => {
@@ -100,7 +105,15 @@ export async function readStravaFog(
   return snap.data();
 }
 
-export async function reoveStravaFog(athleteId: number, world: WorldSlug) {
+export async function removeStravaFog(athleteId: number, world: WorldSlug) {
   const doc = getDoc(athleteId, world);
   await doc.delete();
+}
+
+export async function removeStravaFogs(athleteId: number) {
+  const collection = getCollection(athleteId);
+  const docs = await collection.listDocuments();
+  for (const doc of docs) {
+    await doc.delete();
+  }
 }
