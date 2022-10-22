@@ -10,6 +10,7 @@ import { Distance } from "../../../Distance";
 import { LoadingSpinner } from "../../../Loading";
 import { EnableActivityPersistence } from "./EnableActivityPersistence";
 import { Info } from "./Info";
+import { Sharing } from "./Sharing";
 
 const percentFormat = new Intl.NumberFormat("en-US", {
   style: "percent",
@@ -73,6 +74,7 @@ export function FogComponent({ state }: Props) {
           </>
         )}
       </SimpleListItem>
+      <Sharing state={state} />
       <Info />
       <EnableActivityPersistence />
     </List>
