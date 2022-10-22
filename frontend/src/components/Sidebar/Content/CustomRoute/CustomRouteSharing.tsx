@@ -1,8 +1,5 @@
 import { ListItem, ListSubheader } from "@react-md/list";
-import {
-  FileDownloadSVGIcon,
-  InsertDriveFileSVGIcon,
-} from "@react-md/material-icons";
+import { InsertDriveFileSVGIcon } from "@react-md/material-icons";
 import { saveAs } from "file-saver";
 import { LatLngTuple } from "leaflet";
 import { createGPX } from "../../../../services/gpx";
