@@ -14,6 +14,10 @@ export async function handleGETEvent(req: Request, res: Response) {
   }
 
   const { result: event, ttl } = await getEvent(+req.params.eventId);
+  if (!event) {
+    res.sendStatus(404);
+    return;
+  }
 
   res.status(200).header("Cache-Control", `public, max-age=${ttl}`).json(event);
 }

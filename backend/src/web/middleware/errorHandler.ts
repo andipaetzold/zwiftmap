@@ -9,7 +9,6 @@ export function errorHandler(
   res: Response,
   next: NextFunction
 ) {
-  console.log(res.statusCode);
   if (err instanceof ErrorWithStatusCode) {
     if (config.environment === "development") {
       req.log.error(err.message);

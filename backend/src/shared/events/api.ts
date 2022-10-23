@@ -10,7 +10,16 @@ export async function fetchEvents(): Promise<ZwiftEvent[]> {
   return response.data;
 }
 
-export async function fetchEvent(eventId: number): Promise<ZwiftEvent> {
-  const response = await api.get<ZwiftEvent>(`/public/events/${eventId}`);
-  return response.data;
+export async function fetchEvent(
+  eventId: number
+): Promise<ZwiftEvent | undefined> {
+  try {
+    const response = await api.get<ZwiftEvent>(`/public/events/${eventId}`);
+    return response.data;
+  } catch (e) {
+    if (axios.isAxiosError(e) && e.response?.status === 404) {
+      return undefined;
+    }
+    throw e;
+  }
 }
