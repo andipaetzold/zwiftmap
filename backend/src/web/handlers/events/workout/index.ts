@@ -3,16 +3,16 @@ import { Request, Response } from "express";
 import { X2jOptionsOptional, XMLParser } from "fast-xml-parser";
 import { Record, String } from "runtypes";
 import { create } from "xmlbuilder2";
-import { getEvent } from "../../../shared/events/index.js";
-import { NumberString } from "../../../shared/runtypes.js";
-import { COLORS, ZONES } from "./workout/constants.js";
+import { getEvent } from "../../../../shared/events/index.js";
+import { NumberString } from "../../../../shared/runtypes.js";
+import { COLORS, ZONES } from "./constants.js";
 import {
   BarInterval,
   FreeRideInterval,
   Interval,
   RampInterval,
-} from "./workout/types.js";
-import { getColorForPower, getPowerForZone } from "./workout/util.js";
+} from "./types.js";
+import { getColorForPower, getPowerForZone } from "./util.js";
 
 const HEIGHT = 250;
 const WIDTH = 1_000;
