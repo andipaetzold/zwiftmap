@@ -1,5 +1,6 @@
 import "source-map-support/register.js";
-import Sentry from "@sentry/serverless";
+import Sentry from "@sentry/node";
+import Tracing from "@sentry/tracing";
 import nocache from "nocache";
 import { config } from "../shared/config.js";
 import * as handlers from "./handlers/index.js";
@@ -16,6 +17,10 @@ Sentry.init({
   dsn: config.sentry.dsn,
   release: config.sentry.version,
   tracesSampleRate: 0.01,
+  integrations: [
+    new Sentry.Integrations.Http({ tracing: true }),
+    new Tracing.Integrations.Express({ app }),
+  ],
 });
 
 app.use(Sentry.Handlers.requestHandler());
@@ -74,7 +79,7 @@ app.get("/share/:shareId/image", handlers.handleGETShareImage);
 app.use(Sentry.Handlers.errorHandler());
 app.use(errorHandler);
 
-export const api = Sentry.GCPFunction.wrapHttpFunction(app);
+export const api = app;
 
 if (config.environment === "development") {
   const port = +(process.env.PORT ?? "3001");
