@@ -9,34 +9,29 @@ export function errorHandler(
   res: Response,
   next: NextFunction
 ) {
+  console.log(res.statusCode);
   if (err instanceof ErrorWithStatusCode) {
-    res.statusCode = err.statusCode;
-
     if (config.environment === "development") {
       req.log.error(err.message);
     }
-  } else if (axios.isAxiosError(err)) {
-    res.statusCode = err.response?.status ?? 500;
+    res.sendStatus(err.statusCode);
+    return;
+  }
 
+  if (axios.isAxiosError(err)) {
     if (config.environment === "development") {
       req.log.error(err.message);
       if (err.response) {
         req.log.error(err.response.data);
       }
     }
-  } else {
-    res.statusCode = 500;
 
-    if (config.environment === "development") {
-      req.log.error(err);
-    }
+    res.sendStatus(err.response?.status ?? 500);
+    return;
   }
 
-  // @ts-expect-error TODO: add `sentry` to `Response`
-  if (res.sentry) {
-    // @ts-expect-error TODO: add `sentry` to `Response`
-    res.end(`${res.sentry}\n`);
-  } else {
-    res.end();
+  if (config.environment === "development") {
+    req.log.error(err);
   }
+  res.sendStatus(500);
 }
