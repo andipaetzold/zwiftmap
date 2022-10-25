@@ -84,7 +84,7 @@
     "@typescript-eslint/parser": "5.40.1",
     "@vitejs/plugin-react": "2.1.0",
     "cli-progress": "3.11.2",
-    "eslint": "8.25.0",
+    "eslint": "8.26.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-jsx-a11y": "6.6.1",
     "eslint-plugin-prettier": "4.2.1",
