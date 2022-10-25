@@ -33,10 +33,10 @@ async function getConfig(): Promise<Config> {
         clientSecret: await getSecret("GAE_STRAVA_CLIENT_SECRET"),
         webhookHost: process.env.BACKEND_URL!,
         verifyToken: await getSecret("GAE_STRAVA_VERIFY_TOKEN"),
-        betaUsers: process.env
-          .STRAVA_BETA_USERS!.split(",")
+        betaUsers: (process.env.STRAVA_BETA_USERS ?? "")
+          .split(",")
           .map((userId) => +userId)
-          .filter((userId) => !Number.isNaN(userId)),
+          .filter((userId) => userId > 0 && !Number.isNaN(userId)),
       },
       sentry: {
         dsn: await getSecret("GAE_SENTRY_DSN"),
@@ -60,10 +60,10 @@ async function getConfig(): Promise<Config> {
         webhookHost:
           process.env.STRAVA_WEBHOOK_HOST ?? process.env.BACKEND_URL!,
         verifyToken: "token",
-        betaUsers: process.env
-          .STRAVA_BETA_USERS!.split(",")
+        betaUsers: (process.env.STRAVA_BETA_USERS ?? "")
+          .split(",")
           .map((userId) => +userId)
-          .filter((userId) => !Number.isNaN(userId)),
+          .filter((userId) => userId > 0 && !Number.isNaN(userId)),
       },
       sentry: {
         dsn: "",
