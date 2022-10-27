@@ -1,4 +1,8 @@
-import { createCachedFn, nodeCache } from "../cache/index.js";
+import {
+  createCachedFn,
+  evictCacheWithPrefix,
+  nodeCache,
+} from "../cache/index.js";
 import { DetailedActivity, SummaryActivity } from "./api-types/index.js";
 import { StravaUserAPI } from "./api.js";
 
@@ -64,10 +68,8 @@ export class CachedStravaUserAPI {
   );
 
   static async evictCacheForAthlete(athleteId: number) {
-    const allKeys = nodeCache.keys();
-    const pattern = [KEY, athleteId, ""].join(":");
-    const keys = allKeys.filter((key) => key.startsWith(pattern));
-    nodeCache.del(keys);
+    const prefix = [KEY, athleteId, ""].join(":");
+    evictCacheWithPrefix(prefix);
   }
 
   static async evictCacheForActivity(athleteId: number, activityId: number) {
