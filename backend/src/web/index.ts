@@ -47,6 +47,11 @@ app.get(
 );
 app.get("/strava/callback", nocache(), handlers.handleStravaAuthorizeCallback);
 app.get(
+  "/strava/heatmap/:worldSlug",
+  nocache(),
+  handlers.handleGETPersonalHeatmap
+);
+app.get(
   "/strava/fog/:worldSlug/geojson",
   nocache(),
   handlers.handleGETStravaFogGeoJSON

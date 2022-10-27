@@ -1,6 +1,9 @@
-import { LayerGroup, LayersControl } from "react-leaflet";
+import { PathOptions } from "leaflet";
+import { GeoJSON, LayerGroup, LayersControl } from "react-leaflet";
 import { World } from "zwift-data";
 import { useStravaPersonalHeatmap } from "../../../../react-query";
+
+const PATH_OPTIONS: PathOptions = { color: "black", weight: 5, opacity: 0.75  };
 
 interface Props {
   world: World;
@@ -21,7 +24,11 @@ interface Props {
 }
 
 function Lines({ world }: Props) {
-  useStravaPersonalHeatmap(world.slug);
+  const { data } = useStravaPersonalHeatmap(world.slug);
 
-  return null;
+  if (!data) {
+    return null;
+  }
+
+  return <GeoJSON data={data} pathOptions={PATH_OPTIONS} interactive={false} />;
 }

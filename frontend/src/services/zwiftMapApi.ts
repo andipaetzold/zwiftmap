@@ -1,4 +1,10 @@
-import { Feature, MultiPolygon, Polygon } from "@turf/helpers";
+import {
+  Feature,
+  FeatureCollection,
+  LineString,
+  MultiPolygon,
+  Polygon,
+} from "@turf/helpers";
 import {
   DetailedActivity,
   DetailedSegment,
@@ -141,7 +147,7 @@ export async function getStravaFogGeoJSON(
 
 export async function getStravaPersonalHeatmap(
   world: WorldSlug
-): Promise<unknown> {
+): Promise<FeatureCollection<LineString>> {
   return await request(`${BACKEND_HOST}/strava/heatmap/${world}`, {
     ...DEFAULT_INIT,
   });
