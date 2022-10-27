@@ -9,7 +9,8 @@ export function isZwiftActivity(
     return false;
   }
 
-  if ("device_name" in activity && activity.device_name !== "Zwift") {
+  // device_name can be 'Zwift' or 'Zwift Run'
+  if ("device_name" in activity && !activity.device_name.includes("Zwift")) {
     return false;
   }
 
