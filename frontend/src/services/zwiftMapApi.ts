@@ -138,3 +138,11 @@ export async function getStravaFogGeoJSON(
     ...DEFAULT_INIT,
   });
 }
+
+export async function getStravaPersonalHeatmap(
+  world: WorldSlug
+): Promise<unknown> {
+  return await request(`${BACKEND_HOST}/strava/heatmap/${world}`, {
+    ...DEFAULT_INIT,
+  });
+}

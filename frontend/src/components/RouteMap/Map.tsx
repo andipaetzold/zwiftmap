@@ -19,6 +19,7 @@ import styles from "./index.module.scss";
 import { Markers } from "./Markers";
 import { OverlayDebugRoads } from "./overlays/OverlayDebugRoad";
 import { OverlayDebugSurfaces } from "./overlays/OverlayDebugSurfaces";
+import { OverlayHeatmap } from "./overlays/OverlayHeatmap";
 import { OverlayNone } from "./overlays/OverlayNone";
 import { OverlaySegments } from "./overlays/OverlaySegments";
 import { OverlaySurfaces } from "./overlays/OverlaySurfaces";
@@ -137,6 +138,7 @@ export function Map({ state, world, routeStreams }: Props) {
 
             <OverlayDebugSurfaces world={world} />
             <OverlayDebugRoads world={world} />
+            <OverlayHeatmap world={world} />
           </LayersControl>
 
           <RoutePosition streams={routeStreams} />

@@ -8,6 +8,7 @@ export * from "./useStravaActivities";
 export * from "./useStravaActivity";
 export * from "./useStravaFogGeoJSON";
 export * from "./useStravaFogStats";
+export * from "./useStravaPersonalHeatmap";
 export * from "./useStravaSegment";
 export * from "./useStravaSegmentStream";
 export * from "./useStravaSegmentStreams";
