@@ -1,1 +1,0 @@
-web: cp google-credentials.json backend/google-credentials.json && turbo run start --filter=@zwiftmap/backend
