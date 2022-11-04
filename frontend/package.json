@@ -21,7 +21,7 @@
     "@react-md/typography": "5.1.3",
     "@sentry/react": "7.17.3",
     "@tanstack/react-query": "4.13.5",
-    "@tanstack/react-query-devtools": "4.13.5",
+    "@tanstack/react-query-devtools": "4.13.7",
     "@turf/boolean-point-in-polygon": "6.5.0",
     "@turf/buffer": "6.5.0",
     "@turf/distance": "6.5.0",
