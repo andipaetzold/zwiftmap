@@ -87,45 +87,17 @@ function createImage(parsedXML: any) {
 
   const intervals: Interval[] = workout
     .flatMap((node): Interval[] => {
-      if ("Warmup" in node) {
-        if (node[":@"].Zone) {
-          return [
-            {
-              type: "bar",
-              duration: node[":@"].Duration,
-              power: getPowerForZone(node[":@"].Zone),
-            },
-          ];
-        } else {
-          return [
-            {
-              type: "ramp",
-              duration: node[":@"].Duration,
-              from: node[":@"].PowerLow,
-              to: node[":@"].PowerHigh,
-            },
-          ];
-        }
-      } else if ("Cooldown" in node) {
-        if (node[":@"].Zone) {
-          return [
-            {
-              type: "bar",
-              duration: node[":@"].Duration,
-              power: getPowerForZone(node[":@"].Zone),
-            },
-          ];
-        } else {
-          return [
-            {
-              type: "ramp",
-              duration: node[":@"].Duration,
-              from: node[":@"].PowerLow,
-              to: node[":@"].PowerHigh,
-            },
-          ];
-        }
-      } else if ("SteadyState" in node) {
+      if (node[":@"].Zone) {
+        return [
+          {
+            type: "bar",
+            duration: node[":@"].Duration,
+            power: getPowerForZone(node[":@"].Zone),
+          },
+        ];
+      }
+
+      if (node[":@"].Power) {
         return [
           {
             type: "bar",
@@ -133,14 +105,20 @@ function createImage(parsedXML: any) {
             power: node[":@"].Power,
           },
         ];
-      } else if ("FreeRide" in node) {
+      }
+
+      if (node[":@"].PowerLow && node[":@"].PowerHigh) {
         return [
           {
-            type: "free-ride",
+            type: "ramp",
             duration: node[":@"].Duration,
+            from: node[":@"].PowerLow,
+            to: node[":@"].PowerHigh,
           },
         ];
-      } else if ("IntervalsT" in node) {
+      }
+
+      if ("IntervalsT" in node) {
         const result: Interval[] = [];
         for (let i = 0; i < node[":@"].Repeat; ++i) {
           result.push({
@@ -155,9 +133,18 @@ function createImage(parsedXML: any) {
           });
         }
         return result;
-      } else {
-        return [];
       }
+
+      if ("FreeRide" in node) {
+        return [
+          {
+            type: "free-ride",
+            duration: node[":@"].Duration,
+          },
+        ];
+      }
+
+      return [];
     })
     .reduce<Interval[]>((prev, cur) => {
       // dedupe intervals where only cadence changes
@@ -292,6 +279,7 @@ function createRamp(
 
 function createBar(start: number, interval: BarInterval, maxPower: number) {
   const relativePower = interval.power / maxPower;
+
   return [
     {
       rect: {
