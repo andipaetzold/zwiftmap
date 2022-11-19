@@ -3,8 +3,8 @@ import makuriIslandsMap from "../../maps/makuri-islands.png";
 
 export const WORLD_CONFIG_MAKURI_ISLANDS: WorldConfig = {
   initialBounds: [
-    [-10.743702, 165.829858],
-    [-10.805634, 165.859212],
+    [-10.74367,  165.799463],
+    [-10.817209, 165.859244],
   ],
   image: makuriIslandsMap,
   backgroundColor: "#7d9a35",
