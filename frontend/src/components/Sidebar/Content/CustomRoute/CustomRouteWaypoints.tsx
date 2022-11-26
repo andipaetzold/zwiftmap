@@ -33,7 +33,7 @@ export function CustomRouteWaypoints({ state }: Props) {
               point && (
                 <Button
                   buttonType="icon"
-                  style={{ right: 0, position: "absolute" }}
+                  className={styles.ClearButton}
                   onClick={() => {
                     if (state.points.length > 2) {
                       navigate({
