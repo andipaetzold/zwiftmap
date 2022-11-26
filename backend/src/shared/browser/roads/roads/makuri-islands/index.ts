@@ -99,6 +99,9 @@ import edgeVillageSouth from "./edges/village-south.js";
 import edgeUrukaziNorthIsle1 from "./edges/urukazi-north-isle-1.js";
 import edgeUrukaziNorthIsle2 from "./edges/urukazi-north-isle-2.js";
 import edgeUrukaziNorthIsle3 from "./edges/urukazi-north-isle-3.js";
+import edgeUrukaziWestIsle1 from "./edges/urukazi-west-isle-1.js";
+import edgeUrukaziWestIsle2 from "./edges/urukazi-west-isle-2.js";
+import edgeUrukaziNorthIsleBridge from "./edges/urukazi-north-isle-bridge.js";
 
 const ROADS = new Roads();
 
@@ -565,7 +568,7 @@ const URUKAZI_NORTH_ISLE_WEST_1 = ROADS.createNode([
   -10.800848, 165.809934, 5.2,
 ]);
 const URUKAZI_NORTH_ISLE_WEST_2 = ROADS.createNode([
-  -10.801131, 165.809617, 5.2,
+  -10.801191, 165.809741, 5.2,
 ]);
 const URUKAZI_NORTH_ISLE_WEST_3 = ROADS.createNode([
   -10.801146, 165.810194, 5.2,
@@ -595,6 +598,39 @@ ROADS.createEdge(
   URUKAZI_NORTH_ISLE_EAST_3,
   URUKAZI_NORTH_ISLE_WEST_3,
   edgeUrukaziNorthIsle3
+);
+
+// Urukazi - West Isle
+const URUKAZI_WEST_ISLE_NORTH_1 = ROADS.createNode([
+  -10.801055, 165.808121, 5.8,
+]);
+const URUKAZI_WEST_ISLE_NORTH_2 = ROADS.createNode([-10.801308, 165.8084, 5.8]);
+const URUKAZI_WEST_ISLE_NORTH_3 = ROADS.createNode([-10.801556, 165.80826, 6]);
+ROADS.createEdge(URUKAZI_WEST_ISLE_NORTH_1, URUKAZI_WEST_ISLE_NORTH_2, []);
+ROADS.createEdge(URUKAZI_WEST_ISLE_NORTH_2, URUKAZI_WEST_ISLE_NORTH_3, []);
+ROADS.createEdge(URUKAZI_WEST_ISLE_NORTH_3, URUKAZI_WEST_ISLE_NORTH_1, []);
+
+const URUKAZI_WEST_ISLE_SOUTH_1 = ROADS.createNode([-10.810104, 165.809741, 6]);
+const URUKAZI_WEST_ISLE_SOUTH_2 = ROADS.createNode([-10.81022, 165.810084, 6]);
+const URUKAZI_WEST_ISLE_SOUTH_3 = ROADS.createNode([-10.810676, 165.809988, 6]);
+ROADS.createEdge(URUKAZI_WEST_ISLE_SOUTH_1, URUKAZI_WEST_ISLE_SOUTH_2, []);
+ROADS.createEdge(URUKAZI_WEST_ISLE_SOUTH_2, URUKAZI_WEST_ISLE_SOUTH_3, []);
+ROADS.createEdge(URUKAZI_WEST_ISLE_SOUTH_3, URUKAZI_WEST_ISLE_SOUTH_1, []);
+
+ROADS.createEdge(
+  URUKAZI_WEST_ISLE_NORTH_3,
+  URUKAZI_WEST_ISLE_SOUTH_1,
+  edgeUrukaziWestIsle1
+);
+ROADS.createEdge(
+  URUKAZI_WEST_ISLE_SOUTH_3,
+  URUKAZI_WEST_ISLE_NORTH_1,
+  edgeUrukaziWestIsle2
+);
+ROADS.createEdge(
+  URUKAZI_NORTH_ISLE_WEST_2,
+  URUKAZI_WEST_ISLE_NORTH_2,
+  edgeUrukaziNorthIsleBridge
 );
 
 export default ROADS;
