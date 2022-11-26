@@ -17,7 +17,7 @@ const { decompressFromBase64, compressToBase64 } = lzString;
 /**
  * Increase when roads or the algorithm changes
  */
-const VERSION = 1;
+const VERSION = 2;
 
 export interface StravaFogStats {
   activityDistance: number;
