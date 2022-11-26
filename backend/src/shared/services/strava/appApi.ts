@@ -1,6 +1,8 @@
 import axios, { AxiosInstance } from "axios";
 import { config } from "../../config.js";
 import {
+  AuthorizeCodeRequest,
+  AuthorizeCodeResponse,
   RefreshTokenRequest,
   RefreshTokenResponse,
 } from "./api-types/index.js";
@@ -19,19 +21,24 @@ export class StravaAppAPI {
   }
 
   async authorize(code: string) {
-    return await this.#axiosInstance.post("/oauth/token", {
-      code,
+    const data: Partial<AuthorizeCodeRequest> = {
       grant_type: "authorization_code",
-    });
+      code,
+    };
+    return await this.#axiosInstance.post<AuthorizeCodeResponse>(
+      "/oauth/token",
+      data
+    );
   }
 
   async refreshToken(token: string) {
+    const data: Partial<RefreshTokenRequest> = {
+      grant_type: "refresh_token",
+      refresh_token: token,
+    };
     return await this.#axiosInstance.post<RefreshTokenResponse>(
       "/oauth/token",
-      {
-        grant_type: "refresh_token",
-        refresh_token: token,
-      } as Partial<RefreshTokenRequest>
+      data
     );
   }
 }
