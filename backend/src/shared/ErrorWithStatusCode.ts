@@ -1,5 +1,5 @@
 export class ErrorWithStatusCode extends Error {
-  constructor(message: string, public statusCode: number) {
+  constructor(message: string, readonly statusCode: number) {
     super(message);
   }
 }

@@ -9,14 +9,14 @@ export interface FirestoreStoreOptions {
 }
 
 export class FirestoreStore extends Store {
-  private readonly firestore: Firestore;
-  private readonly collection: string;
+  readonly #firestore: Firestore;
+  readonly #collection: string;
 
-  public constructor(options: FirestoreStoreOptions) {
+  constructor(options: FirestoreStoreOptions) {
     super();
 
-    this.firestore = options.firestore;
-    this.collection = options.collection;
+    this.#firestore = options.firestore;
+    this.#collection = options.collection;
   }
 
   async get(
@@ -24,8 +24,8 @@ export class FirestoreStore extends Store {
     callback: (err?: Error | null, session?: SessionData | null) => void
   ): Promise<void> {
     try {
-      const doc = await this.firestore
-        .collection(this.collection)
+      const doc = await this.#firestore
+        .collection(this.#collection)
         .doc(sessionId)
         .get();
 
@@ -57,7 +57,10 @@ export class FirestoreStore extends Store {
         expireAt: expireAt ? new Date(expireAt) : null,
       };
 
-      await this.firestore.collection(this.collection).doc(sessionId).set(data);
+      await this.#firestore
+        .collection(this.#collection)
+        .doc(sessionId)
+        .set(data);
       callback?.();
     } catch (e) {
       callback?.(e as Error);
@@ -69,7 +72,10 @@ export class FirestoreStore extends Store {
     callback?: (err?: Error) => void
   ): Promise<void> {
     try {
-      await this.firestore.collection(this.collection).doc(sessionId).delete();
+      await this.#firestore
+        .collection(this.#collection)
+        .doc(sessionId)
+        .delete();
       callback?.();
     } catch (e) {
       callback?.(e as Error);

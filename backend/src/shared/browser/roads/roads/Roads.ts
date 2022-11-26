@@ -7,15 +7,15 @@ export class Roads {
   #nodes = new Set<RoadsNode>();
   #edges = new Set<RoadsEdge>();
 
-  public get edges(): ReadonlyArray<RoadsEdge> {
+  get edges(): ReadonlyArray<RoadsEdge> {
     return [...this.#edges];
   }
 
-  public get nodes(): ReadonlyArray<RoadsNode> {
+  get nodes(): ReadonlyArray<RoadsNode> {
     return [...this.#nodes];
   }
 
-  public createNode(position: LatLngAlt): RoadsNode {
+  createNode(position: LatLngAlt): RoadsNode {
     const newNode: RoadsNode = {
       position,
       edges: new Set(),
@@ -24,7 +24,7 @@ export class Roads {
     return newNode;
   }
 
-  public createEdge(
+  createEdge(
     from: RoadsNode,
     to: RoadsNode,
     stream: LatLngAlt[],
@@ -50,7 +50,7 @@ export class Roads {
     return edge;
   }
 
-  public clone(): Roads {
+  clone(): Roads {
     const newRoads = new Roads();
 
     const newNodes = new Map<RoadsNode, RoadsNode>();
@@ -70,7 +70,7 @@ export class Roads {
     return newRoads;
   }
 
-  public splitEdge({
+  splitEdge({
     edge,
     edgeStreamIndex,
     position,
@@ -117,7 +117,7 @@ export class Roads {
     return newNode;
   }
 
-  public snapPoint(point: LatLng): SnappedPoint {
+  snapPoint(point: LatLng): SnappedPoint {
     const nearestPositions = this.edges.map((edge) =>
       turfNearestPointOnLine(turfLineString(edge.stream), point)
     );

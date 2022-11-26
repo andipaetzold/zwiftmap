@@ -29,7 +29,7 @@ export const request: RequestFn = async (
 };
 
 export class ErrorWithStatus extends Error {
-  public constructor(message: string, public readonly status: number) {
+  constructor(message: string, readonly status: number) {
     super(message);
   }
 }
