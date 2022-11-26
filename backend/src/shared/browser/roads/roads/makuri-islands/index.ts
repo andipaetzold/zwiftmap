@@ -96,6 +96,9 @@ import edgeTempleKOM from "./edges/temple-kom.js";
 import edgeVillageMiddle from "./edges/village-middle.js";
 import edgeVillageNorth from "./edges/village-north.js";
 import edgeVillageSouth from "./edges/village-south.js";
+import edgeUrukaziNorthIsle1 from "./edges/urukazi-north-isle-1.js";
+import edgeUrukaziNorthIsle2 from "./edges/urukazi-north-isle-2.js";
+import edgeUrukaziNorthIsle3 from "./edges/urukazi-north-isle-3.js";
 
 const ROADS = new Roads();
 
@@ -530,5 +533,26 @@ ROADS.createEdge(NEOKYO_F_1, NEOKYO_H_3, edgeNeokyo16);
 ROADS.createEdge(NEOKYO_H_2, NEOKYO_C_2, edgeNeokyo17);
 ROADS.createEdge(NEOKYO_H_1, NEOKYO_B_3, edgeNeokyo18);
 ROADS.createEdge(NEOKYO_H_4, PADDOCK_NEOKYO_NORTH_EXIT_2, edgeNeokyo19);
+
+// Urukazi - North Isle
+const URUKAZI_PADDOCK_EXIT = ROADS.createNode([-10.795184, 165.812523, 4.8]);
+
+const URUKAZI_WEST_1 = ROADS.createNode([-10.800848, 165.809934, 5.2]);
+const URUKAZI_WEST_2 = ROADS.createNode([-10.801131, 165.809617, 5.2]);
+const URUKAZI_WEST_3 = ROADS.createNode([-10.801146, 165.810194, 5.2]);
+ROADS.createEdge(URUKAZI_WEST_1, URUKAZI_WEST_2, []);
+ROADS.createEdge(URUKAZI_WEST_2, URUKAZI_WEST_3, []);
+ROADS.createEdge(URUKAZI_WEST_3, URUKAZI_WEST_1, []);
+
+const URUKAZI_EAST_1 = ROADS.createNode([-10.79574, 165.816543, 5]);
+const URUKAZI_EAST_2 = ROADS.createNode([-10.795916, 165.816801, 5]);
+const URUKAZI_EAST_3 = ROADS.createNode([-10.796039, 165.816683, 5]);
+ROADS.createEdge(URUKAZI_EAST_1, URUKAZI_EAST_2, []);
+ROADS.createEdge(URUKAZI_EAST_2, URUKAZI_EAST_3, []);
+ROADS.createEdge(URUKAZI_EAST_3, URUKAZI_EAST_1, []);
+
+ROADS.createEdge(URUKAZI_WEST_1, URUKAZI_PADDOCK_EXIT, edgeUrukaziNorthIsle1);
+ROADS.createEdge(URUKAZI_PADDOCK_EXIT, URUKAZI_EAST_1, edgeUrukaziNorthIsle2);
+ROADS.createEdge(URUKAZI_EAST_3, URUKAZI_WEST_3, edgeUrukaziNorthIsle3);
 
 export default ROADS;
