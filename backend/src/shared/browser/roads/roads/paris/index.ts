@@ -3,8 +3,8 @@ import edgeLap from "./edges/lap.js";
 import edgePaddockExit from "./edges/paddock-exit.js";
 
 const ROADS = new Roads();
-const createNode = ROADS.createNode.bind(ROADS)
-const createEdge = ROADS.createEdge.bind(ROADS)
+const createNode = ROADS.createNode.bind(ROADS);
+const createEdge = ROADS.createEdge.bind(ROADS);
 
 const PADDOCK_EXIT = createNode([48.867579, 2.314281, 48.2]);
 const PADDOCK_1 = createNode([48.865897, 2.312644, 48]);

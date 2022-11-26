@@ -3,7 +3,7 @@ import logo from "../../assets/ZwiftInsider-40x40.jpg";
 
 export function ZwiftInsiderAvatar() {
   return (
-    <Avatar color="#fc6719" >
+    <Avatar color="#fc6719">
       <img src={logo} alt="" />
     </Avatar>
   );

@@ -11,7 +11,7 @@ import { ArrowDropDownSVGIcon } from "@react-md/material-icons";
 import { useId } from "react";
 import { useSettings } from "../../hooks/useSettings";
 import { StravaSettings } from "./StravaSettings";
-import styles from './styles.module.scss'
+import styles from "./styles.module.scss";
 
 interface Props {
   onClose: () => void;

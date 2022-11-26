@@ -70,11 +70,7 @@ export class Roads {
     return newRoads;
   }
 
-  splitEdge({
-    edge,
-    edgeStreamIndex,
-    position,
-  }: SnappedPoint): RoadsNode {
+  splitEdge({ edge, edgeStreamIndex, position }: SnappedPoint): RoadsNode {
     this.#edges.delete(edge);
     edge.from.edges.delete(edge);
     edge.to.edges.delete(edge);

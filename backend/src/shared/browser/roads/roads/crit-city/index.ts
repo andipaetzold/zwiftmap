@@ -2,8 +2,8 @@ import { Roads } from "../Roads.js";
 import edgeLap from "./edges/lap.js";
 
 const ROADS = new Roads();
-const createNode = ROADS.createNode.bind(ROADS)
-const createEdge = ROADS.createEdge.bind(ROADS)
+const createNode = ROADS.createNode.bind(ROADS);
+const createEdge = ROADS.createEdge.bind(ROADS);
 
 const PADDOCK_EXIT = createNode([-10.383915, 165.801973, 119.4]);
 const PADDOCK_1 = createNode([-10.384382, 165.803166, 119.4]);

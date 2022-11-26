@@ -5,7 +5,7 @@ import {
   segments,
   Sport,
   World,
-  worlds
+  worlds,
 } from "zwift-data";
 import { WORLDS_BY_SLUG } from "../constants";
 
@@ -63,10 +63,9 @@ const searchResultsSegment = [...segments]
   .filter((segment) => segment.stravaSegmentId !== undefined)
   .map((segment) => ({
     type: "segment" as const,
-    terms: [
-      WORLDS_BY_SLUG[segment.world].name,
-      segment.name,
-    ].map((t) => t.toLocaleLowerCase()),
+    terms: [WORLDS_BY_SLUG[segment.world].name, segment.name].map((t) =>
+      t.toLocaleLowerCase()
+    ),
     data: segment,
   }));
 

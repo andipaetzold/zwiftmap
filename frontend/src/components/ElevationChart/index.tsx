@@ -1,7 +1,7 @@
 import { SimpleListItem } from "@react-md/list";
 import { Typography } from "@react-md/typography";
 import * as Sentry from "@sentry/react";
-import  { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import {
   Area,
   AreaChart,

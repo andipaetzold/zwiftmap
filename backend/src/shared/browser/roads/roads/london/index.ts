@@ -25,8 +25,8 @@ import edgeNorth from "./edges/north.js";
 import paddockExits from "./edges/paddock-exits.js";
 
 const ROADS = new Roads();
-const createNode = ROADS.createNode.bind(ROADS)
-const createEdge = ROADS.createEdge.bind(ROADS)
+const createNode = ROADS.createNode.bind(ROADS);
+const createEdge = ROADS.createEdge.bind(ROADS);
 
 // Paddock
 const PADDOCK_SPLIT = createNode([51.510293, -0.076103, 18]);

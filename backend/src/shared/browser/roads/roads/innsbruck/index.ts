@@ -12,8 +12,8 @@ import edgeMiddle from "./edges/middle.js";
 // TODO: Paddock
 
 const ROADS = new Roads();
-const createNode = ROADS.createNode.bind(ROADS)
-const createEdge = ROADS.createEdge.bind(ROADS)
+const createNode = ROADS.createNode.bind(ROADS);
+const createEdge = ROADS.createEdge.bind(ROADS);
 
 const LUTSCHER_ROUNDABOUT_1 = createNode([47.253996, 11.413398, 297.2]);
 const LUTSCHER_ROUNDABOUT_2 = createNode([47.25336, 11.412977, 297.4]);

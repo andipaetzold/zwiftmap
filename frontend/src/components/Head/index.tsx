@@ -6,10 +6,7 @@ export function Head() {
 
   return (
     <Helmet defaultTitle="ZwiftMap" titleTemplate="%s - ZwiftMap">
-      <link
-        rel="canonical"
-        href={`${window.origin}${createUrl(state)}`}
-      />
+      <link rel="canonical" href={`${window.origin}${createUrl(state)}`} />
     </Helmet>
   );
 }

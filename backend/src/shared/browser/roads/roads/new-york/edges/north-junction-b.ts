@@ -8,6 +8,4 @@ export const edgeNorthJunctionB2: LatLngAlt[] = [
   [40.798116, -73.954044, 6.2],
   [40.798177, -73.953792, 6.4],
 ];
-export const edgeNorthJunctionB3: LatLngAlt[] = [
-    [40.798317, -73.954014, 6.3]
-];
+export const edgeNorthJunctionB3: LatLngAlt[] = [[40.798317, -73.954014, 6.3]];

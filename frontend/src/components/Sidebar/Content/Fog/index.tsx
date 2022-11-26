@@ -16,7 +16,7 @@ interface Props {
 
 export function Fog(props: Props) {
   const isLoggedInStrava = useIsLoggedInStrava();
-  
+
   if (isLoggedInStrava === null) {
     return (
       <List>

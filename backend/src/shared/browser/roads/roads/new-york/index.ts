@@ -80,8 +80,8 @@ import {
 } from "./edges/south-junction-f.js";
 
 const ROADS = new Roads();
-const createNode = ROADS.createNode.bind(ROADS)
-const createEdge = ROADS.createEdge.bind(ROADS)
+const createNode = ROADS.createNode.bind(ROADS);
+const createEdge = ROADS.createEdge.bind(ROADS);
 
 // Paddock
 const PADDOCK_EXIT = createNode([40.777649, -73.966935, 33.6]);

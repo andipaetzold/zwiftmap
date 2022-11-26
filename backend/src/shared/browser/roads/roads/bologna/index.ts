@@ -2,8 +2,8 @@ import { Roads } from "../Roads.js";
 import edgeRoute from "./edges/route.js";
 
 const ROADS = new Roads();
-const createNode = ROADS.createNode.bind(ROADS)
-const createEdge = ROADS.createEdge.bind(ROADS)
+const createNode = ROADS.createNode.bind(ROADS);
+const createEdge = ROADS.createEdge.bind(ROADS);
 
 const START = createNode([44.494722, 11.34292, 297.6]);
 const END = createNode([44.478304, 11.294632, 493.8]);

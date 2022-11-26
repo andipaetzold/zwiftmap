@@ -4,8 +4,8 @@ import edgeBigLoopSouth from "./edges/big-loop-south.js";
 import edgeBigLoopNorth from "./edges/big-loop-north.js";
 
 const ROADS = new Roads();
-const createNode = ROADS.createNode.bind(ROADS)
-const createEdge = ROADS.createEdge.bind(ROADS)
+const createNode = ROADS.createNode.bind(ROADS);
+const createEdge = ROADS.createEdge.bind(ROADS);
 
 const PADDOCK_EXIT = createNode([53.990383, -1.541467, 124.8]);
 const PADDOCK_1 = createNode([53.990773, -1.544834, 124.8]);

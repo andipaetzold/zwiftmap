@@ -24,7 +24,9 @@ export function WorldSelect({ world, onWorldChange }: Props) {
         options={options}
         value={world.slug}
         listboxStyle={{ zIndex: 3000 }}
-        onChange={(newWorldSlug) => onWorldChange(WORLDS_BY_SLUG[newWorldSlug as WorldSlug])}
+        onChange={(newWorldSlug) =>
+          onWorldChange(WORLDS_BY_SLUG[newWorldSlug as WorldSlug])
+        }
         rightChildren={<ArrowDropDownSVGIcon />}
       />
     </div>

@@ -137,10 +137,7 @@ describe("route", () => {
     });
 
     it("invalid route", () => {
-      const r = getLocationStateFromUrl(
-        "/london",
-        ""
-      ) as LocationStateRoute;
+      const r = getLocationStateFromUrl("/london", "") as LocationStateRoute;
       expect(r.type).toBe("default");
       expect(r.world).toBe(LONDON);
     });

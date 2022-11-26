@@ -3,7 +3,7 @@ import { GeoJSON, LayerGroup, LayersControl } from "react-leaflet";
 import { World } from "zwift-data";
 import { useStravaPersonalHeatmap } from "../../../../react-query";
 
-const PATH_OPTIONS: PathOptions = { color: "black", weight: 5, opacity: 0.75  };
+const PATH_OPTIONS: PathOptions = { color: "black", weight: 5, opacity: 0.75 };
 
 interface Props {
   world: World;

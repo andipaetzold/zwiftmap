@@ -5,7 +5,7 @@ import {
 } from "@react-md/material-icons";
 import { MenuItemSeparator } from "@react-md/menu";
 import c from "classnames";
-import  { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useLocationState } from "../../services/location-state";
 import { Content } from "./Content";
 import styles from "./index.module.scss";

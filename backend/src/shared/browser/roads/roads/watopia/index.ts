@@ -63,8 +63,8 @@ import edgeVolcanoSouth from "./edges/volcano-south.js";
 import edgeVolcanoTop from "./edges/volcano-top.js";
 
 const ROADS = new Roads();
-const createNode = ROADS.createNode.bind(ROADS)
-const createEdge = ROADS.createEdge.bind(ROADS)
+const createNode = ROADS.createNode.bind(ROADS);
+const createEdge = ROADS.createEdge.bind(ROADS);
 
 // Alpe du Zwift
 const ADZ_TOP = createNode([-11.681593, 166.88947, 1046.8]);

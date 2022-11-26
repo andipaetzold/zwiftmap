@@ -20,8 +20,8 @@ import edgeVentoux3 from "./edges/ventoux-top-3.js";
 import edgeVentoux4 from "./edges/ventoux-top-4.js";
 
 const ROADS = new Roads();
-const createNode = ROADS.createNode.bind(ROADS)
-const createEdge = ROADS.createEdge.bind(ROADS)
+const createNode = ROADS.createNode.bind(ROADS);
+const createEdge = ROADS.createEdge.bind(ROADS);
 
 // Ventoux
 const VENTOUX_TOP_1 = createNode([-21.656235, 166.205354, 1543]);
