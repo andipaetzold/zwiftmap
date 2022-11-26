@@ -118,24 +118,24 @@ const createNode = ROADS.createNode.bind(ROADS);
 const createEdge = ROADS.createEdge.bind(ROADS);
 
 // Temple
-const TEMPLE_ENTRY_NORTH = createNode([-10.747792, 165.854824, 190.6]);
-const TEMPLE_ENTRY_SOUTH = createNode([-10.758005, 165.849271, 197]);
-const TEMPLE_BYPASS_NORTH = createNode([-10.751153, 165.857172, 212.6]);
-const TEMPLE_BYPASS_SOUTH = createNode([-10.756155, 165.85237, 226.6]);
+const TEMPLE_ENTRY_NORTH = createNode([-10.747792, 165.854824, 130.6]);
+const TEMPLE_ENTRY_SOUTH = createNode([-10.758005, 165.849271, 137]);
+const TEMPLE_BYPASS_NORTH = createNode([-10.751153, 165.857172, 152.6]);
+const TEMPLE_BYPASS_SOUTH = createNode([-10.756155, 165.85237, 166.6]);
 createEdge(TEMPLE_BYPASS_SOUTH, TEMPLE_BYPASS_NORTH, edgeTempleKOM);
 createEdge(TEMPLE_BYPASS_NORTH, TEMPLE_BYPASS_SOUTH, edgeTempleBypass);
 createEdge(TEMPLE_ENTRY_NORTH, TEMPLE_BYPASS_NORTH, edgeTempleEntryNorth);
 createEdge(TEMPLE_BYPASS_SOUTH, TEMPLE_ENTRY_SOUTH, edgeTempleEntrySouth);
 
 // Paddock North
-const PADDOCK_NORTH_1 = createNode([-10.743354, 165.850334, 169]);
-const PADDOCK_NORTH_2 = createNode([-10.742885, 165.852088, 169]);
-const PADDOCK_NORTH_3 = createNode([-10.742716, 165.850183, 169]);
-const PADDOCK_NORTH_4 = createNode([-10.742231, 165.851895, 169]);
-const PADDOCK_NORTH_MIDDLE = createNode([-10.742026, 165.850902, 169]);
-const PADDOCK_NORTH_ROW_FRONT = createNode([-10.743855, 165.851428, 169]);
-const PADDOCK_NORTH_ROW_BACK = createNode([-10.74319, 165.851251, 169]);
-const PADDOCK_NORTH_EXIT = createNode([-10.744888, 165.851723, 169]);
+const PADDOCK_NORTH_1 = createNode([-10.743354, 165.850334, 109]);
+const PADDOCK_NORTH_2 = createNode([-10.742885, 165.852088, 109]);
+const PADDOCK_NORTH_3 = createNode([-10.742716, 165.850183, 109]);
+const PADDOCK_NORTH_4 = createNode([-10.742231, 165.851895, 109]);
+const PADDOCK_NORTH_MIDDLE = createNode([-10.742026, 165.850902, 109]);
+const PADDOCK_NORTH_ROW_FRONT = createNode([-10.743855, 165.851428, 109]);
+const PADDOCK_NORTH_ROW_BACK = createNode([-10.74319, 165.851251, 109]);
+const PADDOCK_NORTH_EXIT = createNode([-10.744888, 165.851723, 109]);
 createEdge(PADDOCK_NORTH_1, PADDOCK_NORTH_ROW_FRONT, [], false);
 createEdge(PADDOCK_NORTH_2, PADDOCK_NORTH_ROW_FRONT, [], false);
 createEdge(PADDOCK_NORTH_3, PADDOCK_NORTH_ROW_BACK, [], false);
@@ -145,14 +145,14 @@ createEdge(PADDOCK_NORTH_ROW_BACK, PADDOCK_NORTH_ROW_FRONT, [], false);
 createEdge(PADDOCK_NORTH_ROW_FRONT, PADDOCK_NORTH_EXIT, [], false);
 
 // Paddock South
-const PADDOCK_SOUTH_1 = createNode([-10.768962, 165.845801, 143.8]);
-const PADDOCK_SOUTH_2 = createNode([-10.767547, 165.846865, 143.8]);
-const PADDOCK_SOUTH_3 = createNode([-10.769357, 165.846337, 143.8]);
-const PADDOCK_SOUTH_4 = createNode([-10.767971, 165.847421, 143.8]);
-const PADDOCK_SOUTH_MIDDLE = createNode([-10.768951, 165.84726, 143.8]);
-const PADDOCK_SOUTH_ROW_FRONT = createNode([-10.767805, 165.845736, 143.8]);
-const PADDOCK_SOUTH_ROW_BACK = createNode([-10.768216, 165.846291, 143.8]);
-const PADDOCK_SOUTH_EXIT = createNode([-10.767157, 165.844875, 143.8]);
+const PADDOCK_SOUTH_1 = createNode([-10.768962, 165.845801, 83.8]);
+const PADDOCK_SOUTH_2 = createNode([-10.767547, 165.846865, 83.8]);
+const PADDOCK_SOUTH_3 = createNode([-10.769357, 165.846337, 83.8]);
+const PADDOCK_SOUTH_4 = createNode([-10.767971, 165.847421, 83.8]);
+const PADDOCK_SOUTH_MIDDLE = createNode([-10.768951, 165.84726, 83.8]);
+const PADDOCK_SOUTH_ROW_FRONT = createNode([-10.767805, 165.845736, 83.8]);
+const PADDOCK_SOUTH_ROW_BACK = createNode([-10.768216, 165.846291, 83.8]);
+const PADDOCK_SOUTH_EXIT = createNode([-10.767157, 165.844875, 83.8]);
 createEdge(PADDOCK_SOUTH_1, PADDOCK_SOUTH_ROW_FRONT, [], false);
 createEdge(PADDOCK_SOUTH_2, PADDOCK_SOUTH_ROW_FRONT, [], false);
 createEdge(PADDOCK_SOUTH_3, PADDOCK_SOUTH_ROW_BACK, [], false);
@@ -162,27 +162,27 @@ createEdge(PADDOCK_SOUTH_ROW_BACK, PADDOCK_SOUTH_ROW_FRONT, [], false);
 createEdge(PADDOCK_SOUTH_ROW_FRONT, PADDOCK_SOUTH_EXIT, [], false);
 
 // Village
-const VILLAGE_EAST = createNode([-10.746258, 165.844588, 153.6]);
-const VILLAGE_WEST = createNode([-10.748485, 165.842115, 153.6]);
+const VILLAGE_EAST = createNode([-10.746258, 165.844588, 93.6]);
+const VILLAGE_WEST = createNode([-10.748485, 165.842115, 93.6]);
 createEdge(VILLAGE_WEST, VILLAGE_EAST, edgeVillageNorth);
 createEdge(VILLAGE_WEST, VILLAGE_EAST, edgeVillageMiddle);
 createEdge(VILLAGE_EAST, VILLAGE_WEST, edgeVillageSouth);
 
 // Castle
-const CASTLE_NORTH_A = createNode([-10.755473, 165.848247, 194.8]);
-const CASTLE_NORTH_B = createNode([-10.757028, 165.84792, 196.2]);
-const CASTLE_MIDDLE = createNode([-10.760925, 165.846452, 196]);
+const CASTLE_NORTH_A = createNode([-10.755473, 165.848247, 134.8]);
+const CASTLE_NORTH_B = createNode([-10.757028, 165.84792, 136.2]);
+const CASTLE_MIDDLE = createNode([-10.760925, 165.846452, 136]);
 
-const CASTLE_SOUTH_A_1 = createNode([-10.764166, 165.844988, 162.4]);
-const CASTLE_SOUTH_A_2 = createNode([-10.7638, 165.845079, 162.4]);
-const CASTLE_SOUTH_A_3 = createNode([-10.763876, 165.845286, 162.2]);
+const CASTLE_SOUTH_A_1 = createNode([-10.764166, 165.844988, 102.4]);
+const CASTLE_SOUTH_A_2 = createNode([-10.7638, 165.845079, 102.4]);
+const CASTLE_SOUTH_A_3 = createNode([-10.763876, 165.845286, 102.2]);
 createEdge(CASTLE_SOUTH_A_2, CASTLE_SOUTH_A_1, edgeCastleSouthA1);
 createEdge(CASTLE_SOUTH_A_2, CASTLE_SOUTH_A_3, edgeCastleSouthA2);
 createEdge(CASTLE_SOUTH_A_3, CASTLE_SOUTH_A_1, edgeCastleSouthA3);
 
-const CASTLE_SOUTH_B_1 = createNode([-10.762461, 165.84542, 159.4]);
-const CASTLE_SOUTH_B_2 = createNode([-10.762595, 165.845731, 159.2]);
-const CASTLE_SOUTH_B_3 = createNode([-10.762798, 165.845463, 159.2]);
+const CASTLE_SOUTH_B_1 = createNode([-10.762461, 165.84542, 99.4]);
+const CASTLE_SOUTH_B_2 = createNode([-10.762595, 165.845731, 99.2]);
+const CASTLE_SOUTH_B_3 = createNode([-10.762798, 165.845463, 99.2]);
 createEdge(CASTLE_SOUTH_B_2, CASTLE_SOUTH_B_1, edgeCastleSouthB1);
 createEdge(CASTLE_SOUTH_B_2, CASTLE_SOUTH_B_3, edgeCastleSouthB2);
 createEdge(CASTLE_SOUTH_B_1, CASTLE_SOUTH_B_3, edgeCastleSouthB3);
@@ -196,15 +196,15 @@ createEdge(CASTLE_SOUTH_B_3, CASTLE_SOUTH_A_2, edgeCastle6);
 createEdge(CASTLE_NORTH_A, CASTLE_SOUTH_B_2, edgeCastle7);
 
 // Countryside Rest
-const COUNTRY_A = createNode([-10.746116, 165.846959, 160.6]);
-const COUNTRY_B = createNode([-10.750822, 165.852141, 192.8]);
-const COUNTRY_C = createNode([-10.758184, 165.834066, 128]);
-const COUNTRY_D = createNode([-10.769018, 165.84151, 129.8]);
-const COUNTRY_F = createNode([-10.775112, 165.83019, 125.6]);
+const COUNTRY_A = createNode([-10.746116, 165.846959, 100.6]);
+const COUNTRY_B = createNode([-10.750822, 165.852141, 132.8]);
+const COUNTRY_C = createNode([-10.758184, 165.834066, 68]);
+const COUNTRY_D = createNode([-10.769018, 165.84151, 69.8]);
+const COUNTRY_F = createNode([-10.775112, 165.83019, 67.8]);
 
-const COUNTRY_E_1 = createNode([-10.759273, 165.838325, 128.2]);
-const COUNTRY_E_2 = createNode([-10.759217, 165.838872, 128.2]);
-const COUNTRY_E_3 = createNode([-10.759507, 165.838604, 128.2]);
+const COUNTRY_E_1 = createNode([-10.759273, 165.838325, 68.2]);
+const COUNTRY_E_2 = createNode([-10.759217, 165.838872, 68.2]);
+const COUNTRY_E_3 = createNode([-10.759507, 165.838604, 68.2]);
 createEdge(COUNTRY_E_1, COUNTRY_E_2, edgeCountryE1);
 createEdge(COUNTRY_E_2, COUNTRY_E_3, edgeCountryE2);
 createEdge(COUNTRY_E_3, COUNTRY_E_1, edgeCountryE3);
@@ -225,20 +225,18 @@ createEdge(COUNTRY_D, COUNTRY_F, edgeCountryDToF);
 createEdge(COUNTRY_F, COUNTRY_C, edgeCountryCToF);
 
 // Paddock Neokyo North
-const PADDOCK_NEOKYO_NORTH_1 = createNode([-10.781435, 165.842088, 126.4]);
-const PADDOCK_NEOKYO_NORTH_2 = createNode([-10.781446, 165.8438, 126.4]);
-const PADDOCK_NEOKYO_NORTH_3 = createNode([-10.780777, 165.842094, 126.4]);
-const PADDOCK_NEOKYO_NORTH_4 = createNode([-10.780777, 165.843816, 126.4]);
-const PADDOCK_NEOKYO_NORTH_MIDDLE = createNode([-10.780276, 165.842995, 126.4]);
+const PADDOCK_NEOKYO_NORTH_1 = createNode([-10.781435, 165.842088, 66.4]);
+const PADDOCK_NEOKYO_NORTH_2 = createNode([-10.781446, 165.8438, 66.4]);
+const PADDOCK_NEOKYO_NORTH_3 = createNode([-10.780777, 165.842094, 66.4]);
+const PADDOCK_NEOKYO_NORTH_4 = createNode([-10.780777, 165.843816, 66.4]);
+const PADDOCK_NEOKYO_NORTH_MIDDLE = createNode([-10.780276, 165.842995, 66.4]);
 const PADDOCK_NEOKYO_NORTH_ROW_FRONT = createNode([
-  -10.782184, 165.843006, 126.4,
-]);
+  -10.782184, 165.843006, 66.4]);
 const PADDOCK_NEOKYO_NORTH_ROW_BACK = createNode([
-  -10.781477, 165.842995, 126.4,
-]);
-const PADDOCK_NEOKYO_NORTH_EXIT_1 = createNode([-10.782895, 165.843006, 126.4]);
-const PADDOCK_NEOKYO_NORTH_EXIT_2 = createNode([-10.783338, 165.843019, 126.4]);
-const PADDOCK_NEOKYO_NORTH_EXIT_3 = createNode([-10.783169, 165.842577, 126.4]);
+  -10.781477, 165.842995, 66.4]);
+const PADDOCK_NEOKYO_NORTH_EXIT_1 = createNode([-10.782895, 165.843006, 66.4]);
+const PADDOCK_NEOKYO_NORTH_EXIT_2 = createNode([-10.783338, 165.843019, 66.4]);
+const PADDOCK_NEOKYO_NORTH_EXIT_3 = createNode([-10.783169, 165.842577, 66.4]);
 createEdge(PADDOCK_NEOKYO_NORTH_1, PADDOCK_NEOKYO_NORTH_ROW_FRONT, [], false);
 createEdge(PADDOCK_NEOKYO_NORTH_2, PADDOCK_NEOKYO_NORTH_ROW_FRONT, [], false);
 createEdge(PADDOCK_NEOKYO_NORTH_3, PADDOCK_NEOKYO_NORTH_ROW_BACK, [], false);
@@ -275,16 +273,15 @@ createEdge(
 );
 
 // Paddock Neokyo South
-const PADDOCK_NEOKYO_SOUTH_1 = createNode([-10.807506, 165.838333, 123]);
-const PADDOCK_NEOKYO_SOUTH_2 = createNode([-10.807008, 165.840053, 123]);
-const PADDOCK_NEOKYO_SOUTH_3 = createNode([-10.808149, 165.838532, 123]);
-const PADDOCK_NEOKYO_SOUTH_4 = createNode([-10.807654, 165.840246, 123]);
-const PADDOCK_NEOKYO_SOUTH_MIDDLE = createNode([-10.808323, 165.839514, 123]);
-const PADDOCK_NEOKYO_SOUTH_ROW_BACK = createNode([-10.807169, 165.839159, 123]);
+const PADDOCK_NEOKYO_SOUTH_1 = createNode([-10.807506, 165.838333, 63]);
+const PADDOCK_NEOKYO_SOUTH_2 = createNode([-10.807008, 165.840053, 63]);
+const PADDOCK_NEOKYO_SOUTH_3 = createNode([-10.808149, 165.838532, 63]);
+const PADDOCK_NEOKYO_SOUTH_4 = createNode([-10.807654, 165.840246, 63]);
+const PADDOCK_NEOKYO_SOUTH_MIDDLE = createNode([-10.808323, 165.839514, 63]);
+const PADDOCK_NEOKYO_SOUTH_ROW_BACK = createNode([-10.807169, 165.839159, 63]);
 const PADDOCK_NEOKYO_SOUTH_ROW_FRONT = createNode([
-  -10.806521, 165.838969, 123,
-]);
-const PADDOCK_NEOKYO_SOUTH_EXIT = createNode([-10.805406, 165.838655, 123]);
+  -10.806521, 165.838969, 63]);
+const PADDOCK_NEOKYO_SOUTH_EXIT = createNode([-10.805406, 165.838655, 63]);
 createEdge(
   PADDOCK_NEOKYO_SOUTH_MIDDLE,
   PADDOCK_NEOKYO_SOUTH_ROW_BACK,
@@ -309,16 +306,16 @@ createEdge(PADDOCK_NEOKYO_SOUTH_3, PADDOCK_NEOKYO_SOUTH_ROW_BACK, [], false);
 createEdge(PADDOCK_NEOKYO_SOUTH_4, PADDOCK_NEOKYO_SOUTH_ROW_BACK, [], false);
 
 // Neokyo Roundabout
-const NEOKYO_ROUNDABOUT_1 = createNode([-10.780663, 165.833776, 125.6]);
-const NEOKYO_ROUNDABOUT_2 = createNode([-10.781122, 165.835375, 125.6]);
+const NEOKYO_ROUNDABOUT_1 = createNode([-10.780663, 165.833776, 65.6]);
+const NEOKYO_ROUNDABOUT_2 = createNode([-10.781122, 165.835375, 65.6]);
 createEdge(NEOKYO_ROUNDABOUT_2, NEOKYO_ROUNDABOUT_1, edgeNeokyoRoundabout1);
 createEdge(NEOKYO_ROUNDABOUT_1, NEOKYO_ROUNDABOUT_2, edgeNeokyoRoundabout2);
 
 // Neokyo Rooftop
-const NEOKYO_ROOFTOP_1 = createNode([-10.789693, 165.846608, 140]);
-const NEOKYO_ROOFTOP_2 = createNode([-10.7892, 165.84624, 140]);
-const NEOKYO_ROOFTOP_3 = createNode([-10.788958, 165.846707, 140]);
-const NEOKYO_ROOFTOP_4 = createNode([-10.789395, 165.847005, 140]);
+const NEOKYO_ROOFTOP_1 = createNode([-10.789693, 165.846608, 80]);
+const NEOKYO_ROOFTOP_2 = createNode([-10.7892, 165.84624, 80]);
+const NEOKYO_ROOFTOP_3 = createNode([-10.788958, 165.846707, 80]);
+const NEOKYO_ROOFTOP_4 = createNode([-10.789395, 165.847005, 80]);
 createEdge(NEOKYO_ROOFTOP_3, NEOKYO_ROOFTOP_4, edgeNeokyoRooftop);
 createEdge(NEOKYO_ROOFTOP_4, NEOKYO_ROOFTOP_1, edgeNeokyoRooftopJunction1);
 createEdge(NEOKYO_ROOFTOP_2, NEOKYO_ROOFTOP_3, edgeNeokyoRooftopJunction2);
@@ -326,9 +323,9 @@ createEdge(NEOKYO_ROOFTOP_2, NEOKYO_ROOFTOP_1, edgeNeokyoRooftopJunction3);
 createEdge(NEOKYO_ROOFTOP_3, NEOKYO_ROOFTOP_4, edgeNeokyoRooftopJunction4);
 
 // Neokyo Castle
-const NEOKYO_CASTLE_NORTH_1 = createNode([-10.799473, 165.842966, 126.6]);
-const NEOKYO_CASTLE_NORTH_2 = createNode([-10.799225, 165.842721, 126.4]);
-const NEOKYO_CASTLE_NORTH_3 = createNode([-10.799083, 165.842987, 126.4]);
+const NEOKYO_CASTLE_NORTH_1 = createNode([-10.799473, 165.842966, 66.6]);
+const NEOKYO_CASTLE_NORTH_2 = createNode([-10.799225, 165.842721, 66.4]);
+const NEOKYO_CASTLE_NORTH_3 = createNode([-10.799083, 165.842987, 66.4]);
 createEdge(
   NEOKYO_CASTLE_NORTH_2,
   NEOKYO_CASTLE_NORTH_1,
@@ -345,9 +342,9 @@ createEdge(
   edgeNeokyoCastleNorth3
 );
 
-const NEOKYO_CASTLE_SOUTH_1 = createNode([-10.803689, 165.843738, 125.6]);
-const NEOKYO_CASTLE_SOUTH_2 = createNode([-10.803578, 165.844116, 125.6]);
-const NEOKYO_CASTLE_SOUTH_3 = createNode([-10.803451, 165.843867, 125.6]);
+const NEOKYO_CASTLE_SOUTH_1 = createNode([-10.803689, 165.843738, 65.6]);
+const NEOKYO_CASTLE_SOUTH_2 = createNode([-10.803578, 165.844116, 65.6]);
+const NEOKYO_CASTLE_SOUTH_3 = createNode([-10.803451, 165.843867, 65.6]);
 createEdge(
   NEOKYO_CASTLE_SOUTH_1,
   NEOKYO_CASTLE_SOUTH_2,
@@ -367,59 +364,59 @@ createEdge(
 createEdge(NEOKYO_CASTLE_NORTH_1, NEOKYO_CASTLE_SOUTH_3, edgeNeokyoCastle);
 
 // Neokyo Junctions
-const NEOKYO_A_1 = createNode([-10.783617, 165.838242, 125.8]);
-const NEOKYO_A_2 = createNode([-10.783965, 165.838553, 125.8]);
-const NEOKYO_A_3 = createNode([-10.784144, 165.838151, 125.8]);
+const NEOKYO_A_1 = createNode([-10.783617, 165.838242, 65.8]);
+const NEOKYO_A_2 = createNode([-10.783965, 165.838553, 65.8]);
+const NEOKYO_A_3 = createNode([-10.784144, 165.838151, 65.8]);
 createEdge(NEOKYO_A_1, NEOKYO_A_2, edgeNeokyoA1);
 createEdge(NEOKYO_A_2, NEOKYO_A_3, edgeNeokyoA2);
 createEdge(NEOKYO_A_3, NEOKYO_A_1, edgeNeokyoA3);
 
-const NEOKYO_B_1 = createNode([-10.788937, 165.837126, 126]);
-const NEOKYO_B_2 = createNode([-10.789226, 165.836837, 126]);
-const NEOKYO_B_3 = createNode([-10.789263, 165.837199, 126]);
+const NEOKYO_B_1 = createNode([-10.788937, 165.837126, 66]);
+const NEOKYO_B_2 = createNode([-10.789226, 165.836837, 66]);
+const NEOKYO_B_3 = createNode([-10.789263, 165.837199, 66]);
 createEdge(NEOKYO_B_1, NEOKYO_B_2, edgeNeokyoB1);
 createEdge(NEOKYO_B_2, NEOKYO_B_3, edgeNeokyoB2);
 createEdge(NEOKYO_B_3, NEOKYO_B_1, edgeNeokyoB3);
 
-const NEOKYO_C_1 = createNode([-10.795363, 165.839811, 125.6]);
-const NEOKYO_C_2 = createNode([-10.795155, 165.840155, 125.6]);
-const NEOKYO_C_3 = createNode([-10.795653, 165.840203, 125.6]);
+const NEOKYO_C_1 = createNode([-10.795363, 165.839811, 65.6]);
+const NEOKYO_C_2 = createNode([-10.795155, 165.840155, 65.6]);
+const NEOKYO_C_3 = createNode([-10.795653, 165.840203, 65.6]);
 createEdge(NEOKYO_C_1, NEOKYO_C_2, edgeNeokyoC1);
 createEdge(NEOKYO_C_2, NEOKYO_C_3, edgeNeokyoC2);
 createEdge(NEOKYO_C_3, NEOKYO_C_1, edgeNeokyoC3);
 
-const NEOKYO_D_1 = createNode([-10.799046, 165.841496, 125]);
-const NEOKYO_D_2 = createNode([-10.798606, 165.841037, 125]);
-const NEOKYO_D_3 = createNode([-10.799223, 165.840951, 125]);
+const NEOKYO_D_1 = createNode([-10.799046, 165.841496, 65]);
+const NEOKYO_D_2 = createNode([-10.798606, 165.841037, 65]);
+const NEOKYO_D_3 = createNode([-10.799223, 165.840951, 65]);
 createEdge(NEOKYO_D_1, NEOKYO_D_2, edgeNeokyoD1);
 createEdge(NEOKYO_D_2, NEOKYO_D_3, edgeNeokyoD2);
 createEdge(NEOKYO_D_3, NEOKYO_D_1, edgeNeokyoD3);
 
-const NEOKYO_E_1 = createNode([-10.796166, 165.843379, 126]);
-const NEOKYO_E_2 = createNode([-10.796491, 165.843658, 126.2]);
-const NEOKYO_E_3 = createNode([-10.79667, 165.84332, 126]);
+const NEOKYO_E_1 = createNode([-10.796166, 165.843379, 66]);
+const NEOKYO_E_2 = createNode([-10.796491, 165.843658, 66.2]);
+const NEOKYO_E_3 = createNode([-10.79667, 165.84332, 66]);
 createEdge(NEOKYO_E_1, NEOKYO_E_2, edgeNeokyoE1);
 createEdge(NEOKYO_E_2, NEOKYO_E_3, edgeNeokyoE2);
 createEdge(NEOKYO_E_3, NEOKYO_E_1, edgeNeokyoE3);
 
-const NEOKYO_F_1 = createNode([-10.791508, 165.843545, 126]);
-const NEOKYO_F_2 = createNode([-10.791577, 165.844097, 126]);
-const NEOKYO_F_3 = createNode([-10.791266, 165.843827, 126]);
+const NEOKYO_F_1 = createNode([-10.791508, 165.843545, 66]);
+const NEOKYO_F_2 = createNode([-10.791577, 165.844097, 66]);
+const NEOKYO_F_3 = createNode([-10.791266, 165.843827, 66]);
 createEdge(NEOKYO_F_1, NEOKYO_F_2, edgeNeokyoF1);
 createEdge(NEOKYO_F_2, NEOKYO_F_3, edgeNeokyoF2);
 createEdge(NEOKYO_F_3, NEOKYO_F_1, edgeNeokyoF3);
 
-const NEOKYO_G_1 = createNode([-10.791095, 165.841142, 138.2]);
-const NEOKYO_G_2 = createNode([-10.791355, 165.840409, 138.2]);
-const NEOKYO_G_3 = createNode([-10.791532, 165.84116, 138.2]);
+const NEOKYO_G_1 = createNode([-10.791095, 165.841142, 78.2]);
+const NEOKYO_G_2 = createNode([-10.791355, 165.840409, 78.2]);
+const NEOKYO_G_3 = createNode([-10.791532, 165.84116, 78.2]);
 createEdge(NEOKYO_G_1, NEOKYO_G_2, edgeNeokyoG1);
 createEdge(NEOKYO_G_2, NEOKYO_G_3, edgeNeokyoG2);
 createEdge(NEOKYO_G_3, NEOKYO_G_1, edgeNeokyoG3);
 
-const NEOKYO_H_1 = createNode([-10.791316, 165.840206, 126]);
-const NEOKYO_H_2 = createNode([-10.791606, 165.840503, 126]);
-const NEOKYO_H_3 = createNode([-10.791411, 165.840793, 126]);
-const NEOKYO_H_4 = createNode([-10.79116, 165.840659, 126]);
+const NEOKYO_H_1 = createNode([-10.791316, 165.840206, 66]);
+const NEOKYO_H_2 = createNode([-10.791606, 165.840503, 66]);
+const NEOKYO_H_3 = createNode([-10.791411, 165.840793, 66]);
+const NEOKYO_H_4 = createNode([-10.79116, 165.840659, 66]);
 createEdge(NEOKYO_H_1, NEOKYO_H_2, edgeNeokyoH1);
 createEdge(NEOKYO_H_2, NEOKYO_H_3, edgeNeokyoH2);
 createEdge(NEOKYO_H_3, NEOKYO_H_4, edgeNeokyoH3);
@@ -447,16 +444,16 @@ createEdge(NEOKYO_H_1, NEOKYO_B_3, edgeNeokyo18);
 createEdge(NEOKYO_H_4, PADDOCK_NEOKYO_NORTH_EXIT_2, edgeNeokyo19);
 
 // Urukazi - Neokyo
-const URUKAZI_NEOKYO_NORTH_1 = createNode([-10.777773, 165.83033, 127.4]);
-const URUKAZI_NEOKYO_NORTH_2 = createNode([-10.777262, 165.83022, 127.4]);
-const URUKAZI_NEOKYO_NORTH_3 = createNode([-10.77777, 165.830753, 127.4]);
+const URUKAZI_NEOKYO_NORTH_1 = createNode([-10.777773, 165.83033, 67.4]);
+const URUKAZI_NEOKYO_NORTH_2 = createNode([-10.777262, 165.83022, 67.4]);
+const URUKAZI_NEOKYO_NORTH_3 = createNode([-10.77777, 165.830753, 67.4]);
 createEdge(URUKAZI_NEOKYO_NORTH_1, URUKAZI_NEOKYO_NORTH_2, []);
 createEdge(URUKAZI_NEOKYO_NORTH_2, URUKAZI_NEOKYO_NORTH_3, []);
 createEdge(URUKAZI_NEOKYO_NORTH_3, URUKAZI_NEOKYO_NORTH_1, []);
 
-const URUKAZI_NEOKYO_SOUTH_1 = createNode([-10.80552, 165.836509, 126.2]);
-const URUKAZI_NEOKYO_SOUTH_2 = createNode([-10.804927, 165.83685, 126.2]);
-const URUKAZI_NEOKYO_SOUTH_3 = createNode([-10.805372, 165.836877, 126.2]);
+const URUKAZI_NEOKYO_SOUTH_1 = createNode([-10.80552, 165.836509, 66.2]);
+const URUKAZI_NEOKYO_SOUTH_2 = createNode([-10.804927, 165.83685, 66.2]);
+const URUKAZI_NEOKYO_SOUTH_3 = createNode([-10.805372, 165.836877, 66.2]);
 createEdge(URUKAZI_NEOKYO_SOUTH_1, URUKAZI_NEOKYO_SOUTH_2, []);
 createEdge(URUKAZI_NEOKYO_SOUTH_2, URUKAZI_NEOKYO_SOUTH_3, []);
 createEdge(URUKAZI_NEOKYO_SOUTH_3, URUKAZI_NEOKYO_SOUTH_1, []);
