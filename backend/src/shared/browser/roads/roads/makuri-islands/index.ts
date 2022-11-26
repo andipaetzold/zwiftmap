@@ -32,6 +32,7 @@ import {
   edgeCountryE3,
 } from "./edges/country-e.js";
 import edgeCountryNeokyo from "./edges/country-neokyo.js";
+import edgeCountryNeokyo2 from "./edges/country-neokyo-2.js";
 import edgeCountryPaddockToA from "./edges/country-paddock-to-a.js";
 import edgeCountryPaddockToTemple from "./edges/country-paddock-to-temple.js";
 import edgeCountryVillageToA from "./edges/country-village-to-a.js";
@@ -53,6 +54,7 @@ import edgeNeokyo6 from "./edges/neokyo-6.js";
 import edgeNeokyo7 from "./edges/neokyo-7.js";
 import edgeNeokyo8 from "./edges/neokyo-8.js";
 import edgeNeokyo9 from "./edges/neokyo-9.js";
+import edgeNeokyo20 from "./edges/neokyo-20.js";
 import { edgeNeokyoA1, edgeNeokyoA2, edgeNeokyoA3 } from "./edges/neokyo-a.js";
 import { edgeNeokyoB1, edgeNeokyoB2, edgeNeokyoB3 } from "./edges/neokyo-b.js";
 import { edgeNeokyoC1, edgeNeokyoC2, edgeNeokyoC3 } from "./edges/neokyo-c.js";
@@ -108,6 +110,8 @@ import edgeUrukaziSouthIsle2 from "./edges/urukazi-south-isle-2.js";
 import edgeUrukaziSouthIsleBridge from "./edges/urukazi-south-isle-bridge.js";
 import edgeUrukaziCoastBridgeNorth from "./edges/urukazi-coast-bridge-north.js";
 import edgeUrukaziCoastBridgeSouth from "./edges/urukazi-coast-bridge-south.js";
+import edgeUrukaziNeokyoNorthConnector from "./edges/urukazi-neokyo-north-connector.js";
+import edgeUrukaziNeokyoSouthConnector from "./edges/urukazi-neokyo-south-connector.js";
 
 const ROADS = new Roads();
 const createNode = ROADS.createNode.bind(ROADS);
@@ -424,13 +428,11 @@ createEdge(NEOKYO_H_1, NEOKYO_H_3, edgeNeokyoH5);
 createEdge(NEOKYO_H_2, NEOKYO_H_4, edgeNeokyoH6);
 
 // Neokyo Rest
-createEdge(COUNTRY_F, NEOKYO_ROUNDABOUT_1, edgeCountryNeokyo);
 createEdge(NEOKYO_ROUNDABOUT_2, NEOKYO_A_1, edgeNeokyo1);
 createEdge(PADDOCK_NEOKYO_NORTH_EXIT_3, NEOKYO_A_2, edgeNeokyo2);
 createEdge(NEOKYO_A_3, NEOKYO_B_1, edgeNeokyo3);
 createEdge(NEOKYO_B_2, NEOKYO_C_1, edgeNeokyo4);
 createEdge(NEOKYO_D_2, NEOKYO_C_3, edgeNeokyo5);
-createEdge(NEOKYO_D_3, PADDOCK_NEOKYO_SOUTH_EXIT, edgeNeokyo6);
 createEdge(PADDOCK_NEOKYO_SOUTH_EXIT, NEOKYO_CASTLE_SOUTH_1, edgeNeokyo7);
 createEdge(NEOKYO_CASTLE_NORTH_3, NEOKYO_E_3, edgeNeokyo8);
 createEdge(NEOKYO_CASTLE_NORTH_2, NEOKYO_D_1, edgeNeokyo9);
@@ -443,6 +445,28 @@ createEdge(NEOKYO_F_1, NEOKYO_H_3, edgeNeokyo16);
 createEdge(NEOKYO_H_2, NEOKYO_C_2, edgeNeokyo17);
 createEdge(NEOKYO_H_1, NEOKYO_B_3, edgeNeokyo18);
 createEdge(NEOKYO_H_4, PADDOCK_NEOKYO_NORTH_EXIT_2, edgeNeokyo19);
+
+// Urukazi - Neokyo
+const URUKAZI_NEOKYO_NORTH_1 = createNode([-10.777773, 165.83033, 127.4]);
+const URUKAZI_NEOKYO_NORTH_2 = createNode([-10.777262, 165.83022, 127.4]);
+const URUKAZI_NEOKYO_NORTH_3 = createNode([-10.77777, 165.830753, 127.4]);
+createEdge(URUKAZI_NEOKYO_NORTH_1, URUKAZI_NEOKYO_NORTH_2, []);
+createEdge(URUKAZI_NEOKYO_NORTH_2, URUKAZI_NEOKYO_NORTH_3, []);
+createEdge(URUKAZI_NEOKYO_NORTH_3, URUKAZI_NEOKYO_NORTH_1, []);
+
+const URUKAZI_NEOKYO_SOUTH_1 = createNode([-10.80552, 165.836509, 126.2]);
+const URUKAZI_NEOKYO_SOUTH_2 = createNode([-10.804927, 165.83685, 126.2]);
+const URUKAZI_NEOKYO_SOUTH_3 = createNode([-10.805372, 165.836877, 126.2]);
+createEdge(URUKAZI_NEOKYO_SOUTH_1, URUKAZI_NEOKYO_SOUTH_2, []);
+createEdge(URUKAZI_NEOKYO_SOUTH_2, URUKAZI_NEOKYO_SOUTH_3, []);
+createEdge(URUKAZI_NEOKYO_SOUTH_3, URUKAZI_NEOKYO_SOUTH_1, []);
+
+
+createEdge(COUNTRY_F, URUKAZI_NEOKYO_NORTH_2, edgeCountryNeokyo);
+createEdge(URUKAZI_NEOKYO_NORTH_3, NEOKYO_ROUNDABOUT_1, edgeCountryNeokyo2);
+
+// createEdge(NEOKYO_D_3, URUKAZI_NEOKYO_SOUTH_2, edgeNeokyo6);
+createEdge(URUKAZI_NEOKYO_SOUTH_3, PADDOCK_NEOKYO_SOUTH_EXIT, edgeNeokyo20);
 
 // Urukazi - Paddock
 const URUKAZI_PADDOCK_EXIT = createNode([-10.795194, 165.812544, 4.8]);
@@ -532,7 +556,7 @@ createEdge(URUKAZI_SOUTH_ISLE_WEST_2, URUKAZI_SOUTH_ISLE_WEST_3, []);
 createEdge(URUKAZI_SOUTH_ISLE_WEST_3, URUKAZI_SOUTH_ISLE_WEST_1, []);
 
 const URUKAZI_SOUTH_ISLE_EAST_1 = createNode([-10.806481, 165.820268, 5.2]);
-const URUKAZI_SOUTH_ISLE_EAST_2 = createNode([-10.806766, 165.820609, 5.2],);
+const URUKAZI_SOUTH_ISLE_EAST_2 = createNode([-10.806766, 165.820609, 5.2]);
 const URUKAZI_SOUTH_ISLE_EAST_3 = createNode([-10.806929, 165.820298, 5.2]);
 createEdge(URUKAZI_SOUTH_ISLE_EAST_1, URUKAZI_SOUTH_ISLE_EAST_2, []);
 createEdge(URUKAZI_SOUTH_ISLE_EAST_2, URUKAZI_SOUTH_ISLE_EAST_3, []);
@@ -562,7 +586,7 @@ createEdge(URUKAZI_COAST_NORTH_1, URUKAZI_COAST_NORTH_2, []);
 createEdge(URUKAZI_COAST_NORTH_2, URUKAZI_COAST_NORTH_3, []);
 createEdge(URUKAZI_COAST_NORTH_3, URUKAZI_COAST_NORTH_1, []);
 
-const URUKAZI_COAST_SOUTH_1 = createNode([-10.806947, 165.822315, 4.8],);
+const URUKAZI_COAST_SOUTH_1 = createNode([-10.806947, 165.822315, 4.8]);
 const URUKAZI_COAST_SOUTH_2 = createNode([-10.807073, 165.822519, 4.8]);
 const URUKAZI_COAST_SOUTH_3 = createNode([-10.807424, 165.82254, 4.8]);
 createEdge(URUKAZI_COAST_SOUTH_1, URUKAZI_COAST_SOUTH_2, []);
@@ -583,6 +607,16 @@ createEdge(
   URUKAZI_SOUTH_ISLE_EAST_2,
   URUKAZI_COAST_SOUTH_1,
   edgeUrukaziCoastBridgeSouth
+);
+createEdge(
+  URUKAZI_NEOKYO_NORTH_1,
+  URUKAZI_COAST_NORTH_1,
+  edgeUrukaziNeokyoNorthConnector
+);
+createEdge(
+  URUKAZI_COAST_SOUTH_3,
+  URUKAZI_NEOKYO_SOUTH_1,
+  edgeUrukaziNeokyoSouthConnector
 );
 
 export default ROADS;
