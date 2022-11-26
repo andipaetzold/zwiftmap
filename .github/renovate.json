@@ -19,6 +19,10 @@
     {
       "matchPackagePatterns": ["zwift-data"],
       "stabilityDays": 0
+    },
+    {
+      "matchPackageNames": ["axios"],
+      "allowedVersions": "< 1.2"
     }
   ],
   "postUpdateOptions": ["npmDedupe"]

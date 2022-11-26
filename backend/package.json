@@ -45,7 +45,7 @@
     "@turf/helpers": "6.5.0",
     "@turf/length": "6.5.0",
     "@turf/nearest-point-on-line": "6.5.0",
-    "axios": "1.2.0",
+    "axios": "1.1.1",
     "compression": "1.7.4",
     "cors": "2.8.5",
     "dotenv": "16.0.3",
