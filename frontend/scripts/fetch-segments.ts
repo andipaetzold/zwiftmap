@@ -5,7 +5,7 @@ import { Route, routes, Segment, segments } from "zwift-data";
 import { fileURLToPath } from "url";
 import _ from "lodash-es";
 import progress from "cli-progress";
-import { LatLng, StreamSet } from "strava";
+import { LatLng } from "strava";
 
 interface StravaData {
   altitude: number[];
@@ -30,13 +30,18 @@ bar.start(segmentsToFetch.length, 0);
 await Promise.all([
   ...[...routes, ...segments]
     .filter((route) => route.stravaSegmentId !== undefined)
-    .map((segment) => fetchSegment(segment, bar)),
+    .map((segment) =>
+      fetchSegment(
+        segment as (Segment | Route) & { stravaSegmentId: number },
+        bar
+      )
+    ),
 ]);
 
 bar.stop();
 
 async function fetchSegment(
-  { name, stravaSegmentId }: Segment | Route,
+  { name, stravaSegmentId }: (Segment | Route) & { stravaSegmentId: number },
   bar: progress.Bar
 ) {
   const segmentDir = `${BASE_DIR}/strava-segments/${stravaSegmentId}`;
@@ -72,12 +77,15 @@ async function fetchSegment(
     );
   });
   const [latlng, altitude, distance] = _.unzip(dedupedZip) as [
-    LatLng,
-    number,
-    number
+    LatLng[],
+    number[],
+    number[]
   ];
 
-  writeFileSync(`${segmentDir}/altitude.json`, JSON.stringify(altitude));
+  writeFileSync(
+    `${segmentDir}/altitude.json`,
+    JSON.stringify(fixMakuriIslandsAltitude(stravaSegmentId, altitude))
+  );
   writeFileSync(`${segmentDir}/distance.json`, JSON.stringify(distance));
   writeFileSync(`${segmentDir}/latlng.json`, JSON.stringify(latlng));
 
@@ -97,4 +105,25 @@ function getRoundedAltitude(stravaData: StravaData) {
 
 function getRoundedDistances(stravaData: StravaData) {
   return stravaData.distance.map((d) => _.round(d, 2));
+}
+
+/**
+ * With the Urukazi update, Zwift lowered the altitude of all existing roads by 60m
+ */
+function fixMakuriIslandsAltitude(
+  segmentId: number,
+  altitudeStream: number[]
+): number[] {
+  const segments = [
+    30407802, 28431416, 30987848, 30480835, 30407658, 29009500, 30629791,
+    28432243, 29559312, 28433439, 30988311, 30408107, 29534888, 28432116,
+    30407957, 30412485, 29009511, 28433076, 30414842, 28432455, 30407898,
+    28432204, 28430973, 30629803, 30408380,
+  ];
+
+  if (!segments.includes(segmentId)) {
+    return altitudeStream;
+  }
+
+  return altitudeStream.map((altitude) => altitude - 60);
 }
