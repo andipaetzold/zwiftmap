@@ -52,7 +52,7 @@
     "react-responsive": "9.0.0",
     "react-schemaorg": "2.0.0",
     "recharts": "2.1.16",
-    "strava": "2.0.1",
+    "strava": "2.0.2",
     "zustand": "4.1.4",
     "zwift-data": "1.20.1"
   },
