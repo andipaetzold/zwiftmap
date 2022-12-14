@@ -1,8 +1,7 @@
 import { spawn } from "child_process";
 import "dotenv/config";
 import ngrok from "ngrok";
-import TscWatchClient from "tsc-watch/client.js";
-
+import { TscWatchClient } from "tsc-watch/client.js";
 
 const url = await ngrok.connect({
   proto: "http",
