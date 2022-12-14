@@ -1,5 +1,4 @@
 import { existsSync, mkdirSync, writeFileSync } from "fs";
-import fetch from "node-fetch";
 import path, { dirname } from "path";
 import { Route, routes, Segment, segments } from "zwift-data";
 import { fileURLToPath } from "url";
