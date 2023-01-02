@@ -91,7 +91,7 @@
     "happy-dom": "8.1.1",
     "husky": "8.0.2",
     "lint-staged": "13.1.0",
-    "netlify-cli": "12.2.8",
+    "netlify-cli": "12.5.0",
     "prettier": "2.8.1",
     "pwa-asset-generator": "6.2.0",
     "sass": "1.57.1",
