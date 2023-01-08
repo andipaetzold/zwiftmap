@@ -19,7 +19,7 @@ export function BackButton({ state }: Props) {
           placeId: state.placeId,
         }}
       >
-        <TextIconSpacing icon={<PlaceSVGIcon />}>Cancel edit</TextIconSpacing>
+        <TextIconSpacing icon={<PlaceSVGIcon />}>Back</TextIconSpacing>
       </ButtonState>
     </SimpleListItem>
   );
