@@ -13,7 +13,7 @@ import {
 } from "strava";
 import { WorldSlug } from "zwift-data";
 import { BACKEND_HOST } from "../config";
-import { AuthStatus, Share, StravaSettings, ZwiftEvent } from "../types";
+import { AuthStatus, Place, Share, StravaSettings, ZwiftEvent } from "../types";
 import { cachedRequest } from "./cached-request";
 import { request } from "./request";
 
@@ -149,6 +149,42 @@ export async function getStravaPersonalHeatmap(
   world: WorldSlug
 ): Promise<FeatureCollection<LineString>> {
   return await request(`${BACKEND_HOST}/strava/heatmap/${world}/geojson`, {
+    ...DEFAULT_INIT,
+  });
+}
+
+export async function getPlaces(world: WorldSlug): Promise<Place[]> {
+  return await request<Place[]>(`${BACKEND_HOST}/worlds/${world}/places`, {
+    ...DEFAULT_INIT,
+  });
+}
+
+export async function createPlace(place: Omit<Place, "id">): Promise<Place> {
+  return await request<Place>(`${BACKEND_HOST}/worlds/${place.world}/places`, {
+    method: "POST",
+    ...DEFAULT_INIT,
+  });
+}
+
+export async function updatePlace(place: Place): Promise<Place> {
+  return await request<Place>(
+    `${BACKEND_HOST}/worlds/${place.world}/places/${place.id}`,
+    {
+      method: "POST",
+      ...DEFAULT_INIT,
+    }
+  );
+}
+
+export async function deletePlace(place: Place): Promise<void> {
+  await request(`${BACKEND_HOST}/worlds/${place.world}/places/${place.id}`, {
+    method: "DELETE",
+    ...DEFAULT_INIT,
+  });
+}
+
+export async function getPlace(world: WorldSlug, id: string): Promise<Place> {
+  return await request<Place>(`${BACKEND_HOST}/worlds/${world}/places/${id}`, {
     ...DEFAULT_INIT,
   });
 }
