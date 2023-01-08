@@ -1,3 +1,4 @@
+import { Place } from "./Place";
 import { LatLngStream } from "./Stream";
 import { SurfaceType } from "./Surface";
 
@@ -9,7 +10,8 @@ export type HoverState =
   | HoverStatePreviewLatLngStream
   | HoverStateHighlightSurface
   | HoverStateHighlightSegment
-  | HoverStateRouteDistance;
+  | HoverStateRouteDistance
+  | HoverStatePlace;
 
 export const enum HoverStateType {
   PreviewRoute,
@@ -19,6 +21,7 @@ export const enum HoverStateType {
   HighlightSurface,
   HighlightSegment,
   Distance,
+  Place,
 }
 
 export interface HoverStatePreviewRoute {
@@ -57,4 +60,9 @@ export interface HoverStateHighlightSegment {
 export interface HoverStateRouteDistance {
   type: HoverStateType.Distance;
   distance: number;
+}
+
+export interface HoverStatePlace {
+  type: HoverStateType.Place;
+  place: Place;
 }
