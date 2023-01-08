@@ -45,6 +45,7 @@ export function getKeyFromLocationState(locationState: LocationState): string {
       ].join();
 
     case "place":
+    case "place-edit":
       return [
         locationState.type,
         getKeyFromWorld(locationState.world),

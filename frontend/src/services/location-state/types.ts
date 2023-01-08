@@ -63,6 +63,12 @@ export interface LocationStatePlaceNew {
   world: World;
 }
 
+export interface LocationStatePlaceEdit {
+  type: "place-edit";
+  world: World;
+  placeId: string;
+}
+
 export interface LocationStatePlace {
   type: "place";
   world: World;
@@ -82,4 +88,5 @@ export type LocationState =
   | LocationStateCustomRoute
   | LocationStateFog
   | LocationStatePlace
+  | LocationStatePlaceEdit
   | LocationStatePlaceNew;

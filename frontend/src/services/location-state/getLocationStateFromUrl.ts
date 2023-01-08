@@ -11,6 +11,7 @@ import {
   PATTERN_FOG,
   PATTERN_PLACE_NEW,
   PATTERN_PLACE,
+  PATTERN_PLACE_EDIT,
 } from "../routing";
 import { DEFAULT_WORLD } from "./constants";
 import { createUrl } from "./createUrl";
@@ -109,6 +110,22 @@ const PATTERNS: {
         {
           type: "place-new",
           world,
+        },
+        false,
+      ];
+    },
+  },
+  {
+    pattern: PATTERN_PLACE_EDIT,
+    toState: (result) => {
+      const worldSlug = result.groups!.worldSlug;
+      const world = worlds.find((w) => w.slug === worldSlug) ?? DEFAULT_WORLD;
+
+      return [
+        {
+          type: "place-edit",
+          world,
+          placeId: result.groups!.placeId,
         },
         false,
       ];

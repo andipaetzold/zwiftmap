@@ -10,4 +10,5 @@ export const PATTERN_CUSTOM_ROUTE =
   /^\/(?<worldSlug>.+)\/(custom-route|routing)$/;
   export const PATTERN_FOG = /^\/(?<worldSlug>.+)\/fog$/;
   export const PATTERN_PLACE_NEW = /^\/(?<worldSlug>.+)\/places\/new$/;
+  export const PATTERN_PLACE_EDIT = /^\/(?<worldSlug>.+)\/places\/(?<placeId>.+)\/new$/;
   export const PATTERN_PLACE = /^\/(?<worldSlug>.+)\/places\/(?<placeId>.+)$/;
