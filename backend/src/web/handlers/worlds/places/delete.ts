@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Record, String } from "runtypes";
+import { isAdminUser } from "../../../../shared/services/strava/index.js";
 import { worlds, WorldSlug } from "zwift-data";
 import {
   readPlace,
@@ -27,13 +28,16 @@ export async function handleDELETEPlace(req: Request, res: Response) {
     return;
   }
 
+  if (!isAdminUser(session.stravaAthleteId)) {
+    res.sendStatus(403);
+    return;
+  }
+
   const place = await readPlace(req.params.worldSlug, req.params.placeId);
   if (!place) {
     res.sendStatus(404);
     return;
   }
-
-  // TODO: check admin
 
   await removePlace(req.params.worldSlug, req.params.placeId);
 

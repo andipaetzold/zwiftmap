@@ -11,6 +11,7 @@ export interface Config {
     webhookHost: string;
     verifyToken: string;
     betaUsers: number[];
+    adminUsers: number[];
   };
   sentry: {
     dsn: string;
@@ -34,6 +35,10 @@ async function getConfig(): Promise<Config> {
         webhookHost: process.env.BACKEND_URL!,
         verifyToken: await getSecret("GAE_STRAVA_VERIFY_TOKEN"),
         betaUsers: (process.env.STRAVA_BETA_USERS ?? "")
+          .split(",")
+          .map((userId) => +userId)
+          .filter((userId) => userId > 0 && !Number.isNaN(userId)),
+        adminUsers: (process.env.STRAVA_ADMIN_USERS ?? "")
           .split(",")
           .map((userId) => +userId)
           .filter((userId) => userId > 0 && !Number.isNaN(userId)),
@@ -61,6 +66,10 @@ async function getConfig(): Promise<Config> {
           process.env.STRAVA_WEBHOOK_HOST ?? process.env.BACKEND_URL!,
         verifyToken: "token",
         betaUsers: (process.env.STRAVA_BETA_USERS ?? "")
+          .split(",")
+          .map((userId) => +userId)
+          .filter((userId) => userId > 0 && !Number.isNaN(userId)),
+        adminUsers: (process.env.STRAVA_ADMIN_USERS ?? "")
           .split(",")
           .map((userId) => +userId)
           .filter((userId) => userId > 0 && !Number.isNaN(userId)),

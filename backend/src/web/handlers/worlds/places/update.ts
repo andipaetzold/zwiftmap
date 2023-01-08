@@ -8,6 +8,7 @@ import {
   writePlace,
 } from "../../../../shared/persistence/place.js";
 import { LatLng } from "../../../../shared/types.js";
+import { isAdminUser } from "../../../../shared/services/strava/index.js";
 
 const slugs = worlds.map((w) => w.slug as string);
 const paramsRunType = Record({
@@ -36,6 +37,11 @@ export async function handlePUTPlace(req: Request, res: Response) {
   const session = req.session as Session;
   if (!session.stravaAthleteId) {
     res.sendStatus(401);
+    return;
+  }
+
+  if (!isAdminUser(session.stravaAthleteId)) {
+    res.sendStatus(403);
     return;
   }
 
