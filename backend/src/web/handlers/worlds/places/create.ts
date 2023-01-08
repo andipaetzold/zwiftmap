@@ -16,7 +16,7 @@ const Body = Record({
   position: Array(Number).withConstraint<LatLng>((a) => a.length === 2),
 });
 
-export async function handleCreatePlace(req: Request, res: Response) {
+export async function handlePOSTPlace(req: Request, res: Response) {
   if (!paramsRunType.guard(req.params)) {
     res.sendStatus(400);
     return;
@@ -33,5 +33,5 @@ export async function handleCreatePlace(req: Request, res: Response) {
     verified: false,
   });
 
-  res.status(200).header("public, max-age=86400").json(place);
+  res.status(200).json(place);
 }

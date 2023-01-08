@@ -10,7 +10,7 @@ const paramsRunType = Record({
   ),
 });
 
-export async function handleListPlaces(req: Request, res: Response) {
+export async function handleGETPlaces(req: Request, res: Response) {
   if (!paramsRunType.guard(req.params)) {
     res.sendStatus(400);
     return;

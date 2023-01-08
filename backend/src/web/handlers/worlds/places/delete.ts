@@ -1,13 +1,11 @@
 import { Request, Response } from "express";
-import { Array, Number, Record, String } from "runtypes";
-import { Session } from "../../../types.js";
+import { Record, String } from "runtypes";
 import { worlds, WorldSlug } from "zwift-data";
 import {
-  Place,
   readPlace,
-  writePlace,
+  removePlace,
 } from "../../../../shared/persistence/place.js";
-import { LatLng } from "../../../../shared/types.js";
+import { Session } from "../../../types.js";
 
 const slugs = worlds.map((w) => w.slug as string);
 const paramsRunType = Record({
@@ -17,18 +15,8 @@ const paramsRunType = Record({
   placeId: String,
 });
 
-const Body = Record({
-  name: String,
-  position: Array(Number).withConstraint<LatLng>((a) => a.length === 2),
-});
-
-export async function handlePUTPlace(req: Request, res: Response) {
+export async function handleDELETEPlace(req: Request, res: Response) {
   if (!paramsRunType.guard(req.params)) {
-    res.sendStatus(400);
-    return;
-  }
-
-  if (!Body.guard(req.body)) {
     res.sendStatus(400);
     return;
   }
@@ -47,12 +35,7 @@ export async function handlePUTPlace(req: Request, res: Response) {
 
   // TODO: check admin
 
-  const updatedPlace: Place = {
-    ...place,
-    id: req.params.placeId,
-    world: req.params.worldSlug,
-  };
-  await writePlace(updatedPlace);
+  await removePlace(req.params.worldSlug, req.params.placeId);
 
-  res.status(200).json(updatedPlace);
+  res.status(204);
 }

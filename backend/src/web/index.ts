@@ -86,10 +86,11 @@ app.post("/share", nocache(), handlers.handleCreateShare);
 app.get("/share/:shareId", handlers.handleGetShare);
 app.get("/share/:shareId/image", handlers.handleGETShareImage);
 
-app.get("/worlds/:worldSlug/places", handlers.handleListPlaces);
-app.post("/worlds/:worldSlug/places/", handlers.handleCreatePlace);
+app.get("/worlds/:worldSlug/places", handlers.handleGETPlaces);
+app.post("/worlds/:worldSlug/places/", handlers.handlePOSTPlace);
 app.get("/worlds/:worldSlug/places/:placeId", handlers.handleGETPlace);
-app.put("/worlds/:worldSlug/places/:placeId", handlers.handleUpdatePlace);
+app.put("/worlds/:worldSlug/places/:placeId", handlers.handlePUTPlace);
+app.delete("/worlds/:worldSlug/places/:placeId", handlers.handleDELETEPlace);
 
 app.use(Sentry.Handlers.errorHandler());
 app.use(errorHandler);
