@@ -39,6 +39,7 @@ export function getSurfaceStats(
     [SurfaceType.Snow]: 0,
     [SurfaceType.Dirt]: 0,
     [SurfaceType.Grass]: 0,
+    [SurfaceType.Sand]: 0,
   };
 
   for (let i = 1; i < distanceStream.length; ++i) {

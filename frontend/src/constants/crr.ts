@@ -1,5 +1,6 @@
 import { Bike, SurfaceType } from "../types";
 
+// https://zwiftinsider.com/crr/
 export const CRR: Record<SurfaceType, Record<Bike, number | null>> = {
   [SurfaceType.Tarmac]: {
     [Bike.Road]: 0.004,
@@ -35,5 +36,10 @@ export const CRR: Record<SurfaceType, Record<Bike, number | null>> = {
     [Bike.Road]: null,
     [Bike.MTB]: 0.042,
     [Bike.Gravel]: null,
+  },
+  [SurfaceType.Sand]: {
+    [Bike.Road]: 0.004,
+    [Bike.MTB]: 0.014,
+    [Bike.Gravel]: 0.008,
   },
 };
