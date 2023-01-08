@@ -1,4 +1,4 @@
-import { List, ListSubheader } from "@react-md/list";
+import { List, ListSubheader, SimpleListItem } from "@react-md/list";
 import { useWorldPlaces } from "../../../../react-query";
 import { LocationStateDefault } from "../../../../services/location-state";
 import { ListItemState } from "../../../ListItemState";
@@ -10,11 +10,23 @@ interface Props {
 export function PlacesList({ state }: Props) {
   const { data: places } = useWorldPlaces(state.world.slug);
 
-  if (!places || places.length === 0) {
-    return null;
+  if (!places) {
+    return (
+      <>
+        <ListSubheader>Places</ListSubheader>
+        {/* TODO: spinner */}
+      </>
+    );
   }
 
-  // TODO: create place button
+  if (places.length === 0) {
+    return (
+      <>
+        <ListSubheader>Places</ListSubheader>
+        <SimpleListItem>No places in {state.world.name}</SimpleListItem>
+      </>
+    );
+  }
 
   return (
     <>
@@ -24,11 +36,11 @@ export function PlacesList({ state }: Props) {
         role="list"
         aria-label={`Places in ${state.world.name}`}
       >
-        {places?.map((place) => (
+        {places.map((place) => (
           <ListItemState
             key={place.id}
             role="listitem"
-            state={{ type: "default", world: state.world }} // TODO: link
+            state={{ type: "place", world: state.world, placeId: place.id }}
           >
             {place.name}
           </ListItemState>

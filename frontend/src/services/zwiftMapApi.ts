@@ -159,7 +159,9 @@ export async function getPlaces(world: WorldSlug): Promise<Place[]> {
   });
 }
 
-export async function createPlace(place: Omit<Place, "id">): Promise<Place> {
+export async function createPlace(
+  place: Omit<Place, "id" | "verified">
+): Promise<Place> {
   return await request<Place>(`${BACKEND_HOST}/worlds/${place.world}/places`, {
     method: "POST",
     ...DEFAULT_INIT,

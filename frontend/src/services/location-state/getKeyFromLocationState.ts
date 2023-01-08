@@ -44,8 +44,16 @@ export function getKeyFromLocationState(locationState: LocationState): string {
         locationState.shareId,
       ].join();
 
+    case "place":
+      return [
+        locationState.type,
+        getKeyFromWorld(locationState.world),
+        locationState.placeId,
+      ].join();
+
     case "custom-route":
     case "fog":
+    case "place-new":
     case "default":
       return [locationState.type, getKeyFromWorld(locationState.world)].join();
   }

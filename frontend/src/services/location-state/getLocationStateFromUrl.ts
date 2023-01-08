@@ -9,6 +9,8 @@ import {
   PATTERN_STRAVA_ACTIVITY,
   PATTERN_WORLD,
   PATTERN_FOG,
+  PATTERN_PLACE_NEW,
+  PATTERN_PLACE,
 } from "../routing";
 import { DEFAULT_WORLD } from "./constants";
 import { createUrl } from "./createUrl";
@@ -92,6 +94,37 @@ const PATTERNS: {
         {
           type: "fog",
           world,
+        },
+        false,
+      ];
+    },
+  },
+  {
+    pattern: PATTERN_PLACE_NEW,
+    toState: (result) => {
+      const worldSlug = result.groups!.worldSlug;
+      const world = worlds.find((w) => w.slug === worldSlug) ?? DEFAULT_WORLD;
+
+      return [
+        {
+          type: "place-new",
+          world,
+        },
+        false,
+      ];
+    },
+  },
+  {
+    pattern: PATTERN_PLACE,
+    toState: (result) => {
+      const worldSlug = result.groups!.worldSlug;
+      const world = worlds.find((w) => w.slug === worldSlug) ?? DEFAULT_WORLD;
+
+      return [
+        {
+          type: "place",
+          world,
+          placeId: result.groups!.placeId,
         },
         false,
       ];

@@ -12,7 +12,9 @@ const paramsRunType = Record({
 });
 
 const Body = Record({
-  name: String,
+  name: String.withConstraint((s) => s.length <= 50),
+  description: String.withConstraint((s) => s.length <= 500),
+  links: Array(String),
   position: Array(Number).withConstraint<LatLng>((a) => a.length === 2),
 });
 

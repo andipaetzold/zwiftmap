@@ -58,6 +58,17 @@ export interface LocationStateFog {
   world: World;
 }
 
+export interface LocationStatePlaceNew {
+  type: "place-new";
+  world: World;
+}
+
+export interface LocationStatePlace {
+  type: "place";
+  world: World;
+  placeId: string;
+}
+
 export type LocationStateWithKey = LocationState & { key: string };
 export type LocationState =
   | LocationStateDefault
@@ -69,4 +80,6 @@ export type LocationState =
   | LocationStateUpcomingEvent
   | LocationStateShare
   | LocationStateCustomRoute
-  | LocationStateFog;
+  | LocationStateFog
+  | LocationStatePlace
+  | LocationStatePlaceNew;

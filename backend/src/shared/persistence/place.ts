@@ -9,12 +9,16 @@ export interface Place {
   id: string;
   world: WorldSlug;
   name: string;
+  description: string;
+  links: string[];
   position: LatLng;
   verified: boolean;
 }
 
 interface FirestorePlace {
   name: string;
+  description: string;
+  links: string[];
   position: LatLng;
   verified: boolean;
 }
@@ -31,6 +35,8 @@ function getCollection(world: WorldSlug) {
           id: snap.id,
           world: snap.ref.parent.parent!.id as WorldSlug,
           name: data.name,
+          description: data.description,
+          links: data.links,
           position: data.position,
           verified: data.verified,
         };
