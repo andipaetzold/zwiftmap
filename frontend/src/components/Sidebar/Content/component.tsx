@@ -10,6 +10,7 @@ import { Fog } from "./Fog";
 import { RouteList } from "./Lists/RouteList";
 import { SearchResultList } from "./Lists/SearchResultList";
 import { StravaActivitiesList } from "./Lists/StravaActivitiesList";
+import { Place } from "./Place";
 import { PlaceNew } from "./PlaceNew";
 import { RouteDetails } from "./RouteDetails";
 import { SegmentDetails } from "./SegmentDetails";
@@ -68,6 +69,8 @@ export function Content() {
       return <Fog state={state} />;
     case "place-new":
       return <PlaceNew state={state} />;
+    case "place":
+      return <Place state={state} />;
     case "default":
       if (query === "") {
         return <RouteList state={state} />;
