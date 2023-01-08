@@ -1,6 +1,5 @@
 import { LayerGroup, LayersControl, Polygon } from "react-leaflet";
 import { World } from "zwift-data";
-import { ENVIRONMENT } from "../../../../config";
 import { SURFACE_CONSTANTS, worldConfigs } from "../../../../constants";
 
 interface Props {
@@ -8,10 +7,6 @@ interface Props {
 }
 
 export function OverlayDebugSurfacesComponent({ world }: Props) {
-  if (ENVIRONMENT === "production") {
-    return null;
-  }
-
   const worldConfig = worldConfigs[world.slug];
 
   return (
