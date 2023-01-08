@@ -23,7 +23,7 @@ import { OverlayHeatmap } from "./overlays/OverlayHeatmap";
 import { OverlayNone } from "./overlays/OverlayNone";
 import { OverlaySegments } from "./overlays/OverlaySegments";
 import { OverlaySurfaces } from "./overlays/OverlaySurfaces";
-import { PreviewRoute } from "./PreviewRoute";
+import { HoverStateOverlay } from "./HoverStateOverlay";
 import { RoutePosition } from "./RoutePosition";
 import { WorldImage } from "./WorldImage";
 
@@ -108,7 +108,7 @@ export function Map({ state, world, routeStreams }: Props) {
     >
       <ZoomControl position="topright" />
       <WorldImage world={world} />
-      <PreviewRoute />
+      <HoverStateOverlay />
       {state.type === "fog" ? (
         <Fog state={state} />
       ) : (

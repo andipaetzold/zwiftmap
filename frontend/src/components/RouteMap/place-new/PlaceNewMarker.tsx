@@ -1,9 +1,7 @@
-import { Icon, LatLngTuple, Marker as LeafletMarker } from "leaflet";
+import { LatLngTuple, Marker as LeafletMarker } from "leaflet";
 import { useCallback, useEffect, useState } from "react";
-import { Marker } from "react-leaflet";
 import { emitter } from "../../../services/emitter";
-import { getMarkerIconAsDataUrl } from "../../MarkerIcon";
-import shadowUrl from "./marker-shadow.png";
+import { PlaceMarker } from "../../PlaceMarker";
 
 export function PlaceNewMarker() {
   const [position, setPosition] = useState<LatLngTuple | null>(null);
@@ -21,21 +19,12 @@ export function PlaceNewMarker() {
   return (
     <>
       {position && (
-        <Marker
+        <PlaceMarker
           draggable
           position={position}
           eventHandlers={{ dragend: (e) => updateMarker(e.target) }}
-          icon={icon}
         />
       )}
     </>
   );
 }
-const icon = new Icon({
-  iconUrl: getMarkerIconAsDataUrl(),
-  iconRetinaUrl: undefined,
-  shadowUrl,
-  iconSize: [26.5, 41],
-  iconAnchor: [26.5 / 2, 41],
-  shadowSize: [41, 41],
-});

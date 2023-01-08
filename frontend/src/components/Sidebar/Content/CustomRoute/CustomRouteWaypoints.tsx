@@ -29,7 +29,7 @@ export function CustomRouteWaypoints({ state }: Props) {
             className={styles.TextField}
             value={point ? formatPoint(point) : ""}
             placeholder="Select point on map"
-            leftChildren={<MarkerIcon number={index + 1} />}
+            leftChildren={<MarkerIcon label={`${index + 1}`} />}
             isRightAddon={false}
             rightChildren={
               point && (

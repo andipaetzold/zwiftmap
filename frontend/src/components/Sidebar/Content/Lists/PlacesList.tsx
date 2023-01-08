@@ -50,6 +50,7 @@ export function PlacesList({ state }: Props) {
               setHoverState({ type: HoverStateType.Place, place })
             }
             onMouseLeave={() => setHoverState(undefined)}
+            onClick={() => setHoverState(undefined)}
           >
             {place.name}
           </ListItemState>
