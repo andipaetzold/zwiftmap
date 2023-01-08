@@ -13,7 +13,8 @@ import {
 import { Typography } from "@react-md/typography";
 import { useMutation } from "@tanstack/react-query";
 import { LatLngTuple } from "leaflet";
-import { FormEvent, useId, useState } from "react";
+import { FormEvent, useEffect, useId, useState } from "react";
+import { emitter } from "../../../../services/emitter";
 import { LocationStatePlaceNew } from "../../../../services/location-state";
 import { createPlace } from "../../../../services/zwiftMapApi";
 import { ButtonState } from "../../../ButtonState";
@@ -33,6 +34,12 @@ export default function PlaceNew({ state }: Props) {
 
   const linkIdPrefix = useId();
 
+  useEffect(() => {
+    const listener = (pos: LatLngTuple) => setPosition(pos);
+    emitter.on("placeMarkerMove", listener);
+    return () => emitter.off("placeMarkerMove", listener);
+  }, []);
+
   const { mutate: handleSubmit } = useMutation<
     unknown,
     string,
@@ -46,14 +53,21 @@ export default function PlaceNew({ state }: Props) {
         description,
         links,
         world: state.world.slug,
-        position: [0, 0],
+        // We have form validation
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        position: position!,
       });
     },
     {
-      onSuccess: () =>
+      onSuccess: () => {
+        setPosition(null);
+        setName("");
+        setDescription("");
+        setLinks([]);
         addMessage({
           children: "New place was submitted successfully",
-        }),
+        });
+      },
       onError: () =>
         addMessage({
           children: "Something went wrong",
@@ -97,8 +111,8 @@ export default function PlaceNew({ state }: Props) {
         <SimpleListItem>
           <TextField
             id={useId()}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             label="Name"
             dense
             className={styles.Field}
@@ -109,8 +123,8 @@ export default function PlaceNew({ state }: Props) {
         <SimpleListItem>
           <TextArea
             id={useId()}
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
             label="Description"
             dense
             rows={5}

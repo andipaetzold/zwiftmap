@@ -163,8 +163,12 @@ export async function createPlace(
   place: Omit<Place, "id" | "verified">
 ): Promise<Place> {
   return await request<Place>(`${BACKEND_HOST}/worlds/${place.world}/places`, {
-    method: "POST",
     ...DEFAULT_INIT,
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(place),
   });
 }
 

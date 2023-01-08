@@ -25,6 +25,7 @@ export async function handlePOSTPlace(req: Request, res: Response) {
   }
 
   if (!Body.guard(req.body)) {
+    Body.check(req.body)
     res.sendStatus(400);
     return;
   }

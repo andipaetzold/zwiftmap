@@ -4,6 +4,7 @@ import { LocationState } from "../../../services/location-state";
 import { DistanceStream, LatLngStream } from "../../../types";
 import { POLYLINE_WIDTH, Z_INDEX } from "../constants";
 import { useCustomRouteClick } from "../custom-route/useCustomRouteClick";
+import { usePlaceNewMarkerMove } from "../place-new/useCustomRouteClick";
 
 const ID = "OverlayNone";
 
@@ -18,6 +19,7 @@ interface Props {
 
 export function OverlayNone({ state, streams }: Props) {
   useCustomRouteClick(state);
+  usePlaceNewMarkerMove(state);
 
   if (!streams) {
     return null;

@@ -3,6 +3,7 @@ import { LocationState } from "../../services/location-state";
 import { DistanceStream, LatLngStream } from "../../types";
 import { Z_INDEX } from "./constants";
 import { CustomRouteMarkers } from "./custom-route/CustomRouteMarkers";
+import { PlaceNewMarker } from "./place-new/PlaceNewMarker";
 
 interface Props {
   state: LocationState;
@@ -14,11 +15,13 @@ interface Props {
 }
 
 export function Markers({ state, streams }: Props) {
-  return (
-    <>
-      {state.type === "custom-route" ? (
-        <CustomRouteMarkers state={state} />
-      ) : (
+  switch (state.type) {
+    case "custom-route":
+      return <CustomRouteMarkers state={state} />;
+    case "place-new":
+      return <PlaceNewMarker />;
+    default:
+      return (
         <>
           {streams && (
             <>
@@ -51,7 +54,6 @@ export function Markers({ state, streams }: Props) {
             </>
           )}
         </>
-      )}
-    </>
-  );
+      );
+  }
 }
