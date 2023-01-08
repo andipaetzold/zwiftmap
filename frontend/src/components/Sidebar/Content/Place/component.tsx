@@ -4,6 +4,7 @@ import { LocationStatePlace } from "../../../../services/location-state";
 import { Place } from "../../../../types";
 import { PlaceHelmet } from "./PlaceHelmet";
 import { PlaceLinks } from "./PlaceLinks";
+import { PlaceReport } from "./PlaceReport";
 
 interface Props {
   place: Place;
@@ -26,6 +27,7 @@ export default function PlaceComponent({ place }: Props) {
       )}
 
       <PlaceLinks place={place} />
+      <PlaceReport place={place} />
     </>
   );
 }
