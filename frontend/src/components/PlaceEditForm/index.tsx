@@ -74,15 +74,19 @@ export function PlaceEditForm({ place, world }: Props) {
     },
     {
       onSuccess: () => {
-        setPosition(null);
-        setName("");
-        setDescription("");
-        setLinks([]);
-        addMessage({
-          children: place
-            ? "Place was updated"
-            : "New place was submitted successfully",
-        });
+        if (place) {
+          addMessage({
+            children: "Place was updated",
+          });
+        } else {
+          setPosition(null);
+          setName("");
+          setDescription("");
+          setLinks([]);
+          addMessage({
+            children: "New place was submitted successfully",
+          });
+        }
       },
       onError: () =>
         addMessage({

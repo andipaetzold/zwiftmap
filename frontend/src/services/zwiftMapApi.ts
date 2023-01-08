@@ -3,13 +3,13 @@ import {
   FeatureCollection,
   LineString,
   MultiPolygon,
-  Polygon,
+  Polygon
 } from "@turf/helpers";
 import {
   DetailedActivity,
   DetailedSegment,
   StreamSet,
-  SummaryActivity,
+  SummaryActivity
 } from "strava";
 import { WorldSlug } from "zwift-data";
 import { BACKEND_HOST } from "../config";
@@ -182,8 +182,12 @@ export async function updatePlace(place: Place): Promise<Place> {
   return await request<Place>(
     `${BACKEND_HOST}/worlds/${place.world}/places/${place.id}`,
     {
-      method: "POST",
       ...DEFAULT_INIT,
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(place),
     }
   );
 }

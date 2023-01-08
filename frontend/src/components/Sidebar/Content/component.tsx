@@ -11,6 +11,7 @@ import { RouteList } from "./Lists/RouteList";
 import { SearchResultList } from "./Lists/SearchResultList";
 import { StravaActivitiesList } from "./Lists/StravaActivitiesList";
 import { Place } from "./Place";
+import { PlaceEdit } from "./PlaceEdit";
 import { PlaceNew } from "./PlaceNew";
 import { RouteDetails } from "./RouteDetails";
 import { SegmentDetails } from "./SegmentDetails";
@@ -71,6 +72,8 @@ export function Content() {
       return <PlaceNew state={state} />;
     case "place":
       return <Place state={state} />;
+    case "place-edit":
+      return <PlaceEdit state={state} />;
     case "default":
       if (query === "") {
         return <RouteList state={state} />;

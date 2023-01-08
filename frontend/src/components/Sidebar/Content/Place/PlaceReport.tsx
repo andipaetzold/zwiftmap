@@ -1,4 +1,3 @@
-import { Divider } from "@react-md/divider";
 import { ListItemLink } from "@react-md/list";
 import { EmailSVGIcon } from "@react-md/material-icons";
 import { Place } from "../../../../types";
@@ -10,8 +9,6 @@ interface Props {
 export function PlaceReport({ place }: Props) {
   return (
     <>
-      <Divider />
-
       <ListItemLink
         leftAddonType="icon"
         leftAddon={<EmailSVGIcon />}

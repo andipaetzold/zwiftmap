@@ -1,17 +1,17 @@
 import { Request, Response } from "express";
-import { Array, Number, Record, String } from "runtypes";
-import { Session } from "../../../types.js";
+import { Array, Boolean, Number, Record, String } from "runtypes";
 import { worlds, WorldSlug } from "zwift-data";
 import {
   Place,
   readPlace,
-  writePlace,
+  writePlace
 } from "../../../../shared/persistence/place.js";
-import { LatLng } from "../../../../shared/types.js";
 import {
   isStravaAdminUser,
-  isStravaModeratorUser,
+  isStravaModeratorUser
 } from "../../../../shared/services/strava/index.js";
+import { LatLng } from "../../../../shared/types.js";
+import { Session } from "../../../types.js";
 
 const slugs = worlds.map((w) => w.slug as string);
 const paramsRunType = Record({
@@ -22,8 +22,11 @@ const paramsRunType = Record({
 });
 
 const Body = Record({
-  name: String,
+  name: String.withConstraint((s) => s.length <= 50),
+  description: String.withConstraint((s) => s.length <= 500),
+  links: Array(String),
   position: Array(Number).withConstraint<LatLng>((a) => a.length === 2),
+  // verified: Boolean,
 });
 
 export async function handlePUTPlace(req: Request, res: Response) {
@@ -33,6 +36,7 @@ export async function handlePUTPlace(req: Request, res: Response) {
   }
 
   if (!Body.guard(req.body)) {
+    Body.check(req.body)
     res.sendStatus(400);
     return;
   }
@@ -59,6 +63,7 @@ export async function handlePUTPlace(req: Request, res: Response) {
 
   const updatedPlace: Place = {
     ...place,
+    ...req.body,
     id: req.params.placeId,
     world: req.params.worldSlug,
   };

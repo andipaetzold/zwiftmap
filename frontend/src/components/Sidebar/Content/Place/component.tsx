@@ -1,7 +1,9 @@
+import { Divider } from "@react-md/divider";
 import { SimpleListItem } from "@react-md/list";
 import { Typography } from "@react-md/typography";
 import { LocationStatePlace } from "../../../../services/location-state";
 import { Place } from "../../../../types";
+import { PlaceEditButton } from "./PlaceEditButton";
 import { PlaceHelmet } from "./PlaceHelmet";
 import { PlaceLinks } from "./PlaceLinks";
 import { PlaceReport } from "./PlaceReport";
@@ -11,7 +13,7 @@ interface Props {
   state: LocationStatePlace;
 }
 
-export default function PlaceComponent({ place }: Props) {
+export default function PlaceComponent({ place, state }: Props) {
   return (
     <>
       <PlaceHelmet name={place.name} />
@@ -27,6 +29,9 @@ export default function PlaceComponent({ place }: Props) {
       )}
 
       <PlaceLinks place={place} />
+
+      <Divider />
+      <PlaceEditButton place={place} state={state} />
       <PlaceReport place={place} />
     </>
   );
