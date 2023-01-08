@@ -34,14 +34,8 @@ async function getConfig(): Promise<Config> {
         clientSecret: await getSecret("GAE_STRAVA_CLIENT_SECRET"),
         webhookHost: process.env.BACKEND_URL!,
         verifyToken: await getSecret("GAE_STRAVA_VERIFY_TOKEN"),
-        betaUsers: (process.env.STRAVA_BETA_USERS ?? "")
-          .split(",")
-          .map((userId) => +userId)
-          .filter((userId) => userId > 0 && !Number.isNaN(userId)),
-        adminUsers: (process.env.STRAVA_ADMIN_USERS ?? "")
-          .split(",")
-          .map((userId) => +userId)
-          .filter((userId) => userId > 0 && !Number.isNaN(userId)),
+        betaUsers: getStravaUserIds("STRAVA_BETA_USERS"),
+        adminUsers: getStravaUserIds("STRAVA_ADMIN_USERS"),
       },
       sentry: {
         dsn: await getSecret("GAE_SENTRY_DSN"),
@@ -65,14 +59,8 @@ async function getConfig(): Promise<Config> {
         webhookHost:
           process.env.STRAVA_WEBHOOK_HOST ?? process.env.BACKEND_URL!,
         verifyToken: "token",
-        betaUsers: (process.env.STRAVA_BETA_USERS ?? "")
-          .split(",")
-          .map((userId) => +userId)
-          .filter((userId) => userId > 0 && !Number.isNaN(userId)),
-        adminUsers: (process.env.STRAVA_ADMIN_USERS ?? "")
-          .split(",")
-          .map((userId) => +userId)
-          .filter((userId) => userId > 0 && !Number.isNaN(userId)),
+        betaUsers: getStravaUserIds("STRAVA_BETA_USERS"),
+        adminUsers: getStravaUserIds("STRAVA_ADMIN_USERS"),
       },
       sentry: {
         dsn: "",
@@ -97,6 +85,13 @@ async function getSecret(name: string): Promise<string> {
     throw new Error(`Could not find secret '${name}'`);
   }
   return payload;
+}
+
+function getStravaUserIds(envKey: string): number[] {
+  return (process.env[envKey] ?? "")
+    .split(",")
+    .map((userId) => +userId)
+    .filter((userId) => userId > 0 && !Number.isNaN(userId));
 }
 
 export const config = await getConfig();

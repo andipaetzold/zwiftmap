@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Array, Number, Record, String } from "runtypes";
+import { Session } from "../../../types.js";
 import { worlds, WorldSlug } from "zwift-data";
 import { createPlace } from "../../../../shared/persistence/place.js";
 import { LatLng } from "../../../../shared/types.js";
@@ -25,7 +26,7 @@ export async function handlePOSTPlace(req: Request, res: Response) {
   }
 
   if (!Body.guard(req.body)) {
-    Body.check(req.body)
+    Body.check(req.body);
     res.sendStatus(400);
     return;
   }
