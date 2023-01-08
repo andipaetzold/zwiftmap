@@ -55,10 +55,15 @@ function getDoc(world: WorldSlug, placeId: string) {
 }
 
 export async function createPlace(place: Omit<Place, "id">) {
-  await getCollection(place.world).add({
+  const ref = await getCollection(place.world).add({
     id: "new", // will be overwritten
     ...place,
   });
+
+  return {
+    ...place,
+    id: ref.id,
+  };
 }
 
 export async function writePlace(place: Place) {
