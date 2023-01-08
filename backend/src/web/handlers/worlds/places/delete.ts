@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Record, String } from "runtypes";
-import { isAdminUser } from "../../../../shared/services/strava/index.js";
+import { isStravaAdminUser } from "../../../../shared/services/strava/index.js";
 import { worlds, WorldSlug } from "zwift-data";
 import {
   readPlace,
@@ -28,7 +28,7 @@ export async function handleDELETEPlace(req: Request, res: Response) {
     return;
   }
 
-  if (!isAdminUser(session.stravaAthleteId)) {
+  if (!isStravaAdminUser(session.stravaAthleteId)) {
     res.sendStatus(403);
     return;
   }

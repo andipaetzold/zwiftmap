@@ -12,6 +12,7 @@ export interface Config {
     verifyToken: string;
     betaUsers: number[];
     adminUsers: number[];
+    moderatorUsers: number[];
   };
   sentry: {
     dsn: string;
@@ -36,6 +37,7 @@ async function getConfig(): Promise<Config> {
         verifyToken: await getSecret("GAE_STRAVA_VERIFY_TOKEN"),
         betaUsers: getStravaUserIds("STRAVA_BETA_USERS"),
         adminUsers: getStravaUserIds("STRAVA_ADMIN_USERS"),
+        moderatorUsers: getStravaUserIds("STRAVA_MODERATOR_USERS"),
       },
       sentry: {
         dsn: await getSecret("GAE_SENTRY_DSN"),
@@ -61,6 +63,7 @@ async function getConfig(): Promise<Config> {
         verifyToken: "token",
         betaUsers: getStravaUserIds("STRAVA_BETA_USERS"),
         adminUsers: getStravaUserIds("STRAVA_ADMIN_USERS"),
+        moderatorUsers: getStravaUserIds("STRAVA_MODERATOR_USERS"),
       },
       sentry: {
         dsn: "",

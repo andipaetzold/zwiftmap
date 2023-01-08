@@ -8,7 +8,10 @@ import {
   writePlace,
 } from "../../../../shared/persistence/place.js";
 import { LatLng } from "../../../../shared/types.js";
-import { isAdminUser } from "../../../../shared/services/strava/index.js";
+import {
+  isStravaAdminUser,
+  isStravaModeratorUser,
+} from "../../../../shared/services/strava/index.js";
 
 const slugs = worlds.map((w) => w.slug as string);
 const paramsRunType = Record({
@@ -40,7 +43,10 @@ export async function handlePUTPlace(req: Request, res: Response) {
     return;
   }
 
-  if (!isAdminUser(session.stravaAthleteId)) {
+  if (
+    !isStravaAdminUser(session.stravaAthleteId) &&
+    !isStravaModeratorUser(session.stravaAthleteId)
+  ) {
     res.sendStatus(403);
     return;
   }
@@ -50,8 +56,6 @@ export async function handlePUTPlace(req: Request, res: Response) {
     res.sendStatus(404);
     return;
   }
-
-  // TODO: check admin
 
   const updatedPlace: Place = {
     ...place,
