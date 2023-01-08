@@ -2,7 +2,7 @@ import { useAddMessage } from "@react-md/alert";
 import { Button } from "@react-md/button";
 import { TextArea, TextField } from "@react-md/form";
 import { TextIconSpacing } from "@react-md/icon";
-import { List, ListSubheader, SimpleListItem } from "@react-md/list";
+import { ListSubheader, SimpleListItem } from "@react-md/list";
 import {
   AddSVGIcon,
   ClearSVGIcon,
@@ -24,7 +24,7 @@ interface Props {
   place?: Place;
 }
 
-export default function PlaceEditForm({ place, world }: Props) {
+export function PlaceEditForm({ place, world }: Props) {
   const [name, setName] = useState(place?.name ?? "");
   const [position, setPosition] = useState<LatLngTuple | null>(
     place?.position ?? null
@@ -93,7 +93,7 @@ export default function PlaceEditForm({ place, world }: Props) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <List>
+      <>
         <SimpleListItem>
           <Typography type="headline-6" style={{ margin: 0 }}>
             {place ? "Edit Place" : "New Place"}
@@ -195,7 +195,7 @@ export default function PlaceEditForm({ place, world }: Props) {
             </i>
           </SimpleListItem>
         )}
-      </List>
+      </>
     </form>
   );
 }

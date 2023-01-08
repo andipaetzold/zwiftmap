@@ -3,7 +3,7 @@ import { List, SimpleListItem } from "@react-md/list";
 import { ListSVGIcon } from "@react-md/material-icons";
 import { LocationStatePlaceNew } from "../../../../services/location-state";
 import { ButtonState } from "../../../ButtonState";
-import PlaceEditForm from "../../../PlaceEditForm";
+import { PlaceEditForm } from "../../../PlaceEditForm";
 import { PlaceNewHelmet } from "./PlaceNewHelment";
 
 interface Props {
@@ -27,8 +27,8 @@ export default function PlaceNew({ state }: Props) {
             <TextIconSpacing icon={<ListSVGIcon />}>Route List</TextIconSpacing>
           </ButtonState>
         </SimpleListItem>
+        <PlaceEditForm world={state.world} />
       </List>
-      <PlaceEditForm world={state.world} />
     </>
   );
 }
