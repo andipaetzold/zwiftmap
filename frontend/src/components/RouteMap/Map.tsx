@@ -26,6 +26,7 @@ import { OverlaySurfaces } from "./overlays/OverlaySurfaces";
 import { HoverStateOverlay } from "./HoverStateOverlay";
 import { RoutePosition } from "./RoutePosition";
 import { WorldImage } from "./WorldImage";
+import { OverlayPlaces } from "./overlays/OverlayPlaces";
 
 interface Props {
   state: LocationState;
@@ -136,6 +137,7 @@ export function Map({ state, world, routeStreams }: Props) {
               </LayerGroup>
             </LayersControl.BaseLayer>
 
+            <OverlayPlaces world={world} />
             <OverlayDebugSurfaces world={world} />
             <OverlayDebugRoads world={world} />
             <OverlayHeatmap world={world} />

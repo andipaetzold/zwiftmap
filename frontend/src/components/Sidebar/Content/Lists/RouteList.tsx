@@ -18,7 +18,6 @@ import { sortRoute } from "../../../../util/sort";
 import { StravaAvatar } from "../../../Avatar";
 import { ListItemRoute } from "../../../ListItemRoute";
 import { SortButton } from "../../../SortButton";
-import { PlacesList } from "./PlacesList";
 import styles from "./RouteList.module.scss";
 
 interface Props {
@@ -124,7 +123,6 @@ export function RouteList({ state }: Props) {
             />
           ))}
       </List>
-      <PlacesList state={state} />
     </>
   );
 }

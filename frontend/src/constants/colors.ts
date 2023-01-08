@@ -7,7 +7,8 @@ export const COLORS = {
   lapSegment: "#fc6719",
   previewRoute: "#D3D3D3",
   route: "#fc6719",
-};
+  place: "#fc6719",
+} satisfies Record<string, string>;
 
 export function getSegmentColor(type: SegmentType) {
   switch (type) {
