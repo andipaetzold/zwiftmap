@@ -86,7 +86,8 @@ app.post("/share", nocache(), handlers.handleCreateShare);
 app.get("/share/:shareId", handlers.handleGetShare);
 app.get("/share/:shareId/image", handlers.handleGETShareImage);
 
-app.get("/worlds/:worldSlug/places", handlers.handleGETPlaces);
+app.get("/places", handlers.handleGETPlaces);
+app.get("/worlds/:worldSlug/places", handlers.handleGETPlacesByWorld);
 app.post("/worlds/:worldSlug/places/", handlers.handlePOSTPlace);
 app.get("/worlds/:worldSlug/places/:placeId", handlers.handleGETPlace);
 app.put("/worlds/:worldSlug/places/:placeId", handlers.handlePUTPlace);

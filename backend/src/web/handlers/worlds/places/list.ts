@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Record, String } from "runtypes";
 import { worlds, WorldSlug } from "zwift-data";
-import { readPlaces } from "../../../../shared/persistence/index.js";
+import { readPlacesByWorld } from "../../../../shared/persistence/index.js";
 
 const slugs = worlds.map((w) => w.slug as string);
 const paramsRunType = Record({
@@ -10,13 +10,13 @@ const paramsRunType = Record({
   ),
 });
 
-export async function handleGETPlaces(req: Request, res: Response) {
+export async function handleGETPlacesByWorld(req: Request, res: Response) {
   if (!paramsRunType.guard(req.params)) {
     res.sendStatus(400);
     return;
   }
 
-  const places = await readPlaces(req.params.worldSlug);
+  const places = await readPlacesByWorld(req.params.worldSlug);
 
   res.status(200).header("Cache-Control", "public, max-age=86400").json(places);
 }

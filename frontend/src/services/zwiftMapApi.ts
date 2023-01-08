@@ -153,7 +153,13 @@ export async function getStravaPersonalHeatmap(
   });
 }
 
-export async function getPlaces(world: WorldSlug): Promise<Place[]> {
+export async function getPlaces(): Promise<Place[]> {
+  return await request<Place[]>(`${BACKEND_HOST}/places`, {
+    ...DEFAULT_INIT,
+  });
+}
+
+export async function getWorldPlaces(world: WorldSlug): Promise<Place[]> {
   return await request<Place[]>(`${BACKEND_HOST}/worlds/${world}/places`, {
     ...DEFAULT_INIT,
   });

@@ -1,4 +1,7 @@
-import { QueryDocumentSnapshot } from "@google-cloud/firestore";
+import {
+  FirestoreDataConverter,
+  QueryDocumentSnapshot,
+} from "@google-cloud/firestore";
 import { omit } from "lodash-es";
 import { WorldSlug } from "zwift-data";
 import { LatLng } from "../types.js";
@@ -23,26 +26,28 @@ interface FirestorePlace {
   verified: boolean;
 }
 
+const converter: FirestoreDataConverter<Place> = {
+  fromFirestore: (snap: QueryDocumentSnapshot) => {
+    const data = snap.data() as FirestorePlace;
+    return {
+      id: snap.id,
+      world: snap.ref.parent.parent!.id as WorldSlug,
+      name: data.name,
+      description: data.description,
+      links: data.links,
+      position: data.position,
+      verified: data.verified,
+    };
+  },
+  toFirestore: (place: Place) => omit(place, ["id", "world"]),
+};
+
 function getCollection(world: WorldSlug) {
   return firestore
     .collection(WORLDS_COLLECTION_NAME)
     .doc(world)
     .collection(PLACES_COLLECTION_NAME)
-    .withConverter<Place>({
-      fromFirestore: (snap: QueryDocumentSnapshot) => {
-        const data = snap.data() as FirestorePlace;
-        return {
-          id: snap.id,
-          world: snap.ref.parent.parent!.id as WorldSlug,
-          name: data.name,
-          description: data.description,
-          links: data.links,
-          position: data.position,
-          verified: data.verified,
-        };
-      },
-      toFirestore: (place: Place) => omit(place, ["id", "world"]),
-    });
+    .withConverter(converter);
 }
 
 function getDoc(world: WorldSlug, placeId: string) {
@@ -68,7 +73,15 @@ export async function readPlace(
   return snap.data();
 }
 
-export async function readPlaces(world: WorldSlug): Promise<Place[]> {
+export async function readPlaces(): Promise<Place[]> {
+  const snap = await firestore
+    .collectionGroup(PLACES_COLLECTION_NAME)
+    .withConverter(converter)
+    .get();
+  return snap.docs.map((doc) => doc.data());
+}
+
+export async function readPlacesByWorld(world: WorldSlug): Promise<Place[]> {
   const snap = await getCollection(world).get();
   return snap.docs.map((doc) => doc.data());
 }

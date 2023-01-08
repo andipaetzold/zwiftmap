@@ -1,5 +1,5 @@
 import { Route, Segment, World } from "zwift-data";
-import { SortState } from "../types";
+import { Place, SortState } from "../types";
 
 export function sortWorld(sortState: SortState, a: World, b: World): number {
   const result = a.name.localeCompare(b.name);
@@ -52,5 +52,10 @@ export function sortSegment(
       break;
   }
 
+  return sortState.dir === "ASC" ? result : -result;
+}
+
+export function sortPlace(sortState: SortState, a: Place, b: Place): number {
+  const result = a.name.localeCompare(b.name);
   return sortState.dir === "ASC" ? result : -result;
 }

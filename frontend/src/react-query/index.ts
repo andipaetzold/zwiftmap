@@ -3,6 +3,7 @@ export * from "./useAuthLogout";
 export * from "./useAuthStatus";
 export * from "./useEvent";
 export * from "./useEvents";
+export * from "./usePlaces";
 export * from "./useShare";
 export * from "./useStravaActivities";
 export * from "./useStravaActivity";
