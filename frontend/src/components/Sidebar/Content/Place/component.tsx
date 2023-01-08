@@ -1,3 +1,4 @@
+import { Chip } from "@react-md/chip";
 import { Divider } from "@react-md/divider";
 import { SimpleListItem } from "@react-md/list";
 import { Typography } from "@react-md/typography";
@@ -26,6 +27,12 @@ export default function PlaceComponent({ place, state }: Props) {
 
       {place.description.trim().length > 0 && (
         <SimpleListItem>{place.description}</SimpleListItem>
+      )}
+
+      {!place.verified && (
+        <SimpleListItem>
+          <Chip noninteractable>Unverified</Chip>
+        </SimpleListItem>
       )}
 
       <PlaceLinks place={place} />

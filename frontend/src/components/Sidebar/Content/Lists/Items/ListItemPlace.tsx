@@ -10,9 +10,11 @@ export function ListItemPlace({ place }: Props) {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const world = worlds.find((w) => w.slug === place.world)!;
 
+  const secondaryText = `${world.name}${place.verified ? "" : " | Unverified"}`;
+
   return (
     <ListItemState
-      secondaryText={world.name}
+      secondaryText={secondaryText}
       state={{
         type: "place",
         world: world,
