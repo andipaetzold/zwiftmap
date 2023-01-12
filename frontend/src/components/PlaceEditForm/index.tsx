@@ -1,8 +1,9 @@
 import { useAddMessage } from "@react-md/alert";
 import { Button } from "@react-md/button";
+import { Divider } from "@react-md/divider";
 import { TextArea, TextField } from "@react-md/form";
 import { TextIconSpacing } from "@react-md/icon";
-import { ListSubheader, SimpleListItem } from "@react-md/list";
+import { ListItem, ListSubheader, SimpleListItem } from "@react-md/list";
 import {
   AddSVGIcon,
   ClearSVGIcon,
@@ -12,12 +13,13 @@ import {
 import { Typography } from "@react-md/typography";
 import { useMutation } from "@tanstack/react-query";
 import { LatLngTuple } from "leaflet";
-import { FormEvent, useEffect, useId, useState } from "react";
+import { FormEvent, useEffect, useId, useRef, useState } from "react";
 import { World } from "zwift-data";
 import { emitter } from "../../services/emitter";
 import { createPlace, updatePlace } from "../../services/zwiftMapApi";
 import { Place } from "../../types";
 import styles from "./styles.module.scss";
+import { UploadImage } from "./UploadImage";
 
 interface Props {
   world: World;
@@ -25,11 +27,13 @@ interface Props {
 }
 
 export function PlaceEditForm({ place, world }: Props) {
+  const formRef = useRef<HTMLFormElement>(null);
   const [name, setName] = useState(place?.name ?? "");
   const [position, setPosition] = useState<LatLngTuple | null>(
     place?.position ?? null
   );
   const [description, setDescription] = useState(place?.description ?? "");
+  const [image, setImage] = useState<File | undefined>(undefined);
   const [links, setLinks] = useState<string[]>(place?.links ?? []);
   const addMessage = useAddMessage();
 
@@ -47,6 +51,7 @@ export function PlaceEditForm({ place, world }: Props) {
     FormEvent<HTMLFormElement>
   >(
     async (e) => {
+      console.log('yolooo')
       e.preventDefault();
 
       if (place) {
@@ -96,13 +101,15 @@ export function PlaceEditForm({ place, world }: Props) {
   );
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} ref={formRef}>
       <>
         <SimpleListItem>
           <Typography type="headline-6" style={{ margin: 0 }}>
             {place ? "Edit Place" : "New Place"}
           </Typography>
         </SimpleListItem>
+
+        <ListSubheader>Data</ListSubheader>
         <SimpleListItem>
           <TextField
             id={useId()}
@@ -140,6 +147,10 @@ export function PlaceEditForm({ place, world }: Props) {
             maxLength={500}
           />
         </SimpleListItem>
+
+        <ListSubheader>Image</ListSubheader>
+        <UploadImage image={image} onChange={setImage} />
+
         <ListSubheader>Links</ListSubheader>
         {links.map((link, index) => (
           <SimpleListItem key={index}>
@@ -183,14 +194,15 @@ export function PlaceEditForm({ place, world }: Props) {
           </Button>
         </SimpleListItem>
 
-        <SimpleListItem>
-          <Button theme="primary" themeType="contained" type="submit">
-            <TextIconSpacing icon={<SendSVGIcon />}>
-              {place ? "Save place" : "Submit new place"}
-            </TextIconSpacing>
-          </Button>
-        </SimpleListItem>
+        <Divider />
 
+        <ListItem
+          leftAddonType="icon"
+          leftAddon={<SendSVGIcon />}
+          onClick={() => formRef.current?.requestSubmit()}
+        >
+          {place ? "Save place" : "Submit new place"}
+        </ListItem>
         {!place && (
           <SimpleListItem>
             <i>
