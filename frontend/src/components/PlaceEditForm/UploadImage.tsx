@@ -5,7 +5,7 @@ import { useId } from "react";
 import prettyBytes from "pretty-bytes";
 
 interface Props {
-  image: File | undefined;
+  image: File | null;
   onChange: (image: File) => void;
 }
 

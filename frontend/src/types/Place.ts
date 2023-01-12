@@ -8,4 +8,5 @@ export interface Place {
   links: string[];
   position: [number, number];
   verified: boolean;
+  image: string;
 }

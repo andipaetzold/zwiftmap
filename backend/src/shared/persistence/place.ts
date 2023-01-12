@@ -16,6 +16,7 @@ export interface Place {
   links: string[];
   position: LatLng;
   verified: boolean;
+  image?: string;
 }
 
 interface FirestorePlace {
@@ -24,6 +25,7 @@ interface FirestorePlace {
   links: string[];
   position: LatLng;
   verified: boolean;
+  image?: string;
 }
 
 const converter: FirestoreDataConverter<Place> = {
@@ -37,6 +39,7 @@ const converter: FirestoreDataConverter<Place> = {
       links: data.links,
       position: data.position,
       verified: data.verified,
+      image: data.image,
     };
   },
   toFirestore: (place: Place) => omit(place, ["id", "world"]),
@@ -68,6 +71,7 @@ export async function createPlace(place: Omit<Place, "id">) {
 
 export async function writePlace(place: Place) {
   await getDoc(place.world, place.id).set(place);
+  return place;
 }
 
 export async function readPlace(

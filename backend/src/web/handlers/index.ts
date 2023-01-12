@@ -5,4 +5,5 @@ export * from "./health/index.js";
 export * from "./places/index.js";
 export * from "./share/index.js";
 export * from "./strava/index.js";
+export * from "./uploads/index.js";
 export * from "./worlds/index.js";

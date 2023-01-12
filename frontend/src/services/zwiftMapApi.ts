@@ -3,13 +3,13 @@ import {
   FeatureCollection,
   LineString,
   MultiPolygon,
-  Polygon
+  Polygon,
 } from "@turf/helpers";
 import {
   DetailedActivity,
   DetailedSegment,
   StreamSet,
-  SummaryActivity
+  SummaryActivity,
 } from "strava";
 import { WorldSlug } from "zwift-data";
 import { BACKEND_HOST } from "../config";
@@ -166,7 +166,7 @@ export async function getWorldPlaces(world: WorldSlug): Promise<Place[]> {
 }
 
 export async function createPlace(
-  place: Omit<Place, "id" | "verified">
+  place: Omit<Place, "id" | "verified" | "image"> & { imageObjectId: string }
 ): Promise<Place> {
   return await request<Place>(`${BACKEND_HOST}/worlds/${place.world}/places`, {
     ...DEFAULT_INIT,
@@ -184,9 +184,7 @@ export async function updatePlace(place: Place): Promise<Place> {
     {
       ...DEFAULT_INIT,
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(place),
     }
   );
@@ -203,4 +201,26 @@ export async function getPlace(world: WorldSlug, id: string): Promise<Place> {
   return await request<Place>(`${BACKEND_HOST}/worlds/${world}/places/${id}`, {
     ...DEFAULT_INIT,
   });
+}
+
+export async function uploadFile(file: File): Promise<string> {
+  const { uploadUrl, objectId } = await request<{
+    uploadUrl: string;
+    objectId: string;
+  }>(`${BACKEND_HOST}/uploads`, {
+    ...DEFAULT_INIT,
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ contentType: file.type, contentLength: file.size }),
+  });
+
+  await fetch(uploadUrl, {
+    method: "PUT",
+    headers: {
+      "Content-Type": file.type,
+    },
+    body: file,
+  });
+
+  return objectId;
 }

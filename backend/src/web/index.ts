@@ -93,6 +93,8 @@ app.get("/worlds/:worldSlug/places/:placeId", handlers.handleGETPlace);
 app.put("/worlds/:worldSlug/places/:placeId", handlers.handlePUTPlace);
 app.delete("/worlds/:worldSlug/places/:placeId", handlers.handleDELETEPlace);
 
+app.post("/uploads", handlers.handlePOSTUpload);
+
 app.use(Sentry.Handlers.errorHandler());
 app.use(errorHandler);
 

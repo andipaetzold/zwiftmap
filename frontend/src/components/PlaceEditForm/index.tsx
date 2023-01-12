@@ -13,10 +13,14 @@ import {
 import { Typography } from "@react-md/typography";
 import { useMutation } from "@tanstack/react-query";
 import { LatLngTuple } from "leaflet";
-import { FormEvent, useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { World } from "zwift-data";
 import { emitter } from "../../services/emitter";
-import { createPlace, updatePlace } from "../../services/zwiftMapApi";
+import {
+  createPlace,
+  updatePlace,
+  uploadFile,
+} from "../../services/zwiftMapApi";
 import { Place } from "../../types";
 import styles from "./styles.module.scss";
 import { UploadImage } from "./UploadImage";
@@ -27,13 +31,12 @@ interface Props {
 }
 
 export function PlaceEditForm({ place, world }: Props) {
-  const formRef = useRef<HTMLFormElement>(null);
   const [name, setName] = useState(place?.name ?? "");
   const [position, setPosition] = useState<LatLngTuple | null>(
     place?.position ?? null
   );
   const [description, setDescription] = useState(place?.description ?? "");
-  const [image, setImage] = useState<File | undefined>(undefined);
+  const [image, setImage] = useState<File | null>(null);
   const [links, setLinks] = useState<string[]>(place?.links ?? []);
   const addMessage = useAddMessage();
 
@@ -45,15 +48,8 @@ export function PlaceEditForm({ place, world }: Props) {
     return () => emitter.off("placeMarkerMove", listener);
   }, []);
 
-  const { mutate: handleSubmit } = useMutation<
-    unknown,
-    string,
-    FormEvent<HTMLFormElement>
-  >(
-    async (e) => {
-      console.log('yolooo')
-      e.preventDefault();
-
+  const { mutate: handleSubmit } = useMutation(
+    async () => {
       if (place) {
         await updatePlace({
           ...place,
@@ -64,8 +60,13 @@ export function PlaceEditForm({ place, world }: Props) {
           // We have form validation
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           position: position!,
+          image: place.image,
         });
       } else {
+        if (!image) {
+          return;
+        }
+        const imageObjectId = await uploadFile(image);
         await createPlace({
           name,
           description,
@@ -74,6 +75,7 @@ export function PlaceEditForm({ place, world }: Props) {
           // We have form validation
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           position: position!,
+          imageObjectId,
         });
       }
     },
@@ -88,6 +90,7 @@ export function PlaceEditForm({ place, world }: Props) {
           setName("");
           setDescription("");
           setLinks([]);
+          setImage(null);
           addMessage({
             children: "New place was submitted successfully",
           });
@@ -101,7 +104,7 @@ export function PlaceEditForm({ place, world }: Props) {
   );
 
   return (
-    <form onSubmit={handleSubmit} ref={formRef}>
+    <form>
       <>
         <SimpleListItem>
           <Typography type="headline-6" style={{ margin: 0 }}>
@@ -116,8 +119,8 @@ export function PlaceEditForm({ place, world }: Props) {
             readOnly
             dense
             className={styles.Field}
-            value={position ? formatPosition(position) : ""}
-            placeholder="Select point on map"
+            value={position ? formatPosition(position) : "Select point on map"}
+            label="Position*"
             rightChildren={<PlaceSVGIcon />}
             aria-label="Position"
           />
@@ -127,7 +130,7 @@ export function PlaceEditForm({ place, world }: Props) {
             id={useId()}
             value={name}
             onChange={(e) => setName(e.target.value)}
-            label="Name"
+            label="Name*"
             dense
             className={styles.Field}
             maxLength={50}
@@ -148,8 +151,16 @@ export function PlaceEditForm({ place, world }: Props) {
           />
         </SimpleListItem>
 
-        <ListSubheader>Image</ListSubheader>
-        <UploadImage image={image} onChange={setImage} />
+        {place ? (
+          <SimpleListItem className={styles.ImageListItem}>
+            <img src={place.image} alt="" className={styles.Image} />
+          </SimpleListItem>
+        ) : (
+          <>
+            <ListSubheader>Image*</ListSubheader>
+            <UploadImage image={image} onChange={setImage} />
+          </>
+        )}
 
         <ListSubheader>Links</ListSubheader>
         {links.map((link, index) => (
@@ -199,10 +210,12 @@ export function PlaceEditForm({ place, world }: Props) {
         <ListItem
           leftAddonType="icon"
           leftAddon={<SendSVGIcon />}
-          onClick={() => formRef.current?.requestSubmit()}
+          onClick={() => handleSubmit()}
         >
           {place ? "Save place" : "Submit new place"}
         </ListItem>
+
+        <SimpleListItem>* Required field</SimpleListItem>
         {!place && (
           <SimpleListItem>
             <i>
