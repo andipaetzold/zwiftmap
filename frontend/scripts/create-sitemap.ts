@@ -19,11 +19,15 @@ for (const world of worlds) {
   urls.push(`${DOMAIN}/${world.slug}?list=strava-activities`);
 }
 
-for (const route of routes) {
+for (const route of routes.filter(
+  (route) => route.stravaSegmentId !== undefined
+)) {
   urls.push(`${DOMAIN}/${route.world}/${route.slug}`);
 }
 
-for (const segment of segments) {
+for (const segment of segments.filter(
+  (segment) => segment.stravaSegmentId !== undefined
+)) {
   urls.push(`${DOMAIN}/${segment.world}/${segment.slug}`);
 }
 
