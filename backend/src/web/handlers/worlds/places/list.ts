@@ -18,5 +18,5 @@ export async function handleGETPlacesByWorld(req: Request, res: Response) {
 
   const places = await readPlacesByWorld(req.params.worldSlug);
 
-  res.status(200).header("Cache-Control", "public, max-age=86400").json(places);
+  res.status(200).json(places);
 }
