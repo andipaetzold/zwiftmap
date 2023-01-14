@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Array, Number, Record, Boolean, String } from "runtypes";
+import { Array, Number, Record, Boolean, String, Literal } from "runtypes";
 import { savePlaceImage } from "../../../../shared/services/gcs.js";
 import { worlds, WorldSlug } from "zwift-data";
 import {
@@ -20,33 +20,21 @@ const paramsRunType = Record({
   ),
 });
 
-const Body = Record({
-  name: String.withConstraint((s) => s.length <= 50),
-  description: String.withConstraint((s) => s.length <= 500),
-  links: Array(String),
-  position: Array(Number).withConstraint<LatLng>((a) => a.length === 2),
-  imageObjectId: String,
-  verified: Boolean,
-});
-
 export async function handlePOSTPlace(req: Request, res: Response) {
   if (!paramsRunType.guard(req.params)) {
     res.sendStatus(400);
     return;
   }
 
-  if (!Body.guard(req.body)) {
-    res.sendStatus(400);
-    return;
-  }
-
   const session = req.session as Session | undefined;
   const canVerify =
-    session?.stravaAthleteId &&
+    session?.stravaAthleteId !== undefined &&
     (isStravaAdminUser(session.stravaAthleteId) ||
       isStravaModeratorUser(session.stravaAthleteId));
-  if (req.body.verified === true && !canVerify) {
-    res.sendStatus(403);
+
+  const bodyRuntype = createBodyRuntype(canVerify);
+  if (!bodyRuntype.guard(req.body)) {
+    res.sendStatus(400);
     return;
   }
 
@@ -66,4 +54,15 @@ export async function handlePOSTPlace(req: Request, res: Response) {
   });
 
   res.status(200).json(place);
+}
+
+function createBodyRuntype(canVerify: boolean) {
+  return Record({
+    name: String.withConstraint((s) => s.length <= 50),
+    description: String.withConstraint((s) => s.length <= 500),
+    links: Array(String),
+    position: Array(Number).withConstraint<LatLng>((a) => a.length === 2),
+    imageObjectId: String,
+    verified: canVerify ? Boolean : Literal(false),
+  });
 }
