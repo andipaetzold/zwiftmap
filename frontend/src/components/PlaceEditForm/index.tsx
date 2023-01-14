@@ -38,6 +38,8 @@ interface Props {
 export function PlaceEditForm({ place, world }: Props) {
   const queryClient = useQueryClient();
   const { data: authState } = useAuthStatus();
+  const canVerify = (authState?.adminUser || authState?.moderatorUser) ?? false;
+
   const [data, setData] = useState({
     name: place?.name ?? "",
     description: place?.description ?? "",
@@ -118,12 +120,20 @@ export function PlaceEditForm({ place, world }: Props) {
             children: "Place was updated",
           });
         } else {
-          navigate({
-            type: "place",
-            placeId: placeFromServer.id,
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            world: worlds.find((w) => w.slug === world.slug)!,
-          });
+          if (canVerify) {
+            navigate({
+              type: "place",
+              placeId: placeFromServer.id,
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              world: worlds.find((w) => w.slug === world.slug)!,
+            });
+          } else {
+            navigate({
+              type: "default",
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              world: worlds.find((w) => w.slug === world.slug)!,
+            });
+          }
           addMessage({
             children: "New place was submitted successfully",
           });
@@ -194,7 +204,7 @@ export function PlaceEditForm({ place, world }: Props) {
           />
         </SimpleListItem>
 
-        {(authState?.adminUser || authState?.moderatorUser) && (
+        {canVerify && (
           <Checkbox
             id={verifiedId}
             label="Verified"
