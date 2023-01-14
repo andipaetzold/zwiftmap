@@ -74,9 +74,7 @@ export function PlaceEditForm({ place, world }: Props) {
           description: data.description,
           links: data.links,
           world: world.slug,
-          // We have form validation
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          position: data.position!,
+          position: data.position,
           imageObjectId,
           verified: data.verified,
         });
@@ -91,9 +89,7 @@ export function PlaceEditForm({ place, world }: Props) {
           description: data.description,
           links: data.links,
           world: world.slug,
-          // We have form validation
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          position: data.position!,
+          position: data.position,
           imageObjectId,
           verified: data.verified,
         });
