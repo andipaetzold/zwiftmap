@@ -13,7 +13,6 @@ interface Props {
 }
 
 export function PlacesPane({ places, important }: Props) {
-  const color = important ? COLORS.place : COLORS.previewRoute;
   const opacity = important ? 1 : 0.75;
 
   return (
@@ -26,7 +25,7 @@ export function PlacesPane({ places, important }: Props) {
         <PlaceMarker
           key={placeIndex}
           position={place.position}
-          fill={color}
+          fill={place.verified ? COLORS.place : COLORS.previewRoute}
           eventHandlers={{
             click: () =>
               navigate({
