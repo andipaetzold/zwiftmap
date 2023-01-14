@@ -65,7 +65,11 @@ export function PlaceEditForm({ place, world }: Props) {
     emitter.emit("placeMarkerMove", place.position);
   }, [place]);
 
-  const { mutate: handleSubmit, isError } = useMutation(
+  const {
+    mutate: handleSubmit,
+    isError,
+    isLoading,
+  } = useMutation(
     async () => {
       if (data.name.trim().length === 0 || data.position === null) {
         throw new Error("Validation error");
@@ -194,6 +198,7 @@ export function PlaceEditForm({ place, world }: Props) {
             id={verifiedId}
             label="Verified"
             icon={<CheckBoxSVGIcon />}
+            disabled={isLoading}
           />
         )}
 
@@ -255,6 +260,7 @@ export function PlaceEditForm({ place, world }: Props) {
             onClick={() =>
               setData((cur) => ({ ...cur, links: [...cur.links, ""] }))
             }
+            disabled={isLoading}
           >
             <TextIconSpacing icon={<AddSVGIcon />}>Add link</TextIconSpacing>
           </Button>
@@ -266,11 +272,12 @@ export function PlaceEditForm({ place, world }: Props) {
           leftAddonType="icon"
           leftAddon={<SendSVGIcon />}
           onClick={() => handleSubmit()}
+          disabled={isLoading}
         >
           {place ? "Save place" : "Submit new place"}
         </ListItem>
 
-        {place && <DeleteListItem place={place} />}
+        {place && <DeleteListItem place={place} disabled={isLoading} />}
 
         <SimpleListItem>* Required field</SimpleListItem>
         {!place && (

@@ -18,9 +18,10 @@ import { Place } from "../../types";
 
 interface Props {
   place: Place;
+  disabled: boolean;
 }
 
-export function DeleteListItem({ place }: Props) {
+export function DeleteListItem({ place, disabled }: Props) {
   const [dialogOpen, setDialogOpen] = useState(false);
   const deleteDialogTitleId = useId();
   const queryClient = useQueryClient();
@@ -59,6 +60,7 @@ export function DeleteListItem({ place }: Props) {
         leftAddonType="icon"
         leftAddon={<DeleteSVGIcon />}
         onClick={() => setDialogOpen(true)}
+        disabled={disabled}
       >
         Delete place
       </ListItem>
