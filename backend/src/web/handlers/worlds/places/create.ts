@@ -44,7 +44,7 @@ export async function handlePOSTPlace(req: Request, res: Response) {
     description: req.body.description,
     position: req.body.position,
     links: req.body.links,
-    verified: false,
+    verified: req.body.verified,
   });
 
   const imageUrl = await savePlaceImage(req.body.imageObjectId, place.id);
