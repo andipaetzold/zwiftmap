@@ -41,5 +41,5 @@ export async function handleDELETEPlace(req: Request, res: Response) {
 
   await removePlace(req.params.worldSlug, req.params.placeId);
 
-  res.status(204);
+  res.sendStatus(204);
 }
