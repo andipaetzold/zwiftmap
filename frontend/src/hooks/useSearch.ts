@@ -154,7 +154,7 @@ export const SEARCH_RESULTS_TYPES = {
 } satisfies Record<SearchResult["type"], { title: string }>;
 
 function usePlacesSearchResults(): SearchResultPlace[] {
-  const { data: places } = usePlaces();
+  const { data: places } = usePlaces(true);
 
   return useMemo(() => {
     if (!places) {

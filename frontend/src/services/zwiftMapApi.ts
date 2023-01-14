@@ -153,14 +153,35 @@ export async function getStravaPersonalHeatmap(
   });
 }
 
-export async function getPlaces(): Promise<Place[]> {
-  return await request<Place[]>(`${BACKEND_HOST}/places`, {
+export async function getPlaces(
+  verified: boolean | undefined
+): Promise<Place[]> {
+  const params = new URLSearchParams();
+  if (verified !== undefined) {
+    params.set("filter[verified]", String(verified));
+  }
+
+  const url = new URL(`${BACKEND_HOST}/places`);
+  url.search = params.toString();
+
+  return await request<Place[]>(url.toString(), {
     ...DEFAULT_INIT,
   });
 }
 
-export async function getWorldPlaces(world: WorldSlug): Promise<Place[]> {
-  return await request<Place[]>(`${BACKEND_HOST}/worlds/${world}/places`, {
+export async function getWorldPlaces(
+  world: WorldSlug,
+  verified: boolean | undefined
+): Promise<Place[]> {
+  const params = new URLSearchParams();
+  if (verified !== undefined) {
+    params.set("filter[verified]", String(verified));
+  }
+
+  const url = new URL(`${BACKEND_HOST}/worlds/${world}/places`);
+  url.search = params.toString();
+
+  return await request<Place[]>(url.toString(), {
     ...DEFAULT_INIT,
   });
 }

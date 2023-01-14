@@ -10,7 +10,7 @@ interface Props {
 }
 
 export function OverlayPlaces({ world }: Props) {
-  const { data: places } = useWorldPlaces(world.slug);
+  const { data: places } = useWorldPlaces(world.slug, true);
 
   return (
     <LayersControl.Overlay name="Places" checked>

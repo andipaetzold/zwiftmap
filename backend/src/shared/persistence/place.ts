@@ -1,5 +1,7 @@
 import {
+  CollectionGroup,
   FirestoreDataConverter,
+  Query,
   QueryDocumentSnapshot,
 } from "@google-cloud/firestore";
 import { omit } from "lodash-es";
@@ -82,16 +84,28 @@ export async function readPlace(
   return snap.data();
 }
 
-export async function readPlaces(): Promise<Place[]> {
-  const snap = await firestore
+export async function readPlaces(verified?: boolean): Promise<Place[]> {
+  let query: CollectionGroup<Place> | Query<Place> = firestore
     .collectionGroup(PLACES_COLLECTION_NAME)
-    .withConverter(converter)
-    .get();
+    .withConverter(converter);
+
+  if (verified !== undefined) {
+    query = query.where("verified", "==", verified);
+  }
+  const snap = await query.get();
   return snap.docs.map((doc) => doc.data());
 }
 
-export async function readPlacesByWorld(world: WorldSlug): Promise<Place[]> {
-  const snap = await getCollection(world).get();
+export async function readPlacesByWorld(
+  world: WorldSlug,
+  verified?: boolean
+): Promise<Place[]> {
+  let query: Query<Place> = getCollection(world);
+  if (verified !== undefined) {
+    query = query.where("verified", "==", verified);
+  }
+
+  const snap = await query.withConverter(converter).get();
   return snap.docs.map((doc) => doc.data());
 }
 
