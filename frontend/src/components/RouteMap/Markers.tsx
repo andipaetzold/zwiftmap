@@ -20,7 +20,7 @@ export function Markers({ state, streams }: Props) {
       return <CustomRouteMarkers state={state} />;
     case "place-edit":
     case "place-new":
-      return <PlaceNewMarker />;
+      return <PlaceNewMarker state={state} />;
     default:
       return (
         <>
