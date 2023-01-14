@@ -10,12 +10,12 @@
 }
 
 .ImageListItem {
-  padding-left: 0;
-  padding-right: 0;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
 
 .Image {
   max-height: 150px;
-  object-fit: contain;
+  object-fit: cover;
   width: 100%;
 }
