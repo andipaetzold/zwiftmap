@@ -36,8 +36,11 @@ export async function handlePOSTPlace(req: Request, res: Response) {
   }
 
   let place = await createPlace({
-    ...req.body,
     world: req.params.worldSlug,
+    name: req.body.name,
+    description: req.body.description,
+    position: req.body.position,
+    links: req.body.links,
     verified: false,
   });
 

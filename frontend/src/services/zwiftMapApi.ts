@@ -166,7 +166,9 @@ export async function getWorldPlaces(world: WorldSlug): Promise<Place[]> {
 }
 
 export async function createPlace(
-  place: Omit<Place, "id" | "verified" | "image"> & { imageObjectId: string }
+  place: Omit<Place, "id" | "verified" | "image"> & {
+    imageObjectId: string | null;
+  }
 ): Promise<Place> {
   return await request<Place>(`${BACKEND_HOST}/worlds/${place.world}/places`, {
     ...DEFAULT_INIT,
@@ -178,7 +180,9 @@ export async function createPlace(
   });
 }
 
-export async function updatePlace(place: Place): Promise<Place> {
+export async function updatePlace(
+  place: Omit<Place, "image"> & { imageObjectId?: string }
+): Promise<Place> {
   return await request<Place>(
     `${BACKEND_HOST}/worlds/${place.world}/places/${place.id}`,
     {

@@ -5,11 +5,12 @@ import { useId } from "react";
 import prettyBytes from "pretty-bytes";
 
 interface Props {
+  error: boolean;
   image: File | null;
   onChange: (image: File) => void;
 }
 
-export function UploadImage({ image, onChange }: Props) {
+export function UploadImage({ error, image, onChange }: Props) {
   return (
     <>
       <SimpleListItem>
@@ -22,7 +23,7 @@ export function UploadImage({ image, onChange }: Props) {
             }
             onChange(file);
           }}
-          theme="clear"
+          theme={error ? "error" : "clear"}
           themeType="outline"
           icon={<FileUploadSVGIcon />}
           accept="image/png,image/jpeg"

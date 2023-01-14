@@ -1,14 +1,15 @@
 import { Request, Response } from "express";
 import { Array, Boolean, Number, Record, String } from "runtypes";
+import { savePlaceImage } from "../../../../shared/services/gcs.js";
 import { worlds, WorldSlug } from "zwift-data";
 import {
   Place,
   readPlace,
-  writePlace
+  writePlace,
 } from "../../../../shared/persistence/place.js";
 import {
   isStravaAdminUser,
-  isStravaModeratorUser
+  isStravaModeratorUser,
 } from "../../../../shared/services/strava/index.js";
 import { LatLng } from "../../../../shared/types.js";
 import { Session } from "../../../types.js";
@@ -26,7 +27,8 @@ const Body = Record({
   description: String.withConstraint((s) => s.length <= 500),
   links: Array(String),
   position: Array(Number).withConstraint<LatLng>((a) => a.length === 2),
-  // verified: Boolean,
+  verified: Boolean,
+  imageObjectId: String.optional(),
 });
 
 export async function handlePUTPlace(req: Request, res: Response) {
@@ -36,7 +38,7 @@ export async function handlePUTPlace(req: Request, res: Response) {
   }
 
   if (!Body.guard(req.body)) {
-    Body.check(req.body)
+    Body.check(req.body);
     res.sendStatus(400);
     return;
   }
@@ -61,11 +63,20 @@ export async function handlePUTPlace(req: Request, res: Response) {
     return;
   }
 
+  let imageUrl = null;
+  if (req.body.imageObjectId) {
+    imageUrl = await savePlaceImage(req.body.imageObjectId, place.id);
+  }
+
   const updatedPlace: Place = {
-    ...place,
-    ...req.body,
     id: req.params.placeId,
     world: req.params.worldSlug,
+    position: req.body.position,
+    name: req.body.name,
+    description: req.body.description,
+    links: req.body.links,
+    verified: req.body.verified,
+    image: imageUrl ?? place.image,
   };
   await writePlace(updatedPlace);
 

@@ -31,50 +31,60 @@ interface Props {
 }
 
 export function PlaceEditForm({ place, world }: Props) {
-  const [name, setName] = useState(place?.name ?? "");
-  const [position, setPosition] = useState<LatLngTuple | null>(
-    place?.position ?? null
-  );
-  const [description, setDescription] = useState(place?.description ?? "");
-  const [image, setImage] = useState<File | null>(null);
-  const [links, setLinks] = useState<string[]>(place?.links ?? []);
+  const [data, setData] = useState({
+    name: place?.name ?? "",
+    description: place?.description ?? "",
+    position: place?.position ?? null,
+    image: null as File | null,
+    links: place?.links ?? [],
+  });
   const addMessage = useAddMessage();
 
   const linkIdPrefix = useId();
 
   useEffect(() => {
-    const listener = (pos: LatLngTuple) => setPosition(pos);
+    const listener = (pos: LatLngTuple) =>
+      setData((cur) => ({ ...cur, position: pos }));
     emitter.on("placeMarkerMove", listener);
     return () => emitter.off("placeMarkerMove", listener);
   }, []);
 
-  const { mutate: handleSubmit } = useMutation(
+  const { mutate: handleSubmit, isError } = useMutation(
     async () => {
+      if (data.name.trim().length === 0 || data.position === null) {
+        throw new Error("Validation error");
+      }
       if (place) {
+        let imageObjectId: string | undefined;
+        if (data.image) {
+          imageObjectId = await uploadFile(data.image);
+        }
+
         await updatePlace({
           ...place,
-          name,
-          description,
-          links,
+          name: data.name,
+          description: data.description,
+          links: data.links,
           world: world.slug,
           // We have form validation
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          position: position!,
-          image: place.image,
+          position: data.position!,
+          imageObjectId,
         });
       } else {
-        if (!image) {
-          return;
+        if (data.image === null) {
+          throw new Error("Validation error");
         }
-        const imageObjectId = await uploadFile(image);
+
+        const imageObjectId = await uploadFile(data.image);
         await createPlace({
-          name,
-          description,
-          links,
+          name: data.name,
+          description: data.description,
+          links: data.links,
           world: world.slug,
           // We have form validation
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          position: position!,
+          position: data.position!,
           imageObjectId,
         });
       }
@@ -86,11 +96,13 @@ export function PlaceEditForm({ place, world }: Props) {
             children: "Place was updated",
           });
         } else {
-          setPosition(null);
-          setName("");
-          setDescription("");
-          setLinks([]);
-          setImage(null);
+          setData({
+            name: "",
+            description: "",
+            image: null,
+            position: null,
+            links: [],
+          });
           addMessage({
             children: "New place was submitted successfully",
           });
@@ -119,29 +131,39 @@ export function PlaceEditForm({ place, world }: Props) {
             readOnly
             dense
             className={styles.Field}
-            value={position ? formatPosition(position) : "Select point on map"}
+            value={
+              data.position
+                ? formatPosition(data.position)
+                : "Select point on map"
+            }
             label="Position*"
             rightChildren={<PlaceSVGIcon />}
             aria-label="Position"
+            error={isError && data.position === null}
           />
         </SimpleListItem>
         <SimpleListItem>
           <TextField
             id={useId()}
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={data.name}
+            onChange={(e) =>
+              setData((cur) => ({ ...cur, name: e.target.value }))
+            }
             label="Name*"
             dense
             className={styles.Field}
             maxLength={50}
             required
+            error={isError && data.name.trim().length === 0}
           />
         </SimpleListItem>
         <SimpleListItem>
           <TextArea
             id={useId()}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            value={data.description}
+            onChange={(e) =>
+              setData((cur) => ({ ...cur, description: e.target.value }))
+            }
             label="Description"
             dense
             rows={5}
@@ -151,19 +173,23 @@ export function PlaceEditForm({ place, world }: Props) {
           />
         </SimpleListItem>
 
-        {place ? (
+        {place && (
           <SimpleListItem className={styles.ImageListItem}>
             <img src={place.image} alt="" className={styles.Image} />
           </SimpleListItem>
-        ) : (
-          <>
-            <ListSubheader>Image*</ListSubheader>
-            <UploadImage image={image} onChange={setImage} />
-          </>
         )}
 
+        <ListSubheader>Image*</ListSubheader>
+        <UploadImage
+          error={isError && data.image === null}
+          image={data.image}
+          onChange={(newImage) =>
+            setData((cur) => ({ ...cur, image: newImage }))
+          }
+        />
+
         <ListSubheader>Links</ListSubheader>
-        {links.map((link, index) => (
+        {data.links.map((link, index) => (
           <SimpleListItem key={index}>
             <TextField
               id={`${linkIdPrefix}-${index}`}
@@ -172,11 +198,12 @@ export function PlaceEditForm({ place, world }: Props) {
               value={link}
               required
               onChange={(e) =>
-                setLinks((cur) =>
-                  cur.map((url, curIndex) =>
+                setData((cur) => ({
+                  ...cur,
+                  links: cur.links.map((url, curIndex) =>
                     curIndex === index ? e.target.value : url
-                  )
-                )
+                  ),
+                }))
               }
               placeholder="https://"
               isRightAddon={false}
@@ -186,7 +213,10 @@ export function PlaceEditForm({ place, world }: Props) {
                   buttonType="icon"
                   className={styles.RemoveButton}
                   onClick={() =>
-                    setLinks((cur) => cur.filter((_, i) => i !== index))
+                    setData((cur) => ({
+                      ...cur,
+                      links: cur.links.filter((_, i) => i !== index),
+                    }))
                   }
                   aria-label="Remove link"
                 >
@@ -199,7 +229,9 @@ export function PlaceEditForm({ place, world }: Props) {
         <SimpleListItem>
           <Button
             themeType="outline"
-            onClick={() => setLinks((cur) => [...cur, ""])}
+            onClick={() =>
+              setData((cur) => ({ ...cur, links: [...cur.links, ""] }))
+            }
           >
             <TextIconSpacing icon={<AddSVGIcon />}>Add link</TextIconSpacing>
           </Button>
