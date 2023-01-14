@@ -14,7 +14,7 @@ interface Props {
 
 export function PlacesPane({ places, important }: Props) {
   const color = important ? COLORS.place : COLORS.previewRoute;
-  const opacity = important ? 1 : 0.8;
+  const opacity = important ? 1 : 0.75;
 
   return (
     <Pane name={useId()} style={{ zIndex: Z_INDEX.places, opacity }}>
