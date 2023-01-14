@@ -1,7 +1,7 @@
 import { FileInput } from "@react-md/form";
 import { SimpleListItem } from "@react-md/list";
 import { FileUploadSVGIcon } from "@react-md/material-icons";
-import { useId } from "react";
+import { useEffect, useId, useState } from "react";
 import prettyBytes from "pretty-bytes";
 
 interface Props {
@@ -11,10 +11,19 @@ interface Props {
 }
 
 export function UploadImage({ error, image, onChange }: Props) {
+  const [key, setKey] = useState(0);
+
+  useEffect(() => {
+    if (image === null) {
+      setKey((k) => k + 1);
+    }
+  }, [image]);
+
   return (
     <>
       <SimpleListItem>
         <FileInput
+          key={key}
           id={useId()}
           onChange={(e) => {
             const file = e.currentTarget.files?.[0];
