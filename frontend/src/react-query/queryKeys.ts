@@ -15,6 +15,7 @@ export const queries = {
   worldRoadsBuffered: (world: WorldSlug) =>
     ["worlds", world, "roads-buffered"] as const,
   places: ["places"] as const,
+  worlds: ["worlds"] as const,
   worldPlaces: (world: WorldSlug) => ["worlds", world, "places"] as const,
   worldPlace: (world: WorldSlug, placeId: string) =>
     ["worlds", world, "places", placeId] as const,

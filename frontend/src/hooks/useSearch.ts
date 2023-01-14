@@ -9,8 +9,9 @@ import {
   worlds,
 } from "zwift-data";
 import { WORLDS_BY_SLUG } from "../constants";
-import { usePlaces } from "../react-query";
+import { useAuthStatus, usePlaces } from "../react-query";
 import { Place } from "../types";
+import { useSettings } from "./useSettings";
 
 const REGEX_STRAVA_ACTIVITY = /strava\.com\/activities\/(\d{10})/;
 
@@ -154,7 +155,14 @@ export const SEARCH_RESULTS_TYPES = {
 } satisfies Record<SearchResult["type"], { title: string }>;
 
 function usePlacesSearchResults(): SearchResultPlace[] {
-  const { data: places } = usePlaces(true);
+  const showUnverifiedPlaces = useSettings((s) => s.showUnverifiedPlaces);
+  const { data: authStatus } = useAuthStatus();
+  const canViewUnverified =
+    (authStatus?.adminUser ?? false) || (authStatus?.moderatorUser ?? false);
+
+  const { data: places } = usePlaces(
+    canViewUnverified ? (showUnverifiedPlaces ? undefined : true) : true
+  );
 
   return useMemo(() => {
     if (!places) {

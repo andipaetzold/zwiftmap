@@ -6,10 +6,13 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@react-md/dialog";
-import { Select } from "@react-md/form";
+import { Select, Switch } from "@react-md/form";
 import { ArrowDropDownSVGIcon } from "@react-md/material-icons";
+import { useQueryClient } from "@tanstack/react-query";
 import { useId } from "react";
+import { worlds } from "zwift-data";
 import { useSettings } from "../../hooks/useSettings";
+import { queries, useAuthStatus } from "../../react-query";
 import { StravaSettings } from "./StravaSettings";
 import styles from "./styles.module.scss";
 
@@ -19,6 +22,11 @@ interface Props {
 
 export default function SettingsDialog({ onClose }: Props) {
   const store = useSettings();
+  const queryClient = useQueryClient();
+  const { data: authStatus } = useAuthStatus();
+  const canViewUnverified =
+    (authStatus?.adminUser ?? false) || (authStatus?.moderatorUser ?? false);
+  const showUnverifiedPlacesId = useId();
 
   return (
     <Dialog
@@ -75,6 +83,21 @@ export default function SettingsDialog({ onClose }: Props) {
           ]}
           rightChildren={<ArrowDropDownSVGIcon />}
         />
+
+        {canViewUnverified && (
+          <Switch
+            id={showUnverifiedPlacesId}
+            label="Show unverified places"
+            checked={store.showUnverifiedPlaces}
+            onChange={(e) => {
+              store.setShowUnverifiedPlaces(e.target.checked);
+              queryClient.invalidateQueries(queries.places);
+              for (const world of worlds) {
+                queryClient.invalidateQueries(queries.worldPlaces(world.slug));
+              }
+            }}
+          />
+        )}
 
         <StravaSettings />
       </DialogContent>

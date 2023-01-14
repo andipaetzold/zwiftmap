@@ -1,7 +1,8 @@
 import { LayerGroup, LayersControl } from "react-leaflet";
 import { World } from "zwift-data";
 import { COLORS } from "../../../../constants";
-import { useWorldPlaces } from "../../../../react-query";
+import { useSettings } from "../../../../hooks/useSettings";
+import { useAuthStatus, useWorldPlaces } from "../../../../react-query";
 import { navigate } from "../../../../services/location-state";
 import { PlaceMarker } from "../../../PlaceMarker";
 
@@ -10,7 +11,15 @@ interface Props {
 }
 
 export function OverlayPlaces({ world }: Props) {
-  const { data: places } = useWorldPlaces(world.slug, true);
+  const showUnverifiedPlaces = useSettings((s) => s.showUnverifiedPlaces);
+  const { data: authStatus } = useAuthStatus();
+  const canViewUnverified =
+    (authStatus?.adminUser ?? false) || (authStatus?.moderatorUser ?? false);
+
+  const { data: places } = useWorldPlaces(
+    world.slug,
+    canViewUnverified ? (showUnverifiedPlaces ? undefined : true) : true
+  );
 
   return (
     <LayersControl.Overlay name="Places" checked>
