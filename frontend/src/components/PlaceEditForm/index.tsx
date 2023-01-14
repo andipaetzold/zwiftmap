@@ -1,11 +1,5 @@
 import { useAddMessage } from "@react-md/alert";
 import { Button } from "@react-md/button";
-import {
-  Dialog,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@react-md/dialog";
 import { Divider } from "@react-md/divider";
 import { Checkbox, TextArea, TextField } from "@react-md/form";
 import { TextIconSpacing } from "@react-md/icon";
@@ -14,7 +8,6 @@ import {
   AddSVGIcon,
   CheckBoxSVGIcon,
   ClearSVGIcon,
-  DeleteSVGIcon,
   PlaceSVGIcon,
   SendSVGIcon,
 } from "@react-md/material-icons";
@@ -27,11 +20,11 @@ import { queries, useAuthStatus } from "../../react-query";
 import { emitter } from "../../services/emitter";
 import {
   createPlace,
-  deletePlace,
   updatePlace,
   uploadFile,
 } from "../../services/zwiftMapApi";
 import { Place } from "../../types";
+import { DeleteListItem } from "./DeleteListItem";
 import styles from "./styles.module.scss";
 import { UploadImage } from "./UploadImage";
 
@@ -51,9 +44,6 @@ export function PlaceEditForm({ place, world }: Props) {
     links: place?.links ?? [],
     verified: place?.verified ?? false,
   });
-
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  const deleteDialogTitleId = useId();
 
   const addMessage = useAddMessage();
 
@@ -131,28 +121,6 @@ export function PlaceEditForm({ place, world }: Props) {
             children: "New place was submitted successfully",
           });
         }
-      },
-      onError: () =>
-        addMessage({
-          children: "Something went wrong",
-        }),
-    }
-  );
-
-  const { mutate: handleDelete } = useMutation(
-    async () => {
-      if (!place) {
-        return;
-      }
-      await deletePlace(place);
-    },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(queries.places);
-        queryClient.invalidateQueries(queries.worldPlaces(world.slug));
-        addMessage({
-          children: "Place was deleted",
-        });
       },
       onError: () =>
         addMessage({
@@ -300,15 +268,7 @@ export function PlaceEditForm({ place, world }: Props) {
           {place ? "Save place" : "Submit new place"}
         </ListItem>
 
-        {place && (
-          <ListItem
-            leftAddonType="icon"
-            leftAddon={<DeleteSVGIcon />}
-            onClick={() => setDeleteDialogOpen(true)}
-          >
-            Delete place
-          </ListItem>
-        )}
+        {place && <DeleteListItem place={place} />}
 
         <SimpleListItem>* Required field</SimpleListItem>
         {!place && (
@@ -320,25 +280,6 @@ export function PlaceEditForm({ place, world }: Props) {
           </SimpleListItem>
         )}
       </>
-
-      <Dialog
-        id={useId()}
-        visible={deleteDialogOpen}
-        onRequestClose={() => setDeleteDialogOpen(false)}
-        aria-labelledby={deleteDialogTitleId}
-      >
-        <DialogHeader>
-          <DialogTitle id={deleteDialogTitleId}>
-            Do you really want to delete this place?
-          </DialogTitle>
-        </DialogHeader>
-        <DialogFooter>
-          <Button theme="primary" onClick={() => handleDelete()}>
-            Yes, delete
-          </Button>
-          <Button onClick={() => setDeleteDialogOpen(false)}>No</Button>
-        </DialogFooter>
-      </Dialog>
     </form>
   );
 }
