@@ -26,7 +26,7 @@ export function DeleteListItem({ place }: Props) {
   const queryClient = useQueryClient();
   const addMessage = useAddMessage();
 
-  const { mutate: handleDelete } = useMutation(
+  const { mutate: handleDelete, isLoading } = useMutation(
     async () => {
       if (!place) {
         return;
@@ -75,10 +75,16 @@ export function DeleteListItem({ place }: Props) {
           </DialogTitle>
         </DialogHeader>
         <DialogFooter>
-          <Button theme="primary" onClick={() => handleDelete()}>
+          <Button
+            theme="primary"
+            onClick={() => handleDelete()}
+            disabled={isLoading}
+          >
             Yes, delete
           </Button>
-          <Button onClick={() => setDialogOpen(false)}>No</Button>
+          <Button onClick={() => setDialogOpen(false)} disabled={isLoading}>
+            No
+          </Button>
         </DialogFooter>
       </Dialog>
     </>
