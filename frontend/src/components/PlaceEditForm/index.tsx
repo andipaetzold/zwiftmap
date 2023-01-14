@@ -199,6 +199,10 @@ export function PlaceEditForm({ place, world }: Props) {
             label="Verified"
             icon={<CheckBoxSVGIcon />}
             disabled={isLoading}
+            checked={data.verified}
+            onChange={(e) =>
+              setData((cur) => ({ ...cur, verified: e.target.checked }))
+            }
           />
         )}
 
