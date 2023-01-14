@@ -36,7 +36,7 @@ export async function handleGETPlacesByWorld(req: Request, res: Response) {
   const verifiedFilter = req.query.filter?.verified;
   const places = await readPlacesByWorld(
     req.params.worldSlug,
-    verifiedFilter === undefined ? verifiedFilter === "true" : undefined
+    verifiedFilter === undefined ? undefined : verifiedFilter === "true"
   );
 
   res.status(200).json(places);
