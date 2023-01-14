@@ -15,7 +15,6 @@ export async function handleGETPlaces(req: Request, res: Response) {
       isStravaModeratorUser(session.stravaAthleteId));
   const queryRunType = createQueryRuntype(canReadVerified);
   if (!queryRunType.guard(req.query)) {
-    queryRunType.check(req.query);
     res.sendStatus(400);
     return;
   }

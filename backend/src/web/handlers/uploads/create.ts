@@ -9,7 +9,6 @@ const Body = Record({
 
 export async function handlePOSTUpload(req: Request, res: Response) {
   if (!Body.guard(req.body)) {
-    Body.check(req.body);
     res.sendStatus(400);
     return;
   }

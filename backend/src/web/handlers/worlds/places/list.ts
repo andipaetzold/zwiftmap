@@ -28,7 +28,6 @@ export async function handleGETPlacesByWorld(req: Request, res: Response) {
       isStravaModeratorUser(session.stravaAthleteId));
   const queryRunType = createQueryRuntype(canReadUnverified);
   if (!queryRunType.guard(req.query)) {
-    queryRunType.check(req.query);
     res.sendStatus(400);
     return;
   }
