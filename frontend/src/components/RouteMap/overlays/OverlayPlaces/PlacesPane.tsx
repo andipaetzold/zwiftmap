@@ -17,7 +17,11 @@ export function PlacesPane({ places, important }: Props) {
   const opacity = important ? 1 : 0.75;
 
   return (
-    <Pane name={useId()} style={{ zIndex: Z_INDEX.places, opacity }}>
+    <Pane
+      key={String(important)}
+      name={useId()}
+      style={{ zIndex: Z_INDEX.places, opacity }}
+    >
       {places.map((place, placeIndex) => (
         <PlaceMarker
           key={placeIndex}
