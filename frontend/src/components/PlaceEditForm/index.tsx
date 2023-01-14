@@ -26,7 +26,7 @@ import {
 } from "../../services/zwiftMapApi";
 import { Place } from "../../types";
 import { DeleteListItem } from "./DeleteListItem";
-import { ImageListItem } from "./ImageListItem";
+import { PlaceImageListItem } from "./ImageListItem";
 import styles from "./styles.module.scss";
 import { UploadImage } from "./UploadImage";
 
@@ -208,7 +208,7 @@ export function PlaceEditForm({ place, world }: Props) {
         )}
 
         <ListSubheader>Image*</ListSubheader>
-        <ImageListItem image={data.image} fallbackUrl={place?.image} />
+        <PlaceImageListItem image={data.image} fallbackUrl={place?.image} />
         <UploadImage
           error={isError && data.image === null}
           image={data.image}

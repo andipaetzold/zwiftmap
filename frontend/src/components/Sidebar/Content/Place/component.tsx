@@ -4,9 +4,9 @@ import { SimpleListItem } from "@react-md/list";
 import { Typography } from "@react-md/typography";
 import { LocationStatePlace } from "../../../../services/location-state";
 import { Place } from "../../../../types";
+import { ImageListItem } from "../../../ImageListItem";
 import { PlaceEditButton } from "./PlaceEditButton";
 import { PlaceHelmet } from "./PlaceHelmet";
-import { PlaceImage } from "./PlaceImage";
 import { PlaceLinks } from "./PlaceLinks";
 import { PlaceReport } from "./PlaceReport";
 
@@ -19,7 +19,7 @@ export default function PlaceComponent({ place, state }: Props) {
   return (
     <>
       <PlaceHelmet name={place.name} />
-      <PlaceImage place={place} />
+      <ImageListItem src={place.image} />
 
       <SimpleListItem>
         <Typography type="headline-6" style={{ margin: 0 }}>
