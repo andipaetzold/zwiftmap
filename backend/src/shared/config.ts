@@ -1,5 +1,7 @@
 import { SecretManagerServiceClient } from "@google-cloud/secret-manager";
 import { config as dotenvConfig } from "dotenv";
+import { CredentialBody } from "google-auth-library";
+import { readFileSync } from "node:fs";
 
 export interface Config {
   environment: "development" | "production";
@@ -22,6 +24,7 @@ export interface Config {
     secret: string;
     cookieName: string;
   };
+  gCloudCredentials: CredentialBody | undefined;
 }
 
 async function getConfig(): Promise<Config> {
@@ -47,6 +50,7 @@ async function getConfig(): Promise<Config> {
         secret: await getSecret("GAE_AUTH_SECRET"),
         cookieName: "sessionID",
       },
+      gCloudCredentials: undefined,
     };
   } else {
     dotenvConfig();
@@ -73,6 +77,11 @@ async function getConfig(): Promise<Config> {
         secret: process.env.AUTH_SECRET!,
         cookieName: "sessionID",
       },
+      gCloudCredentials: JSON.parse(
+        readFileSync("./google-credentials.json", {
+          encoding: "utf-8",
+        })
+      ),
     };
   }
 }

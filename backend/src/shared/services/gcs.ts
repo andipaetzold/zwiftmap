@@ -1,11 +1,8 @@
 import { Storage } from "@google-cloud/storage";
-import { readFileSync } from "fs";
 import { config } from "../config.js";
 
 const storage = new Storage({
-  credentials: JSON.parse(
-    readFileSync("./google-credentials.json", { encoding: "utf-8" })
-  ),
+  credentials: config.gCloudCredentials,
 });
 
 export async function uploadToGoogleCloudStorage(
