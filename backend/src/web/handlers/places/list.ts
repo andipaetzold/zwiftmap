@@ -5,16 +5,17 @@ import {
   isStravaAdminUser,
   isStravaModeratorUser,
 } from "../../../shared/services/strava/utils.js";
-import { Literal, Record, Boolean, Union } from "runtypes";
+import { Literal, Record, Union } from "runtypes";
 
 export async function handleGETPlaces(req: Request, res: Response) {
   const session = req.session as Session | undefined;
-  const canVerify =
+  const canReadVerified =
     session?.stravaAthleteId !== undefined &&
     (isStravaAdminUser(session.stravaAthleteId) ||
       isStravaModeratorUser(session.stravaAthleteId));
-  const queryRunType = createQueryRuntype(canVerify);
+  const queryRunType = createQueryRuntype(canReadVerified);
   if (!queryRunType.guard(req.query)) {
+    queryRunType.check(req.query);
     res.sendStatus(400);
     return;
   }
@@ -27,12 +28,18 @@ export async function handleGETPlaces(req: Request, res: Response) {
   res.status(200).json(places);
 }
 
-function createQueryRuntype(canVerify: boolean) {
-  return Record({
-    filter: Record({
-      verified: canVerify
-        ? Union(Literal("true"), Literal("false")).optional()
-        : Literal("true"),
-    }),
-  });
+function createQueryRuntype(canReadUnverified: boolean) {
+  if (canReadUnverified) {
+    return Record({
+      filter: Record({
+        verified: Union(Literal("true"), Literal("false")).optional(),
+      }).optional(),
+    }).optional();
+  } else {
+    return Record({
+      filter: Record({
+        verified: Literal("true"),
+      }),
+    });
+  }
 }
