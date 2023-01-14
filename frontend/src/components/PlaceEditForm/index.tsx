@@ -19,11 +19,11 @@ import {
   SendSVGIcon,
 } from "@react-md/material-icons";
 import { Typography } from "@react-md/typography";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { LatLngTuple } from "leaflet";
 import { useEffect, useId, useState } from "react";
 import { World } from "zwift-data";
-import { useAuthStatus } from "../../react-query";
+import { queries, useAuthStatus } from "../../react-query";
 import { emitter } from "../../services/emitter";
 import {
   createPlace,
@@ -41,6 +41,7 @@ interface Props {
 }
 
 export function PlaceEditForm({ place, world }: Props) {
+  const queryClient = useQueryClient();
   const { data: authState } = useAuthStatus();
   const [data, setData] = useState({
     name: place?.name ?? "",
@@ -110,6 +111,9 @@ export function PlaceEditForm({ place, world }: Props) {
     },
     {
       onSuccess: () => {
+        queryClient.invalidateQueries(queries.places);
+        queryClient.invalidateQueries(queries.worldPlaces(world.slug));
+
         if (place) {
           addMessage({
             children: "Place was updated",
@@ -144,6 +148,8 @@ export function PlaceEditForm({ place, world }: Props) {
     },
     {
       onSuccess: () => {
+        queryClient.invalidateQueries(queries.places);
+        queryClient.invalidateQueries(queries.worldPlaces(world.slug));
         addMessage({
           children: "Place was deleted",
         });
