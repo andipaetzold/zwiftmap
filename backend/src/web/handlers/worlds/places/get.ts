@@ -23,5 +23,5 @@ export async function handleGETPlace(req: Request, res: Response) {
     return;
   }
 
-  res.status(200).header("Cache-Control", "public, max-age=86400").json(place);
+  res.status(200).json(place);
 }
