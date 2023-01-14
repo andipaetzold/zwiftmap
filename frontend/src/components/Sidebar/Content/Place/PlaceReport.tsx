@@ -14,7 +14,7 @@ export function PlaceReport({ place }: Props) {
         leftAddon={<EmailSVGIcon />}
         href={`mailto:support@zwiftmap.com?subject=${encodeURIComponent(
           "Place report"
-        )}&amp;text=${encodeURIComponent(`\n\n\nPlace Id: ${place.id}`)}`}
+        )}&body=${encodeURIComponent(`\n\n\nPlace Id: ${place.id}`)}`}
       >
         Report
       </ListItemLink>
