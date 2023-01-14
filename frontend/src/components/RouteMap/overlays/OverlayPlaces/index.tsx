@@ -45,7 +45,7 @@ export function OverlayPlaces({ world }: Props) {
     query === "" ? places : results.place.map(({ data }) => data);
 
   const important = (
-    ["default", "strava-activities", "event"] as LocationState["type"][]
+    ["default", "strava-activities", "events"] as LocationState["type"][]
   ).includes(locationState.type);
 
   return (
