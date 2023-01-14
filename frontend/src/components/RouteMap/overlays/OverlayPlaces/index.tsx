@@ -3,7 +3,10 @@ import { World } from "zwift-data";
 import { COLORS } from "../../../../constants";
 import { useSettings } from "../../../../hooks/useSettings";
 import { useAuthStatus, useWorldPlaces } from "../../../../react-query";
-import { navigate } from "../../../../services/location-state";
+import {
+  navigate,
+  useLocationState,
+} from "../../../../services/location-state";
 import { PlaceMarker } from "../../../PlaceMarker";
 
 interface Props {
@@ -11,6 +14,7 @@ interface Props {
 }
 
 export function OverlayPlaces({ world }: Props) {
+  const locationState = useLocationState();
   const showUnverifiedPlaces = useSettings((s) => s.showUnverifiedPlaces);
   const { data: authStatus } = useAuthStatus();
   const canViewUnverified =
@@ -20,6 +24,10 @@ export function OverlayPlaces({ world }: Props) {
     world.slug,
     canViewUnverified ? (showUnverifiedPlaces ? undefined : true) : true
   );
+
+  if (["place-edit", "place-new"].includes(locationState.type)) {
+    return null;
+  }
 
   return (
     <LayersControl.Overlay name="Places" checked>
