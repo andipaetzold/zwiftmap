@@ -194,7 +194,9 @@ export async function updatePlace(
   );
 }
 
-export async function deletePlace(place: Place): Promise<void> {
+export async function deletePlace(
+  place: Pick<Place, "id" | "world">
+): Promise<void> {
   await request(`${BACKEND_HOST}/worlds/${place.world}/places/${place.id}`, {
     method: "DELETE",
     ...DEFAULT_INIT,
