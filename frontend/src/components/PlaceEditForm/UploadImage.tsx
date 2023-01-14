@@ -3,6 +3,9 @@ import { SimpleListItem } from "@react-md/list";
 import { FileUploadSVGIcon } from "@react-md/material-icons";
 import { useEffect, useId, useState } from "react";
 import prettyBytes from "pretty-bytes";
+import { Typography } from "@react-md/typography";
+
+const SIZE_LIMIT = 512 * 1024;
 
 interface Props {
   error: boolean;
@@ -44,7 +47,17 @@ export function UploadImage({ error, image, onChange }: Props) {
       {image && (
         <SimpleListItem
           primaryText={image.name}
-          secondaryText={`Size: ${prettyBytes(image.size)}`}
+          secondaryText={
+            <Typography
+              color={image.size > SIZE_LIMIT ? "theme-error" : "hint"}
+            >
+              Size:{" "}
+              {prettyBytes(image.size, {
+                binary: true,
+              })}{" "}
+              / {prettyBytes(SIZE_LIMIT, { binary: true })}
+            </Typography>
+          }
         />
       )}
     </>
