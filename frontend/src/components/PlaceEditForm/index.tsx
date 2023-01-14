@@ -1,11 +1,12 @@
 import { useAddMessage } from "@react-md/alert";
 import { Button } from "@react-md/button";
 import { Divider } from "@react-md/divider";
-import { TextArea, TextField } from "@react-md/form";
+import { Checkbox, TextArea, TextField } from "@react-md/form";
 import { TextIconSpacing } from "@react-md/icon";
 import { ListItem, ListSubheader, SimpleListItem } from "@react-md/list";
 import {
   AddSVGIcon,
+  CheckBoxSVGIcon,
   ClearSVGIcon,
   PlaceSVGIcon,
   SendSVGIcon,
@@ -15,6 +16,7 @@ import { useMutation } from "@tanstack/react-query";
 import { LatLngTuple } from "leaflet";
 import { useEffect, useId, useState } from "react";
 import { World } from "zwift-data";
+import { useAuthStatus } from "../../react-query";
 import { emitter } from "../../services/emitter";
 import {
   createPlace,
@@ -31,15 +33,18 @@ interface Props {
 }
 
 export function PlaceEditForm({ place, world }: Props) {
+  const { data: authState } = useAuthStatus();
   const [data, setData] = useState({
     name: place?.name ?? "",
     description: place?.description ?? "",
     position: place?.position ?? null,
     image: null as File | null,
     links: place?.links ?? [],
+    verified: place?.verified ?? false,
   });
   const addMessage = useAddMessage();
 
+  const verifiedId = useId();
   const linkIdPrefix = useId();
 
   useEffect(() => {
@@ -61,7 +66,7 @@ export function PlaceEditForm({ place, world }: Props) {
         }
 
         await updatePlace({
-          ...place,
+          id: place.id,
           name: data.name,
           description: data.description,
           links: data.links,
@@ -70,6 +75,7 @@ export function PlaceEditForm({ place, world }: Props) {
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           position: data.position!,
           imageObjectId,
+          verified: data.verified,
         });
       } else {
         if (data.image === null) {
@@ -86,6 +92,7 @@ export function PlaceEditForm({ place, world }: Props) {
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           position: data.position!,
           imageObjectId,
+          verified: data.verified,
         });
       }
     },
@@ -102,6 +109,7 @@ export function PlaceEditForm({ place, world }: Props) {
             image: null,
             position: null,
             links: [],
+            verified: false,
           });
           addMessage({
             children: "New place was submitted successfully",
@@ -173,13 +181,20 @@ export function PlaceEditForm({ place, world }: Props) {
           />
         </SimpleListItem>
 
+        {(authState?.adminUser || authState?.moderatorUser) && (
+          <Checkbox
+            id={verifiedId}
+            label="Verified"
+            icon={<CheckBoxSVGIcon />}
+          />
+        )}
+
+        <ListSubheader>Image*</ListSubheader>
         {place && (
           <SimpleListItem className={styles.ImageListItem}>
             <img src={place.image} alt="" className={styles.Image} />
           </SimpleListItem>
         )}
-
-        <ListSubheader>Image*</ListSubheader>
         <UploadImage
           error={isError && data.image === null}
           image={data.image}

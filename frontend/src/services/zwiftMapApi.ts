@@ -166,7 +166,7 @@ export async function getWorldPlaces(world: WorldSlug): Promise<Place[]> {
 }
 
 export async function createPlace(
-  place: Omit<Place, "id" | "verified" | "image"> & {
+  place: Omit<Place, "id" | "image"> & {
     imageObjectId: string | null;
   }
 ): Promise<Place> {

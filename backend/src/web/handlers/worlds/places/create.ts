@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Array, Number, Record, String } from "runtypes";
+import { Array, Number, Record, Boolean, String } from "runtypes";
 import { savePlaceImage } from "../../../../shared/services/gcs.js";
 import { worlds, WorldSlug } from "zwift-data";
 import {
@@ -7,6 +7,11 @@ import {
   writePlace,
 } from "../../../../shared/persistence/place.js";
 import { LatLng } from "../../../../shared/types.js";
+import { Session } from "../../../../web/types.js";
+import {
+  isStravaAdminUser,
+  isStravaModeratorUser,
+} from "../../../../shared/services/strava/index.js";
 
 const slugs = worlds.map((w) => w.slug as string);
 const paramsRunType = Record({
@@ -21,6 +26,7 @@ const Body = Record({
   links: Array(String),
   position: Array(Number).withConstraint<LatLng>((a) => a.length === 2),
   imageObjectId: String,
+  verified: Boolean,
 });
 
 export async function handlePOSTPlace(req: Request, res: Response) {
@@ -30,8 +36,17 @@ export async function handlePOSTPlace(req: Request, res: Response) {
   }
 
   if (!Body.guard(req.body)) {
-    Body.check(req.body);
     res.sendStatus(400);
+    return;
+  }
+
+  const session = req.session as Session | undefined;
+  const canVerify =
+    session?.stravaAthleteId &&
+    (isStravaAdminUser(session.stravaAthleteId) ||
+      isStravaModeratorUser(session.stravaAthleteId));
+  if (req.body.verified === true && !canVerify) {
+    res.sendStatus(403);
     return;
   }
 
