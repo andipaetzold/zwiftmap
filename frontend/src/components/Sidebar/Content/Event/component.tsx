@@ -3,9 +3,9 @@ import { Typography } from "@react-md/typography";
 import { getSubgroupFromEvent } from "../../../../services/events";
 import { LocationStateUpcomingEvent } from "../../../../services/location-state";
 import { ZwiftEvent } from "../../../../types";
+import { ImageListItem } from "../../../ImageListItem";
 import { EventFacts } from "./EventFacts";
 import { EventHelmet } from "./EventHelmet";
-import { EventImage } from "./EventImage";
 import { EventKit } from "./EventKit";
 import { EventLinks } from "./EventLinks";
 import { EventPowerUps } from "./EventPowerUps";
@@ -31,7 +31,7 @@ export default function EventComponent({ event, state }: Props) {
       <EventHelmet name={name} subgroup={subgroup} />
       <EventSchema name={name} event={event} subgroup={subgroup} />
 
-      <EventImage event={event} />
+      <ImageListItem src={event.imageUrl} />
 
       <SimpleListItem>
         <Typography type="headline-6" style={{ margin: 0 }}>

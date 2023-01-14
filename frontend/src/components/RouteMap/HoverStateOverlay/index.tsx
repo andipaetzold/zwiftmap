@@ -5,7 +5,7 @@ import { LatLngStreamPreview } from "./LatLngStreamPreview";
 import { RoutePreview } from "./RoutePreview";
 import { SegmentPreview } from "./SegmentPreview";
 
-export function PreviewRoute() {
+export function HoverStateOverlay() {
   const hoverState = useStore((store) => store.hoverState);
 
   switch (hoverState?.type) {

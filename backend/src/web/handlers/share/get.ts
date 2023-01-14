@@ -20,5 +20,5 @@ export async function handleGetShare(req: Request, res: Response) {
     return;
   }
 
-  res.status(200).header("public, max-age=604800").json(share);
+  res.status(200).header("Cache-Control", "public, max-age=604800").json(share);
 }

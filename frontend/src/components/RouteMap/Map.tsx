@@ -1,4 +1,4 @@
-import { LatLngBoundsExpression, Map as MapType } from "leaflet";
+import { LatLngBounds, LatLngBoundsExpression, Map as MapType } from "leaflet";
 import { RefObject, useCallback, useEffect, useRef } from "react";
 import {
   LayerGroup,
@@ -11,7 +11,7 @@ import { worldConfigs } from "../../constants/worldConfigs";
 import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
 import { useSettings } from "../../hooks/useSettings";
 import { LocationState } from "../../services/location-state";
-import { DistanceStream, LatLngStream } from "../../types";
+import { DistanceStream, LatLngStream, Place } from "../../types";
 import { getBounds } from "../../util/bounds";
 import { usePrefetchRoads } from "./custom-route/usePrefetchRoads";
 import { Fog } from "./Fog";
@@ -23,9 +23,10 @@ import { OverlayHeatmap } from "./overlays/OverlayHeatmap";
 import { OverlayNone } from "./overlays/OverlayNone";
 import { OverlaySegments } from "./overlays/OverlaySegments";
 import { OverlaySurfaces } from "./overlays/OverlaySurfaces";
-import { PreviewRoute } from "./PreviewRoute";
+import { HoverStateOverlay } from "./HoverStateOverlay";
 import { RoutePosition } from "./RoutePosition";
 import { WorldImage } from "./WorldImage";
+import { OverlayPlaces } from "./overlays/OverlayPlaces";
 
 interface Props {
   state: LocationState;
@@ -34,9 +35,10 @@ interface Props {
     latlng: LatLngStream;
     distance: DistanceStream;
   };
+  place?: Place;
 }
 
-export function Map({ state, world, routeStreams }: Props) {
+export function Map({ state, world, routeStreams, place }: Props) {
   usePrefetchRoads(state);
   const [overlay, setOverlay] = useSettings((state) => [
     state.overlay,
@@ -88,10 +90,18 @@ export function Map({ state, world, routeStreams }: Props) {
           flyToBounds(bounds);
         }
       }
+    } else if (place) {
+      const bounds = new LatLngBounds(place.position, place.position);
+      if (firstLoad.current) {
+        mapRef.current.fitBounds(bounds, { animate: false });
+        firstLoad.current = false;
+      } else {
+        flyToBounds(bounds);
+      }
     }
     // TODO: do not depend on ref
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mapRef.current, routeStreams, world, state.type, flyToBounds]);
+  }, [mapRef.current, routeStreams, place, world, state.type, flyToBounds]);
 
   const worldConfig = worldConfigs[world.slug];
 
@@ -108,7 +118,7 @@ export function Map({ state, world, routeStreams }: Props) {
     >
       <ZoomControl position="topright" />
       <WorldImage world={world} />
-      <PreviewRoute />
+      <HoverStateOverlay />
       {state.type === "fog" ? (
         <Fog state={state} />
       ) : (
@@ -136,6 +146,7 @@ export function Map({ state, world, routeStreams }: Props) {
               </LayerGroup>
             </LayersControl.BaseLayer>
 
+            <OverlayPlaces world={world} />
             <OverlayDebugSurfaces world={world} />
             <OverlayDebugRoads world={world} />
             <OverlayHeatmap world={world} />

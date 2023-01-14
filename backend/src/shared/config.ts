@@ -1,5 +1,7 @@
 import { SecretManagerServiceClient } from "@google-cloud/secret-manager";
 import { config as dotenvConfig } from "dotenv";
+import { CredentialBody } from "google-auth-library";
+import { readFileSync } from "node:fs";
 
 export interface Config {
   environment: "development" | "production";
@@ -11,6 +13,8 @@ export interface Config {
     webhookHost: string;
     verifyToken: string;
     betaUsers: number[];
+    adminUsers: number[];
+    moderatorUsers: number[];
   };
   sentry: {
     dsn: string;
@@ -20,6 +24,7 @@ export interface Config {
     secret: string;
     cookieName: string;
   };
+  gCloudCredentials: CredentialBody | undefined;
 }
 
 async function getConfig(): Promise<Config> {
@@ -33,10 +38,9 @@ async function getConfig(): Promise<Config> {
         clientSecret: await getSecret("GAE_STRAVA_CLIENT_SECRET"),
         webhookHost: process.env.BACKEND_URL!,
         verifyToken: await getSecret("GAE_STRAVA_VERIFY_TOKEN"),
-        betaUsers: (process.env.STRAVA_BETA_USERS ?? "")
-          .split(",")
-          .map((userId) => +userId)
-          .filter((userId) => userId > 0 && !Number.isNaN(userId)),
+        betaUsers: getStravaUserIds("STRAVA_BETA_USERS"),
+        adminUsers: getStravaUserIds("STRAVA_ADMIN_USERS"),
+        moderatorUsers: getStravaUserIds("STRAVA_MODERATOR_USERS"),
       },
       sentry: {
         dsn: await getSecret("GAE_SENTRY_DSN"),
@@ -46,6 +50,7 @@ async function getConfig(): Promise<Config> {
         secret: await getSecret("GAE_AUTH_SECRET"),
         cookieName: "sessionID",
       },
+      gCloudCredentials: undefined,
     };
   } else {
     dotenvConfig();
@@ -60,10 +65,9 @@ async function getConfig(): Promise<Config> {
         webhookHost:
           process.env.STRAVA_WEBHOOK_HOST ?? process.env.BACKEND_URL!,
         verifyToken: "token",
-        betaUsers: (process.env.STRAVA_BETA_USERS ?? "")
-          .split(",")
-          .map((userId) => +userId)
-          .filter((userId) => userId > 0 && !Number.isNaN(userId)),
+        betaUsers: getStravaUserIds("STRAVA_BETA_USERS"),
+        adminUsers: getStravaUserIds("STRAVA_ADMIN_USERS"),
+        moderatorUsers: getStravaUserIds("STRAVA_MODERATOR_USERS"),
       },
       sentry: {
         dsn: "",
@@ -73,6 +77,11 @@ async function getConfig(): Promise<Config> {
         secret: process.env.AUTH_SECRET!,
         cookieName: "sessionID",
       },
+      gCloudCredentials: JSON.parse(
+        readFileSync("./google-credentials.json", {
+          encoding: "utf-8",
+        })
+      ),
     };
   }
 }
@@ -88,6 +97,13 @@ async function getSecret(name: string): Promise<string> {
     throw new Error(`Could not find secret '${name}'`);
   }
   return payload;
+}
+
+function getStravaUserIds(envKey: string): number[] {
+  return (process.env[envKey] ?? "")
+    .split(",")
+    .map((userId) => +userId)
+    .filter((userId) => userId > 0 && !Number.isNaN(userId));
 }
 
 export const config = await getConfig();

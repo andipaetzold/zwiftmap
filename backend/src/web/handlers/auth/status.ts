@@ -1,5 +1,9 @@
 import { Request, Response } from "express";
-import { isStravaBetaUser } from "../../../shared/services/strava/index.js";
+import {
+  isStravaAdminUser,
+  isStravaBetaUser,
+  isStravaModeratorUser,
+} from "../../../shared/services/strava/index.js";
 import { Session } from "../../types.js";
 
 export function handleGETAuthStatus(req: Request, res: Response) {
@@ -9,5 +13,11 @@ export function handleGETAuthStatus(req: Request, res: Response) {
     betaUser:
       session.stravaAthleteId !== undefined &&
       isStravaBetaUser(session.stravaAthleteId),
+    adminUser:
+      session.stravaAthleteId !== undefined &&
+      isStravaAdminUser(session.stravaAthleteId),
+    moderatorUser:
+      session.stravaAthleteId !== undefined &&
+      isStravaModeratorUser(session.stravaAthleteId),
   });
 }

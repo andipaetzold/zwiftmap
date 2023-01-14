@@ -6,6 +6,7 @@ export interface Settings {
   units: Units;
   theme: Theme | "system";
   overlay: Overlay;
+  showUnverifiedPlaces: boolean;
 }
 
 export type Theme = "light" | "dark";

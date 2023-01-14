@@ -2,8 +2,9 @@ export const Z_INDEX = {
   previewRoute: 505,
   route: 506,
   segments: 507,
-  routeEnd: 508,
-  routeStart: 508,
+  places: 508,
+  routeEnd: 509,
+  routeStart: 509,
 };
 
 export const POLYLINE_WIDTH = 5;

@@ -1,4 +1,5 @@
 export * from "./firestore.js";
+export * from "./place.js";
 export * from "./share.js";
 export * from "./stravaActivity.js";
 export * from "./stravaAthlete.js";

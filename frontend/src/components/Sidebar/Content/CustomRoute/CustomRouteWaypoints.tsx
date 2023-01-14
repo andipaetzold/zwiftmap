@@ -4,6 +4,7 @@ import { TextIconSpacing } from "@react-md/icon";
 import { SimpleListItem } from "@react-md/list";
 import { AddSVGIcon, ClearSVGIcon } from "@react-md/material-icons";
 import { LatLngTuple } from "leaflet";
+import { useId } from "react";
 import {
   LocationStateCustomRoute,
   navigate,
@@ -16,18 +17,19 @@ interface Props {
 }
 
 export function CustomRouteWaypoints({ state }: Props) {
+  const waypointIdPrefix = useId();
   return (
     <>
       {state.points.map((point, index) => (
         <SimpleListItem key={index}>
           <TextField
-            id="custom-route-waypoints-2"
+            id={`${waypointIdPrefix}-${index}`}
             readOnly
             dense
             className={styles.TextField}
             value={point ? formatPoint(point) : ""}
             placeholder="Select point on map"
-            leftChildren={<MarkerIcon number={index + 1} />}
+            leftChildren={<MarkerIcon label={`${index + 1}`} />}
             isRightAddon={false}
             rightChildren={
               point && (

@@ -1,18 +1,24 @@
 import { List, ListSubheader, SimpleListItem } from "@react-md/list";
 import { Helmet } from "react-helmet-async";
 import { Route, Segment, World } from "zwift-data";
-import { useSessionSettings } from "../../../../hooks/useSessionSettings";
-import { useSettings } from "../../../../hooks/useSettings";
 import {
-  search,
   SearchResult,
   SEARCH_RESULTS_ORDER,
   SEARCH_RESULTS_TYPES,
-} from "../../../../services/search";
-import { SortState } from "../../../../types";
-import { sortRoute, sortSegment, sortWorld } from "../../../../util/sort";
+  useSearch,
+} from "../../../../hooks/useSearch";
+import { useSessionSettings } from "../../../../hooks/useSessionSettings";
+import { useSettings } from "../../../../hooks/useSettings";
+import { Place, SortState } from "../../../../types";
+import {
+  sortPlace,
+  sortRoute,
+  sortSegment,
+  sortWorld,
+} from "../../../../util/sort";
 import { ListItemRoute } from "../../../ListItemRoute";
 import { SortButton } from "../../../SortButton";
+import { ListItemPlace } from "./Items/ListItemPlace";
 import { ListItemSegment } from "./Items/ListItemSegment";
 import { ListItemStravaActivity } from "./Items/ListItemStravaActivity";
 import { ListItemWorld } from "./Items/ListItemWorld";
@@ -25,10 +31,10 @@ export function SearchResultList({ query }: Props) {
   const sport = useSettings((state) => state.sport);
   const [{ sortState }] = useSessionSettings();
 
-  const searchResults = search(query, sport);
+  const results = useSearch(query, sport);
 
-  if (Object.values(searchResults).flat().length === 0) {
-    return <SimpleListItem>No worlds or routes found</SimpleListItem>;
+  if (Object.values(results).flat().length === 0) {
+    return <SimpleListItem>No worlds, routes, or places found</SimpleListItem>;
   }
 
   return (
@@ -43,7 +49,7 @@ export function SearchResultList({ query }: Props) {
       {SEARCH_RESULTS_ORDER.map((type) => (
         <SearchResultsTypeList
           key={type}
-          results={searchResults[type]}
+          results={results[type]}
           type={type}
           sortState={sortState}
         />
@@ -89,6 +95,8 @@ function SearchResultsTypeList({
                 a.data as Segment,
                 b.data as Segment
               );
+            case "place":
+              return sortPlace(sortState, a.data as Place, b.data as Place);
             default:
               return 0;
           }
@@ -114,6 +122,8 @@ function SearchResultCard({ searchResult }: SearchResultCardProps) {
       return (
         <ListItemSegment segment={searchResult.data} showWorldName={true} />
       );
+    case "place":
+      return <ListItemPlace place={searchResult.data} />;
     case "strava-activity":
       return <ListItemStravaActivity activity={searchResult.data} />;
     default:

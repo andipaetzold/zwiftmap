@@ -61,6 +61,18 @@ export function createUrl(state: LocationState): string {
     case "fog":
       path = `/${state.world.slug}/fog`;
       break;
+
+    case "place-new":
+      path = `/${state.world.slug}/places/new`;
+      break;
+
+    case "place":
+      path = `/${state.world.slug}/places/${state.placeId}`;
+      break;
+
+    case "place-edit":
+      path = `/${state.world.slug}/places/${state.placeId}/edit`;
+      break;
   }
 
   const searchParamsString = searchParams.toString();

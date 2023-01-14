@@ -42,6 +42,6 @@ export async function handleGETShareImage(req: Request, res: Response) {
     height: +req.query.height,
   });
 
-  res.contentType("png").header("public, max-age=604800");
+  res.contentType("png").header("Cache-Control", "public, max-age=604800");
   stream.pipe(res);
 }

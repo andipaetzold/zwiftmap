@@ -1,0 +1,10 @@
+.ListItem {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+
+  img {
+    max-height: 150px;
+    object-fit: cover;
+    width: 100%;
+  }
+}

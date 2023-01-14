@@ -8,6 +8,7 @@ const DEFAULT_SETTINGS: Settings = {
   units: "metric",
   theme: "system",
   overlay: "segments",
+  showUnverifiedPlaces: false,
 };
 
 const LOCAL_STORAGE_KEY = "settings-store";
@@ -17,6 +18,7 @@ interface SettingStore extends Settings {
   setUnits(units: Units): void;
   setTheme(theme: Theme): void;
   setOverlay(overlay: Overlay): void;
+  setShowUnverifiedPlaces(showUnverifiedPlaces: boolean): void;
 }
 
 export const useSettings = create<SettingStore>()(
@@ -27,6 +29,8 @@ export const useSettings = create<SettingStore>()(
       setUnits: (units) => set(() => ({ units })),
       setTheme: (theme) => set(() => ({ theme })),
       setOverlay: (overlay) => set(() => ({ overlay })),
+      setShowUnverifiedPlaces: (showUnverifiedPlaces) =>
+        set(() => ({ showUnverifiedPlaces })),
     }),
     { name: LOCAL_STORAGE_KEY }
   )

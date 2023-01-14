@@ -15,9 +15,9 @@ const DEFAULT_STRAVA_SETTINGS: StravaSettingsType = {
 
 export function StravaSettings() {
   const [settings] = useStravaSettings();
-  const { mutate: updateStravaSettings1, isLoading: isLoading1 } =
+  const { mutate: updateStravaSettings, isLoading: isLoading1 } =
     useUpdateStravaSettings();
-  const { mutate: update2, isLoading: isLoading2 } = useUpdateStravaSettings();
+  const { mutate: update, isLoading: isLoading2 } = useUpdateStravaSettings();
   const [footnotesExpanded, setFootnotesExpanded] = useState(false);
 
   return (
@@ -42,7 +42,7 @@ export function StravaSettings() {
             return;
           }
 
-          updateStravaSettings1({
+          updateStravaSettings({
             ...settings,
             addLinkToActivityDescription: e.target.checked,
           });
@@ -68,7 +68,7 @@ export function StravaSettings() {
             return;
           }
 
-          update2({
+          update({
             ...settings,
             persistActivities: e.target.checked,
           });

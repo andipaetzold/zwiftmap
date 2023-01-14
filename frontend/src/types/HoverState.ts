@@ -19,6 +19,7 @@ export const enum HoverStateType {
   HighlightSurface,
   HighlightSegment,
   Distance,
+  Place,
 }
 
 export interface HoverStatePreviewRoute {

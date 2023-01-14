@@ -13,7 +13,7 @@ import {
 } from "strava";
 import { WorldSlug } from "zwift-data";
 import { BACKEND_HOST } from "../config";
-import { AuthStatus, Share, StravaSettings, ZwiftEvent } from "../types";
+import { AuthStatus, Place, Share, StravaSettings, ZwiftEvent } from "../types";
 import { cachedRequest } from "./cached-request";
 import { request } from "./request";
 
@@ -151,4 +151,103 @@ export async function getStravaPersonalHeatmap(
   return await request(`${BACKEND_HOST}/strava/heatmap/${world}/geojson`, {
     ...DEFAULT_INIT,
   });
+}
+
+export async function getPlaces(
+  verified: boolean | undefined
+): Promise<Place[]> {
+  const params = new URLSearchParams();
+  if (verified !== undefined) {
+    params.set("filter[verified]", String(verified));
+  }
+
+  const url = new URL(`${BACKEND_HOST}/places`);
+  url.search = params.toString();
+
+  return await request<Place[]>(url.toString(), {
+    ...DEFAULT_INIT,
+  });
+}
+
+export async function getWorldPlaces(
+  world: WorldSlug,
+  verified: boolean | undefined
+): Promise<Place[]> {
+  const params = new URLSearchParams();
+  if (verified !== undefined) {
+    params.set("filter[verified]", String(verified));
+  }
+
+  const url = new URL(`${BACKEND_HOST}/worlds/${world}/places`);
+  url.search = params.toString();
+
+  return await request<Place[]>(url.toString(), {
+    ...DEFAULT_INIT,
+  });
+}
+
+export async function createPlace(
+  place: Omit<Place, "id" | "image"> & {
+    imageObjectId: string | null;
+  }
+): Promise<Place> {
+  return await request<Place>(`${BACKEND_HOST}/worlds/${place.world}/places`, {
+    ...DEFAULT_INIT,
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(place),
+  });
+}
+
+export async function updatePlace(
+  place: Omit<Place, "image"> & { imageObjectId?: string }
+): Promise<Place> {
+  return await request<Place>(
+    `${BACKEND_HOST}/worlds/${place.world}/places/${place.id}`,
+    {
+      ...DEFAULT_INIT,
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(place),
+    }
+  );
+}
+
+export async function deletePlace(
+  place: Pick<Place, "id" | "world">
+): Promise<void> {
+  await request(`${BACKEND_HOST}/worlds/${place.world}/places/${place.id}`, {
+    method: "DELETE",
+    ...DEFAULT_INIT,
+  });
+}
+
+export async function getPlace(world: WorldSlug, id: string): Promise<Place> {
+  return await request<Place>(`${BACKEND_HOST}/worlds/${world}/places/${id}`, {
+    ...DEFAULT_INIT,
+  });
+}
+
+export async function uploadFile(file: File): Promise<string> {
+  const { uploadUrl, objectId } = await request<{
+    uploadUrl: string;
+    objectId: string;
+  }>(`${BACKEND_HOST}/uploads`, {
+    ...DEFAULT_INIT,
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ contentType: file.type, contentLength: file.size }),
+  });
+
+  await fetch(uploadUrl, {
+    method: "PUT",
+    headers: {
+      "Content-Type": file.type,
+    },
+    body: file,
+  });
+
+  return objectId;
 }
