@@ -15,9 +15,10 @@ import { Typography } from "@react-md/typography";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { LatLngTuple } from "leaflet";
 import { useEffect, useId, useState } from "react";
-import { World } from "zwift-data";
+import { World, worlds } from "zwift-data";
 import { queries, useAuthStatus } from "../../react-query";
 import { emitter } from "../../services/emitter";
+import { navigate } from "../../services/location-state";
 import {
   createPlace,
   updatePlace,
@@ -68,7 +69,7 @@ export function PlaceEditForm({ place, world }: Props) {
           imageObjectId = await uploadFile(data.image);
         }
 
-        await updatePlace({
+        return await updatePlace({
           id: place.id,
           name: data.name,
           description: data.description,
@@ -84,7 +85,7 @@ export function PlaceEditForm({ place, world }: Props) {
         }
 
         const imageObjectId = await uploadFile(data.image);
-        await createPlace({
+        return await createPlace({
           name: data.name,
           description: data.description,
           links: data.links,
@@ -96,7 +97,7 @@ export function PlaceEditForm({ place, world }: Props) {
       }
     },
     {
-      onSuccess: () => {
+      onSuccess: (placeFromServer) => {
         queryClient.invalidateQueries(queries.places);
         queryClient.invalidateQueries(queries.worldPlaces(world.slug));
 
@@ -105,13 +106,11 @@ export function PlaceEditForm({ place, world }: Props) {
             children: "Place was updated",
           });
         } else {
-          setData({
-            name: "",
-            description: "",
-            image: null,
-            position: null,
-            links: [],
-            verified: false,
+          navigate({
+            type: "place",
+            placeId: placeFromServer.id,
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            world: worlds.find((w) => w.slug === world.slug)!,
           });
           addMessage({
             children: "New place was submitted successfully",
