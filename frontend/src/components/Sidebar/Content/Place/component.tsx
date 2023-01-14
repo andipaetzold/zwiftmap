@@ -6,6 +6,7 @@ import { LocationStatePlace } from "../../../../services/location-state";
 import { Place } from "../../../../types";
 import { PlaceEditButton } from "./PlaceEditButton";
 import { PlaceHelmet } from "./PlaceHelmet";
+import { PlaceImage } from "./PlaceImage";
 import { PlaceLinks } from "./PlaceLinks";
 import { PlaceReport } from "./PlaceReport";
 
@@ -18,6 +19,7 @@ export default function PlaceComponent({ place, state }: Props) {
   return (
     <>
       <PlaceHelmet name={place.name} />
+      <PlaceImage place={place} />
 
       <SimpleListItem>
         <Typography type="headline-6" style={{ margin: 0 }}>
