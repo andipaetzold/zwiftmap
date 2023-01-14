@@ -9,6 +9,7 @@ import {
   useStravaActivity,
   useStravaSegmentStreams,
   useWorkerNavigate,
+  useWorldPlace,
 } from "../../react-query";
 import { getRouteFromEvent, getSubgroupFromEvent } from "../../services/events";
 import {
@@ -28,6 +29,7 @@ export default function RouteMap() {
   const setQuery = useStore((state) => state.setQuery);
 
   const routeStreams = useRouteStreams(state);
+  const place = usePlace(state);
 
   const selectedWorld = state.world ?? DEFAULT_WORLD;
 
@@ -57,6 +59,7 @@ export default function RouteMap() {
                 world: newWorld,
                 type: "default",
               });
+              break;
           }
         }}
       />
@@ -65,6 +68,7 @@ export default function RouteMap() {
         state={state}
         world={selectedWorld}
         routeStreams={routeStreams}
+        place={place}
       />
     </div>
   );
@@ -195,4 +199,13 @@ function useRouteStreams(state: LocationState): RouteStreams | undefined {
       };
     }
   }
+}
+
+function usePlace(state: LocationState) {
+  const { data } = useWorldPlace(
+    state.world?.slug,
+    "placeId" in state ? state.placeId : undefined
+  );
+
+  return state.type === "place" ? data : undefined;
 }
