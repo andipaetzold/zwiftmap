@@ -1,7 +1,10 @@
 import { LayerGroup, LayersControl } from "react-leaflet";
 import { World } from "zwift-data";
 import { COLORS } from "../../../../constants";
+import { useSearch } from "../../../../hooks/useSearch";
+import { useSessionSettings } from "../../../../hooks/useSessionSettings";
 import { useSettings } from "../../../../hooks/useSettings";
+import { useStore } from "../../../../hooks/useStore";
 import { useAuthStatus, useWorldPlaces } from "../../../../react-query";
 import {
   navigate,
@@ -14,6 +17,10 @@ interface Props {
 }
 
 export function OverlayPlaces({ world }: Props) {
+  const sport = useSettings((state) => state.sport);
+  const query = useStore((store) => store.query);
+  const results = useSearch(query, sport);
+
   const locationState = useLocationState();
   const showUnverifiedPlaces = useSettings((s) => s.showUnverifiedPlaces);
   const { data: authStatus } = useAuthStatus();
@@ -29,10 +36,13 @@ export function OverlayPlaces({ world }: Props) {
     return null;
   }
 
+  const placesToShow =
+    query === "" ? places : results.place.map(({ data }) => data);
+
   return (
     <LayersControl.Overlay name="Places" checked>
       <LayerGroup>
-        {places?.map((place, placeIndex) => (
+        {placesToShow?.map((place, placeIndex) => (
           <PlaceMarker
             key={placeIndex}
             position={place.position}

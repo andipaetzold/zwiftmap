@@ -83,7 +83,13 @@ const searchResultsSegment = segments
 export function useSearch(
   term: string,
   _sport: Sport
-): { [type in SearchResult["type"]]: SearchResult[] } {
+): {
+  "strava-activity": SearchResultStravaActivity[];
+  route: SearchResultRoute[];
+  segment: SearchResultSegment[];
+  world: SearchResultWorld[];
+  place: SearchResultPlace[];
+} {
   const searchResultsPlace = usePlacesSearchResults();
 
   return useMemo(() => {
