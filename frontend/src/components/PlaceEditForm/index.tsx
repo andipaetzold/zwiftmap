@@ -58,6 +58,13 @@ export function PlaceEditForm({ place, world }: Props) {
     return () => emitter.off("placeMarkerMove", listener);
   }, []);
 
+  useEffect(() => {
+    if (!place) {
+      return;
+    }
+    emitter.emit("placeMarkerMove", place.position);
+  }, [place]);
+
   const { mutate: handleSubmit, isError } = useMutation(
     async () => {
       if (data.name.trim().length === 0 || data.position === null) {
