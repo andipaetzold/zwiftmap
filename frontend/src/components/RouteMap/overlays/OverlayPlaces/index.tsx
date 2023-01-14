@@ -43,16 +43,16 @@ export function OverlayPlaces({ world }: Props) {
   const placesToShow =
     query === "" ? places : results.place.map(({ data }) => data);
 
-  const color = (
+  const important = (
     ["default", "strava-activities", "event"] as LocationState["type"][]
-  ).includes(locationState.type)
-    ? COLORS.place
-    : COLORS.previewRoute;
+  ).includes(locationState.type);
+  const color = important ? COLORS.place : COLORS.previewRoute;
+  const opacity = important ? 1 : 0.8;
 
   return (
     <LayersControl.Overlay name="Places" checked>
       <LayerGroup>
-        <Pane name={id} style={{ zIndex: Z_INDEX.places }}>
+        <Pane name={id} style={{ zIndex: Z_INDEX.places, opacity }}>
           {placesToShow?.map((place, placeIndex) => (
             <PlaceMarker
               key={placeIndex}
