@@ -1,6 +1,5 @@
-import { useId } from "react";
-import { LayerGroup, LayersControl, Pane } from "react-leaflet";
-import { World } from "zwift-data";
+import { LayerGroup, LayersControl } from "react-leaflet";
+import { World, worlds } from "zwift-data";
 import { COLORS } from "../../../../constants";
 import { useSearch } from "../../../../hooks/useSearch";
 import { useSettings } from "../../../../hooks/useSettings";
@@ -12,7 +11,7 @@ import {
   useLocationState,
 } from "../../../../services/location-state";
 import { PlaceMarker } from "../../../PlaceMarker";
-import { Z_INDEX } from "../../constants";
+import { PlacesPane } from "./PlacesPane";
 
 interface Props {
   world: World;
@@ -34,11 +33,13 @@ export function OverlayPlaces({ world }: Props) {
     canViewUnverified ? (showUnverifiedPlaces ? undefined : true) : true
   );
 
-  const id = useId();
-
   if (["place-edit", "place-new"].includes(locationState.type)) {
     return null;
   }
+
+  const currentPlace = places?.find(
+    (p) => locationState.type === "place" && p.id === locationState.placeId
+  );
 
   const placesToShow =
     query === "" ? places : results.place.map(({ data }) => data);
@@ -46,25 +47,31 @@ export function OverlayPlaces({ world }: Props) {
   const important = (
     ["default", "strava-activities", "event"] as LocationState["type"][]
   ).includes(locationState.type);
-  const color = important ? COLORS.place : COLORS.previewRoute;
-  const opacity = important ? 1 : 0.8;
 
   return (
     <LayersControl.Overlay name="Places" checked>
       <LayerGroup>
-        <Pane name={id} style={{ zIndex: Z_INDEX.places, opacity }}>
-          {placesToShow?.map((place, placeIndex) => (
-            <PlaceMarker
-              key={placeIndex}
-              position={place.position}
-              fill={color}
-              eventHandlers={{
-                click: () =>
-                  navigate({ type: "place", world, placeId: place.id }),
-              }}
-            />
-          ))}
-        </Pane>
+        {placesToShow && (
+          <PlacesPane
+            important={important}
+            places={placesToShow.filter((p) => p.id !== currentPlace?.id)}
+          />
+        )}
+        {currentPlace && (
+          <PlaceMarker
+            position={currentPlace.position}
+            fill={COLORS.place}
+            eventHandlers={{
+              click: () =>
+                navigate({
+                  type: "place",
+                  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                  world: worlds.find((w) => w.slug === currentPlace.world)!,
+                  placeId: currentPlace.id,
+                }),
+            }}
+          />
+        )}
       </LayerGroup>
     </LayersControl.Overlay>
   );
