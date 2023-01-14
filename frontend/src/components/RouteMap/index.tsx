@@ -37,22 +37,26 @@ export default function RouteMap() {
         world={selectedWorld}
         onWorldChange={(newWorld) => {
           setQuery("");
-          if (state.type === "custom-route") {
-            navigate({
-              world: newWorld,
-              type: "custom-route",
-              points: [null, null],
-            });
-          } else if (state.type === "fog") {
-            navigate({
-              world: newWorld,
-              type: "fog",
-            });
-          } else {
-            navigate({
-              world: newWorld,
-              type: "default",
-            });
+          switch (state.type) {
+            case "custom-route":
+              navigate({
+                world: newWorld,
+                type: "custom-route",
+                points: [null, null],
+              });
+              break;
+            case "place-new":
+            case "fog":
+              navigate({
+                world: newWorld,
+                type: state.type,
+              });
+              break;
+            default:
+              navigate({
+                world: newWorld,
+                type: "default",
+              });
           }
         }}
       />
