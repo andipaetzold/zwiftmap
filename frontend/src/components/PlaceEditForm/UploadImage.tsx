@@ -60,6 +60,19 @@ export function UploadImage({ error, image, onChange }: Props) {
           }
         />
       )}
+      <SimpleListItem>
+        <i>
+          Images should not include any UI elements - please crop. Use the{" "}
+          <a
+            href="https://zwiftinsider.com/no-hud/"
+            rel="noreferrer noopener"
+            target="_blank"
+          >
+            &ldquo;Hide the Display&rdquo; mode
+          </a>{" "}
+          for perfect screenshots.
+        </i>
+      </SimpleListItem>
     </>
   );
 }
