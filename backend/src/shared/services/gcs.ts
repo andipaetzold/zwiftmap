@@ -64,5 +64,11 @@ export async function savePlaceImage(sourceObjectId: string, placeId: string) {
 
   await sourceFile.move(targetFile);
 
-  return targetFile.publicUrl();
+  return (
+    targetFile
+      .publicUrl()
+      // fix encoded slash when using folder
+      // see https://github.com/googleapis/nodejs-storage/issues/1869
+      .replace(/\/places%2F/, "/places/")
+  );
 }
