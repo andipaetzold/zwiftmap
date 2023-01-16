@@ -8,7 +8,7 @@ export function useWorldPlaces(
   verified: boolean | undefined
 ) {
   return useQuery(
-    queries.worldPlaces(world),
+    queries.worldPlaces(world, verified),
     ({ queryKey: [, world] }) => getWorldPlaces(world, verified),
     {
       staleTime: Infinity,

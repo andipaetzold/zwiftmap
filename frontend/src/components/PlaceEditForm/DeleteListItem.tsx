@@ -36,8 +36,8 @@ export function DeleteListItem({ place, disabled }: Props) {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(queries.places);
-        queryClient.invalidateQueries(queries.worldPlaces(place.world));
+        queryClient.invalidateQueries(queries.placesBase);
+        queryClient.invalidateQueries(queries.worldPlacesBase(place.world));
         addMessage({
           children: "Place was deleted",
         });

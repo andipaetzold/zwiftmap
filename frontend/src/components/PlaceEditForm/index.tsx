@@ -112,8 +112,8 @@ export function PlaceEditForm({ place, world }: Props) {
     },
     {
       onSuccess: (placeFromServer) => {
-        queryClient.invalidateQueries(queries.places);
-        queryClient.invalidateQueries(queries.worldPlaces(world.slug));
+        queryClient.invalidateQueries(queries.placesBase);
+        queryClient.invalidateQueries(queries.worldPlacesBase(world.slug));
 
         if (place) {
           addMessage({

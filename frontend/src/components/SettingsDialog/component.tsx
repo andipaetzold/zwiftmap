@@ -91,9 +91,9 @@ export default function SettingsDialog({ onClose }: Props) {
             checked={store.showUnverifiedPlaces}
             onChange={(e) => {
               store.setShowUnverifiedPlaces(e.target.checked);
-              queryClient.invalidateQueries(queries.places);
+              queryClient.invalidateQueries(queries.placesBase);
               for (const world of worlds) {
-                queryClient.invalidateQueries(queries.worldPlaces(world.slug));
+                queryClient.invalidateQueries(queries.worldPlacesBase(world.slug));
               }
             }}
           />
