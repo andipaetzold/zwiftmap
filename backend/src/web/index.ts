@@ -77,6 +77,7 @@ app.get("/share/:shareId", handlers.handleGetShare);
 app.get("/share/:shareId/image", handlers.handleGETShareImage);
 
 app.get("/places", handlers.handleGETPlaces);
+app.get("/worlds/:worldSlug/heatmap", handlers.handleGETHeatmap);
 app.get("/worlds/:worldSlug/places", handlers.handleGETPlacesByWorld);
 app.post("/worlds/:worldSlug/places/", handlers.handlePOSTPlace);
 app.get("/worlds/:worldSlug/places/:placeId", handlers.handleGETPlace);
