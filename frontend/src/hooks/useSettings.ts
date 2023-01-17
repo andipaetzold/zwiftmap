@@ -1,4 +1,4 @@
-import create from "zustand";
+import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { Sport } from "zwift-data";
 import { Overlay, Settings, Theme, Units } from "../types";
