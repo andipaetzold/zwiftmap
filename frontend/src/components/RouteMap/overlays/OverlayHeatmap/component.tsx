@@ -1,9 +1,6 @@
-import { PathOptions } from "leaflet";
-import { GeoJSON, LayerGroup, LayersControl } from "react-leaflet";
+import { ImageOverlay, LayerGroup, LayersControl } from "react-leaflet";
 import { World } from "zwift-data";
-import { useStravaPersonalHeatmap } from "../../../../react-query";
-
-const PATH_OPTIONS: PathOptions = { color: "black", weight: 5, opacity: 0.75 };
+import { BACKEND_HOST } from "../../../../config";
 
 interface Props {
   world: World;
@@ -24,11 +21,10 @@ interface Props {
 }
 
 function Lines({ world }: Props) {
-  const { data } = useStravaPersonalHeatmap(world.slug);
-
-  if (!data) {
-    return null;
-  }
-
-  return <GeoJSON data={data} pathOptions={PATH_OPTIONS} interactive={false} />;
+  return (
+    <ImageOverlay
+      url={`${BACKEND_HOST}/worlds/${world.slug}/heatmap`}
+      bounds={world.bounds}
+    />
+  );
 }

@@ -145,14 +145,6 @@ export async function getStravaFogGeoJSON(
   });
 }
 
-export async function getStravaPersonalHeatmap(
-  world: WorldSlug
-): Promise<FeatureCollection<LineString>> {
-  return await request(`${BACKEND_HOST}/strava/heatmap/${world}/geojson`, {
-    ...DEFAULT_INIT,
-  });
-}
-
 export async function getPlaces(
   verified: boolean | undefined
 ): Promise<Place[]> {
