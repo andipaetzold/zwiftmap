@@ -1,6 +1,5 @@
-import { ImageOverlay, LayerGroup, LayersControl } from "react-leaflet";
+import { LayerGroup, LayersControl, TileLayer } from "react-leaflet";
 import { World } from "zwift-data";
-import { BACKEND_HOST } from "../../../../config";
 
 interface Props {
   world: World;
@@ -22,8 +21,8 @@ interface Props {
 
 function Lines({ world }: Props) {
   return (
-    <ImageOverlay
-      url={`${BACKEND_HOST}/worlds/${world.slug}/heatmap`}
+    <TileLayer
+      url={`http://localhost:3001/{z}/{x}/{y}.png`}
       bounds={world.bounds}
     />
   );
