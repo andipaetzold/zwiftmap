@@ -1,10 +1,4 @@
-import {
-  Feature,
-  FeatureCollection,
-  LineString,
-  MultiPolygon,
-  Polygon,
-} from "@turf/helpers";
+import { Feature, MultiPolygon, Polygon } from "@turf/helpers";
 import {
   DetailedActivity,
   DetailedSegment,
