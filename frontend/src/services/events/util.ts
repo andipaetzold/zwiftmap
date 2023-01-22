@@ -129,9 +129,9 @@ export function formatEventPace(
 export function getSubgroupFromEvent(
   event: ZwiftEvent,
   subgroupLabel: string | null
-) {
+): EventSubgroup | undefined {
   return (
     event.eventSubgroups.find((g) => g.subgroupLabel === subgroupLabel) ??
-    event.eventSubgroups[0]
+    (event.eventSubgroups[0] as EventSubgroup | undefined)
   );
 }

@@ -104,7 +104,8 @@ function useRouteStreams(state: LocationState): RouteStreams | undefined {
     stravaSegmentId:
       state.type === "event" && eventResult.data
         ? getRouteFromEvent(
-            getSubgroupFromEvent(eventResult.data, state.subgroupLabel)
+            getSubgroupFromEvent(eventResult.data, state.subgroupLabel) ??
+              eventResult.data
           )?.stravaSegmentId
         : undefined,
     streams: ["distance", "latlng"] as const,

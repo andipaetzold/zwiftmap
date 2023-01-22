@@ -3,11 +3,12 @@ import { EventSubgroup, ZwiftEvent } from "../../../../types";
 
 interface Props {
   event: ZwiftEvent;
-  subgroup: EventSubgroup;
+  subgroup: EventSubgroup | undefined;
 }
 
 export function EventTimeTrial({ event, subgroup }: Props) {
-  if (event.eventType !== "TIME_TRIAL" || !subgroup.timeTrialOptions) {
+  const timeTrialOptions = (subgroup ?? event).timeTrialOptions;
+  if (event.eventType !== "TIME_TRIAL" || !timeTrialOptions) {
     return null;
   }
 
@@ -16,12 +17,11 @@ export function EventTimeTrial({ event, subgroup }: Props) {
       <ListSubheader>Time Trial</ListSubheader>
 
       <SimpleListItem>
-        Row gap: {subgroup.timeTrialOptions.timeGapBetweenRowsMs / 1_000}s
+        Row gap: {timeTrialOptions.timeGapBetweenRowsMs / 1_000}s
       </SimpleListItem>
       <SimpleListItem>
         Rider Limit:{" "}
-        {subgroup.timeTrialOptions.maxRidersPerRow *
-          subgroup.timeTrialOptions.maxRows}
+        {timeTrialOptions.maxRidersPerRow * timeTrialOptions.maxRows}
       </SimpleListItem>
     </>
   );

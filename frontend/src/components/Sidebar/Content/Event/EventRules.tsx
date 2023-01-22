@@ -4,11 +4,12 @@ import { EventSubgroup, ZwiftEvent } from "../../../../types";
 
 interface Props {
   event: ZwiftEvent;
-  subgroup: EventSubgroup;
+  subgroup: EventSubgroup | undefined;
 }
 
 export function EventRules({ event, subgroup }: Props) {
-  if (subgroup.rulesSet.length === 0 && !event.categoryEnforcement) {
+  const rulesSet = (subgroup ?? event).rulesSet;
+  if (rulesSet.length === 0 && !event.categoryEnforcement) {
     return null;
   }
 
@@ -19,7 +20,7 @@ export function EventRules({ event, subgroup }: Props) {
       {event.categoryEnforcement && (
         <SimpleListItem>Category enforced</SimpleListItem>
       )}
-      {subgroup.rulesSet.map((rule) => (
+      {rulesSet.map((rule) => (
         <SimpleListItem key={rule}>{EVENT_RULES[rule]}</SimpleListItem>
       ))}
     </>

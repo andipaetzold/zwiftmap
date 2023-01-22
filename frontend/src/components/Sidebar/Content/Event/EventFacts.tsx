@@ -28,42 +28,48 @@ import { ListItemState } from "../../../ListItemState";
 
 interface Props {
   event: ZwiftEvent;
-  subgroup: EventSubgroup;
+  subgroup: EventSubgroup | undefined;
 }
 
 export function EventFacts({ event, subgroup }: Props) {
-  const route = getRouteFromEvent(subgroup);
-  const world = getWorldFromEvent(subgroup);
+  const eventOrSubgroup = subgroup ?? event;
+
+  const route = getRouteFromEvent(eventOrSubgroup);
+  const world = getWorldFromEvent(eventOrSubgroup);
   const units = useSettings((state) => state.units);
 
-  const distance = getEventDistance(subgroup);
-  const elevation = getEventElevation(subgroup);
-  const paceRange = formatEventPace(
-    subgroup.paceType,
-    subgroup.fromPaceValue,
-    subgroup.toPaceValue,
-    units
-  );
+  const distance = getEventDistance(eventOrSubgroup);
+  const elevation = getEventElevation(eventOrSubgroup);
+  const paceRange = subgroup
+    ? formatEventPace(
+        subgroup.paceType,
+        subgroup.fromPaceValue,
+        subgroup.toPaceValue,
+        units
+      )
+    : undefined;
 
   return (
     <>
       <SimpleListItem leftAddon={<EventSVGIcon />} leftAddonType="icon">
-        <time dateTime={subgroup.eventSubgroupStart}>
-          {formatEventSubgroupStart(subgroup)}
+        <time dateTime={subgroup?.eventSubgroupStart ?? event.eventStart}>
+          {formatEventSubgroupStart(
+            subgroup?.eventSubgroupStart ?? event.eventStart
+          )}
         </time>
       </SimpleListItem>
       <SimpleListItem leftAddon={<AssessmentSVGIcon />} leftAddonType="icon">
         {EVENT_TYPES[event.eventType]}
       </SimpleListItem>
-      {subgroup.durationInSeconds > 0 && (
+      {eventOrSubgroup.durationInSeconds > 0 && (
         <SimpleListItem leftAddon={<TimerSVGIcon />}>
-          {round(subgroup.durationInSeconds) / 60}min
+          {round(eventOrSubgroup.durationInSeconds) / 60}min
         </SimpleListItem>
       )}
       {distance && (
         <SimpleListItem leftAddon={<SpaceBarSVGIcon />}>
           <Distance distance={distance} />
-          {subgroup.laps > 1 && route ? (
+          {eventOrSubgroup.laps > 1 && route ? (
             <small>
               &nbsp;(
               <Distance distance={route.distance} />
@@ -75,7 +81,7 @@ export function EventFacts({ event, subgroup }: Props) {
       {elevation && (
         <SimpleListItem leftAddon={<LandscapeSVGIcon />}>
           <Elevation elevation={elevation} />
-          {subgroup.laps > 1 && route ? (
+          {eventOrSubgroup.laps > 1 && route ? (
             <small>
               &nbsp;(
               <Elevation elevation={route.elevation} />
@@ -84,9 +90,11 @@ export function EventFacts({ event, subgroup }: Props) {
           ) : null}
         </SimpleListItem>
       )}
-      {subgroup.laps > 0 && (
+      {eventOrSubgroup.laps > 0 && (
         <SimpleListItem leftAddon={<RefreshSVGIcon />}>
-          {subgroup.laps === 1 ? "1 Lap" : `${subgroup.laps} Laps`}
+          {eventOrSubgroup.laps === 1
+            ? "1 Lap"
+            : `${eventOrSubgroup.laps} Laps`}
         </SimpleListItem>
       )}
       {paceRange && (

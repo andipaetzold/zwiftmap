@@ -23,12 +23,11 @@ interface Props {
 export default function EventComponent({ event, state }: Props) {
   const subgroup = getSubgroupFromEvent(event, state.subgroupLabel);
 
-  const name =
-    event.eventSubgroups.length > 1 ? subgroup.name || event.name : event.name;
+  const name = subgroup?.name ?? event?.name;
 
   return (
     <>
-      <EventHelmet name={name} subgroup={subgroup} />
+      <EventHelmet name={name} event={event} subgroup={subgroup} />
       <EventSchema name={name} event={event} subgroup={subgroup} />
 
       <ImageListItem src={event.imageUrl} />
@@ -46,7 +45,7 @@ export default function EventComponent({ event, state }: Props) {
       <EventWorkoutChart event={event} subgroup={subgroup} />
       <EventTimeTrial event={event} subgroup={subgroup} />
       <EventRules event={event} subgroup={subgroup} />
-      <EventKit subgroup={subgroup} />
+      <EventKit event={event} subgroup={subgroup} />
       <EventLinks event={event} subgroup={subgroup} />
     </>
   );

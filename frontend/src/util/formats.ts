@@ -26,8 +26,8 @@ export function formatEventStart(event: ZwiftEvent): string {
   }
 }
 
-export function formatEventSubgroupStart(subgroup: EventSubgroup): string {
-  const startDate = parseISO(subgroup.eventSubgroupStart);
+export function formatEventSubgroupStart(start: string): string {
+  const startDate = parseISO(start);
   if (isAfter(startDate, subDays(new Date(), 1))) {
     return FORMAT_SHORT.format(startDate);
   } else {

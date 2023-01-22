@@ -4,15 +4,16 @@ import {
   DirectionsBikeSVGIcon,
 } from "@react-md/material-icons";
 import { bikeFrames, jerseys } from "zwift-data";
-import { EventSubgroup } from "../../../../types";
+import { EventSubgroup, ZwiftEvent } from "../../../../types";
 
 interface Props {
-  subgroup: EventSubgroup;
+  event: ZwiftEvent;
+  subgroup: EventSubgroup | undefined;
 }
 
-export function EventKit({ subgroup }: Props) {
-  const jersey = jerseys.find((j) => subgroup.jerseyHash === j.id);
-  const bikeFrame = bikeFrames.find((bf) => bf.id === subgroup.bikeHash);
+export function EventKit({ event, subgroup }: Props) {
+  const jersey = jerseys.find((j) => (subgroup ?? event).jerseyHash === j.id);
+  const bikeFrame = bikeFrames.find((bf) => bf.id === (subgroup ?? event).bikeHash);
 
   if (jersey === undefined && bikeFrame === undefined) {
     return null;

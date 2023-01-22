@@ -54,8 +54,9 @@ async function fetchWorld() {
       case "event": {
         const event = await getEvent(state.eventId);
         if (isEqual(stateBefore, state)) {
-          const subgroup = getSubgroupFromEvent(event, state.subgroupLabel);
-          const world = getWorldFromEvent(subgroup);
+          const eventOrSubGroup =
+            getSubgroupFromEvent(event, state.subgroupLabel) ?? event;
+          const world = getWorldFromEvent(eventOrSubGroup);
 
           if (world) {
             setLocationState({ ...state, world });

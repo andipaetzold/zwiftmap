@@ -41,19 +41,21 @@ const DEFAULT_DISTRIBUTION = {
 
 interface Props {
   event: ZwiftEvent;
-  subgroup: EventSubgroup;
+  subgroup: EventSubgroup | undefined;
 }
 
 export function EventPowerUps({ event, subgroup }: Props) {
+  const rulesSet = (subgroup ?? event).rulesSet;
+  const tags = (subgroup ?? event).tags;
   if (
-    subgroup.rulesSet.includes("NO_POWERUPS") ||
+    rulesSet.includes("NO_POWERUPS") ||
     event.eventType === "TIME_TRIAL" ||
     event.eventType === "GROUP_WORKOUT"
   ) {
     return null;
   }
 
-  const tag = subgroup.tags.find((tag) => tag.startsWith("powerup_percent="));
+  const tag = tags.find((tag) => tag.startsWith("powerup_percent="));
   const distribution = tag
     ? Object.fromEntries(
         chunk(

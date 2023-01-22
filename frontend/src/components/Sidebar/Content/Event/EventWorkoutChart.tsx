@@ -5,7 +5,7 @@ import { EventSubgroup, ZwiftEvent } from "../../../../types";
 
 interface Props {
   event: ZwiftEvent;
-  subgroup: EventSubgroup;
+  subgroup: EventSubgroup | undefined;
 }
 
 export function EventWorkoutChart({ event, subgroup }: Props) {
@@ -19,10 +19,10 @@ export function EventWorkoutChart({ event, subgroup }: Props) {
     return null;
   }
 
-  const url = new URL(
-    `/events/${event.id}/${subgroup.subgroupLabel}/workout`,
-    BACKEND_HOST
-  );
+  const path = subgroup
+    ? `/events/${event.id}/${subgroup.subgroupLabel}/workout`
+    : `/events/${event.id}/workout`;
+  const url = new URL(path, BACKEND_HOST);
   return (
     <SimpleListItem>
       <img

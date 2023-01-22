@@ -12,11 +12,11 @@ import {
 
 interface Props {
   event: ZwiftEvent;
-  subgroup: EventSubgroup;
+  subgroup: EventSubgroup | undefined;
 }
 
 export function EventLinks({ event, subgroup }: Props) {
-  const route = getRouteFromEvent(subgroup);
+  const route = getRouteFromEvent(subgroup ?? event);
 
   return (
     <>
