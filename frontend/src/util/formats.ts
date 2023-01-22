@@ -1,7 +1,7 @@
 import { isAfter } from "date-fns";
 import parseISO from "date-fns/parseISO";
 import subDays from "date-fns/subDays";
-import { EventSubgroup, ZwiftEvent } from "../types";
+import { ZwiftEvent } from "../types";
 
 export const FORMAT_SHORT = new Intl.DateTimeFormat("en-US", {
   hour: "2-digit",
