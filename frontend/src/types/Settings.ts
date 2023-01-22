@@ -34,6 +34,7 @@ export interface SortState {
 
 export interface EventFilterState {
   eventTypes: ZwiftEventType[];
+  requireCategoryEnforcement: boolean;
 }
 
 export type Overlay = "none" | "segments" | "surfaces";

@@ -52,6 +52,11 @@ export default function UpcomingEvents({ state }: Props) {
       {events
         .filter((e) => e.sport.toLowerCase() === sport)
         .filter((e) => filterState.eventTypes.includes(e.eventType))
+        .filter(
+          (e) =>
+            filterState.requireCategoryEnforcement === false ||
+            e.categoryEnforcement
+        )
         .map((event) => (
           <EventItem key={event.id} state={state} event={event} />
         ))}

@@ -8,6 +8,7 @@ const listeners: Listener[] = [];
 
 const DEFAULT_EVENT_FILTER_STATE: EventFilterState = {
   eventTypes: ["GROUP_WORKOUT", "GROUP_RIDE", "RACE", "TIME_TRIAL"],
+  requireCategoryEnforcement: false,
 };
 
 const DEFAULT_SORT_STATE: SortState = {
