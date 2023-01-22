@@ -51,7 +51,7 @@ export async function handleGetEventWorkout(req: Request, res: Response) {
   const workoutUrl =
     event.eventSubgroups.find((g) => g.subgroupLabel === req.params.subgroupId)
       ?.customUrl ??
-    event.eventSubgroups[0].customUrl ??
+    event.eventSubgroups[0]?.customUrl ??
     event.customUrl;
 
   if (!workoutUrl) {
