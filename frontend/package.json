@@ -38,7 +38,7 @@
     "comlink": "4.3.1",
     "date-fns": "2.29.3",
     "detect-browser": "5.3.0",
-    "fast-xml-parser": "4.0.13",
+    "fast-xml-parser": "4.0.14",
     "file-saver": "2.0.5",
     "leaflet": "1.9.3",
     "lodash-es": "4.17.21",
