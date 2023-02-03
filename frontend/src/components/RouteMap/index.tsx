@@ -2,6 +2,7 @@ import turfDistance from "@turf/distance";
 import { point as turfPoint } from "@turf/helpers";
 import { LatLngTuple } from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { zip, zipWith } from "lodash-es";
 import { useStore } from "../../hooks/useStore";
 import {
   useEvent,
@@ -83,8 +84,17 @@ function useRouteStreams(state: LocationState): RouteStreams | undefined {
   const routeResults = useStravaSegmentStreams({
     stravaSegmentId:
       state.type === "route" ? state.route.stravaSegmentId : undefined,
-    streams: ["distance", "latlng"] as const,
+    streams: ["distance", "latlng", "altitude"] as const,
   });
+  console.log(
+    JSON.stringify(
+      routeResults[1].data?.map((data, i) => [
+        ...data,
+        routeResults[2].data?.[i],
+      ])
+    )
+  );
+
   const segmentResults = useStravaSegmentStreams({
     stravaSegmentId:
       state.type === "segment" ? state.segment.stravaSegmentId : undefined,
