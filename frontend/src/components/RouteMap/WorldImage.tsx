@@ -1,4 +1,5 @@
-import { ImageOverlay } from "react-leaflet";
+import { round } from "lodash-es";
+import { ImageOverlay, useMapEvent } from "react-leaflet";
 import { World } from "zwift-data";
 import { worldConfigs } from "../../constants/worldConfigs";
 
@@ -8,6 +9,10 @@ interface Props {
 
 export function WorldImage({ world }: Props) {
   const worldConfig = worldConfigs[world.slug];
+
+  useMapEvent("click", (e) =>
+    console.log([round(e.latlng.lat, 6), round(e.latlng.lng, 6), 0])
+  );
 
   return (
     <ImageOverlay
