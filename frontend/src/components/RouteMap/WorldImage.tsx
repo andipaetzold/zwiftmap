@@ -11,7 +11,13 @@ export function WorldImage({ world }: Props) {
   const worldConfig = worldConfigs[world.slug];
 
   useMapEvent("click", (e) =>
-    console.log([round(e.latlng.lat, 6), round(e.latlng.lng, 6), 0])
+    console.log(
+      `createNode(${[
+        round(e.latlng.lat, 6),
+        round(e.latlng.lng, 6),
+        0,
+      ].toString()})`
+    )
   );
 
   return (

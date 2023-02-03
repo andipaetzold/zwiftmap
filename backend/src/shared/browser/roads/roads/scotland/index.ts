@@ -4,6 +4,9 @@ import edgeEast from "./edges/east.js";
 import edgeNorth from "./edges/north.js";
 import edgeNorthConnect from "./edges/north-connect.js";
 import edgeWest from "./edges/west.js";
+import edgeGlasgowEast from "./edges/glasgow-east.js";
+import edgeGlasgowWest from "./edges/glasgow-west.js";
+import edgeGlasgowSouth from "./edges/glasgow-south.js";
 
 const ROADS = new Roads();
 const createNode = ROADS.createNode.bind(ROADS);
@@ -51,14 +54,14 @@ createEdge(PADDOCK_WEST_FRONT_2, PADDOCK_WEST_FRONT_3, []);
 createEdge(PADDOCK_WEST_FRONT_3, PADDOCK_WEST_FRONT_4, []);
 
 // Paddock East
-const PADDOCK_EAST_EXIT = createNode([55.640732, -5.218527, 0]);
-const PADDOCK_EAST_FRONT = createNode([55.641344, -5.2185, 0]);
-const PADDOCK_EAST_BACK = createNode([55.642043, -5.218522, 0]);
-const PADDOCK_EAST_CENTER = createNode([55.643175, -5.218511, 0]);
-const PADDOCK_EAST_1 = createNode([55.642088, -5.220158, 0]);
-const PADDOCK_EAST_2 = createNode([55.642082, -5.216982, 0]);
-const PADDOCK_EAST_3 = createNode([55.642754, -5.220072, 0]);
-const PADDOCK_EAST_4 = createNode([55.642748, -5.217025, 0]);
+const PADDOCK_EAST_EXIT = createNode([55.640732, -5.218527, 42]);
+const PADDOCK_EAST_FRONT = createNode([55.641344, -5.2185, 42]);
+const PADDOCK_EAST_BACK = createNode([55.642043, -5.218522, 42]);
+const PADDOCK_EAST_CENTER = createNode([55.643175, -5.218511, 42]);
+const PADDOCK_EAST_1 = createNode([55.642088, -5.220158, 42]);
+const PADDOCK_EAST_2 = createNode([55.642082, -5.216982, 42]);
+const PADDOCK_EAST_3 = createNode([55.642754, -5.220072, 42]);
+const PADDOCK_EAST_4 = createNode([55.642748, -5.217025, 42]);
 createEdge(PADDOCK_EAST_EXIT, PADDOCK_EAST_FRONT, []);
 createEdge(PADDOCK_EAST_FRONT, PADDOCK_EAST_BACK, []);
 createEdge(PADDOCK_EAST_BACK, PADDOCK_EAST_CENTER, []);
@@ -66,5 +69,22 @@ createEdge(PADDOCK_EAST_1, PADDOCK_EAST_FRONT, []);
 createEdge(PADDOCK_EAST_2, PADDOCK_EAST_FRONT, []);
 createEdge(PADDOCK_EAST_3, PADDOCK_EAST_BACK, []);
 createEdge(PADDOCK_EAST_4, PADDOCK_EAST_BACK, []);
+
+// Glasgow
+const GLASGOW_INTERSECTION_SOUTH = createNode([55.639215, -5.218528, 41.8]);
+const GLASGOW_EXIT_1 = createNode([55.638207, -5.222368, 0]);
+const GLASGOW_EXIT_2 = createNode([55.638425, -5.223076, 0]);
+const GLASGOW_EXIT_3 = createNode([55.638249, -5.223452, 0]);
+const GLASGOW_EXIT_4 = createNode([55.637954, -5.222841, 0]);
+
+createEdge(GLASGOW_EXIT_1, GLASGOW_EXIT_2, []);
+createEdge(GLASGOW_EXIT_2, GLASGOW_EXIT_3, []);
+createEdge(GLASGOW_EXIT_3, GLASGOW_EXIT_4, []);
+createEdge(GLASGOW_EXIT_4, GLASGOW_EXIT_1, []);
+
+createEdge(PADDOCK_EAST_EXIT, GLASGOW_INTERSECTION_SOUTH, edgeGlasgowEast);
+createEdge(PADDOCK_EAST_EXIT, GLASGOW_INTERSECTION_SOUTH, []);
+createEdge(GLASGOW_EXIT_1, PADDOCK_EAST_EXIT, edgeGlasgowWest);
+createEdge(GLASGOW_INTERSECTION_SOUTH, GLASGOW_EXIT_4, edgeGlasgowSouth);
 
 export default ROADS;
