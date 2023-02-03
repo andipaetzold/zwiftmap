@@ -9,6 +9,10 @@ import edgeGlasgowWest from "./edges/glasgow-west.js";
 import edgeGlasgowSouth from "./edges/glasgow-south.js";
 import edgeSouthEast from "./edges/country-south-east";
 import edgeSouth from "./edges/country-south";
+import edgeGlasgowExit1 from "./edges/glasgow-exit-1.js";
+import edgeGlasgowExit2 from "./edges/glasgow-exit-2.js";
+import edgeGlasgowExit3 from "./edges/glasgow-exit-3.js";
+import edgeGlasgowExit4 from "./edges/glasgow-exit-4.js";
 
 const ROADS = new Roads();
 const createNode = ROADS.createNode.bind(ROADS);
@@ -38,10 +42,10 @@ const GLASGOW_EXIT_2 = createNode([55.638418, -5.223163, 0]);
 const GLASGOW_EXIT_3 = createNode([55.638249, -5.223452, 0]);
 const GLASGOW_EXIT_4 = createNode([55.637954, -5.222841, 0]);
 
-createEdge(GLASGOW_EXIT_1, GLASGOW_EXIT_2, []);
-createEdge(GLASGOW_EXIT_2, GLASGOW_EXIT_3, []);
-createEdge(GLASGOW_EXIT_3, GLASGOW_EXIT_4, []);
-createEdge(GLASGOW_EXIT_4, GLASGOW_EXIT_1, []);
+createEdge(GLASGOW_EXIT_2, GLASGOW_EXIT_1, edgeGlasgowExit1);
+createEdge(GLASGOW_EXIT_2, GLASGOW_EXIT_3, edgeGlasgowExit2);
+createEdge(GLASGOW_EXIT_4, GLASGOW_EXIT_3, edgeGlasgowExit3);
+createEdge(GLASGOW_EXIT_4, GLASGOW_EXIT_1, edgeGlasgowExit4);
 
 createEdge(PADDOCK_EAST_EXIT, GLASGOW_INTERSECTION_SOUTH, edgeGlasgowEast);
 createEdge(PADDOCK_EAST_EXIT, GLASGOW_INTERSECTION_SOUTH, []);
