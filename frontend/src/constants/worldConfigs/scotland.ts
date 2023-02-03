@@ -3,8 +3,8 @@ import { WorldConfig } from "../../types";
 
 export const WORLD_CONFIG_SCOTLAND: WorldConfig = {
   initialBounds: [
-    [55.67595, -5.28053],
-    [55.6185, -5.17753],
+    [55.635388, -5.244622],
+    [55.659061, -5.213581],
   ],
   image: scotlandMap,
   backgroundColor: "#aba73a",
