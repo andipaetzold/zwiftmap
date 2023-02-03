@@ -9,6 +9,7 @@ import { WORLD_CONFIG_MAKURI_ISLANDS } from "./makuri-islands";
 import { WORLD_CONFIG_NEW_YORK } from "./newYork";
 import { WORLD_CONFIG_PARIS } from "./paris";
 import { WORLD_CONFIG_RICHMOND } from "./richmond";
+import { WORLD_CONFIG_SCOTLAND } from "./scotland";
 import { WORLD_CONFIG_WATOPIA } from "./watopia";
 import { WORLD_CONFIG_YORKSHIRE } from "./yorkshire";
 
@@ -22,6 +23,7 @@ export const worldConfigs: Record<WorldSlug, WorldConfig> = {
   "new-york": WORLD_CONFIG_NEW_YORK,
   paris: WORLD_CONFIG_PARIS,
   richmond: WORLD_CONFIG_RICHMOND,
+  scotland: WORLD_CONFIG_SCOTLAND,
   watopia: WORLD_CONFIG_WATOPIA,
   yorkshire: WORLD_CONFIG_YORKSHIRE,
 };
