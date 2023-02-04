@@ -83,7 +83,7 @@ function useRouteStreams(state: LocationState): RouteStreams | undefined {
   const routeResults = useStravaSegmentStreams({
     stravaSegmentId:
       state.type === "route" ? state.route.stravaSegmentId : undefined,
-    streams: ["distance", "latlng", "altitude"] as const,
+    streams: ["distance", "latlng"] as const,
   });
   const segmentResults = useStravaSegmentStreams({
     stravaSegmentId:
