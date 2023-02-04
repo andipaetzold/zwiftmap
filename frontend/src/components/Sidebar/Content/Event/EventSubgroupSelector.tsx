@@ -127,7 +127,7 @@ function getDifference(
   } else if (differentDuration) {
     return `${round(group.durationInSeconds) / 60}min`;
   } else if (differentLaps) {
-    return group.laps === 1 ? "1 Lap" : `${group.label} Laps`;
+    return group.laps === 1 ? "1 Lap" : `${group.laps} Laps`;
   } else {
     return null;
   }
