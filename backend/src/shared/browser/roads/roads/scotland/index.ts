@@ -14,7 +14,7 @@ import edgeGlasgowExit3 from "./edges/glasgow-exit-3.js";
 import edgeGlasgowExit4 from "./edges/glasgow-exit-4.js";
 import edgeGlasgowSouth from "./edges/glasgow-south.js";
 import edgeGlasgowWest from "./edges/glasgow-west.js";
-import edgeSgurrSummitEast1 from "./edges/sgurr-summit-east-1";
+import edgeSgurrSummitEast1 from "./edges/sgurr-summit-east-1.js";
 import edgeSgurrSummitEast2 from "./edges/sgurr-summit-east-2.js";
 import edgeSgurrSummitEast3 from "./edges/sgurr-summit-east-3.js";
 import edgeSgurrSummitWest1 from "./edges/sgurr-summit-west-1.js";
