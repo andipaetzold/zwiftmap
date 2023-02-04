@@ -87,7 +87,7 @@ export function Map({ state, world, routeStreams, place }: Props) {
           mapRef.current.fitBounds(bounds, { animate: false });
           firstLoad.current = false;
         } else {
-          // flyToBounds(bounds);
+          flyToBounds(bounds);
         }
       }
     } else if (place) {
