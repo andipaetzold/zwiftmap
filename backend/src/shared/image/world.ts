@@ -13,6 +13,7 @@ export const WORLD_BACKGROUNDS: { [slug in WorldSlug]: string } = {
   "new-york": "#bbbbb7",
   paris: "#b9b9b9",
   richmond: "#7c9938",
+  scotland: "#aba73a",
   watopia: "#0884e2",
   yorkshire: "#7c9938",
 };

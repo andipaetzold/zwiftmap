@@ -8,6 +8,7 @@ import makuriIslands from "./makuri-islands/index.js";
 import newYork from "./new-york/index.js";
 import paris from "./paris/index.js";
 import richmond from "./richmond/index.js";
+import scotland from "./scotland/index.js";
 import { Roads } from "./Roads.js";
 import watopia from "./watopia/index.js";
 import yorkshire from "./yorkshire/index.js";
@@ -22,6 +23,7 @@ export const WORLD_ROADS: Record<WorldSlug, () => Promise<Roads>> = {
   "makuri-islands": () => Promise.resolve(makuriIslands),
   "new-york": () => Promise.resolve(newYork),
   paris: () => Promise.resolve(paris),
+  scotland: () => Promise.resolve(scotland),
   richmond: () => Promise.resolve(richmond),
   watopia: () => Promise.resolve(watopia),
   yorkshire: () => Promise.resolve(yorkshire),
