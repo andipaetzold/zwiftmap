@@ -109,6 +109,10 @@ export function formatEventPace(
   to: number,
   units: Units
 ): string | undefined {
+  if (from === 0 && to === 0) {
+    return undefined;
+  }
+
   const unit =
     type === PaceType.WKG ? "W/kg" : units === "imperial" ? "mp/h" : "km/h";
 
