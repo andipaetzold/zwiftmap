@@ -1,12 +1,11 @@
 import { SurfaceType, WorldConfig } from "../../types";
-import innsbruckMap from "../../maps/innsbruck.png";
 
 export const WORLD_CONFIG_INNSBRUCK: WorldConfig = {
   initialBounds: [
     [47.280902, 11.386414],
     [47.214544, 11.445934],
   ],
-  image: innsbruckMap,
+  image: '',
   backgroundColor: "#7c9938",
   surfaces: [
     {

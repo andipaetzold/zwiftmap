@@ -1,12 +1,11 @@
 import { SurfaceType, WorldConfig } from "../../types";
-import critCityMap from "../../maps/crit-city.png";
 
 export const WORLD_CONFIG_CRIT_CITY: WorldConfig = {
   initialBounds: [
     [-10.382352, 165.798758],
     [-10.386016, 165.803496],
   ],
-  image: critCityMap,
+  image: '',
   backgroundColor: "#7c9938",
   surfaces: [
     {

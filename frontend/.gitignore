@@ -4,6 +4,8 @@
 /public/strava-segments/*
 /public/worlds/*
 
+route-surfaces.csv
+
 # dependencies
 /node_modules
 

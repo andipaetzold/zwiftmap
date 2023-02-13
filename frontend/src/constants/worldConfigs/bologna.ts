@@ -1,12 +1,11 @@
 import { SurfaceType, WorldConfig } from "../../types";
-import bolognaMap from "../../maps/bologna.png";
 
 export const WORLD_CONFIG_BOLOGNA: WorldConfig = {
   initialBounds: [
     [44.501423, 11.294653],
     [44.478222, 11.341099],
   ],
-  image: bolognaMap,
+  image: '',
   backgroundColor: "#b9b9b8",
   surfaces: [
     {

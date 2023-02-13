@@ -1,12 +1,11 @@
 import { SurfaceType, WorldConfig } from "../../types";
-import watopiaMap from "../../maps/watopia.png";
 
 export const WORLD_CONFIG_WATOPIA: WorldConfig = {
   initialBounds: [
     [-11.635444, 166.93555],
     [-11.673613, 166.972511],
   ],
-  image: watopiaMap,
+  image: '',
   backgroundColor: "#0884e2",
   surfaces: [
     {

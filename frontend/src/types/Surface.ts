@@ -1,12 +1,12 @@
 export const enum SurfaceType {
-  Tarmac,
-  Brick,
-  Wood,
-  Cobbles,
-  Snow,
-  Dirt,
-  Grass,
-  Sand,
+  Tarmac = "Tarmac",
+  Brick = "Brick",
+  Wood = "Wood",
+  Cobbles = "Cobbles",
+  Snow = "Snow",
+  Dirt = "Dirt",
+  Grass = "Grass",
+  Sand = "Sand",
 }
 
 export const SURFACE_TYPES: SurfaceType[] = [

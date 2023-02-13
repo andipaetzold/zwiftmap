@@ -1,12 +1,11 @@
 import { SurfaceType, WorldConfig } from "../../types";
-import richmondMap from "../../maps/richmond.png";
 
 export const WORLD_CONFIG_RICHMOND: WorldConfig = {
   initialBounds: [
     [37.558393, -77.467668],
     [37.520429, -77.415864],
   ],
-  image: richmondMap,
+  image: '',
   backgroundColor: "#7c9938",
   surfaces: [
     {

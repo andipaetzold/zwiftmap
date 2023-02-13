@@ -1,12 +1,11 @@
 import { SurfaceType, WorldConfig } from "../../types";
-import londonMap from "../../maps/london.png";
 
 export const WORLD_CONFIG_LONDON: WorldConfig = {
   initialBounds: [
     [51.511261, -0.134875],
     [51.489256, -0.072996],
   ],
-  image: londonMap,
+  image: '',
   backgroundColor: "#6f992d",
   surfaces: [
     {

@@ -1,12 +1,11 @@
 import { SurfaceType, WorldConfig } from "../../types";
-import parisMap from "../../maps/paris.png";
 
 export const WORLD_CONFIG_PARIS: WorldConfig = {
   initialBounds: [
     [48.874328, 2.294207],
     [48.860895, 2.331992],
   ],
-  image: parisMap,
+  image: '',
   backgroundColor: "#b9b9b9",
   surfaces: [
     {
