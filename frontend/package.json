@@ -51,7 +51,7 @@
     "react-leaflet": "4.2.0",
     "react-responsive": "9.0.2",
     "react-schemaorg": "2.0.0",
-    "recharts": "2.4.1",
+    "recharts": "2.4.2",
     "strava": "2.1.0",
     "zustand": "4.3.3",
     "zwift-data": "1.21.2"
