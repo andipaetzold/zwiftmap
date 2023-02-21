@@ -44,10 +44,10 @@ export async function handleGETStravaFogImage(req: Request, res: Response) {
   let geoJSON = stravaFog?.geoJSON;
   if (!geoJSON) {
     const activities = await readStravaActivitiesByWorld(
-      session.stravaAthleteId,
+      stravaAthleteId,
       world.slug
     );
-    geoJSON = calcFogPolygon(world, activities);
+    geoJSON = await calcFogPolygon(world, activities);
     await writeStravaFogGeoJSON(stravaAthleteId, world.slug, geoJSON);
   }
 
