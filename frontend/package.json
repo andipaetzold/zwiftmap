@@ -93,7 +93,7 @@
     "husky": "8.0.3",
     "lint-staged": "13.2.1",
     "netlify-cli": "12.2.8",
-    "prettier": "2.8.7",
+    "prettier": "2.8.8",
     "pwa-asset-generator": "6.2.1",
     "sass": "1.62.0",
     "schema-dts": "1.1.2",
