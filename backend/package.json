@@ -9,7 +9,8 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "dev": "node ./scripts/start.mjs"
+    "dev": "node ./scripts/start.mjs",
+    "gcp-build": ""
   },
   "devDependencies": {
     "@tsconfig/node18": "1.0.3",
