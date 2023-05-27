@@ -65,6 +65,6 @@
     "source-map-support": "0.5.21",
     "winston": "3.8.2",
     "xmlbuilder2": "3.1.1",
-    "zwift-data": "1.22.5"
+    "zwift-data": "1.22.6"
   }
 }
