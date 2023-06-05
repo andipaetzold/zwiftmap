@@ -57,7 +57,7 @@
     "fast-xml-parser": "4.2.2",
     "lodash-es": "4.17.21",
     "lz-string": "1.5.0",
-    "nocache": "3.0.4",
+    "nocache": "4.0.0",
     "node-cache": "5.1.2",
     "runtypes": "6.6.0",
     "sharp": "0.32.1",
