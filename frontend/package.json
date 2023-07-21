@@ -19,7 +19,7 @@
     "@react-md/menu": "5.1.4",
     "@react-md/progress": "5.1.3",
     "@react-md/typography": "5.1.3",
-    "@sentry/react": "7.58.1",
+    "@sentry/react": "7.59.2",
     "@tanstack/react-query": "4.29.25",
     "@tanstack/react-query-devtools": "4.29.25",
     "@turf/boolean-point-in-polygon": "6.5.0",
