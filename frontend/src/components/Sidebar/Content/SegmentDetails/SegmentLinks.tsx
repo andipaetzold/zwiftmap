@@ -43,6 +43,16 @@ export function SegmentLinks({ segment }: Props) {
           <ListItemText>What&apos;s on Zwift</ListItemText>
         </ListItemLink>
       )}
+      {segment.zwifterBikesUrl && (
+        <ListItemLink
+          href={segment.zwifterBikesUrl}
+          target="_blank"
+          rightAddon={<OpenInNewSVGIcon />}
+          rightAddonType="icon"
+        >
+          <ListItemText>Zwifter Bikes</ListItemText>
+        </ListItemLink>
+      )}
     </>
   );
 }

@@ -74,6 +74,16 @@ export function RouteLinks({ route }: Props) {
           <ListItemText>What&apos;s on Zwift</ListItemText>
         </ListItemLink>
       )}
+      {route.zwifterBikesUrl && (
+        <ListItemLink
+          href={route.zwifterBikesUrl}
+          target="_blank"
+          rightAddon={<OpenInNewSVGIcon />}
+          rightAddonType="icon"
+        >
+          <ListItemText>Zwifter Bikes</ListItemText>
+        </ListItemLink>
+      )}
     </List>
   );
 }
