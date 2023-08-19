@@ -6,10 +6,10 @@ import {
 } from "../services/local-storage";
 
 export function useLocalStorage(
-  key: string
+  key: string,
 ): [string | null, (newValue: string | null) => void] {
   const [value, setValueInternal] = useState<string | null>(() =>
-    getLocalStorageItem(key)
+    getLocalStorageItem(key),
   );
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export function useLocalStorage(
     (value: string | null) => {
       setLocalStorageItem(key, value);
     },
-    [key]
+    [key],
   );
 
   return [value, setValue];

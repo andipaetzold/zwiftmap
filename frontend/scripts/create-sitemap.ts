@@ -20,13 +20,13 @@ for (const world of worlds) {
 }
 
 for (const route of routes.filter(
-  (route) => route.stravaSegmentId !== undefined
+  (route) => route.stravaSegmentId !== undefined,
 )) {
   urls.push(`${DOMAIN}/${route.world}/${route.slug}`);
 }
 
 for (const segment of segments.filter(
-  (segment) => segment.stravaSegmentId !== undefined
+  (segment) => segment.stravaSegmentId !== undefined,
 )) {
   urls.push(`${DOMAIN}/${segment.world}/${segment.slug}`);
 }

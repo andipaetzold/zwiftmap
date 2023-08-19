@@ -12,14 +12,14 @@ interface Section<T, Ref> {
 export function getSectionsFromIntervals<T, Interval>(
   stream: T[],
   intervals: Interval[],
-  getRangeFromInterval: (i: Interval) => [number, number]
+  getRangeFromInterval: (i: Interval) => [number, number],
 ): Section<T, Interval | undefined>[] {
   if (intervals.length === 0) {
     return [{ stream, start: 0, end: stream.length - 1, ref: undefined }];
   }
 
   const sortedIntervals = [...intervals].sort(
-    (a, b) => getRangeFromInterval(a)[0] - getRangeFromInterval(b)[0]
+    (a, b) => getRangeFromInterval(a)[0] - getRangeFromInterval(b)[0],
   );
 
   // sections not covered by intervals
@@ -28,7 +28,7 @@ export function getSectionsFromIntervals<T, Interval>(
       .map(
         (
           interval,
-          intervalIndex
+          intervalIndex,
         ): Section<T, Interval | undefined> | undefined => {
           const [start] = getRangeFromInterval(interval);
 
@@ -57,17 +57,17 @@ export function getSectionsFromIntervals<T, Interval>(
             end: start,
             ref: undefined,
           };
-        }
+        },
       )
       .filter(
         (section): section is Section<T, Interval | undefined> =>
-          section !== undefined
+          section !== undefined,
       );
 
   // last section
   {
     const [, lastIntervalEnd] = getRangeFromInterval(
-      sortedIntervals[sortedIntervals.length - 1]
+      sortedIntervals[sortedIntervals.length - 1],
     );
 
     if (lastIntervalEnd < stream.length - 1) {
@@ -94,14 +94,14 @@ export function getSectionsFromIntervals<T, Interval>(
     });
 
   return [...nonIntervalSections, ...intervalSections].sort(
-    (a, b) => a.start - b.start
+    (a, b) => a.start - b.start,
   );
 }
 
 export function streamToSections<T, Ref>(
   stream: T[],
   isEqual: (a: T, b: T) => boolean,
-  getRef: (a: T) => Ref
+  getRef: (a: T) => Ref,
 ): Section<T, Ref>[] {
   const sections: Section<T, Ref>[] = [];
 

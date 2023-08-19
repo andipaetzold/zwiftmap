@@ -17,7 +17,7 @@ type QueryKey<S = Stream> = [
   "strava-segments",
   number | undefined,
   "streams",
-  S
+  S,
 ];
 
 const createQueryKey = <S extends Stream>(params: Params<S>): QueryKey<S> => [
@@ -34,28 +34,28 @@ const queryFn = <S extends Stream>({
 
 export function useStravaSegmentStream<
   S extends Stream,
-  TData = StravaSegment[S]
+  TData = StravaSegment[S],
 >(
   params: Params<S>,
   options?: Omit<
     UseQueryOptions<StravaSegment[S], unknown, TData, QueryKey<S>>,
     "queryFn" | "queryKey" | "staleTime"
-  >
+  >,
 ) {
   return useQuery(
-    getStravaSegmentStreamQueryOptions<S, TData>(params, options)
+    getStravaSegmentStreamQueryOptions<S, TData>(params, options),
   );
 }
 
 export function getStravaSegmentStreamQueryOptions<
   S extends Stream,
-  TData = StravaSegment[S]
+  TData = StravaSegment[S],
 >(
   params: Params<S>,
   options?: Omit<
     UseQueryOptions<StravaSegment[S], unknown, TData, QueryKey<S>>,
     "queryFn" | "queryKey" | "staleTime"
-  >
+  >,
 ): UseQueryOptions<StravaSegment[S], unknown, TData, QueryKey<S>> {
   return {
     queryKey: createQueryKey(params),

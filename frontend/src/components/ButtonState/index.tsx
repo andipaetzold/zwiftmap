@@ -38,7 +38,7 @@ export function ButtonState({
         navigate(state);
       }
     },
-    [query, setQuery, state]
+    [query, setQuery, state],
   );
 
   return (

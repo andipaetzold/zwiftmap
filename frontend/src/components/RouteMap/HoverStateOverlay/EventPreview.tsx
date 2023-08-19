@@ -21,11 +21,11 @@ export function EventPreview({ state }: Props) {
 
   const { data: latLngStream } = useStravaSegmentStream(
     { stravaSegmentId, stream: "latlng" },
-    { enabled: locationState.world?.id === event?.mapId }
+    { enabled: locationState.world?.id === event?.mapId },
   );
   const { data: distanceStream } = useStravaSegmentStream(
     { stravaSegmentId, stream: "distance" },
-    { enabled: locationState.world?.id === event?.mapId }
+    { enabled: locationState.world?.id === event?.mapId },
   );
 
   const stream = useMemo(() => {

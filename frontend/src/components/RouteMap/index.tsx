@@ -91,21 +91,21 @@ function useRouteStreams(state: LocationState): RouteStreams | undefined {
     streams: ["distance", "latlng"] as const,
   });
   const stravaActivityResult = useStravaActivity(
-    state.type === "strava-activity" ? state.stravaActivityId : undefined
+    state.type === "strava-activity" ? state.stravaActivityId : undefined,
   );
   const shareResult = useShare(
-    state.type === "share" ? state.shareId : undefined
+    state.type === "share" ? state.shareId : undefined,
   );
 
   const eventResult = useEvent(
-    state.type === "event" ? state.eventId : undefined
+    state.type === "event" ? state.eventId : undefined,
   );
   const eventStreamsResult = useStravaSegmentStreams({
     stravaSegmentId:
       state.type === "event" && eventResult.data
         ? getRouteFromEvent(
             getSubgroupFromEvent(eventResult.data, state.subgroupLabel) ??
-              eventResult.data
+              eventResult.data,
           )?.stravaSegmentId
         : undefined,
     streams: ["distance", "latlng"] as const,
@@ -117,7 +117,7 @@ function useRouteStreams(state: LocationState): RouteStreams | undefined {
           world: state.world.slug,
           points: state.points.filter((p): p is LatLngTuple => p !== null),
         }
-      : undefined
+      : undefined,
   );
 
   switch (state.type) {
@@ -179,12 +179,12 @@ function useRouteStreams(state: LocationState): RouteStreams | undefined {
             ? 0
             : turfDistance(turfPoint(array[index - 1]), turfPoint(latlng), {
                 units: "meters",
-              })
+              }),
         )
         .reduce(
           (prev, cur, index) =>
             index === 0 ? [0] : [...prev, prev[prev.length - 1] + cur],
-          [] as number[]
+          [] as number[],
         );
 
       return { distance, latlng };
@@ -205,7 +205,7 @@ function useRouteStreams(state: LocationState): RouteStreams | undefined {
 function usePlace(state: LocationState) {
   const { data } = useWorldPlace(
     state.world?.slug,
-    "placeId" in state ? state.placeId : undefined
+    "placeId" in state ? state.placeId : undefined,
   );
 
   return state.type === "place" ? data : undefined;

@@ -22,14 +22,14 @@ export function useStravaActivity<TData = StravaActivity>(
   options?: Omit<
     UseQueryOptions<StravaActivity, unknown, TData, QueryKey>,
     "queryKey" | "queryFn" | "staleTime" | "enabled"
-  >
+  >,
 ) {
   const isLoggedIn = useIsLoggedInStrava();
   return useQuery(
     getStravaActivityQueryOptions(activityId, {
       enabled: isLoggedIn === true,
       ...options,
-    })
+    }),
   );
 }
 
@@ -38,7 +38,7 @@ export function getStravaActivityQueryOptions<TData = StravaActivity>(
   options?: Omit<
     UseQueryOptions<StravaActivity, unknown, TData, QueryKey>,
     "queryKey" | "queryFn" | "staleTime"
-  >
+  >,
 ): UseQueryOptions<StravaActivity, unknown, TData, QueryKey> {
   return {
     queryKey: createQueryKey(activityId),

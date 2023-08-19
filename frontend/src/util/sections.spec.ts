@@ -79,7 +79,7 @@ describe("getSectionsFromIntervals", () => {
         [2, 3],
         [5, 8],
       ],
-      identity
+      identity,
     );
 
     expect(result.length).toBe(5);

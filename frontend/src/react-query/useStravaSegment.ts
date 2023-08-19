@@ -10,6 +10,6 @@ export function useStravaSegment(segmentId: number | undefined) {
     {
       staleTime: Infinity,
       enabled: isLoggedIn === true && !!segmentId,
-    }
+    },
   );
 }

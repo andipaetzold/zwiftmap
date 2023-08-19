@@ -45,12 +45,12 @@ export function EventSchema({ name, event, subgroup }: Props) {
         eventId: event.id,
         subgroupLabel: subgroup?.subgroupLabel ?? null,
       }),
-      window.location.origin
+      window.location.origin,
     ).toString(),
     sameAs: `https://zwift.com/events/view/${event.id}`,
     eventAttendanceMode: "OnlineEventAttendanceMode",
     startDate: formatISO(
-      parseISO(subgroup?.eventSubgroupStart ?? event.eventStart)
+      parseISO(subgroup?.eventSubgroupStart ?? event.eventStart),
     ),
     duration:
       eventOrSubgroup.durationInSeconds > 0
@@ -73,7 +73,7 @@ export function EventSchema({ name, event, subgroup }: Props) {
       name: world.name,
       url: new URL(
         createUrl({ type: "default", world }),
-        window.location.origin
+        window.location.origin,
       ).toString(),
     },
   };

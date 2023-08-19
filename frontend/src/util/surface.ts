@@ -10,7 +10,7 @@ import {
 
 export function getSurfaceStream(
   latLngStream: LatLngStream,
-  surfaces: WorldConfigSurface[]
+  surfaces: WorldConfigSurface[],
 ): SurfaceTypeStream {
   const turfedWorldSurfaces = surfaces.map((worldSurface) => ({
     ...worldSurface,
@@ -22,14 +22,14 @@ export function getSurfaceStream(
     .map(
       (point) =>
         turfedWorldSurfaces.find((worldSurface) =>
-          booleanPointInPolygon(point, worldSurface.polygon)
-        )?.type ?? SurfaceType.Tarmac
+          booleanPointInPolygon(point, worldSurface.polygon),
+        )?.type ?? SurfaceType.Tarmac,
     );
 }
 
 export function getSurfaceStats(
   distanceStream: DistanceStream,
-  surfaceStream: SurfaceTypeStream
+  surfaceStream: SurfaceTypeStream,
 ): Record<SurfaceType, number> {
   const result: Record<SurfaceType, number> = {
     [SurfaceType.Tarmac]: 0,

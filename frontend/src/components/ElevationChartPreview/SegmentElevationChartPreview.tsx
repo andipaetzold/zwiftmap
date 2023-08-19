@@ -45,9 +45,9 @@ export default function SegmentElevationChartPreview({
           index %
             Math.max(
               1,
-              Math.floor(distanceStream.length / TARGET_RESOLUTION)
+              Math.floor(distanceStream.length / TARGET_RESOLUTION),
             ) ===
-          0
+          0,
       );
     // remove negative elevation
     const lowestElevation = Math.min(...filteredData.map((d) => d.elevation));

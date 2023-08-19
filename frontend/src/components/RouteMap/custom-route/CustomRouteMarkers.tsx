@@ -18,17 +18,17 @@ export function CustomRouteMarkers({ state }: Props) {
       const latlng = marker.getLatLng();
       const snapped = await worker.snapPoint(
         [latlng.lat, latlng.lng],
-        state.world.slug
+        state.world.slug,
       );
 
       navigate({
         ...state,
         points: state.points.map((point, index) =>
-          index === pointIndex ? dropAltitude(snapped.position) : point
+          index === pointIndex ? dropAltitude(snapped.position) : point,
         ),
       });
     },
-    [state]
+    [state],
   );
 
   return (

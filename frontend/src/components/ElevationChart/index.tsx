@@ -69,7 +69,7 @@ interface Data {
 
 export const ElevationChart = Sentry.withErrorBoundary(
   ElevationChartComponent,
-  {}
+  {},
 );
 
 function ElevationChartComponent({
@@ -79,16 +79,16 @@ function ElevationChartComponent({
 }: Props) {
   const setHoverState = useStore((store) => store.setHoverState);
   const [currentDistance, setCurrentDistance] = useState<number | undefined>(
-    undefined
+    undefined,
   );
   const [currentAltitude, setCurrentAltitude] = useState<number | undefined>(
-    undefined
+    undefined,
   );
 
   const handleMouseMove = useCallback(
     (
       data: OnMouseMoveProps,
-      event: React.MouseEvent<SVGElement> | React.Touch
+      event: React.MouseEvent<SVGElement> | React.Touch,
     ) => {
       if ("stopPropagation" in event) {
         event.stopPropagation();
@@ -108,12 +108,12 @@ function ElevationChartComponent({
         data.activePayload?.[0]?.payload.elevationSegmentKOM;
 
       setHoverState(
-        distance ? { type: HoverStateType.Distance, distance } : undefined
+        distance ? { type: HoverStateType.Distance, distance } : undefined,
       );
       setCurrentDistance(distance);
       setCurrentAltitude(elevation);
     },
-    [setHoverState]
+    [setHoverState],
   );
 
   const handleMouseLeave = useCallback(() => {
@@ -136,7 +136,7 @@ function ElevationChartComponent({
       const currentType = (segments
         .filter((s) => s.type !== "segment")
         .find(
-          ({ range: [from, to] }) => from <= distanceInKM && distanceInKM <= to
+          ({ range: [from, to] }) => from <= distanceInKM && distanceInKM <= to,
         )?.type ?? "regular") as "regular" | "sprint" | "climb";
 
       result.push({

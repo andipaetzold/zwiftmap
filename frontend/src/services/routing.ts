@@ -8,7 +8,8 @@ export const PATTERN_ROUTE_OR_SEGMENT =
 export const PATTERN_WORLD = /^\/(?<worldSlug>.+)$/;
 export const PATTERN_CUSTOM_ROUTE =
   /^\/(?<worldSlug>.+)\/(custom-route|routing)$/;
-  export const PATTERN_FOG = /^\/(?<worldSlug>.+)\/fog$/;
-  export const PATTERN_PLACE_NEW = /^\/(?<worldSlug>.+)\/places\/new$/;
-  export const PATTERN_PLACE_EDIT = /^\/(?<worldSlug>.+)\/places\/(?<placeId>.+)\/edit$/;
-  export const PATTERN_PLACE = /^\/(?<worldSlug>.+)\/places\/(?<placeId>.+)$/;
+export const PATTERN_FOG = /^\/(?<worldSlug>.+)\/fog$/;
+export const PATTERN_PLACE_NEW = /^\/(?<worldSlug>.+)\/places\/new$/;
+export const PATTERN_PLACE_EDIT =
+  /^\/(?<worldSlug>.+)\/places\/(?<placeId>.+)\/edit$/;
+export const PATTERN_PLACE = /^\/(?<worldSlug>.+)\/places\/(?<placeId>.+)$/;

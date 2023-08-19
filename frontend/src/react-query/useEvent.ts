@@ -10,7 +10,7 @@ export function useEvent<TData = ZwiftEvent>(
   options?: Omit<
     UseQueryOptions<ZwiftEvent, Error, TData, QueryKey>,
     "queryKey" | "queryFn" | "staleTime"
-  >
+  >,
 ) {
   return useQuery<ZwiftEvent, Error, TData, QueryKey>(
     queries.event(eventId),
@@ -19,6 +19,6 @@ export function useEvent<TData = ZwiftEvent>(
       staleTime: STALE_TIME,
       ...options,
       enabled: (options?.enabled ?? true) && eventId !== undefined,
-    }
+    },
   );
 }

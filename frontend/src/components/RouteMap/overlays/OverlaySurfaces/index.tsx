@@ -36,7 +36,7 @@ export function OverlaySurfaces({ state, streams }: Props) {
 
   const surfaceTypeStream = getSurfaceStream(
     streams.latlng,
-    worldConfigs[state.world.slug].surfaces
+    worldConfigs[state.world.slug].surfaces,
   );
   const zippedStream = zipWith(
     streams.latlng,
@@ -44,13 +44,13 @@ export function OverlaySurfaces({ state, streams }: Props) {
     (latLng, surface) => ({
       latLng,
       surface,
-    })
+    }),
   );
 
   const sections = streamToSections(
     zippedStream,
     (a, b) => a.surface === b.surface,
-    (item) => item.surface
+    (item) => item.surface,
   );
 
   return (

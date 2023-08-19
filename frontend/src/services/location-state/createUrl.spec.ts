@@ -10,7 +10,7 @@ it("default", () => {
     createUrl({
       type: "default",
       world: worldLondon,
-    })
+    }),
   ).toBe("/london");
 });
 
@@ -21,7 +21,7 @@ describe("route", () => {
         type: "route",
         world: worldLondon,
         route: routeLondonLoop,
-      })
+      }),
     ).toBe("/london/london-loop");
   });
 
@@ -31,7 +31,7 @@ describe("route", () => {
         type: "route",
         world: worldLondon,
         route: routeLondonLoop,
-      })
+      }),
     ).toBe("/london/london-loop");
 
     expect(
@@ -39,7 +39,7 @@ describe("route", () => {
         type: "route",
         world: worldLondon,
         route: routeLondonLoop,
-      })
+      }),
     ).toBe("/london/london-loop");
   });
 });
@@ -49,14 +49,14 @@ it("strava-activities", () => {
     createUrl({
       type: "strava-activities",
       world: worldLondon,
-    })
+    }),
   ).toBe("/london?list=strava-activities");
 
   expect(
     createUrl({
       type: "strava-activities",
       world: worldLondon,
-    })
+    }),
   ).toBe("/london?list=strava-activities");
 });
 
@@ -66,7 +66,7 @@ it("strava-activity", () => {
       type: "strava-activity",
       world: worldLondon,
       stravaActivityId: 42,
-    })
+    }),
   ).toBe("/strava-activities/42");
 });
 
@@ -75,7 +75,7 @@ it("events", () => {
     createUrl({
       type: "events",
       world: worldLondon,
-    })
+    }),
   ).toBe("/london?list=events");
 });
 
@@ -86,7 +86,7 @@ it("event", () => {
       world: worldLondon,
       eventId: 42,
       subgroupLabel: null,
-    })
+    }),
   ).toBe("/events/42");
 
   expect(
@@ -95,6 +95,6 @@ it("event", () => {
       world: worldLondon,
       eventId: 42,
       subgroupLabel: "A",
-    })
+    }),
   ).toBe("/events/42/A");
 });

@@ -19,11 +19,11 @@ interface Props {
 export function RouteOverlay({ state, streams }: Props) {
   const unmatchedSegments = useMemo(() => {
     const matchedSegmentSlugs = state.route.segmentsOnRoute.map(
-      (sor) => sor.segment
+      (sor) => sor.segment,
     );
 
     return state.route.segments.filter(
-      (segmentSlug) => !matchedSegmentSlugs.includes(segmentSlug)
+      (segmentSlug) => !matchedSegmentSlugs.includes(segmentSlug),
     );
   }, [state.route]);
 

@@ -45,7 +45,7 @@ export async function getStravaActivities(): Promise<SummaryActivity[]> {
 }
 
 export async function getStravaActivityById(
-  activityId: number
+  activityId: number,
 ): Promise<DetailedActivity> {
   return await request(`${BACKEND_HOST}/strava/activities/${activityId}`, {
     ...DEFAULT_INIT,
@@ -54,7 +54,7 @@ export async function getStravaActivityById(
 
 export async function updateStravaActivity(
   activityId: number,
-  activity: Pick<DetailedActivity, "description">
+  activity: Pick<DetailedActivity, "description">,
 ) {
   await request(`${BACKEND_HOST}/strava/activities/${activityId}`, {
     ...DEFAULT_INIT,
@@ -67,7 +67,7 @@ export async function updateStravaActivity(
 }
 
 export async function getStravaSegmentById(
-  segmentId: number
+  segmentId: number,
 ): Promise<DetailedSegment> {
   return await request(`${BACKEND_HOST}/strava/segments/${segmentId}`, {
     ...DEFAULT_INIT,
@@ -75,16 +75,16 @@ export async function getStravaSegmentById(
 }
 
 export async function getStravaActivityStreams(
-  activityId: number
+  activityId: number,
 ): Promise<Partial<StreamSet>> {
   return await cachedRequest(
     `${BACKEND_HOST}/strava/activities/${activityId}/streams`,
-    { ...DEFAULT_INIT }
+    { ...DEFAULT_INIT },
   );
 }
 
 export async function shareStravaActivity(
-  activityId: number
+  activityId: number,
 ): Promise<{ id: string }> {
   return await request(`${BACKEND_HOST}/share`, {
     ...DEFAULT_INIT,
@@ -132,7 +132,7 @@ export async function getStravaFogStats(world: WorldSlug): Promise<{
 }
 
 export async function getStravaFogGeoJSON(
-  world: WorldSlug
+  world: WorldSlug,
 ): Promise<Feature<Polygon | MultiPolygon>> {
   return await request(`${BACKEND_HOST}/strava/fog/${world}/geojson`, {
     ...DEFAULT_INIT,
@@ -140,7 +140,7 @@ export async function getStravaFogGeoJSON(
 }
 
 export async function getPlaces(
-  verified: boolean | undefined
+  verified: boolean | undefined,
 ): Promise<Place[]> {
   const params = new URLSearchParams();
   if (verified !== undefined) {
@@ -157,7 +157,7 @@ export async function getPlaces(
 
 export async function getWorldPlaces(
   world: WorldSlug,
-  verified: boolean | undefined
+  verified: boolean | undefined,
 ): Promise<Place[]> {
   const params = new URLSearchParams();
   if (verified !== undefined) {
@@ -175,7 +175,7 @@ export async function getWorldPlaces(
 export async function createPlace(
   place: Omit<Place, "id" | "image"> & {
     imageObjectId: string | null;
-  }
+  },
 ): Promise<Place> {
   return await request<Place>(`${BACKEND_HOST}/worlds/${place.world}/places`, {
     ...DEFAULT_INIT,
@@ -188,7 +188,7 @@ export async function createPlace(
 }
 
 export async function updatePlace(
-  place: Omit<Place, "image"> & { imageObjectId?: string }
+  place: Omit<Place, "image"> & { imageObjectId?: string },
 ): Promise<Place> {
   return await request<Place>(
     `${BACKEND_HOST}/worlds/${place.world}/places/${place.id}`,
@@ -197,12 +197,12 @@ export async function updatePlace(
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(place),
-    }
+    },
   );
 }
 
 export async function deletePlace(
-  place: Pick<Place, "id" | "world">
+  place: Pick<Place, "id" | "world">,
 ): Promise<void> {
   await request(`${BACKEND_HOST}/worlds/${place.world}/places/${place.id}`, {
     method: "DELETE",

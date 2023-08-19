@@ -54,7 +54,7 @@ describe("route", () => {
     it("correct world", () => {
       const r1 = getLocationStateFromUrl(
         "/london/london-classique",
-        ""
+        "",
       ) as LocationStateRoute;
       expect(r1.type).toBe("route");
       expect(r1.world).toBe(LONDON);
@@ -64,7 +64,7 @@ describe("route", () => {
     it("wrong world", () => {
       const r = getLocationStateFromUrl(
         "/watopia/london-classique",
-        ""
+        "",
       ) as LocationStateRoute;
       expect(r.type).toBe("route");
       expect(r.world).toBe(LONDON);
@@ -74,7 +74,7 @@ describe("route", () => {
     it("invalid world", () => {
       const r = getLocationStateFromUrl(
         "/test/london-classique",
-        ""
+        "",
       ) as LocationStateRoute;
       expect(r.type).toBe("route");
       expect(r.world).toBe(LONDON);
@@ -84,7 +84,7 @@ describe("route", () => {
     it("invalid route", () => {
       const r = getLocationStateFromUrl(
         "/london/test",
-        ""
+        "",
       ) as LocationStateRoute;
       expect(r.type).toBe("default");
       expect(r.world).toBe(LONDON);
@@ -101,7 +101,7 @@ describe("route", () => {
     it("correct world", () => {
       const r1 = getLocationStateFromUrl(
         "/london",
-        "route=london-classique"
+        "route=london-classique",
       ) as LocationStateRoute;
       expect(r1.type).toBe("route");
       expect(r1.world).toBe(LONDON);
@@ -109,7 +109,7 @@ describe("route", () => {
 
       const r2 = getLocationStateFromUrl(
         "/",
-        "world=london&route=london-classique"
+        "world=london&route=london-classique",
       ) as LocationStateRoute;
       expect(r2.type).toBe("route");
       expect(r2.world).toBe(LONDON);
@@ -119,7 +119,7 @@ describe("route", () => {
     it("wrong world", () => {
       const r = getLocationStateFromUrl(
         "/watopia",
-        "route=london-classique"
+        "route=london-classique",
       ) as LocationStateRoute;
       expect(r.type).toBe("route");
       expect(r.world).toBe(LONDON);
@@ -129,7 +129,7 @@ describe("route", () => {
     it("invalid world", () => {
       const r = getLocationStateFromUrl(
         "/test",
-        "route=london-classique"
+        "route=london-classique",
       ) as LocationStateRoute;
       expect(r.type).toBe("route");
       expect(r.world).toBe(LONDON);
@@ -145,7 +145,7 @@ describe("route", () => {
     it("invalid route & world", () => {
       const r = getLocationStateFromUrl(
         "/test",
-        "route=test"
+        "route=test",
       ) as LocationStateRoute;
       expect(r.type).toBe("default");
       expect(r.world).toBe(WATOPIA);
@@ -157,7 +157,7 @@ describe("event", () => {
   it("current", () => {
     const r = getLocationStateFromUrl(
       "/events/42",
-      ""
+      "",
     ) as LocationStateUpcomingEvent;
     expect(r.type).toBe("event");
     expect(r.world).toBeNull();
@@ -167,7 +167,7 @@ describe("event", () => {
   it("legacy", () => {
     const r1 = getLocationStateFromUrl(
       "/",
-      "event=42"
+      "event=42",
     ) as LocationStateUpcomingEvent;
     expect(r1.type).toBe("event");
     expect(r1.world).toBeNull();
@@ -175,7 +175,7 @@ describe("event", () => {
 
     const r2 = getLocationStateFromUrl(
       "/london",
-      "event=42"
+      "event=42",
     ) as LocationStateUpcomingEvent;
     expect(r2.type).toBe("event");
     expect(r2.world).toBeNull();
@@ -187,14 +187,14 @@ describe("events", () => {
   it("current", () => {
     const r1 = getLocationStateFromUrl(
       "/",
-      "list=events"
+      "list=events",
     ) as LocationStateUpcomingEvents;
     expect(r1.type).toBe("events");
     expect(r1.world).toBe(WATOPIA);
 
     const r2 = getLocationStateFromUrl(
       "/london",
-      "list=events"
+      "list=events",
     ) as LocationStateUpcomingEvents;
     expect(r2.type).toBe("events");
     expect(r2.world).toBe(LONDON);
@@ -204,14 +204,14 @@ describe("events", () => {
     it("valid world", () => {
       const r1 = getLocationStateFromUrl(
         "/",
-        "events="
+        "events=",
       ) as LocationStateUpcomingEvents;
       expect(r1.type).toBe("events");
       expect(r1.world).toBe(WATOPIA);
 
       const r2 = getLocationStateFromUrl(
         "/",
-        "world=london&events="
+        "world=london&events=",
       ) as LocationStateUpcomingEvents;
       expect(r2.type).toBe("events");
       expect(r2.world).toBe(LONDON);
@@ -220,7 +220,7 @@ describe("events", () => {
     it("invalid world", () => {
       const r = getLocationStateFromUrl(
         "/",
-        "world=test&events="
+        "world=test&events=",
       ) as LocationStateUpcomingEvents;
       expect(r.type).toBe("events");
       expect(r.world).toBe(WATOPIA);
@@ -232,7 +232,7 @@ describe("strava-activity", () => {
   it("current", () => {
     const r = getLocationStateFromUrl(
       "/strava-activities/42",
-      ""
+      "",
     ) as LocationStateStravaActivity;
     expect(r.type).toBe("strava-activity");
     expect(r.world).toBeNull();
@@ -242,7 +242,7 @@ describe("strava-activity", () => {
   it("legacy", () => {
     const r1 = getLocationStateFromUrl(
       "/",
-      "strava-activity=42"
+      "strava-activity=42",
     ) as LocationStateStravaActivity;
     expect(r1.type).toBe("strava-activity");
     expect(r1.world).toBeNull();
@@ -250,7 +250,7 @@ describe("strava-activity", () => {
 
     const r2 = getLocationStateFromUrl(
       "/london",
-      "strava-activity=42"
+      "strava-activity=42",
     ) as LocationStateStravaActivity;
     expect(r2.type).toBe("strava-activity");
     expect(r2.world).toBeNull();
@@ -263,14 +263,14 @@ describe("strava-activities", () => {
     it("valid world", () => {
       const r1 = getLocationStateFromUrl(
         "/",
-        "list=strava-activities"
+        "list=strava-activities",
       ) as LocationStateStravaActivities;
       expect(r1.type).toBe("strava-activities");
       expect(r1.world).toBe(WATOPIA);
 
       const r2 = getLocationStateFromUrl(
         "/london",
-        "list=strava-activities"
+        "list=strava-activities",
       ) as LocationStateStravaActivities;
       expect(r2.type).toBe("strava-activities");
       expect(r2.world).toBe(LONDON);
@@ -279,7 +279,7 @@ describe("strava-activities", () => {
     it("invalid world", () => {
       const r = getLocationStateFromUrl(
         "/test",
-        "list=strava-activities"
+        "list=strava-activities",
       ) as LocationStateStravaActivities;
       expect(r.type).toBe("strava-activities");
       expect(r.world).toBe(WATOPIA);
@@ -290,14 +290,14 @@ describe("strava-activities", () => {
     it("valid world", () => {
       const r1 = getLocationStateFromUrl(
         "/",
-        "strava-activities="
+        "strava-activities=",
       ) as LocationStateStravaActivities;
       expect(r1.type).toBe("strava-activities");
       expect(r1.world).toBe(WATOPIA);
 
       const r2 = getLocationStateFromUrl(
         "/",
-        "world=london&strava-activities="
+        "world=london&strava-activities=",
       ) as LocationStateStravaActivities;
       expect(r2.type).toBe("strava-activities");
       expect(r2.world).toBe(LONDON);
@@ -306,7 +306,7 @@ describe("strava-activities", () => {
     it("invalid world", () => {
       const r = getLocationStateFromUrl(
         "/",
-        "world=test&strava-activities="
+        "world=test&strava-activities=",
       ) as LocationStateStravaActivities;
       expect(r.type).toBe("strava-activities");
       expect(r.world).toBe(WATOPIA);
