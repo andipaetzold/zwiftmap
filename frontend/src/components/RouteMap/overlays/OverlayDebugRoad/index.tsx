@@ -4,7 +4,9 @@ import { ENVIRONMENT } from "../../../../config";
 import { LoadingSpinnerListItem } from "../../../Loading";
 
 const Component = lazy(() =>
-  import("./component").then((m) => ({ default: m.OverlayDebugRoadsComponent }))
+  import("./component").then((m) => ({
+    default: m.OverlayDebugRoadsComponent,
+  })),
 );
 
 interface Props {

@@ -32,7 +32,7 @@ export function RouteEvents({ route }: Props) {
       .filter((e) => e.sport.toLowerCase() === sport)
       .map((event) => {
         const subgroup = event.eventSubgroups.find(
-          (esg) => esg.routeId === route.id
+          (esg) => esg.routeId === route.id,
         );
         if (!subgroup) {
           return null;

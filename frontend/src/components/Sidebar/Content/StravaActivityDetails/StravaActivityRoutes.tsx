@@ -22,7 +22,7 @@ export function StravaActivityRoutes({ activity }: Props) {
     .map((segmentEffort) => ({
       route: routes.find(
         (route) =>
-          (segmentEffort as SegmentEffort).segment.id === route.stravaSegmentId
+          (segmentEffort as SegmentEffort).segment.id === route.stravaSegmentId,
       ),
       segmentEffort,
     }))

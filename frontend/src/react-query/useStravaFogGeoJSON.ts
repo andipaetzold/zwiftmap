@@ -4,7 +4,7 @@ import { useIsLoggedInStrava } from "../hooks/useIsLoggedInStrava";
 import { getStravaFogGeoJSON } from "../services/zwiftMapApi";
 import { queries } from "./queryKeys";
 
-type QueryKey = ReturnType<typeof queries["stravaFogGeoJSON"]>;
+type QueryKey = ReturnType<(typeof queries)["stravaFogGeoJSON"]>;
 type Context = QueryFunctionContext<QueryKey>;
 
 const queryFn = async ({ queryKey: [, , world] }: Context) =>

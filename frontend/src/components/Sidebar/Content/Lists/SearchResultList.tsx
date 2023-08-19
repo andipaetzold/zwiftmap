@@ -93,7 +93,7 @@ function SearchResultsTypeList({
               return sortSegment(
                 sortState,
                 a.data as Segment,
-                b.data as Segment
+                b.data as Segment,
               );
             case "place":
               return sortPlace(sortState, a.data as Place, b.data as Place);

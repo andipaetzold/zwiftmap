@@ -23,7 +23,7 @@ export function StravaActivitySegments({ activity }: Props) {
       segment: segments.find(
         (segment) =>
           (segmentEffort as SegmentEffort).segment.id ===
-          segment.stravaSegmentId
+          segment.stravaSegmentId,
       ),
       segmentEffort,
     }))

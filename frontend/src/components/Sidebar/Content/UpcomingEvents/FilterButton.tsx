@@ -26,7 +26,7 @@ export function EventFilterButton() {
   const handleCheckedState = (
     checked: boolean,
     eventType: ZwiftEventType,
-    e: React.MouseEvent<HTMLLIElement>
+    e: React.MouseEvent<HTMLLIElement>,
   ) => {
     e.stopPropagation();
 
@@ -51,7 +51,7 @@ export function EventFilterButton() {
 
   const handleCategoryEnforcementChange = (
     checked: boolean,
-    e: React.MouseEvent<HTMLLIElement>
+    e: React.MouseEvent<HTMLLIElement>,
   ) => {
     e.stopPropagation();
     setSessionSettings({

@@ -45,7 +45,7 @@ export function EventFacts({ event, subgroup }: Props) {
         subgroup.paceType,
         subgroup.fromPaceValue,
         subgroup.toPaceValue,
-        units
+        units,
       )
     : undefined;
 
@@ -54,7 +54,7 @@ export function EventFacts({ event, subgroup }: Props) {
       <SimpleListItem leftAddon={<EventSVGIcon />} leftAddonType="icon">
         <time dateTime={subgroup?.eventSubgroupStart ?? event.eventStart}>
           {formatEventSubgroupStart(
-            subgroup?.eventSubgroupStart ?? event.eventStart
+            subgroup?.eventSubgroupStart ?? event.eventStart,
           )}
         </time>
       </SimpleListItem>

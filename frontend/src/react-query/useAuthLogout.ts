@@ -13,6 +13,6 @@ export function useAuthLogout() {
         await queryClient.invalidateQueries(queries.authStatus);
         await queryClient.invalidateQueries(["strava"]);
       },
-    }
+    },
   );
 }

@@ -6,7 +6,7 @@ import { LatLngAlt } from "../types";
 export async function navigate(
   from: LatLngTuple,
   to: LatLngTuple,
-  worldSlug: WorldSlug
+  worldSlug: WorldSlug,
 ): Promise<LatLngAlt[]> {
   const roads = await WORLD_ROADS[worldSlug]();
   const route = findRoute(from, to, roads);

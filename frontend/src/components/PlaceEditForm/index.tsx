@@ -143,7 +143,7 @@ export function PlaceEditForm({ place, world }: Props) {
         addMessage({
           children: "Something went wrong",
         }),
-    }
+    },
   );
 
   return (
@@ -240,7 +240,7 @@ export function PlaceEditForm({ place, world }: Props) {
                 setData((cur) => ({
                   ...cur,
                   links: cur.links.map((url, curIndex) =>
-                    curIndex === index ? e.target.value : url
+                    curIndex === index ? e.target.value : url,
                   ),
                 }))
               }

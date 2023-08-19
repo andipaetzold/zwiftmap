@@ -18,7 +18,7 @@ export function useShare<TData = Share>(
   options?: Omit<
     UseQueryOptions<Share, unknown, TData, QueryKey>,
     "queryKey" | "queryFn" | "staleTime"
-  >
+  >,
 ) {
   return useQuery(getShareQueryOptions(shareId, options));
 }
@@ -28,7 +28,7 @@ export function getShareQueryOptions<TData = Share>(
   options?: Omit<
     UseQueryOptions<Share, unknown, TData, QueryKey>,
     "queryKey" | "queryFn" | "staleTime"
-  >
+  >,
 ): UseQueryOptions<Share, unknown, TData, QueryKey> {
   return {
     queryKey: createQueryKey(shareId),

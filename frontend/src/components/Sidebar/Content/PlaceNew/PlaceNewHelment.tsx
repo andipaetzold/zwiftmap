@@ -1,6 +1,5 @@
 import { Helmet } from "react-helmet-async";
 
-
 export function PlaceNewHelmet() {
   const description = `Submit a new place`;
 

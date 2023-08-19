@@ -32,7 +32,7 @@ export function SurfaceListItem({
   const surfaceStream = getSurfaceStream(latLngStream, surfaces);
   const surfaceTypesWithDistance = getSurfaceStats(
     distancStream,
-    surfaceStream
+    surfaceStream,
   );
 
   return (

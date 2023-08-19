@@ -36,7 +36,7 @@ export function sortRoute(sortState: SortState, a: Route, b: Route): number {
 export function sortSegment(
   sortState: SortState,
   a: Segment,
-  b: Segment
+  b: Segment,
 ): number {
   let result = 0;
 

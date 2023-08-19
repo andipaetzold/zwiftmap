@@ -3,7 +3,7 @@ import { WorldSlug } from "zwift-data";
 import { WORLD_ROADS } from "../shared/roads";
 import { queries } from "./queryKeys";
 
-type QueryKey = ReturnType<typeof queries["worldRoads"]>;
+type QueryKey = ReturnType<(typeof queries)["worldRoads"]>;
 type Context = QueryFunctionContext<QueryKey>;
 
 const queryFn = ({ queryKey: [, world] }: Context) => WORLD_ROADS[world]();

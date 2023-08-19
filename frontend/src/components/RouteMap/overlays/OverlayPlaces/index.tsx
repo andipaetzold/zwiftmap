@@ -30,7 +30,7 @@ export function OverlayPlaces({ world }: Props) {
 
   const { data: places } = useWorldPlaces(
     world.slug,
-    canViewUnverified ? (showUnverifiedPlaces ? undefined : true) : true
+    canViewUnverified ? (showUnverifiedPlaces ? undefined : true) : true,
   );
 
   if (["place-edit", "place-new"].includes(locationState.type)) {
@@ -38,7 +38,7 @@ export function OverlayPlaces({ world }: Props) {
   }
 
   const currentPlace = places?.find(
-    (p) => locationState.type === "place" && p.id === locationState.placeId
+    (p) => locationState.type === "place" && p.id === locationState.placeId,
   );
 
   const placesToShow =

@@ -26,7 +26,7 @@ export function useCustomRouteClick(state: LocationState) {
     navigate({
       ...state,
       points: state.points.map((p, i) =>
-        i === index ? snappedWithoutAltitude : p
+        i === index ? snappedWithoutAltitude : p,
       ),
     });
   });

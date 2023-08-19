@@ -46,7 +46,7 @@ export function CustomRouteWaypoints({ state }: Props) {
                       navigate({
                         ...state,
                         points: state.points.map((p, i) =>
-                          i === index ? null : p
+                          i === index ? null : p,
                         ),
                       });
                     }

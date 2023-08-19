@@ -23,7 +23,7 @@ export function RoutePosition({ streams }: Props) {
     }
 
     const pointIndex = streams.distance.findIndex(
-      (d) => d > hoverState.distance * 1_000
+      (d) => d > hoverState.distance * 1_000,
     );
     if (!pointIndex) {
       return;

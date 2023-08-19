@@ -8,9 +8,8 @@ interface Props {
 }
 
 export function SegmentPreview({ state }: Props) {
-  const segmentId = routes.find(
-    (r) => r.slug === state.segment
-  )?.stravaSegmentId;
+  const segmentId = routes.find((r) => r.slug === state.segment)
+    ?.stravaSegmentId;
   const { data: stream } = useStravaSegmentStream({
     stravaSegmentId: segmentId,
     stream: "latlng",

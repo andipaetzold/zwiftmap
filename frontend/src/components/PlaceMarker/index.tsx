@@ -23,7 +23,7 @@ export function PlaceMarker(props: PlaceMarkerProps) {
         iconAnchor: [26.5 / 2, 41],
         shadowSize: [41, 41],
       }),
-    [props.fill, props.label]
+    [props.fill, props.label],
   );
   return <Marker {...props} icon={icon} />;
 }

@@ -24,7 +24,7 @@ export default function CustomRoute({ state }: Props) {
       world: state.world.slug,
       points: state.points.filter((p): p is LatLngTuple => p !== null),
     },
-    { keepPreviousData: true }
+    { keepPreviousData: true },
   );
 
   return (
