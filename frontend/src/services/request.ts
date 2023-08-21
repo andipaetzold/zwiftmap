@@ -1,4 +1,4 @@
-export type RequestFn = <T = any>(
+export type RequestFn = <T = unknown>(
   input: RequestInfo,
   init?: RequestInit
 ) => Promise<T>;
@@ -6,7 +6,7 @@ export type RequestFn = <T = any>(
 export const request: RequestFn = async (
   input: RequestInfo,
   init?: RequestInit
-): Promise<any> => {
+) => {
   const response = await fetch(input, init);
   if (response.ok) {
     if (response.status === 204) {

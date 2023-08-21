@@ -30,7 +30,9 @@ export async function getStravaActivity(
     photoUrl: activity.photos.primary?.urls["100"],
     streams: await fetchStravaActivityStreams(activityId),
     kudos: activity.kudos_count,
-    segmentEfforts: activity.segment_efforts as any,
+    segmentEfforts: activity.segment_efforts as (DetailedSegmentEffort & {
+      segment: DetailedSegment;
+    })[],
   };
 }
 
