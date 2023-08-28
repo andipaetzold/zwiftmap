@@ -101,7 +101,7 @@
     "typescript": "5.2.2",
     "vite": "4.4.9",
     "vite-plugin-pwa": "0.16.4",
-    "vitest": "0.34.2"
+    "vitest": "0.34.3"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json}": [
