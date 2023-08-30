@@ -6,7 +6,7 @@ export type RequestFn = <T = unknown>(
 export const request: RequestFn = async (
   input: RequestInfo,
   init?: RequestInit,
-): Promise<any> => {
+) => {
   const response = await fetch(input, init);
   if (response.ok) {
     if (response.status === 204) {
