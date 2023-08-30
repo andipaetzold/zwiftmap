@@ -174,6 +174,6 @@ function useFlyToBounds(mapRef: RefObject<MapType>) {
         mapRef.current.flyToBounds(bounds);
       }
     },
-    [mapRef, prefersReducedMotion]
+    [mapRef, prefersReducedMotion],
   );
 }

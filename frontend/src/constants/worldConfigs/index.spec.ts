@@ -6,10 +6,10 @@ describe("ensure bounds are topleft and bottomright", () => {
     Object.entries(worldConfigs).forEach(([worldSlug, worldConfig]) => {
       it(worldSlug, () => {
         expect(worldConfig.initialBounds[0][0]).toBeGreaterThanOrEqual(
-          worldConfig.initialBounds[1][0]
+          worldConfig.initialBounds[1][0],
         );
         expect(worldConfig.initialBounds[0][1]).toBeLessThanOrEqual(
-          worldConfig.initialBounds[1][1]
+          worldConfig.initialBounds[1][1],
         );
       });
     });

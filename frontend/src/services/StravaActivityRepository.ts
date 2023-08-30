@@ -8,7 +8,7 @@ import {
 } from "./zwiftMapApi";
 
 export async function getStravaActivity(
-  activityId: number
+  activityId: number,
 ): Promise<StravaActivity> {
   const activity = await getStravaActivityById(activityId);
 
@@ -37,7 +37,7 @@ export async function getStravaActivity(
 }
 
 async function fetchStravaActivityStreams(
-  activityId: number
+  activityId: number,
 ): Promise<StravaActivityStreams> {
   const streams = await getStravaActivityStreams(activityId);
 
@@ -55,7 +55,7 @@ async function fetchStravaActivityStreams(
 
 export async function appendStravaDescription(
   activityId: number,
-  text: string
+  text: string,
 ) {
   const activity = await getStravaActivityById(activityId);
 

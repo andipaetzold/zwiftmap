@@ -28,7 +28,7 @@ export function CustomRouteFacts({ stream }: Props) {
           return alt - prevAlt;
         })
         .reduce((prev, cur) => prev + cur, 0),
-    [stream]
+    [stream],
   );
 
   return (

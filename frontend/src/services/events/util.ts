@@ -9,16 +9,16 @@ import {
 } from "../../types";
 
 export function getWorldFromEvent(
-  eventOrGroup: ZwiftEvent | EventSubgroup
+  eventOrGroup: ZwiftEvent | EventSubgroup,
 ): World | undefined {
   const route = routes.find((r) => r.id === eventOrGroup.routeId);
   return worlds.find(
-    (w) => w.slug === route?.world || w.id === eventOrGroup.mapId
+    (w) => w.slug === route?.world || w.id === eventOrGroup.mapId,
   );
 }
 
 export function getRouteFromEvent(
-  eventOrGroup: ZwiftEvent | EventSubgroup
+  eventOrGroup: ZwiftEvent | EventSubgroup,
 ): Route | undefined {
   return routes.find((r) => r.id === eventOrGroup.routeId);
 }
@@ -26,7 +26,7 @@ export function getRouteFromEvent(
 export function adjustStreamForEvent<T>(
   event: ZwiftEvent,
   distanceStream: DistanceStream,
-  stream: T[]
+  stream: T[],
 ): T[] | undefined {
   const route = getRouteFromEvent(event);
   if (!route?.stravaSegmentId) {
@@ -51,7 +51,7 @@ export function adjustStreamForEvent<T>(
 
   const remainingDistance = route.lap ? distance % route.distance : distance;
   const finishIndex = distanceStream.findIndex(
-    (d) => d / 1_000 > remainingDistance
+    (d) => d / 1_000 > remainingDistance,
   );
 
   adjustedStream.push(...stream.slice(0, finishIndex));
@@ -59,7 +59,7 @@ export function adjustStreamForEvent<T>(
 }
 
 export function getEventDistance(
-  eventOrGroup: ZwiftEvent | EventSubgroup
+  eventOrGroup: ZwiftEvent | EventSubgroup,
 ): number | undefined {
   const route = getRouteFromEvent(eventOrGroup);
 
@@ -71,7 +71,7 @@ export function getEventDistance(
 }
 
 export function getEventElevation(
-  eventOrGroup: ZwiftEvent | EventSubgroup
+  eventOrGroup: ZwiftEvent | EventSubgroup,
 ): number | undefined {
   const route = getRouteFromEvent(eventOrGroup);
   if (route && eventOrGroup.laps > 0) {
@@ -85,7 +85,7 @@ const PACE_NUMER_FORMAT = new Intl.NumberFormat("en-US", {
 });
 export function getEventPaceRangeAsString(
   event: ZwiftEvent,
-  units: Units
+  units: Units,
 ): string | undefined {
   if (event.eventSubgroups.length === 0) {
     return;
@@ -96,7 +96,7 @@ export function getEventPaceRangeAsString(
   }
 
   const paceFrom = Math.min(
-    ...event.eventSubgroups.map((g) => g.fromPaceValue)
+    ...event.eventSubgroups.map((g) => g.fromPaceValue),
   );
   const paceTo = Math.max(...event.eventSubgroups.map((g) => g.toPaceValue));
 
@@ -107,7 +107,7 @@ export function formatEventPace(
   type: PaceType,
   from: number,
   to: number,
-  units: Units
+  units: Units,
 ): string | undefined {
   if (from === 0 && to === 0) {
     return undefined;
@@ -125,14 +125,14 @@ export function formatEventPace(
     // TODO: use formatRange once supported
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/formatRange
     return `${PACE_NUMER_FORMAT.format(
-      fromConverted
+      fromConverted,
     )} – ${PACE_NUMER_FORMAT.format(toConverted)} ${unit}`;
   }
 }
 
 export function getSubgroupFromEvent(
   event: ZwiftEvent,
-  subgroupLabel: string | null
+  subgroupLabel: string | null,
 ): EventSubgroup | undefined {
   return (
     event.eventSubgroups.find((g) => g.subgroupLabel === subgroupLabel) ??

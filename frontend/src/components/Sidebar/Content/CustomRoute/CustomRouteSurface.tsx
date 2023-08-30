@@ -21,14 +21,14 @@ export function CustomRouteSurface({ state, latLngStream }: Props) {
             ? 0
             : turfDistance(turfPoint(array[index - 1]), turfPoint(latlng), {
                 units: "meters",
-              })
+              }),
         )
         .reduce(
           (prev, cur, index) =>
             index === 0 ? [0] : [...prev, prev[prev.length - 1] + cur],
-          [] as number[]
+          [] as number[],
         ),
-    [latLngStream]
+    [latLngStream],
   );
 
   return (

@@ -32,6 +32,6 @@ export const useSettings = create<SettingStore>()(
       setShowUnverifiedPlaces: (showUnverifiedPlaces) =>
         set(() => ({ showUnverifiedPlaces })),
     }),
-    { name: LOCAL_STORAGE_KEY }
-  )
+    { name: LOCAL_STORAGE_KEY },
+  ),
 );

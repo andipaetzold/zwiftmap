@@ -10,7 +10,7 @@ function getCacheKey(request: Request): string {
 const store = new Map<string, Promise<unknown>>();
 export async function cachedRequest<T = unknown>(
   input: RequestInfo,
-  init?: RequestInit
+  init?: RequestInit,
 ): Promise<T> {
   const requestObj = new Request(input, init);
 

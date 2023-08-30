@@ -26,11 +26,12 @@ export function StravaActivityOverlay({ state }: Props) {
         .map((segmentEffort) => ({
           segmentEffort,
           segment: segments.find(
-            (segment) => segment.stravaSegmentId === segmentEffort.segment.id
+            (segment) => segment.stravaSegmentId === segmentEffort.segment.id,
           ),
         }))
         .filter(
-          ({ segment }) => segment && SEGMENTS_TO_DISPLAY.includes(segment.type)
+          ({ segment }) =>
+            segment && SEGMENTS_TO_DISPLAY.includes(segment.type),
         ) as {
         segmentEffort: DetailedSegmentEffort;
         segment: Segment;
@@ -49,7 +50,7 @@ export function StravaActivityOverlay({ state }: Props) {
         ({ segmentEffort }) => [
           segmentEffort.start_index,
           segmentEffort.end_index,
-        ]
+        ],
       );
 
       return {

@@ -55,7 +55,7 @@ export default function UpcomingEvents({ state }: Props) {
         .filter(
           (e) =>
             filterState.requireCategoryEnforcement === false ||
-            e.categoryEnforcement
+            e.categoryEnforcement,
         )
         .map((event) => (
           <EventItem key={event.id} state={state} event={event} />

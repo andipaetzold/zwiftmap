@@ -46,14 +46,14 @@ export function createUrl(state: LocationState): string {
     case "custom-route":
       path = `/${state.world.slug}/custom-route`;
       const nonNullPoints = state.points.filter(
-        (p): p is LatLngTuple => p !== null
+        (p): p is LatLngTuple => p !== null,
       );
       if (nonNullPoints.length > 0) {
         searchParams.set(
           "points",
           nonNullPoints
             .map((point) => point.map((x) => x.toString()).join(","))
-            .join("!")
+            .join("!"),
         );
       }
       break;

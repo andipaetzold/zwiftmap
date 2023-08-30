@@ -6,7 +6,7 @@ import { LoadingSpinnerListItem } from "../../../Loading";
 const Component = lazy(() =>
   import("./component").then((m) => ({
     default: m.OverlayDebugSurfacesComponent,
-  }))
+  })),
 );
 
 interface Props {

@@ -1,12 +1,12 @@
 export type RequestFn = <T = unknown>(
   input: RequestInfo,
-  init?: RequestInit
+  init?: RequestInit,
 ) => Promise<T>;
 
 export const request: RequestFn = async (
   input: RequestInfo,
-  init?: RequestInit
-) => {
+  init?: RequestInit,
+): Promise<any> => {
   const response = await fetch(input, init);
   if (response.ok) {
     if (response.status === 204) {
@@ -29,7 +29,10 @@ export const request: RequestFn = async (
 };
 
 export class ErrorWithStatus extends Error {
-  constructor(message: string, readonly status: number) {
+  constructor(
+    message: string,
+    readonly status: number,
+  ) {
     super(message);
   }
 }

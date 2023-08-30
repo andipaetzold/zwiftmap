@@ -35,11 +35,11 @@ export function EventOverlay({ state, streams }: Props) {
     }
 
     const matchedSegmentSlugs = data.route.segmentsOnRoute.map(
-      (sor) => sor.segment
+      (sor) => sor.segment,
     );
 
     return data.route.segments.filter(
-      (segmentSlug) => !matchedSegmentSlugs.includes(segmentSlug)
+      (segmentSlug) => !matchedSegmentSlugs.includes(segmentSlug),
     );
   }, [data]);
 
@@ -49,7 +49,7 @@ export function EventOverlay({ state, streams }: Props) {
 
   const sections = getRouteSections(
     { distance: streams.distance, latlng: streams.latlng },
-    data.route.segmentsOnRoute
+    data.route.segmentsOnRoute,
   );
 
   return (

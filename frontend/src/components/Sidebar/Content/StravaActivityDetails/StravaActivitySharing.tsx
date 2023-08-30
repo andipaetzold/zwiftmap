@@ -74,7 +74,7 @@ function ShareActivity({ activity }: Props) {
         Sentry.captureException(e);
         addMessage({ children: "Error sharing the acitivty" });
       },
-    }
+    },
   );
 
   const addMessage = useAddMessage();

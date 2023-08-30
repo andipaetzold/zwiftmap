@@ -21,7 +21,7 @@ const PATTERNS: {
   pattern: RegExp;
   toState: (
     result: RegExpExecArray,
-    searchParams: URLSearchParams
+    searchParams: URLSearchParams,
   ) => [state: LocationState, updateUrl: boolean];
 }[] = [
   {
@@ -152,10 +152,10 @@ const PATTERNS: {
     toState: (result, searchParams) => {
       const worldSlug = result.groups!.worldSlug;
       const route = routes.find(
-        (r) => r.slug === result.groups!.routeOrSegmentSlug
+        (r) => r.slug === result.groups!.routeOrSegmentSlug,
       );
       const segment = segments.find(
-        (s) => s.slug === result.groups!.routeOrSegmentSlug
+        (s) => s.slug === result.groups!.routeOrSegmentSlug,
       );
 
       if (segment) {
@@ -232,7 +232,7 @@ const PATTERNS: {
 ];
 
 function getLegacyStateWithoutWorld(
-  searchParams: URLSearchParams
+  searchParams: URLSearchParams,
 ): LocationState {
   const worldSlug = searchParams.get("world");
   const world = worlds.find((w) => w.slug === worldSlug) ?? DEFAULT_WORLD;
@@ -242,7 +242,7 @@ function getLegacyStateWithoutWorld(
 
 function getLegacyStateWithWorld(
   searchParams: URLSearchParams,
-  world: World
+  world: World,
 ): LocationState {
   if (searchParams.has("route")) {
     const route = routes.find((r) => r.slug === searchParams.get("route"));
@@ -288,7 +288,7 @@ function getLegacyStateWithWorld(
 
 export function getLocationStateFromUrl(
   pathname = window.location.pathname,
-  search = window.location.search
+  search = window.location.search,
 ): LocationState {
   let updateUrl = false;
   const searchParams = new URLSearchParams(search);

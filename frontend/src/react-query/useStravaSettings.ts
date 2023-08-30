@@ -7,7 +7,7 @@ import { useUpdateStravaSettings } from "./useUpdateStravaSettings";
 
 export function useStravaSettings(): [
   StravaSettings | null,
-  (settings: StravaSettings) => void
+  (settings: StravaSettings) => void,
 ] {
   const isLoggedInStrava = useIsLoggedInStrava();
   const { data: stravaSettings } = useQuery(
@@ -18,7 +18,7 @@ export function useStravaSettings(): [
       } else {
         return null;
       }
-    }
+    },
   );
   const { mutate } = useUpdateStravaSettings();
 

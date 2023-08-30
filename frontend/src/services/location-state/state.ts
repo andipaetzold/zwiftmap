@@ -71,7 +71,7 @@ async function fetchWorld() {
           switch (share.type) {
             case "strava-activity": {
               const world = getWorld(
-                share.activity.start_latlng as [number, number]
+                share.activity.start_latlng as [number, number],
               );
               if (!world) {
                 break;

@@ -22,7 +22,7 @@ if (!existsSync(BASE_DIR)) {
 
 const bar = new progress.Bar({});
 const segmentsToFetch = [...routes, ...segments].filter(
-  (route) => route.stravaSegmentId !== undefined
+  (route) => route.stravaSegmentId !== undefined,
 );
 bar.start(segmentsToFetch.length, 0);
 
@@ -32,8 +32,8 @@ await Promise.all([
     .map((segment) =>
       fetchSegment(
         segment as (Segment | Route) & { stravaSegmentId: number },
-        bar
-      )
+        bar,
+      ),
     ),
 ]);
 
@@ -41,7 +41,7 @@ bar.stop();
 
 async function fetchSegment(
   { name, stravaSegmentId }: (Segment | Route) & { stravaSegmentId: number },
-  bar: progress.Bar
+  bar: progress.Bar,
 ) {
   const segmentDir = `${BASE_DIR}/strava-segments/${stravaSegmentId}`;
 
@@ -51,7 +51,7 @@ async function fetchSegment(
   }
 
   const response = await fetch(
-    `https://www.strava.com/stream/segments/${stravaSegmentId}?streams%5B%5D=latlng&streams%5B%5D=distance&streams%5B%5D=altitude`
+    `https://www.strava.com/stream/segments/${stravaSegmentId}?streams%5B%5D=latlng&streams%5B%5D=distance&streams%5B%5D=altitude`,
   );
 
   if (response.status !== 200) {
@@ -68,7 +68,7 @@ async function fetchSegment(
   const zipped = _.zip(
     getRoundedLatLng(stravaData),
     getRoundedAltitude(stravaData),
-    getRoundedDistances(stravaData)
+    getRoundedDistances(stravaData),
   ) as [LatLng, number, number][];
   const dedupedZip = zipped.filter(([[lat, lng]], index) => {
     return (
@@ -78,12 +78,12 @@ async function fetchSegment(
   const [latlng, altitude, distance] = _.unzip(dedupedZip) as [
     LatLng[],
     number[],
-    number[]
+    number[],
   ];
 
   writeFileSync(
     `${segmentDir}/altitude.json`,
-    JSON.stringify(fixMakuriIslandsAltitude(stravaSegmentId, altitude))
+    JSON.stringify(fixMakuriIslandsAltitude(stravaSegmentId, altitude)),
   );
   writeFileSync(`${segmentDir}/distance.json`, JSON.stringify(distance));
   writeFileSync(`${segmentDir}/latlng.json`, JSON.stringify(latlng));
@@ -111,7 +111,7 @@ function getRoundedDistances(stravaData: StravaData) {
  */
 function fixMakuriIslandsAltitude(
   segmentId: number,
-  altitudeStream: number[]
+  altitudeStream: number[],
 ): number[] {
   const segments = [
     30407802, 28431416, 30987848, 30480835, 30407658, 29009500, 30629791,

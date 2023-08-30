@@ -31,7 +31,7 @@ export function MenuButton({ onBottomSheetClose }: Props) {
       visible,
       setVisible,
       anchor: BOTTOM_RIGHT_ANCHOR,
-    }
+    },
   );
   const [settingsDialogVisible, showSettingsDialog, hideSettingsDialog] =
     useToggle(false);

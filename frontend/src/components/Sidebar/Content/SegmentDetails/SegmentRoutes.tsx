@@ -8,7 +8,7 @@ interface Props {
 
 export function SegmentRoutes({ segment }: Props) {
   const routesWithSegment = routes.filter((r) =>
-    r.segments.includes(segment.slug)
+    r.segments.includes(segment.slug),
   );
 
   return (

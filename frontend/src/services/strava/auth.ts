@@ -10,9 +10,9 @@ function getStravaAuthUrl() {
     JSON.stringify({
       path: window.location.pathname,
       search: urlSearchParamsToObject(
-        new URLSearchParams(window.location.search)
+        new URLSearchParams(window.location.search),
       ),
-    })
+    }),
   );
 
   return `${BACKEND_HOST}/strava/authorize?${params.toString()}`;

@@ -35,7 +35,7 @@ export function ListItemState({
         onClick?.(event);
       }
     },
-    [query, setQuery, state, onClick]
+    [query, setQuery, state, onClick],
   );
   return (
     <ListItemLink

@@ -23,7 +23,7 @@ export function PlaceEdit(props: Props) {
 function PlaceEditContent({ state }: Props) {
   const { data: place, isLoading } = useWorldPlace(
     state.world.slug,
-    state.placeId
+    state.placeId,
   );
 
   if (isLoading) {

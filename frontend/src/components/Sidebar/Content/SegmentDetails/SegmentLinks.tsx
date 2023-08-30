@@ -1,7 +1,7 @@
 import { ListItemLink, ListItemText, ListSubheader } from "@react-md/list";
 import { OpenInNewSVGIcon } from "@react-md/material-icons";
 import { Segment } from "zwift-data";
-import { StravaAvatar, WhatsOnZwiftAvatar } from "../../../Avatar";
+import { StravaAvatar, WhatsOnZwiftAvatar, ZwifterBikesAvatar } from "../../../Avatar";
 
 interface Props {
   segment: Segment;
@@ -47,10 +47,16 @@ export function SegmentLinks({ segment }: Props) {
         <ListItemLink
           href={segment.zwifterBikesUrl}
           target="_blank"
+          leftAddon={
+            <div>
+              <ZwifterBikesAvatar />
+            </div>
+          }
+          leftAddonType="avatar"
           rightAddon={<OpenInNewSVGIcon />}
           rightAddonType="icon"
         >
-          <ListItemText>Zwifter Bikes</ListItemText>
+          <ListItemText>ZwifterBikes</ListItemText>
         </ListItemLink>
       )}
     </>

@@ -11,7 +11,7 @@ export function getRouteSections(
     from: number;
     to: number;
     segment: string;
-  }>
+  }>,
 ) {
   const sections: Section[] = [];
 
@@ -24,7 +24,7 @@ export function getRouteSections(
     const latlng = streams.latlng[i];
 
     const segmentSlug = segmentsOnRoute.find(
-      (sor) => sor.from * 1_000 < distance && sor.to * 1_000 >= distance
+      (sor) => sor.from * 1_000 < distance && sor.to * 1_000 >= distance,
     )?.segment;
 
     const type = segmentSlug

@@ -32,8 +32,8 @@ export function EventSubgroupSelector({ event, state }: Props) {
   const differentPace =
     new Set(
       event.eventSubgroups.map((g) =>
-        [g.fromPaceValue, g.toPaceValue].toString()
-      )
+        [g.fromPaceValue, g.toPaceValue].toString(),
+      ),
     ).size > 1;
   const differentRoute =
     new Set(event.eventSubgroups.map((g) => g.routeId)).size > 1 &&
@@ -72,7 +72,7 @@ export function EventSubgroupSelector({ event, state }: Props) {
               differentDuration,
               differentLaps,
             },
-            units
+            units,
           ),
           value: group.subgroupLabel,
         }))}
@@ -92,7 +92,7 @@ interface LabelOptions {
 function getLabel(
   group: EventSubgroup,
   options: LabelOptions,
-  units: Units
+  units: Units,
 ): string {
   const difference = getDifference(group, options, units);
   if (difference) {
@@ -111,14 +111,14 @@ function getDifference(
     differentDuration,
     differentLaps,
   }: LabelOptions,
-  units: Units
+  units: Units,
 ) {
   if (differentPace) {
     return formatEventPace(
       group.paceType,
       group.fromPaceValue,
       group.toPaceValue,
-      units
+      units,
     );
   } else if (differentRoute) {
     return getRouteFromEvent(group)?.name ?? null;

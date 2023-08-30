@@ -10,6 +10,7 @@ import {
   StravaAvatar,
   WhatsOnZwiftAvatar,
   ZwiftInsiderAvatar,
+  ZwifterBikesAvatar,
 } from "../../../Avatar";
 
 interface Props {
@@ -78,10 +79,16 @@ export function RouteLinks({ route }: Props) {
         <ListItemLink
           href={route.zwifterBikesUrl}
           target="_blank"
+          leftAddon={
+            <div>
+              <ZwifterBikesAvatar />
+            </div>
+          }
+          leftAddonType="avatar"
           rightAddon={<OpenInNewSVGIcon />}
           rightAddonType="icon"
         >
-          <ListItemText>Zwifter Bikes</ListItemText>
+          <ListItemText>ZwifterBikes</ListItemText>
         </ListItemLink>
       )}
     </List>

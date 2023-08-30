@@ -63,8 +63,8 @@ export function EventPowerUps({ event, subgroup }: Props) {
             .substring('powerup_percent="'.length, tag.length - 1)
             .split(",")
             .map((v) => +v),
-          2
-        )
+          2,
+        ),
       )
     : DEFAULT_DISTRIBUTION;
 

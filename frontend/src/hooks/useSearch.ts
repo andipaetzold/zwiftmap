@@ -66,7 +66,7 @@ const searchResultsRoute = routes
   .map((route) => ({
     type: "route" as const,
     terms: [WORLDS_BY_SLUG[route.world].name, route.name].map((t) =>
-      t.toLocaleLowerCase()
+      t.toLocaleLowerCase(),
     ),
     data: route,
   }));
@@ -75,14 +75,14 @@ const searchResultsSegment = segments
   .map((segment) => ({
     type: "segment" as const,
     terms: [WORLDS_BY_SLUG[segment.world].name, segment.name].map((t) =>
-      t.toLocaleLowerCase()
+      t.toLocaleLowerCase(),
     ),
     data: segment,
   }));
 
 export function useSearch(
   term: string,
-  _sport: Sport
+  _sport: Sport,
 ): {
   "strava-activity": SearchResultStravaActivity[];
   route: SearchResultRoute[];
@@ -121,23 +121,23 @@ export function useSearch(
     return {
       world: searchResultsWorld.filter((world) =>
         terms.every((t) =>
-          world.terms.some((worldTerm) => worldTerm.includes(t))
-        )
+          world.terms.some((worldTerm) => worldTerm.includes(t)),
+        ),
       ),
       route: searchResultsRoute.filter((route) =>
         terms.every((t) =>
-          route.terms.some((routeTerm) => routeTerm.includes(t))
-        )
+          route.terms.some((routeTerm) => routeTerm.includes(t)),
+        ),
       ),
       segment: searchResultsSegment.filter((segment) =>
         terms.every((t) =>
-          segment.terms.some((segmentTerm) => segmentTerm.includes(t))
-        )
+          segment.terms.some((segmentTerm) => segmentTerm.includes(t)),
+        ),
       ),
       place: searchResultsPlace.filter((place) =>
         terms.every((t) =>
-          place.terms.some((segmentTerm) => segmentTerm.includes(t))
-        )
+          place.terms.some((segmentTerm) => segmentTerm.includes(t)),
+        ),
       ),
       "strava-activity": [],
     };
@@ -167,7 +167,7 @@ function usePlacesSearchResults(): SearchResultPlace[] {
     (authStatus?.adminUser ?? false) || (authStatus?.moderatorUser ?? false);
 
   const { data: places } = usePlaces(
-    canViewUnverified ? (showUnverifiedPlaces ? undefined : true) : true
+    canViewUnverified ? (showUnverifiedPlaces ? undefined : true) : true,
   );
 
   return useMemo(() => {

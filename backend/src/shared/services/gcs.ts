@@ -55,7 +55,7 @@ export async function savePlaceImage(sourceObjectId: string, placeId: string) {
     .bucket("uploads.zwiftmap.com")
     .file(sourceObjectId);
   const [metadata] = await sourceFile.getMetadata();
-  const contentType: string = metadata.contentType;
+  const contentType = metadata.contentType ?? "image/png";
   const ext = EXT_MAP[contentType];
 
   const targetFile = storage

@@ -23,7 +23,7 @@ root.render(
         </MessageQueue>
       </HelmetProvider>
     </ReactQueryProvider>
-  </StrictMode>
+  </StrictMode>,
 );
 
 registerSW();

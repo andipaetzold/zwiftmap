@@ -10,7 +10,7 @@ interface Params<T extends readonly Stream[]> {
 }
 
 export function useStravaSegmentStreams<T extends readonly Stream[]>(
-  params: Params<T>
+  params: Params<T>,
 ): { [K in keyof T]: UseQueryResult<StravaSegment[T[K]], unknown> } {
   // @ts-expect-error Nobody got time for that
   return useQueries({
@@ -18,7 +18,7 @@ export function useStravaSegmentStreams<T extends readonly Stream[]>(
       getStravaSegmentStreamQueryOptions({
         stravaSegmentId: params.stravaSegmentId,
         stream,
-      })
+      }),
     ),
   });
 }

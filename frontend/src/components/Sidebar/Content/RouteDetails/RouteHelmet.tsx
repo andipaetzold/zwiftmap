@@ -23,7 +23,7 @@ export function RouteHelmet({ route }: Props) {
   const description = `Route details for "${route.name}" in ${
     world.name
   } on Zwift. Distance: ${DISTANCE_FORMAT.format(
-    route.distance
+    route.distance,
   )}km. Elevation: ${ELEVATION_FORMAT.format(route.elevation)}m.`;
 
   return (
@@ -34,7 +34,7 @@ export function RouteHelmet({ route }: Props) {
         content={`Route details for "${route.name}" in ${
           world.name
         } on Zwift. Distance: ${DISTANCE_FORMAT.format(
-          route.distance
+          route.distance,
         )}km. Elevation: ${ELEVATION_FORMAT.format(route.elevation)}m.`}
       />
 

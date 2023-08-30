@@ -23,7 +23,7 @@ export function getLocalStorageItem(key: string): string | null {
 
 export function addLocalStorageListener(
   key: string,
-  callback: (value: string | null) => void
+  callback: (value: string | null) => void,
 ): () => void {
   const listener = (v: string | null | undefined) =>
     callback(v as string | null);

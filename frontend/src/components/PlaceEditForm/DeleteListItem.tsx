@@ -51,7 +51,7 @@ export function DeleteListItem({ place, disabled }: Props) {
         addMessage({
           children: "Something went wrong",
         }),
-    }
+    },
   );
 
   return (

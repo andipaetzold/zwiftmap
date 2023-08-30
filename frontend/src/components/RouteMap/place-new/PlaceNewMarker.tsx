@@ -15,11 +15,11 @@ interface Props {
 export function PlaceNewMarker({ state }: Props) {
   const { data: place } = useWorldPlace(
     state.world.slug,
-    state.type === "place-edit" ? state.placeId : undefined
+    state.type === "place-edit" ? state.placeId : undefined,
   );
 
   const [position, setPosition] = useState<LatLngTuple | null>(
-    place?.position ?? null
+    place?.position ?? null,
   );
   useEffect(() => {
     const listener = (pos: LatLngTuple) => setPosition(pos);

@@ -3,7 +3,7 @@ import { WorldSlug } from "zwift-data";
 import { getPlace } from "../services/zwiftMapApi";
 import { queries } from "./queryKeys";
 
-type QueryKey = ReturnType<typeof queries["worldPlace"]>;
+type QueryKey = ReturnType<(typeof queries)["worldPlace"]>;
 type Context = QueryFunctionContext<QueryKey>;
 
 const queryFn = ({ queryKey: [, world, , placeId] }: Context) =>

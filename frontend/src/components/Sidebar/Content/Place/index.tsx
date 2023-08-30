@@ -23,7 +23,7 @@ export function Place(props: Props) {
 function PlaceContent({ state }: Props) {
   const { data: place, isLoading } = useWorldPlace(
     state.world.slug,
-    state.placeId
+    state.placeId,
   );
 
   if (isLoading) {

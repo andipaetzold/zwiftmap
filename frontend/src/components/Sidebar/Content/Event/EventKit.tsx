@@ -13,7 +13,9 @@ interface Props {
 
 export function EventKit({ event, subgroup }: Props) {
   const jersey = jerseys.find((j) => (subgroup ?? event).jerseyHash === j.id);
-  const bikeFrame = bikeFrames.find((bf) => bf.id === (subgroup ?? event).bikeHash);
+  const bikeFrame = bikeFrames.find(
+    (bf) => bf.id === (subgroup ?? event).bikeHash,
+  );
 
   if (jersey === undefined && bikeFrame === undefined) {
     return null;

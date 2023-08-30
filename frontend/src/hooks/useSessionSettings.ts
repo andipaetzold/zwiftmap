@@ -39,7 +39,7 @@ function saveSettings(settings: SessionSettings) {
 
 export function useSessionSettings(): [
   SessionSettings,
-  (settings: SessionSettings) => void
+  (settings: SessionSettings) => void,
 ] {
   const [settings, setSettings] = useState(loadSettings);
 

@@ -36,8 +36,8 @@ export function SegmentsPane({ segmentSlugs }: SegmentsPaneProps) {
         },
         {
           select: (latlng: LatLngStream) => ({ ...segment, latlng }),
-        }
-      )
+        },
+      ),
     ),
   });
 

@@ -4,7 +4,7 @@ import { useAuthStatus } from "../../../../react-query";
 import { LoadingSpinnerListItem } from "../../../Loading";
 
 const Component = lazy(() =>
-  import("./component").then((m) => ({ default: m.OverlayHeatmapComponent }))
+  import("./component").then((m) => ({ default: m.OverlayHeatmapComponent })),
 );
 
 interface Props {

@@ -9,7 +9,7 @@ interface Props {
 
 export function EventRules({ event, subgroup }: Props) {
   const rulesSet = (subgroup ?? event).rulesSet.filter(
-    (rule) => EVENT_RULES[rule]
+    (rule) => EVENT_RULES[rule],
   );
   if (rulesSet.length === 0 && !event.categoryEnforcement) {
     return null;
