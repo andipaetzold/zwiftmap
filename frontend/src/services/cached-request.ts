@@ -7,8 +7,8 @@ function getCacheKey(request: Request): string {
   });
 }
 
-const store = new Map<string, Promise<any>>();
-export async function cachedRequest<T>(
+const store = new Map<string, Promise<unknown>>();
+export async function cachedRequest<T = unknown>(
   input: RequestInfo,
   init?: RequestInit,
 ): Promise<T> {
@@ -24,7 +24,7 @@ export async function cachedRequest<T>(
   }
 
   try {
-    return await store.get(cacheKey);
+    return await store.get(cacheKey) as T;
   } catch (e) {
     store.delete(cacheKey);
     throw e;

@@ -1,4 +1,4 @@
-export type RequestFn = <T = any>(
+export type RequestFn = <T = unknown>(
   input: RequestInfo,
   init?: RequestInit,
 ) => Promise<T>;

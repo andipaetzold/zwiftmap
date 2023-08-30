@@ -94,7 +94,7 @@ function ShareActivity({ activity }: Props) {
 function ShareActivityAsImage({ activity }: Props) {
   const [loading, setLoading] = useState<boolean>(false);
   const addMessage = useAddMessage();
-  const pollInterval = useRef<any>();
+  const pollInterval = useRef<number>();
   const pollCounter = useRef(0);
 
   const reset = () => {
