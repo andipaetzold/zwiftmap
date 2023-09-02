@@ -77,7 +77,7 @@
   "devDependencies": {
     "@types/cli-progress": "3.11.0",
     "@types/file-saver": "2.0.5",
-    "@types/lodash-es": "4.17.8",
+    "@types/lodash-es": "4.17.9",
     "@types/mapbox__polyline": "1.0.2",
     "@typescript-eslint/eslint-plugin": "6.5.0",
     "@typescript-eslint/parser": "6.5.0",
