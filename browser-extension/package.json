@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "@types/adm-zip": "0.5.0",
-    "@types/chrome": "0.0.244",
+    "@types/chrome": "0.0.245",
     "@types/leaflet": "1.9.4",
     "adm-zip": "0.5.10",
     "esbuild": "0.19.2"
