@@ -13,7 +13,7 @@
     "@types/chrome": "0.0.246",
     "@types/leaflet": "1.9.4",
     "adm-zip": "0.5.10",
-    "esbuild": "0.19.2"
+    "esbuild": "0.19.3"
   },
   "dependencies": {
     "zwift-data": "1.28.1"
