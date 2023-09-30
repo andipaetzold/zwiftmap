@@ -33,7 +33,7 @@
     "@types/node": "18.18.0",
     "@types/object-hash": "3.0.4",
     "@types/react": "18.2.23",
-    "@types/react-dom": "18.2.7",
+    "@types/react-dom": "18.2.8",
     "classnames": "2.3.2",
     "comlink": "4.4.1",
     "date-fns": "2.30.0",
