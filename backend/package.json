@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@tsconfig/node18": "18.2.2",
-    "@types/compression": "1.7.3",
+    "@types/compression": "1.7.4",
     "@types/cors": "2.8.14",
     "@types/express": "4.17.19",
     "@types/express-session": "1.17.8",
