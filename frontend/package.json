@@ -75,7 +75,7 @@
   },
   "type": "module",
   "devDependencies": {
-    "@types/cli-progress": "3.11.3",
+    "@types/cli-progress": "3.11.4",
     "@types/file-saver": "2.0.5",
     "@types/lodash-es": "4.17.9",
     "@types/mapbox__polyline": "1.0.3",
