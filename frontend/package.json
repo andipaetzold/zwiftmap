@@ -95,7 +95,7 @@
     "netlify-cli": "12.2.8",
     "prettier": "3.0.3",
     "pwa-asset-generator": "6.3.1",
-    "sass": "1.69.3",
+    "sass": "1.69.4",
     "schema-dts": "1.1.2",
     "ts-node": "10.9.1",
     "typescript": "5.2.2",
