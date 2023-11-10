@@ -76,7 +76,7 @@
   "type": "module",
   "devDependencies": {
     "@types/cli-progress": "3.11.5",
-    "@types/file-saver": "2.0.6",
+    "@types/file-saver": "2.0.7",
     "@types/lodash-es": "4.17.10",
     "@types/mapbox__polyline": "1.0.4",
     "@typescript-eslint/eslint-plugin": "6.10.0",
