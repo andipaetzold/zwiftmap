@@ -23,7 +23,7 @@
     "@types/mapbox__polyline": "1.0.5",
     "@types/node": "20.8.10",
     "@types/sharp": "0.31.1",
-    "@types/tsc-watch": "4.2.2",
+    "@types/tsc-watch": "4.2.3",
     "@types/validator": "13.11.5",
     "geojson": "0.5.0",
     "ngrok": "4.3.3",
