@@ -78,7 +78,7 @@
     "@types/cli-progress": "3.11.5",
     "@types/file-saver": "2.0.7",
     "@types/lodash-es": "4.17.11",
-    "@types/mapbox__polyline": "1.0.4",
+    "@types/mapbox__polyline": "1.0.5",
     "@typescript-eslint/eslint-plugin": "6.10.0",
     "@typescript-eslint/parser": "6.10.0",
     "@vitejs/plugin-react": "4.1.1",
