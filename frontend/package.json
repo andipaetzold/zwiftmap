@@ -81,7 +81,7 @@
     "@types/mapbox__polyline": "1.0.5",
     "@typescript-eslint/eslint-plugin": "6.11.0",
     "@typescript-eslint/parser": "6.11.0",
-    "@vitejs/plugin-react": "4.1.1",
+    "@vitejs/plugin-react": "4.2.0",
     "cli-progress": "3.12.0",
     "eslint": "8.53.0",
     "eslint-config-prettier": "9.0.0",
