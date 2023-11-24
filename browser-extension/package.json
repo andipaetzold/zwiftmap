@@ -9,7 +9,7 @@
     "dev": "esbuild src/inject.ts src/script.ts --bundle --outdir=dist --watch"
   },
   "devDependencies": {
-    "@types/adm-zip": "0.5.4",
+    "@types/adm-zip": "0.5.5",
     "@types/chrome": "0.0.251",
     "@types/leaflet": "1.9.5",
     "adm-zip": "0.5.10",
