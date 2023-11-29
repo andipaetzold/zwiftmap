@@ -27,32 +27,32 @@ export function DeleteListItem({ place, disabled }: Props) {
   const queryClient = useQueryClient();
   const addMessage = useAddMessage();
 
-  const { mutate: handleDelete, isLoading } = useMutation(
-    async () => {
+  const { mutate: handleDelete, isPending } = useMutation({
+    mutationFn: async () => {
       if (!place) {
         return;
       }
       await deletePlace(place);
     },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(queries.placesBase);
-        queryClient.invalidateQueries(queries.worldPlacesBase(place.world));
-        addMessage({
-          children: "Place was deleted",
-        });
-        navigate({
-          type: "default",
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          world: worlds.find((w) => w.slug === place.world)!,
-        });
-      },
-      onError: () =>
-        addMessage({
-          children: "Something went wrong",
-        }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queries.placesBase });
+      queryClient.invalidateQueries({
+        queryKey: queries.worldPlacesBase(place.world),
+      });
+      addMessage({
+        children: "Place was deleted",
+      });
+      navigate({
+        type: "default",
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        world: worlds.find((w) => w.slug === place.world)!,
+      });
     },
-  );
+    onError: () =>
+      addMessage({
+        children: "Something went wrong",
+      }),
+  });
 
   return (
     <>
@@ -80,11 +80,11 @@ export function DeleteListItem({ place, disabled }: Props) {
           <Button
             theme="primary"
             onClick={() => handleDelete()}
-            disabled={isLoading}
+            disabled={isPending}
           >
             Yes, delete
           </Button>
-          <Button onClick={() => setDialogOpen(false)} disabled={isLoading}>
+          <Button onClick={() => setDialogOpen(false)} disabled={isPending}>
             No
           </Button>
         </DialogFooter>

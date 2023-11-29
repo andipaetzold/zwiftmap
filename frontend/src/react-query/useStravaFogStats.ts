@@ -12,7 +12,9 @@ const queryFn = async ({ queryKey: [, , world] }: Context) =>
 
 export function useStravaFogStats(world: WorldSlug) {
   const isLoggedIn = useIsLoggedInStrava();
-  return useQuery(queries.stravaFogStats(world), queryFn, {
+  return useQuery({
+    queryKey: queries.stravaFogStats(world),
+    queryFn,
     staleTime: Infinity,
     enabled: isLoggedIn === true,
   });

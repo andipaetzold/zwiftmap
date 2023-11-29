@@ -4,7 +4,11 @@ import { queries } from "./queryKeys";
 
 export function useUpdateStravaSettings() {
   const queryClient = useQueryClient();
-  return useMutation(updateStravaSettings, {
-    onSuccess: () => queryClient.invalidateQueries(queries.authStravaSettings),
+  return useMutation({
+    mutationFn: updateStravaSettings,
+    onSuccess: () =>
+      queryClient.invalidateQueries({
+        queryKey: queries.authStravaSettings,
+      }),
   });
 }

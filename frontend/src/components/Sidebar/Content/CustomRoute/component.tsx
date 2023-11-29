@@ -13,6 +13,7 @@ import { CustomRouteHelmet } from "./CustomRouteHelmet";
 import { CustomRouteSharing } from "./CustomRouteSharing";
 import { CustomRouteSurface } from "./CustomRouteSurface";
 import { CustomRouteWaypoints } from "./CustomRouteWaypoints";
+import { keepPreviousData } from "@tanstack/react-query";
 
 interface Props {
   state: LocationStateCustomRoute;
@@ -24,7 +25,7 @@ export default function CustomRoute({ state }: Props) {
       world: state.world.slug,
       points: state.points.filter((p): p is LatLngTuple => p !== null),
     },
-    { keepPreviousData: true },
+    { placeholderData: keepPreviousData }
   );
 
   return (

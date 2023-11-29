@@ -38,8 +38,8 @@ export function StravaActivitySharing({ activity }: Props) {
 }
 
 function ShareActivity({ activity }: Props) {
-  const { mutate: createShare, isLoading } = useMutation(
-    async () => {
+  const { mutate: createShare, isPending } = useMutation({
+    mutationFn: async () => {
       const share = await shareStravaActivity(activity.id);
 
       const path = createUrl({ type: "share", shareId: share.id, world: null });
@@ -69,13 +69,11 @@ function ShareActivity({ activity }: Props) {
         await copyToClipboard();
       }
     },
-    {
-      onError: (e) => {
-        Sentry.captureException(e);
-        addMessage({ children: "Error sharing the acitivty" });
-      },
+    onError: (e) => {
+      Sentry.captureException(e);
+      addMessage({ children: "Error sharing the acitivty" });
     },
-  );
+  });
 
   const addMessage = useAddMessage();
 
@@ -84,9 +82,9 @@ function ShareActivity({ activity }: Props) {
       rightAddon={<ShareSVGIcon />}
       rightAddonType="icon"
       onClick={() => createShare()}
-      disabled={isLoading}
+      disabled={isPending}
     >
-      {isLoading ? "Sharing…" : "Share activity"}
+      {isPending ? "Sharing…" : "Share activity"}
     </ListItem>
   );
 }

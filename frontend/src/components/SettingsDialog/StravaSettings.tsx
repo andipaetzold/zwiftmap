@@ -15,9 +15,9 @@ const DEFAULT_STRAVA_SETTINGS: StravaSettingsType = {
 
 export function StravaSettings() {
   const [settings] = useStravaSettings();
-  const { mutate: updateStravaSettings, isLoading: isLoading1 } =
+  const { mutate: updateStravaSettings, isPending: isPending1 } =
     useUpdateStravaSettings();
-  const { mutate: update, isLoading: isLoading2 } = useUpdateStravaSettings();
+  const { mutate: update, isPending: isPending2 } = useUpdateStravaSettings();
   const [footnotesExpanded, setFootnotesExpanded] = useState(false);
 
   return (
@@ -36,7 +36,7 @@ export function StravaSettings() {
           DEFAULT_STRAVA_SETTINGS.addLinkToActivityDescription
         }
         disabled={settings === null}
-        loading={isLoading1}
+        loading={isPending1}
         onChange={(e) => {
           if (!settings) {
             return;
@@ -62,7 +62,7 @@ export function StravaSettings() {
           DEFAULT_STRAVA_SETTINGS.persistActivities
         }
         disabled={settings === null}
-        loading={isLoading2}
+        loading={isPending2}
         onChange={(e) => {
           if (!settings) {
             return;

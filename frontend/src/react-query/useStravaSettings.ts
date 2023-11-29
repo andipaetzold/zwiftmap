@@ -10,16 +10,16 @@ export function useStravaSettings(): [
   (settings: StravaSettings) => void,
 ] {
   const isLoggedInStrava = useIsLoggedInStrava();
-  const { data: stravaSettings } = useQuery(
-    queries.authStravaSettings,
-    async () => {
+  const { data: stravaSettings } = useQuery({
+    queryKey: queries.authStravaSettings,
+    queryFn: async () => {
       if (isLoggedInStrava) {
         return await getStravaSettings();
       } else {
         return null;
       }
     },
-  );
+  });
   const { mutate } = useUpdateStravaSettings();
 
   return [stravaSettings ?? null, mutate];

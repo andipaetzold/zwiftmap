@@ -5,13 +5,11 @@ import { queries } from "./queryKeys";
 
 export function useWorldPlaces(
   world: WorldSlug,
-  verified: boolean | undefined,
+  verified: boolean | undefined
 ) {
-  return useQuery(
-    queries.worldPlaces(world, verified),
-    ({ queryKey: [, world] }) => getWorldPlaces(world, verified),
-    {
-      staleTime: Infinity,
-    },
-  );
+  return useQuery({
+    queryKey: queries.worldPlaces(world, verified),
+    queryFn: ({ queryKey: [, world] }) => getWorldPlaces(world, verified),
+    staleTime: Infinity,
+  });
 }

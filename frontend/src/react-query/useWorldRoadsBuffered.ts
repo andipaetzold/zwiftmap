@@ -16,7 +16,9 @@ const queryFn = async ({ queryKey: [, world] }: Context) => {
 };
 
 export function useWorldRoadsBuffered(world: WorldSlug) {
-  return useQuery(queries.worldRoadsBuffered(world), queryFn, {
+  return useQuery({
+    queryKey: queries.worldRoadsBuffered(world),
+    queryFn,
     staleTime: Infinity,
     select: (data) => polygon(data),
   });

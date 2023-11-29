@@ -22,7 +22,7 @@ async function queryFn({
   queryKey: [, , params],
 }: QueryFunctionContext<QueryKey>) {
   const noNullPoints = params!.points.filter(
-    (p): p is LatLngTuple => p !== null,
+    (p): p is LatLngTuple => p !== null
   );
 
   if (noNullPoints.length < 2) {
@@ -34,9 +34,9 @@ async function queryFn({
       worker.navigate(
         noNullPoints[index],
         noNullPoints[index + 1],
-        params!.world,
-      ),
-    ),
+        params!.world
+      )
+    )
   );
 
   return ([] as LatLngAlt[]).concat.apply([], routes);
@@ -47,13 +47,9 @@ export function useWorkerNavigate<TData = LatLngAlt[] | null>(
   options?: Omit<
     UseQueryOptions<LatLngAlt[] | null, unknown, TData, QueryKey>,
     "queryKey" | "queryFn" | "staleTime" | "cacheTime"
-  >,
+  >
 ) {
-  return useQuery(
-    createQueryKey(params),
-    queryFn,
-    getWorkerNavigateQueryOptions<TData>(params, options),
-  );
+  return useQuery(getWorkerNavigateQueryOptions<TData>(params, options));
 }
 
 export function getWorkerNavigateQueryOptions<TData = LatLngAlt[] | null>(
@@ -61,13 +57,13 @@ export function getWorkerNavigateQueryOptions<TData = LatLngAlt[] | null>(
   options?: Omit<
     UseQueryOptions<LatLngAlt[] | null, unknown, TData, QueryKey>,
     "queryFn" | "queryKey" | "staleTime" | "cacheTime"
-  >,
+  >
 ): UseQueryOptions<LatLngAlt[] | null, unknown, TData, QueryKey> {
   return {
     queryKey: createQueryKey(params),
-    queryFn: queryFn,
+    queryFn,
     staleTime: 0,
-    cacheTime: 0,
+    gcTime: 0,
     ...options,
     enabled: (options?.enabled ?? true) && params !== undefined,
   };

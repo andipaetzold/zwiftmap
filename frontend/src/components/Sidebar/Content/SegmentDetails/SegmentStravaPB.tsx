@@ -29,7 +29,7 @@ export function SegmentStravaPB({ segment }: Props) {
     );
   }
 
-  if (isError) {
+  if (isError || !stravaSegment) {
     return null;
   }
 

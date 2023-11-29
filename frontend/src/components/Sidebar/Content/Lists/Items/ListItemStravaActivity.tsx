@@ -31,7 +31,7 @@ function SearchResultCardStravaActivityLoggedIn({
     return <LoadingSpinnerListItem />;
   }
 
-  if (isError) {
+  if (isError || !activity) {
     return (
       <SimpleListItem threeLines>
         An error occurred. Make sure you can access the activity and it was

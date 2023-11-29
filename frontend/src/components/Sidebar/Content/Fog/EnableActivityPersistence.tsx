@@ -10,7 +10,7 @@ import {
 export function EnableActivityPersistence() {
   const [settings] = useStravaSettings();
   const id = useId();
-  const { mutate: updateSettings, isLoading } = useUpdateStravaSettings();
+  const { mutate: updateSettings, isPending } = useUpdateStravaSettings();
 
   if (!settings || settings.persistActivities) {
     return null;
@@ -22,7 +22,7 @@ export function EnableActivityPersistence() {
       <SimpleListItem style={{ paddingBottom: 0 }}>
         <AsyncSwitch
           id={id}
-          loading={isLoading}
+          loading={isPending}
           label="Allow ZwiftMap to save and process activities"
           onChange={(e) =>
             updateSettings({ ...settings, persistActivities: e.target.checked })

@@ -29,7 +29,7 @@ export function RouteStravaPB({ route }: Props) {
     );
   }
 
-  if (isError) {
+  if (isError || !segment) {
     return null;
   }
 

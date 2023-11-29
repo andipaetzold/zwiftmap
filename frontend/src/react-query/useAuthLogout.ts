@@ -4,15 +4,13 @@ import { queries } from "./queryKeys";
 
 export function useAuthLogout() {
   const queryClient = useQueryClient();
-  return useMutation(
-    async () => {
+  return useMutation({
+    mutationFn: async () => {
       await authLogout();
     },
-    {
-      onSuccess: async () => {
-        await queryClient.invalidateQueries(queries.authStatus);
-        await queryClient.invalidateQueries(["strava"]);
-      },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: queries.authStatus });
+      await queryClient.invalidateQueries({ queryKey: ["strava"] });
     },
-  );
+  });
 }

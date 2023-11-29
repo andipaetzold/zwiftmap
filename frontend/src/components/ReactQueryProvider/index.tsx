@@ -16,7 +16,7 @@ export function ReactQueryProvider({ children }: PropsWithChildren) {
   return (
     <QueryClientProvider client={queryClient}>
       {ENVIRONMENT === "development" && (
-        <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+        <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-right" />
       )}
       {children}
     </QueryClientProvider>

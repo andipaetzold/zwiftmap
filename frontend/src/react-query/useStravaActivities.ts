@@ -4,7 +4,9 @@ import { getStravaActivities } from "../services/zwiftMapApi";
 
 export function useStravaActivities() {
   const isLoggedIn = useIsLoggedInStrava();
-  return useQuery(["strava-activities"], () => getStravaActivities(), {
+  return useQuery({
+    queryKey: ["strava-activities"],
+    queryFn: () => getStravaActivities(),
     staleTime: Infinity,
     enabled: isLoggedIn === true,
   });

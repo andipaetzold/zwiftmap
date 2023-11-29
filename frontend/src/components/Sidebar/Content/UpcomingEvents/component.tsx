@@ -29,7 +29,7 @@ export default function UpcomingEvents({ state }: Props) {
     );
   }
 
-  if (isError) {
+  if (isError || !events) {
     return (
       <List>
         <Header state={state} />

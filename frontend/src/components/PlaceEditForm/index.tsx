@@ -71,9 +71,9 @@ export function PlaceEditForm({ place, world }: Props) {
   const {
     mutate: handleSubmit,
     isError,
-    isLoading,
-  } = useMutation(
-    async () => {
+    isPending,
+  } = useMutation({
+    mutationFn: async () => {
       if (data.name.trim().length === 0 || data.position === null) {
         throw new Error("Validation error");
       }
@@ -110,41 +110,41 @@ export function PlaceEditForm({ place, world }: Props) {
         });
       }
     },
-    {
-      onSuccess: (placeFromServer) => {
-        queryClient.invalidateQueries(queries.placesBase);
-        queryClient.invalidateQueries(queries.worldPlacesBase(world.slug));
+    onSuccess: (placeFromServer) => {
+      queryClient.invalidateQueries({ queryKey: queries.placesBase });
+      queryClient.invalidateQueries({
+        queryKey: queries.worldPlacesBase(world.slug),
+      });
 
-        if (place) {
-          addMessage({
-            children: "Place was updated",
+      if (place) {
+        addMessage({
+          children: "Place was updated",
+        });
+      } else {
+        if (canVerify) {
+          navigate({
+            type: "place",
+            placeId: placeFromServer.id,
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            world: worlds.find((w) => w.slug === world.slug)!,
           });
         } else {
-          if (canVerify) {
-            navigate({
-              type: "place",
-              placeId: placeFromServer.id,
-              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-              world: worlds.find((w) => w.slug === world.slug)!,
-            });
-          } else {
-            navigate({
-              type: "default",
-              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-              world: worlds.find((w) => w.slug === world.slug)!,
-            });
-          }
-          addMessage({
-            children: "New place was submitted successfully",
+          navigate({
+            type: "default",
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            world: worlds.find((w) => w.slug === world.slug)!,
           });
         }
-      },
-      onError: () =>
         addMessage({
-          children: "Something went wrong",
-        }),
+          children: "New place was submitted successfully",
+        });
+      }
     },
-  );
+    onError: () =>
+      addMessage({
+        children: "Something went wrong",
+      }),
+  });
 
   return (
     <form>
@@ -209,7 +209,7 @@ export function PlaceEditForm({ place, world }: Props) {
             id={verifiedId}
             label="Verified"
             icon={<CheckBoxSVGIcon />}
-            disabled={isLoading}
+            disabled={isPending}
             checked={data.verified}
             onChange={(e) =>
               setData((cur) => ({ ...cur, verified: e.target.checked }))
@@ -240,7 +240,7 @@ export function PlaceEditForm({ place, world }: Props) {
                 setData((cur) => ({
                   ...cur,
                   links: cur.links.map((url, curIndex) =>
-                    curIndex === index ? e.target.value : url,
+                    curIndex === index ? e.target.value : url
                   ),
                 }))
               }
@@ -271,7 +271,7 @@ export function PlaceEditForm({ place, world }: Props) {
             onClick={() =>
               setData((cur) => ({ ...cur, links: [...cur.links, ""] }))
             }
-            disabled={isLoading}
+            disabled={isPending}
           >
             <TextIconSpacing icon={<AddSVGIcon />}>Add link</TextIconSpacing>
           </Button>
@@ -283,12 +283,12 @@ export function PlaceEditForm({ place, world }: Props) {
           leftAddonType="icon"
           leftAddon={<SendSVGIcon />}
           onClick={() => handleSubmit()}
-          disabled={isLoading}
+          disabled={isPending}
         >
           {place ? "Save place" : "Submit new place"}
         </ListItem>
 
-        {place && <DeleteListItem place={place} disabled={isLoading} />}
+        {place && <DeleteListItem place={place} disabled={isPending} />}
 
         <SimpleListItem>* Required field</SimpleListItem>
         {!place && (

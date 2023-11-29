@@ -5,7 +5,9 @@ import { queries } from "./queryKeys";
 const STALE_TIME = 5 * 60;
 
 export function useEvents() {
-  return useQuery(queries.events, () => getEvents(), {
+  return useQuery({
+    queryKey: queries.events,
+    queryFn: () => getEvents(),
     staleTime: STALE_TIME,
   });
 }

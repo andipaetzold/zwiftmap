@@ -47,7 +47,7 @@ function ShareContent({ shareId }: Props) {
     );
   }
 
-  if (isError) {
+  if (isError || !share) {
     return (
       <>
         <Helmet>

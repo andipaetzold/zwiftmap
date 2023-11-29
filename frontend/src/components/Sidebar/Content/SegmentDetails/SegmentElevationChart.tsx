@@ -25,12 +25,17 @@ export function SegmentElevationChart({ segment }: Props) {
     stream: "distance",
   });
 
-  if (isErrorAltitude || isErrorDistance) {
-    return null;
-  }
-
   if (isLoadingAltitude || isLoadingDistance) {
     return <LoadingSpinnerListItem />;
+  }
+
+  if (
+    isErrorAltitude ||
+    isErrorDistance ||
+    !altitudeStream ||
+    !distanceStream
+  ) {
+    return null;
   }
 
   return (

@@ -9,7 +9,9 @@ type Context = QueryFunctionContext<QueryKey>;
 const queryFn = ({ queryKey: [, world] }: Context) => WORLD_ROADS[world]();
 
 export function useWorldRoads(world: WorldSlug) {
-  return useQuery(queries.worldRoads(world), queryFn, {
+  return useQuery({
+    queryKey: queries.worldRoads(world),
+    queryFn,
     staleTime: Infinity,
   });
 }

@@ -11,7 +11,9 @@ const queryFn = ({ queryKey: [, world, , placeId] }: Context) =>
 
 export function useWorldPlace(world?: WorldSlug, placeId?: string) {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  return useQuery(queries.worldPlace(world!, placeId!), queryFn, {
+  return useQuery({
+    queryKey: queries.worldPlace(world!, placeId!),
+    queryFn,
     staleTime: Infinity,
     enabled: !!world && !!placeId,
   });
