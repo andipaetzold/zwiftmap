@@ -9,9 +9,7 @@ import {
   worlds,
 } from "zwift-data";
 import { WORLDS_BY_SLUG } from "../constants";
-import { useAuthStatus, usePlaces } from "../react-query";
 import { Place } from "../types";
-import { useSettings } from "./useSettings";
 
 const REGEX_STRAVA_ACTIVITY = /strava\.com\/activities\/(\d{10})/;
 
@@ -66,7 +64,7 @@ const searchResultsRoute = routes
   .map((route) => ({
     type: "route" as const,
     terms: [WORLDS_BY_SLUG[route.world].name, route.name].map((t) =>
-      t.toLocaleLowerCase(),
+      t.toLocaleLowerCase()
     ),
     data: route,
   }));
@@ -75,14 +73,14 @@ const searchResultsSegment = segments
   .map((segment) => ({
     type: "segment" as const,
     terms: [WORLDS_BY_SLUG[segment.world].name, segment.name].map((t) =>
-      t.toLocaleLowerCase(),
+      t.toLocaleLowerCase()
     ),
     data: segment,
   }));
 
 export function useSearch(
   term: string,
-  _sport: Sport,
+  _sport: Sport
 ): {
   "strava-activity": SearchResultStravaActivity[];
   route: SearchResultRoute[];
@@ -90,8 +88,6 @@ export function useSearch(
   world: SearchResultWorld[];
   place: SearchResultPlace[];
 } {
-  const searchResultsPlace = usePlacesSearchResults();
-
   return useMemo(() => {
     if (REGEX_STRAVA_ACTIVITY.test(term)) {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -121,27 +117,23 @@ export function useSearch(
     return {
       world: searchResultsWorld.filter((world) =>
         terms.every((t) =>
-          world.terms.some((worldTerm) => worldTerm.includes(t)),
-        ),
+          world.terms.some((worldTerm) => worldTerm.includes(t))
+        )
       ),
       route: searchResultsRoute.filter((route) =>
         terms.every((t) =>
-          route.terms.some((routeTerm) => routeTerm.includes(t)),
-        ),
+          route.terms.some((routeTerm) => routeTerm.includes(t))
+        )
       ),
       segment: searchResultsSegment.filter((segment) =>
         terms.every((t) =>
-          segment.terms.some((segmentTerm) => segmentTerm.includes(t)),
-        ),
+          segment.terms.some((segmentTerm) => segmentTerm.includes(t))
+        )
       ),
-      place: searchResultsPlace.filter((place) =>
-        terms.every((t) =>
-          place.terms.some((segmentTerm) => segmentTerm.includes(t)),
-        ),
-      ),
+      place: [],
       "strava-activity": [],
     };
-  }, [searchResultsPlace, term]);
+  }, [term]);
 }
 
 export const SEARCH_RESULTS_ORDER: SearchResult["type"][] = [
@@ -159,26 +151,3 @@ export const SEARCH_RESULTS_TYPES = {
   place: { title: "Places" },
   "strava-activity": { title: "Strava Activity" },
 } satisfies Record<SearchResult["type"], { title: string }>;
-
-function usePlacesSearchResults(): SearchResultPlace[] {
-  const showUnverifiedPlaces = useSettings((s) => s.showUnverifiedPlaces);
-  const { data: authStatus } = useAuthStatus();
-  const canViewUnverified =
-    (authStatus?.adminUser ?? false) || (authStatus?.moderatorUser ?? false);
-
-  const { data: places } = usePlaces(
-    canViewUnverified ? (showUnverifiedPlaces ? undefined : true) : true,
-  );
-
-  return useMemo(() => {
-    if (!places) {
-      return [];
-    }
-
-    return places.map((place) => ({
-      type: "place",
-      terms: [place.name].map((t) => t.toLowerCase()),
-      data: place,
-    }));
-  }, [places]);
-}

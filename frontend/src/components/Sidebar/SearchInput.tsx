@@ -17,7 +17,7 @@ export function SearchInput() {
     <TextField
       id="search-input"
       style={{ width: "100%" }}
-      placeholder="Search for worlds, routes, and places…"
+      placeholder="Search for worlds, and routes"
       value={query}
       role="searchbox"
       onChange={(e) => {
