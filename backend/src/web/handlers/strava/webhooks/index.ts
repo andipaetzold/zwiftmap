@@ -25,10 +25,7 @@ async function handleStravaWebhookEvent(
   webhookEvent: WebhookEventType,
   logger: Logger
 ) {
-  logger.info(
-    "WebhookEvent",
-    `athlete/${webhookEvent.owner_id}/${webhookEvent.object_type}/${webhookEvent.object_id}/${webhookEvent.aspect_type}`
-  );
+  logger.info("WebhookEvent", webhookEvent);
 
   switch (webhookEvent.object_type) {
     case "athlete": {
