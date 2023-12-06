@@ -5,7 +5,7 @@ const storage = new Storage({
   credentials: config.gCloudCredentials,
 });
 
-export async function uploadToGoogleCloudStorage(
+export async function uploadBufferToGoogleCloudStorage(
   bucket: string,
   filename: string,
   buffer: Buffer
@@ -15,6 +15,24 @@ export async function uploadToGoogleCloudStorage(
     .bucket(bucket)
     .file(filename)
     .save(buffer, {
+      resumable: false,
+      metadata: {
+        metadata: {
+          environment: config.environment,
+        },
+      },
+    });
+}
+
+export function createToGoogleCloudStorageFileWriteStream(
+  bucket: string,
+  filename: string
+) {
+  console.log("Creating file write stream to GCS", { bucket, filename });
+  return storage
+    .bucket(bucket)
+    .file(filename)
+    .createWriteStream({
       resumable: false,
       metadata: {
         metadata: {

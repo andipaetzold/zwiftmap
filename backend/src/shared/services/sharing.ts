@@ -8,10 +8,15 @@ import {
   ShareStravaActivity,
   writeShare,
 } from "../persistence/index.js";
-import { uploadToGoogleCloudStorage } from "../services/gcs.js";
+import { createToGoogleCloudStorageFileWriteStream } from "../services/gcs.js";
 import { Logger } from "../types.js";
 import { isZwiftActivity } from "../util.js";
-import { CachedStravaUserAPI, DetailedActivity, StreamSet } from "./strava/index.js";
+import {
+  CachedStravaUserAPI,
+  DetailedActivity,
+  StreamSet,
+} from "./strava/index.js";
+import { finished } from "node:stream/promises";
 
 export async function shareActivity(
   athleteId: number,
@@ -117,17 +122,16 @@ async function createShare(
   ];
 
   for (const task of tasks) {
-    const stream = await createShareImage(share, task.resolution);
-    const chunks: Buffer[] = [];
-    for await (let chunk of stream) {
-      chunks.push(chunk as Buffer);
-    }
-    const buffer = Buffer.concat(chunks);
-    await uploadToGoogleCloudStorage(
-      "images.zwiftmap.com",
-      task.gcsFilename,
-      buffer
+    const imageStream = await createShareImage(share, task.resolution);
+
+    const uploadStream = imageStream.pipe(
+      createToGoogleCloudStorageFileWriteStream(
+        "images.zwiftmap.com",
+        task.gcsFilename
+      )
     );
+
+    await finished(uploadStream);
   }
 
   return share;
