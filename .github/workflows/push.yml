@@ -42,7 +42,7 @@ jobs:
           echo "${API_ENV_YAML}" >> .env.yaml
           gcloud functions deploy api --gen2 \
                                       --region=europe-west1 \
-                                      --runtime=nodejs18 \
+                                      --runtime=nodejs20 \
                                       --trigger-http \
                                       --env-vars-file .env.yaml \
                                       --memory=512MiB \
