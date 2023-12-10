@@ -21,7 +21,7 @@ jobs:
 
       - name: Sentry Release
         if: github.ref == 'refs/heads/main'
-        uses: getsentry/action-release@v1.4.1
+        uses: getsentry/action-release@v1.6.0
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
@@ -101,7 +101,7 @@ jobs:
 
       - name: Sentry Release
         if: github.ref == 'refs/heads/main'
-        uses: getsentry/action-release@v1.4.1
+        uses: getsentry/action-release@v1.6.0
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
