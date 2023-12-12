@@ -1,73 +1,63 @@
-import { hasSharedLink, replaceImage } from "../utils";
+import { hasSharedLink, replaceImage, waitForElement } from "../utils";
 import { createFeedEntriesFetcher } from "./entries-fetcher";
-import { ActivityEntry, FeedRouterProps, GroupActivityEntry } from "./types";
+import { ActivityEntry, FeedProps, GroupActivityEntry } from "./types";
 
-export function initFeed() {
-  const containerParent =
-    document.querySelector<HTMLElement>(".react-feed-container") ?? // profile & club
-    document.querySelector<HTMLElement>(".feed-container"); // dashboard
+export async function initFeed() {
+  const feedComponent = await waitForElement(
+    ".react-feed-component, .dashboard-mfe"
+  );
+  const feedUIElement = await waitForElement(".feed-ui");
 
-  if (!containerParent) {
-    return;
-  }
-
-  let unsubscribe: (() => void) | undefined;
-  unsubscribe = initFeedRouter(containerParent);
-  new MutationObserver(() => {
-    unsubscribe?.();
-    unsubscribe = initFeedRouter(containerParent);
-  }).observe(containerParent, {
-    subtree: false,
-    childList: true,
-  });
+  initFeedRouter(feedComponent, feedUIElement);
 }
 
 function initFeedRouter(
-  parentContainer: HTMLElement
+  feedComponent: HTMLElement,
+  feedUI: HTMLElement
 ): (() => void) | undefined {
-  const container = parentContainer.querySelector<HTMLElement>(
-    "[data-react-class=FeedRouter]"
-  );
-
-  if (!container) {
-    return;
-  }
-
-  const props = getFeedRouterProps(container);
+  const props = getFeedProps(feedComponent);
   if (!props) {
     return;
   }
 
   const fetchEntry = createFeedEntriesFetcher(props);
-  replaceEntries(container, fetchEntry);
+  replaceEntries(feedUI, fetchEntry);
 
   const observer = new MutationObserver(() => {
-    replaceEntries(container, fetchEntry);
+    replaceEntries(feedUI, fetchEntry);
   });
-  observer.observe(container, { childList: true });
+  observer.observe(feedUI, { childList: true, subtree: true });
   return () => observer.disconnect();
 }
 
-function getFeedRouterProps(container: HTMLElement): FeedRouterProps | null {
+function getFeedProps(container: HTMLElement): FeedProps | null {
   const propsRaw = container.getAttribute("data-react-props");
   if (!propsRaw) {
     return null;
   }
 
-  return JSON.parse(propsRaw);
+  let props = JSON.parse(propsRaw);
+  if (!("appContext" in props)) {
+    return null;
+  }
+
+  props = props.appContext;
+
+  if ("feedProps" in props) {
+    props = props.feedProps;
+  }
+
+  return props;
 }
 
 async function replaceEntries(
   container: HTMLElement,
   fetchEntry: ReturnType<typeof createFeedEntriesFetcher>
 ) {
-  for (const entryElement of container.childNodes) {
-    if (!entryElement.firstChild) {
-      continue;
+  for (const entryElement of container.children) {
+    if (entryElement instanceof HTMLElement) {
+      await replaceEntry(entryElement, fetchEntry);
     }
-
-    const child = entryElement.firstChild as HTMLElement;
-    await replaceEntry(child, fetchEntry);
   }
 }
 
@@ -75,7 +65,11 @@ async function replaceEntry(
   node: HTMLElement,
   fetchEntry: ReturnType<typeof createFeedEntriesFetcher>
 ) {
-  const index = parseInt(node.getAttribute("index") ?? "");
+  const index = parseInt(
+    node
+      .querySelector('[data-testid="web-feed-entry"]')
+      ?.getAttribute("index") ?? ""
+  );
   if (isNaN(index)) {
     return;
   }

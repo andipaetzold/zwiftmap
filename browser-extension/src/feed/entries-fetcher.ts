@@ -1,5 +1,6 @@
 import { request } from "../request";
-import { FeedRouterProps, Entry } from "./types";
+import { preventParallelCalls } from "../utils";
+import { FeedProps, Entry } from "./types";
 
 interface FeedResponseData {
   entries: Entry[];
@@ -13,15 +14,13 @@ interface Pagination {
 
 export function createFeedEntriesFetcher({
   page,
-  preFetchedEntries,
+  preFetchedEntries: entries,
   currentAthleteId,
   clubId,
   feedType,
-}: FeedRouterProps) {
+}: FeedProps) {
   let hasMore = page !== "profile";
   let maxEntries = true;
-
-  const entries: Entry[] = [...preFetchedEntries];
 
   /**
    * `buildEndpointUrl` of `useFetchFeedEntries.js`
@@ -55,7 +54,7 @@ export function createFeedEntriesFetcher({
     return url;
   };
 
-  const loadNextPage = async (): Promise<void> => {
+  const loadNextPage = preventParallelCalls(async (): Promise<void> => {
     const url = createUrl();
     if (!url) {
       throw new Error("Cannot generate url");
@@ -65,7 +64,7 @@ export function createFeedEntriesFetcher({
     entries.push(...data.entries);
     maxEntries = data.pagination.maxEntries;
     hasMore = data.pagination.hasMore && data.entries.length !== 0;
-  };
+  });
 
   const fetchEntry = async (index: number): Promise<Entry | undefined> => {
     while (!entries[index]) {

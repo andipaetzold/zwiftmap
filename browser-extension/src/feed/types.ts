@@ -29,7 +29,7 @@ export interface CursorData {
   rank: string;
 }
 
-export interface FeedRouterProps {
+export interface FeedProps {
   clubId: string;
   currentAthleteId: number;
   feedType: string;
