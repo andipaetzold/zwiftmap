@@ -1,75 +1,109 @@
-import { hasSharedLink, replaceImage, waitForElement } from "../utils";
+import {
+  hasSharedLink,
+  replaceImage,
+  subscribeToElement,
+  waitForElement,
+} from "../utils";
 import { createFeedEntriesFetcher } from "./entries-fetcher";
 import { ActivityEntry, FeedProps, GroupActivityEntry } from "./types";
 
 export async function initFeed() {
-  const feedComponent = await waitForElement(
-    ".react-feed-component, .dashboard-mfe"
-  );
-  const feedUIElement = await waitForElement(".feed-ui");
+  let controller = new AbortController();
 
-  initFeedRouter(feedComponent, feedUIElement);
+  subscribeToElement(".react-feed-component, .dashboard-mfe", {
+    callback: (feedComponent) => {
+      controller.abort();
+
+      if (!feedComponent) {
+        return;
+      }
+
+      const props = getFeedProps(feedComponent);
+      if (!props) {
+        return;
+      }
+
+      controller = new AbortController();
+      initFeed2(props, feedComponent, controller.signal);
+    },
+  });
 }
 
-function initFeedRouter(
-  feedComponent: HTMLElement,
-  feedUI: HTMLElement
-): (() => void) | undefined {
-  const props = getFeedProps(feedComponent);
-  if (!props) {
-    return;
-  }
+function initFeed2(props: FeedProps, parent: HTMLElement, signal: AbortSignal) {
+  let controller = new AbortController();
+  subscribeToElement(".feed-ui", {
+    parent,
+    signal,
+    callback: (feedUI) => {
+      controller.abort();
+      if (!feedUI) {
+        return;
+      }
 
+      controller = new AbortController();
+      initFeed3(props, feedUI, controller.signal);
+    },
+  });
+}
+
+function initFeed3(props: FeedProps, feedUI: HTMLElement, signal: AbortSignal) {
   const fetchEntry = createFeedEntriesFetcher(props);
-  replaceEntries(feedUI, fetchEntry);
+  replaceEntries(feedUI, fetchEntry, signal);
 
   const observer = new MutationObserver(() => {
-    replaceEntries(feedUI, fetchEntry);
+    replaceEntries(feedUI, fetchEntry, signal);
   });
   observer.observe(feedUI, { childList: true, subtree: true });
-  return () => observer.disconnect();
+  signal.addEventListener("abort", () => observer.disconnect());
 }
 
 function getFeedProps(container: HTMLElement): FeedProps | null {
-  const propsRaw = container.getAttribute("data-react-props");
-  if (!propsRaw) {
+  try {
+    const propsRaw = container.getAttribute("data-react-props");
+    if (!propsRaw) {
+      return null;
+    }
+
+    let props = JSON.parse(propsRaw);
+    if (!("appContext" in props)) {
+      return null;
+    }
+
+    props = props.appContext;
+
+    if ("feedProps" in props) {
+      props = props.feedProps;
+    }
+
+    return props;
+  } catch {
     return null;
   }
-
-  let props = JSON.parse(propsRaw);
-  if (!("appContext" in props)) {
-    return null;
-  }
-
-  props = props.appContext;
-
-  if ("feedProps" in props) {
-    props = props.feedProps;
-  }
-
-  return props;
 }
 
 async function replaceEntries(
   container: HTMLElement,
-  fetchEntry: ReturnType<typeof createFeedEntriesFetcher>
+  fetchEntry: ReturnType<typeof createFeedEntriesFetcher>,
+  signal: AbortSignal
 ) {
   for (const entryElement of container.children) {
-    if (entryElement instanceof HTMLElement) {
-      await replaceEntry(entryElement, fetchEntry);
+    if (!(entryElement instanceof HTMLElement)) {
+      continue;
     }
+    await replaceEntry(entryElement, fetchEntry, signal);
   }
 }
 
 async function replaceEntry(
   node: HTMLElement,
-  fetchEntry: ReturnType<typeof createFeedEntriesFetcher>
+  fetchEntry: ReturnType<typeof createFeedEntriesFetcher>,
+  signal: AbortSignal
 ) {
-  const index = parseInt(
-    node
-      .querySelector('[data-testid="web-feed-entry"]')
-      ?.getAttribute("index") ?? ""
-  );
+  const entryNode = await waitForElement('[data-testid="web-feed-entry"]', {
+    parent: node,
+    signal,
+  });
+  const index = parseInt(entryNode.getAttribute("index") ?? "");
   if (isNaN(index)) {
     return;
   }
@@ -81,21 +115,27 @@ async function replaceEntry(
 
   switch (entry.entity) {
     case "Activity":
-      replaceActivityImage(node, entry);
+      await replaceActivityImage(node, entry, signal);
       break;
     case "GroupActivity":
-      replaceGroupActivityImage(node, entry);
+      await replaceGroupActivityImage(node, entry, signal);
       break;
   }
 }
 
-function replaceActivityImage(contentNode: HTMLElement, entry: ActivityEntry) {
+async function replaceActivityImage(
+  contentNode: HTMLElement,
+  entry: ActivityEntry,
+  signal: AbortSignal
+) {
   if (!hasSharedLink(entry.activity.description ?? "")) {
     return;
   }
 
-  const mapImage =
-    contentNode.querySelector<HTMLImageElement>("[data-testid=map]");
+  const mapImage = await waitForElement<HTMLImageElement>("[data-testid=map]", {
+    parent: contentNode,
+    signal,
+  });
   if (!mapImage) {
     return;
   }
@@ -116,9 +156,10 @@ function replaceActivityImage(contentNode: HTMLElement, entry: ActivityEntry) {
   }
 }
 
-function replaceGroupActivityImage(
+async function replaceGroupActivityImage(
   contentNode: HTMLElement,
-  entry: GroupActivityEntry
+  entry: GroupActivityEntry,
+  signal: AbortSignal
 ) {
   const activity = entry.rowData.activities.find((activity) =>
     hasSharedLink(activity.description ?? "")
@@ -128,8 +169,10 @@ function replaceGroupActivityImage(
     return;
   }
 
-  const mapImage =
-    contentNode.querySelector<HTMLImageElement>("[data-testid=map]");
+  const mapImage = await waitForElement<HTMLImageElement>("[data-testid=map]", {
+    parent: contentNode,
+    signal,
+  });
   if (!mapImage) {
     return;
   }

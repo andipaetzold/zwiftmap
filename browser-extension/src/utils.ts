@@ -20,23 +20,71 @@ export function hasSharedLink(description: string): boolean {
   return match !== null;
 }
 
-export function waitForElement(selector: string): Promise<HTMLElement> {
+export function waitForElement<T extends HTMLElement>(
+  selector: string,
+  {
+    parent = document,
+    signal,
+  }: { parent?: ParentNode; signal?: AbortSignal } = {}
+): Promise<T> {
   return new Promise((resolve) => {
-    const element = document.querySelector<HTMLElement>(selector);
+    const element = parent.querySelector<T>(selector);
     if (element) {
       resolve(element);
     }
 
     const mutationObserver = new MutationObserver(() => {
-      const element = document.querySelector<HTMLElement>(selector);
+      if (signal?.aborted) {
+        mutationObserver.disconnect();
+        return;
+      }
+
+      const element = parent.querySelector<T>(selector);
       if (element) {
         mutationObserver.disconnect();
         resolve(element);
       }
     });
 
-    mutationObserver.observe(document.body, { childList: true, subtree: true });
+    mutationObserver.observe(parent, { childList: true, subtree: true });
+    signal?.addEventListener("abort", () => mutationObserver.disconnect());
   });
+}
+
+export function subscribeToElement<T extends HTMLElement>(
+  selector: string,
+  {
+    parent = document,
+    signal,
+    callback,
+  }: {
+    parent?: ParentNode;
+    signal?: AbortSignal;
+    callback: (element: T | null) => void;
+  }
+): void {
+  let prev = parent.querySelector<T>(selector);
+  if (prev) {
+    callback(prev);
+  }
+
+  const mutationObserver = new MutationObserver(() => {
+    if (signal?.aborted) {
+      mutationObserver.disconnect();
+      return;
+    }
+
+    const element = parent.querySelector<T>(selector);
+    if (element === prev) {
+      return;
+    }
+
+    prev = element;
+    callback(element);
+  });
+
+  mutationObserver.observe(parent, { childList: true, subtree: true });
+  signal?.addEventListener("abort", () => mutationObserver.disconnect());
 }
 
 export function preventParallelCalls(fn: () => Promise<void>) {
