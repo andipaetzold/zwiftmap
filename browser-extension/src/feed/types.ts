@@ -25,14 +25,14 @@ export interface GroupActivityEntry {
 }
 
 export interface CursorData {
-  before: string;
-  rank: string;
+  updated_at: number;
+  rank: string | null;
 }
 
 export interface FeedProps {
   clubId: string;
   currentAthleteId: number;
   feedType: string;
-  preFetchedEntries: Entry[];
+  preFetchedEntries: ReadonlyArray<Entry>;
   page: string;
 }

@@ -14,19 +14,21 @@ interface Pagination {
 
 export function createFeedEntriesFetcher({
   page,
-  preFetchedEntries: entries,
   currentAthleteId,
+  preFetchedEntries,
   clubId,
   feedType,
 }: FeedProps) {
   let hasMore = page !== "profile";
   let maxEntries = true;
 
+  const entries = [...preFetchedEntries];
+
   /**
    * `buildEndpointUrl` of `useFetchFeedEntries.js`
    */
   const createUrl = (): string | null => {
-    const { before, rank } = entries[entries.length - 1]?.cursorData ?? {};
+    const { updated_at, rank } = entries[entries.length - 1]?.cursorData ?? {};
 
     let url: string;
     switch (page) {
@@ -48,7 +50,7 @@ export function createFeedEntriesFetcher({
       ? url.concat(`&athlete_id=${currentAthleteId}`)
       : url;
     url = clubId ? url.concat(`&club_id=${clubId}`) : url;
-    url = before ? url.concat(`&before=${before}`) : url; // See README for how before and rank cursor works
+    url = updated_at ? url.concat(`&before=${updated_at}`) : url; // See README for how before and rank cursor works
     url = rank ? url.concat(`&cursor=${rank}`) : url;
 
     return url;
