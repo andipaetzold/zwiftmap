@@ -1,4 +1,5 @@
 import {
+  createAbortControllerFromSignal,
   hasSharedLink,
   replaceImage,
   subscribeToElement,
@@ -7,6 +8,9 @@ import {
 import { createFeedEntriesFetcher } from "./entries-fetcher";
 import { ActivityEntry, FeedProps, GroupActivityEntry } from "./types";
 
+/**
+ * Run `initFeed2` for each `.react-feed-component` element.
+ */
 export async function initFeed() {
   let controller = new AbortController();
 
@@ -29,32 +33,55 @@ export async function initFeed() {
   });
 }
 
-function initFeed2(props: FeedProps, parent: HTMLElement, signal: AbortSignal) {
-  let controller = new AbortController();
+/**
+ * Run `initFeed2` for each `.feed-ui` element.
+ */
+function initFeed2(
+  props: FeedProps,
+  parent: HTMLElement,
+  incomingSignal: AbortSignal
+) {
+  let controller = createAbortControllerFromSignal(incomingSignal);
+
   subscribeToElement(".feed-ui", {
     parent,
-    signal,
+    signal: incomingSignal,
     callback: (feedUI) => {
       controller.abort();
       if (!feedUI) {
         return;
       }
 
-      controller = new AbortController();
+      controller = createAbortControllerFromSignal(incomingSignal);
       initFeed3(props, feedUI, controller.signal);
     },
   });
 }
 
-function initFeed3(props: FeedProps, feedUI: HTMLElement, signal: AbortSignal) {
+/**
+ * Subscribe to children of `.feed-ui` and replace images.
+ */
+function initFeed3(
+  props: FeedProps,
+  feedUI: HTMLElement,
+  incomingSignal: AbortSignal
+) {
   const fetchEntry = createFeedEntriesFetcher(props);
-  replaceEntries(feedUI, fetchEntry, signal);
 
+  let controller = createAbortControllerFromSignal(incomingSignal);
+  replaceEntries(feedUI, fetchEntry, controller.signal);
   const observer = new MutationObserver(() => {
-    replaceEntries(feedUI, fetchEntry, signal);
+    if (controller.signal.aborted) {
+      observer.disconnect();
+      return;
+    }
+
+    controller.abort();
+    controller = createAbortControllerFromSignal(incomingSignal);
+    replaceEntries(feedUI, fetchEntry, controller.signal);
   });
-  observer.observe(feedUI, { childList: true, subtree: true });
-  signal.addEventListener("abort", () => observer.disconnect());
+  observer.observe(feedUI, { childList: true, subtree: false });
+  incomingSignal.addEventListener("abort", () => observer.disconnect());
 }
 
 function getFeedProps(container: HTMLElement): FeedProps | null {

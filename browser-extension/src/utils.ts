@@ -100,3 +100,9 @@ export function preventParallelCalls(fn: () => Promise<void>) {
     ongoingRequest = undefined;
   };
 }
+
+export function createAbortControllerFromSignal(signal: AbortSignal) {
+  const controller = new AbortController();
+  signal.addEventListener("abort", () => controller.abort());
+  return controller;
+}
