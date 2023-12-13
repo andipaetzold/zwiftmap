@@ -1,5 +1,5 @@
 import { promises as fs } from "fs";
-import { World, worlds, WorldSlug } from "zwift-data";
+import { World, WorldSlug } from "zwift-data";
 import { project } from "../projection.js";
 import { bufferToDataUrl, diff } from "../util.js";
 
@@ -18,9 +18,9 @@ export const WORLD_BACKGROUNDS: { [slug in WorldSlug]: string } = {
   yorkshire: "#7c9938",
 };
 
-const worldImages = Object.fromEntries(
-  worlds.map((world) => [world.slug, fs.readFile(`assets/${world.slug}.png`)])
-) as { [world in WorldSlug]: Promise<Buffer> };
+async function getWorldImage(world: World) {
+  return await fs.readFile(`assets/${world.slug}.png`);
+}
 
 export async function getWorldImageTag(world: World) {
   const xAndYBounds = world.bounds.map((b) => project(b));
@@ -31,7 +31,7 @@ export async function getWorldImageTag(world: World) {
   const width = diff(xAndYBounds[0][0], xAndYBounds[1][0]);
   const height = diff(xAndYBounds[0][1], xAndYBounds[1][1]);
 
-  const buffer = await worldImages[world.slug];
+  const buffer = await getWorldImage(world);
   return `<image x="${x}" y="${y}" width="${width}" height="${height}" preserveAspectRatio="none" xlink:href="${bufferToDataUrl(
     buffer
   )}" />`;
