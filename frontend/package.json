@@ -99,7 +99,7 @@
     "schema-dts": "1.1.2",
     "ts-node": "10.9.2",
     "typescript": "5.3.3",
-    "vite": "5.0.7",
+    "vite": "5.0.8",
     "vite-plugin-pwa": "0.17.4",
     "vitest": "1.0.4"
   },
