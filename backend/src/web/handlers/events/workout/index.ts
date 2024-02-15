@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Request, Response } from "express";
-import { X2jOptionsOptional, XMLParser } from "fast-xml-parser";
+import { X2jOptions, XMLParser } from "fast-xml-parser";
 import { Record, String } from "runtypes";
 import { create } from "xmlbuilder2";
 import { getEvent } from "../../../../shared/events/index.js";
@@ -17,7 +17,7 @@ import { getColorForPower, getPowerForZone } from "./util.js";
 const HEIGHT = 250;
 const WIDTH = 1_000;
 
-const parserOptions: X2jOptionsOptional = {
+const parserOptions: X2jOptions = {
   preserveOrder: true,
   ignoreAttributes: false,
   attributeNamePrefix: "",
