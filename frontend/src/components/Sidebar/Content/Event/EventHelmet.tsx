@@ -1,4 +1,4 @@
-import parseISO from "date-fns/parseISO";
+import { parseISO } from "date-fns";
 import { Helmet } from "react-helmet-async";
 import { EventSubgroup, ZwiftEvent } from "../../../../types";
 import { FORMAT_LONG } from "../../../../util/formats";
@@ -11,7 +11,7 @@ interface Props {
 
 export function EventHelmet({ name, event, subgroup }: Props) {
   const description = `Event details for "${name}" starting ${FORMAT_LONG.format(
-    parseISO(subgroup?.eventSubgroupStart ?? event.eventStart),
+    parseISO(subgroup?.eventSubgroupStart ?? event.eventStart)
   )} on Zwift`;
   return (
     <Helmet>

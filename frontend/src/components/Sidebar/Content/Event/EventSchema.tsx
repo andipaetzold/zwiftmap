@@ -1,6 +1,4 @@
-import formatISO from "date-fns/formatISO";
-import formatISODuration from "date-fns/formatISODuration";
-import parseISO from "date-fns/parseISO";
+import { formatISO, formatISODuration, parseISO } from "date-fns";
 import { JsonLd } from "react-schemaorg";
 import { Event, WithContext } from "schema-dts";
 import { getWorldFromEvent } from "../../../../services/events";
@@ -45,12 +43,12 @@ export function EventSchema({ name, event, subgroup }: Props) {
         eventId: event.id,
         subgroupLabel: subgroup?.subgroupLabel ?? null,
       }),
-      window.location.origin,
+      window.location.origin
     ).toString(),
     sameAs: `https://zwift.com/events/view/${event.id}`,
     eventAttendanceMode: "OnlineEventAttendanceMode",
     startDate: formatISO(
-      parseISO(subgroup?.eventSubgroupStart ?? event.eventStart),
+      parseISO(subgroup?.eventSubgroupStart ?? event.eventStart)
     ),
     duration:
       eventOrSubgroup.durationInSeconds > 0
@@ -73,7 +71,7 @@ export function EventSchema({ name, event, subgroup }: Props) {
       name: world.name,
       url: new URL(
         createUrl({ type: "default", world }),
-        window.location.origin,
+        window.location.origin
       ).toString(),
     },
   };
