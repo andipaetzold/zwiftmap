@@ -3,6 +3,7 @@ import { point as turfPoint, polygon as turfPolygon } from "@turf/helpers";
 import {
   DistanceStream,
   LatLngStream,
+  SURFACE_TYPES,
   SurfaceType,
   SurfaceTypeStream,
   WorldConfigSurface,
@@ -10,7 +11,7 @@ import {
 
 export function getSurfaceStream(
   latLngStream: LatLngStream,
-  surfaces: WorldConfigSurface[],
+  surfaces: WorldConfigSurface[]
 ): SurfaceTypeStream {
   const turfedWorldSurfaces = surfaces.map((worldSurface) => ({
     ...worldSurface,
@@ -22,25 +23,18 @@ export function getSurfaceStream(
     .map(
       (point) =>
         turfedWorldSurfaces.find((worldSurface) =>
-          booleanPointInPolygon(point, worldSurface.polygon),
-        )?.type ?? SurfaceType.Tarmac,
+          booleanPointInPolygon(point, worldSurface.polygon)
+        )?.type ?? SurfaceType.Tarmac
     );
 }
 
 export function getSurfaceStats(
   distanceStream: DistanceStream,
-  surfaceStream: SurfaceTypeStream,
+  surfaceStream: SurfaceTypeStream
 ): Record<SurfaceType, number> {
-  const result: Record<SurfaceType, number> = {
-    [SurfaceType.Tarmac]: 0,
-    [SurfaceType.Brick]: 0,
-    [SurfaceType.Wood]: 0,
-    [SurfaceType.Cobbles]: 0,
-    [SurfaceType.Snow]: 0,
-    [SurfaceType.Dirt]: 0,
-    [SurfaceType.Grass]: 0,
-    [SurfaceType.Sand]: 0,
-  };
+  const result = Object.fromEntries(
+    SURFACE_TYPES.map((type) => [type, 0])
+  ) as Record<SurfaceType, number>;
 
   for (let i = 1; i < distanceStream.length; ++i) {
     result[surfaceStream[i]] +=
