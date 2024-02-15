@@ -15,4 +15,5 @@ export const SURFACE_CONSTANTS: Record<
   [SurfaceType.Dirt]: { label: "Dirt", color: "#9B7653" },
   [SurfaceType.Grass]: { label: "Grass", color: "#567D46" },
   [SurfaceType.Sand]: { label: "Sand", color: "#C2B280" },
+  [SurfaceType.Gravel]: { label: "Gravel", color: "#898989" },
 };

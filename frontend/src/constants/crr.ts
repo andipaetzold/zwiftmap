@@ -42,4 +42,9 @@ export const CRR: Record<SurfaceType, Record<Bike, number | null>> = {
     [Bike.MTB]: 0.014,
     [Bike.Gravel]: 0.008,
   },
+  [SurfaceType.Gravel]: {
+    [Bike.Road]: 0.012,
+    [Bike.MTB]: 0.009,
+    [Bike.Gravel]: 0.009,
+  },
 };

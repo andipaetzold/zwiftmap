@@ -7,6 +7,7 @@ export const enum SurfaceType {
   Dirt,
   Grass,
   Sand,
+  Gravel,
 }
 
 export const SURFACE_TYPES: SurfaceType[] = [
@@ -18,6 +19,7 @@ export const SURFACE_TYPES: SurfaceType[] = [
   SurfaceType.Dirt,
   SurfaceType.Grass,
   SurfaceType.Sand,
+  SurfaceType.Gravel,
 ];
 
 export const enum Bike {
