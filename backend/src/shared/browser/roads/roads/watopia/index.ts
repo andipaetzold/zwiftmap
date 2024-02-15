@@ -10,10 +10,13 @@ import edgeFuegoNorthRoundabout2 from "./edges/fuego-north-roundabout-2.js";
 import edgeFuegoNorthRoundaboutPaddock from "./edges/fuego-north-roundabout-paddock.js";
 import edgeFuegoSouthRoundabout1 from "./edges/fuego-south-roundabout-1.js";
 import edgeFuegoSouthRoundabout2 from "./edges/fuego-south-roundabout-2.js";
+import edgeFuegoSouthRoundabout3 from "./edges/fuego-south-roundabout-3.js";
+import edgeFuegoSouthRoundabout4 from "./edges/fuego-south-roundabout-4.js";
 import edgeJungle1 from "./edges/jungle-1.js";
 import edgeJungle2 from "./edges/jungle-2.js";
 import edgeJungle3 from "./edges/jungle-3.js";
 import edgeJungle4 from "./edges/jungle-4.js";
+import edgeJungle5 from "./edges/jungle-5.js";
 import edgeJungleBridge from "./edges/jungle-bridge.js";
 import edgeJunglePaddockEast from "./edges/jungle-paddock-east.js";
 import edgeJunglePaddockWest from "./edges/jungle-paddock-west.js";
@@ -61,6 +64,7 @@ import edgeVolcanoKOM from "./edges/volcano-kom.js";
 import edgeVolcanoNorth from "./edges/volcano-north.js";
 import edgeVolcanoSouth from "./edges/volcano-south.js";
 import edgeVolcanoTop from "./edges/volcano-top.js";
+import edgeCoast from "./edges/coast.js";
 
 const ROADS = new Roads();
 const createNode = ROADS.createNode.bind(ROADS);
@@ -94,7 +98,11 @@ createEdge(JUNGLE_JUNCTION_BOTTOM_1, JUNGLE_JUNCTION_BOTTOM_2, []);
 createEdge(JUNGLE_JUNCTION_BOTTOM_1, JUNGLE_JUNCTION_BOTTOM_3, []);
 createEdge(JUNGLE_JUNCTION_BOTTOM_2, JUNGLE_JUNCTION_BOTTOM_3, []);
 createEdge(JUNGLE_JUNCTION_BOTTOM_2, JUNGLE_JUNCTION_TOP_2, edgeJungleBridge);
-createEdge(ADZ_BOTTOM_2, JUNGLE_JUNCTION_BOTTOM_3, edgeJungle2);
+
+// Jungle (Coast)
+const JUNGLE_COAST = createNode([-11.692462, 166.930535, 0.6]);
+createEdge(ADZ_BOTTOM_2, JUNGLE_COAST, edgeJungle2);
+createEdge(JUNGLE_COAST, JUNGLE_JUNCTION_BOTTOM_3, edgeJungle5);
 
 // Jungle (Junction Right)
 const JUNGLE_JUNCTION_EAST_1 = createNode([-11.678945, 166.93926, 57.8]);
@@ -281,7 +289,9 @@ createEdge(MAIN_SOUTH_JUNCTION_3, OCEAN_WEST, edgeMarina);
 
 // Fuego Flats
 const FUEGO_SOUTH_1 = createNode([-11.662318, 166.983305, 12.8]);
-const FUEGO_SOUTH_2 = createNode([-11.661783, 166.98417, 12.8]);
+const FUEGO_SOUTH_2 = createNode([-11.663495, 166.98472, 13.2]);
+const FUEGO_SOUTH_3 = createNode([-11.663053, 166.98507, 13.2]);
+const FUEGO_SOUTH_4 = createNode([-11.661783, 166.98417, 12.8]);
 const FUEGO_NORTH_1 = createNode([-11.638389, 166.977252, 15.6]);
 const FUEGO_NORTH_2 = createNode([-11.640373, 166.978375, 13.2]);
 const FUEGO_PADDOCK_EXIT = createNode([-11.635251, 166.973542, 13]);
@@ -293,9 +303,11 @@ const FUEGO_PADDOCK_CENTER = createNode([-11.632581, 166.972666, 13]);
 const FUEGO_PADDOCK_ROW_FRONT = createNode([-11.634352, 166.97324, 13]);
 const FUEGO_PADDOCK_ROW_BACK = createNode([-11.633622, 166.973004, 13]);
 createEdge(FUEGO_SOUTH_1, FUEGO_SOUTH_2, edgeFuegoSouthRoundabout1);
-createEdge(FUEGO_SOUTH_2, FUEGO_SOUTH_1, edgeFuegoSouthRoundabout2);
+createEdge(FUEGO_SOUTH_2, FUEGO_SOUTH_3, edgeFuegoSouthRoundabout2);
+createEdge(FUEGO_SOUTH_3, FUEGO_SOUTH_4, edgeFuegoSouthRoundabout3);
+createEdge(FUEGO_SOUTH_4, FUEGO_SOUTH_1, edgeFuegoSouthRoundabout4);
 createEdge(FUEGO_SOUTH_1, TITANS_SOUTH, edgeTitansFuegoSouth);
-createEdge(FUEGO_SOUTH_2, FUEGO_NORTH_2, edgeFuegoFlats);
+createEdge(FUEGO_SOUTH_4, FUEGO_NORTH_2, edgeFuegoFlats);
 createEdge(FUEGO_NORTH_2, FUEGO_NORTH_1, edgeFuegoNorthRoundabout1);
 createEdge(FUEGO_NORTH_1, FUEGO_NORTH_2, edgeFuegoNorthRoundabout2);
 createEdge(FUEGO_PADDOCK_EXIT, FUEGO_NORTH_1, edgeFuegoNorthRoundaboutPaddock);
@@ -307,5 +319,11 @@ createEdge(FUEGO_PADDOCK_1, FUEGO_PADDOCK_ROW_FRONT, [], false);
 createEdge(FUEGO_PADDOCK_2, FUEGO_PADDOCK_ROW_FRONT, [], false);
 createEdge(FUEGO_PADDOCK_3, FUEGO_PADDOCK_ROW_BACK, [], false);
 createEdge(FUEGO_PADDOCK_4, FUEGO_PADDOCK_ROW_BACK, [], false);
+
+// Coast
+const COAST_EAST = createNode([-11.663552, 166.985181, 13]);
+createEdge(JUNGLE_COAST, COAST_EAST, edgeCoast);
+createEdge(COAST_EAST, FUEGO_SOUTH_2, []);
+createEdge(COAST_EAST, FUEGO_SOUTH_3, []);
 
 export default ROADS;
