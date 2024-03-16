@@ -12,7 +12,7 @@
     "@types/adm-zip": "0.5.5",
     "@types/chrome": "0.0.263",
     "@types/leaflet": "1.9.5",
-    "adm-zip": "0.5.10",
+    "adm-zip": "0.5.11",
     "esbuild": "0.20.1"
   },
   "dependencies": {
