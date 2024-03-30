@@ -27,7 +27,7 @@
     "@types/validator": "13.11.9",
     "geojson": "0.5.0",
     "ngrok": "4.3.3",
-    "tsc-watch": "6.0.4",
+    "tsc-watch": "6.0.5",
     "typescript": "5.4.3"
   },
   "dependencies": {
