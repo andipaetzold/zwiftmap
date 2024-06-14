@@ -24,7 +24,7 @@
     "@types/node": "20.14.2",
     "@types/sharp": "0.32.0",
     "@types/tsc-watch": "4.2.3",
-    "@types/validator": "13.11.9",
+    "@types/validator": "13.11.10",
     "geojson": "0.5.0",
     "ngrok": "4.3.3",
     "tsc-watch": "6.2.0",
