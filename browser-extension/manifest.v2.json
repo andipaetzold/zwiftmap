@@ -1,7 +1,7 @@
 {
   "name": "ZwiftMap for Strava",
   "description": "Replace real-world maps with Zwift maps when visiting Strava",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "manifest_version": 2,
   "content_scripts": [
     {
