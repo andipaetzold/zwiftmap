@@ -39,7 +39,7 @@
     "@sentry/node": "7.109.0",
     "@sentry/tracing": "7.109.0",
     "@turf/bbox-polygon": "6.5.0",
-    "@turf/boolean-point-in-polygon": "6.5.0",
+    "@turf/boolean-point-in-polygon": "7.0.0",
     "@turf/buffer": "6.5.0",
     "@turf/difference": "6.5.0",
     "@turf/distance": "6.5.0",
