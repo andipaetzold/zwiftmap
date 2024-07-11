@@ -16,6 +16,6 @@
     "esbuild": "0.23.0"
   },
   "dependencies": {
-    "zwift-data": "1.37.1"
+    "zwift-data": "1.37.2"
   }
 }
