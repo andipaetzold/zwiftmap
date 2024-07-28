@@ -100,7 +100,7 @@
     "ts-node": "10.9.2",
     "typescript": "5.5.4",
     "vite": "5.3.5",
-    "vite-plugin-pwa": "0.20.0",
+    "vite-plugin-pwa": "0.20.1",
     "vitest": "2.0.4"
   },
   "lint-staged": {
