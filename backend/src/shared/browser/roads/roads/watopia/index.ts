@@ -77,6 +77,7 @@ import edgeVolcanoKOM from "./edges/volcano-kom.js";
 import edgeVolcanoNorth from "./edges/volcano-north.js";
 import edgeVolcanoSouth from "./edges/volcano-south.js";
 import edgeVolcanoTop from "./edges/volcano-top.js";
+import edgeCoastWestTheGrade from "./edges/coast-west-the-grade.js";
 
 const ROADS = new Roads();
 const createNode = ROADS.createNode.bind(ROADS);
@@ -350,14 +351,17 @@ createEdge(COAST_PADDOCK_4, COAST_PADDOCK_ROW_BACK, [], false);
 
 // Coast
 const COAST_EAST = createNode([-11.663552, 166.985181, 13]);
-const JUNGLE_COAST_2 = createNode([-11.703173, 166.930874, 13]);
-const JUNGLE_COAST_3 = createNode([-11.703717,166.930777, 13]);
+const JUNGLE_COAST_2 = createNode([-11.703173, 166.930874, 2]);
+const JUNGLE_COAST_3 = createNode([-11.703717, 166.930777, 1.2]);
+const JUNGLE_COAST_4 = createNode([-11.70352, 166.931073, 1.2]);
 createEdge(COAST_PADDOCK_EXIT, COAST_EAST, edgeCoastEast);
 createEdge(JUNGLE_COAST_3, COAST_PADDOCK_EXIT, edgeCoastWest1);
 createEdge(JUNGLE_COAST_1, JUNGLE_COAST_2, edgeCoastWest3);
 createEdge(JUNGLE_COAST_2, JUNGLE_COAST_3, edgeCoastWest2);
 createEdge(COAST_EAST, FUEGO_SOUTH_2, []);
 createEdge(COAST_EAST, FUEGO_SOUTH_3, []);
+createEdge(JUNGLE_COAST_2, JUNGLE_COAST_4, []);
+createEdge(JUNGLE_COAST_4, JUNGLE_COAST_3, []);
 
 const THE_GRADE_MID = createNode([-11.704184, 166.966768, 134.8]);
 const THE_GRADE_BOTTOM1 = createNode([-11.717527, 166.966714, 13.8]);
@@ -380,5 +384,6 @@ createEdge(THE_GRADE_TOP3, THE_GRADE_TOP1, theGrade7);
 createEdge(THE_GRADE_TOP4, RADIO_TOWER_BOTTOM, edgeEpicReverse1);
 createEdge(EPIC_KOM_BYPASS_EAST, THE_GRADE_TOP5, edgeEpicReverse2);
 createEdge(THE_GRADE_TOP5, THE_GRADE_TOP4, edgeEpicReverse3);
+createEdge(JUNGLE_COAST_4, THE_GRADE_MID, edgeCoastWestTheGrade);
 
 export default ROADS;
