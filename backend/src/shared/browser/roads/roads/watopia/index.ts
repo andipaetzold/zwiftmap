@@ -64,7 +64,8 @@ import edgeVolcanoKOM from "./edges/volcano-kom.js";
 import edgeVolcanoNorth from "./edges/volcano-north.js";
 import edgeVolcanoSouth from "./edges/volcano-south.js";
 import edgeVolcanoTop from "./edges/volcano-top.js";
-import edgeCoast from "./edges/coast.js";
+import edgeCoastEast from "./edges/coast-east.js";
+import edgeCoastWest from "./edges/coast-west.js";
 
 const ROADS = new Roads();
 const createNode = ROADS.createNode.bind(ROADS);
@@ -320,9 +321,27 @@ createEdge(FUEGO_PADDOCK_2, FUEGO_PADDOCK_ROW_FRONT, [], false);
 createEdge(FUEGO_PADDOCK_3, FUEGO_PADDOCK_ROW_BACK, [], false);
 createEdge(FUEGO_PADDOCK_4, FUEGO_PADDOCK_ROW_BACK, [], false);
 
+// Coast paddock
+const COAST_PADDOCK_EXIT = createNode([-11.718678, 166.966739, 13.6]);
+const COAST_PADDOCK_ROW_FRONT = createNode([-11.720848, 166.966717, 13.6]);
+const COAST_PADDOCK_ROW_BACK = createNode([-11.72159, 166.966714, 13.6]);
+const COAST_PADDOCK_CENTER = createNode([-11.722667, 166.966722, 13.6]);
+const COAST_PADDOCK_1 = createNode([-11.721615, 166.965842, 13.6]);
+const COAST_PADDOCK_2 = createNode([-11.72161, 166.96758, 13.6]);
+const COAST_PADDOCK_3 = createNode([-11.72235, 166.965842, 13.6]);
+const COAST_PADDOCK_4 = createNode([-11.72235, 166.96758, 13.6]);
+createEdge(COAST_PADDOCK_CENTER, COAST_PADDOCK_ROW_BACK, [], false);
+createEdge(COAST_PADDOCK_ROW_BACK, COAST_PADDOCK_ROW_FRONT, [], false);
+createEdge(COAST_PADDOCK_ROW_FRONT, COAST_PADDOCK_EXIT, [], false);
+createEdge(COAST_PADDOCK_1, COAST_PADDOCK_ROW_FRONT, [], false);
+createEdge(COAST_PADDOCK_2, COAST_PADDOCK_ROW_FRONT, [], false);
+createEdge(COAST_PADDOCK_3, COAST_PADDOCK_ROW_BACK, [], false);
+createEdge(COAST_PADDOCK_4, COAST_PADDOCK_ROW_BACK, [], false);
+
 // Coast
 const COAST_EAST = createNode([-11.663552, 166.985181, 13]);
-createEdge(JUNGLE_COAST, COAST_EAST, edgeCoast);
+createEdge(COAST_PADDOCK_EXIT, COAST_EAST, edgeCoastEast);
+createEdge(JUNGLE_COAST, COAST_PADDOCK_EXIT, edgeCoastWest);
 createEdge(COAST_EAST, FUEGO_SOUTH_2, []);
 createEdge(COAST_EAST, FUEGO_SOUTH_3, []);
 
