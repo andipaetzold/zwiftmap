@@ -2,7 +2,9 @@ import { Roads } from "../Roads.js";
 import edgeADZTop from "./edges/adz-top.js";
 import edgeADZ from "./edges/adz.js";
 import edgeCoastEast from "./edges/coast-east.js";
-import edgeCoastWest from "./edges/coast-west.js";
+import edgeCoastWest1 from "./edges/coast-west-1.js";
+import edgeCoastWest2 from "./edges/coast-west-2.js";
+import edgeCoastWest3 from "./edges/coast-west-3.js";
 import edgeEpicBypass from "./edges/epic-bypass.js";
 import edgeEpicReverse1 from "./edges/epic-reverse-1.js";
 import edgeEpicReverse2 from "./edges/epic-reverse-2.js";
@@ -110,9 +112,9 @@ createEdge(JUNGLE_JUNCTION_BOTTOM_2, JUNGLE_JUNCTION_BOTTOM_3, []);
 createEdge(JUNGLE_JUNCTION_BOTTOM_2, JUNGLE_JUNCTION_TOP_2, edgeJungleBridge);
 
 // Jungle (Coast)
-const JUNGLE_COAST = createNode([-11.692462, 166.930535, 0.6]);
-createEdge(ADZ_BOTTOM_2, JUNGLE_COAST, edgeJungle2);
-createEdge(JUNGLE_COAST, JUNGLE_JUNCTION_BOTTOM_3, edgeJungle5);
+const JUNGLE_COAST_1 = createNode([-11.692462, 166.930535, 0.6]);
+createEdge(ADZ_BOTTOM_2, JUNGLE_COAST_1, edgeJungle2);
+createEdge(JUNGLE_COAST_1, JUNGLE_JUNCTION_BOTTOM_3, edgeJungle5);
 
 // Jungle (Junction Right)
 const JUNGLE_JUNCTION_EAST_1 = createNode([-11.678945, 166.93926, 57.8]);
@@ -348,8 +350,12 @@ createEdge(COAST_PADDOCK_4, COAST_PADDOCK_ROW_BACK, [], false);
 
 // Coast
 const COAST_EAST = createNode([-11.663552, 166.985181, 13]);
+const JUNGLE_COAST_2 = createNode([-11.703173, 166.930874, 13]);
+const JUNGLE_COAST_3 = createNode([-11.703717,166.930777, 13]);
 createEdge(COAST_PADDOCK_EXIT, COAST_EAST, edgeCoastEast);
-createEdge(JUNGLE_COAST, COAST_PADDOCK_EXIT, edgeCoastWest);
+createEdge(JUNGLE_COAST_3, COAST_PADDOCK_EXIT, edgeCoastWest1);
+createEdge(JUNGLE_COAST_1, JUNGLE_COAST_2, edgeCoastWest3);
+createEdge(JUNGLE_COAST_2, JUNGLE_COAST_3, edgeCoastWest2);
 createEdge(COAST_EAST, FUEGO_SOUTH_2, []);
 createEdge(COAST_EAST, FUEGO_SOUTH_3, []);
 
@@ -371,7 +377,6 @@ createEdge(THE_GRADE_TOP2, THE_GRADE_TOP3, []);
 createEdge(THE_GRADE_TOP3, THE_GRADE_TOP4, []);
 createEdge(THE_GRADE_TOP2, THE_GRADE_TOP5, theGrade6);
 createEdge(THE_GRADE_TOP3, THE_GRADE_TOP1, theGrade7);
-
 createEdge(THE_GRADE_TOP4, RADIO_TOWER_BOTTOM, edgeEpicReverse1);
 createEdge(EPIC_KOM_BYPASS_EAST, THE_GRADE_TOP5, edgeEpicReverse2);
 createEdge(THE_GRADE_TOP5, THE_GRADE_TOP4, edgeEpicReverse3);
