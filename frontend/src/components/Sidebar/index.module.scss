@@ -3,6 +3,11 @@
 $drag-handle-height: 25px;
 
 .Container {
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+
   @include isDesktop {
     grid-area: sidebar;
   }
@@ -25,11 +30,6 @@ $drag-handle-height: 25px;
       display: none;
     }
   }
-
-  overflow-y: auto;
-  overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
 }
 
 .SearchBox {
