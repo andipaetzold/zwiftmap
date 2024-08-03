@@ -1,8 +1,12 @@
 import { Roads } from "../Roads.js";
 import edgeADZTop from "./edges/adz-top.js";
 import edgeADZ from "./edges/adz.js";
+import edgeCoastEast from "./edges/coast-east.js";
+import edgeCoastWest from "./edges/coast-west.js";
 import edgeEpicBypass from "./edges/epic-bypass.js";
-import edgeEpicReverse from "./edges/epic-reverse.js";
+import edgeEpicReverse1 from "./edges/epic-reverse-1.js";
+import edgeEpicReverse2 from "./edges/epic-reverse-2.js";
+import edgeEpicReverse3 from "./edges/epic-reverse-3.js";
 import edgeEpic from "./edges/epic.js";
 import edgeFuegoFlats from "./edges/fuego-flats.js";
 import edgeFuegoNorthRoundabout1 from "./edges/fuego-north-roundabout-1.js";
@@ -51,6 +55,13 @@ import edgeOceanWest1 from "./edges/ocean-west-1.js";
 import edgeOceanWest2 from "./edges/ocean-west-2.js";
 import edgeRadioClimb from "./edges/radio-climb.js";
 import edgeRadioRoundabout from "./edges/radio-roundabout.js";
+import theGrade1 from "./edges/the-grade-1.js";
+import theGrade2 from "./edges/the-grade-2.js";
+import theGrade3 from "./edges/the-grade-3.js";
+import theGrade4 from "./edges/the-grade-4.js";
+import theGrade5 from "./edges/the-grade-5.js";
+import theGrade6 from "./edges/the-grade-6.js";
+import theGrade7 from "./edges/the-grade-7.js";
 import edgeTitansFuegoNorth from "./edges/titans-fuego-north.js";
 import edgeTitansFuegoSouth from "./edges/titans-fuego-south.js";
 import edgeTitansGroveMiddle from "./edges/titans-grove-middle.js";
@@ -64,8 +75,6 @@ import edgeVolcanoKOM from "./edges/volcano-kom.js";
 import edgeVolcanoNorth from "./edges/volcano-north.js";
 import edgeVolcanoSouth from "./edges/volcano-south.js";
 import edgeVolcanoTop from "./edges/volcano-top.js";
-import edgeCoastEast from "./edges/coast-east.js";
-import edgeCoastWest from "./edges/coast-west.js";
 
 const ROADS = new Roads();
 const createNode = ROADS.createNode.bind(ROADS);
@@ -157,7 +166,6 @@ const EPIC_KOM_BYPASS_WEST = createNode([-11.665455, 166.951225, 78.4]);
 createEdge(EPIC_KOM_WEST_JUNCTION_3, EPIC_KOM_BYPASS_WEST, []);
 createEdge(EPIC_KOM_BYPASS_WEST, EPIC_KOM_BYPASS_EAST, edgeEpicBypass);
 createEdge(EPIC_KOM_BYPASS_WEST, RADIO_TOWER_BOTTOM, edgeEpic);
-createEdge(EPIC_KOM_BYPASS_EAST, RADIO_TOWER_BOTTOM, edgeEpicReverse);
 
 // Volcano
 const VOLCANO_EAST = createNode([-11.640294, 166.942486, 10.4]);
@@ -344,5 +352,28 @@ createEdge(COAST_PADDOCK_EXIT, COAST_EAST, edgeCoastEast);
 createEdge(JUNGLE_COAST, COAST_PADDOCK_EXIT, edgeCoastWest);
 createEdge(COAST_EAST, FUEGO_SOUTH_2, []);
 createEdge(COAST_EAST, FUEGO_SOUTH_3, []);
+
+const THE_GRADE_MID = createNode([-11.704184, 166.966768, 0]);
+const THE_GRADE_BOTTOM1 = createNode([-11.717527, 166.966714, 0]);
+const THE_GRADE_BOTTOM2 = createNode([-11.7184, 166.966717, 0]);
+const THE_GRADE_TOP1 = createNode([-11.693941, 166.96676, 0]);
+const THE_GRADE_TOP2 = createNode([-11.693371, 166.966768, 0]);
+const THE_GRADE_TOP3 = createNode([-11.693187, 166.966695, 0]);
+const THE_GRADE_TOP4 = createNode([-11.69295, 166.966642, 0]);
+const THE_GRADE_TOP5 = createNode([-11.69301, 166.967242, 0]);
+createEdge(THE_GRADE_BOTTOM1, THE_GRADE_MID, theGrade1);
+createEdge(THE_GRADE_MID, THE_GRADE_TOP1, theGrade2);
+createEdge(THE_GRADE_BOTTOM2, THE_GRADE_BOTTOM1, theGrade3);
+createEdge(THE_GRADE_BOTTOM2, COAST_PADDOCK_EXIT, []);
+createEdge(THE_GRADE_BOTTOM1, THE_GRADE_BOTTOM2, theGrade5);
+createEdge(THE_GRADE_TOP1, THE_GRADE_TOP2, theGrade4);
+createEdge(THE_GRADE_TOP2, THE_GRADE_TOP3, []);
+createEdge(THE_GRADE_TOP3, THE_GRADE_TOP4, []);
+createEdge(THE_GRADE_TOP2, THE_GRADE_TOP5, theGrade6);
+createEdge(THE_GRADE_TOP3, THE_GRADE_TOP1, theGrade7);
+
+createEdge(THE_GRADE_TOP4, RADIO_TOWER_BOTTOM, edgeEpicReverse1);
+createEdge(EPIC_KOM_BYPASS_EAST, THE_GRADE_TOP5, edgeEpicReverse2);
+createEdge(THE_GRADE_TOP5, THE_GRADE_TOP4, edgeEpicReverse3);
 
 export default ROADS;
