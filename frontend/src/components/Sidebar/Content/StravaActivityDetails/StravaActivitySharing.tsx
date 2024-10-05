@@ -1,18 +1,11 @@
 import { useAddMessage } from "@react-md/alert";
 import { ListItem, ListSubheader, SimpleListItem } from "@react-md/list";
-import {
-  ImageSVGIcon,
-  InsertLinkSVGIcon,
-  ShareSVGIcon,
-} from "@react-md/material-icons";
+import { ImageSVGIcon, ShareSVGIcon } from "@react-md/material-icons";
 import * as Sentry from "@sentry/react";
 import { useMutation } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { createUrl } from "../../../../services/location-state";
-import {
-  appendStravaDescription,
-  StravaActivity,
-} from "../../../../services/StravaActivityRepository";
+import { StravaActivity } from "../../../../services/StravaActivityRepository";
 import { shareStravaActivity } from "../../../../services/zwiftMapApi";
 import { getShareImageUrl } from "../../../../util/image";
 import { shareImage } from "../../../../util/shareImage";
@@ -29,7 +22,7 @@ export function StravaActivitySharing({ activity }: Props) {
       <ListSubheader>Sharing</ListSubheader>
       <ShareActivity activity={activity} />
       <ShareActivityAsImage activity={activity} />
-      <AddLinkToActivityDescription activity={activity} />
+      {/* <AddLinkToActivityDescription activity={activity} /> */}
       <SimpleListItem>
         <i>Sharing will store activity details on the ZwiftMap server.</i>
       </SimpleListItem>
@@ -135,45 +128,45 @@ function ShareActivityAsImage({ activity }: Props) {
   );
 }
 
-function AddLinkToActivityDescription({ activity }: Props) {
-  const [loading, setLoading] = useState<boolean>(false);
+// function AddLinkToActivityDescription({ activity }: Props) {
+//   const [loading, setLoading] = useState<boolean>(false);
 
-  const addMessage = useAddMessage();
+//   const addMessage = useAddMessage();
 
-  const handleAddLink = async () => {
-    try {
-      setLoading(true);
+//   const handleAddLink = async () => {
+//     try {
+//       setLoading(true);
 
-      const { id: shareId } = await shareStravaActivity(activity.id);
+//       const { id: shareId } = await shareStravaActivity(activity.id);
 
-      const path = createUrl({
-        type: "share",
-        shareId,
-        world: null,
-      });
+//       const path = createUrl({
+//         type: "share",
+//         shareId,
+//         world: null,
+//       });
 
-      const url = new URL(path, window.location.origin).toString();
-      await appendStravaDescription(activity.id, `View on ZwiftMap:\n${url}`);
+//       const url = new URL(path, window.location.origin).toString();
+//       await appendStravaDescription(activity.id, `View on ZwiftMap:\n${url}`);
 
-      addMessage({ children: "Link posted to activity description" });
-    } catch (e) {
-      Sentry.captureException(e);
-      addMessage({ children: "Error posting link to activity description" });
-    } finally {
-      setLoading(false);
-    }
-  };
+//       addMessage({ children: "Link posted to activity description" });
+//     } catch (e) {
+//       Sentry.captureException(e);
+//       addMessage({ children: "Error posting link to activity description" });
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
 
-  return (
-    <ListItem
-      rightAddon={<InsertLinkSVGIcon />}
-      rightAddonType="icon"
-      onClick={handleAddLink}
-      disabled={loading}
-    >
-      {loading
-        ? "Posting link to activity description…"
-        : "Add link to activity description"}
-    </ListItem>
-  );
-}
+//   return (
+//     <ListItem
+//       rightAddon={<InsertLinkSVGIcon />}
+//       rightAddonType="icon"
+//       onClick={handleAddLink}
+//       disabled={loading}
+//     >
+//       {loading
+//         ? "Posting link to activity description…"
+//         : "Add link to activity description"}
+//     </ListItem>
+//   );
+// }

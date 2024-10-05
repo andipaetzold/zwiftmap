@@ -3,13 +3,15 @@ import {
   removeStravaFog,
   writeStravaActivity,
 } from "../../../../shared/persistence/index.js";
-import { addLinkToActivity } from "../../../../shared/services/sharing.js";
 import {
   CachedStravaUserAPI,
   DetailedActivity,
 } from "../../../../shared/services/strava/index.js";
 import { Logger, WebhookEventType } from "../../../../shared/types.js";
-import { getWorldFromActivity, isZwiftActivity } from "../../../../shared/util.js";
+import {
+  getWorldFromActivity,
+  isZwiftActivity,
+} from "../../../../shared/util.js";
 
 export async function handleActivityCreate(
   webhookEvent: WebhookEventType,
@@ -37,10 +39,10 @@ export async function handleActivityCreate(
     return;
   }
 
-  if (settings.addLinkToActivityDescription) {
-    logger.info("Adding link to activity description");
-    await addLinkToActivity(athleteId, activityId, logger);
-  }
+  // if (settings.addLinkToActivityDescription) {
+  //   logger.info("Adding link to activity description");
+  //   await addLinkToActivity(athleteId, activityId, logger);
+  // }
 
   if (settings.persistActivities) {
     logger.info("Writing Strava Activity");

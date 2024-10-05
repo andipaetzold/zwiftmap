@@ -1,7 +1,6 @@
 import { Divider } from "@react-md/divider";
 import { ExpansionPanel } from "@react-md/expansion-panel";
 import { AsyncSwitch } from "@react-md/form";
-import { Link } from "@react-md/link";
 import { KeyboardArrowDownSVGIcon } from "@react-md/material-icons";
 import { Typography } from "@react-md/typography";
 import { useId, useState } from "react";
@@ -15,14 +14,14 @@ const DEFAULT_STRAVA_SETTINGS: StravaSettingsType = {
 
 export function StravaSettings() {
   const [settings] = useStravaSettings();
-  const { mutate: updateStravaSettings, isPending: isPending1 } =
-    useUpdateStravaSettings();
+  // const { mutate: updateStravaSettings, isPending: isPending1 } =
+  //   useUpdateStravaSettings();
   const { mutate: update, isPending: isPending2 } = useUpdateStravaSettings();
   const [footnotesExpanded, setFootnotesExpanded] = useState(false);
 
   return (
     <>
-      <AsyncSwitch
+      {/* <AsyncSwitch
         id={useId()}
         label={
           <>
@@ -47,13 +46,13 @@ export function StravaSettings() {
             addLinkToActivityDescription: e.target.checked,
           });
         }}
-      />
+      /> */}
 
       <AsyncSwitch
         id={useId()}
         label={
           <>
-            Allow ZwiftMap to save and process activities&nbsp;<sup>2</sup>
+            Allow ZwiftMap to save and process activities&nbsp;<sup>1</sup>
           </>
         }
         aria-label="Allow ZwiftMap to save and process activities"
@@ -91,7 +90,7 @@ export function StravaSettings() {
       >
         <Typography type="body-1" component="div">
           <ol>
-            <li>
+            {/* <li>
               New activities are stored on ZwiftMap servers. The data won&apos;t
               be deleted when you revoke ZwiftMap&apos;s access to your Strava
               account to ensure the links stay valid. If you still want to
@@ -101,7 +100,7 @@ export function StravaSettings() {
               </Link>
               . The stored activities are accessible for anyone via the shared
               link in your Strava activity description.
-            </li>
+            </li> */}
             <li>
               New activities are stored on ZwiftMap servers. They will be
               deleted automatically when you revoke ZwiftMap&apos;s access to
