@@ -47,7 +47,7 @@ jobs:
                                       --runtime=nodejs20 \
                                       --trigger-http \
                                       --env-vars-file .env.yaml \
-                                      --memory=512MiB \
+                                      --memory=1G \
                                       --allow-unauthenticated
         working-directory: backend
         env:
