@@ -36,7 +36,7 @@
     "@google-cloud/secret-manager": "5.6.0",
     "@google-cloud/storage": "7.13.0",
     "@mapbox/polyline": "1.2.1",
-    "@sentry/node": "7.119.0",
+    "@sentry/node": "7.119.1",
     "@sentry/tracing": "7.114.0",
     "@turf/bbox-polygon": "6.5.0",
     "@turf/boolean-point-in-polygon": "6.5.0",
