@@ -1,4 +1,4 @@
-import * as Sentry from "@sentry/react";
+import { captureException } from "@sentry/react";
 
 const isNavigatorShareSupported = "share" in navigator;
 
@@ -34,7 +34,7 @@ export async function shareImage(url: string, fileName: string): Promise<void> {
       window.open(url, "__blank");
     } else {
       window.open(url, "__blank");
-      Sentry.captureException(e);
+      captureException(e);
     }
   }
 }

@@ -1,7 +1,7 @@
 import { useAddMessage } from "@react-md/alert";
 import { ListItem, ListSubheader, SimpleListItem } from "@react-md/list";
 import { ImageSVGIcon, ShareSVGIcon } from "@react-md/material-icons";
-import * as Sentry from "@sentry/react";
+import { captureException } from "@sentry/react";
 import { useMutation } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { createUrl } from "../../../../services/location-state";
@@ -63,7 +63,7 @@ function ShareActivity({ activity }: Props) {
       }
     },
     onError: (e) => {
-      Sentry.captureException(e);
+      captureException(e);
       addMessage({ children: "Error sharing the acitivty" });
     },
   });
@@ -108,7 +108,7 @@ function ShareActivityAsImage({ activity }: Props) {
 
       await shareImage(imageUrl, `share-${shareId}.png`);
     } catch (e) {
-      Sentry.captureException(e);
+      captureException(e);
       addMessage({ children: "Error sharing the acitivty" });
     } finally {
       reset();
@@ -150,7 +150,7 @@ function ShareActivityAsImage({ activity }: Props) {
 
 //       addMessage({ children: "Link posted to activity description" });
 //     } catch (e) {
-//       Sentry.captureException(e);
+//       captureException(e);
 //       addMessage({ children: "Error posting link to activity description" });
 //     } finally {
 //       setLoading(false);
