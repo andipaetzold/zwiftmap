@@ -25,6 +25,6 @@
       "allowedVersions": "< 1.2"
     }
   ],
-  "ignoreDeps": ["netlify-cli"],
+  "ignoreDeps": ["netlify-cli", "zustand"],
   "postUpdateOptions": ["npmDedupe"]
 }
