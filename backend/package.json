@@ -34,7 +34,7 @@
     "@google-cloud/firestore": "7.10.0",
     "@google-cloud/logging-winston": "6.0.0",
     "@google-cloud/secret-manager": "5.6.0",
-    "@google-cloud/storage": "7.13.0",
+    "@google-cloud/storage": "7.14.0",
     "@mapbox/polyline": "1.2.1",
     "@sentry/node": "7.119.2",
     "@sentry/tracing": "7.114.0",
