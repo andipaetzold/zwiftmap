@@ -54,7 +54,7 @@
     "recharts": "2.13.3",
     "strava": "2.3.0",
     "zustand": "4.5.5",
-    "zwift-data": "1.40.0"
+    "zwift-data": "1.40.3"
   },
   "scripts": {
     "prepare": "cd .. && husky install frontend/.husky",
