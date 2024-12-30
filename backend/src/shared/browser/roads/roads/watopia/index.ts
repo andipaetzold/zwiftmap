@@ -78,6 +78,10 @@ import edgeVolcanoNorth from "./edges/volcano-north.js";
 import edgeVolcanoSouth from "./edges/volcano-south.js";
 import edgeVolcanoTop from "./edges/volcano-top.js";
 import edgeCoastWestTheGrade from "./edges/coast-west-the-grade.js";
+import edgeJarvis from "./edges/jarvis-loop.js";
+import edgeJarvisIntersection1 from "./edges/jarvis-east-intersection-1.js";
+import edgeJarvisIntersection2 from "./edges/jarvis-east-intersection-2.js";
+import edgeJarvisIntersection3 from "./edges/jarvis-east-intersection-3.js";
 
 const ROADS = new Roads();
 const createNode = ROADS.createNode.bind(ROADS);
@@ -385,5 +389,15 @@ createEdge(THE_GRADE_TOP4, RADIO_TOWER_BOTTOM, edgeEpicReverse1);
 createEdge(EPIC_KOM_BYPASS_EAST, THE_GRADE_TOP5, edgeEpicReverse2);
 createEdge(THE_GRADE_TOP5, THE_GRADE_TOP4, edgeEpicReverse3);
 createEdge(JUNGLE_COAST_4, THE_GRADE_MID, edgeCoastWestTheGrade);
+
+// Jarvis
+const JARVIS_EAST_1 = createNode([-11.646414, 166.934245, 2.2]);
+const JARVIS_EAST_2 = createNode([-11.646047, 166.934021, 2.2]);
+const JARVIS_EAST_3 = createNode([-11.646011, 166.934359, 2.2]);
+createEdge(JARVIS_EAST_1, JARVIS_EAST_2, edgeJarvis);
+createEdge(JARVIS_EAST_2, JARVIS_EAST_1, edgeJarvisIntersection1);
+createEdge(JARVIS_EAST_2, JARVIS_EAST_3, edgeJarvisIntersection2);
+createEdge(JARVIS_EAST_3, JARVIS_EAST_1, edgeJarvisIntersection3);
+
 
 export default ROADS;
