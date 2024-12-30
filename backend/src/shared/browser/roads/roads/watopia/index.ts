@@ -73,6 +73,7 @@ import edgeTitansRepackRidge from "./edges/titans-repack-ridge.js";
 import edgeVolcano1 from "./edges/volcano-1.js";
 import edgeVolcano2 from "./edges/volcano-2.js";
 import edgeVolcano3 from "./edges/volcano-3.js";
+import edgeVolcano4 from "./edges/volcano-4.js";
 import edgeVolcanoKOM from "./edges/volcano-kom.js";
 import edgeVolcanoNorth from "./edges/volcano-north.js";
 import edgeVolcanoSouth from "./edges/volcano-south.js";
@@ -82,6 +83,10 @@ import edgeJarvis from "./edges/jarvis-loop.js";
 import edgeJarvisIntersection1 from "./edges/jarvis-east-intersection-1.js";
 import edgeJarvisIntersection2 from "./edges/jarvis-east-intersection-2.js";
 import edgeJarvisIntersection3 from "./edges/jarvis-east-intersection-3.js";
+import edgeJarvisVolcano from "./edges/jarvis-volcano.js";
+import edgeJarvisVolcanoIntersection1 from "./edges/jarvis-volcano-intersection-1.js";
+import edgeJarvisVolcanoIntersection2 from "./edges/jarvis-volcano-intersection-2.js";
+import edgeJarvisVolcanoIntersection3 from "./edges/jarvis-volcano-intersection-3.js";
 
 const ROADS = new Roads();
 const createNode = ROADS.createNode.bind(ROADS);
@@ -182,7 +187,6 @@ const VOLCANO_TOP = createNode([-11.642471, 166.939379, 129.8]);
 createEdge(VOLCANO_TOP, VOLCANO_TOP, edgeVolcanoTop);
 createEdge(VOLCANO_TOP, VOLCANO_WEST, edgeVolcanoKOM);
 createEdge(VOLCANO_WEST, VOLCANO_EAST, edgeVolcano2);
-createEdge(VOLCANO_SOUTH, VOLCANO_WEST, edgeVolcano1);
 createEdge(VOLCANO_EAST, VOLCANO_SOUTH, edgeVolcano3);
 
 // Ocean
@@ -399,5 +403,16 @@ createEdge(JARVIS_EAST_2, JARVIS_EAST_1, edgeJarvisIntersection1);
 createEdge(JARVIS_EAST_2, JARVIS_EAST_3, edgeJarvisIntersection2);
 createEdge(JARVIS_EAST_3, JARVIS_EAST_1, edgeJarvisIntersection3);
 
+const JARVIS_VOLCANO_1 = createNode([-11.645236, 166.935573, 2.2]);
+const JARVIS_VOLCANO_2 = createNode([-11.645337, 166.936176, 2.2]);
+const JARVIS_VOLCANO_3 = createNode([-11.644612, 166.935705, 2.2]);
+
+createEdge(JARVIS_VOLCANO_1, JARVIS_EAST_3, edgeJarvisVolcano);
+createEdge(JARVIS_VOLCANO_1, JARVIS_VOLCANO_2, edgeJarvisVolcanoIntersection1);
+createEdge(JARVIS_VOLCANO_2, JARVIS_VOLCANO_3, edgeJarvisVolcanoIntersection2);
+createEdge(JARVIS_VOLCANO_3, JARVIS_VOLCANO_1, edgeJarvisVolcanoIntersection3);
+
+createEdge(JARVIS_VOLCANO_3, VOLCANO_WEST, edgeVolcano1);
+createEdge(VOLCANO_SOUTH, JARVIS_VOLCANO_2, edgeVolcano4);
 
 export default ROADS;
