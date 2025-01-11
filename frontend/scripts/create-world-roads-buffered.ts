@@ -1,7 +1,7 @@
 import buffer from "@turf/buffer";
 import { Feature, lineString, MultiPolygon, Polygon } from "@turf/helpers";
 import union from "@turf/union";
-import _ from "lodash-es";
+import { round } from "lodash-es";
 import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import path, { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -31,13 +31,13 @@ for (const world of worlds) {
 
   const linePolygon = linePolygons.reduce(
     (prev, cur) => union(prev, cur)!,
-    linePolygons[0] as Feature<Polygon | MultiPolygon>,
+    linePolygons[0] as Feature<Polygon | MultiPolygon>
   ) as Feature<Polygon>;
 
   const data = linePolygon.geometry.coordinates.map((polygon) =>
     polygon
       .map(positionToLatLng)
-      .map(([lat, lng]) => [_.round(lat, 6), _.round(lng, 6)]),
+      .map(([lat, lng]) => [round(lat, 6), round(lng, 6)])
   );
 
   const dir = `${BASE_DIR}/${world.slug}`;
