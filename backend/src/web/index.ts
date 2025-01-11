@@ -1,6 +1,6 @@
+import "./instrument.js";
 import "source-map-support/register.js";
-import Sentry from "@sentry/node";
-import Tracing from "@sentry/tracing";
+import { setupExpressErrorHandler } from "@sentry/node";
 import nocache from "nocache";
 import { config } from "../shared/config.js";
 import * as handlers from "./handlers/index.js";
@@ -11,20 +11,6 @@ import "express-async-errors";
 import sharp from "sharp";
 
 sharp.cache(false);
-
-Sentry.init({
-  enabled: config.sentry.dsn.length > 0,
-  dsn: config.sentry.dsn,
-  release: config.sentry.version,
-  tracesSampleRate: 0.01,
-  integrations: [
-    new Sentry.Integrations.Http({ tracing: true }),
-    new Tracing.Integrations.Express({ app }),
-  ],
-});
-
-app.use(Sentry.Handlers.requestHandler());
-app.use(Sentry.Handlers.tracingHandler());
 
 app.get("/health", nocache(), handlers.handleHealth);
 
@@ -85,7 +71,7 @@ app.delete("/worlds/:worldSlug/places/:placeId", handlers.handleDELETEPlace);
 
 app.post("/uploads", handlers.handlePOSTUpload);
 
-app.use(Sentry.Handlers.errorHandler());
+setupExpressErrorHandler(app)
 app.use(errorHandler);
 
 export const api = app;
