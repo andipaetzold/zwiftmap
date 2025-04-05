@@ -29,7 +29,7 @@
     "@turf/length": "6.5.0",
     "@turf/nearest-point-on-line": "6.5.0",
     "@turf/union": "6.5.0",
-    "@types/leaflet": "1.9.5",
+    "@types/leaflet": "1.9.17",
     "@types/node": "22.13.0",
     "@types/object-hash": "3.0.6",
     "@types/react": "18.3.18",
