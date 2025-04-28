@@ -12,7 +12,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Use node
-        uses: actions/setup-node@v4.2.0
+        uses: actions/setup-node@v4.4.0
         with:
           node-version-file: ".nvmrc"
 
@@ -59,7 +59,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Use node
-        uses: actions/setup-node@v4.2.0
+        uses: actions/setup-node@v4.4.0
         with:
           node-version-file: ".nvmrc"
       - run: npm i
@@ -79,7 +79,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Use node
-        uses: actions/setup-node@v4.2.0
+        uses: actions/setup-node@v4.4.0
         with:
           node-version-file: ".nvmrc"
 
