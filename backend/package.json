@@ -47,7 +47,7 @@
     "@turf/nearest-point-on-line": "6.5.0",
     "@turf/point-to-line-distance": "6.5.0",
     "axios": "1.7.4",
-    "compression": "1.7.5",
+    "compression": "1.8.0",
     "cors": "2.8.5",
     "dotenv": "16.4.7",
     "express": "4.21.2",
