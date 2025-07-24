@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@tsconfig/node20": "20.1.6",
-    "@types/compression": "1.7.5",
+    "@types/compression": "1.8.1",
     "@types/cors": "2.8.19",
     "@types/express": "4.17.23",
     "@types/express-session": "1.18.1",
@@ -47,7 +47,7 @@
     "@turf/nearest-point-on-line": "6.5.0",
     "@turf/point-to-line-distance": "6.5.0",
     "axios": "1.7.4",
-    "compression": "1.8.0",
+    "compression": "1.8.1",
     "cors": "2.8.5",
     "dotenv": "16.5.0",
     "express": "4.21.2",
