@@ -28,7 +28,7 @@
     "geojson": "0.5.0",
     "ngrok": "4.3.3",
     "tsc-watch": "7.1.1",
-    "typescript": "5.8.3"
+    "typescript": "5.9.2"
   },
   "dependencies": {
     "@google-cloud/firestore": "7.11.3",
