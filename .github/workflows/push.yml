@@ -5,7 +5,7 @@ on:
 
 jobs:
   backend:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
       - uses: actions/checkout@v4
@@ -54,7 +54,7 @@ jobs:
           API_ENV_YAML: ${{ secrets.API_ENV_YAML }}
 
   browser-extension:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
       - uses: actions/checkout@v4
@@ -68,7 +68,7 @@ jobs:
         working-directory: browser-extension
 
   frontend:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     env:
       # 7 GiB by default on GitHub, setting to 6 GiB
       # https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
