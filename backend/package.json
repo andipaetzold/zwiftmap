@@ -59,7 +59,7 @@
     "nocache": "4.0.0",
     "node-cache": "5.1.2",
     "runtypes": "6.7.0",
-    "sharp": "0.34.3",
+    "sharp": "0.34.4",
     "short-uuid": "5.2.0",
     "source-map-support": "0.5.21",
     "winston": "3.17.0",
