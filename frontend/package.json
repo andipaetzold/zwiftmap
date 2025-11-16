@@ -64,7 +64,7 @@
     "prebuild:fetch-segments": "tsx ./scripts/fetch-segments.ts",
     "prebuild:sitemap": "tsx ./scripts/create-sitemap.ts",
     "prebuild:world-roads-buffered": "tsx ./scripts/create-world-roads-buffered.ts",
-    "prebuild:assets": "pwa-asset-generator ./public/assets/logo.svg ./public/assets -v /assets -i ./index.html -m ./public/manifest.webmanifest -o true -t png",
+    "prebuild:assets": "pwa-asset-generator ./public/assets/logo.svg ./public/assets -v /assets -i ./index.html -m ./public/manifest.webmanifest -o true -t png --no-sandbox",
     "build": "npm run build:tsc && npm run build:react",
     "build:tsc": "tsc",
     "build:react": "VITE_GIT_SHA=`git rev-parse --short HEAD` vite build",
