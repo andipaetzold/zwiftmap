@@ -1,6 +1,6 @@
 {
   "name": "@zwiftmap/browser-extension",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "Replace real-world maps with Zwift maps when visiting Strava",
   "author": "Andi Pätzold",
   "license": "MIT",
