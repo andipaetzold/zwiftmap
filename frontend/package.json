@@ -91,7 +91,7 @@
     "eslint-plugin-react-hooks": "5.2.0",
     "happy-dom": "20.0.10",
     "husky": "9.1.7",
-    "lint-staged": "16.2.6",
+    "lint-staged": "16.2.7",
     "netlify-cli": "12.2.8",
     "prettier": "3.6.2",
     "pwa-asset-generator": "8.1.2",
