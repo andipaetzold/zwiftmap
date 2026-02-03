@@ -41,7 +41,7 @@
     "fast-xml-parser": "5.3.4",
     "file-saver": "2.0.5",
     "leaflet": "1.9.4",
-    "lodash-es": "4.17.22",
+    "lodash-es": "4.17.23",
     "mitt": "3.0.1",
     "object-hash": "3.0.0",
     "pretty-bytes": "7.1.0",
