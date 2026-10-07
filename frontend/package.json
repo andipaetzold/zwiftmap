@@ -54,14 +54,14 @@
     "recharts": "2.15.4",
     "strava": "2.3.0",
     "zustand": "4.5.5",
-    "zwift-data": "1.48.6"
+    "zwift-data": "2.1.0"
   },
   "scripts": {
     "prepare": "cd .. && husky install frontend/.husky",
     "start": "npm run dev",
     "dev": "VITE_GIT_SHA=`git rev-parse --short HEAD` vite --host",
-    "prebuild": "npm run prebuild:fetch-segments && npm run prebuild:sitemap && npm run prebuild:world-roads-buffered",
-    "prebuild:fetch-segments": "tsx ./scripts/fetch-segments.ts",
+    "prebuild": "npm run prebuild:segment-streams && npm run prebuild:sitemap && npm run prebuild:world-roads-buffered",
+    "prebuild:segment-streams": "tsx ./scripts/create-segment-streams.ts",
     "prebuild:sitemap": "tsx ./scripts/create-sitemap.ts",
     "prebuild:world-roads-buffered": "tsx ./scripts/create-world-roads-buffered.ts",
     "pwa-assets": "pwa-asset-generator ./public/assets/logo.svg ./public/assets -v /assets -i ./index.html -m ./public/manifest.webmanifest -o true -t png",

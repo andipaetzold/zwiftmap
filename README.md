@@ -28,3 +28,14 @@ https://zwiftmap.com
 ![Strava Activity Feed](./browser-extension/screenshots/activity-feed.png)
 ![Strava Activity](./browser-extension/screenshots/activity.png)
 ![Strava Segment](./browser-extension/screenshots/segment.png)
+
+## Build-time route and segment streams
+
+The frontend prebuild command `npm run prebuild:segment-streams` generates
+`frontend/public/strava-segments/{stravaSegmentId}/{altitude,distance,latlng}.json`
+from the published `zwift-data/streams` route and segment maps, using metadata
+slugs. It rebuilds the output directory on every run and does not request streams
+from Strava. Consecutive duplicate coordinates are removed with matching indices
+across all three arrays, and the existing Makuri Islands altitude correction is
+applied. Distance values retain the package's 0.1 m precision; rounding them to
+two decimal places would not restore finer source precision.
