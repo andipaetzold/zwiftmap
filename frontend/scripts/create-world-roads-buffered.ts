@@ -1,5 +1,6 @@
 import buffer from "@turf/buffer";
-import { Feature, lineString, MultiPolygon, Polygon } from "@turf/helpers";
+import { featureCollection, lineString } from "@turf/helpers";
+import type { Feature, MultiPolygon, Polygon } from "geojson";
 import union from "@turf/union";
 import { round } from "lodash-es";
 import { existsSync, mkdirSync, writeFileSync } from "node:fs";
@@ -27,17 +28,17 @@ for (const world of worlds) {
       edge.to.position,
     ])
     .map((line) => lineString(line))
-    .map((line) => buffer(line, BUFFER_RADIUS, { units: "kilometers" }));
+    .map((line) => buffer(line, BUFFER_RADIUS, { units: "kilometers" })!);
 
   const linePolygon = linePolygons.reduce(
-    (prev, cur) => union(prev, cur)!,
-    linePolygons[0] as Feature<Polygon | MultiPolygon>
+    (prev, cur) => union(featureCollection([prev, cur]))!,
+    linePolygons[0] as Feature<Polygon | MultiPolygon>,
   ) as Feature<Polygon>;
 
   const data = linePolygon.geometry.coordinates.map((polygon) =>
     polygon
       .map(positionToLatLng)
-      .map(([lat, lng]) => [round(lat, 6), round(lng, 6)])
+      .map(([lat, lng]) => [round(lat, 6), round(lng, 6)]),
   );
 
   const dir = `${BASE_DIR}/${world.slug}`;

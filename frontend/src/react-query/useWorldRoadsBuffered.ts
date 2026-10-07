@@ -1,5 +1,6 @@
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
-import { Position, polygon } from "@turf/helpers";
+import { polygon } from "@turf/helpers";
+import type { Position } from "geojson";
 import { WorldSlug } from "zwift-data";
 import { request } from "../services/request";
 import { queries } from "./queryKeys";

@@ -1,4 +1,4 @@
-import { Feature, MultiPolygon, Polygon } from "@turf/helpers";
+import type { Feature, MultiPolygon, Polygon } from "geojson";
 import {
   DetailedActivity,
   DetailedSegment,
