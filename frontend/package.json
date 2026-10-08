@@ -95,7 +95,7 @@
     "lint-staged": "16.4.0",
     "netlify-cli": "12.2.8",
     "prettier": "3.8.1",
-    "pwa-asset-generator": "8.1.4",
+    "pwa-asset-generator": "8.1.7",
     "sass": "1.98.0",
     "schema-dts": "1.1.5",
     "tsx": "4.21.0",
