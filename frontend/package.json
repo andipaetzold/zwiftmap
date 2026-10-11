@@ -98,7 +98,7 @@
     "pwa-asset-generator": "8.1.7",
     "sass": "1.105.1",
     "schema-dts": "1.1.5",
-    "tsx": "4.21.0",
+    "tsx": "4.23.15",
     "typescript": "5.9.3",
     "vite": "7.3.7",
     "vite-plugin-pwa": "1.2.0",
