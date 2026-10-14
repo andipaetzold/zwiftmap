@@ -49,7 +49,7 @@
     "axios": "1.7.4",
     "compression": "1.8.2",
     "cors": "2.8.6",
-    "dotenv": "17.3.1",
+    "dotenv": "17.4.2",
     "express": "4.22.3",
     "express-async-errors": "3.1.1",
     "express-session": "1.19.0",
