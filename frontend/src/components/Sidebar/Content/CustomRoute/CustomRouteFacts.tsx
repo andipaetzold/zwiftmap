@@ -3,6 +3,7 @@ import { LandscapeSVGIcon, SpaceBarSVGIcon } from "@react-md/material-icons";
 import { lineString } from "@turf/helpers";
 import turfLength from "@turf/length";
 import { useMemo } from "react";
+import { latLngToPosition } from "../../../../shared/coordinates";
 import { LatLngAlt } from "../../../../types";
 import { Distance } from "../../../Distance";
 import { Elevation } from "../../../Elevation";
@@ -12,7 +13,11 @@ interface Props {
 }
 
 export function CustomRouteFacts({ stream }: Props) {
-  const distance = useMemo(() => turfLength(lineString(stream)), [stream]);
+  const distance = useMemo(
+    () =>
+      turfLength(lineString(stream.map((p) => latLngToPosition([p[0], p[1]])))),
+    [stream],
+  );
   const elevation = useMemo(
     () =>
       stream
