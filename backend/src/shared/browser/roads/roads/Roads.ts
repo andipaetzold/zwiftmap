@@ -1,6 +1,7 @@
 import { lineString, lineString as turfLineString } from "@turf/helpers";
 import turfNearestPointOnLine from "@turf/nearest-point-on-line";
 import { minBy, round } from "lodash-es";
+import { latLngToPosition } from "../../coordinates.js";
 import { LatLng, LatLngAlt, SnappedPoint } from "../types.js";
 
 export class Roads {
@@ -91,12 +92,20 @@ export class Roads {
       toStream.unshift(nearestExistingPoint);
     } else if (
       turfNearestPointOnLine(
-        lineString([fromStream[fromStream.length - 1], nearestExistingPoint]),
-        position
+        lineString(
+          [fromStream[fromStream.length - 1], nearestExistingPoint].map((p) =>
+            latLngToPosition([p[0], p[1]])
+          )
+        ),
+        latLngToPosition([position[0], position[1]])
       ).properties.dist! <
       turfNearestPointOnLine(
-        lineString([nearestExistingPoint, toStream[0]]),
-        position
+        lineString(
+          [nearestExistingPoint, toStream[0]].map((p) =>
+            latLngToPosition([p[0], p[1]])
+          )
+        ),
+        latLngToPosition([position[0], position[1]])
       ).properties.dist!
     ) {
       toStream.unshift(nearestExistingPoint);
@@ -114,8 +123,12 @@ export class Roads {
   }
 
   snapPoint(point: LatLng): SnappedPoint {
+    // Turf works with [lng, lat] positions; the altitude is kept as the third coordinate.
     const nearestPositions = this.edges.map((edge) =>
-      turfNearestPointOnLine(turfLineString(edge.stream), point)
+      turfNearestPointOnLine(
+        turfLineString(edge.stream.map(([lat, lng, alt]) => [lng, lat, alt])),
+        latLngToPosition(point)
+      )
     );
     const nearestPosition = minBy(
       nearestPositions,
@@ -124,8 +137,8 @@ export class Roads {
 
     const coordinates = nearestPosition!.geometry.coordinates;
     const position = [
-      round(coordinates[0], 6),
       round(coordinates[1], 6),
+      round(coordinates[0], 6),
       coordinates[2],
     ] as LatLngAlt;
 
