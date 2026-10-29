@@ -62,7 +62,11 @@ jobs:
         uses: actions/setup-node@v6.5.0
         with:
           node-version-file: ".nvmrc"
-      - run: npm i
+      - run: npm ci
+        working-directory: browser-extension
+      - run: npm run typecheck
+        working-directory: browser-extension
+      - run: npm test
         working-directory: browser-extension
       - run: npm run build
         working-directory: browser-extension
