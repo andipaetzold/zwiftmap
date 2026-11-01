@@ -6,14 +6,17 @@
   "license": "MIT",
   "scripts": {
     "build": "esbuild src/inject.ts src/script.ts --bundle --outdir=dist && node ./scripts/pack.mjs",
-    "dev": "esbuild src/inject.ts src/script.ts --bundle --outdir=dist --watch"
+    "dev": "esbuild src/inject.ts src/script.ts --bundle --outdir=dist --watch",
+    "test": "node --test test/*.test.mjs",
+    "typecheck": "tsc"
   },
   "devDependencies": {
     "@types/adm-zip": "0.6.0",
     "@types/chrome": "0.3.7",
     "@types/leaflet": "1.9.5",
     "adm-zip": "0.6.1",
-    "esbuild": "0.28.2"
+    "esbuild": "0.28.2",
+    "typescript": "~5.9.3"
   },
   "dependencies": {
     "zwift-data": "1.51.0"
