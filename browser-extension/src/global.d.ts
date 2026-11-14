@@ -1,7 +1,11 @@
-import * as L from "leaflet";
+import * as Leaflet from "leaflet";
 
 declare global {
-  const chrome: any;
-  const Strava: any;
-  const L: L;
+  var L: typeof Leaflet;
+  var pageView:
+    | {
+        _activity?: { attributes?: { detailedType?: string } };
+        mapContext?: () => { map(): Leaflet.Map };
+      }
+    | undefined;
 }

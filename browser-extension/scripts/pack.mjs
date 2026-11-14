@@ -24,9 +24,13 @@ function createChromeSource() {
 
   zip.addLocalFile("manifest.json");
   zip.addLocalFile("package.json");
+  zip.addLocalFile("package-lock.json");
+  zip.addLocalFile("tsconfig.json");
   zip.addLocalFile("README.md");
   zip.addLocalFolder("assets", "assets");
   zip.addLocalFolder("src", "src");
+  zip.addLocalFolder("scripts", "scripts");
+  zip.addLocalFolder("test", "test");
 
   zip.writeZip("source-chrome.zip");
 }
@@ -36,9 +40,13 @@ function createFirefoxSource() {
 
   zip.addLocalFile("manifest.v2.json", undefined, "manifest.json");
   zip.addLocalFile("package.json");
+  zip.addLocalFile("package-lock.json");
+  zip.addLocalFile("tsconfig.json");
   zip.addLocalFile("README.md");
   zip.addLocalFolder("assets", "assets");
   zip.addLocalFolder("src", "src");
+  zip.addLocalFolder("scripts", "scripts");
+  zip.addLocalFolder("test", "test");
 
   zip.writeZip("source-firefox.zip");
 }

@@ -25,22 +25,22 @@ function addOverlays(map: Map) {
 }
 
 export async function initLeaflet() {
-  if (!isVirtual()) {
+  if (!globalThis.L?.Map || !isVirtual()) {
     return;
   }
 
-  L.Map.addInitHook(function () {
+  L.Map.addInitHook(function (this: Map) {
     addOverlays(this);
   });
 
-  const map = globalThis.pageView?.mapContext?.().map();
-  if (map) {
+  const map = globalThis.pageView?.mapContext?.()?.map?.();
+  if (map instanceof L.Map) {
     addOverlays(map);
   }
 }
 
 function isVirtual() {
   const activityType: string =
-    globalThis.pageView?._activity.attributes.detailedType ?? "virtual";
+    globalThis.pageView?._activity?.attributes?.detailedType ?? "virtual";
   return activityType.toLocaleLowerCase().includes("virtual");
 }
