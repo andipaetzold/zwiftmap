@@ -1,4 +1,5 @@
 import { minBy } from "lodash-es";
+import { latLngToPosition } from "../coordinates.js";
 import { Roads, RoadsEdge, RoadsNode } from "./roads/Roads.js";
 import { LatLng, LatLngAlt } from "./types.js";
 import turfDistance from "@turf/distance";
@@ -84,11 +85,16 @@ export function findRoute(
 }
 
 function distance(from: RoadsNode, to: RoadsNode): number {
-  return turfDistance(turfPoint(from.position), turfPoint(to.position));
+  return turfDistance(
+    turfPoint(latLngToPosition([from.position[0], from.position[1]])),
+    turfPoint(latLngToPosition([to.position[0], to.position[1]]))
+  );
 }
 
 function edgeDistance(edge: RoadsEdge): number {
-  return turfLength(turfLineString(edge.stream.map((p) => [p[0], p[1]])));
+  return turfLength(
+    turfLineString(edge.stream.map((p) => latLngToPosition([p[0], p[1]])))
+  );
 }
 
 function getEstimationMap(

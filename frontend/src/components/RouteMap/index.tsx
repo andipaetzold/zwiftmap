@@ -18,6 +18,7 @@ import {
   navigate,
   useLocationState,
 } from "../../services/location-state";
+import { latLngToPosition } from "../../shared/coordinates";
 import { DistanceStream, LatLngStream } from "../../types";
 import { dropAltitude } from "../../util/drop-altitude";
 import styles from "./index.module.scss";
@@ -177,9 +178,13 @@ function useRouteStreams(state: LocationState): RouteStreams | undefined {
         .map((latlng, index, array) =>
           index === 0
             ? 0
-            : turfDistance(turfPoint(array[index - 1]), turfPoint(latlng), {
-                units: "meters",
-              }),
+            : turfDistance(
+                turfPoint(
+                  latLngToPosition([array[index - 1][0], array[index - 1][1]]),
+                ),
+                turfPoint(latLngToPosition([latlng[0], latlng[1]])),
+                { units: "meters" },
+              ),
         )
         .reduce(
           (prev, cur, index) =>

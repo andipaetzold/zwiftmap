@@ -1,6 +1,7 @@
 import turfDistance from "@turf/distance";
 import { point as turfPoint } from "@turf/helpers";
 import { useMemo } from "react";
+import { latLngToPosition } from "../../../../shared/coordinates";
 import { LatLngAlt } from "../../../../types";
 import { ElevationChart } from "../../../ElevationChart";
 
@@ -19,9 +20,13 @@ export function CustomRouteElevationChart({ stream }: Props) {
         .map((latlng, index, array) =>
           index === 0
             ? 0
-            : turfDistance(turfPoint(array[index - 1]), turfPoint(latlng), {
-                units: "meters",
-              }),
+            : turfDistance(
+                turfPoint(
+                  latLngToPosition([array[index - 1][0], array[index - 1][1]]),
+                ),
+                turfPoint(latLngToPosition([latlng[0], latlng[1]])),
+                { units: "meters" },
+              ),
         )
         .reduce(
           (prev, cur, index) =>

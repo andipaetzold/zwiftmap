@@ -3,6 +3,7 @@ import { point as turfPoint } from "@turf/helpers";
 import { useMemo } from "react";
 import { worldConfigs } from "../../../../constants/worldConfigs";
 import { LocationStateCustomRoute } from "../../../../services/location-state";
+import { latLngToPosition } from "../../../../shared/coordinates";
 import { LatLngAlt } from "../../../../types";
 import { dropAltitude } from "../../../../util/drop-altitude";
 import { SurfaceListItem } from "../../../SurfaceListItem";
@@ -19,9 +20,13 @@ export function CustomRouteSurface({ state, latLngStream }: Props) {
         .map((latlng, index, array) =>
           index === 0
             ? 0
-            : turfDistance(turfPoint(array[index - 1]), turfPoint(latlng), {
-                units: "meters",
-              }),
+            : turfDistance(
+                turfPoint(
+                  latLngToPosition([array[index - 1][0], array[index - 1][1]]),
+                ),
+                turfPoint(latLngToPosition([latlng[0], latlng[1]])),
+                { units: "meters" },
+              ),
         )
         .reduce(
           (prev, cur, index) =>
